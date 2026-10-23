@@ -1,0 +1,1120 @@
+{
+  "projectSHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "extra": {
+    "cameraSensor": [
+      36.0,
+      24.0
+    ],
+    "cameraDOF": {
+      "use_dof": false,
+      "focus_object": null,
+      "focus_subtarget": "",
+      "focus_distance": 10.0,
+      "aperture_fstop": 2.799999952316284,
+      "aperture_blades": 0,
+      "aperture_rotation": 0.0,
+      "aperture_ratio": 1.0
+    },
+    "worldColor": [
+      0.05000000074505806,
+      0.05000000074505806,
+      0.05000000074505806
+    ],
+    "lightsNodes": {
+      "Mateo overhead softbox": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "rna": {
+              "location_absolute": [
+                -200.0,
+                100.0
+              ],
+              "name": "Emission",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "SHADER",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeEmission",
+              "bl_label": "Emission",
+              "bl_description": "Lambertian emission shader",
+              "bl_icon": "NONE",
+              "bl_static_type": "EMISSION",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38
+            },
+            "inputs": [
+              [
+                "Color",
+                [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              ],
+              [
+                "Strength",
+                1.0
+              ],
+              [
+                "Weight",
+                0.0
+              ]
+            ],
+            "outputs": [],
+            "image": null
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "rna": {
+              "location_absolute": [
+                200.0,
+                100.0
+              ],
+              "name": "Light Output",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "OUTPUT",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeOutputLight",
+              "bl_label": "Light Output",
+              "bl_description": "Output light information to a light object",
+              "bl_icon": "NONE",
+              "bl_static_type": "OUTPUT_LIGHT",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38,
+              "is_active_output": true,
+              "target": "ALL"
+            },
+            "inputs": [],
+            "outputs": [],
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Emission",
+            "Emission",
+            "Light Output",
+            "Surface"
+          ]
+        ]
+      },
+      "Mateo symmetric fill 0": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "rna": {
+              "location_absolute": [
+                -200.0,
+                100.0
+              ],
+              "name": "Emission",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "SHADER",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeEmission",
+              "bl_label": "Emission",
+              "bl_description": "Lambertian emission shader",
+              "bl_icon": "NONE",
+              "bl_static_type": "EMISSION",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38
+            },
+            "inputs": [
+              [
+                "Color",
+                [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              ],
+              [
+                "Strength",
+                1.0
+              ],
+              [
+                "Weight",
+                0.0
+              ]
+            ],
+            "outputs": [],
+            "image": null
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "rna": {
+              "location_absolute": [
+                200.0,
+                100.0
+              ],
+              "name": "Light Output",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "OUTPUT",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeOutputLight",
+              "bl_label": "Light Output",
+              "bl_description": "Output light information to a light object",
+              "bl_icon": "NONE",
+              "bl_static_type": "OUTPUT_LIGHT",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38,
+              "is_active_output": true,
+              "target": "ALL"
+            },
+            "inputs": [],
+            "outputs": [],
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Emission",
+            "Emission",
+            "Light Output",
+            "Surface"
+          ]
+        ]
+      },
+      "Mateo symmetric fill 1": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "rna": {
+              "location_absolute": [
+                -200.0,
+                100.0
+              ],
+              "name": "Emission",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "SHADER",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeEmission",
+              "bl_label": "Emission",
+              "bl_description": "Lambertian emission shader",
+              "bl_icon": "NONE",
+              "bl_static_type": "EMISSION",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38
+            },
+            "inputs": [
+              [
+                "Color",
+                [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              ],
+              [
+                "Strength",
+                1.0
+              ],
+              [
+                "Weight",
+                0.0
+              ]
+            ],
+            "outputs": [],
+            "image": null
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "rna": {
+              "location_absolute": [
+                200.0,
+                100.0
+              ],
+              "name": "Light Output",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "OUTPUT",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeOutputLight",
+              "bl_label": "Light Output",
+              "bl_description": "Output light information to a light object",
+              "bl_icon": "NONE",
+              "bl_static_type": "OUTPUT_LIGHT",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38,
+              "is_active_output": true,
+              "target": "ALL"
+            },
+            "inputs": [],
+            "outputs": [],
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Emission",
+            "Emission",
+            "Light Output",
+            "Surface"
+          ]
+        ]
+      },
+      "Mateo symmetric fill 2": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "rna": {
+              "location_absolute": [
+                -200.0,
+                100.0
+              ],
+              "name": "Emission",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "SHADER",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeEmission",
+              "bl_label": "Emission",
+              "bl_description": "Lambertian emission shader",
+              "bl_icon": "NONE",
+              "bl_static_type": "EMISSION",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38
+            },
+            "inputs": [
+              [
+                "Color",
+                [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              ],
+              [
+                "Strength",
+                1.0
+              ],
+              [
+                "Weight",
+                0.0
+              ]
+            ],
+            "outputs": [],
+            "image": null
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "rna": {
+              "location_absolute": [
+                200.0,
+                100.0
+              ],
+              "name": "Light Output",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "OUTPUT",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeOutputLight",
+              "bl_label": "Light Output",
+              "bl_description": "Output light information to a light object",
+              "bl_icon": "NONE",
+              "bl_static_type": "OUTPUT_LIGHT",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38,
+              "is_active_output": true,
+              "target": "ALL"
+            },
+            "inputs": [],
+            "outputs": [],
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Emission",
+            "Emission",
+            "Light Output",
+            "Surface"
+          ]
+        ]
+      },
+      "Mateo symmetric fill 3": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "rna": {
+              "location_absolute": [
+                -200.0,
+                100.0
+              ],
+              "name": "Emission",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "SHADER",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeEmission",
+              "bl_label": "Emission",
+              "bl_description": "Lambertian emission shader",
+              "bl_icon": "NONE",
+              "bl_static_type": "EMISSION",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38
+            },
+            "inputs": [
+              [
+                "Color",
+                [
+                  1.0,
+                  1.0,
+                  1.0,
+                  1.0
+                ]
+              ],
+              [
+                "Strength",
+                1.0
+              ],
+              [
+                "Weight",
+                0.0
+              ]
+            ],
+            "outputs": [],
+            "image": null
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "rna": {
+              "location_absolute": [
+                200.0,
+                100.0
+              ],
+              "name": "Light Output",
+              "warning_propagation": "ALL",
+              "use_custom_color": false,
+              "color": [
+                0.6079999804496765,
+                0.6079999804496765,
+                0.6079999804496765
+              ],
+              "color_tag": "OUTPUT",
+              "show_options": true,
+              "show_preview": false,
+              "hide": false,
+              "mute": false,
+              "show_texture": false,
+              "bl_idname": "ShaderNodeOutputLight",
+              "bl_label": "Light Output",
+              "bl_description": "Output light information to a light object",
+              "bl_icon": "NONE",
+              "bl_static_type": "OUTPUT_LIGHT",
+              "bl_width_default": 140.0,
+              "bl_width_min": 100.0,
+              "bl_width_max": 700.0,
+              "bl_height_default": 100.0,
+              "bl_height_min": 30.0,
+              "bl_height_max": 3.4028234663852886e+38,
+              "is_active_output": true,
+              "target": "ALL"
+            },
+            "inputs": [],
+            "outputs": [],
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Emission",
+            "Emission",
+            "Light Output",
+            "Surface"
+          ]
+        ]
+      }
+    },
+    "objectRayVisibility": {
+      "chef_mateo__ground_root.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__tailored_tunic.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__pelvis.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__neck.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__collar_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__collar_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__kerchief_knot.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__apron_bib.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__apron_waist.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__apron_back_tie_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__coat_button_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__apron_back_tie_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__coat_button_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__arm_L.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__palm_L.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__thumb_L.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__leg_L.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__minimal_foot_L": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__arm_R.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__palm_R.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__thumb_R.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__leg_R.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__minimal_foot_R": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__head.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ear_-1.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__brow_-1.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ear_1.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__brow_1.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__nose.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__armature.001": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ground_root.001__held_dish-salmon": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ground_root.001__held_dish-salmon__image_plane": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ground_root.001__utensil": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ground_root.001__knife_handle": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__ground_root.001__knife_blade": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_crown": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_occiput": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_temple_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_temple_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_nape_0": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_nape_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_hair_nape_2": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_swept_sculpted_fringe_0": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_swept_sculpted_fringe_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_swept_sculpted_fringe_2": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_swept_sculpted_fringe_3": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_rounded_apron_wrap": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_apron_hem_piping": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_generous_apron_pocket": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_pocket_sewn_edge": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_apron_shoulder_strap_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_apron_strap_button_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_apron_shoulder_strap_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_apron_strap_button_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_soft_neckerchief_tail_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_soft_neckerchief_tail_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_friendly_curved_smile": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_eye_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_eye_glint_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_cheek_-1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_eye_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_eye_glint_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_cheek_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_fitted_folded_red_band": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_fitted_band_side_knot": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_fitted_band_tied_tail_0": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      },
+      "chef_mateo__refined_fitted_band_tied_tail_1": {
+        "visible_camera": true,
+        "visible_diffuse": true,
+        "visible_glossy": true,
+        "visible_transmission": true,
+        "visible_volume_scatter": true,
+        "visible_shadow": true
+      }
+    },
+    "sceneColorWorldSettingsSHA256": "0a22120858a90b4b20ff470cecbde02461092f3b2ef0215b3885fc0339efd59f",
+    "linkedLibraries": [],
+    "images": [
+      {
+        "packed": true,
+        "format": "PNG",
+        "alphaMode": "STRAIGHT",
+        "colorSpace": "sRGB",
+        "size": [
+          1254,
+          1254
+        ],
+        "filepath": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png"
+      }
+    ]
+  },
+  "hashWithoutImageBinding": "42aee8e24366259fe1ed91c8390c105401a77d4dd14a33ea79f2a8fb9685add2"
+}

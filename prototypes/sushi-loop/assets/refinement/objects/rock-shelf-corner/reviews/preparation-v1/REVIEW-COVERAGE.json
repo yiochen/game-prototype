@@ -1,0 +1,284 @@
+{
+  "status": "Preparation plan, no candidate rendered or approved",
+  "singleAsset": [
+    "All4 full native768x1408, full published384x704, common camera/root/rig, no fit",
+    "Four-view sheets at native, logical192x352(cell128), phone cell32; light#eef2ed/gray#909090/dark#172539, with enlarged crops only supplemental"
+  ],
+  "familyAssemblies": {
+    "primary": "Each all4 connected-L fixture with exact approved middle at both true ports, native combined reference and independently captured singles composed by exact consumer; fixed logical448x608/root224,376 for all views",
+    "fixtures": [
+      {
+        "cornerFacing": "S",
+        "cornerNativePosition": [
+          0,
+          0,
+          0
+        ],
+        "westBranchMiddle": {
+          "nativePosition": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "direction": "S"
+        },
+        "northBranchMiddle": {
+          "nativePosition": [
+            0.0,
+            1.0,
+            0
+          ],
+          "direction": "E"
+        },
+        "joinTargets": [
+          [
+            -0.5,
+            0.0,
+            0
+          ],
+          [
+            0.0,
+            0.5,
+            0
+          ]
+        ],
+        "nativeToRuntimePosition": "runtime screen/world cell offset=(nativeX,-nativeY), plus common root cell. Rotate actual models/facings; do not mirror sprites."
+      },
+      {
+        "cornerFacing": "E",
+        "cornerNativePosition": [
+          0,
+          0,
+          0
+        ],
+        "westBranchMiddle": {
+          "nativePosition": [
+            -0.0,
+            -1.0,
+            0
+          ],
+          "direction": "E"
+        },
+        "northBranchMiddle": {
+          "nativePosition": [
+            -1.0,
+            0.0,
+            0
+          ],
+          "direction": "N"
+        },
+        "joinTargets": [
+          [
+            -0.0,
+            -0.5,
+            0
+          ],
+          [
+            -0.5,
+            0.0,
+            0
+          ]
+        ],
+        "nativeToRuntimePosition": "runtime screen/world cell offset=(nativeX,-nativeY), plus common root cell. Rotate actual models/facings; do not mirror sprites."
+      },
+      {
+        "cornerFacing": "N",
+        "cornerNativePosition": [
+          0,
+          0,
+          0
+        ],
+        "westBranchMiddle": {
+          "nativePosition": [
+            1.0,
+            -0.0,
+            0
+          ],
+          "direction": "N"
+        },
+        "northBranchMiddle": {
+          "nativePosition": [
+            -0.0,
+            -1.0,
+            0
+          ],
+          "direction": "W"
+        },
+        "joinTargets": [
+          [
+            0.5,
+            -0.0,
+            0
+          ],
+          [
+            -0.0,
+            -0.5,
+            0
+          ]
+        ],
+        "nativeToRuntimePosition": "runtime screen/world cell offset=(nativeX,-nativeY), plus common root cell. Rotate actual models/facings; do not mirror sprites."
+      },
+      {
+        "cornerFacing": "W",
+        "cornerNativePosition": [
+          0,
+          0,
+          0
+        ],
+        "westBranchMiddle": {
+          "nativePosition": [
+            -0.0,
+            1.0,
+            0
+          ],
+          "direction": "W"
+        },
+        "northBranchMiddle": {
+          "nativePosition": [
+            1.0,
+            0.0,
+            0
+          ],
+          "direction": "S"
+        },
+        "joinTargets": [
+          [
+            -0.0,
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            0.0,
+            0
+          ]
+        ],
+        "nativeToRuntimePosition": "runtime screen/world cell offset=(nativeX,-nativeY), plus common root cell. Rotate actual models/facings; do not mirror sprites."
+      }
+    ],
+    "isolation": [
+      "All4 W-port-only plus canonical middle; show full cutface and shoulder",
+      "All4 N-port-only plus canonical rotated middle; show full cutface and shoulder",
+      "All4 disconnected corner true caps and exposed finite outside sides; no orphaned interior holes"
+    ],
+    "nativeFrames": [
+      1792,
+      2432
+    ],
+    "publishedFrames": [
+      896,
+      1216
+    ],
+    "nativeCapture4x": true,
+    "publication": "same whole-frame BOX4x to2x as singles"
+  },
+  "consumerMatrix": {
+    "backgrounds": [
+      "#eef2ed",
+      "#909090",
+      "#172539"
+    ],
+    "cellSizes": [
+      128,
+      32
+    ],
+    "logicalCSSPhases": [
+      0,
+      0.25,
+      0.5,
+      0.75
+    ],
+    "fractionalRootPanCases": [
+      {
+        "name": "integer",
+        "rootOffset": [
+          0,
+          0
+        ],
+        "pan": [
+          0,
+          0
+        ],
+        "cssTranslation": [
+          0,
+          0
+        ]
+      },
+      {
+        "name": "quarter-phase",
+        "rootOffset": [
+          0,
+          0
+        ],
+        "pan": [
+          0,
+          0
+        ],
+        "cssTranslation": [
+          0.25,
+          0.75
+        ]
+      },
+      {
+        "name": "fractional-root",
+        "rootOffset": [
+          0.25,
+          0.5
+        ],
+        "pan": [
+          0,
+          0
+        ],
+        "cssTranslation": [
+          0,
+          0
+        ]
+      },
+      {
+        "name": "fractional-pan",
+        "rootOffset": [
+          0,
+          0
+        ],
+        "pan": [
+          0.5,
+          0.25
+        ],
+        "cssTranslation": [
+          0,
+          0
+        ]
+      },
+      {
+        "name": "mixed",
+        "rootOffset": [
+          0.25,
+          0.5
+        ],
+        "pan": [
+          0.5,
+          0.25
+        ],
+        "cssTranslation": [
+          0.75,
+          0.25
+        ]
+      }
+    ],
+    "requiredCoverage": "All4 facings, all3 backgrounds, both sizes at integer and representative fractional phases; all4 gray sweeps cover0/.25/.5/.75 and each root/pan case. Record actual browser/DPR/source/renderer hashes, draw order, frame rects and final canvas extents. These are scoped review checks, not Godot/device approval."
+  },
+  "nativeMeasurements": [
+    "Actual evaluated source bounds and finite ground contacts; all selected object/material/node actions/shape keys",
+    "True W/N caps and collar positions, topology and per-loop rendered normal/albedo field versus exact canonical transformed middle; sample profile edges/intermediate cross-section points",
+    "Native combined versus independent source-scale cutface-local alpha/RGB masks and transverse traces through each visible seam; separate broad finite light residuals from narrow line/step defects",
+    "All4 runtime pixel output viewed directly at intended logical128 and phone32 with light/gray/dark; numeric/source passes cannot waive visible seams"
+  ],
+  "verdictRule": "Future exact sealed candidate packet only. Missing required evidence is needs_evidence; no preparation/family approval. Visible local join lines, cracks, alpha halos, black patches or crown steps block approval even when aggregate statistics are small.",
+  "requiredHandoff": [
+    "Exact editable corner .blend and minimal private used resources",
+    "Exact canonical dependency source+packet hashes",
+    "All4 native and2x images plus pose/camera ledger",
+    "Native actual family assembly captures and independent consumer source/screenshots",
+    "Validation, used module inventory, exact commands/logs, hashes and packet seal"
+  ]
+}

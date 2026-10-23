@@ -1,0 +1,75 @@
+{
+  "asset": "portal-entry",
+  "round": "round-01",
+  "verdict": "approve",
+  "status": "EXACT_BOUND_REVIEW_AND_GATES_SEALED",
+  "acyclicOrder": [
+    "supplemental-evidence.json",
+    "reviews/round-01.json",
+    "gates.json and gate outputs",
+    "postseal.json"
+  ],
+  "candidatePacket": {
+    "path": "candidates/round-01/packet.json",
+    "sha256": "d7be0b28d1431db44377d85c3ab8687f15d11e80a8b14e55491f02c7e3bfe2ba"
+  },
+  "source": {
+    "path": "source/round-01.blend",
+    "sha256": "dc8f792ad097e30096719a075042e040b928ef8c79b58941061651192bfe4f36"
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-independent/supplemental-evidence.json",
+    "sha256": "af067eda4b10b9d349babe88f0e9d457335832c426ad7ca51404371712b183c0",
+    "files": 380
+  },
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "5ff2be21f0fed698ec11a7d3eaed602bf0b936397a3af0b2a492c6a85ddb77d7"
+  },
+  "gates": {
+    "path": "reviews/round-01-independent/gates.json",
+    "sha256": "25450bd13848cd3305e80816a2884dab363b70c82cca631de5c08ee209856e92",
+    "allExitZero": true,
+    "outputs": [
+      {
+        "name": "candidate-packet",
+        "exitCode": 0,
+        "stdout": {
+          "path": "reviews/round-01-independent/gates/candidate-packet.stdout.txt",
+          "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+        },
+        "stderr": {
+          "path": "reviews/round-01-independent/gates/candidate-packet.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "directions",
+        "exitCode": 0,
+        "stdout": {
+          "path": "reviews/round-01-independent/gates/directions.stdout.txt",
+          "sha256": "5fadbb093111fca381211570814769409a4faab2e16f828afe5bc6be31870065"
+        },
+        "stderr": {
+          "path": "reviews/round-01-independent/gates/directions.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "name": "acceptance",
+        "exitCode": 0,
+        "stdout": {
+          "path": "reviews/round-01-independent/gates/acceptance.stdout.txt",
+          "sha256": "0e28a2adc8736372aa52e29f5930ce2193eef4e0374c3c040c309681d7d117ab"
+        },
+        "stderr": {
+          "path": "reviews/round-01-independent/gates/acceptance.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ]
+  },
+  "allManifestFilesVerified": true,
+  "candidateAndFrozenInputsUnchanged": true,
+  "approvalScope": "Only this exact portal-entry candidate source/renders/packet. No family, production, Godot, deployment or device approval."
+}

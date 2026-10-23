@@ -40,6 +40,9 @@ def _verify(project, source_project):
     prototype = source_project.parent
     runtime = project / 'assets/ui/editor-goods'
     manifest = json.loads((runtime / 'manifest.json').read_text())
+    if manifest.get('schema_version') == 2:
+        from refined_goods_contract import verify_refined_goods
+        return verify_refined_goods(project, source_project)
     require(type(manifest.get('schema_version')) is int and manifest['schema_version'] == 1 and set(manifest.get('sprites', {})) == SPRITES, 'Editor goods identity coverage/version changed')
     require(manifest.get('atlas') == ATLAS, 'Editor goods atlas path changed')
     require(manifest.get('padding') == GUTTER and manifest.get('native_render_size') == FRAME_SIZE, 'Editor goods native render/sampling size changed')

@@ -1,8 +1,43 @@
 {
   "assetId": "crate-wood",
   "fps": 12,
-  "source": "native_actions.py",
+  "source": "round-02.py",
+  "pipeline": "native-3d",
   "static": true,
+  "sourceProject": {
+    "project": "source/round-02.blend",
+    "projectFileName": "round-02.blend",
+    "sha256": "3950226374590a781e8582854f205fb7a3630abece10f6721774b8e986c9dbb5",
+    "recipe": "source/round-02.py",
+    "recipeSha256": "a5f702c61fd15a197d5b50682c5702b42531de68ccdc978c8de4fd90a1ed0a3d",
+    "pathBase": "experiment root",
+    "scene": "Crate wood warm soft round 02",
+    "collection": "S33_PROP_crate-wood",
+    "groundRootObject": "crate-wood__root",
+    "blender": "5.2.2 LTS"
+  },
+  "scene": "Crate wood warm soft round 02",
+  "collection": "S33_PROP_crate-wood",
+  "groundRootObject": "crate-wood__root",
+  "groundRootTransform": {
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotationEuler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "armatures": [],
+  "actionCount": 0,
   "clips": {
     "idle": {
       "frames": 1,
@@ -21,34 +56,57 @@
       "shaderLoopClosure": {}
     }
   },
-  "armatures": [],
+  "catalogClipMap": {
+    "static": "idle"
+  },
+  "meshObjects": [
+    "crate-wood__crate_body",
+    "crate-wood__crate_diagonal_-1",
+    "crate-wood__crate_diagonal_1",
+    "crate-wood__crate_top_slats-0.23",
+    "crate-wood__crate_top_slats0",
+    "crate-wood__crate_top_slats0.23",
+    "crate-wood__continuous_lower_rim",
+    "crate-wood__continuous_upper_rim"
+  ],
   "footprint": [
     1,
     1
   ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "crate-wood__root",
+  "projection": "top-down-oblique-square-grid",
   "sockets": {},
+  "ports": {},
+  "nativeStaticReplay": {
+    "openProject": "source/round-02.blend",
+    "scene": "Crate wood warm soft round 02",
+    "frame": 1,
+    "rootObject": "crate-wood__root",
+    "rootLocation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "directionRotationZRadians": {
+      "N": 3.141592653589793,
+      "E": 1.5707963267948966,
+      "S": 0,
+      "W": -1.5707963267948966
+    },
+    "instructions": [
+      "Open the named approved project without changing camera, materials, geometry, lights, render engine, samples or color management.",
+      "Select the named scene and set frame 1. This is a single-frame native static asset; no action assignment is needed.",
+      "Set the ground root rotation Euler Z to the required direction angle; update the view layer. Keep root X/Y rotation zero, location [0,0,0], scale [1,1,1].",
+      "Render the named scene with its saved fixed camera at 384x704 RGBA. Use one rendering configuration for every direction. Replaying is a verification/reproduction action; promotion must copy the approved PNG bytes."
+    ],
+    "pythonExample": "scene = bpy.data.scenes['Crate wood warm soft round 02']\nbpy.context.window.scene = scene\nscene.frame_set(1)\nroot = bpy.data.objects['crate-wood__root']\nroot.rotation_euler = (0, 0, {'N': math.pi, 'E': math.pi/2, 'S': 0, 'W': -math.pi/2}[direction])\nbpy.context.view_layer.update()\nscene.render.filepath = output_png\nbpy.ops.render.render(write_still=True, scene=scene.name)"
+  },
   "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
-  "actionCount": 0,
-  "createdAtUnix": 1792393100.63745,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "467e363f12e2020bcaca839f42aeb82159dde0a732ebeb2e5bd672af850f1756",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "01cdba1d52655d1c013f1a5839535e85f3c7027315946feebba582254d6aa7a2",
-    "production_library.py": "9d8665b8e512f9b1c649b423ed69478d6ba4a0f745df3cdfd70d044cd3ff4236",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+    "Editable native mesh parts share one registered ground root.",
+    "All four views are actual root rotations. No raster substitutes or per-view appearance changes."
+  ]
 }

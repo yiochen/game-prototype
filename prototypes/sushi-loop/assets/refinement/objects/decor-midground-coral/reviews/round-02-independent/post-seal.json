@@ -1,0 +1,51 @@
+{
+  "asset": "decor-midground-coral",
+  "round": "round-02",
+  "verdict": "approve",
+  "candidatePacketSHA256": "394dc7df96936fd76e9a24f85cd0ef19ef0b5ba0763e1e3e573819b1f9d7f01c",
+  "review": {
+    "path": "reviews/round-02.json",
+    "sha256": "516261fa24ac599a510413a903e2f258d5eb191bc4a36b1822bb3f21e6c08d8c"
+  },
+  "supplementalManifest": {
+    "path": "reviews/round-02-independent/supplemental-manifest.json",
+    "sha256": "c8057d04cca5fce7b038bc5c372467d65ba4aa70854f47275f4c290d9ce7ee82"
+  },
+  "gates": [
+    {
+      "path": "reviews/round-02-independent/acceptance-gate.json",
+      "sha256": "3b7151997c23d692a0a5826e5b71656969d8d22fe20c8741e519965a8615697a",
+      "exitCode": 0
+    },
+    {
+      "path": "reviews/round-02-independent/integrity-gate.json",
+      "sha256": "14d426267d0c8ab5945eb4b3fe8b1ef89d6fa14fe21affbb46914592f5062811",
+      "exitCode": 0
+    },
+    {
+      "path": "reviews/round-02-independent/directions-gate.json",
+      "sha256": "febe689e8316c9fcd3f8bc8d9c129489ae6deceb2534481f3b6cb982516a8d34",
+      "exitCode": 0
+    }
+  ],
+  "dependencyFilesVerified": 277,
+  "dependencyBytes": 74602316,
+  "maximumDependencyBytes": 5015951,
+  "allFilesBelow100MB": true,
+  "unchangedGateHelpers": [
+    {
+      "path": "reviews/round-02-independent/resources/gates/acceptance_contract.py",
+      "sha256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+    },
+    {
+      "path": "reviews/round-02-independent/resources/gates/audit_directions.py",
+      "sha256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb"
+    },
+    {
+      "path": "reviews/round-02-independent/resources/gates/candidate_packet.py",
+      "sha256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f"
+    }
+  ],
+  "acyclicOrder": "Supplemental manifest binds evidence/dependencies only; review binds packet+manifest; gates bind review; this post-seal binds review+manifest+gates. None bind this post-seal or their descendants.",
+  "scope": "Exact candidate only; no family/production/publish approval."
+}

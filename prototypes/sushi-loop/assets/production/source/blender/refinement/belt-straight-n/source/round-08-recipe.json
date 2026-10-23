@@ -1,0 +1,82 @@
+{
+  "round": 8,
+  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/round-08.blend",
+  "method": "Native continuous open rectangular rails with rounded corner normals; original flat UV deck and native action with soft procedural slat shoulders; rebuilt beveled ladder frame, warm grain, shoes and attached pegs. No raster retouch. Native object-coordinate camera radiance on rectangular rails keeps an uninterrupted rounded light shoulder at open ends. Deck mixes65% native periodic emission with35% BSDF. Supports22% common emission lift. No external raster textures; Standard view; broad85W overhead,4x30W fills and uniform.32 world. Deterministic native camera-ray toon radiance for exact RGB/alpha compositing of flat source deck: one TABULATED_SOBOL sample, scrambling_distance0, BOX1, denoisingOFF. Shaders use original UV phase, rail-local x/z, per-mesh wood coordinates and horizontally symmetric normal-Z response. BSDF transport remains for noncamera rays. Leg fasteners placed below deck to be visible.",
+  "geometryContracts": {
+    "deck": {
+      "x": [
+        -0.35,
+        0.35
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": 0.64
+    },
+    "rails": {
+      "x": [
+        [
+          -0.48,
+          -0.35
+        ],
+        [
+          0.35,
+          0.48
+        ]
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        0.505,
+        0.695
+      ],
+      "openEnds": true
+    },
+    "authoredChildOrientation": 3.1415927410125732,
+    "shaderPhase": "-7*i/24",
+    "slatPeriods": 7
+  },
+  "render": {
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 1,
+    "denoising": false,
+    "filter": "BOX",
+    "filterWidth": 1,
+    "viewTransform": "Standard",
+    "look": "None",
+    "pattern": "TABULATED_SOBOL",
+    "scramblingDistance": 0,
+    "ditherIntensity": 0
+  },
+  "modelingPolicyVersion": 2,
+  "projectSHA256": "d210743fdff9c17e393d4d2ca59e61c9ea1d5819c2952c10ea40f29b21ff0328",
+  "reproductionPipeline": [
+    {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/capture_round08.py",
+      "sha256": "e31902a245d52e48d261833279ca4b74d96c3470968c8a60c00e28829a3e905b"
+    },
+    {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/pack_round08.py",
+      "sha256": "bd76a2e5cf0d8860481f24be05fc39e208382f15de89694b404f0d2166eeb749"
+    },
+    {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/record_family_round08.py",
+      "sha256": "3dc3869df1988939dabbaf756fb2ae6090edee6845c1d92f2b08f218db9ac6b2"
+    },
+    {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/check_filtered_mip_round08.py",
+      "sha256": "34b7275c8d8d2ffaf1689c97643249aef5d5282d3457e9a30a878bd33ae5586f"
+    },
+    {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/verify_handoff_round08.py",
+      "sha256": "6dd8a162bba058f2ab1180eef89e611df481b6a003a80ca706bed14a76afb139"
+    }
+  ],
+  "actualDevice": "CPU",
+  "notes": "Final capture explicitly uses CPU,1 deterministic native sample. GPU scene setting in earlier prototypes was not used as device proof. No approved bytes have been changed."
+}

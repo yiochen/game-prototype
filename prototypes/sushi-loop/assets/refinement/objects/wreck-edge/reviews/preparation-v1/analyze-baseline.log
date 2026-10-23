@@ -1,0 +1,60 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-edge/reviews/preparation-v1/resources/analyze_baseline.py:26: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  replay=Image.open(BASE/'baseline/historical-native4-S.png').convert('RGBA').resize((384,704),Image.Resampling.LANCZOS);replay.save(BASE/'baseline/historical-published2-S.png');snapshot=Image.open(RES/'inputs/original.png').convert('RGBA');diff=ImageChops.difference(replay,snapshot);stat={'historicalReduction':'whole-frame768x1408 to384x704 LANCZOS only; diagnostic source replay','sourceScale':4,'filterSize':1.5,'replayPath':'baseline/historical-published2-S.png','originalSnapshotSHA256':sha(RES/'inputs/original.png'),'decodedEqual':replay.tobytes()==snapshot.tobytes(),'maxRGBA':[b[1] for b in diff.getextrema()],'differentPixels':sum(any(p) for p in diff.getdata()),'boundsOfDifference':diff.getbbox()}
+{
+  "historical": {
+    "historicalReduction": "whole-frame768x1408 to384x704 LANCZOS only; diagnostic source replay",
+    "sourceScale": 4,
+    "filterSize": 1.5,
+    "replayPath": "baseline/historical-published2-S.png",
+    "originalSnapshotSHA256": "b9a2dbb7ee4e79a99db8936d1b272fc3d4301f29493b18298be54831bcaac40b",
+    "decodedEqual": true,
+    "maxRGBA": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "differentPixels": 0,
+    "boundsOfDifference": null
+  },
+  "budget": {
+    "xyPolygonCCW": [
+      [
+        -0.5,
+        -0.18000000715255737
+      ],
+      [
+        -0.26939657330513,
+        -0.3881094455718994
+      ],
+      [
+        -0.26397061347961426,
+        -0.39258062839508057
+      ],
+      [
+        0.2804070711135864,
+        -0.3598787188529968
+      ],
+      [
+        0.5,
+        -0.18000000715255737
+      ],
+      [
+        0.5,
+        0.25999999046325684
+      ],
+      [
+        -0.5,
+        0.25999999046325684
+      ]
+    ],
+    "z": [
+      0.04,
+      0.78
+    ],
+    "tolerance": 1e-06,
+    "status": "proposal for root freeze; source raw XY convex hull plus catalog height, not source3D/perpart locks"
+  },
+  "consumerCases": 8,
+  "nativeCrossModeEqual": true
+}

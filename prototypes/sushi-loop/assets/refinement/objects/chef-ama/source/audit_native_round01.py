@@ -1,0 +1,33 @@
+"""Read-only reopened native phase, topology, weight, material and dependency audit."""
+import bpy,bmesh,json,sys,hashlib,math
+from pathlib import Path
+P=Path(__file__).parent;B=P.parent;C=B/'candidates/round-01';sys.path.insert(0,str(P))
+import native_actions_round01 as native
+from audit_common_round01 import geometry,contacts
+r=json.loads((P/'recipe-round01.json').read_text());rig=json.loads((P/'rig-round01.json').read_text());sc=bpy.data.scenes[r['scene']];bpy.context.window.scene=sc;coll=bpy.data.collections[r['collection']];root=bpy.data.objects[r['root']];arm=bpy.data.objects[r['armature']];asset={'collection':coll,'root':root,'armature':arm};coll.hide_render=False;coll.hide_viewport=False;bpy.context.view_layer.update()
+def hashjson(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+def materialrecord(m):
+ if not m:return None
+ return {'name':m.name,'diffuse':list(m.diffuse_color),'nodes':[{'name':n.name,'type':n.bl_idname,'inputs':{s.name:(list(s.default_value) if hasattr(s.default_value,'__len__') and not isinstance(s.default_value,str) else s.default_value) for s in n.inputs if hasattr(s,'default_value') and isinstance(s.default_value,(int,float,bool,str)) or hasattr(s,'default_value') and getattr(s.default_value,'__len__',None) and not isinstance(s.default_value,str) and len(s.default_value) in [3,4]}} for n in m.node_tree.nodes] if m.use_nodes else []}
+materials=[materialrecord(m) for m in sorted({m for o in coll.all_objects if o.type=='MESH' for m in o.data.materials if m},key=lambda m:m.name)]
+materialhash=hashjson(materials);topology=[]
+for o in coll.all_objects:
+ if o.type!='MESH':continue
+ bm=bmesh.new();bm.from_mesh(o.data)
+ row={'object':o.name,'vertices':len(o.data.vertices),'edges':len(o.data.edges),'polygons':len(o.data.polygons),'boundaryEdges':sum(e.is_boundary for e in bm.edges),'nonmanifoldEdges':sum(not e.is_manifold for e in bm.edges),'zeroAreaFaces':sum(f.calc_area()<1e-12 for f in bm.faces),'topologySHA256':hashjson({'vertices':[list(v.co) for v in o.data.vertices],'edges':[list(e.vertices) for e in o.data.edges],'faces':[list(p.vertices) for p in o.data.polygons]}),'weightsSHA256':hashjson([[(o.vertex_groups[g.group].name,g.weight) for g in v.groups] for v in o.data.vertices]),'smoothFaces':sum(p.use_smooth for p in o.data.polygons),'materials':[m.name if m else None for m in o.data.materials],'modifiers':[{'type':m.type,'object':getattr(getattr(m,'object',None),'name',None)} for m in o.modifiers]}
+ bm.free();topology.append(row)
+capture=json.loads((C/'native-frames.json').read_text())
+phases=[{'clip':v['clip'],'direction':v['direction'],'index':v['index'],'rootRotationZ':v['rootRotationZ'],'rootRotationDegrees':v['rootRotationDegrees'],'evaluatedMeshSignatures':v['geometry'],'actualNativeFrame':v['path'],'actualNativeFrameSHA256':v['sha256']} for v in capture]
+closures={}
+for clip,record in rig['clips'].items():
+ sample=[]
+ for f in ([1,13] if record['loop'] else [1,12]):
+  native.apply_clip(asset,rig,clip,f,'S',sc);sample.append(contacts(coll,root,arm,bpy.context.evaluated_depsgraph_get()))
+ bone=max(abs(sample[0]['bones'][n]['matrix'][i][j]-sample[1]['bones'][n]['matrix'][i][j]) for n in sample[0]['bones'] for i in range(4) for j in range(4))
+ prop=max(abs(sample[0]['props'][n]['matrix'][i][j]-sample[1]['props'][n]['matrix'][i][j]) for n in sample[0]['props'] for i in range(4) for j in range(4))
+ vis=all(sample[0]['props'][n]['hide']==sample[1]['props'][n]['hide'] for n in sample[0]['props'])
+ closures[clip]={'loop':record['loop'],'frames':[1,13] if record['loop'] else [1,12],'boneEndpointMaxDifference':bone,'attachmentEndpointMaxDifference':prop,'visibilityEndpointsEqual':vis,'policy':'closing13 not exported; original12 unique indices1..12' if record['loop'] else 'nonloop load completion retained; endpoint difference is intended','fps':12,'actionsUnchanged':True}
+materialsame=materialhash==hashjson([materialrecord(m) for m in sorted({m for o in coll.all_objects if o.type=='MESH' for m in o.data.materials if m},key=lambda m:m.name)])
+images=[{'name':im.name,'path':im.filepath,'packed':bool(im.packed_file),'sha256':hashlib.sha256(im.packed_file.data).hexdigest() if im.packed_file else None} for im in bpy.data.images if im.type!='RENDER_RESULT']
+result={'asset':'chef-ama','round':'round-01','projectSHA256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'scene':sc.name,'collection':coll.name,'onlyAssetAndCaptureRigInScene':all(o in list(coll.all_objects) or o.type in ['LIGHT','CAMERA'] for o in sc.objects),'sourceRestAndActions':'source-rest-round01.json and recipe-round01.json action hashes compared in native validation','rootScale':list(root.scale),'restTopologyAndWeights':topology,'phaseMethod':'All192 evaluated mesh counts/bounds and root rotations measured during native capture from this exact project; this read-only audit separately inspects static native topology/weights/materials/dependencies and actual loop/end contacts.','nativePhaseCount':len(phases),'nativePhaseManifest':'candidates/round-01/native-phase-manifest.json','loopAndCompletion':closures,'materialConfigurationSHA256':materialhash,'oneCommonMaterialConfigurationAll192Phases':materialsame,'materials':materials,'lights':[{'name':o.name,'type':o.data.type,'energy':o.data.energy,'size':o.data.size,'position':list(o.location),'color':list(o.data.color)} for o in sc.objects if o.type=='LIGHT'],'world':r['renderer']['ambientWorld'],'captureSettings':r['renderer'],'images':images,'linkedLibraries':[l.filepath for l in bpy.data.libraries],'externalDependencyClosure':all(im['packed'] for im in images) and not bpy.data.libraries,'noTargetImageCard':all(im['name']=='dish-salmon.png' for im in images),'representation':'All chef and knife meshes are native geometry/materials; source salmon food is exact original packed2D image insert.','boundaryNote':'Open rolled-cuff ring boundaries terminate inside the existing arm volume; native boundary count is disclosed for review, not asserted watertight.','ok':materialsame and len(phases)==192 and all(abs(v-1.25)<1e-6 for v in root.scale) and not bpy.data.libraries and all(im['packed'] for im in images) and all(not v['loop'] or v['boneEndpointMaxDifference']<1e-7 and v['attachmentEndpointMaxDifference']<1e-7 and v['visibilityEndpointsEqual'] for v in closures.values())}
+(C/'native-phase-manifest.json').write_text(json.dumps(phases,separators=(',',':')));(C/'native-topology-phase-audit.json').write_text(json.dumps(result,indent=2,default=str));print('NATIVE_PHASE_AUDIT',result['ok'],len(phases),flush=True)

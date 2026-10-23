@@ -1,0 +1,981 @@
+{
+  "asset": "wreck-end",
+  "version": 1,
+  "status": "root-frozen-before-construction",
+  "sourceProposal": {
+    "path": "reviews/source-contract-proposal.json",
+    "sha256": "f5a451bbc1a9d387bc09ffc6e99f6ddf003278ae6fb82163268130d6ef63f0f6"
+  },
+  "preparationManifest": {
+    "path": "reviews/preparation-v1/manifest.json",
+    "sha256": "c4df843ec24c036478282827c036be521610935be4b92e5c40f77959c55ae93d",
+    "rootVerifiedFiles": 362
+  },
+  "nativeContract": {
+    "asset": "wreck-end",
+    "stage": "ROOT reconciliation proposal, no frozen policy or approval issued by judge",
+    "source": {
+      "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "sourceCollection": "S33_PROP_wreck-end.001",
+      "sourceRoot": "wreck-end__root.001",
+      "enabledBeforeEvaluation": true,
+      "nativeMeasurements": "reviews/preparation-v1/source-native-measurements.json",
+      "staticOwnershipAndProfiles": "reviews/preparation-v1/source-contract-proof.json"
+    },
+    "nativeRegistration": {
+      "root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "properFacingDegrees": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "pitch": 1,
+      "footprint": [
+        1,
+        1
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "supportCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "sockets": {},
+      "static": true,
+      "uniqueFrames": 1,
+      "fps": 12,
+      "loop": false,
+      "armatures": [],
+      "observedMeshCount": 12,
+      "meshCountLocked": false
+    },
+    "ports": {
+      "W": {
+        "position": [
+          -0.5,
+          0,
+          0
+        ],
+        "outwardNormal": [
+          -1,
+          0,
+          0
+        ],
+        "profile": "wreck-frame-section-v1",
+        "orderedContours": [
+          {
+            "sourceObject": "wreck-end__lower_hull_rail.001",
+            "orderedOutwardWContour": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "signedYZArea": -0.0576000036835671,
+            "outwardNormal": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "profileGeometricRegion": "same finite asymmetric rectangle as canonical; collinear subdivisions/topology may differ",
+            "capMaterialObservation": "wreck-end approved S33_blue_dark"
+          },
+          {
+            "sourceObject": "wreck-end__upper_hull_rail.001",
+            "orderedOutwardWContour": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "signedYZArea": -0.025199998426437276,
+            "outwardNormal": [
+              -0.9999999403953552,
+              0.0,
+              0.0
+            ],
+            "profileGeometricRegion": "same finite asymmetric rectangle as canonical; collinear subdivisions/topology may differ",
+            "capMaterialObservation": "wreck-end approved S33_blue_dark"
+          },
+          {
+            "sourceObject": "wreck-end__back_hull_lip.001",
+            "orderedOutwardWContour": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ]
+            ],
+            "signedYZArea": -0.011399997478723556,
+            "outwardNormal": [
+              -0.9999999403953552,
+              0.0,
+              0.0
+            ],
+            "profileGeometricRegion": "same finite asymmetric rectangle as canonical; collinear subdivisions/topology may differ",
+            "capMaterialObservation": "wreck-end approved S33_metal_dark"
+          }
+        ],
+        "fullFiniteCollar": [
+          -0.5,
+          -0.42
+        ],
+        "canonicalFields": "reviews/preparation-v1/canonical-fields-proof.json",
+        "requirements": "All three actual YZ regions, cap outward W winding, handed rear lip and proper transforms. Candidate must match actual normalized post-interpolation normal, albedo, active material/alpha, needed tangent fields and longitudinal derivatives over complete .08 collar. Ring IDs or coincidence alone do not establish continuity. Equivalent native graph/storage allowed."
+      }
+    },
+    "noAdditionalPortRequirement": [
+      "N",
+      "E"
+    ],
+    "finiteSupport": {
+      "geometricZ0Intersection": [],
+      "lowestZ": 0.03999999165534973,
+      "evaluatedLowestSupportFaces": [
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              -0.5,
+              -0.18000000715255737
+            ],
+            [
+              -0.5,
+              0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.10800000321865078,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              -0.20000000298023224,
+              -0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.12240000615119939,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              0.14000000059604645,
+              -0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              0.18000000715255737
+            ],
+            [
+              0.3400000035762787,
+              0.18000000715255737
+            ],
+            [
+              0.3400000035762787,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.0720000039339066,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__finished_cross_rib.001",
+          "xyPolygon": [
+            [
+              0.31200000643730164,
+              0.203000009059906
+            ],
+            [
+              0.36800000071525574,
+              0.203000009059906
+            ],
+            [
+              0.36800000071525574,
+              -0.203000009059906
+            ],
+            [
+              0.31200000643730164,
+              -0.203000009059906
+            ]
+          ],
+          "z": 0.03999999165534973,
+          "area": 0.022735998691558734,
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        }
+      ],
+      "proposedPreservation": "Preserve actual finite lowest lower-rail and terminal bottom support union with representation tolerance1e-6; do not invent Z0/fullfloor. Evaluated support patch is separate from raw authoring envelope. ROOT may explicitly reconcile terminal design freedom.",
+      "unionXYApprox": [
+        [
+          -0.5,
+          -0.18
+        ],
+        [
+          0.312,
+          -0.18
+        ],
+        [
+          0.312,
+          -0.203
+        ],
+        [
+          0.368,
+          -0.203
+        ],
+        [
+          0.368,
+          0.203
+        ],
+        [
+          0.312,
+          0.203
+        ],
+        [
+          0.312,
+          0.18
+        ],
+        [
+          -0.5,
+          0.18
+        ]
+      ],
+      "unionAreaApprox": 0.315056,
+      "rawTerminalBottomObservation": "Raw unbeveled cross rib X[.3,.38]/Y\u00b1.215 atZ.04 is not the actual evaluated lowest face; do not silently substitute one for the other."
+    },
+    "authoringBudgetProposal": {
+      "rawAuthoredBounds": {
+        "min": [
+          -0.5,
+          -0.2370000034570694,
+          0.03999999165534973
+        ],
+        "max": [
+          0.3799999952316284,
+          0.25999999046325684,
+          0.7599999904632568
+        ]
+      },
+      "rawXYOutlineCCW": [
+        [
+          -0.5,
+          -0.18000000715255737
+        ],
+        [
+          -0.3050000071525574,
+          -0.2224999964237213
+        ],
+        [
+          -0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.3799999952316284,
+          -0.2150000035762787
+        ],
+        [
+          0.3799999952316284,
+          0.2150000035762787
+        ],
+        [
+          0.3400000035762787,
+          0.25999999046325684
+        ],
+        [
+          -0.5,
+          0.25999999046325684
+        ]
+      ],
+      "evaluatedBoundsObservation": {
+        "min": [
+          -0.5,
+          -0.2370000034570694,
+          0.03999999165534973
+        ],
+        "max": [
+          0.3799999952316284,
+          0.25999999046325684,
+          0.7599999904632568
+        ]
+      },
+      "evaluatedOutlineObservation": [
+        [
+          -0.5,
+          -0.18000000715255737
+        ],
+        [
+          -0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.36800000071525574,
+          -0.2150000035762787
+        ],
+        [
+          0.3799999952316284,
+          -0.203000009059906
+        ],
+        [
+          0.3799999952316284,
+          0.203000009059906
+        ],
+        [
+          0.3400000035762787,
+          0.25999999046325684
+        ],
+        [
+          -0.5,
+          0.25999999046325684
+        ]
+      ],
+      "proposedXY": [
+        [
+          -0.5,
+          -0.18000000715255737
+        ],
+        [
+          -0.3050000071525574,
+          -0.2224999964237213
+        ],
+        [
+          -0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.3799999952316284,
+          -0.2150000035762787
+        ],
+        [
+          0.3799999952316284,
+          0.2150000035762787
+        ],
+        [
+          0.3400000035762787,
+          0.25999999046325684
+        ],
+        [
+          -0.5,
+          0.25999999046325684
+        ]
+      ],
+      "proposedZ": [
+        0.04,
+        0.78
+      ],
+      "tolerance": 1e-06,
+      "provenance": "Own enabled transformed RAW authored XY monotonic hull; declared visual_height.78 provides height budget, distinct from measured actual top.76. Evaluated bevel trim, source3Dhull, part boxes, counts and sampled empty bays are observations rather than extra locks. ROOT must reconcile/freeze before construction.",
+      "freedom": "Improve native forms/proportions/structure/purposeful decoration/topology/counts beyond collar inside own reconciled size/contact budget. Terminal beyond interface is design freedom."
+    },
+    "capture": {
+      "registeredElevationDegrees": 55.00797980144134,
+      "pixelAspect": [
+        1.2206555604934692,
+        1
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "cellSize": 128,
+      "nativeScale": 2,
+      "nativeFrame": [
+        384,
+        704
+      ],
+      "nativeRoot": [
+        192,
+        496
+      ],
+      "filter": 0.01,
+      "publication": "exact native PNG identity, no reduction/fit/crop/nudge/warp/RGBalpha repair",
+      "exactCameraAndRig": "reviews/preparation-v1/actual-canonical-rig.json",
+      "captureRecords": "reviews/preparation-v1/baseline-v2-capture-records.json",
+      "historical": "Historical original4 replay kept separately, honest decoded comparison in historical-replay-comparison-v2.json. Saved unrelated35-degree camera is not authority; no historical Faceted/world0/contrast135 reset in new captures."
+    },
+    "canonicalAuthorities": {
+      "wreck-middle": {
+        "pathBase": "object",
+        "source": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-middle/native.blend",
+          "sha256": "d44748684c4e13a25bfd7e28fe5862232ccb8b0d11d530cd9702ea66f525d46c"
+        },
+        "packet": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-middle/packet.json",
+          "sha256": "f371a2509c600cce6b4f53223aa6c0ed546a9db00b79ffcc78dc8fb710b68005"
+        },
+        "review": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-middle/review.json",
+          "sha256": "6f06d28d217abe29bff3ceaa672814a1233553b87a856f54afb4d28a1a33ac76"
+        },
+        "verifiedVerdict": "approve",
+        "sourceBoundByPacket": true,
+        "scope": "exact reference candidate only; reusable fields/rig, no wreck-end or family approval"
+      },
+      "wreck-edge": {
+        "pathBase": "object",
+        "source": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-edge/native.blend",
+          "sha256": "a7f8357632d42d3f5113f7ee3b423634bdd834e0d3cbfb9a058ea513767a1498"
+        },
+        "packet": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-edge/packet.json",
+          "sha256": "7fe4e36723fe87bea1a94d12f9b85e62b4cafffcc0e34b814b3298e8866aaae1"
+        },
+        "review": {
+          "path": "reviews/preparation-v1/resources/canonical/wreck-edge/review.json",
+          "sha256": "aea556e4669f9a9d57bd92d02de484d00a225934d5705a5124683a444c993f58"
+        },
+        "verifiedVerdict": "approve",
+        "sourceBoundByPacket": true,
+        "scope": "exact reference candidate only; reusable fields/rig, no wreck-end or family approval"
+      }
+    },
+    "fullFieldReference": {
+      "actualProof": "reviews/preparation-v1/canonical-fields-proof.json",
+      "facts": "All three canonical rail side fields constant normalized normal over complete .08; albedo is actual worldZ-only clamped linear map .04...78=>.66...1.03 times measured blue/slate base; roughness/metallic/specular/alpha are actual material constants. No active tangent dependence. Proper root rotations preserve worldZ/handedness. W caps are distinct outward-X field. Longitudinal derivatives are0. Equivalent methods accepted."
+    },
+    "genuineSourceConflicts": [
+      "Original source normal/albedo/material fields differ from canonical middle02 over full W collar; source geometry/profile is compatible. Adopt approved derivative fields before evaluation.",
+      "Target is opaque blue layered boards while source functional note permits open hull rails; literal full board fill is not required.",
+      "Raw authoring outline differs from evaluated bevel-trimmed outline; proposed modeling budget uses own raw outline plus declared .78 height, pending root freeze."
+    ],
+    "rootDecisionsNeeded": [
+      "Freeze own raw XY/declared height budget and exact evaluated finite support interpretation before construction.",
+      "Authorize canonical middle02 full W collar fields and exact rig as derivative constraints, while preserving source finite W section.",
+      "Retain legitimate open rail/bay function while rewarding substantial crafted terminal design.",
+      "Bind exact approved corner only if available before construction; absent approval causes no circular dependency and no familyL claim."
+    ],
+    "status": "STOP for ROOT freeze; no native model/candidate/production/Git/liveBlender/device/helper changes made."
+  },
+  "hardConstraints": [
+    "Actual S33_PROP_wreck-end.001/rootwreck-end__root.001/root0/unit scale/properS0 E90 N180 W-90/pitch1/1x1/staticframe1/range1..1/12fps/nonloop/all4. Own RAW8point XY hull extrudedZ[.04,.78]/tol1e-6, proper rotated. Source measured top.76/evaluated bevel trim/middle bounds/perpart/3Dhull/count/old construction are not smaller design locks.",
+    "Actual finite lowest support UNION atZ.04/tol1e-6: lower rectangleX[-.5,.34]/Y+/-.18 plus evaluated terminal bottomX[.312,.368]/Y+/-.203, eight-point union/.315056 area. Preserve actual finite region, topology free; overlapping face-area sum or AABB alone insufficient. Raw unbeveled terminal bottom is not the actual support. No Z0/fullsquarefloor/lift/drop/outside support; terminal form above may improve inside own budget.",
+    "Sole trueW port[-.5,0,0]/normal-X with exact ordered three disconnected source/canonical rectangle sections/outwardcapwindings atX-.5, properall4/unitpitch. Full.08 W[-.5,-.42] actual shader-used normalized postinterpolation side/cap normals/albedo/material/alpha/needed tangent/longitudinal derivatives match approvedmiddle02; side versus cap fields distinct. Equivalent native storage/nodes allowed, no literal Principled/customnormal veto, ringIDs or isolated samples alone insufficient. No new N/E ports, mirrors, cutgrowth/rounding/deletion/overlap/step/fake alpha.",
+    "Registered55.0079798/aspect1.22065556/heroortho1.5/logical192352/root96248/cell128, DIRECTnative2x384704/root192496/filter.01/full PNGidentity/no reduction/original1x1atlas/all4/static1/12fps/nonloop. Exact canonical EEVEE/Standard/None/exposure0/gamma1/dither0/worldStrength.28/color(.72,.80,1), overhead195Wsize8Z5+4equal114Wsize8radius6Z4 DISKshadowfalse/fullgraphs/matrices. No historicalFaceted/world0/contrast135 reset, preferredhorizontal key/directionalgroundcast/perview adjustment.",
+    "All4 true native chain end0/middle02Rz(a)*(-1,0,0)/edge02Rz(a)*(-2,0,0), allrotationa. Real W-to-E connections/fullgeometry/pitch1, exact individual frames through actual570/099 atsame roots/order/atlasrects. Expanded proof camera/canvas derived from actual integer geometry preserving128 logical units/cell and sourcebasis/root correspondence; no perview artfit. No unapproved corner/fullfamilyL or inferred family approval.",
+    "Frozen4case\u00d72 prescribed Chromium153 modes/all4/lightgraydark/128+32/integer-fractionalroot+pan/wholeCSSscale, nativecanvas nearest AFTER resize then ordinary wholeCSS filtering. Actual versions/executables/launch/DPR/viewport/fixtures/helper/atlas/control/placementorder hashes and raw differences retained. Expand concrete risk only. No raster/crop/warp/nudge/overlap/perviewrecolor/alphaRGB repair/targetcard/paint/sharedhelper changes.",
+    "Same six visible outcomes: substantial purposeful soft blue hull/iron/palefasteners/finished terminal, controlled colored broad highlights/plane turns/readable recesses/native crafted detail/coherentall4/openbay hierarchy/12832readability. Optional target board fill/count and old weakgeometry are not mandates. No localized crack/slit/stripe/step/doubledcap/fringe/halo/blackpatch/normal seam/clipping/deadspot waiver. Legitimate continuous openframe accepted; broad finite-light/outer-raster residuals separately honest, source or numerical equality not a visible defect waiver.",
+    "Private portable editable native actual-used resource closure/staticownership and actual source/camera/root/finite support/fullfields/replay required. Every declared hero/preview directly covered by originaljudge with exactpath/hash provenance; missing evidence is not approval. Unchanged integrity/direction/acceptance gates. Originals/preparation/initial/target/criteria/prior signed bytes immutable. No editor/judge production/Git/deploy/device/liveBlender/extraagent/sharedhelper/brief/review ownership violations."
+  ],
+  "reconciliation": {
+    "asset": "wreck-end",
+    "stage": "root reconciliation BEFORE construction",
+    "preparation": {
+      "path": "reviews/preparation-v1/manifest.json",
+      "sha256": "c4df843ec24c036478282827c036be521610935be4b92e5c40f77959c55ae93d",
+      "rootVerifiedFiles": 362
+    },
+    "freshEditorInitial": {
+      "path": "source/initial-observations.json",
+      "sha256": "f8db927fb96b917b32ace6d0b76a2796908a39910647f1b6a477aa326b680736"
+    },
+    "authoringEnvelope": {
+      "decision": "Adopt own RAW eight-point XY authoring hull extrudedZ[.04,.78]/tol1e-6, proper-rotated all4. Actual enabled transformed raw vertices govern; evaluated bevel trim and actual top.76 are observations, not tighter locks. No middle/corner AABB/perpart boxes/3Dhull/count/old blankness constraints.",
+      "xy": [
+        [
+          -0.5,
+          -0.18000000715255737
+        ],
+        [
+          -0.3050000071525574,
+          -0.2224999964237213
+        ],
+        [
+          -0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.2338564097881317,
+          -0.2370000034570694
+        ],
+        [
+          0.3799999952316284,
+          -0.2150000035762787
+        ],
+        [
+          0.3799999952316284,
+          0.2150000035762787
+        ],
+        [
+          0.3400000035762787,
+          0.25999999046325684
+        ],
+        [
+          -0.5,
+          0.25999999046325684
+        ]
+      ],
+      "z": [
+        0.04,
+        0.78
+      ],
+      "tolerance": 1e-06
+    },
+    "finiteSupport": {
+      "decision": "Preserve actual evaluated lowest support UNION of lower rail X[-.5,.34]/Y+/-.18 plus terminal bottom X[.312,.368]/Y+/-.203 atZ.04, with1e-6 representation tolerance. Union area.315056, eight-point finite boundary. This is not sum of overlapping face areas, AABB or raw unbeveled terminal X[.3,.38]/Y+/-.215. Topology/triangulation free, no exact part-count lock. Terminal may be redesigned above unchanged support inside own raw budget. No geometricZ0/fullsquarefloor/base lift/drop/outside support.",
+      "unionXY": [
+        [
+          -0.5,
+          -0.18
+        ],
+        [
+          0.312,
+          -0.18
+        ],
+        [
+          0.312,
+          -0.203
+        ],
+        [
+          0.368,
+          -0.203
+        ],
+        [
+          0.368,
+          0.203
+        ],
+        [
+          0.312,
+          0.203
+        ],
+        [
+          0.312,
+          0.18
+        ],
+        [
+          -0.5,
+          0.18
+        ]
+      ],
+      "unionArea": 0.315056,
+      "z": 0.04,
+      "tolerance": 1e-06,
+      "actualEvaluatedFaces": [
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              -0.5,
+              -0.18000000715255737
+            ],
+            [
+              -0.5,
+              0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.10800000321865078,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              -0.20000000298023224,
+              -0.18000000715255737
+            ],
+            [
+              -0.20000000298023224,
+              0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.12240000615119939,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__lower_hull_rail.001",
+          "xyPolygon": [
+            [
+              0.14000000059604645,
+              -0.18000000715255737
+            ],
+            [
+              0.14000000059604645,
+              0.18000000715255737
+            ],
+            [
+              0.3400000035762787,
+              0.18000000715255737
+            ],
+            [
+              0.3400000035762787,
+              -0.18000000715255737
+            ]
+          ],
+          "z": 0.03999999910593033,
+          "area": 0.0720000039339066,
+          "normal": [
+            -0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "object": "wreck-end__finished_cross_rib.001",
+          "xyPolygon": [
+            [
+              0.31200000643730164,
+              0.203000009059906
+            ],
+            [
+              0.36800000071525574,
+              0.203000009059906
+            ],
+            [
+              0.36800000071525574,
+              -0.203000009059906
+            ],
+            [
+              0.31200000643730164,
+              -0.203000009059906
+            ]
+          ],
+          "z": 0.03999999165534973,
+          "area": 0.022735998691558734,
+          "normal": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        }
+      ]
+    },
+    "canonical": {
+      "binding": {
+        "path": "inputs/approved-wreck-authorities-v1.json",
+        "sha256": "77e21653bea03d4590b6403f321b3d87f8812f922cc5f1f39e10ee52a2e55de8"
+      },
+      "decision": "Adopt exact approved middle02 full finite.08 W contact geometry and actual shader-used normalized postinterpolation side/cap normal/albedo/material/alpha/needed tangent/longitudinal fields, rig/world/capture underall4. Equivalent native storage/graphs allowed. SoleW port only; no new N/E interface. Edge02 is exact bounded chain neighbor, no end/family approval."
+    },
+    "targetFreedom": "Opaque blue layered target boards are aesthetic exploration, not a mandate for literal count/opacity or a ban on purposeful new infill. Preserve coherent substantial terminal/rail/iron hierarchy and useful intentional negative space without locking exact old bay emptiness. Native forms/topology/count/material methods free outside interfaces inside budget; no invented actor traversal law.",
+    "history": "Correct explicit-visible baseline-v2 and failed visibility/measurement diagnostics retained. Historical4x source replay has same alpha bbox but maxalpha5 residual and is NOT decoded/byte-identical. New canonical direct2x must not reset historical Faceted/world0/contrast135.",
+    "evidenceScope": "Actual true chain ownend0/middle02(-1,0)/edge02(-2,0), proper-rotate all4; native and current570/099 same roots/order/rects. Same bounded4case\u00d72mode plan. No approvedcorner exists at freeze; conditional familyL is not required or authorized by an unapproved reference. Exact localW evidence and technical authorities remain strict.",
+    "unchanged": "Fixed target, six proposed visible outcomes, source identity/function/root/static timing/registration/atlas/capture and unchanged validators; no candidate approval."
+  },
+  "requiredEvidence": {
+    "asset": "wreck-end",
+    "stage": "bounded proposed execution after ROOT freeze and candidate submission",
+    "native": {
+      "singles": "One actual static native2 complete frame per NESW, camera/root/pose measured during capture, exact image identity to published PNG and atlas.",
+      "boundedAssembly": "True chain end(0,0)+exact middle02(-1,0)+exact edge02(-2,0); rotate complete placement/root system properly to all4. Own sole W join meets middle E attrue plane, no extra N/E port.",
+      "controls": "Compose exact individually captured frames with unchanged current570/099 helpers at same true roots/order/atlas rects, compare to native3D chain using registered fixed scale/camera extension.",
+      "finiteField": "Actual evaluated full profiles/support/budget, all4 root matrices, actual full normalized postinterpolation active fields and tangent/longitudinal behavior on full W.08. No type/name-only veto or coincident-point shortcut.",
+      "conditionalFamilyL": "Only if ROOT binds exact independently approved corner before frozen construction; no unapproved/circular corner reference, no whole family approval inferred."
+    },
+    "consumer": {
+      "helpers": [
+        {
+          "pathBase": "object",
+          "path": "reviews/preparation-v1/resources/consumer/world-sprite-raster.js",
+          "sha256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545"
+        },
+        {
+          "pathBase": "object",
+          "path": "reviews/preparation-v1/resources/consumer/sprite-layout.js",
+          "sha256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65"
+        }
+      ],
+      "modes": [
+        {
+          "name": "full-chromium",
+          "launch": {
+            "headless": true,
+            "channel": "chromium"
+          }
+        },
+        {
+          "name": "bundled-headless-shell",
+          "launch": {
+            "headless": true
+          }
+        }
+      ],
+      "actualBaselineVersion": "153.0.8010.12",
+      "cases": [
+        {
+          "id": "logical128-integer",
+          "viewport": [
+            1440,
+            900
+          ],
+          "DPR": 1,
+          "cssScale": 1,
+          "rootOffset": [
+            0,
+            0
+          ],
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "logical128-fractional",
+          "viewport": [
+            1440,
+            900
+          ],
+          "DPR": 1,
+          "cssScale": 0.773,
+          "rootOffset": [
+            0.375,
+            0.625
+          ],
+          "pan": [
+            0.213,
+            -0.371
+          ]
+        },
+        {
+          "id": "phone32-integer",
+          "viewport": [
+            390,
+            844
+          ],
+          "DPR": 2,
+          "cssScale": 0.25,
+          "rootOffset": [
+            0,
+            0
+          ],
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "id": "phone32-fractional",
+          "viewport": [
+            390,
+            844
+          ],
+          "DPR": 2,
+          "cssScale": 0.25,
+          "rootOffset": [
+            0.375,
+            0.625
+          ],
+          "pan": [
+            0.213,
+            -0.371
+          ]
+        }
+      ],
+      "withinEachCase": "All4 facings \u00d7 light/gray/dark, native canvas PNG retained separately from actual wholeCSS filtering screenshot. Restore native nearest after resize. Four bounded cases x2modes; expand only for concrete measured risk.",
+      "forbidden": "No image overlap, pixel offsets, perview fit/crop/color/alpha or helper/runtime changes. Comparison-only transparent-padding diagnosis only with concrete discrepancy, zero visible discard and exact integer restoration."
+    },
+    "approvalGates": [
+      "Original independent judge directly inspects exact submitted packet renders/previews or truthful verified hash aliases/sheets and records EVERY exact packet candidateRenders/previews path string in inspectedFiles.",
+      "Exact candidate source/resources/replay/pose and packet binding pass unchanged tools/audit_directions.py and tools/acceptance_contract.py wreck-end --round ROUND; no validator edits.",
+      "No material localized join artifact, deadspot, clipping, halo or normal discontinuity. Separate honest broad finite-light/outer-raster residuals; numerical equality cannot waive visible defects.",
+      "Any supplementalEvidence is one object{path,sha256} pointing to object-relative manifest containing candidatePacketSHA256 and files[{path,sha256}]."
+    ]
+  },
+  "approvedCanonical": {
+    "wreck-middle": {
+      "source": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/native.blend",
+        "sha256": "d44748684c4e13a25bfd7e28fe5862232ccb8b0d11d530cd9702ea66f525d46c"
+      },
+      "packet": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/packet.json",
+        "sha256": "f371a2509c600cce6b4f53223aa6c0ed546a9db00b79ffcc78dc8fb710b68005"
+      },
+      "review": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/review.json",
+        "sha256": "6f06d28d217abe29bff3ceaa672814a1233553b87a856f54afb4d28a1a33ac76"
+      },
+      "hero-N": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/frames/N.png",
+        "sha256": "9ae7f476053c03c8469ca99136fdac1a93362380a3b1a12930ffca973e2e3e0d"
+      },
+      "hero-E": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/frames/E.png",
+        "sha256": "f88849b3c6a7dde23e782bcd76a00b4a23b00ea9b0d257ffeea7f4eb4d90fe35"
+      },
+      "hero-S": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/frames/S.png",
+        "sha256": "f568944637b634abdc4d895542649bfbe9c1857a8a928fab40fbda7280f46cd9"
+      },
+      "hero-W": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-middle/frames/W.png",
+        "sha256": "ea1c748ef2719da7953ef0eafdd15c4b0bde43c7a15f1a4bd09ffafe65ecbd69"
+      }
+    },
+    "wreck-edge": {
+      "source": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/native.blend",
+        "sha256": "a7f8357632d42d3f5113f7ee3b423634bdd834e0d3cbfb9a058ea513767a1498"
+      },
+      "packet": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/packet.json",
+        "sha256": "7fe4e36723fe87bea1a94d12f9b85e62b4cafffcc0e34b814b3298e8866aaae1"
+      },
+      "review": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/review.json",
+        "sha256": "aea556e4669f9a9d57bd92d02de484d00a225934d5705a5124683a444c993f58"
+      },
+      "hero-N": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/frames/N.png",
+        "sha256": "ef1f9974fc139a4fedf3a7f1897188943cb19243d090454d49cc978da641bfb1"
+      },
+      "hero-E": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/frames/E.png",
+        "sha256": "75bc392c859129c6ce1c7dc764e73e31b6a69f61718284583b8852e00ed80cfa"
+      },
+      "hero-S": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/frames/S.png",
+        "sha256": "a9a951a22efa2a7758a0fd54fba9c2724358e05eb5276a26761bb5305eed916f"
+      },
+      "hero-W": {
+        "path": "reviews/preparation-v1/resources/canonical/wreck-edge/frames/W.png",
+        "sha256": "dcc21f439876b18947bf67816838991c1309c07e043e4fde7d8995f5469abcc1"
+      }
+    }
+  }
+}

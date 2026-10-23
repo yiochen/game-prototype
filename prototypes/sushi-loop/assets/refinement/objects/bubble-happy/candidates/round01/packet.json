@@ -1,0 +1,2318 @@
+{
+  "schemaVersion": 1,
+  "asset": "bubble-happy",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "schemaVersion": 1,
+    "asset": "bubble-happy",
+    "status": "frozen-by-coordinator",
+    "independence": "Derived only from original source/snapshot, fixed targets, actual original publishers/manifests/frames and declared use. No editor proposal or sibling aesthetic critique read.",
+    "fixedTargets": {
+      "heart": {
+        "path": "inputs/target.png",
+        "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+      },
+      "smile": {
+        "path": "inputs/runtime-variants/smile/target.png",
+        "sha256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f"
+      }
+    },
+    "visibleOutcomes": [
+      {
+        "id": "rounded-cream-construction",
+        "outcome": "Both balloons read as one softly rounded cream body with a coherent warm rim, joined lower tail and smooth continuous silhouette. Fuller target construction is visible without pinches, disconnected tail or heavy black dead borders."
+      },
+      {
+        "id": "warm-soft-volume",
+        "outcome": "Broad gentle highlights, warm cream midtones and restrained lower/edge reflections create puffy cartoon volume. Bright marks stay contained in the artwork; no harsh cast shadow, outer bloom or glowing fringe. Do not add directional lighting to the camera-facing aliases."
+      },
+      {
+        "id": "heart-identity",
+        "outcome": "Main sprite clearly reads as a red/pink heart with two lobes, central notch and lower point inside the cream speech balloon; the small gold excitement ticks remain separate and purposeful. Interior breathing room keeps the heart clear at game size."
+      },
+      {
+        "id": "smile-identity",
+        "outcome": "Runtime smile remains a joyful golden-yellow round face with two curved closed happy eyes, two rosy cheeks and a broad open smiling mouth. Eye, cheek and mouth shapes remain separated at intended game size; no heart substitution or ambiguous emotion."
+      },
+      {
+        "id": "coherent-family",
+        "outcome": "Heart and smile share compatible warm ivory/gold/brown material, soft highlight language, rounded balloon/tail treatment and excitement ticks while preserving their distinct red/pink versus golden symbol palettes. Useful proportion changes are acceptable."
+      },
+      {
+        "id": "readability-context",
+        "outcome": "At82logicalwidth normalization and representative actual above-customer game scales (including roughly32px occupied width where used), emotion and tail remain legible on light/gray/dark and over representative customer/stool scenes. Customer, balloon and ticks do not merge into clutter or occlude essential feedback."
+      },
+      {
+        "id": "alpha-cleanliness",
+        "outcome": "Transparent surrounds remain actual alpha. No baked background, rectangular matte, detached stray debris, colored fringe, clipped edge/tick/tail, resampling seams or per-frame shape damage. Inspect enlarged and intended-size composites; authorized excitement ticks are not debris."
+      },
+      {
+        "id": "animation-continuity",
+        "outcome": "Each original appear/idle/fade/transition sequence retains its smooth opacity, bob and pulse behavior, stable body/symbol relationship and original loop policy. No jitter, per-frame fitting, changing material grade, new dead interval or motion artifact."
+      }
+    ],
+    "hardContract": {
+      "pipeline": "existing2D native raster and deterministic publisher only; honest sprite assembly evidence is sufficient. No fabricated Blender/project/rig/camera evidence.",
+      "sourceOperations": "One alpha>8rectangle crop per complete raw source and one uniform82logicalwidth resize, followed by original2D animation/packing. No artistic Python paint/warp/erasure, per-frame/facing fit or per-frame/facing regrade. Preserve raw targets, original raw sources and generation prompts/provenance.",
+      "registration": {
+        "frame": [
+          384,
+          640
+        ],
+        "logicalFrame": [
+          192,
+          320
+        ],
+        "logicalRoot": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "fps": 12,
+        "projection": "screen-space-2d",
+        "atlas": [
+          2304,
+          1280
+        ],
+        "layout": {
+          "columns": 6,
+          "rows": 2,
+          "rectangles": "row-major12rects, each384x640"
+        }
+      },
+      "main": {
+        "clips": [
+          "appear",
+          "idle",
+          "fade",
+          "happy-transition"
+        ],
+        "framesPerClip": 12,
+        "cameraFacingAliases": [
+          "S",
+          "N",
+          "E",
+          "W"
+        ],
+        "slots": 192,
+        "actualSFrames": 48,
+        "loopOnly": "idle",
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "aliasPolicy": "All four directions preserve exact S image/rect metadata; no invented directional art."
+      },
+      "smileRuntime": {
+        "clips": [
+          "happy-smile-appear",
+          "happy-smile-idle",
+          "happy-smile-fade",
+          "happy-smile-transition"
+        ],
+        "actualFacing": "S",
+        "framesPerClip": 12,
+        "actualFrames": 48,
+        "loopOnly": "happy-smile-idle",
+        "registrationPolicy": "Separate runtime manifest retaining existing camera-facing fallback; do not add these to the main catalog contract.",
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "animation": {
+        "phase": "index/12*2pi",
+        "centerLogical": "[96,248-52-3*sin(phase)]",
+        "appear": "scale=.5+.5*sin((index+1)/12*pi/2); opacity=(index+1)/12",
+        "fade": "opacity=1-index/12",
+        "transition": "scale=1+.12*sin(phase)",
+        "idle": "scale=1; opacity=1; original3px bob",
+        "packing": "Original round-to-pixel placement and Pillow LANCZOS size behavior on fixed complete canvas."
+      }
+    },
+    "requiredCandidateEvidence": {
+      "binding": "Immutable packet SHA binds exact source recipe, full raw sources/targets/provenance, resources/dependency closure, final atlases, manifest registrations, previews and validation. A manifest assertion alone does not prove replay or appearance.",
+      "replay": "Run source recipe from its declared closed resource set; replayed exported pixels/bytes must match exact submitted atlases and manifest bindings. Document tools/versions/command without giant raw dumps.",
+      "coverage": "Account for all192main slots and48actual smile runtime frames/aliases/registrations. Inspect every unique actual frame and atlas, compact complete contact sheets and12fpsplayback, with light/gray/dark intended-size and enlarged views plus representative actual above-customer assembly contexts.",
+      "scope": "Approval applies only to exact packet bytes; missing relevant evidence yields needs_evidence, visible blockers yield revise. No numeric score threshold."
+    },
+    "reviewOwnership": "Judge writes reviews/ only. Coordinator freezes criteria into brief before candidate review; editor chooses methods and cannot grade itself.",
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "9f673bb9cb5884b6722a7ec2bbe792a01eefcbe889b77dd7fa5670e6d8b69023"
+  },
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "views": [
+      "S",
+      "N",
+      "E",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "appear-S",
+      "appear-N",
+      "appear-E",
+      "appear-W",
+      "idle-S",
+      "idle-N",
+      "idle-E",
+      "idle-W",
+      "fade-S",
+      "fade-N",
+      "fade-E",
+      "fade-W",
+      "happy-transition-S",
+      "happy-transition-N",
+      "happy-transition-E",
+      "happy-transition-W",
+      "happy-smile-appear-S",
+      "happy-smile-idle-S",
+      "happy-smile-fade-S",
+      "happy-smile-transition-S",
+      "heart-smile-actual-customer-context"
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "screen-space-2d"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "2edfa8637c46502ae8a18c1ce78cba7ad946ef01b0a234b4d2c34c8618999b48"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/2d/generated/bubble-happy.png",
+      "sha256": "dde13eb9d0dcf1f9a653177399413663839c3b008cb0df21ae53dbc5949805d3"
+    },
+    "backup": {
+      "path": "../../../../backups/dde13eb9d0dcf1f9-bubble-happy.png",
+      "sha256": "dde13eb9d0dcf1f9a653177399413663839c3b008cb0df21ae53dbc5949805d3"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "d3e76a233b56aeefe45607412b5b38039576429bac131d83041c74bd995ca530"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "candidateProject": {
+      "path": "../../source/round01/bubble-happy-heart.png",
+      "sha256": "4f7809a1ad37ed9f15776430bf8db63b2afc36cb76e96830b31bda43e2e8a21e"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "bac545e75a6102fa22ce9b1928ed7ba56af2bd1d90390bfe3798ef59882c1602"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "c285d0e7b39239bc1bca4e78914848c194952539ce8af93451e8941aff4f088b"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "7b0b706c0f6b43eff61d84a4ed8df27f75084d1cf223551fd169b15ef066a057"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "04cc4feb7e431af5a60c8259c9c80a43896da6813bc498d2f04527ea4cf1844d"
+    },
+    "candidateResource:frozenQualityCriteria": {
+      "path": "../../reviews/criteria.json",
+      "sha256": "9f673bb9cb5884b6722a7ec2bbe792a01eefcbe889b77dd7fa5670e6d8b69023"
+    },
+    "candidateResource:input:imagegen-prompt.txt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "c285d0e7b39239bc1bca4e78914848c194952539ce8af93451e8941aff4f088b"
+    },
+    "candidateResource:input:original.png": {
+      "path": "../../inputs/original.png",
+      "sha256": "d3e76a233b56aeefe45607412b5b38039576429bac131d83041c74bd995ca530"
+    },
+    "candidateResource:input:catalog-object.json": {
+      "path": "../../inputs/catalog-object.json",
+      "sha256": "8a84b8face03e570c448ef82d3da2dd59a51f344d94fd5e38ab95672e1060b1d"
+    },
+    "candidateResource:input:target.png": {
+      "path": "../../inputs/target.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "candidateResource:input:original-2d-pipeline/overrides.json": {
+      "path": "../../inputs/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:input:original-2d-pipeline/README.md": {
+      "path": "../../inputs/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:input:original-2d-pipeline/prompts.json": {
+      "path": "../../inputs/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:input:original-2d-pipeline/publish_2d.py": {
+      "path": "../../inputs/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:input:runtime-variants/smile/imagegen-prompt.txt": {
+      "path": "../../inputs/runtime-variants/smile/imagegen-prompt.txt",
+      "sha256": "0c5d8d568fe2bf087e4149f62eb5398e4c4f73dfce1448a193783fd0c3f33824"
+    },
+    "candidateResource:input:runtime-variants/smile/original.png": {
+      "path": "../../inputs/runtime-variants/smile/original.png",
+      "sha256": "1f8183ed6fb98b19753a7c388522ca147b3f7792e1555e039f0d86e307dc4105"
+    },
+    "candidateResource:input:runtime-variants/smile/target.png": {
+      "path": "../../inputs/runtime-variants/smile/target.png",
+      "sha256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f"
+    },
+    "candidateResource:input:runtime-variants/smile/generation.json": {
+      "path": "../../inputs/runtime-variants/smile/generation.json",
+      "sha256": "85f23786d78b72f74db08f0b8500e27377eb64e62a03c96ce79ebdd3c01c773f"
+    },
+    "candidateResource:input:runtime-variants/smile/heart-family-reference.png": {
+      "path": "../../inputs/runtime-variants/smile/heart-family-reference.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "candidateResource:input:runtime-variants/smile/original-manifest.json": {
+      "path": "../../inputs/runtime-variants/smile/original-manifest.json",
+      "sha256": "ca824ccff1a1b8212adcbf5ebf94ea0dc6805d8c0b86f264cd520d6d6b92371d"
+    },
+    "candidateResource:input:runtime-variants/smile/original-source/publication.json": {
+      "path": "../../inputs/runtime-variants/smile/original-source/publication.json",
+      "sha256": "436e12c4c9ed9ba1fca30b258ab09460f9c2504f406da4028e512d0dee8f1018"
+    },
+    "candidateResource:input:runtime-variants/smile/original-source/pack_feedback.py": {
+      "path": "../../inputs/runtime-variants/smile/original-source/pack_feedback.py",
+      "sha256": "7912eadf12043a6acf5e3b6ea51959810bc6dd9ca0a5bcdb601a367e7440de96"
+    },
+    "candidateResource:input:runtime-variants/smile/original-source/imagegen.json": {
+      "path": "../../inputs/runtime-variants/smile/original-source/imagegen.json",
+      "sha256": "c1c3079b48e301fec75fe653936fdefe565bdf73a12fb7938c864ad2e710ba69"
+    },
+    "candidateResource:input:runtime-variants/smile/original-source/bubble-happy-smile.png": {
+      "path": "../../inputs/runtime-variants/smile/original-source/bubble-happy-smile.png",
+      "sha256": "c916acf28679a48537f1626cc75f42fb30850775c26a2494efdf801eae982510"
+    },
+    "candidateResource:input:runtime-variants/smile/original-atlases/happy-smile-transition-S.png": {
+      "path": "../../inputs/runtime-variants/smile/original-atlases/happy-smile-transition-S.png",
+      "sha256": "445ca98ddb2debca16a64aba3e27c3c80dbf81491dc06553a6841f34d8044a39"
+    },
+    "candidateResource:input:runtime-variants/smile/original-atlases/happy-smile-appear-S.png": {
+      "path": "../../inputs/runtime-variants/smile/original-atlases/happy-smile-appear-S.png",
+      "sha256": "0254371fe89e6ff14e05d4eca786efbe76f37a499fc6f3cf2d4b1e3f6ad6ee5e"
+    },
+    "candidateResource:input:runtime-variants/smile/original-atlases/happy-smile-idle-S.png": {
+      "path": "../../inputs/runtime-variants/smile/original-atlases/happy-smile-idle-S.png",
+      "sha256": "519f107b4225f864ad7aaf546be148b52f6c98713fc9fb00bd5e444631cfe34d"
+    },
+    "candidateResource:input:runtime-variants/smile/original-atlases/happy-smile-fade-S.png": {
+      "path": "../../inputs/runtime-variants/smile/original-atlases/happy-smile-fade-S.png",
+      "sha256": "6aa12ecb13530ef010b2a50621587b86b083e936e5c719dc36080644815afd6f"
+    },
+    "candidateResource:delivery:resources:0": {
+      "path": "manifest.json",
+      "sha256": "cd166bb73ee6e56889aca89fbe796860859af663569a0d89d245e3973f4bef1a"
+    },
+    "candidateResource:delivery:resources:1": {
+      "path": "runtime-variants/smile/atlases/happy-smile-appear-S.png",
+      "sha256": "c808fb9c8e1ca0f7627122f154cc14ae679c126b4116531ee26980c1b5ab8207"
+    },
+    "candidateResource:delivery:resources:2": {
+      "path": "runtime-variants/smile/atlases/happy-smile-fade-S.png",
+      "sha256": "d5201056a5fbfdc60504b7d1e085cc00da27d2a00f930ee45aeb11a59c5553da"
+    },
+    "candidateResource:delivery:resources:3": {
+      "path": "runtime-variants/smile/atlases/happy-smile-idle-S.png",
+      "sha256": "5caeee848c6459d7bd2beb2d8dbbcab8e064c9dcf1eb4e72af2e854a1924f152"
+    },
+    "candidateResource:delivery:resources:4": {
+      "path": "runtime-variants/smile/atlases/happy-smile-transition-S.png",
+      "sha256": "a004de3a369d32209505de63a2c72194252793701ceb5d1d4617235a74f0b056"
+    },
+    "candidateResource:delivery:resources:5": {
+      "path": "runtime-variants/smile/manifest.json",
+      "sha256": "6b0577a56a792402e30459ef3cf0cd0d719af0e7cccf09ad765cf36e3fa0e9d7"
+    },
+    "candidateResource:delivery:resources:6": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0000.png",
+      "sha256": "bbd3ab3cdbef6f3991ca6afd4831043cc3a6cfcf1648495aa416389048354cfa"
+    },
+    "candidateResource:delivery:resources:7": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0001.png",
+      "sha256": "7759f770991eac993b8552a5c219aed23febf62f6a0f25b6a2c3aa3ea61ef6af"
+    },
+    "candidateResource:delivery:resources:8": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0002.png",
+      "sha256": "a4083fadba2bda7c71a590b3c4e16d2053239f115550d0aa80da629e3a4596ef"
+    },
+    "candidateResource:delivery:resources:9": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0003.png",
+      "sha256": "0dc0cfd33326b0c2bcea88b5d57deb3c0b6118c58fc089ac7e32a1607a31c26a"
+    },
+    "candidateResource:delivery:resources:10": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0004.png",
+      "sha256": "1ba2382f30357ce004c1c196f7c6abbd86ad81c9f898fd48bc778c5461fa1cb1"
+    },
+    "candidateResource:delivery:resources:11": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0005.png",
+      "sha256": "7a1a44f03eb1ffd25a283d5d9cc616acde154c8df4ee59d030f0937285828acb"
+    },
+    "candidateResource:delivery:resources:12": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0006.png",
+      "sha256": "8d27eb10317cb4e681f376b6007873bb11225fbe7382dac67f9443d65cb7b5c4"
+    },
+    "candidateResource:delivery:resources:13": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0007.png",
+      "sha256": "5199ff3b20ec2e35b84c7114eab37524191876e1df05f3362f4e33749d88a2a0"
+    },
+    "candidateResource:delivery:resources:14": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0008.png",
+      "sha256": "e596b91b678027cc1c54caf60083344c59f4c2f7a7a05ab7847b0658f29d67e3"
+    },
+    "candidateResource:delivery:resources:15": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0009.png",
+      "sha256": "875360d455f09cc5bedc01cfd5c070cd9cec459ff77c59a3e07f16240932373c"
+    },
+    "candidateResource:delivery:resources:16": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0010.png",
+      "sha256": "9395ff6260fdaf54fa9acba1979b1cd5eef14a0ed92ef3ce6e89835c29369292"
+    },
+    "candidateResource:delivery:resources:17": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0011.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:delivery:resources:18": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:19": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0001.png",
+      "sha256": "1a86bc07ac5919e1b2a5532081c05fb7cf917541d857510e592b5b0db623ca45"
+    },
+    "candidateResource:delivery:resources:20": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0002.png",
+      "sha256": "0955e4226480a7cde3a37009fc00749acf3b1e8ed0c0e8300a91592d768e503e"
+    },
+    "candidateResource:delivery:resources:21": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0003.png",
+      "sha256": "3797a2b1d284ecbcb1e94b4945c8968cfe13fdbfc951f85f2ea0733bd39e2cbf"
+    },
+    "candidateResource:delivery:resources:22": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0004.png",
+      "sha256": "97340327232c33be345bcd15bb948a285e950da9a71e0173a53033fc50c0af97"
+    },
+    "candidateResource:delivery:resources:23": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0005.png",
+      "sha256": "1bbc2cd327adaa558b9f6e21de815e3c5ef7c9aa4bd91f1b39ac1d94d975aa50"
+    },
+    "candidateResource:delivery:resources:24": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0006.png",
+      "sha256": "db17bead165ff915f3034fb7272bcc3ee9edeb02cbb3f15b667f0e07d4c57492"
+    },
+    "candidateResource:delivery:resources:25": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0007.png",
+      "sha256": "0acce4edf3b546a9f9718a7e8f671b75344e1d6dcf34962e2df14c374f2ff367"
+    },
+    "candidateResource:delivery:resources:26": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0008.png",
+      "sha256": "79b949cfc0dc003870ed7020b0a33ad11ea71e295293b03711c7f18e2f623d38"
+    },
+    "candidateResource:delivery:resources:27": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0009.png",
+      "sha256": "885d9fdbfb9b4f93d4b90e68ef86b02fe2def6801db717c2d7156c5027e4d407"
+    },
+    "candidateResource:delivery:resources:28": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0010.png",
+      "sha256": "a68b46f47e756e49816740782aa5ab4addeb089a1d6739cc9588e019ef90f804"
+    },
+    "candidateResource:delivery:resources:29": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0011.png",
+      "sha256": "6595ea1857172129109963cad6a558b39021280e88606d84767e15db8bac5128"
+    },
+    "candidateResource:delivery:resources:30": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:31": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0001.png",
+      "sha256": "b0d2f92ea19e785b5de92331313973ccd89f551876fce23923b3f6a37294d29f"
+    },
+    "candidateResource:delivery:resources:32": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0002.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:delivery:resources:33": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0003.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:delivery:resources:34": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0004.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:delivery:resources:35": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0005.png",
+      "sha256": "b0d2f92ea19e785b5de92331313973ccd89f551876fce23923b3f6a37294d29f"
+    },
+    "candidateResource:delivery:resources:36": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0006.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:37": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0007.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:delivery:resources:38": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0008.png",
+      "sha256": "ad610d8b13774e35404d12824eaf31cbc88a85f08a0b425188054afa0edf6789"
+    },
+    "candidateResource:delivery:resources:39": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0009.png",
+      "sha256": "cbd2ecacac1f30b2c8782df3649bded9e251ae03e2930805c92ad5119d9dd16b"
+    },
+    "candidateResource:delivery:resources:40": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0010.png",
+      "sha256": "ad610d8b13774e35404d12824eaf31cbc88a85f08a0b425188054afa0edf6789"
+    },
+    "candidateResource:delivery:resources:41": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0011.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:delivery:resources:42": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:43": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0001.png",
+      "sha256": "d5a8a4c6c0614425ad5390e6b70e22578fd177c0553db68d434f442f5670d3e2"
+    },
+    "candidateResource:delivery:resources:44": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0002.png",
+      "sha256": "00c03a5200585be302bcadd12d5747472ede1f3a93e59a008acaba245c800b2a"
+    },
+    "candidateResource:delivery:resources:45": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0003.png",
+      "sha256": "4aa47ccc7a8f3613b06173625101c6d61202adc9d367eef9b4851e8e1c8a9eaa"
+    },
+    "candidateResource:delivery:resources:46": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0004.png",
+      "sha256": "00c03a5200585be302bcadd12d5747472ede1f3a93e59a008acaba245c800b2a"
+    },
+    "candidateResource:delivery:resources:47": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0005.png",
+      "sha256": "d5a8a4c6c0614425ad5390e6b70e22578fd177c0553db68d434f442f5670d3e2"
+    },
+    "candidateResource:delivery:resources:48": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0006.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:49": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0007.png",
+      "sha256": "6802d9c081b7f8767779e32cfad0795e6c43e6060b7bf640d2f46daff621009c"
+    },
+    "candidateResource:delivery:resources:50": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0008.png",
+      "sha256": "f4d32415cfd1add73491d55456ebd37282f1161fb060005a7f75916eabf8109b"
+    },
+    "candidateResource:delivery:resources:51": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0009.png",
+      "sha256": "d4478e000db11a8a222c2e900b42a2ad7bc735b73123690ef43d61b1ca7f75a3"
+    },
+    "candidateResource:delivery:resources:52": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0010.png",
+      "sha256": "f4d32415cfd1add73491d55456ebd37282f1161fb060005a7f75916eabf8109b"
+    },
+    "candidateResource:delivery:resources:53": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0011.png",
+      "sha256": "6802d9c081b7f8767779e32cfad0795e6c43e6060b7bf640d2f46daff621009c"
+    },
+    "candidateResource:delivery:resources:54": {
+      "path": "../../source/round01/bubble-happy-heart.png",
+      "sha256": "4f7809a1ad37ed9f15776430bf8db63b2afc36cb76e96830b31bda43e2e8a21e"
+    },
+    "candidateResource:delivery:resources:55": {
+      "path": "../../source/round01/bubble-happy-smile.png",
+      "sha256": "452c9bb1ac59d6ea655eb4891300ba0d98f58bd4152b47d55b3cb0db61fc9978"
+    },
+    "candidateResource:delivery:resources:56": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "6d24bd3f836b893416d4c446cbaff6a12cc8389069ea366d8e578740e6c4d74d"
+    },
+    "candidateResource:delivery:resources:57": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "f9b75e32876e834cba82d23ac3ccefabf8f9b781631260526bb549944ada46e3"
+    },
+    "candidateResource:delivery:resources:58": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "deebcc7355772d84b67f93c24de946bf6a018e46d5b259f0d0581d115ea83b12"
+    },
+    "candidateResource:delivery:resources:59": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "7e2bb6e57a9968401cc405796162f9687b6dd854dfc986b273580c9d07ab0a61"
+    },
+    "candidateResource:delivery:resources:60": {
+      "path": "../../source/round01/resources/context/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:delivery:resources:61": {
+      "path": "../../source/round01/resources/context/catalog/sprites/customer-rosa/seated-wait-S.png",
+      "sha256": "a0d5f81d97a22f0cbc0a3e6aa019066fc3d6857a146ca2e085e31bf6aa84420b"
+    },
+    "candidateResource:delivery:resources:62": {
+      "path": "../../source/round01/resources/context/catalog/sprites/stool-wood/static-S.png",
+      "sha256": "3642fbbe699b7dcb9153392be23c9a6daab3a045220aa844f59385e804f4cf2f"
+    },
+    "candidateResource:delivery:resources:63": {
+      "path": "../../source/round01/resources/context/manifest.json",
+      "sha256": "1a8ce7d46a86ceee36f969b80f4bf4c42b9f87b06a5453028816a7e55ce122d8"
+    },
+    "candidateResource:delivery:resources:64": {
+      "path": "../../source/round01/resources/context/recipe-variants/sprites/customer-rosa/eat-salmon-S.png",
+      "sha256": "ebc20bcdfecb48eb2f9a92ae9161273909f12504a45a64cb141b0cfc435e0d4e"
+    },
+    "candidateResource:delivery:resources:65": {
+      "path": "../../source/round01/resources/context/recipe-variants/sprites/customer-rosa/seated-wait-empty-S.png",
+      "sha256": "c7e5ae0ff91492ca7112df67bfb990be76984f8c0d8ed1a7160a8b85103c987a"
+    },
+    "candidateResource:delivery:resources:66": {
+      "path": "../../source/round01/resources/context/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:delivery:resources:67": {
+      "path": "../../source/round01/resources/exact-heart-target-prompt.txt",
+      "sha256": "c285d0e7b39239bc1bca4e78914848c194952539ce8af93451e8941aff4f088b"
+    },
+    "candidateResource:delivery:resources:68": {
+      "path": "../../source/round01/resources/fixed-heart-target-raw.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "candidateResource:delivery:resources:69": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "2edfa8637c46502ae8a18c1ce78cba7ad946ef01b0a234b4d2c34c8618999b48"
+    },
+    "candidateResource:delivery:resources:70": {
+      "path": "../../source/round01/resources/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:delivery:resources:71": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:delivery:resources:72": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:delivery:resources:73": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:74": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "8a84b8face03e570c448ef82d3da2dd59a51f344d94fd5e38ab95672e1060b1d"
+    },
+    "candidateResource:delivery:resources:75": {
+      "path": "../../source/round01/resources/original-heart-artwork.png",
+      "sha256": "dde13eb9d0dcf1f9a653177399413663839c3b008cb0df21ae53dbc5949805d3"
+    },
+    "candidateResource:delivery:resources:76": {
+      "path": "../../source/round01/resources/original-heart-atlases/2d-appear-S.png",
+      "sha256": "0e84d72b0090817fdb0e7f34740cd243c62b2a4c2baa649444c1b0bf9b305864"
+    },
+    "candidateResource:delivery:resources:77": {
+      "path": "../../source/round01/resources/original-heart-atlases/2d-fade-S.png",
+      "sha256": "77dd7b702828d97eee955e1fb31b8e0d262ac660714c12f96714d52227798d5b"
+    },
+    "candidateResource:delivery:resources:78": {
+      "path": "../../source/round01/resources/original-heart-atlases/2d-happy-transition-S.png",
+      "sha256": "2577a9d5cdf7e35e31527bbf4424a5c8bb88a0ae9fced917c982e98d4fe8b310"
+    },
+    "candidateResource:delivery:resources:79": {
+      "path": "../../source/round01/resources/original-heart-atlases/2d-idle-S.png",
+      "sha256": "4136b111c6c665d10490c5d88cef81acd55360a22700061e650033438b7ee18c"
+    },
+    "candidateResource:delivery:resources:80": {
+      "path": "../../source/round01/resources/original-heart-registered.png",
+      "sha256": "d3e76a233b56aeefe45607412b5b38039576429bac131d83041c74bd995ca530"
+    },
+    "candidateResource:delivery:resources:81": {
+      "path": "../../source/round01/resources/smile/generation.json",
+      "sha256": "85f23786d78b72f74db08f0b8500e27377eb64e62a03c96ce79ebdd3c01c773f"
+    },
+    "candidateResource:delivery:resources:82": {
+      "path": "../../source/round01/resources/smile/heart-family-reference.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "candidateResource:delivery:resources:83": {
+      "path": "../../source/round01/resources/smile/imagegen-prompt.txt",
+      "sha256": "0c5d8d568fe2bf087e4149f62eb5398e4c4f73dfce1448a193783fd0c3f33824"
+    },
+    "candidateResource:delivery:resources:84": {
+      "path": "../../source/round01/resources/smile/original-atlases/happy-smile-appear-S.png",
+      "sha256": "0254371fe89e6ff14e05d4eca786efbe76f37a499fc6f3cf2d4b1e3f6ad6ee5e"
+    },
+    "candidateResource:delivery:resources:85": {
+      "path": "../../source/round01/resources/smile/original-atlases/happy-smile-fade-S.png",
+      "sha256": "6aa12ecb13530ef010b2a50621587b86b083e936e5c719dc36080644815afd6f"
+    },
+    "candidateResource:delivery:resources:86": {
+      "path": "../../source/round01/resources/smile/original-atlases/happy-smile-idle-S.png",
+      "sha256": "519f107b4225f864ad7aaf546be148b52f6c98713fc9fb00bd5e444631cfe34d"
+    },
+    "candidateResource:delivery:resources:87": {
+      "path": "../../source/round01/resources/smile/original-atlases/happy-smile-transition-S.png",
+      "sha256": "445ca98ddb2debca16a64aba3e27c3c80dbf81491dc06553a6841f34d8044a39"
+    },
+    "candidateResource:delivery:resources:88": {
+      "path": "../../source/round01/resources/smile/original-manifest.json",
+      "sha256": "ca824ccff1a1b8212adcbf5ebf94ea0dc6805d8c0b86f264cd520d6d6b92371d"
+    },
+    "candidateResource:delivery:resources:89": {
+      "path": "../../source/round01/resources/smile/original-source/bubble-happy-smile.png",
+      "sha256": "c916acf28679a48537f1626cc75f42fb30850775c26a2494efdf801eae982510"
+    },
+    "candidateResource:delivery:resources:90": {
+      "path": "../../source/round01/resources/smile/original-source/imagegen.json",
+      "sha256": "c1c3079b48e301fec75fe653936fdefe565bdf73a12fb7938c864ad2e710ba69"
+    },
+    "candidateResource:delivery:resources:91": {
+      "path": "../../source/round01/resources/smile/original-source/pack_feedback.py",
+      "sha256": "7912eadf12043a6acf5e3b6ea51959810bc6dd9ca0a5bcdb601a367e7440de96"
+    },
+    "candidateResource:delivery:resources:92": {
+      "path": "../../source/round01/resources/smile/original-source/publication.json",
+      "sha256": "436e12c4c9ed9ba1fca30b258ab09460f9c2504f406da4028e512d0dee8f1018"
+    },
+    "candidateResource:delivery:resources:93": {
+      "path": "../../source/round01/resources/smile/original.png",
+      "sha256": "1f8183ed6fb98b19753a7c388522ca147b3f7792e1555e039f0d86e307dc4105"
+    },
+    "candidateResource:delivery:resources:94": {
+      "path": "../../source/round01/resources/smile/target.png",
+      "sha256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f"
+    },
+    "candidateResource:delivery:resources:95": {
+      "path": "../../source/round01/resources/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+    },
+    "candidateResource:delivery:resources:96": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "24ea5534900d44f478896df2d951a0e722ff6e9955073aa993fac6f6e3f591a3"
+    },
+    "candidateResource:delivery:rawFrames:0": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "15d6445fba54e8a9b105698ace8e114977c41974a445a24b6c11270a5053289d"
+    },
+    "candidateResource:delivery:rawFrames:1": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "15d6445fba54e8a9b105698ace8e114977c41974a445a24b6c11270a5053289d"
+    },
+    "candidateResource:delivery:rawFrames:2": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "15d6445fba54e8a9b105698ace8e114977c41974a445a24b6c11270a5053289d"
+    },
+    "candidateResource:delivery:rawFrames:3": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "15d6445fba54e8a9b105698ace8e114977c41974a445a24b6c11270a5053289d"
+    },
+    "candidateResource:delivery:rawFrames:4": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "fbe9d57eca7cfdf2bad8d4b1e0aaceeb3cbb562fd3161a293de7cf4bbf62dfbd"
+    },
+    "candidateResource:delivery:rawFrames:5": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "fbe9d57eca7cfdf2bad8d4b1e0aaceeb3cbb562fd3161a293de7cf4bbf62dfbd"
+    },
+    "candidateResource:delivery:rawFrames:6": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "fbe9d57eca7cfdf2bad8d4b1e0aaceeb3cbb562fd3161a293de7cf4bbf62dfbd"
+    },
+    "candidateResource:delivery:rawFrames:7": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "fbe9d57eca7cfdf2bad8d4b1e0aaceeb3cbb562fd3161a293de7cf4bbf62dfbd"
+    },
+    "candidateResource:delivery:rawFrames:8": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "1bbd6372a32572ae8d53b8b672595f157d93b62329f8e8d31aca8ab2d8f0a6ab"
+    },
+    "candidateResource:delivery:rawFrames:9": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "1bbd6372a32572ae8d53b8b672595f157d93b62329f8e8d31aca8ab2d8f0a6ab"
+    },
+    "candidateResource:delivery:rawFrames:10": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "1bbd6372a32572ae8d53b8b672595f157d93b62329f8e8d31aca8ab2d8f0a6ab"
+    },
+    "candidateResource:delivery:rawFrames:11": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "1bbd6372a32572ae8d53b8b672595f157d93b62329f8e8d31aca8ab2d8f0a6ab"
+    },
+    "candidateResource:delivery:rawFrames:12": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "393153948fcfaa71196adf54e13546b5cfedbb3ed3c883ab395d805e1dd0fa04"
+    },
+    "candidateResource:delivery:rawFrames:13": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "393153948fcfaa71196adf54e13546b5cfedbb3ed3c883ab395d805e1dd0fa04"
+    },
+    "candidateResource:delivery:rawFrames:14": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "393153948fcfaa71196adf54e13546b5cfedbb3ed3c883ab395d805e1dd0fa04"
+    },
+    "candidateResource:delivery:rawFrames:15": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "393153948fcfaa71196adf54e13546b5cfedbb3ed3c883ab395d805e1dd0fa04"
+    },
+    "candidateResource:delivery:rawFrames:16": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "2fbf6d6030ba67bf41cb1833a1b00f7fc5d1a0c74e340b348fb21a3fd469ab48"
+    },
+    "candidateResource:delivery:rawFrames:17": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "2fbf6d6030ba67bf41cb1833a1b00f7fc5d1a0c74e340b348fb21a3fd469ab48"
+    },
+    "candidateResource:delivery:rawFrames:18": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "2fbf6d6030ba67bf41cb1833a1b00f7fc5d1a0c74e340b348fb21a3fd469ab48"
+    },
+    "candidateResource:delivery:rawFrames:19": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "2fbf6d6030ba67bf41cb1833a1b00f7fc5d1a0c74e340b348fb21a3fd469ab48"
+    },
+    "candidateResource:delivery:rawFrames:20": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "16ab2485f62e263f973e731b05c1f84be3816a01c56f8b820f2ae4bf0d63397b"
+    },
+    "candidateResource:delivery:rawFrames:21": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "16ab2485f62e263f973e731b05c1f84be3816a01c56f8b820f2ae4bf0d63397b"
+    },
+    "candidateResource:delivery:rawFrames:22": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "16ab2485f62e263f973e731b05c1f84be3816a01c56f8b820f2ae4bf0d63397b"
+    },
+    "candidateResource:delivery:rawFrames:23": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "16ab2485f62e263f973e731b05c1f84be3816a01c56f8b820f2ae4bf0d63397b"
+    },
+    "candidateResource:delivery:rawFrames:24": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "d26469ae70bad687b60ec345d5c104ad727a555c51d887dd0932affadcc62a7b"
+    },
+    "candidateResource:delivery:rawFrames:25": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "d26469ae70bad687b60ec345d5c104ad727a555c51d887dd0932affadcc62a7b"
+    },
+    "candidateResource:delivery:rawFrames:26": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "d26469ae70bad687b60ec345d5c104ad727a555c51d887dd0932affadcc62a7b"
+    },
+    "candidateResource:delivery:rawFrames:27": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "d26469ae70bad687b60ec345d5c104ad727a555c51d887dd0932affadcc62a7b"
+    },
+    "candidateResource:delivery:rawFrames:28": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "130ac6562de9e41632e304bae8c35c305b477a5ac36f8abf9810b7f600d96662"
+    },
+    "candidateResource:delivery:rawFrames:29": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "130ac6562de9e41632e304bae8c35c305b477a5ac36f8abf9810b7f600d96662"
+    },
+    "candidateResource:delivery:rawFrames:30": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "130ac6562de9e41632e304bae8c35c305b477a5ac36f8abf9810b7f600d96662"
+    },
+    "candidateResource:delivery:rawFrames:31": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "130ac6562de9e41632e304bae8c35c305b477a5ac36f8abf9810b7f600d96662"
+    },
+    "candidateResource:delivery:rawFrames:32": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "f69b6ba5f7002e0891e4581465b1a12d0d34019736756e0b5d3ecbf9e8dbf2ef"
+    },
+    "candidateResource:delivery:rawFrames:33": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "f69b6ba5f7002e0891e4581465b1a12d0d34019736756e0b5d3ecbf9e8dbf2ef"
+    },
+    "candidateResource:delivery:rawFrames:34": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "f69b6ba5f7002e0891e4581465b1a12d0d34019736756e0b5d3ecbf9e8dbf2ef"
+    },
+    "candidateResource:delivery:rawFrames:35": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "f69b6ba5f7002e0891e4581465b1a12d0d34019736756e0b5d3ecbf9e8dbf2ef"
+    },
+    "candidateResource:delivery:rawFrames:36": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "992ab3ec4aac5728a9651d2f94aa55f3688f9c2577848834b5d70af4d88fc1eb"
+    },
+    "candidateResource:delivery:rawFrames:37": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "992ab3ec4aac5728a9651d2f94aa55f3688f9c2577848834b5d70af4d88fc1eb"
+    },
+    "candidateResource:delivery:rawFrames:38": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "992ab3ec4aac5728a9651d2f94aa55f3688f9c2577848834b5d70af4d88fc1eb"
+    },
+    "candidateResource:delivery:rawFrames:39": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "992ab3ec4aac5728a9651d2f94aa55f3688f9c2577848834b5d70af4d88fc1eb"
+    },
+    "candidateResource:delivery:rawFrames:40": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "d9be75a0d54da5acd842f42a902907e2fd1e1677ab001862d676056f14f9bc9f"
+    },
+    "candidateResource:delivery:rawFrames:41": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "d9be75a0d54da5acd842f42a902907e2fd1e1677ab001862d676056f14f9bc9f"
+    },
+    "candidateResource:delivery:rawFrames:42": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "d9be75a0d54da5acd842f42a902907e2fd1e1677ab001862d676056f14f9bc9f"
+    },
+    "candidateResource:delivery:rawFrames:43": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "d9be75a0d54da5acd842f42a902907e2fd1e1677ab001862d676056f14f9bc9f"
+    },
+    "candidateResource:delivery:rawFrames:44": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:45": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:46": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:47": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:48": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:49": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:50": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:51": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:52": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:53": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:54": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:55": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:56": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:57": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:58": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:59": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:60": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:61": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:62": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:63": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:64": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:65": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:66": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:67": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:delivery:rawFrames:68": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:69": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:70": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:71": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:delivery:rawFrames:72": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:73": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:74": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:75": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:76": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:77": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:78": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:79": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:80": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:81": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:82": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:83": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:84": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "fc0f376ccc5d8131fa57676f9f51ad9cda854d7cc7cc890a2285d7a03b5f7f2b"
+    },
+    "candidateResource:delivery:rawFrames:85": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "fc0f376ccc5d8131fa57676f9f51ad9cda854d7cc7cc890a2285d7a03b5f7f2b"
+    },
+    "candidateResource:delivery:rawFrames:86": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "fc0f376ccc5d8131fa57676f9f51ad9cda854d7cc7cc890a2285d7a03b5f7f2b"
+    },
+    "candidateResource:delivery:rawFrames:87": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "fc0f376ccc5d8131fa57676f9f51ad9cda854d7cc7cc890a2285d7a03b5f7f2b"
+    },
+    "candidateResource:delivery:rawFrames:88": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:89": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:90": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:91": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:delivery:rawFrames:92": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:93": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:94": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:95": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:delivery:rawFrames:96": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:97": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:98": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:99": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:100": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "c43e72eea10002fde44f88b5a10ced85cad885e2d55482e55987118c8a3dde20"
+    },
+    "candidateResource:delivery:rawFrames:101": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "c43e72eea10002fde44f88b5a10ced85cad885e2d55482e55987118c8a3dde20"
+    },
+    "candidateResource:delivery:rawFrames:102": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "c43e72eea10002fde44f88b5a10ced85cad885e2d55482e55987118c8a3dde20"
+    },
+    "candidateResource:delivery:rawFrames:103": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "c43e72eea10002fde44f88b5a10ced85cad885e2d55482e55987118c8a3dde20"
+    },
+    "candidateResource:delivery:rawFrames:104": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "048aee752586f8568a39deb2e3a562ac67b94df220441bb4c613716020320410"
+    },
+    "candidateResource:delivery:rawFrames:105": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "048aee752586f8568a39deb2e3a562ac67b94df220441bb4c613716020320410"
+    },
+    "candidateResource:delivery:rawFrames:106": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "048aee752586f8568a39deb2e3a562ac67b94df220441bb4c613716020320410"
+    },
+    "candidateResource:delivery:rawFrames:107": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "048aee752586f8568a39deb2e3a562ac67b94df220441bb4c613716020320410"
+    },
+    "candidateResource:delivery:rawFrames:108": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "c0189b5753699015b610273b3b2f8270dba094f99e16d4ac5dd95f55dbc2a3ec"
+    },
+    "candidateResource:delivery:rawFrames:109": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "c0189b5753699015b610273b3b2f8270dba094f99e16d4ac5dd95f55dbc2a3ec"
+    },
+    "candidateResource:delivery:rawFrames:110": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "c0189b5753699015b610273b3b2f8270dba094f99e16d4ac5dd95f55dbc2a3ec"
+    },
+    "candidateResource:delivery:rawFrames:111": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "c0189b5753699015b610273b3b2f8270dba094f99e16d4ac5dd95f55dbc2a3ec"
+    },
+    "candidateResource:delivery:rawFrames:112": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "fff77d2077e455d4eb84783ff592510a84e85b084354f26b7305aad67f31a867"
+    },
+    "candidateResource:delivery:rawFrames:113": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "fff77d2077e455d4eb84783ff592510a84e85b084354f26b7305aad67f31a867"
+    },
+    "candidateResource:delivery:rawFrames:114": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "fff77d2077e455d4eb84783ff592510a84e85b084354f26b7305aad67f31a867"
+    },
+    "candidateResource:delivery:rawFrames:115": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "fff77d2077e455d4eb84783ff592510a84e85b084354f26b7305aad67f31a867"
+    },
+    "candidateResource:delivery:rawFrames:116": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "dc057e978dce3454b91c74bc9b6aab13d52f50e494d2de3d3e01998dbc25c1de"
+    },
+    "candidateResource:delivery:rawFrames:117": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "dc057e978dce3454b91c74bc9b6aab13d52f50e494d2de3d3e01998dbc25c1de"
+    },
+    "candidateResource:delivery:rawFrames:118": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "dc057e978dce3454b91c74bc9b6aab13d52f50e494d2de3d3e01998dbc25c1de"
+    },
+    "candidateResource:delivery:rawFrames:119": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "dc057e978dce3454b91c74bc9b6aab13d52f50e494d2de3d3e01998dbc25c1de"
+    },
+    "candidateResource:delivery:rawFrames:120": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "16bcb63aa0cbc7ff0df1fd64975f4ebff5795266e333c0cf7a9c4718893a3c4a"
+    },
+    "candidateResource:delivery:rawFrames:121": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "16bcb63aa0cbc7ff0df1fd64975f4ebff5795266e333c0cf7a9c4718893a3c4a"
+    },
+    "candidateResource:delivery:rawFrames:122": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "16bcb63aa0cbc7ff0df1fd64975f4ebff5795266e333c0cf7a9c4718893a3c4a"
+    },
+    "candidateResource:delivery:rawFrames:123": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "16bcb63aa0cbc7ff0df1fd64975f4ebff5795266e333c0cf7a9c4718893a3c4a"
+    },
+    "candidateResource:delivery:rawFrames:124": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "fbbc71ec0d160760d623c4ee3491c415835620a79d71e96ba4194c9e692aad4e"
+    },
+    "candidateResource:delivery:rawFrames:125": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "fbbc71ec0d160760d623c4ee3491c415835620a79d71e96ba4194c9e692aad4e"
+    },
+    "candidateResource:delivery:rawFrames:126": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "fbbc71ec0d160760d623c4ee3491c415835620a79d71e96ba4194c9e692aad4e"
+    },
+    "candidateResource:delivery:rawFrames:127": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "fbbc71ec0d160760d623c4ee3491c415835620a79d71e96ba4194c9e692aad4e"
+    },
+    "candidateResource:delivery:rawFrames:128": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b1a5c391dca4ba5ef72510b7894dada8cec57d9b91cbdb931acec8b6cc2fabb4"
+    },
+    "candidateResource:delivery:rawFrames:129": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b1a5c391dca4ba5ef72510b7894dada8cec57d9b91cbdb931acec8b6cc2fabb4"
+    },
+    "candidateResource:delivery:rawFrames:130": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b1a5c391dca4ba5ef72510b7894dada8cec57d9b91cbdb931acec8b6cc2fabb4"
+    },
+    "candidateResource:delivery:rawFrames:131": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b1a5c391dca4ba5ef72510b7894dada8cec57d9b91cbdb931acec8b6cc2fabb4"
+    },
+    "candidateResource:delivery:rawFrames:132": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "c2768953f8baf8aefa1f9604df43f8d8b72977636b986dfccb1becc3058c7b7c"
+    },
+    "candidateResource:delivery:rawFrames:133": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "c2768953f8baf8aefa1f9604df43f8d8b72977636b986dfccb1becc3058c7b7c"
+    },
+    "candidateResource:delivery:rawFrames:134": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "c2768953f8baf8aefa1f9604df43f8d8b72977636b986dfccb1becc3058c7b7c"
+    },
+    "candidateResource:delivery:rawFrames:135": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "c2768953f8baf8aefa1f9604df43f8d8b72977636b986dfccb1becc3058c7b7c"
+    },
+    "candidateResource:delivery:rawFrames:136": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "99a22ab2265ca91d329ca0d063824e8041c1388ff2679f94bee793465d362743"
+    },
+    "candidateResource:delivery:rawFrames:137": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "99a22ab2265ca91d329ca0d063824e8041c1388ff2679f94bee793465d362743"
+    },
+    "candidateResource:delivery:rawFrames:138": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "99a22ab2265ca91d329ca0d063824e8041c1388ff2679f94bee793465d362743"
+    },
+    "candidateResource:delivery:rawFrames:139": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "99a22ab2265ca91d329ca0d063824e8041c1388ff2679f94bee793465d362743"
+    },
+    "candidateResource:delivery:rawFrames:140": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "f810b859aa1642803ba733109af68c73528b2308fc92737bac72afb60bd7511f"
+    },
+    "candidateResource:delivery:rawFrames:141": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "f810b859aa1642803ba733109af68c73528b2308fc92737bac72afb60bd7511f"
+    },
+    "candidateResource:delivery:rawFrames:142": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "f810b859aa1642803ba733109af68c73528b2308fc92737bac72afb60bd7511f"
+    },
+    "candidateResource:delivery:rawFrames:143": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "f810b859aa1642803ba733109af68c73528b2308fc92737bac72afb60bd7511f"
+    },
+    "candidateResource:delivery:rawFrames:144": {
+      "path": "raw/happy-transition-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:145": {
+      "path": "raw/happy-transition-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:146": {
+      "path": "raw/happy-transition-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:147": {
+      "path": "raw/happy-transition-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:148": {
+      "path": "raw/happy-transition-S-0001.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:149": {
+      "path": "raw/happy-transition-S-0001.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:150": {
+      "path": "raw/happy-transition-S-0001.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:151": {
+      "path": "raw/happy-transition-S-0001.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:152": {
+      "path": "raw/happy-transition-S-0002.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:153": {
+      "path": "raw/happy-transition-S-0002.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:154": {
+      "path": "raw/happy-transition-S-0002.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:155": {
+      "path": "raw/happy-transition-S-0002.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:156": {
+      "path": "raw/happy-transition-S-0003.png",
+      "sha256": "519153eb34dc5a67303c8078fd184db422d96b354049090790ac1becb90acc8b"
+    },
+    "candidateResource:delivery:rawFrames:157": {
+      "path": "raw/happy-transition-S-0003.png",
+      "sha256": "519153eb34dc5a67303c8078fd184db422d96b354049090790ac1becb90acc8b"
+    },
+    "candidateResource:delivery:rawFrames:158": {
+      "path": "raw/happy-transition-S-0003.png",
+      "sha256": "519153eb34dc5a67303c8078fd184db422d96b354049090790ac1becb90acc8b"
+    },
+    "candidateResource:delivery:rawFrames:159": {
+      "path": "raw/happy-transition-S-0003.png",
+      "sha256": "519153eb34dc5a67303c8078fd184db422d96b354049090790ac1becb90acc8b"
+    },
+    "candidateResource:delivery:rawFrames:160": {
+      "path": "raw/happy-transition-S-0004.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:161": {
+      "path": "raw/happy-transition-S-0004.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:162": {
+      "path": "raw/happy-transition-S-0004.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:163": {
+      "path": "raw/happy-transition-S-0004.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:delivery:rawFrames:164": {
+      "path": "raw/happy-transition-S-0005.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:165": {
+      "path": "raw/happy-transition-S-0005.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:166": {
+      "path": "raw/happy-transition-S-0005.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:167": {
+      "path": "raw/happy-transition-S-0005.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:delivery:rawFrames:168": {
+      "path": "raw/happy-transition-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:169": {
+      "path": "raw/happy-transition-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:170": {
+      "path": "raw/happy-transition-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:171": {
+      "path": "raw/happy-transition-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:rawFrames:172": {
+      "path": "raw/happy-transition-S-0007.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:173": {
+      "path": "raw/happy-transition-S-0007.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:174": {
+      "path": "raw/happy-transition-S-0007.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:175": {
+      "path": "raw/happy-transition-S-0007.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:176": {
+      "path": "raw/happy-transition-S-0008.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:177": {
+      "path": "raw/happy-transition-S-0008.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:178": {
+      "path": "raw/happy-transition-S-0008.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:179": {
+      "path": "raw/happy-transition-S-0008.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:180": {
+      "path": "raw/happy-transition-S-0009.png",
+      "sha256": "3187e9c3c89655b18990eb5743ee78bb9fcabfd6fde761e0c5440d7b9ccf8121"
+    },
+    "candidateResource:delivery:rawFrames:181": {
+      "path": "raw/happy-transition-S-0009.png",
+      "sha256": "3187e9c3c89655b18990eb5743ee78bb9fcabfd6fde761e0c5440d7b9ccf8121"
+    },
+    "candidateResource:delivery:rawFrames:182": {
+      "path": "raw/happy-transition-S-0009.png",
+      "sha256": "3187e9c3c89655b18990eb5743ee78bb9fcabfd6fde761e0c5440d7b9ccf8121"
+    },
+    "candidateResource:delivery:rawFrames:183": {
+      "path": "raw/happy-transition-S-0009.png",
+      "sha256": "3187e9c3c89655b18990eb5743ee78bb9fcabfd6fde761e0c5440d7b9ccf8121"
+    },
+    "candidateResource:delivery:rawFrames:184": {
+      "path": "raw/happy-transition-S-0010.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:185": {
+      "path": "raw/happy-transition-S-0010.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:186": {
+      "path": "raw/happy-transition-S-0010.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:187": {
+      "path": "raw/happy-transition-S-0010.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:delivery:rawFrames:188": {
+      "path": "raw/happy-transition-S-0011.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:189": {
+      "path": "raw/happy-transition-S-0011.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:190": {
+      "path": "raw/happy-transition-S-0011.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:rawFrames:191": {
+      "path": "raw/happy-transition-S-0011.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:delivery:atlases:0": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "8348147df8a355e67874e502cdd077e5ecf4ca62045918631fdf8985659888d5"
+    },
+    "candidateResource:delivery:atlases:1": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "8348147df8a355e67874e502cdd077e5ecf4ca62045918631fdf8985659888d5"
+    },
+    "candidateResource:delivery:atlases:2": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "8348147df8a355e67874e502cdd077e5ecf4ca62045918631fdf8985659888d5"
+    },
+    "candidateResource:delivery:atlases:3": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "8348147df8a355e67874e502cdd077e5ecf4ca62045918631fdf8985659888d5"
+    },
+    "candidateResource:delivery:atlases:4": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "957c9a192f0a952158ac736b82a4092fb5d97f0ec9bea877256c5a49d29ce4a9"
+    },
+    "candidateResource:delivery:atlases:5": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "957c9a192f0a952158ac736b82a4092fb5d97f0ec9bea877256c5a49d29ce4a9"
+    },
+    "candidateResource:delivery:atlases:6": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "957c9a192f0a952158ac736b82a4092fb5d97f0ec9bea877256c5a49d29ce4a9"
+    },
+    "candidateResource:delivery:atlases:7": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "957c9a192f0a952158ac736b82a4092fb5d97f0ec9bea877256c5a49d29ce4a9"
+    },
+    "candidateResource:delivery:atlases:8": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "3579d5ef9862c78f117e89dbaba413e952a8aa9a935f80da66e1143d4da1236e"
+    },
+    "candidateResource:delivery:atlases:9": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "3579d5ef9862c78f117e89dbaba413e952a8aa9a935f80da66e1143d4da1236e"
+    },
+    "candidateResource:delivery:atlases:10": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "3579d5ef9862c78f117e89dbaba413e952a8aa9a935f80da66e1143d4da1236e"
+    },
+    "candidateResource:delivery:atlases:11": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "3579d5ef9862c78f117e89dbaba413e952a8aa9a935f80da66e1143d4da1236e"
+    },
+    "candidateResource:delivery:atlases:12": {
+      "path": "atlases/2d-happy-transition-S.png",
+      "sha256": "f55456a681c47a6dca6df2bbe52974d2c5e77550dab37cc538fa21c1c703ddf0"
+    },
+    "candidateResource:delivery:atlases:13": {
+      "path": "atlases/2d-happy-transition-S.png",
+      "sha256": "f55456a681c47a6dca6df2bbe52974d2c5e77550dab37cc538fa21c1c703ddf0"
+    },
+    "candidateResource:delivery:atlases:14": {
+      "path": "atlases/2d-happy-transition-S.png",
+      "sha256": "f55456a681c47a6dca6df2bbe52974d2c5e77550dab37cc538fa21c1c703ddf0"
+    },
+    "candidateResource:delivery:atlases:15": {
+      "path": "atlases/2d-happy-transition-S.png",
+      "sha256": "f55456a681c47a6dca6df2bbe52974d2c5e77550dab37cc538fa21c1c703ddf0"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "015f4880c6710df277045394141d900f8b9753b84988bb7ecf3e204a786ca50f"
+    },
+    "candidateResource:round:reproduction.json": {
+      "path": "reproduction.json",
+      "sha256": "2676870acfcc7c240a3d28c804856afffdffc63daec557041ae2e9bc3f630b54"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "015f4880c6710df277045394141d900f8b9753b84988bb7ecf3e204a786ca50f"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "bac545e75a6102fa22ce9b1928ed7ba56af2bd1d90390bfe3798ef59882c1602"
+    },
+    "candidateResource:round:manifest.json": {
+      "path": "manifest.json",
+      "sha256": "cd166bb73ee6e56889aca89fbe796860859af663569a0d89d245e3973f4bef1a"
+    },
+    "candidateResource:round:previews/current-smile-context-full-logical.png": {
+      "path": "previews/current-smile-context-full-logical.png",
+      "sha256": "3c8e2ac1fa5d97478ddd63caf516c83125d220c98d4a48299080131785be1e74"
+    },
+    "candidateResource:round:previews/appear-S.png": {
+      "path": "previews/appear-S.png",
+      "sha256": "ae6f94f711c6a9ad690127a68de21a3de730909b78e0da4f84d71301a318c42c"
+    },
+    "candidateResource:round:previews/happy-smile-runtime-playback.png": {
+      "path": "previews/happy-smile-runtime-playback.png",
+      "sha256": "5021cfc5206a3ee23e83f5217088e264b8177b0c838cc3c2b72aff0a1223390d"
+    },
+    "candidateResource:round:previews/idle-S.png": {
+      "path": "previews/idle-S.png",
+      "sha256": "944b9600f943b8c704140d42320ffbc8b89e30b0613f1aa53aa4058e9c892ac7"
+    },
+    "candidateResource:round:previews/happy-smile-transition-S.png": {
+      "path": "previews/happy-smile-transition-S.png",
+      "sha256": "fe8cbf0cd3f89a0bec64273eaf8a867e821da0092dbc4560cfaaa759bee775be"
+    },
+    "candidateResource:round:previews/canonical-source-backgrounds.png": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "39b0108e28bcf0b73bee40b7139b60a56d664b890da4fd0eb24c5aa0e764a4d6"
+    },
+    "candidateResource:round:previews/repeated.png": {
+      "path": "previews/repeated.png",
+      "sha256": "a50b121733a3e55e14fc351f7b28b4bc1c7f960fa80a6d5180f62bd4f9ce7707"
+    },
+    "candidateResource:round:previews/heart-smile-actual-customer-context.png": {
+      "path": "previews/heart-smile-actual-customer-context.png",
+      "sha256": "ca63df746db9a0020e6ec191563e3864d755bda01b486aec5e284c984b7c88ac"
+    },
+    "candidateResource:round:previews/fade-S.png": {
+      "path": "previews/fade-S.png",
+      "sha256": "c8f43284959bf8abebf6411fd28d934fa322cb94952096b01ac6daa81ae712bc"
+    },
+    "candidateResource:round:previews/happy-smile-appear-S.png": {
+      "path": "previews/happy-smile-appear-S.png",
+      "sha256": "04f0ae06d3c037b023a395c993c01f0a45d90710dcfa558e63d6e72b3143f926"
+    },
+    "candidateResource:round:previews/heart-all48-frames.png": {
+      "path": "previews/heart-all48-frames.png",
+      "sha256": "342a6750221f452c0e41182198e341c8e604bf5a6e8dff495f5aa4514c9374a9"
+    },
+    "candidateResource:round:previews/light-gray-dark-game-and-enlarged.png": {
+      "path": "previews/light-gray-dark-game-and-enlarged.png",
+      "sha256": "706e9b8b26e4656e0f2c3798d4e4e2c489fc89346321920c5818b149d56b0c34"
+    },
+    "candidateResource:round:previews/happy-smile-idle-S.png": {
+      "path": "previews/happy-smile-idle-S.png",
+      "sha256": "098aa6e8ca355cf77df3e691870974f20b9fa17fa4c83748800a8f8033e78b81"
+    },
+    "candidateResource:round:previews/historical-catalog-heart-context.png": {
+      "path": "previews/historical-catalog-heart-context.png",
+      "sha256": "6d4a492b4c36afea295f94a3968509a67a654a2c1bc7496789516319c4fd3c1d"
+    },
+    "candidateResource:round:previews/smile-all48-frames.png": {
+      "path": "previews/smile-all48-frames.png",
+      "sha256": "43407a0ccb5e7cd3bdd38801f1a84fdaab1c789f4ab3f78268232dc71867d744"
+    },
+    "candidateResource:round:previews/happy-smile-fade-S.png": {
+      "path": "previews/happy-smile-fade-S.png",
+      "sha256": "312490519979829e0ab2d24d67d6b7e6a1691b0c0f345486a385ad57e2fa8c9d"
+    },
+    "candidateResource:round:previews/four-view-sheet.png": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "7dab6afa2c0868d63086df9108911e6988d43aca1fc2e522bb92ea7b5732e718"
+    },
+    "candidateResource:round:previews/happy-transition-S.png": {
+      "path": "previews/happy-transition-S.png",
+      "sha256": "a86ab46e6d7cbf258c86bc086399c0aaf4bcae3e8b1f4c43725852fe8dbdda8b"
+    },
+    "candidateResource:round:previews/original-candidate-registered-comparison.png": {
+      "path": "previews/original-candidate-registered-comparison.png",
+      "sha256": "cba599fa7e914aecdc172355f4a3c6bd92d758157f79f707cf6e5f9da4e20305"
+    },
+    "candidateResource:round:atlases/2d-appear-S.png": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "8348147df8a355e67874e502cdd077e5ecf4ca62045918631fdf8985659888d5"
+    },
+    "candidateResource:round:atlases/2d-fade-S.png": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "3579d5ef9862c78f117e89dbaba413e952a8aa9a935f80da66e1143d4da1236e"
+    },
+    "candidateResource:round:atlases/2d-happy-transition-S.png": {
+      "path": "atlases/2d-happy-transition-S.png",
+      "sha256": "f55456a681c47a6dca6df2bbe52974d2c5e77550dab37cc538fa21c1c703ddf0"
+    },
+    "candidateResource:round:atlases/2d-idle-S.png": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "957c9a192f0a952158ac736b82a4092fb5d97f0ec9bea877256c5a49d29ce4a9"
+    },
+    "candidateResource:round:raw/appear-S-0009.png": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "992ab3ec4aac5728a9651d2f94aa55f3688f9c2577848834b5d70af4d88fc1eb"
+    },
+    "candidateResource:round:raw/happy-transition-S-0007.png": {
+      "path": "raw/happy-transition-S-0007.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:round:raw/happy-transition-S-0006.png": {
+      "path": "raw/happy-transition-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:round:raw/appear-S-0008.png": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "f69b6ba5f7002e0891e4581465b1a12d0d34019736756e0b5d3ecbf9e8dbf2ef"
+    },
+    "candidateResource:round:raw/happy-transition-S-0004.png": {
+      "path": "raw/happy-transition-S-0004.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:round:raw/happy-transition-S-0010.png": {
+      "path": "raw/happy-transition-S-0010.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:round:raw/happy-transition-S-0011.png": {
+      "path": "raw/happy-transition-S-0011.png",
+      "sha256": "c578778927450573e09e2a1a96cc32738d54aabc2460291c484c7bfa3d4cdf92"
+    },
+    "candidateResource:round:raw/happy-transition-S-0005.png": {
+      "path": "raw/happy-transition-S-0005.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:round:raw/happy-transition-S-0001.png": {
+      "path": "raw/happy-transition-S-0001.png",
+      "sha256": "6bf6a8ab24207ee35a111dc086df149d53b0e142243361ab38e773b3498160b9"
+    },
+    "candidateResource:round:raw/happy-transition-S-0000.png": {
+      "path": "raw/happy-transition-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:round:raw/happy-transition-S-0002.png": {
+      "path": "raw/happy-transition-S-0002.png",
+      "sha256": "56fd8d67551130c8bb0c8f0a7a85fa31a7f9664fe83fb13f3bc7df5571bb2aa5"
+    },
+    "candidateResource:round:raw/happy-transition-S-0003.png": {
+      "path": "raw/happy-transition-S-0003.png",
+      "sha256": "519153eb34dc5a67303c8078fd184db422d96b354049090790ac1becb90acc8b"
+    },
+    "candidateResource:round:raw/fade-S-0007.png": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "fbbc71ec0d160760d623c4ee3491c415835620a79d71e96ba4194c9e692aad4e"
+    },
+    "candidateResource:round:raw/fade-S-0006.png": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "16bcb63aa0cbc7ff0df1fd64975f4ebff5795266e333c0cf7a9c4718893a3c4a"
+    },
+    "candidateResource:round:raw/fade-S-0004.png": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "fff77d2077e455d4eb84783ff592510a84e85b084354f26b7305aad67f31a867"
+    },
+    "candidateResource:round:raw/fade-S-0010.png": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "99a22ab2265ca91d329ca0d063824e8041c1388ff2679f94bee793465d362743"
+    },
+    "candidateResource:round:raw/fade-S-0011.png": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "f810b859aa1642803ba733109af68c73528b2308fc92737bac72afb60bd7511f"
+    },
+    "candidateResource:round:raw/fade-S-0005.png": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "dc057e978dce3454b91c74bc9b6aab13d52f50e494d2de3d3e01998dbc25c1de"
+    },
+    "candidateResource:round:raw/fade-S-0001.png": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "c43e72eea10002fde44f88b5a10ced85cad885e2d55482e55987118c8a3dde20"
+    },
+    "candidateResource:round:raw/fade-S-0000.png": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:round:raw/idle-S-0008.png": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:round:raw/fade-S-0002.png": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "048aee752586f8568a39deb2e3a562ac67b94df220441bb4c613716020320410"
+    },
+    "candidateResource:round:raw/fade-S-0003.png": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "c0189b5753699015b610273b3b2f8270dba094f99e16d4ac5dd95f55dbc2a3ec"
+    },
+    "candidateResource:round:raw/idle-S-0009.png": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "fc0f376ccc5d8131fa57676f9f51ad9cda854d7cc7cc890a2285d7a03b5f7f2b"
+    },
+    "candidateResource:round:raw/idle-S-0010.png": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "f37f21d7c4afd82e88d4520c9b9b7444ba8d1f9ce299019b6dd1fee301dce0ea"
+    },
+    "candidateResource:round:raw/idle-S-0004.png": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:round:raw/idle-S-0005.png": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:round:raw/idle-S-0011.png": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:round:raw/idle-S-0007.png": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:round:raw/idle-S-0006.png": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:round:raw/idle-S-0002.png": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:round:raw/fade-S-0008.png": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b1a5c391dca4ba5ef72510b7894dada8cec57d9b91cbdb931acec8b6cc2fabb4"
+    },
+    "candidateResource:round:raw/fade-S-0009.png": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "c2768953f8baf8aefa1f9604df43f8d8b72977636b986dfccb1becc3058c7b7c"
+    },
+    "candidateResource:round:raw/idle-S-0003.png": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "abe444820ed7a454493843293117e64197d131f8e3cb0d57c39158f1609e9ef3"
+    },
+    "candidateResource:round:raw/idle-S-0001.png": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "0e25f97a324f3b53f799fb47305f57a61b1af9a9489691e91502f204df2c55a9"
+    },
+    "candidateResource:round:raw/idle-S-0000.png": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:round:raw/appear-S-0000.png": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "15d6445fba54e8a9b105698ace8e114977c41974a445a24b6c11270a5053289d"
+    },
+    "candidateResource:round:raw/appear-S-0001.png": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "fbe9d57eca7cfdf2bad8d4b1e0aaceeb3cbb562fd3161a293de7cf4bbf62dfbd"
+    },
+    "candidateResource:round:raw/appear-S-0003.png": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "393153948fcfaa71196adf54e13546b5cfedbb3ed3c883ab395d805e1dd0fa04"
+    },
+    "candidateResource:round:raw/appear-S-0002.png": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "1bbd6372a32572ae8d53b8b672595f157d93b62329f8e8d31aca8ab2d8f0a6ab"
+    },
+    "candidateResource:round:raw/appear-S-0006.png": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "d26469ae70bad687b60ec345d5c104ad727a555c51d887dd0932affadcc62a7b"
+    },
+    "candidateResource:round:raw/happy-transition-S-0008.png": {
+      "path": "raw/happy-transition-S-0008.png",
+      "sha256": "c1612df5e019642040a4275bbb6b8cc1dfefefdf91b306c58983c82906acae78"
+    },
+    "candidateResource:round:raw/happy-transition-S-0009.png": {
+      "path": "raw/happy-transition-S-0009.png",
+      "sha256": "3187e9c3c89655b18990eb5743ee78bb9fcabfd6fde761e0c5440d7b9ccf8121"
+    },
+    "candidateResource:round:raw/appear-S-0007.png": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "130ac6562de9e41632e304bae8c35c305b477a5ac36f8abf9810b7f600d96662"
+    },
+    "candidateResource:round:raw/appear-S-0005.png": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "16ab2485f62e263f973e731b05c1f84be3816a01c56f8b820f2ae4bf0d63397b"
+    },
+    "candidateResource:round:raw/appear-S-0011.png": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "60a2c82305a8aee39c3e5486af5ebe21a6363e63b785ace961c174097858538b"
+    },
+    "candidateResource:round:raw/appear-S-0010.png": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "d9be75a0d54da5acd842f42a902907e2fd1e1677ab001862d676056f14f9bc9f"
+    },
+    "candidateResource:round:raw/appear-S-0004.png": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "2fbf6d6030ba67bf41cb1833a1b00f7fc5d1a0c74e340b348fb21a3fd469ab48"
+    },
+    "candidateResource:round:runtime-variants/smile/manifest.json": {
+      "path": "runtime-variants/smile/manifest.json",
+      "sha256": "6b0577a56a792402e30459ef3cf0cd0d719af0e7cccf09ad765cf36e3fa0e9d7"
+    },
+    "candidateResource:round:runtime-variants/smile/atlases/happy-smile-transition-S.png": {
+      "path": "runtime-variants/smile/atlases/happy-smile-transition-S.png",
+      "sha256": "a004de3a369d32209505de63a2c72194252793701ceb5d1d4617235a74f0b056"
+    },
+    "candidateResource:round:runtime-variants/smile/atlases/happy-smile-appear-S.png": {
+      "path": "runtime-variants/smile/atlases/happy-smile-appear-S.png",
+      "sha256": "c808fb9c8e1ca0f7627122f154cc14ae679c126b4116531ee26980c1b5ab8207"
+    },
+    "candidateResource:round:runtime-variants/smile/atlases/happy-smile-idle-S.png": {
+      "path": "runtime-variants/smile/atlases/happy-smile-idle-S.png",
+      "sha256": "5caeee848c6459d7bd2beb2d8dbbcab8e064c9dcf1eb4e72af2e854a1924f152"
+    },
+    "candidateResource:round:runtime-variants/smile/atlases/happy-smile-fade-S.png": {
+      "path": "runtime-variants/smile/atlases/happy-smile-fade-S.png",
+      "sha256": "d5201056a5fbfdc60504b7d1e085cc00da27d2a00f930ee45aeb11a59c5553da"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0005.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0005.png",
+      "sha256": "7a1a44f03eb1ffd25a283d5d9cc616acde154c8df4ee59d030f0937285828acb"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0011.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0011.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0001.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0001.png",
+      "sha256": "1a86bc07ac5919e1b2a5532081c05fb7cf917541d857510e592b5b0db623ca45"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0001.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0001.png",
+      "sha256": "d5a8a4c6c0614425ad5390e6b70e22578fd177c0553db68d434f442f5670d3e2"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0000.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0000.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0010.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0010.png",
+      "sha256": "9395ff6260fdaf54fa9acba1979b1cd5eef14a0ed92ef3ce6e89835c29369292"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0004.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0004.png",
+      "sha256": "1ba2382f30357ce004c1c196f7c6abbd86ad81c9f898fd48bc778c5461fa1cb1"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0006.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0006.png",
+      "sha256": "8d27eb10317cb4e681f376b6007873bb11225fbe7382dac67f9443d65cb7b5c4"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0008.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0008.png",
+      "sha256": "ad610d8b13774e35404d12824eaf31cbc88a85f08a0b425188054afa0edf6789"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0002.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0002.png",
+      "sha256": "0955e4226480a7cde3a37009fc00749acf3b1e8ed0c0e8300a91592d768e503e"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0002.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0002.png",
+      "sha256": "00c03a5200585be302bcadd12d5747472ede1f3a93e59a008acaba245c800b2a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0003.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0003.png",
+      "sha256": "4aa47ccc7a8f3613b06173625101c6d61202adc9d367eef9b4851e8e1c8a9eaa"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0003.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0003.png",
+      "sha256": "3797a2b1d284ecbcb1e94b4945c8968cfe13fdbfc951f85f2ea0733bd39e2cbf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0009.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0009.png",
+      "sha256": "cbd2ecacac1f30b2c8782df3649bded9e251ae03e2930805c92ad5119d9dd16b"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0007.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0007.png",
+      "sha256": "5199ff3b20ec2e35b84c7114eab37524191876e1df05f3362f4e33749d88a2a0"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0003.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0003.png",
+      "sha256": "0dc0cfd33326b0c2bcea88b5d57deb3c0b6118c58fc089ac7e32a1607a31c26a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0007.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0007.png",
+      "sha256": "0acce4edf3b546a9f9718a7e8f671b75344e1d6dcf34962e2df14c374f2ff367"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0007.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0007.png",
+      "sha256": "6802d9c081b7f8767779e32cfad0795e6c43e6060b7bf640d2f46daff621009c"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0006.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0006.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0006.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0006.png",
+      "sha256": "db17bead165ff915f3034fb7272bcc3ee9edeb02cbb3f15b667f0e07d4c57492"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0002.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0002.png",
+      "sha256": "a4083fadba2bda7c71a590b3c4e16d2053239f115550d0aa80da629e3a4596ef"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0000.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0000.png",
+      "sha256": "bbd3ab3cdbef6f3991ca6afd4831043cc3a6cfcf1648495aa416389048354cfa"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0010.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0010.png",
+      "sha256": "a68b46f47e756e49816740782aa5ab4addeb089a1d6739cc9588e019ef90f804"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0004.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0004.png",
+      "sha256": "97340327232c33be345bcd15bb948a285e950da9a71e0173a53033fc50c0af97"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0010.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0010.png",
+      "sha256": "f4d32415cfd1add73491d55456ebd37282f1161fb060005a7f75916eabf8109b"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0004.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0004.png",
+      "sha256": "00c03a5200585be302bcadd12d5747472ede1f3a93e59a008acaba245c800b2a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0005.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0005.png",
+      "sha256": "d5a8a4c6c0614425ad5390e6b70e22578fd177c0553db68d434f442f5670d3e2"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0011.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0011.png",
+      "sha256": "6802d9c081b7f8767779e32cfad0795e6c43e6060b7bf640d2f46daff621009c"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0005.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0005.png",
+      "sha256": "1bbc2cd327adaa558b9f6e21de815e3c5ef7c9aa4bd91f1b39ac1d94d975aa50"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0011.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0011.png",
+      "sha256": "6595ea1857172129109963cad6a558b39021280e88606d84767e15db8bac5128"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0001.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0001.png",
+      "sha256": "7759f770991eac993b8552a5c219aed23febf62f6a0f25b6a2c3aa3ea61ef6af"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0002.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0002.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0008.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0008.png",
+      "sha256": "79b949cfc0dc003870ed7020b0a33ad11ea71e295293b03711c7f18e2f623d38"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0008.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0008.png",
+      "sha256": "f4d32415cfd1add73491d55456ebd37282f1161fb060005a7f75916eabf8109b"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-transition-S-0009.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-transition-S-0009.png",
+      "sha256": "d4478e000db11a8a222c2e900b42a2ad7bc735b73123690ef43d61b1ca7f75a3"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-fade-S-0009.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-fade-S-0009.png",
+      "sha256": "885d9fdbfb9b4f93d4b90e68ef86b02fe2def6801db717c2d7156c5027e4d407"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0003.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0003.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0001.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0001.png",
+      "sha256": "b0d2f92ea19e785b5de92331313973ccd89f551876fce23923b3f6a37294d29f"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0000.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0000.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0004.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0004.png",
+      "sha256": "15fe68a3cd2c359c34fc3d10a122f735dd59c37f7b1848b23ac3ebd08cf28359"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0010.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0010.png",
+      "sha256": "ad610d8b13774e35404d12824eaf31cbc88a85f08a0b425188054afa0edf6789"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0011.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0011.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0005.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0005.png",
+      "sha256": "b0d2f92ea19e785b5de92331313973ccd89f551876fce23923b3f6a37294d29f"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0009.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0009.png",
+      "sha256": "875360d455f09cc5bedc01cfd5c070cd9cec459ff77c59a3e07f16240932373c"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0007.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0007.png",
+      "sha256": "3bff363245498f815bc282a2317e39c2cdb0f0c6f754d237000532c6e5024b0a"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-idle-S-0006.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-idle-S-0006.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:round:runtime-variants/smile/raw/happy-smile-appear-S-0008.png": {
+      "path": "runtime-variants/smile/raw/happy-smile-appear-S-0008.png",
+      "sha256": "e596b91b678027cc1c54caf60083344c59f4c2f7a7a05ab7847b0658f29d67e3"
+    },
+    "candidateResource:source:initial-observations.json": {
+      "path": "../../source/initial-observations.json",
+      "sha256": "5b2b2cc15592edf8935d01bb7263d2fac7dac03a075f0a05b2d71102342935da"
+    },
+    "candidateResource:source:round01/prepare_sources.py": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "6d24bd3f836b893416d4c446cbaff6a12cc8389069ea366d8e578740e6c4d74d"
+    },
+    "candidateResource:source:round01/provenance.json": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "f9b75e32876e834cba82d23ac3ccefabf8f9b781631260526bb549944ada46e3"
+    },
+    "candidateResource:source:round01/recipe.json": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "7e2bb6e57a9968401cc405796162f9687b6dd854dfc986b273580c9d07ab0a61"
+    },
+    "candidateResource:source:round01/verify.py": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "24ea5534900d44f478896df2d951a0e722ff6e9955073aa993fac6f6e3f591a3"
+    },
+    "candidateResource:source:round01/publish.py": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "deebcc7355772d84b67f93c24de946bf6a018e46d5b259f0d0581d115ea83b12"
+    },
+    "candidateResource:source:round01/resources/frozen-brief.json": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "2edfa8637c46502ae8a18c1ce78cba7ad946ef01b0a234b4d2c34c8618999b48"
+    },
+    "candidateResource:source:round01/resources/original-catalog-object.json": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "8a84b8face03e570c448ef82d3da2dd59a51f344d94fd5e38ab95672e1060b1d"
+    },
+    "candidateResource:source:round01/resources/context/art_book.gd": {
+      "path": "../../source/round01/resources/context/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:source:round01/resources/context/restaurant_view.gd": {
+      "path": "../../source/round01/resources/context/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:source:round01/resources/context/manifest.json": {
+      "path": "../../source/round01/resources/context/manifest.json",
+      "sha256": "1a8ce7d46a86ceee36f969b80f4bf4c42b9f87b06a5453028816a7e55ce122d8"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/overrides.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/prompts.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/publish_2d.py": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:source:round01/resources/smile/generation.json": {
+      "path": "../../source/round01/resources/smile/generation.json",
+      "sha256": "85f23786d78b72f74db08f0b8500e27377eb64e62a03c96ce79ebdd3c01c773f"
+    },
+    "candidateResource:source:round01/resources/smile/original-manifest.json": {
+      "path": "../../source/round01/resources/smile/original-manifest.json",
+      "sha256": "ca824ccff1a1b8212adcbf5ebf94ea0dc6805d8c0b86f264cd520d6d6b92371d"
+    },
+    "candidateResource:source:round01/resources/smile/original-source/publication.json": {
+      "path": "../../source/round01/resources/smile/original-source/publication.json",
+      "sha256": "436e12c4c9ed9ba1fca30b258ab09460f9c2504f406da4028e512d0dee8f1018"
+    },
+    "candidateResource:source:round01/resources/smile/original-source/pack_feedback.py": {
+      "path": "../../source/round01/resources/smile/original-source/pack_feedback.py",
+      "sha256": "7912eadf12043a6acf5e3b6ea51959810bc6dd9ca0a5bcdb601a367e7440de96"
+    },
+    "candidateResource:source:round01/resources/smile/original-source/imagegen.json": {
+      "path": "../../source/round01/resources/smile/original-source/imagegen.json",
+      "sha256": "c1c3079b48e301fec75fe653936fdefe565bdf73a12fb7938c864ad2e710ba69"
+    }
+  },
+  "candidateRenders": {
+    "S": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "N": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "E": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "W": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39",
+      "frame": [
+        384,
+        640
+      ]
+    }
+  },
+  "previews": {
+    "appear-S": {
+      "path": "previews/appear-S.png",
+      "sha256": "ae6f94f711c6a9ad690127a68de21a3de730909b78e0da4f84d71301a318c42c"
+    },
+    "appear-N": {
+      "path": "previews/appear-S.png",
+      "sha256": "ae6f94f711c6a9ad690127a68de21a3de730909b78e0da4f84d71301a318c42c"
+    },
+    "appear-E": {
+      "path": "previews/appear-S.png",
+      "sha256": "ae6f94f711c6a9ad690127a68de21a3de730909b78e0da4f84d71301a318c42c"
+    },
+    "appear-W": {
+      "path": "previews/appear-S.png",
+      "sha256": "ae6f94f711c6a9ad690127a68de21a3de730909b78e0da4f84d71301a318c42c"
+    },
+    "idle-S": {
+      "path": "previews/idle-S.png",
+      "sha256": "944b9600f943b8c704140d42320ffbc8b89e30b0613f1aa53aa4058e9c892ac7"
+    },
+    "idle-N": {
+      "path": "previews/idle-S.png",
+      "sha256": "944b9600f943b8c704140d42320ffbc8b89e30b0613f1aa53aa4058e9c892ac7"
+    },
+    "idle-E": {
+      "path": "previews/idle-S.png",
+      "sha256": "944b9600f943b8c704140d42320ffbc8b89e30b0613f1aa53aa4058e9c892ac7"
+    },
+    "idle-W": {
+      "path": "previews/idle-S.png",
+      "sha256": "944b9600f943b8c704140d42320ffbc8b89e30b0613f1aa53aa4058e9c892ac7"
+    },
+    "fade-S": {
+      "path": "previews/fade-S.png",
+      "sha256": "c8f43284959bf8abebf6411fd28d934fa322cb94952096b01ac6daa81ae712bc"
+    },
+    "fade-N": {
+      "path": "previews/fade-S.png",
+      "sha256": "c8f43284959bf8abebf6411fd28d934fa322cb94952096b01ac6daa81ae712bc"
+    },
+    "fade-E": {
+      "path": "previews/fade-S.png",
+      "sha256": "c8f43284959bf8abebf6411fd28d934fa322cb94952096b01ac6daa81ae712bc"
+    },
+    "fade-W": {
+      "path": "previews/fade-S.png",
+      "sha256": "c8f43284959bf8abebf6411fd28d934fa322cb94952096b01ac6daa81ae712bc"
+    },
+    "happy-transition-S": {
+      "path": "previews/happy-transition-S.png",
+      "sha256": "a86ab46e6d7cbf258c86bc086399c0aaf4bcae3e8b1f4c43725852fe8dbdda8b"
+    },
+    "happy-transition-N": {
+      "path": "previews/happy-transition-S.png",
+      "sha256": "a86ab46e6d7cbf258c86bc086399c0aaf4bcae3e8b1f4c43725852fe8dbdda8b"
+    },
+    "happy-transition-E": {
+      "path": "previews/happy-transition-S.png",
+      "sha256": "a86ab46e6d7cbf258c86bc086399c0aaf4bcae3e8b1f4c43725852fe8dbdda8b"
+    },
+    "happy-transition-W": {
+      "path": "previews/happy-transition-S.png",
+      "sha256": "a86ab46e6d7cbf258c86bc086399c0aaf4bcae3e8b1f4c43725852fe8dbdda8b"
+    },
+    "heart-all48-frames": {
+      "path": "previews/heart-all48-frames.png",
+      "sha256": "342a6750221f452c0e41182198e341c8e604bf5a6e8dff495f5aa4514c9374a9"
+    },
+    "happy-smile-appear-S": {
+      "path": "previews/happy-smile-appear-S.png",
+      "sha256": "04f0ae06d3c037b023a395c993c01f0a45d90710dcfa558e63d6e72b3143f926"
+    },
+    "happy-smile-idle-S": {
+      "path": "previews/happy-smile-idle-S.png",
+      "sha256": "098aa6e8ca355cf77df3e691870974f20b9fa17fa4c83748800a8f8033e78b81"
+    },
+    "happy-smile-fade-S": {
+      "path": "previews/happy-smile-fade-S.png",
+      "sha256": "312490519979829e0ab2d24d67d6b7e6a1691b0c0f345486a385ad57e2fa8c9d"
+    },
+    "happy-smile-transition-S": {
+      "path": "previews/happy-smile-transition-S.png",
+      "sha256": "fe8cbf0cd3f89a0bec64273eaf8a867e821da0092dbc4560cfaaa759bee775be"
+    },
+    "smile-all48-frames": {
+      "path": "previews/smile-all48-frames.png",
+      "sha256": "43407a0ccb5e7cd3bdd38801f1a84fdaab1c789f4ab3f78268232dc71867d744"
+    },
+    "four-view-sheet": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "7dab6afa2c0868d63086df9108911e6988d43aca1fc2e522bb92ea7b5732e718"
+    },
+    "light-gray-dark-game-and-enlarged": {
+      "path": "previews/light-gray-dark-game-and-enlarged.png",
+      "sha256": "706e9b8b26e4656e0f2c3798d4e4e2c489fc89346321920c5818b149d56b0c34"
+    },
+    "canonical-source-backgrounds": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "39b0108e28bcf0b73bee40b7139b60a56d664b890da4fd0eb24c5aa0e764a4d6"
+    },
+    "original-candidate-registered-comparison": {
+      "path": "previews/original-candidate-registered-comparison.png",
+      "sha256": "cba599fa7e914aecdc172355f4a3c6bd92d758157f79f707cf6e5f9da4e20305"
+    },
+    "heart-smile-actual-customer-context": {
+      "path": "previews/heart-smile-actual-customer-context.png",
+      "sha256": "ca63df746db9a0020e6ec191563e3864d755bda01b486aec5e284c984b7c88ac"
+    },
+    "current-smile-context-full-logical": {
+      "path": "previews/current-smile-context-full-logical.png",
+      "sha256": "3c8e2ac1fa5d97478ddd63caf516c83125d220c98d4a48299080131785be1e74"
+    },
+    "historical-catalog-heart-context": {
+      "path": "previews/historical-catalog-heart-context.png",
+      "sha256": "6d4a492b4c36afea295f94a3968509a67a654a2c1bc7496789516319c4fd3c1d"
+    },
+    "repeated": {
+      "path": "previews/repeated.png",
+      "sha256": "a50b121733a3e55e14fc351f7b28b4bc1c7f960fa80a6d5180f62bd4f9ce7707"
+    },
+    "happy-smile-runtime-playback": {
+      "path": "previews/happy-smile-runtime-playback.png",
+      "sha256": "5021cfc5206a3ee23e83f5217088e264b8177b0c838cc3c2b72aff0a1223390d"
+    }
+  }
+}

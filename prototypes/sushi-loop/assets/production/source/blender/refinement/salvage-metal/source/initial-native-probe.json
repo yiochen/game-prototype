@@ -1,0 +1,2964 @@
+{
+  "probe_kind": "untouched original native structural inspection; runtime visibility enable only; no source save",
+  "blender_version": "5.2.2 LTS",
+  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "scene": "S33 Native Asset Library Export",
+  "frame_range": [
+    1,
+    12
+  ],
+  "fps": 12,
+  "active_frame_for_initial_measurement": 1,
+  "view_layer": "ViewLayer",
+  "camera": {
+    "name": "S33 Capture Camera.240",
+    "type": "ORTHO",
+    "ortho_scale": 1.5,
+    "lens": 50.0,
+    "matrix_world": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "render": {
+    "resolution_x": 768,
+    "resolution_y": 1280,
+    "resolution_percentage": 100,
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0,
+    "engine": "BLENDER_EEVEE",
+    "film_transparent": true
+  },
+  "variants": [
+    {
+      "root": "salvage_a__root.001",
+      "root_collections": [
+        "S33_PROP_salvage_a.001"
+      ],
+      "root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "objects": [
+        {
+          "name": "salvage_a__root.001",
+          "type": "EMPTY",
+          "parent": null,
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": null,
+          "modifiers": []
+        },
+        {
+          "name": "salvage_a__fragment.001",
+          "type": "MESH",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.25
+          ],
+          "rotation_euler": [
+            0.10000000149011612,
+            0.12999999523162842,
+            0.07999999821186066
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9883905649185181,
+              -0.0666150227189064,
+              0.1365521252155304,
+              0.0
+            ],
+            [
+              0.07924036681652069,
+              0.9928560853004456,
+              -0.08920620381832123,
+              0.0
+            ],
+            [
+              -0.12963414192199707,
+              0.0989910140633583,
+              0.9866082072257996,
+              0.25
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [
+            {
+              "name": "Hand-cut bevel",
+              "type": "BEVEL",
+              "width": 0.017999999225139618,
+              "segments": 1
+            }
+          ],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.33998560905456543,
+              -0.28758910298347473,
+              -0.04434780403971672
+            ],
+            "max": [
+              0.33998560905456543,
+              0.28758910298347473,
+              0.5443478226661682
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal",
+              "diffuse_color": [
+                0.14702726900577545,
+                0.23074005544185638,
+                0.28314873576164246,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.14702726900577545,
+                      0.23074005544185638,
+                      0.28314873576164246,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_a__rivet_-0.001",
+          "type": "MESH",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            -0.20000000298023224,
+            -0.25999999046325684,
+            0.25
+          ],
+          "rotation_euler": [
+            1.5707963705062866,
+            0.0,
+            0.013639461249113083
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9999069571495056,
+              5.961813265287219e-10,
+              0.013639038428664207,
+              -0.20000000298023224
+            ],
+            [
+              0.013639038428664207,
+              -4.370732398228938e-08,
+              -0.9999069571495056,
+              -0.25999999046325684
+            ],
+            [
+              0.0,
+              1.0,
+              -4.371138828673793e-08,
+              0.25
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [],
+          "vertices": 16,
+          "polygons": 10,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.23420143127441406,
+              -0.2754623293876648,
+              0.21599999070167542
+            ],
+            "max": [
+              -0.16579857468605042,
+              -0.24453765153884888,
+              0.2840000092983246
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal_dark",
+              "diffuse_color": [
+                0.04666508734226227,
+                0.08437620848417282,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.04666508734226227,
+                      0.08437620848417282,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_a__rivet_0.001",
+          "type": "MESH",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.20000000298023224,
+            -0.25999999046325684,
+            0.25
+          ],
+          "rotation_euler": [
+            1.5707963705062866,
+            0.0,
+            0.0021168000530451536
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9999977350234985,
+              9.252820037941589e-11,
+              0.002116798423230648,
+              0.20000000298023224
+            ],
+            [
+              0.002116798423230648,
+              -4.37112923634686e-08,
+              -0.9999977350234985,
+              -0.25999999046325684
+            ],
+            [
+              0.0,
+              1.0,
+              -4.371138828673793e-08,
+              0.25
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [],
+          "vertices": 16,
+          "polygons": 10,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              0.16596832871437073,
+              -0.275071918964386,
+              0.21599999070167542
+            ],
+            "max": [
+              0.23403167724609375,
+              -0.2449280470609665,
+              0.2840000092983246
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal_dark",
+              "diffuse_color": [
+                0.04666508734226227,
+                0.08437620848417282,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.04666508734226227,
+                      0.08437620848417282,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_a__top_plate.001",
+          "type": "MESH",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.5
+          ],
+          "rotation_euler": [
+            0.11999999731779099,
+            0.12999999523162842,
+            0.0926220640540123
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9873117208480835,
+              -0.07637229561805725,
+              0.13922236859798431,
+              0.0
+            ],
+            [
+              0.09170924872159958,
+              0.9899884462356567,
+              -0.10729547590017319,
+              0.0
+            ],
+            [
+              -0.12963414192199707,
+              0.11870206147432327,
+              0.9844312071800232,
+              0.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [
+            {
+              "name": "Hand-cut bevel",
+              "type": "BEVEL",
+              "width": 0.012000000104308128,
+              "segments": 1
+            }
+          ],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.3605169951915741,
+              -0.3063786029815674,
+              0.3962094783782959
+            ],
+            "max": [
+              0.3605169951915741,
+              0.3063786029815674,
+              0.6037905216217041
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal_light",
+              "diffuse_color": [
+                0.366252601146698,
+                0.47353148460388184,
+                0.520995557308197,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.366252601146698,
+                      0.47353148460388184,
+                      0.520995557308197,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "evaluated_mesh_bounds": {
+        "min": [
+          -0.3605169951915741,
+          -0.3063786029815674,
+          -0.04434780403971672
+        ],
+        "max": [
+          0.3605169951915741,
+          0.3063786029815674,
+          0.6037905216217041
+        ]
+      }
+    },
+    {
+      "root": "salvage_b__root.001",
+      "root_collections": [
+        "S33_PROP_salvage_a.001"
+      ],
+      "root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "objects": [
+        {
+          "name": "salvage_b__root.001",
+          "type": "EMPTY",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": null,
+          "modifiers": []
+        },
+        {
+          "name": "salvage_b__bolt_0.001",
+          "type": "MESH",
+          "parent": "salvage_b__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.02500000037252903,
+            -0.23399999737739563,
+            0.1599999964237213
+          ],
+          "rotation_euler": [
+            1.5707963705062866,
+            0.0,
+            0.012622064910829067
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9999203681945801,
+              5.517133416788056e-10,
+              0.012621729634702206,
+              0.02500000037252903
+            ],
+            [
+              0.012621729634702206,
+              -4.3707906627332704e-08,
+              -0.9999203681945801,
+              -0.23399999737739563
+            ],
+            [
+              0.0,
+              1.0,
+              -4.371138828673793e-08,
+              0.1599999964237213
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [],
+          "vertices": 12,
+          "polygons": 8,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.00110490876249969,
+              -0.2443271279335022,
+              0.12999999523162842
+            ],
+            "max": [
+              0.05110491067171097,
+              -0.22367286682128906,
+              0.1899999976158142
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal",
+              "diffuse_color": [
+                0.14702726900577545,
+                0.23074005544185638,
+                0.28314873576164246,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.14702726900577545,
+                      0.23074005544185638,
+                      0.28314873576164246,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_b__bolt_0.002",
+          "type": "MESH",
+          "parent": "salvage_b__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.02500000037252903,
+            -0.23399999737739563,
+            0.3199999928474426
+          ],
+          "rotation_euler": [
+            1.5707963705062866,
+            0.0,
+            0.013639461249113083
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9999069571495056,
+              5.961813265287219e-10,
+              0.013639038428664207,
+              0.02500000037252903
+            ],
+            [
+              0.013639038428664207,
+              -4.370732398228938e-08,
+              -0.9999069571495056,
+              -0.23399999737739563
+            ],
+            [
+              0.0,
+              1.0,
+              -4.371138828673793e-08,
+              0.3199999928474426
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [],
+          "vertices": 12,
+          "polygons": 8,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.0011147336335852742,
+              -0.24435341358184814,
+              0.28999999165534973
+            ],
+            "max": [
+              0.05111473426222801,
+              -0.22364658117294312,
+              0.3499999940395355
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal",
+              "diffuse_color": [
+                0.14702726900577545,
+                0.23074005544185638,
+                0.28314873576164246,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.14702726900577545,
+                      0.23074005544185638,
+                      0.28314873576164246,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_b__shard.001",
+          "type": "MESH",
+          "parent": "salvage_b__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.2199999988079071,
+              -0.2199999988079071,
+              0.0
+            ],
+            "max": [
+              0.25,
+              0.2199999988079071,
+              0.6399999856948853
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal_dark",
+              "diffuse_color": [
+                0.04666508734226227,
+                0.08437620848417282,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.04666508734226227,
+                      0.08437620848417282,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "evaluated_mesh_bounds": {
+        "min": [
+          -0.2199999988079071,
+          -0.24435341358184814,
+          0.0
+        ],
+        "max": [
+          0.25,
+          0.2199999988079071,
+          0.6399999856948853
+        ]
+      }
+    },
+    {
+      "root": "salvage_c__root.001",
+      "root_collections": [
+        "S33_PROP_salvage_a.001"
+      ],
+      "root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "objects": [
+        {
+          "name": "salvage_c__root.001",
+          "type": "EMPTY",
+          "parent": "salvage_a__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": null,
+          "modifiers": []
+        },
+        {
+          "name": "salvage_c__angled_scrap.001",
+          "type": "MESH",
+          "parent": "salvage_c__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.1599999964237213,
+            0.029999999329447746,
+            0.3400000035762787
+          ],
+          "rotation_euler": [
+            0.0,
+            -0.25,
+            0.012622064910829067
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9688352346420288,
+              -0.012621729634702206,
+              -0.24738425016403198,
+              0.1599999964237213
+            ],
+            [
+              0.01222935039550066,
+              0.9999203681945801,
+              -0.0031226659193634987,
+              0.029999999329447746
+            ],
+            [
+              0.24740396440029144,
+              0.0,
+              0.9689124226570129,
+              0.3400000035762787
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [
+            {
+              "name": "Hand-cut bevel",
+              "type": "BEVEL",
+              "width": 0.017999999225139618,
+              "segments": 1
+            }
+          ],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.05124315619468689,
+              -0.17261867225170135,
+              0.0013930648565292358
+            ],
+            "max": [
+              0.3712431490421295,
+              0.23261867463588715,
+              0.6786069273948669
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal",
+              "diffuse_color": [
+                0.14702726900577545,
+                0.23074005544185638,
+                0.28314873576164246,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.14702726900577545,
+                      0.23074005544185638,
+                      0.28314873576164246,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_c__block.001",
+          "type": "MESH",
+          "parent": "salvage_c__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            -0.12999999523162842,
+            0.0,
+            0.17000000178813934
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -0.12999999523162842
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.17000000178813934
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [
+            {
+              "name": "Hand-cut bevel",
+              "type": "BEVEL",
+              "width": 0.02199999988079071,
+              "segments": 1
+            }
+          ],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.3149999976158142,
+              -0.2150000035762787,
+              0.0
+            ],
+            "max": [
+              0.05500000715255737,
+              0.2150000035762787,
+              0.3400000035762787
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_wood",
+              "diffuse_color": [
+                0.47353148460388184,
+                0.19806931912899017,
+                0.045186202973127365,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.47353148460388184,
+                      0.19806931912899017,
+                      0.045186202973127365,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "salvage_c__brace.001",
+          "type": "MESH",
+          "parent": "salvage_c__root.001",
+          "collections": [
+            "S33_PROP_salvage_a.001"
+          ],
+          "location": [
+            0.0,
+            -0.23499999940395355,
+            0.23000000417232513
+          ],
+          "rotation_euler": [
+            0.0,
+            0.0,
+            0.13363945484161377
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world_evaluated": [
+            [
+              0.9910835027694702,
+              -0.13324202597141266,
+              0.0,
+              0.0
+            ],
+            [
+              0.13324202597141266,
+              0.9910835027694702,
+              0.0,
+              -0.23499999940395355
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.23000000417232513
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "animation": {
+            "active_action": null,
+            "actions": []
+          },
+          "modifiers": [
+            {
+              "name": "Hand-cut bevel",
+              "type": "BEVEL",
+              "width": 0.00800000037997961,
+              "segments": 1
+            }
+          ],
+          "vertices": 8,
+          "polygons": 6,
+          "smooth_polygons": 0,
+          "evaluated_world_bounds": {
+            "min": [
+              -0.2699242830276489,
+              -0.28831931948661804,
+              0.19500000774860382
+            ],
+            "max": [
+              0.2699242830276489,
+              -0.18168069422245026,
+              0.26500001549720764
+            ]
+          },
+          "materials": [
+            {
+              "name": "salvage-metal approved S33_metal_dark",
+              "diffuse_color": [
+                0.04666508734226227,
+                0.08437620848417282,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.04666508734226227,
+                      0.08437620848417282,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "Alpha": 1.0
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "inputs": {}
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "inputs": {}
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "inputs": {}
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "inputs": {}
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "inputs": {}
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "inputs": {}
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "Alpha": 1.0
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Position",
+                  "to_node": "Separate XYZ",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Separate XYZ",
+                  "from_socket": "Z",
+                  "to_node": "Map Range",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Map Range",
+                  "from_socket": "Result",
+                  "to_node": "Color Ramp",
+                  "to_socket": "Factor"
+                },
+                {
+                  "from_node": "Color Ramp",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy)",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Normal",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Geometry",
+                  "from_socket": "Incoming",
+                  "to_node": "Vector Math",
+                  "to_socket": "Vector"
+                },
+                {
+                  "from_node": "Vector Math",
+                  "from_socket": "Value",
+                  "to_node": "Math",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Math",
+                  "from_socket": "Value",
+                  "to_node": "Math.001",
+                  "to_socket": "Value"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color1"
+                },
+                {
+                  "from_node": "Math.001",
+                  "from_socket": "Value",
+                  "to_node": "Mix (Legacy).001",
+                  "to_socket": "Color2"
+                },
+                {
+                  "from_node": "Mix (Legacy).001",
+                  "from_socket": "Color",
+                  "to_node": "Emission",
+                  "to_socket": "Color"
+                },
+                {
+                  "from_node": "Mix (Legacy)",
+                  "from_socket": "Color",
+                  "to_node": "Principled BSDF.001",
+                  "to_socket": "Base Color"
+                },
+                {
+                  "from_node": "Principled BSDF.001",
+                  "from_socket": "BSDF",
+                  "to_node": "Material Output",
+                  "to_socket": "Surface"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "evaluated_mesh_bounds": {
+        "min": [
+          -0.3149999976158142,
+          -0.28831931948661804,
+          0.0
+        ],
+        "max": [
+          0.3712431490421295,
+          0.23261867463588715,
+          0.6786069273948669
+        ]
+      }
+    }
+  ],
+  "saved_own_visibility_before_enabling": {
+    "salvage_a__fragment.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_a__root.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_a__rivet_-0.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_a__top_plate.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_a__rivet_0.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_b__root.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_b__bolt_0.001": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    },
+    "salvage_b__bolt_0.002": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    },
+    "salvage_b__shard.001": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    },
+    "salvage_c__root.001": {
+      "hide_render": false,
+      "hide_viewport": false,
+      "hide_set": false
+    },
+    "salvage_c__angled_scrap.001": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    },
+    "salvage_c__block.001": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    },
+    "salvage_c__brace.001": {
+      "hide_render": true,
+      "hide_viewport": true,
+      "hide_set": false
+    }
+  },
+  "diagnostic_renders": [
+    {
+      "root": "salvage_a__root.001",
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/source/initial-raw-salvage_a.png",
+      "frame": 1,
+      "geometry_material_camera_lighting_unchanged": true,
+      "runtime_changes": [
+        "enable own collection ancestors and own objects",
+        "hide other scene meshes for single variant inspection",
+        "PNG RGBA output path"
+      ]
+    },
+    {
+      "root": "salvage_b__root.001",
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/source/initial-raw-salvage_b.png",
+      "frame": 1,
+      "geometry_material_camera_lighting_unchanged": true,
+      "runtime_changes": [
+        "enable own collection ancestors and own objects",
+        "hide other scene meshes for single variant inspection",
+        "PNG RGBA output path"
+      ]
+    },
+    {
+      "root": "salvage_c__root.001",
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/source/initial-raw-salvage_c.png",
+      "frame": 1,
+      "geometry_material_camera_lighting_unchanged": true,
+      "runtime_changes": [
+        "enable own collection ancestors and own objects",
+        "hide other scene meshes for single variant inspection",
+        "PNG RGBA output path"
+      ]
+    }
+  ]
+}

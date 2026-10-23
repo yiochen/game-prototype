@@ -1,0 +1,18 @@
+Adapt this edit prompt to the actual asset, style and capture. Replace braces and omit inapplicable lines.
+
+Use case: style-transfer
+Edit target: exported snapshot of {asset}; this is the object and camera to refine.
+Style reference: {user's style request verbatim, plus separately identified optional style images}.
+Intended use: aesthetic target for refinement of the editable 3D model.
+
+Choose the authorized branch and remove the other:
+- Reskin: improve material/color/light/detail treatment while retaining the object's major forms and proportions.
+- Design exploration: create a better finished design, improving forms, proportions, silhouette and structural construction where useful. Add purposeful crafted details or decorations. Repair awkward modeling and replace weak nonfunctional parts; do not preserve an exact old part count for its own sake. This is an ambitious target for a native editor, who can rebuild the useful improvements.
+
+Preserve the declared camera/view, pose, recognizable game role, occupied scale, composition, functional contacts/clearances, required attachments and modular connection contract. Respect {explicit allowed design changes and locked constraints}. Keep parts inside the usable frame and functional envelope. Add no unrelated props, lettering, scenery or new base unless requested. Distinguish purposeful object decoration from unrelated scene dressing.
+
+For fixed sprites: retain apparent scale and frame placement. These are requested invariants; generated pixels may drift and will be treated as a style reference rather than exported geometry.
+For transparent captures: return real transparency with clean edges. Do not invent a ground shadow when prohibited.
+For modular/rotatable assets: respect the stated lighting symmetry/continuity needs; do not invent a preferred horizontal shadow direction when prohibited.
+
+Do not add default warmth, gloss, softness, bevels or cartoon treatment that the user's style does not call for.

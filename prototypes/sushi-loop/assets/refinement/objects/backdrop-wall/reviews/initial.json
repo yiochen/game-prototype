@@ -1,0 +1,64 @@
+{
+  "asset": "backdrop-wall",
+  "stage": "initial-independent-assessment",
+  "status": "criteria-proposed-awaiting-freeze-and-candidate",
+  "modelingPolicyVersion": 2,
+  "independence": "Inspected original, fixed target v2, style reference, source contract, original production family images and native Blender source. Did not read prior judgments or editor proposals.",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/catalog-object.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-camera.json",
+    "inputs/imagegen-prompt.txt",
+    "../../style/warm-soft-reference.png",
+    "../../../production/source/backdrop/restaurant-backdrop-35.blend",
+    "../../../production/source/backdrop/geometry-audit.json",
+    "../../../production/sprites/backdrop-entrance/static-S.png",
+    "../../../restaurant-backdrop/uniform35/renders/assembled.png",
+    "../../../restaurant-backdrop/uniform35/source/build_backdrop.py",
+    "../../../restaurant-backdrop/uniform35/source/render_backdrop.py"
+  ],
+  "inputHashes": {
+    "originalSHA256": "7af708fe7a9348f4dd2079c96e0fbfae13963add1d49f1f8b9622a366ce305a0",
+    "targetV2SHA256": "4a71e6384b3393f1a5cf5787395d6098a761ebb5acdf92d2113a21ca7d3ccd13"
+  },
+  "originalObservations": [
+    "Blue canopy, ochre wall field and honey wood base establish a clear restaurant family, but the rendering is almost flat albedo: broad rectangular surfaces lack convincing thickness and crafted edge transitions.",
+    "The one-tile wall repeats as a continuous field, canopy and low baseboard. The original assembled image demonstrates the protected horizontal bands and entrance boundary relationships.",
+    "The bare field and exact original topology are opportunities for redesign under modeling policy v2, not immutable aesthetic requirements."
+  ],
+  "targetObservations": [
+    "The target introduces rounded blue canopy segments, a more legible eave and supporting brackets, framed ochre wall, and a recessed wood base panel. These are useful architectural improvements that can be reconstructed or adapted natively.",
+    "Broad blue gradients and warm bevel highlights create appealing volume. Warm ochre midtones, blue enamel-like surfaces and richer wood provide clearer material separation than the source.",
+    "At an approximately logical 192-by-448 presentation, the canopy, brackets, molding and lower panel remain readable. Fine plaster flecks and grain matter less than these broad forms.",
+    "Target outer edge rounding, paired end ornaments and its taller lower panel cannot be copied blindly: protected connector profiles, original canopy/baseboard heights and entrance continuity take precedence. Interior trim and decoration remain free design space.",
+    "The target is an 821-by-1915 concept with visible colored fringe and changed padding, not a registered export. Its halo, scattered alpha pixels and apparent edge flare are not quality goals."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "A visibly richer native architectural module: soft but structured canopy volume, credible supported eave, deliberate wall framing or comparable crafted design, and readable base detailing. Preserve the continuous family join profiles while making the interior materially more appealing."
+    },
+    {
+      "rank": 2,
+      "outcome": "Warm, clear cartoon material separation with broad balanced illumination: blue canopy, golden ochre field, honey wood construction, restrained bright edge responses and readable recesses. No horizontal lighting ramp or blackened cavities."
+    },
+    {
+      "rank": 3,
+      "outcome": "Clean intended-size repetition and entrance integration: no gutters at joins, terminal caps repeated as accidental posts, double trim, sawtooth height changes, exposed end faces, clipping, halos or decorative noise."
+    }
+  ],
+  "technicalEvidence": {
+    "nativeSourceRead": "Opened original production .blend in a disposable background Blender process without saving. The named Sushi Loop Uniform Wood Backdrop35 Study contains editable wall mesh objects and an ORTHO Uniform35 Camera. The file opens configured for the gate: 1728-by-1344 and ortho_scale 4.5, square pixels; this is not the wall's final capture framing.",
+    "wallContract": "576-by-1344 native RGBA, logical 192-by-448, sourceScale 3, root logical (96,416) / native (288,1248); content viewport (96,96,384,1152) native; unit X projects to (384,0) native; original angle 35 degrees, character-orthographic, square pixels.",
+    "sourceCaptureRecipe": "The original renderer changes frame width and orthographic scale per module using HORIZONTAL sensor fit, then solves shift_y from the baseline. A wall capture must reproduce the registered projected basis/root and crop, rather than copying the gate's scale or switching to the world tile 55-degree camera.",
+    "sourceShape": "Original audit records exactly one world unit in width and three projected tiles in height for the wall, with baseline socket (0,-0.5,0). The wall has native canopy, fascia, lintel, field and baseboard meshes. Generic root metadata mentions four directions, but the actual catalog delivery contract requires only static S.",
+    "limits": "No candidate or candidate technical validation was supplied. This is an initial aesthetic assessment, not approval. Family technical settings and exact protected profiles must be frozen before reviewing a handoff."
+  },
+  "nextRequiredEvidence": [
+    "Frozen shared quality criteria and entrance/wall family settings.",
+    "Exact hash-bound candidate packet, editable native source, static S render, native technical validation and declared resources.",
+    "Native geometry repetition and entrance join context, plus independently assembled exported sprites using authored roots and integer module pitch without fitting, stretching or seam repair."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "asset": "chef-noor",
+  "stage": "independent-initial-inspection",
+  "status": "criteria-proposed-awaiting-coordinator-freeze-and-sealed-candidate",
+  "independence": "Prepared before reading any editor proposal, rationale, self-rating or candidate. No coordinator aesthetic conclusion was used.",
+  "inspectedFiles": [
+    "brief.json",
+    "prompts/judge.txt",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/family-concept.png",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-rig.json",
+    "inputs/source-assetRecord.json",
+    "../../style/warm-soft-reference.png",
+    "../../prompts/native-capture-notes.md",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "../../../production/source/blender/revisions/5451da64c233cba1/character_builders.py",
+    "../../../production/source/blender/native_actions.py",
+    "../../../production/source/blender/character_composition.py",
+    "reviews/source-idle-allframes.png",
+    "reviews/source-work-allframes.png",
+    "reviews/source-hold-allframes.png",
+    "reviews/source-load-allframes.png",
+    "reviews/source-sheet-manifest.json",
+    "reviews/source-native-inspection.json"
+  ],
+  "sourceInspection": {
+    "snapshotVerified": "inputs/original.png is pixel-identical to original production idle-S frame 0.",
+    "nativeSourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "blenderVersion": "5.2.2 LTS",
+    "collection": "S33_CHARACTER_chef_noor.001",
+    "objectCountObserved": 65,
+    "objectCountIsNotAConstraint": true,
+    "groundRoot": "chef_noor__ground_root.001",
+    "rootLocation": [0, 0, 0],
+    "rootScale": [1.25, 1.25, 1.25],
+    "nativeFramesEvaluated": 192,
+    "originalFramesVisuallyInspected": 192,
+    "facings": {"S": 0, "E": 90, "N": 180, "W": -90},
+    "evaluatedTopologyChangingObjects": [],
+    "sourceActionBehavior": {
+      "idle": "Planted feet with small breathing/hand motion; no utensil or dish visible.",
+      "work": "Planted feet, forward lean and alternating short hand/knife cooking motion; native knife visible, dish hidden.",
+      "hold": "Small body/head/hand motion with right forearm forward and dish visible; left hand remains lower at side.",
+      "load": "Non-loop clip flag. Hands/body lean forward then return, driven by sin(pi*t); frame 0 and frame 11 share endpoint pose. Dish stays visible throughout. No source dish release or one-way belt trajectory is present."
+    },
+    "sourceRepresentation": "Body, clothing, hair, headwear and work knife are native geometry. Salmon dish is an existing packed ImageGen 2D alpha plane with native yaw-cancellation and camera-ray depth bias, attached to evaluated palm controls; preserve its declared 2D provenance."
+  },
+  "visualObservations": [
+    "Source Noor is clearly identified by a broad green folded beret, blueblack fringe and side hair, amber mediumtan face, ivory short-sleeved coat, plum apron/tie and dark shoes.",
+    "The source beret has large flat polygon planes and a sharp layered wedge at the front. The target offers a softer draped crown, clear rounded band, restrained top nub and broad surface transitions.",
+    "The target gives hair locks fuller, softer volume; face and hands rounder edge transitions; clothing a readable collar, sleeves/cuffs, straps and pocket. These are useful native modeling improvements rather than obligations to preserve the source's weak geometry or part count.",
+    "At logical size the source tie/pocket details are low contrast in the plum mass; sleeve planes are hard and the tiny exposed shoes can merge with the apron. The improved version should retain clear large color blocks while giving these forms enough separation to read.",
+    "Rear source hair forms a broad near-black mass with very limited internal form. Side hair retains a clear profile and ear opening; unseen target views should be judged for coherent construction and useful volume, without inventing an unseen reference design.",
+    "In hold/load the existing dish sits at lower-face height in S and profile views and is mostly occluded from N. That source attachment arrangement is a contract caveat; new hair, collar or apron geometry should not add material occlusion or detach the visible props."
+  ],
+  "targetInterpretation": {
+    "reward": [
+      "Rounded, constructed beret crown/band and coherent hair volume",
+      "Friendly softly modeled face and hands",
+      "Purposeful large clothing construction such as readable collar, straps/cuffs, pocket and restrained fasteners",
+      "Warm broad shading, clear palette blocks, soft controlled highlights and clean native silhouettes"
+    ],
+    "notRequirements": [
+      "The target's larger apparent character size, different canvas and framing",
+      "Yellow/green edge glow and noisy alpha fringe",
+      "Fine imagegen surface grain or painted details",
+      "Exact target proportions where they would violate the functional envelope, root, camera, rig or attachment behavior",
+      "The family concept's white toque, brown hair, blue apron and red tie; Noor retains her own green/blueblack/plum identity"
+    ]
+  },
+  "sourceCaveats": [
+    {
+      "id": "height-metadata-vs-authored-motion",
+      "observation": "Declared nominal/functional height is 1.5124998986721039. In the isolated actual source, evaluated animated visible native mesh maximum Z is 1.5142292976379395 idle, 1.513880729675293 work, 1.513181209564209 hold and 1.5138986110687256 load; planted sole minima are numerical zero within approximately 2e-8.",
+      "implication": "Freeze nominal envelope and preserve the original authored motion allowance. Do not mistake inherited source bob/tilt for newly introduced growth; do not expand it without authorization."
+    },
+    {
+      "id": "load-is-out-and-back",
+      "observation": "The exact baked action returns to its initial pose and does not release the dish, despite loop=false.",
+      "implication": "Judge faithful action/contact preservation, not an invented release animation or a new belt-transfer trajectory."
+    },
+    {
+      "id": "metadata-sockets-and-live-rig",
+      "observation": "Static catalog sockets are rest metadata. Actual action attachments derive from evaluated rig controls under the 1.25 native root scale.",
+      "implication": "Require measured evaluated foot/hand/dish/contact parity, with camera/root checks. Static metadata alone cannot establish live contacts."
+    },
+    {
+      "id": "single-view-target",
+      "observation": "Fixed target describes the front appearance only and includes framing/edge artifacts.",
+      "implication": "Use it for chosen aesthetic direction, never to authorize camera fitting, halos, different facings or arbitrary hidden-side details."
+    }
+  ],
+  "prioritizedDesiredOutcomes": [
+    "Make Noor's beret, hair, face and garment volume visibly softer and more intentionally constructed at the fixed native scale, with coherent side/rear views.",
+    "Keep the green, blueblack, mediumtan, ivory and plum identity clearly separated under warm broad symmetric lighting; preserve readable face and useful garment details at logical size.",
+    "Deliver clean stable animation and native transparency in all 192 frames, retaining actual authored contact/prop behavior and registration."
+  ],
+  "candidateVerdict": "No candidate has been supplied or approved. Await the coordinator's frozen qualityCriteria and an immutable packet with actual native images, motion previews and technical validation."
+}

@@ -1,0 +1,1340 @@
+{
+  "status": "diagnosed native same-scene output variability; strict frozen exact-alpha control requirement remains unmet; no sealing readiness",
+  "frame": {
+    "clip": "hold",
+    "direction": "W",
+    "index": 7,
+    "blenderFrame": 8,
+    "nativeXY": [
+      109,
+      388
+    ]
+  },
+  "sealedShipping": {
+    "path": "candidates/round-03/frames/hold-W/007.png",
+    "sha256": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+    "RGBA": [
+      139,
+      106,
+      32,
+      59
+    ]
+  },
+  "originalFailedControl": {
+    "clip": "hold",
+    "direction": "W",
+    "index": 7,
+    "shippingPath": "candidates/round-03/frames/hold-W/007.png",
+    "shippingSHA256": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+    "controlPath": "candidates/round-04/controls/hold-W/007.png",
+    "controlSHA256": "bb4965894d96358fafab661df46aa2b61d8b5b709c4dbd5e04f380a459893ca3",
+    "dimensions": [
+      384,
+      640
+    ],
+    "coverage": "Entire RGBA frame including every zero-alpha RGB value; no mask or spatial exemption",
+    "channelMaximumAbsoluteDifference": [
+      1,
+      0,
+      1,
+      1
+    ],
+    "channelUnequalCounts": [
+      11,
+      0,
+      5,
+      1
+    ],
+    "channelAboveOneCounts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "anyUnequalPixels": 17,
+    "overTolerancePixels": 1,
+    "alphaExact": false,
+    "maxRGBAtBothZeroAlpha": [
+      0,
+      0,
+      0
+    ],
+    "zeroAlphaRGBUnequalCounts": [
+      0,
+      0,
+      0
+    ],
+    "worstPoints": [
+      {
+        "channel": "R",
+        "maxAbsoluteDifference": 1,
+        "nativeXY": [
+          126,
+          215
+        ],
+        "maximumTiePixels": 11,
+        "values": {
+          "control": [
+            205,
+            197,
+            183,
+            255
+          ],
+          "shipping": [
+            206,
+            197,
+            183,
+            255
+          ]
+        }
+      },
+      {
+        "channel": "G",
+        "maxAbsoluteDifference": 0,
+        "nativeXY": [
+          0,
+          0
+        ],
+        "maximumTiePixels": 245760,
+        "values": {
+          "control": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "shipping": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "channel": "B",
+        "maxAbsoluteDifference": 1,
+        "nativeXY": [
+          220,
+          238
+        ],
+        "maximumTiePixels": 5,
+        "values": {
+          "control": [
+            211,
+            202,
+            190,
+            255
+          ],
+          "shipping": [
+            211,
+            202,
+            189,
+            255
+          ]
+        }
+      },
+      {
+        "channel": "A",
+        "maxAbsoluteDifference": 1,
+        "nativeXY": [
+          109,
+          388
+        ],
+        "maximumTiePixels": 1,
+        "values": {
+          "control": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "shipping": [
+            139,
+            106,
+            32,
+            59
+          ]
+        }
+      }
+    ],
+    "pass": false
+  },
+  "originalComplete192Ledger": {
+    "path": "candidates/round-04/controlled-comparison.json",
+    "sha256": "08a73bbf37e190021cef2c2fed0b6a486f777436125befdcf0b8f5cfbed9c067",
+    "fullFrameMaxRGBA": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "overTolerancePixels": 1,
+    "all192Pass": false,
+    "retainedUnchanged": true
+  },
+  "observedCause": "The identical source03 scene, with the same measured full-precision native state and unchanged seed/render settings, produces alpha59 and60 at this one edge point on repeated renders. Approved02+canonical patch exhibits the same variation. This rules out a deterministic source-versus-control construction mismatch for the observed one-alpha result; it is observed native renderer/output quantization variability at this phase. No tolerance or acceptance claim follows from this diagnosis.",
+  "causalLimits": "PNG output proves1step native variability, but does not expose the internal Cycles/Metal floating-point reduction stage. The exact low-level rounding operation is not inferred beyond that evidence.",
+  "physicalStateComparison": {
+    "all36SnapshotsExactlyEqual": true,
+    "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7",
+    "fullPrecisionSnapshot": "candidates/round-04/alpha-diagnostic/full-precision-shared-snapshot.json",
+    "snapshotFileSHA256": "d35806174f95ed50841ccf3bace06307c7328f28645589a602e1efd439211b98",
+    "scope": "Evaluated food local/world vertices, world matrix, vertex/polygon normals, UV, root/parent matrices, all food driver expressions and targets, ray flags, food material including all nonimage node values and links, world, every light matrix/data, camera matrix/data, full render settings excluding output filepath, full Cycles/view settings, frame/root phase. Native float32 bytes and exact lossless float.hex values retained without rounding. Canonical image is separately exact SHA/decode-verified.",
+    "onlyOutputFilepathExcluded": true
+  },
+  "byBasis": {
+    "independent-approved02-canonical-control": {
+      "renders": 18,
+      "pointAlphaCounts": {
+        "59": 15,
+        "60": 3
+      },
+      "allOtherAlphaPixelsMatch": true,
+      "maxRGBAAgainstSealed03": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "unchanged-candidate03": {
+      "renders": 18,
+      "pointAlphaCounts": {
+        "59": 16,
+        "60": 2
+      },
+      "allOtherAlphaPixelsMatch": true,
+      "maxRGBAAgainstSealed03": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "groups": [
+    {
+      "label": "control-minimal-a",
+      "basisSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+      "independentApproved02Patch": true,
+      "preparation": "minimal",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/control-minimal-a-repeats.json",
+      "metadataSHA256": "5ee8a82092cc05b3e18f8f55d093630244bde32719b98354c343be94cdc50d4d",
+      "alphaSequenceAtPoint": [
+        59,
+        60,
+        59,
+        59,
+        59,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-00.png",
+          "sha256": "96e1d022eec78a8c48b88ed78fc6f423bdc5fe79d75e8aa466b9cbbef093ff42",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-01.png",
+          "sha256": "36bdb08fcb63e1419f80588a28572e55c0ebdee9a906afb6698ed5175d9d1329",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "unequalChannelCounts": [
+            7,
+            3,
+            1,
+            1
+          ],
+          "alphaUnequalPixels": 1,
+          "alphaUnequalXY": [
+            [
+              109,
+              388
+            ]
+          ],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-02.png",
+          "sha256": "2de06709792c66107e1ae58b5868e1f94c20151f9b86ede6d61882bf98beb6ba",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            9,
+            2,
+            7,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-03.png",
+          "sha256": "62793c6009c11fb108e4d87be2a4e4a382c5e9a00c623cbcee09906268313804",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            3,
+            2,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-04.png",
+          "sha256": "c9edb9b2bf8597ac2eb301d3d3d0747d60c4f7e44568a4e9a457e92a259ccc9d",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/control-minimal-a-05.png",
+          "sha256": "3fa7d4a9f5db58344d5d8bcf881458da1444e45c7cbd2963c6479f61276a1da7",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            3,
+            5,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    },
+    {
+      "label": "control-sampled-a",
+      "basisSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+      "independentApproved02Patch": true,
+      "preparation": "main-capture",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/control-sampled-a-repeats.json",
+      "metadataSHA256": "ed3801b4a7de66ca9874a599d41b2a788b055855d61d12784dce9617778eb656",
+      "alphaSequenceAtPoint": [
+        59,
+        59,
+        60,
+        59,
+        60,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-00.png",
+          "sha256": "2a091d4e035edaa69e9d74aa8a2826c200a38ff784488b4513b0c959bb0726af",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-01.png",
+          "sha256": "3715f9bc6e7abc11c172b825ba0afb63234284e86c8d7ec428111f184433d6f1",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            1,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-02.png",
+          "sha256": "c5c32bc96f142fec423174c0719634823baa6df13a866954e666532850b0362e",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "unequalChannelCounts": [
+            7,
+            0,
+            3,
+            1
+          ],
+          "alphaUnequalPixels": 1,
+          "alphaUnequalXY": [
+            [
+              109,
+              388
+            ]
+          ],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-03.png",
+          "sha256": "f0341c5ffbfc1a726378723ad16da40db2515fbf1688b1977c4c6f92ae9b4bc7",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            2,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-04.png",
+          "sha256": "5cddcc65d7b4a320bd6014f8716d588947b482e0bdd697f47d00ed9f59b7e9ff",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "unequalChannelCounts": [
+            7,
+            1,
+            4,
+            1
+          ],
+          "alphaUnequalPixels": 1,
+          "alphaUnequalXY": [
+            [
+              109,
+              388
+            ]
+          ],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-a-05.png",
+          "sha256": "d1de096fc22d68a61af525294ef592783618314dd4a68530bfa5f0e01539f064",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            7,
+            3,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    },
+    {
+      "label": "control-sampled-b",
+      "basisSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+      "independentApproved02Patch": true,
+      "preparation": "main-capture",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/control-sampled-b-repeats.json",
+      "metadataSHA256": "bd185ca851a4de13902cb90bf2a796f80646063447cf80ddc56960917c7d824d",
+      "alphaSequenceAtPoint": [
+        59,
+        59,
+        59,
+        59,
+        59,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-00.png",
+          "sha256": "25270c20ce678a4fa0fd720d66d6a6894395ed47a1c3f768e479b56d79261970",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            3,
+            2,
+            6,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-01.png",
+          "sha256": "e20f834f40a2b24cfcff461762ea9cb6059cc9c38128fe8540412f4ce47faf59",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            2,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-02.png",
+          "sha256": "ebc3740554fe9e321b8367fef9fdd5914325a670abb58cf319ed41d3cfe62d7f",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            8,
+            1,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-03.png",
+          "sha256": "732a8d741646d14915a28776fbfc50f1fdfa2588ab4ab0663c241242596267a0",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            8,
+            2,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-04.png",
+          "sha256": "8207e5183a941e917abd7ebf10f4834de655e9220c61966518cadefe90d0ce2c",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/control-sampled-b-05.png",
+          "sha256": "3a829fd287135ae9cccde28fea3c2d4c9c1874d1502127e0453cd4e5cf937a6b",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            4,
+            1,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    },
+    {
+      "label": "shipping-minimal-a",
+      "basisSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+      "independentApproved02Patch": false,
+      "preparation": "minimal",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-repeats.json",
+      "metadataSHA256": "ddfef2267788009d17bbf6e21ece8a7a5b2661e0f863d795303bfa5170bf88c3",
+      "alphaSequenceAtPoint": [
+        59,
+        60,
+        59,
+        59,
+        59,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-00.png",
+          "sha256": "4f74225f7a5134695984a957b753f6b5971da6ae0b7116e36d37310208ce5c25",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            3,
+            1,
+            5,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-01.png",
+          "sha256": "d3b7ee0effd9df756cdd757890bce5d6274179e133c2472623b8a53a64e8f535",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            4,
+            1
+          ],
+          "alphaUnequalPixels": 1,
+          "alphaUnequalXY": [
+            [
+              109,
+              388
+            ]
+          ],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-02.png",
+          "sha256": "7e305908625fcca69ea982aad91238a155f74dfe8aaf3fd7d7e31f1056f858c6",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            3,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-03.png",
+          "sha256": "b794d77312e6eea5cce244a9c0397078b880ff014ac1ebf36b448e8ebe0b263f",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            2,
+            5,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-04.png",
+          "sha256": "65d1221dbc95c357e415454f79265a9b437692c5cae6030bbc838998d0c16a7d",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            7,
+            1,
+            6,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-minimal-a-05.png",
+          "sha256": "abb9c939a14e81dc417ee653a25546768449af18633993590da57c0747c624c8",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            9,
+            3,
+            2,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    },
+    {
+      "label": "shipping-sampled-a",
+      "basisSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+      "independentApproved02Patch": false,
+      "preparation": "main-capture",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-repeats.json",
+      "metadataSHA256": "b5419488698a9ca5d060b4c9820323012b423bca104e7d198139aabbd983498b",
+      "alphaSequenceAtPoint": [
+        59,
+        60,
+        59,
+        59,
+        59,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-00.png",
+          "sha256": "000015e27eaff417b5e5b27ab624190bbe8c9d2f832b11ddf62aec28667e2308",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-01.png",
+          "sha256": "eac319a984cf11a3113194a068c064b0a1a393448b8d92e443ad89a2a1bcf53d",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            60
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "unequalChannelCounts": [
+            9,
+            2,
+            3,
+            1
+          ],
+          "alphaUnequalPixels": 1,
+          "alphaUnequalXY": [
+            [
+              109,
+              388
+            ]
+          ],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-02.png",
+          "sha256": "41c0d269f5907cc6185cd5139a4907f18972642c602f018b04283569b527c48c",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            4,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-03.png",
+          "sha256": "e423783d413b260e45e8196f4f67af47ff7d6279345c0d3df332146521c9e41f",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            10,
+            3,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-04.png",
+          "sha256": "a475f8e0c5ad71e3060467df656e2e00c93f8104d2834cb77a217d1feffb2c40",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            9,
+            3,
+            5,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-a-05.png",
+          "sha256": "e76a3ad20844b676ab3a1e407b7e88fa84cfc4bfee514984355b38debf743173",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            7,
+            1,
+            2,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    },
+    {
+      "label": "shipping-sampled-b",
+      "basisSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+      "independentApproved02Patch": false,
+      "preparation": "main-capture",
+      "sourceSaved": false,
+      "metadata": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-repeats.json",
+      "metadataSHA256": "47fe32c622d588517ace6c8b91b23b243880703fd33b692c7c06900b04878498",
+      "alphaSequenceAtPoint": [
+        59,
+        59,
+        59,
+        59,
+        59,
+        59
+      ],
+      "rows": [
+        {
+          "repeat": 0,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-00.png",
+          "sha256": "c380bef5127d6731f5dae984e98fb74bc96e6c2f08c7c198d99f871b725057fa",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            1,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 1,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-01.png",
+          "sha256": "91de32955b3de1e78407f622264a8c188d02a3ef6a6a915886143f719d09463f",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            3,
+            5,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 2,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-02.png",
+          "sha256": "e444e071aec34bb707ef99a4b2b19e1da6767120153a8854f2c08dbb27c6f405",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            4,
+            3,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 3,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-03.png",
+          "sha256": "7d0ca43a20bf5961c51ec1708b51d3b98968f11bd54e556a6e481a0a84ea6d22",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            7,
+            1,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 4,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-04.png",
+          "sha256": "e0d6f36d2d2e446b9002109ac467be5f20db6849af6ca87c495b47c0c6b2df2e",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            5,
+            2,
+            4,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        },
+        {
+          "repeat": 5,
+          "path": "candidates/round-04/alpha-diagnostic/shipping-sampled-b-05.png",
+          "sha256": "6ee45903be7b7842fc92e4f2baf3348bd7fbb02dd9d050d75d4db1aa4c3a3eac",
+          "pointRGBA": [
+            139,
+            106,
+            32,
+            59
+          ],
+          "fullFrameMaxRGBA": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "unequalChannelCounts": [
+            6,
+            2,
+            3,
+            0
+          ],
+          "alphaUnequalPixels": 0,
+          "alphaUnequalXY": [],
+          "snapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+        }
+      ]
+    }
+  ],
+  "separateChecksumReadDiagnostic": {
+    "context": "Four earlier fresh processes with and without image.pixels checksum read all gave59; read-order is not established as cause. Same-scene repeats are decisive evidence.",
+    "files": [
+      {
+        "path": "candidates/round-04/alpha-diagnostic/control-no-read.json",
+        "sha256": "9c88e0dddc742e0ed5c1cbd9b38c1c583356bcfef55ff1154b506ee6aa7bd7fa"
+      },
+      {
+        "path": "candidates/round-04/alpha-diagnostic/control-read.json",
+        "sha256": "3542fde4cc9f0897a225da4a4a10cd8ae2b035394fdee7f590a312e1a146e4c3"
+      },
+      {
+        "path": "candidates/round-04/alpha-diagnostic/shipping-no-read.json",
+        "sha256": "416bee6016909c5e9080975148f7dfc767100c73dfffaf9c6b673583ddf44bab"
+      },
+      {
+        "path": "candidates/round-04/alpha-diagnostic/shipping-read.json",
+        "sha256": "de8190c4a764514a78361dd1fb7c6f16e3fd3e952ebd1b5536756ad171b693b2"
+      }
+    ]
+  },
+  "nativeSettingsAndSourcesUnchanged": {
+    "approved02SHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+    "candidate03SHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+    "canonicalPNG_SHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "sourceSaved": false,
+    "shippingPixelsAltered": false,
+    "failedControlOverwritten": false,
+    "failureReplacedWithFavorableRerun": false,
+    "criterionWidened": false,
+    "maskOrSpatialExemption": false
+  },
+  "scripts": {
+    "source/alpha_diagnostic_round04.py": "ed8a9612fe5c09c8aa506e7c3161d114a471549f9968a22fa147864a91a54206",
+    "source/alpha_repeats_round04.py": "0e7f838bb2051d4d771fb5147e4c64e7d74301ea104d59aa772306a74187cafc",
+    "source/summarize_alpha_cause_round04.py": "3ce8c4e95e06e47c470da1589669342e57036e005395a5cf0301231bfdd79879",
+    "source/control_audit_common_round04.py": "d11d927ebb265fb31ecf59a0f4f04441da58b408cb48dc62862a1fb62bbe24a8",
+    "source/native_actions_round02.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+    "source/rig-round02.json": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20"
+  },
+  "portableRepeatCommandsFromObjectDirectoryInFreshOutputCopy": [
+    "blender --factory-startup -b --disable-autoexec source/round-02.blend --python source/alpha_repeats_round04.py -- control-fresh minimal 6",
+    "blender --factory-startup -b --disable-autoexec source/round-03.blend --python source/alpha_repeats_round04.py -- shipping-fresh minimal 6",
+    "blender --factory-startup -b --disable-autoexec source/round-02.blend --python source/alpha_repeats_round04.py -- control-sampled main-capture 6",
+    "blender --factory-startup -b --disable-autoexec source/round-03.blend --python source/alpha_repeats_round04.py -- shipping-sampled main-capture 6"
+  ],
+  "decisionBoundary": "Coordinator and independent judge own any separately frozen verification decision. Current exact-alpha rule is unchanged and the original192-frame test still fails one pixel. Editor does not seal, repair, choose a favorable replacement or declare approval."
+}

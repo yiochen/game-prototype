@@ -1,0 +1,26 @@
+Asset: decor-foreground-coral
+Editable candidate: source/round01/round-01.blend
+Role: Native Blender editor; no aesthetic approval or publication claim.
+
+Exact modeling/render recipe: source/round01/reproduce.py
+Inputs: resources/source-camera.json and resources/catalog-object.json. The frozen brief and native contract are copied for portable context; no image inputs enter the scene. Geometry, native vertex colors, normals and shape keys are generated directly. No linked Blender libraries, raster textures or target image cards are used.
+
+Command sequence from object folder:
+/opt/homebrew/bin/blender -b -t 4 --python source/round01/reproduce.py -- --build
+/opt/homebrew/bin/blender -b source/round01/round-01.blend -t 4 --python source/round01/reproduce.py -- --capture
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/round01/finish.py --publish
+/opt/homebrew/bin/blender -b source/round01/round-01.blend -t 4 --python source/round01/control.py
+node source/round01/build-browser.mjs
+node source/round01/capture-browser.mjs
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/round01/finish.py --previews
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/round01/finalize-handoff.py
+
+All outputs are versioned under candidates/round-01. Do not run these default commands over sealed artifacts; copy the complete minimal source closure and change the output round in a new editor revision first. Opening the saved blend requires no generation or recipe execution.
+
+Native construction: 7 continuous capped tapered tube shells with rounded rolled lips and deep inset bowls, sparse shallow analytic mesh pores, 5 overlapping softened cobalt rocks, 12 rooted green fronds and 4 low violet button corals. Original counts are not locks. Every animated tube uses two native shape keys whose weights vanish at the embedded basal region. Twelve exact keyed phases at12fps, duplicate frame13 closure, native static zeros. One common camera and symmetric light rig for every facing/phase. Native Cycles32 samples and denoising are scene settings; filter1.5; Standard view transform, no compositor grade. Emission strength.045 tied to the same native material vertex color lifts cavity floor visibility without view-dependent compensation.
+
+Publication: Every768x1536 native frame is reduced once as a complete RGBA canvas to384x768 with Pillow LANCZOS; then copied without blending into the existing6x2 or1x1 atlas rectangles. No crop/fitting/per-view adjustment/alpha or RGB repair.
+
+Consumer: The exact frozen world-sprite-raster570a0d0d and sprite-layout099de618 sources are included. Browser bundling uses the minimal React module closure needed by the shared helper, not an application/runtime tree. The reproducible bundle is also included so viewing evidence needs no build dependency. Context is the exact frozen catalog coral/submarine/eel placement; these neighbors are technical context, not family approval.
+
+Independent original inspection: source/initial-observations.json and source/round01/original-native-inspection.json were saved before reading judge aesthetics. Shared outcome acknowledgment is source/round01/acknowledgment.json. Original sources, frozen targets/brief/reviews and production remain untouched.

@@ -1,0 +1,4 @@
+import * as esbuild from 'esbuild';import path from 'node:path';import fs from 'node:fs/promises';import {fileURLToPath} from 'node:url';
+const here=path.dirname(fileURLToPath(import.meta.url));
+const result=await esbuild.build({entryPoints:[path.join(here,'fixture.mjs')],outfile:path.join(here,'fixture.bundle.js'),bundle:true,format:'esm',platform:'browser',define:{'process.env.NODE_ENV':'"production"'},alias:{react:path.join(here,'build-inputs/react/index.js')},metafile:true});
+await fs.writeFile(path.join(here,'../../bundle-metafile.json'),JSON.stringify({esbuildVersion:esbuild.version,metafile:result.metafile},null,2)+'\n');

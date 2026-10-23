@@ -1,0 +1,210 @@
+{
+  "asset": "boulder-underwater",
+  "stage": "independent initial inspection; no candidate verdict",
+  "independence": {
+    "readEditorProposals": false,
+    "readSiblingAestheticReviews": false,
+    "scope": "reviews/ only"
+  },
+  "inspectedFiles": [
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/brief.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/prompts/judge.txt",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/original.png",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/target.png",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/source-camera.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/source-assetRecord.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/source-rig.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/inputs/catalog-object.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/reviews/source-discovery.json",
+    "prototypes/sushi-loop/assets/refinement/objects/boulder-underwater/reviews/original-four-facing-backgrounds.png",
+    "prototypes/sushi-loop/assets/production/sprites/boulder-underwater/static-N.png",
+    "prototypes/sushi-loop/assets/production/sprites/boulder-underwater/static-E.png",
+    "prototypes/sushi-loop/assets/production/sprites/boulder-underwater/static-S.png",
+    "prototypes/sushi-loop/assets/production/sprites/boulder-underwater/static-W.png"
+  ],
+  "referenceHashes": {
+    "originalSHA256": "9a6e24699e625ba77fadc46d125cb6a8205e42953d02cc3d4130d82adf33cd74",
+    "targetSHA256": "8db6db9feb54674ca60df318612226725a970e04f1f7dcca843d71583a36a26b",
+    "nativeSourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "sourceDiscoverySHA256": "eb4467dcfdb3837bd81ac40164d9387deb560e5fd2d580133b5d9b42dfa968c0"
+  },
+  "sourceObservations": [
+    "All four source facings read as an upright cobalt crag formation, with a high broad crown and lower offset rock masses. The canonical South-facing published frame is byte-identical to inputs/original.png.",
+    "The silhouette occupies a broad one-cell base, but the volumes look like long cut polygon columns. Large flat side panels and repeated abrupt band boundaries leave the surfaces plain and mechanical.",
+    "Cyan crowns make the top readable. Lower blue faces become very dark, and narrow intersections lose separation against the dark review background. North and West expose particularly long unbroken front planes.",
+    "The source is four native mesh parts with 32 vertices and 26 polygons each, not an immutable part-count requirement. The granted modeling freedom permits rebuilding these forms."
+  ],
+  "targetObservations": [
+    "The fixed target expresses a more finished cartoon rock formation with rounded worn crown edges, broad facets, sloping shoulder transitions, varied secondary boulders, fractures, and controlled blue/cyan tonal variation.",
+    "The strongest useful improvement is the relationship of broad readable rock masses to softened edge volumes and purposeful fracture boundaries. Surface variation supports volume rather than requiring photorealistic texture.",
+    "The target is a single South-like aesthetic view at 1097x1434, not the registered sprite canvas. Its apparent broader proportions, exact part count, painted facet placement, bright outlines and halo/stray edge pixels are not registration or quality requirements. Native candidates must stay within the physical contract and avoid luminous outline artifacts.",
+    "Warm softly lit cartoon means a soft, balanced material/light response in the original cobalt-blue palette family; it does not require recoloring this stone brown or orange."
+  ],
+  "nativeDiscovery": {
+    "method": "Read original hashed .blend with Blender 5.2.2 CLI and measured native mesh world vertices under the named ground root; no .blend save or model mutation. Read registered per-asset camera/asset/rig/guide records and capture runtime/footing code.",
+    "collection": "S33 production concept cobalt-crags",
+    "groundRoot": "S33 production concept cobalt-crags root",
+    "canonicalRootMatrix": "identity; location [0,0,0], rotation [0,0,0], scale [1,1,1]",
+    "physicalBounds": {
+      "min": [
+        -0.5,
+        -0.5,
+        0.0
+      ],
+      "max": [
+        0.5,
+        0.5,
+        2.325000047683716
+      ],
+      "dimensions": [
+        1.0,
+        1.0,
+        2.325000047683716
+      ]
+    },
+    "nominalHeight": 2.3,
+    "footprint": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "overheadCells": [],
+    "ports": {},
+    "sockets": {},
+    "armatures": [],
+    "actions": [],
+    "capture": {
+      "logicalFrame": [
+        192,
+        512
+      ],
+      "logicalRoot": [
+        96,
+        416
+      ],
+      "logicalCellSize": 128,
+      "worldUnitsPerCell": 1,
+      "nativeScale": 4,
+      "nativeFrame": [
+        768,
+        2048
+      ],
+      "nativeRoot": [
+        384,
+        1664
+      ],
+      "publishedScale": 2,
+      "publishedFrame": [
+        384,
+        1024
+      ],
+      "publishedRoot": [
+        192,
+        832
+      ],
+      "pixelAspect": [
+        1,
+        1
+      ],
+      "projection": "height-dependent-35-square-footing: 35-degree orthographic upper geometry with native near-ground depth transform",
+      "cameraWorldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projectionMatrix": [
+        [
+          1.3333333730697632,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          0.5,
+          0.0,
+          -0.6249990463256836
+        ],
+        [
+          0.0,
+          0.0,
+          -0.0020001998636871576,
+          -1.0001999139785767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "orthographicScale": 1.5,
+      "axes": {
+        "x": "X",
+        "depth": "-Y",
+        "height": "Z"
+      },
+      "footingTransitionHeight": 0.42,
+      "footingMapping": "Ycapture = Y * (1 + (1/sin(35deg)-1) * max(0,1-max(0,Z)/0.42)^2); applied only for capture, restore physical source vertices afterward",
+      "directionRootRadians": {
+        "S": 0,
+        "E": 1.5707963267948966,
+        "N": 3.141592653589793,
+        "W": -1.5707963267948966
+      },
+      "clip": {
+        "id": "static",
+        "nativeFrame": 1,
+        "uniqueFrames": 1,
+        "fps": 12,
+        "loop": false,
+        "static": true
+      },
+      "atlasLayout": "one 384x1024 full-frame cell per facing, columns=1, rows=1, rect=[0,0,384,1024]"
+    },
+    "unrelatedActiveCameraWarning": "The saved full-library scene active camera has resolution 768x1280 and shift_y 0.458332; do not use that last-asset framing. Per-asset source-camera/guide metadata plus capture_runtime configure_camera establish this boulder's registered camera.",
+    "dependencies": "Original library has no linked libraries. Its two packed dish images belong to unrelated assets; boulder materials have no declared raster dependency. Candidate resource closure must be measured for its own editable project."
+  },
+  "reviewPriority": [
+    "Natural, broad readable stone mass and rounded worn edge volumes in every facing",
+    "Purposeful native facets/fractures plus coherent blue palette and soft balanced highlights",
+    "Clean midtones, intersections, alpha and intended-size readability without registration/footprint drift"
+  ],
+  "limits": "No candidate reviewed or approved. The target supplies one aesthetic view only. Alpha bounds were not used to infer physical dimensions. This isolated boulder has no declared connector profiles; repeated preview tests context, coverage and repetition, not invented modular seam joins."
+}

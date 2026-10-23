@@ -1,0 +1,18 @@
+import {createServer} from 'vite';
+import {chromium} from '@playwright/test';
+import fs from 'node:fs/promises';import path from 'node:path';import crypto from 'node:crypto';
+const root=process.cwd(), P=path.resolve('prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1'),O=path.dirname(path.dirname(P)),C=path.join(O,'candidates/round-01');
+const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
+const server=await createServer({configFile:false,root,cacheDir:path.join(P,'runtime-cache'),server:{host:'127.0.0.1',port:0},logLevel:'error'});await server.listen();const url=`http://127.0.0.1:${server.httpServer.address().port}/${path.relative(root,C)}/consumer.html`;
+const modes=[];
+try{for(const [mode,options] of [['full-chromium',{headless:true,channel:'chromium'}],['headless-shell',{headless:true}]]){
+const browser=await chromium.launch(options);const context=await browser.newContext({viewport:{width:840,height:780},deviceScaleFactor:1});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await page.waitForFunction(()=>window.ready===true);
+const reference=JSON.parse(await fs.readFile(path.join(C,`consumer-${mode}.json`),'utf8'));const data={mode,launchOptions:options,version:browser.version(),viewport:{width:840,height:780},DPR:1,fixture:{path:path.relative(O,path.join(C,'consumer.html')),sha256:sha(await fs.readFile(path.join(C,'consumer.html')))},helperHashes:{},staticFrameRecords:[]};
+for(const n of ['world-sprite-raster.js','sprite-layout.js'])data.helperHashes[n]=sha(await fs.readFile(path.join(O,'source/round-01-resources/consumer',n)));
+for(let i=0;i<12;i++){const records=await page.evaluate(i=>window.drawAt((i+.01)/12),i);const rr=reference.staticFrameRecords.find(r=>r.frame===i);data.staticFrameRecords.push({frame:i,records:records.map((r,j)=>{const {canvasRGBA,...rest}=r;const digest=sha(Buffer.from(canvasRGBA.split(',')[1],'base64'));return {...rest,canvasPNG_SHA256:digest,boundCanvasPNG_SHA256:rr.records[j].canvasPNG_SHA256,exactBoundCanvasPNG:digest===rr.records[j].canvasPNG_SHA256}})});}
+// Replay only. Existing bound videos/screens already carry complete required display/background evidence.
+await page.evaluate(()=>{window.setBG('#808080');const original=window.drawAt;window.judgePlayback=[];window.drawAt=seconds=>{const records=original(seconds);window.judgePlayback.push({seconds,records});return records};});
+data.playback=await page.evaluate(()=>window.play());data.playbackTiming=await page.evaluate(()=>window.playbackTiming);const captured=await page.evaluate(()=>window.judgePlayback);data.playbackCanvases=captured.map(s=>({seconds:s.seconds,records:s.records.map(r=>({direction:r.direction,displayScale:r.displayScale,frame:r.frame,rect:r.rect,canvasPNG_SHA256:sha(Buffer.from(r.canvasRGBA.split(',')[1],'base64'))}))}));data.errors=errors;data.recordingPolicy='No redundant video or new viewport/background Cartesian; independently replayed bound fixture for >=2.2s with every actual drawn phase canvas hash retained. Bound original videos and all phase files inspected separately.';
+await context.close();await browser.close();await fs.writeFile(path.join(P,`consumer-replay-${mode}.json`),JSON.stringify(data,null,2)+'\n');modes.push({mode,version:data.version,errors,dataFrames:data.staticFrameRecords.length,playbackFrames:data.playback.length,timing:data.playbackTiming});console.log('JUDGE_CONSUMER_DONE',mode,data.playback.length);
+}}finally{await server.close();await fs.rm(path.join(P,'runtime-cache'),{recursive:true,force:true});}
+await fs.writeFile(path.join(P,'consumer-replay-summary.json'),JSON.stringify(modes,null,2)+'\n');

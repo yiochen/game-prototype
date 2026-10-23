@@ -1,0 +1,2802 @@
+{
+  "asset": "dock-entry",
+  "round": 6,
+  "status": "complete editor technical handoff; original independent judge review pending; no self-approval",
+  "frozenBrief": "brief-v3-native-sampling.json",
+  "frozenBriefSHA256": "62ab23c69c337f5f84a42349f40562cce3330413fdbce4d8928c2093730ee713",
+  "nativeGeometryBrief": "brief.json",
+  "nativeGeometryBriefSHA256": "597e26eae3daf307756a73464334d3475a1636e20181955b2a3b481942fb8bb1",
+  "nativeValidation": "candidates/round-06/native-validation.json",
+  "pairedNativeValidation": "candidates/round-06/paired-native-validation.json",
+  "denseNativeAudit": "candidates/round-06/dense-native-audit.json",
+  "exactContactBoundaryEvidence": "candidates/round-06/contact-contract-measurements.json",
+  "sourceTimingAudit": "candidates/round-06/source-timing-audit.json",
+  "samplingPersistenceAudit": "candidates/round-06/sampling-persistence-audit.json",
+  "nativeFrameClippingAudit": "candidates/round-06/native-frame-clipping.json",
+  "approvedHumanNativeValidation": "candidates/round-06/approved-human-native-validation.json",
+  "humanContextProvenance": "candidates/round-06/human-context-provenance.json",
+  "approvedHumanIndependentCrosscheck": "candidates/round-06/approved-human-crosscheck-binding.json",
+  "reproductionAudit": "candidates/round-06/reproduction-validation.json",
+  "sourceIntegrity": "candidates/round-06/source-integrity.json",
+  "consumerEvidenceBinding": "candidates/round-06/paired-consumer-binding.json",
+  "consumerVerification": "candidates/round-06/consumer-verification.json",
+  "consumerEvidence": "source/resources/paired-consumer-v3/floor-packet/candidates/round-04/browser-v3-native-sampling/consumer-evidence.json",
+  "consumerContactMetrics": "source/resources/paired-consumer-v3/floor-packet/candidates/round-04/actual-consumer-contact-metrics.json",
+  "supportedFixtureAudit": "candidates/round-06/supported-fixture-audit.json",
+  "consumerSupportAddendum": "inputs/consumer-support-ordering-addendum.json",
+  "consumerNativeSamplingAddendum": "inputs/consumer-native-sampling-addendum.json",
+  "rendererVersions": {
+    "historicalPlacement": {
+      "path": "inputs/consumer-before-supported-ordering/sprite-layout.js",
+      "sha256": "6512bc382f29b5971c47607b31791571da930ff04da4a5de93307866b1fa55cb"
+    },
+    "supportedPlacement": {
+      "path": "inputs/consumer-supported-ordering/sprite-layout.js",
+      "sha256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65"
+    },
+    "historicalNativeRaster": {
+      "path": "inputs/consumer-native-sampling/world-sprite-raster-before.js",
+      "sha256": "e0b58676c07f9b7cf4116733dc49d15a331d8ae3fd14678efd4526973cd63215"
+    },
+    "currentNativeRaster": {
+      "path": "inputs/consumer-native-sampling/world-sprite-raster.js",
+      "sha256": "4ddc7495ade39f75adcce7d5400fc54326d588270b6fad9a5cca133f7df34bb0"
+    }
+  },
+  "revisedSampling": {
+    "onlySavedNativeChange": "render.filter_size1.5 ->0.5, persisted and reopened; EEVEE64samples unchanged",
+    "actualFilterSize": 0.5,
+    "actualTaaRenderSamples": 64,
+    "geometryMaterialsLightsCameraRootsAndOtherCapturedSettingsUnchanged": true,
+    "unchangedFingerprintSHA256": "4e5c4cb465d9360a12513e7cd7e399d998fd07abd78e448e13c1df3d7dcaddf0",
+    "actualConsumerChange": "Root-versioned actual paintWorldRaster sets imageSmoothingEnabled=false AFTER common native2x buffer resize and BEFORE draws; final common canvas scaling/translation ordinary. No experimental override, snapping, masks, nudges or alpha edits.",
+    "currentNativeRasterSHA256": "4ddc7495ade39f75adcce7d5400fc54326d588270b6fad9a5cca133f7df34bb0",
+    "measuredFalseAfterPaint": true
+  },
+  "currentConsumerCoverage": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "sharedQuarterPhases": [
+      0,
+      0.25,
+      0.5,
+      0.75
+    ],
+    "rawNativeAndIndependentImages": 32,
+    "actualScreenshotCount": 94,
+    "actualCaseCount": 452,
+    "browserErrors": [],
+    "all16IndependentAndNativeMinimumAlpha": 255,
+    "all16MaximumAlphaLoss": 0,
+    "all16PixelsLostAlpha": 0,
+    "analyzedWorldWidth": 0.75,
+    "clearCorridorWidth": 0.78,
+    "actualCurrentFunctions": true,
+    "sourceInputWholeFramesExactOwnExport": true,
+    "rgbDifferenceDisclosure": "Native depth pair and independent sprites are not RGB pixelidentical. Recorded RGB differences remain (S max47/mean~5.88). Coverage and color are reported separately; independent judge evaluates visible seam/readability.",
+    "backgrounds": [
+      "light",
+      "gray",
+      "dark"
+    ],
+    "viewportProofs": [
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ]
+    ],
+    "visualScope": "Current E/W contact and phone/portrait/landscape previews inspected. Technical absence of alpha coverage trough is measured; visible material/readability quality remains original independent judge responsibility."
+  },
+  "historicalFailure": {
+    "handoff": "delivery.json",
+    "status": "Original round05/defaultfilter/smoothing-on E/W continuous coverage trough was real and remains failed diagnostic evidence. New versioned native and actual-consumer sampling is explicitly authorized by v3brief/addendum. Earlier captures/reviews are not reclassified or rewritten.",
+    "metrics": "candidates/round-05/consumer-contact-metrics.json",
+    "diagnostic": "candidates/round-05/previews/alpha-contact-diagnostic.png",
+    "scopedStudy": "candidates/alpha-filter-study/study-report.json"
+  },
+  "measuredCapture": {
+    "frame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96.0,
+      248.0
+    ],
+    "captureScale": 2,
+    "fps": 12,
+    "camera": {
+      "type": "ORTHO",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8192317485809326,
+          -0.5734625458717346,
+          -5.734623432159424
+        ],
+        [
+          0.0,
+          0.5734625458717346,
+          0.8192317485809326,
+          8.1923189163208
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projectionMatrix": [
+        [
+          1.3333333730697632,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          0.8877494931221008,
+          0.0,
+          -0.40908879041671753
+        ],
+        [
+          0.0,
+          0.0,
+          -0.0020001998636871576,
+          -1.0001999139785767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "orthoScale": 1.5,
+      "shift": [
+        0.0,
+        0.30721035599708557
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1
+      ]
+    },
+    "calibration": {
+      "root": [
+        96.0,
+        248.0
+      ],
+      "unitX": [
+        128.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        127.99996948242188
+      ],
+      "unitHeight": [
+        0.0,
+        -89.60002136230469
+      ]
+    },
+    "captureSettings": {
+      "engine": "BLENDER_EEVEE",
+      "filter_size": 0.5,
+      "taa_render_samples": 64,
+      "persistedSource": "source/round-06.blend",
+      "persistedSourceSHA256": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37",
+      "nativeCadenceNote": "Actual sourceUI24fps/range250, noactions; catalogstatic1frame12fps/nonloop."
+    }
+  },
+  "actualNativeCaptureFrame": 1,
+  "sceneUITiming": {
+    "actualFPS": 24,
+    "actualRange": [
+      1,
+      250
+    ],
+    "actions": 0,
+    "interpretation": "The native asset has no animated mechanics/actions. Each facing exports the single captured frame1; static atlas playback is explicitly1frame at12fps. Saved scene UI factory range/rate are disclosed independently of static clip timing; immutable exchanged project is retained."
+  },
+  "exportClip": {
+    "clip": "static",
+    "frames": 1,
+    "fps": 12,
+    "loop": false,
+    "frameOrder": [
+      0
+    ]
+  },
+  "lighting": {
+    "renderer": "BLENDER_EEVEE",
+    "world": {
+      "color": [
+        0.8,
+        0.83,
+        0.87,
+        1
+      ],
+      "strength": 0.45
+    },
+    "actualLights": [
+      {
+        "name": "Warm soft overhead",
+        "matrixWorld": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            4.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "energy": 360.0,
+        "size": 4.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "Warm soft north",
+        "matrixWorld": [
+          [
+            -1.0,
+            1.8639694587818667e-07,
+            -4.4251432740338714e-08,
+            0.0
+          ],
+          [
+            -1.5099580252808664e-07,
+            -0.6246950030326843,
+            0.7808688282966614,
+            3.0
+          ],
+          [
+            1.1790791631938191e-07,
+            0.7808688282966614,
+            0.6246950030326843,
+            2.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "energy": 180.0,
+        "size": 4.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "Warm soft east",
+        "matrixWorld": [
+          [
+            -4.371138828673793e-08,
+            -0.6246950030326843,
+            0.7808688282966614,
+            3.0
+          ],
+          [
+            1.0,
+            -8.66321556713956e-08,
+            -1.332782506580088e-08,
+            0.0
+          ],
+          [
+            7.597417805982332e-08,
+            0.7808688282966614,
+            0.6246950030326843,
+            2.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "energy": 180.0,
+        "size": 4.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "Warm soft south",
+        "matrixWorld": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.6246950626373291,
+            -0.7808687686920166,
+            -3.0
+          ],
+          [
+            0.0,
+            0.7808687686920166,
+            0.6246950626373291,
+            2.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "energy": 180.0,
+        "size": 4.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "name": "Warm soft west",
+        "matrixWorld": [
+          [
+            -4.371138828673793e-08,
+            0.6246950030326843,
+            -0.7808688282966614,
+            -3.0
+          ],
+          [
+            -1.0,
+            -8.66321556713956e-08,
+            -1.332782506580088e-08,
+            0.0
+          ],
+          [
+            -7.597417805982332e-08,
+            0.7808688282966614,
+            0.6246950030326843,
+            2.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "energy": 180.0,
+        "size": 4.0,
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": -1.8,
+    "horizontalSymmetry": 4,
+    "groundPlane": false,
+    "sameRecipeAllFacings": true,
+    "actualCurrentIdentityEvidence": "candidates/round-06/sampling-persistence-audit.json",
+    "unchangedFingerprintSHA256": "4e5c4cb465d9360a12513e7cd7e399d998fd07abd78e448e13c1df3d7dcaddf0"
+  },
+  "geometry": {
+    "solidEnvelope": [
+      [
+        -0.5099999904632568,
+        -0.5,
+        0.0
+      ],
+      [
+        0.5099999904632568,
+        0.0,
+        0.49000000953674316
+      ]
+    ],
+    "certifiedTerminalWidth": 0.78,
+    "certifiedTerminalX": [
+      -0.39,
+      0.39
+    ],
+    "actualStraightExposedTerminalWidth": 0.8140000104904175,
+    "actualStraightExposedTerminalX": [
+      -0.40700000524520874,
+      0.40700000524520874
+    ],
+    "physicalBoardWidth": 0.96,
+    "terminalEntryLocalY": 0,
+    "terminalZ": 0.22,
+    "entryBoundaryZNominalError": 1.1920928966180355e-09,
+    "floorBoundaryZNominalError": 1.1920928966180355e-09,
+    "sharedCenteredNativeRayMismatch": 1.1920928955078125e-07,
+    "supportedFlightSamples": 5005,
+    "missingFlightSupport": 0,
+    "monotonicHeightDeltaMinimum": -2.384185791015625e-07,
+    "clearanceProbeCount": 1010,
+    "blockedInsideCentered078Passage": 0,
+    "allEvaluatedMeshesManifold": true,
+    "looseVertices": 0,
+    "actualZeroAreaFaces": 0,
+    "tinyPositiveBooleanFaces": [
+      {
+        "object": "dock-entry__continuous_loadbearing_stair_and_stringers",
+        "face": 214,
+        "actualPositiveArea": 1.3577555920868986e-15,
+        "vertices": [
+          [
+            -0.40700000524520874,
+            -0.5,
+            0.012000000104308128
+          ],
+          [
+            -0.40700000524520874,
+            -0.5,
+            0.011999962851405144
+          ],
+          [
+            -0.40699997544288635,
+            -0.5,
+            0.01199998240917921
+          ],
+          [
+            -0.40699997544288635,
+            -0.5,
+            0.012000000104308128
+          ]
+        ]
+      },
+      {
+        "object": "dock-entry__continuous_loadbearing_stair_and_stringers",
+        "face": 260,
+        "actualPositiveArea": 3.775166553606109e-16,
+        "vertices": [
+          [
+            -0.40256959199905396,
+            -0.3333333432674408,
+            0.1336715817451477
+          ],
+          [
+            -0.40256959199905396,
+            -0.3333333432674408,
+            0.1336715668439865
+          ],
+          [
+            -0.40256956219673157,
+            -0.3333333432674408,
+            0.13367155194282532
+          ]
+        ]
+      },
+      {
+        "object": "dock-entry__continuous_loadbearing_stair_and_stringers",
+        "face": 391,
+        "actualPositiveArea": 1.3577555920868986e-15,
+        "vertices": [
+          [
+            0.40700000524520874,
+            -0.5,
+            0.011999962851405144
+          ],
+          [
+            0.40700000524520874,
+            -0.5,
+            0.012000000104308128
+          ],
+          [
+            0.40699997544288635,
+            -0.5,
+            0.012000000104308128
+          ],
+          [
+            0.40699997544288635,
+            -0.5,
+            0.01199998240917921
+          ]
+        ]
+      },
+      {
+        "object": "dock-entry__continuous_loadbearing_stair_and_stringers",
+        "face": 440,
+        "actualPositiveArea": 3.775166553606109e-16,
+        "vertices": [
+          [
+            0.40256959199905396,
+            -0.3333333432674408,
+            0.1336715817451477
+          ],
+          [
+            0.40256956219673157,
+            -0.3333333432674408,
+            0.13367155194282532
+          ],
+          [
+            0.40256959199905396,
+            -0.3333333432674408,
+            0.1336715668439865
+          ]
+        ]
+      }
+    ],
+    "tinyFaceDisclosure": "Four closed-manifold numerical boolean slivers with positive areas3.78e-16..1.36e-15 world\u00b2; no loose vertices/nonmanifold edges. Retained unchanged and disclosed; technical record is not independent acceptance."
+  },
+  "nativeSources": {
+    "own": {
+      "path": "source/round-06.blend",
+      "sha256": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37"
+    },
+    "companion": {
+      "original": "../dock-floor/source/round-04.blend",
+      "path": "source/resources/paired-native-v3/dock-floor-round-04.blend",
+      "sha256": "94b509984dc442547602f32feada987c5119e3b9031eb1bd65a6a07769880418"
+    },
+    "frozenBriefSHA256": "62ab23c69c337f5f84a42349f40562cce3330413fdbce4d8928c2093730ee713",
+    "rule": "Exact NEW standalone sources exchanged before append; append only in memory and never resave either standalone. No circular packet dependency."
+  },
+  "alphaAndClipping": {
+    "method": "All current standalone4/nativepair-family40/approvedhuman36 native fullframes hash and RGBA border inspection. No crop/fitting.",
+    "records": [
+      {
+        "path": "candidates/round-06/static-N.png",
+        "sha256": "5ceeaac879e89a7c4a4e4339c3c8515bbedbb0d0aacc37f33c0cb28e4203c960",
+        "size": [
+          384,
+          704
+        ],
+        "alphaBounds": [
+          61,
+          346,
+          323,
+          496
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/static-E.png",
+        "sha256": "1cc3b5782232c5dd69d972db679827b11f99651f7f8c91441bcdd2f47e5c3dbd",
+        "size": [
+          384,
+          704
+        ],
+        "alphaBounds": [
+          192,
+          280,
+          320,
+          623
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/static-S.png",
+        "sha256": "bb130bd86691790a6e2face09a03a6dbc46c360ac24a53fb95ee16d57ca28d39",
+        "size": [
+          384,
+          704
+        ],
+        "alphaBounds": [
+          61,
+          413,
+          323,
+          623
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/static-W.png",
+        "sha256": "042d89d2a518997cb3f049c3acb2a9239af865f4303e46e1e3168f2204847ebd",
+        "size": [
+          384,
+          704
+        ],
+        "alphaBounds": [
+          64,
+          280,
+          192,
+          623
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/pair-N.png",
+        "sha256": "36e46e92594d4a121a22a478b06801c81c37550c2342c8204a97569970f7a060",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          257,
+          106,
+          1023,
+          1023
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-pair-N.png",
+        "sha256": "11450b63eb8ea13fc2c270bb880a696d37b32b54c60c56f471eaff019b32addb",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          257,
+          115,
+          1023,
+          1023
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-N.png",
+        "sha256": "eb00a18bd848b042ba6fc6a874741d3f66a9c03cc700133027da0ec670938eeb",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-family-N.png",
+        "sha256": "ac82df3932b6b75f1829ebe3ba7db9df5e9cb8a0350f619aff98b4e448c240f1",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-N-0.png",
+        "sha256": "01c1b169f51590e2441c4690f90cc0c373760e0c388cf4ebe880547bd638c97d",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          56,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-N-1.png",
+        "sha256": "60c2810099f19e5b21dbe727883588af7db594e7f122de2896be23ac8a4cfd40",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          79,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-N-2.png",
+        "sha256": "95751b5118aebec7aacaea005fe804414bc57ce0b998b376cca4ce453a8eb55a",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          112,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-N-3.png",
+        "sha256": "16cd18ae9f70f5cb208383d323a0198ca55f57d6c3084b43a617e772141ecc84",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          143,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-N-4.png",
+        "sha256": "d3aced62eb1ef65ca72c5a62b0240dff56fddfcf310aa449edc6d8167a6460af",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          199,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-covered-N.png",
+        "sha256": "2b645132c58d1905a28dcaa16d55dcc55b867acdcd6ddb9c27165620a4b48b44",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/pair-E.png",
+        "sha256": "f0e2821ca9dd22ea63a0ce8ae5e102ce967cfc3c11780178c49ddd6cbddd87ca",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          256,
+          220,
+          1152,
+          1013
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-pair-E.png",
+        "sha256": "5317284ddbfcfb782e5b547f1b10e3dbefcee164d3c00eaef3347574232ad75d",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          256,
+          219,
+          1151,
+          1014
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-E.png",
+        "sha256": "33c4b928b6528e53a7474de4e23b9d016e347da20afb0b0de0d9df2a7411017d",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-family-E.png",
+        "sha256": "10710671f4059a24f863207f6c3cb2b28aecce7b6ae5b4b707ca9964dddd2a2b",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1279,
+          1254
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-E-0.png",
+        "sha256": "0c61ea0da957fc6b339568bdd8106fedfd459b2f5549f3fd10dd7b9157a02e70",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1394,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-E-1.png",
+        "sha256": "5bdb90ac52586cc125c0b1a4143669db9fe057a7704f0e4fa1060cda82075829",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1358,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-E-2.png",
+        "sha256": "e1a8bf398d79c7385ccd63fab6eb95ee059e9fb8dd41211d090afc1c9f11b685",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1312,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-E-3.png",
+        "sha256": "19cd26cd6b9f0249630932c0515727143853454d2d74268049497624bfca9694",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-E-4.png",
+        "sha256": "2b2aa36f2f6804a0477e9a211efef2591a7a3689223e21730cde24a50f99d744",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-covered-E.png",
+        "sha256": "51a477bc1727acd76f6bc8884b80cde3ad4fa13f8ee5cdbff119de56ef3e5af4",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/pair-S.png",
+        "sha256": "139ae01e80f19a26884e4f6b2753f7f1b7b45dad690a783a97deef1fefe06094",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          257,
+          219,
+          1023,
+          1151
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-pair-S.png",
+        "sha256": "af802c28e547be9811640babec46b217e8a56bfee6094f2330187067a43c0330",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          257,
+          218,
+          1023,
+          1151
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-S.png",
+        "sha256": "2a3b22d7ae6998ca7f142dcddb9682c0fd8a8ba8e340932a400df6109fd1bcff",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-family-S.png",
+        "sha256": "25b6b7475b6bbd01b9d34c529f4c7420786059338571ea126d82910c730a1a0c",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-S-0.png",
+        "sha256": "4935d9713cbb6977fb4d0114ec8a9d9087cde9b61aeaccf8d66626d37e74d645",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1442
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-S-1.png",
+        "sha256": "3d516ef653459b1f99c637f271256ce681d3a0e729cf65e8322f3777be23182c",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1393
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-S-2.png",
+        "sha256": "069e833e93d5dd198c68d2d43fc73038b402ad2cf38c105186b734dc5949d5a6",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-S-3.png",
+        "sha256": "f2dd62a3bbb10b2c238df60fe7a8739f87a7a159975fd55c51d4a8e9bdb8151c",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-S-4.png",
+        "sha256": "adc2c9f9a3c09dbca2931146f4ccd447113ae8b280e7bfcd7cd3a48e7c13af13",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-covered-S.png",
+        "sha256": "bce76abf3d7cda1a2045c301e87e0fdb82e75aea129a53e4647b3ec64ae01d72",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/pair-W.png",
+        "sha256": "15deddf83a112ef761210f7e01a67805451ba90af99de38cbc81d6cf444739c4",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          128,
+          220,
+          1024,
+          1013
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-pair-W.png",
+        "sha256": "1bf70f00dff744c99fc9d5c38b7a80db976851ad687a0841f7633caf4b34d327",
+        "size": [
+          1280,
+          1280
+        ],
+        "alphaBounds": [
+          129,
+          219,
+          1024,
+          1014
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-W.png",
+        "sha256": "6439a8b4b7d475151e9b386ec1bec0cb22ceb856dbbe73692052fc66741a4728",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/source-family-W.png",
+        "sha256": "2f6ef9accd56455606afc3ea73972acd000855b5e4f1153bf3986139a9497a7a",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          257,
+          139,
+          1415,
+          1254
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-W-0.png",
+        "sha256": "4f8d10399f74779718c39a6dd6029e3acd8a654aa5a5517b0f1441e33c5cd1d3",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          142,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-W-1.png",
+        "sha256": "0b92b465d7ac1b8534874450e5feeaef69f5d261374c6be10cdf38e945578c1b",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          178,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-W-2.png",
+        "sha256": "c44c3c6dc3238fda8db0a8d18f5bc457c55d5d2ec4c98b90547b3d50c3dbc6e1",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          224,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-W-3.png",
+        "sha256": "ca50d521e0f138fa13aa790f51bff47e59443e2d8ce0a3c561787392a6de48bc",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/walk-W-4.png",
+        "sha256": "3ea3870760df80aea5948461971f98e75479d7f062c2273c4309fa2a90ba173b",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-context/family-covered-W.png",
+        "sha256": "b54333868d7883b8e57fff45411a4871a6d33acd7acfa1bcc14e357412d72df5",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1152,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-0.png",
+        "sha256": "7b62ebf2ff3e2b9c34ddb6242b6418d8a546c80bc80d09832b51e289eb62d346",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          58,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-1.png",
+        "sha256": "8934ecb3e74158b37af8dda44351467ddd154fadd591716de4131570bd313aec",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          96,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-2.png",
+        "sha256": "695e9f2f7c6ae36b81da381da96583689c2c9d75e61c4165d199fa4a8356530c",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          122,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-3.png",
+        "sha256": "7c210d50df0ad63d9d20f66ad8b7a23857b1d554d5d7ea6b5b98b76c18ac8d94",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          160,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-4.png",
+        "sha256": "c24023d16c84befd5cdbe00e70ba109657f4ba853cf2b7121b354bf01c8d53a2",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          173,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-5.png",
+        "sha256": "cc94940dc96a686c1e8a727173c0255ec8341300df0796f2e5ab71df3a563813",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          224,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-6.png",
+        "sha256": "7aa7e4f39d41731911878ff2afca32066c5bcadde5ea4bc58104a4be1cc044e6",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-7.png",
+        "sha256": "4536a2bd79f30b183c705aac12be5f5cfbe1cf6249d74673b1e7839d46cd5eef",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-N-8.png",
+        "sha256": "273594ebf9594da3a427c45500e60553d689934d1d8dbc33d1491d17a5983059",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          267,
+          1152,
+          1263
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-0.png",
+        "sha256": "562897584efc2891faf72d3c1cd18b96a00cc498c896b79c60f93993a505087b",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1402,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-1.png",
+        "sha256": "7cd9b4bb438f07131efc003cd1445fd7d6bea0af5c160c6fd843f9050647b476",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1351,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-2.png",
+        "sha256": "ef36b46b34548e085572b862c2a6963905df8c0d9885d0db3dfc2ef26c24cc3d",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1313,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-3.png",
+        "sha256": "c90d95d0ad304d5e7a7f9b48ed8c30a0a5bc87b993360a9459c50eeb50574523",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-4.png",
+        "sha256": "c76e696415c124fcd0614a6fd475ec3551fad5630b54efc38366501d51a41491",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-5.png",
+        "sha256": "285ebf18a6d6c3ec60b9f428804232b5acb2fe54e648603e508ce7a23a561ecf",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-6.png",
+        "sha256": "715db16f34c2b6f17fc44a48381ce78e6e775f73703f1ea45a22c27a7deacf45",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-7.png",
+        "sha256": "5c1a597f8290e010b2f1bfac67c7b7e931adab746e7c293d5a69eaa47fe062a1",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-E-8.png",
+        "sha256": "49bc492b7ff7f7ed1d58cdcd2fed916b4669383d0be870bbfd5a28bda29a776f",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          121,
+          139,
+          1280,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-0.png",
+        "sha256": "6d4f314616bd019c4e35fe5a845850cbfb6b2d14e023593d6a1ea86fdbc2c050",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1467
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-1.png",
+        "sha256": "27784e88e11daa2998e293b7c4f80aa872723fe1d089ff35b50e670ec08000c6",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1398
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-2.png",
+        "sha256": "2daa474a3153a19b71c8e84221be50b0ed32477115f59e636b22e2b51f02f9c1",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-3.png",
+        "sha256": "9439872e6dd91c2c02af7e0f07e6b99ff3bf9f55791e7b59d81ae5924ed72f4f",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-4.png",
+        "sha256": "d246247ebbab2f815d4b34eab95d9ac0032f0555792e3000122dfc3efa9296a2",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-5.png",
+        "sha256": "23d858bedb7fbc8c9f02dc2aa12f673ae10f6011a56679bb519e934e66853037",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-6.png",
+        "sha256": "01195f1a30ca61865f868783fb64ac7fea5f6b8aebfc87baac325f31dca63a5a",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-7.png",
+        "sha256": "78cbd747f802fbf4a39db9b3b6c7fdafeb2ac60f655b5c07e8878580d8bbf41d",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-S-8.png",
+        "sha256": "eacfb553831610aa895e4de62d74d23f84e5bf3360f9e62e91c2346d01db2aba",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          384,
+          75,
+          1152,
+          1391
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-0.png",
+        "sha256": "1d2d6ba92b6a3e7af9be72e95e24e38ca58d1641d26a031ac577eb6b3588316f",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          134,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-1.png",
+        "sha256": "072d987aa9991588412bc228483a443712e31aeb5760205da5e4a6dd5888b925",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          185,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-2.png",
+        "sha256": "b07349e5f31650feee0feeb5f3c4d0b0a85cc338f1b025337773c45fa35435b9",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          223,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-3.png",
+        "sha256": "0292966eaec5493a4055e18bb25b1b34c1e9dab671a6a18498d1945056127133",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-4.png",
+        "sha256": "b49bc8c2f92329775fc5865a4cd2c6751b69646f1d8a515c139d5bb5b85673f5",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-5.png",
+        "sha256": "0ba793e3241a91748c8a9325e6c4b0864c7b0032850d0f376bef08247144d9cd",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-6.png",
+        "sha256": "caf8aacf9be4e4446d45f9dfba347a6957067e869f30db27cec027ab1cc42b74",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-7.png",
+        "sha256": "b00dd7f58ef9cb3d71ffdf1e9484a54de00837b2227843370ee69b3f56ca8c8d",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      },
+      {
+        "path": "candidates/round-06/native-approved-human/approved-walk-W-8.png",
+        "sha256": "dc9bbe49576cfc6c6eca99250d6d6c1b291298a5f65e38324cf1d6480ad9a92f",
+        "size": [
+          1536,
+          1536
+        ],
+        "alphaBounds": [
+          256,
+          139,
+          1415,
+          1253
+        ],
+        "nontransparentBorderPixels": 0
+      }
+    ],
+    "all80NoBorderClipping": true
+  },
+  "nativeHumanContact": {
+    "primaryConsumerActor": "Exact current published approved Rosa whole-frame atlases, unchanged authored35degreecamera, frame/root/scale; walk catalog indices0..8 are actual traversal. No new actor source publication or fitted proxy.",
+    "approvedNativeSource": {
+      "path": "source/resources/approved-human-v3/customer-rosa-approved.blend",
+      "sha256": "a6fe68fa07f3930c3d8e88ae6df992fefe447a9ef18935e322daf6f4bbc28253",
+      "metadataHeight": 1.2746186554431915,
+      "canonicalUniformNativeScaleMetadata": 1.25,
+      "actualRootScale": [
+        1.25,
+        1.25,
+        1.25
+      ],
+      "authoredCameraRecord": "source/resources/approved-human-v3/customer-rosa-approved-camera.json",
+      "authoredProjectionDegrees": 35,
+      "derivedContextProjectionDegrees": 55.00797980144134,
+      "noPixelParityClaim": "Actual browser primary uses real published35degree atlas; these derived55degree frames assert native physical body/foot/clearance only. No actor scaling/fitting/warp/per-facing nudges."
+    },
+    "nativeContextEvidence": "candidates/round-06/approved-human-native-validation.json",
+    "crosscheckBinding": "candidates/round-06/approved-human-crosscheck-binding.json",
+    "authoredCamera": {
+      "path": "source/resources/approved-human-v3/customer-rosa-approved-camera.json",
+      "sha256": "7377a5f4856e9ddada86c205d43485aac9cd316cf8b227f12eeafe2a13de1306",
+      "elevationDegrees": 35,
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "cameraWorldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "derivedNativeCamera": {
+      "elevationDegrees": 55.00797980144134,
+      "meaning": "Technical common-environment body/physical evidence, not a replacement for primary published35degree sprite and no pixelparity claim.",
+      "logicalFrame": [
+        768,
+        768
+      ],
+      "root": [
+        384,
+        440
+      ],
+      "basis": {
+        "x": [
+          128,
+          0
+        ],
+        "depth": [
+          0,
+          128
+        ],
+        "height": [
+          0,
+          -89.60003662109375
+        ]
+      }
+    },
+    "actualConsumerAtlases": [
+      {
+        "clip": "stand",
+        "direction": "N",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-stand-N.png",
+        "sha256": "ecfe3fb2e33b43722e754a2c5181357ff9ea03de098c67bd72458ced9d898f28",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": []
+      },
+      {
+        "clip": "stand",
+        "direction": "E",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-stand-E.png",
+        "sha256": "d77777a8dc4dce59f60ca165d7152d035cd1c13b4b2264a7b5058bccc8628e16",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": []
+      },
+      {
+        "clip": "stand",
+        "direction": "S",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-stand-S.png",
+        "sha256": "0f8667d65cdf4fab70d4bc29fb5a39abde1e8d5c9961e2455e45cd377b1a0a7b",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": []
+      },
+      {
+        "clip": "stand",
+        "direction": "W",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-stand-W.png",
+        "sha256": "5f3e727350077cf0c6c9465e04e939e76639e73cf1ef289db704c0e4f60dd4fa",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": []
+      },
+      {
+        "clip": "walk",
+        "direction": "N",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-walk-N.png",
+        "sha256": "0c9d54ba08ff76186dc45bc736e7e16ded3e38816e78f5629503e8ab1e00c41e",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "clip": "walk",
+        "direction": "E",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-walk-E.png",
+        "sha256": "116aae1e22f1d3b2d5998512593608cb0820e7a674a50ae64d74c7b93c80ce60",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "clip": "walk",
+        "direction": "S",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-walk-S.png",
+        "sha256": "b3ec0f4ce0411a507a5c10bff69b02735193cd1421fcfa7d59b3a27b28fc716b",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "clip": "walk",
+        "direction": "W",
+        "path": "source/resources/paired-consumer-v3/floor-packet/source/resources/browser-v3-native-sampling/customer-rosa-walk-W.png",
+        "sha256": "3d72ada2aeef99ce27c36504937af445cb33559f9070391e242a56fababd08a1",
+        "frameSize": [
+          192,
+          320
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "sourceScale": 2,
+        "frames": 12,
+        "fps": 12,
+        "rects": [
+          [
+            0,
+            0,
+            384,
+            640
+          ],
+          [
+            384,
+            0,
+            384,
+            640
+          ],
+          [
+            768,
+            0,
+            384,
+            640
+          ],
+          [
+            1152,
+            0,
+            384,
+            640
+          ],
+          [
+            1536,
+            0,
+            384,
+            640
+          ],
+          [
+            1920,
+            0,
+            384,
+            640
+          ],
+          [
+            0,
+            640,
+            384,
+            640
+          ],
+          [
+            384,
+            640,
+            384,
+            640
+          ],
+          [
+            768,
+            640,
+            384,
+            640
+          ],
+          [
+            1152,
+            640,
+            384,
+            640
+          ],
+          [
+            1536,
+            640,
+            384,
+            640
+          ],
+          [
+            1920,
+            640,
+            384,
+            640
+          ]
+        ],
+        "atlasSize": [
+          2304,
+          1280
+        ],
+        "actualTraversalFrameIndices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "path": [
+      [
+        0,
+        -2.1,
+        0
+      ],
+      [
+        0,
+        -1.9,
+        0.0733333333
+      ],
+      [
+        0,
+        -1.75,
+        0.1466666667
+      ],
+      [
+        0,
+        -1.55,
+        0.22
+      ],
+      [
+        0,
+        -1.5,
+        0.22
+      ],
+      [
+        0,
+        -1.3,
+        0.22
+      ],
+      [
+        0.15,
+        -0.65,
+        0.22
+      ],
+      [
+        0,
+        0.12,
+        0.22
+      ],
+      [
+        0.78,
+        -0.18,
+        0.22
+      ]
+    ],
+    "nativePathPoseCount": 36,
+    "allNativeRootScalesPreserved": true,
+    "visibleFootMeshNames": [
+      "Rosa refined distinct cocoa shoe -1",
+      "Rosa refined distinct cocoa shoe 1"
+    ],
+    "soleRelativeToRootRange": [
+      -2.9802322387695312e-08,
+      2.0116567611694336e-07
+    ],
+    "maxAbsoluteSoleRootError": 2.0116567611694336e-07,
+    "visibleWalkPoseHeightsRange": [
+      1.240700511932373,
+      1.2432005405426025
+    ],
+    "measuredStandPoseHeights": [
+      {
+        "clip": "stand",
+        "frame": 1,
+        "visibleHeight": 1.252499809340497,
+        "minVisibleFootZ": 9.461382788344963e-09,
+        "rootScale": [
+          1.25,
+          1.25,
+          1.25
+        ]
+      },
+      {
+        "clip": "stand",
+        "frame": 12,
+        "visibleHeight": 1.251712268582505,
+        "minVisibleFootZ": 5.365260236089853e-08,
+        "rootScale": [
+          1.25,
+          1.25,
+          1.25
+        ]
+      }
+    ],
+    "metadataAnatomicalHeight": 1.2746186554431915,
+    "conservativeNativePostCapMinimumLateralClearance": 8.940696716308594e-08,
+    "clearanceMethod": "Independent retained actual-triangle Y/Z-slab clipping audit at identical native walk poses/path, same approvedbody and entry6. Nonnegative clearance includes near tangency; not a broad gameplay collision guarantee. Rotation is shared rigid group in allfacings.",
+    "historicalScope": "Old native-context/walk-* and human-registration-visibility-audit.json use b176 bodyheight1.5125, retained diagnostic only; do not establish samebody parity with approved source.",
+    "sourceUnchanged": true,
+    "reviewPolicy": "Technical evidence only; independent judge approval pending."
+  },
+  "semanticMarkers": {
+    "entry": [
+      0,
+      -0.5,
+      0
+    ],
+    "dock": [
+      0,
+      0.5,
+      0.23
+    ],
+    "meaning": "Dock marker is interior semantic attachment, not actual deck surface; physical transfer isY0/Z.22."
+  },
+  "nativeResources": {
+    "externalImages": [],
+    "cameraCards": false,
+    "proceduralNativeWood": true,
+    "editableNativeMeshes": 13,
+    "noNativeProjectWrittenDuringPairAppend": true
+  },
+  "retainedDrafts": "source/draft-dispositions.json",
+  "materialLimits": [
+    "Frozen b176 hut .035 and submarine .055 support gaps belong to their later family repairs; source roots/clearance and cover actions retained. No zero-gap neighbor certification.",
+    "Four manifold positive-area Boolean numerical slivers disclosed in dense audit; no actualzeroarea/loose/nonmanifold topology. Independent judge evaluates any visible defect.",
+    "Native pair vs separate sprites have recorded RGB differences despite full alpha coverage; do not claim RGB pixelidentity.",
+    "Older b176 native human/bodyheight1.5125 contexts are diagnostic only. New exact approved Rosa body root1.25 is preserved in36 derived55degree native frames; primary actual consumer uses current published35degree atlas. Different projections do not imply bodypixelparity."
+  ],
+  "reviewPolicy": "No self-approval/sealing/promotion. Root coordinator seals the complete bound handoff; original independent judge decides visual/technical approval."
+}

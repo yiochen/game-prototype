@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "asset": "slate-rock",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shapeVolume",
+        "priority": 1,
+        "success": "The irregular broad crown, sloped perimeter and substantial side depth remain readable at the logical game scale. The asymmetrical original silhouette and uneven crown remain; small soft edge responses may improve tactility without smoothing away the source facets.",
+        "reject": "Round pebble silhouette, changed footprint/height, new platform, excessive inflated bevels, lost crown/side distinction, or new protruding chips."
+      },
+      {
+        "id": "color",
+        "priority": 1,
+        "success": "Dominant color remains subdued slate blue-gray. Gentle neutral-to-warm gray highlight variation gives the requested welcoming cartoon feel while still reading as the source slate material.",
+        "reject": "A beige/tan crown dominates, highly saturated blue, washed-out white patches, or near-black lower planes that merge into unreadable mass."
+      },
+      {
+        "id": "lightingHighlights",
+        "priority": 1,
+        "success": "Broad soft diffuse light reveals crown, side facets and lower edge without crushed shadows. Highlight response is restrained and matte; rotation reveals geometry while preserving the same soft tonal family.",
+        "reject": "A baked lateral spotlight, left-right directional rim, strong shiny streaks, blown crown, directional ground shadow or a dead black base band."
+      },
+      {
+        "id": "materialDetail",
+        "priority": 2,
+        "success": "A restrained, stable low-frequency variation helps the broad slate facets feel tactile and softly cartoon-rendered. The fine shallow fissure remains legible and attached to the crown, with visual weight close to its original identity.",
+        "reject": "Dense grain, glitter, stippled/painterly noise, arbitrary triangulation bands, deep or enlarged target-like slot, sharp white crack rim or apparent floating fissure."
+      },
+      {
+        "id": "artifactFreeReadability",
+        "priority": 1,
+        "success": "All four native views are clean at native and logical size against light, gray and dark backgrounds. No clipping, z-fighting, pinholes, halos, broken corners, disconnected crack, seam bands or muddy merged planes. Repeated placements retain consistent weight and style.",
+        "reject": "Any material defect or a view that only looks acceptable when enlarged; overlaid contact shadows or texture changes that do not follow the model."
+      }
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "40143b59b34cd1049d94012bdc065508bad6b04e661173d9aa9fe8321027e238"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "backup": {
+      "path": "../../../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "2249e895152ad7841ae2fd7ee6d510231d079b60d30c0d4298a6ce2e947e7cb1"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "233528e7a8bd158d9b1f75200fe86344d21879a9a4fa2050fbaecb38e23955f9"
+    },
+    "candidateProject": {
+      "path": "../../source/round-02.blend",
+      "sha256": "9d9ed8b99b1a2fd951879bf79f22321689ae0e9d173bd99f5f6cff6fad439562"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "d47207435f87c8efa3dc84395de906fbdda40b4177174cd6352aefe9d6ffae82"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "2a23c6c3a6df923ba291fcb653b72ebf0cb692c9903526ab9935991ecb0dccbe"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "388a59866d5d20c1b6e030d60d310d24ad4016481788f111e8cb7ce33b8bb938"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "2dfe6a337938f7ddfd5c2e860c5594810c7a9b0bcf9089e6fe53c930715bbc25"
+    },
+    "candidateResource:round:logical-four-view-sheet.png": {
+      "path": "logical-four-view-sheet.png",
+      "sha256": "7bf009bfb0c988f97de7ace142a47fdc2212e67b7e98a47eaaebbb1170d02541"
+    },
+    "candidateResource:round:backgrounds.png": {
+      "path": "backgrounds.png",
+      "sha256": "ed708e39d920bf2341c4dd9802846618817cc84aa7c5e2f59dbfd214e42f506b"
+    },
+    "candidateResource:round:reopened-source.json": {
+      "path": "reopened-source.json",
+      "sha256": "8f8aa3ecb3731449c43c2395988a78830f56b55f8f3b6a11ac29305b129024c4"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "0dacf820b51fa0a57a4edb82944f71a567c7dd05eb8a1de723d546b0bb3d58d7"
+    },
+    "candidateResource:round:static-N.png": {
+      "path": "static-N.png",
+      "sha256": "dbb9330e6790a916562e36f4ad7a11b1f29f273af4bfa9c6c3f7c2327c6950ca"
+    },
+    "candidateResource:round:repeated.png": {
+      "path": "repeated.png",
+      "sha256": "302ce3bb8ba7b4df738f6b3031a371b9defb0edcd5e81c6212832ce79c21fa3b"
+    },
+    "candidateResource:round:static-S.png": {
+      "path": "static-S.png",
+      "sha256": "96300f0478514a9deb3a8aa3971326a6093e1d9e4f24135f20a4e189e6a21255"
+    },
+    "candidateResource:round:static-E.png": {
+      "path": "static-E.png",
+      "sha256": "9142e2de6ea3dc8df03845f93bf3f33df20c7ae9a2a00a47a7e7dbddb38dd183"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "d47207435f87c8efa3dc84395de906fbdda40b4177174cd6352aefe9d6ffae82"
+    },
+    "candidateResource:round:static-W.png": {
+      "path": "static-W.png",
+      "sha256": "7a2b6a4bd5d512933b403b685a6947b8227315480dd95f547171d4329ef094e8"
+    },
+    "candidateResource:round:reopened-N.png": {
+      "path": "reopened-N.png",
+      "sha256": "91d4f72d4b2a6392fde0def442dc8dc63e6d9b0b3590d0c692f34ecddd02c11d"
+    },
+    "candidateResource:round:four-view-sheet.png": {
+      "path": "four-view-sheet.png",
+      "sha256": "6b353dfb0e8b30ae7318a40a96320d5cdf4cb25da8eb6b79ad85d4c8322783d9"
+    },
+    "candidateResource:round:atlases/static-N.png": {
+      "path": "atlases/static-N.png",
+      "sha256": "dbb9330e6790a916562e36f4ad7a11b1f29f273af4bfa9c6c3f7c2327c6950ca"
+    },
+    "candidateResource:round:atlases/static-S.png": {
+      "path": "atlases/static-S.png",
+      "sha256": "96300f0478514a9deb3a8aa3971326a6093e1d9e4f24135f20a4e189e6a21255"
+    },
+    "candidateResource:round:atlases/static-E.png": {
+      "path": "atlases/static-E.png",
+      "sha256": "9142e2de6ea3dc8df03845f93bf3f33df20c7ae9a2a00a47a7e7dbddb38dd183"
+    },
+    "candidateResource:round:atlases/static-W.png": {
+      "path": "atlases/static-W.png",
+      "sha256": "7a2b6a4bd5d512933b403b685a6947b8227315480dd95f547171d4329ef094e8"
+    },
+    "candidateResource:source:round-01-camera.json": {
+      "path": "../../source/round-01-camera.json",
+      "sha256": "6dc483119aa9e773b2cbad6b45dff06eb8a3ca0b73e55b734882a7fe11f9c844"
+    },
+    "candidateResource:source:round-01-rig.json": {
+      "path": "../../source/round-01-rig.json",
+      "sha256": "8ca6636cf76cb55c7fd4c973fe5e81ffb83f3ba5597035801ea1a5f00669be0b"
+    },
+    "candidateResource:source:round-02.py": {
+      "path": "../../source/round-02.py",
+      "sha256": "fc5c706e7738c175235e1de835f335815fe57095e4eb2f48c7e89fa27791674c"
+    },
+    "candidateResource:source:source-inspection.json": {
+      "path": "../../source/source-inspection.json",
+      "sha256": "27f0a79feb5b95fe8ca8c40b30d73cfc626f38ddc32cc541702359af709df8b5"
+    },
+    "candidateResource:source:round-01-assetRecord.json": {
+      "path": "../../source/round-01-assetRecord.json",
+      "sha256": "8e1d5e5f02aaae762adc24787ac82903f5705f48e3c55cdba1c00f5d491dfb45"
+    },
+    "candidateResource:source:inspect-source.py": {
+      "path": "../../source/inspect-source.py",
+      "sha256": "4f32255600a873d22286ff1439d64b093be974381f29f83ea5df9b984fb79e85"
+    },
+    "candidateResource:source:round-02-camera.json": {
+      "path": "../../source/round-02-camera.json",
+      "sha256": "eb3ec1a6b9c5591a253369b94e9dec8080964fa6a20fe7a00c209a08fd440219"
+    },
+    "candidateResource:source:package-round-02.py": {
+      "path": "../../source/package-round-02.py",
+      "sha256": "393f0d9bca36adbac7b65561255f220287d7ffa86b86d20a30cf5924c9d27d98"
+    },
+    "candidateResource:source:round-02-rig.json": {
+      "path": "../../source/round-02-rig.json",
+      "sha256": "c5b695807e467e0362ff210ec478c002e47d353424fc9da2d9c2adcb5db21f89"
+    },
+    "candidateResource:source:replay-round-02.py": {
+      "path": "../../source/replay-round-02.py",
+      "sha256": "fe7de8a08b69908a32c9e0a34a341d81dbaaa56d99fd224b6016995236500229"
+    },
+    "candidateResource:source:round-02.blend": {
+      "path": "../../source/round-02.blend",
+      "sha256": "9d9ed8b99b1a2fd951879bf79f22321689ae0e9d173bd99f5f6cff6fad439562"
+    },
+    "candidateResource:source:round-02-assetRecord.json": {
+      "path": "../../source/round-02-assetRecord.json",
+      "sha256": "8c83cd5a8c257d9da06cc064b7cf2395e9c04fe807b7daa93ef23497ec10b42d"
+    },
+    "candidateResource:source:audit-round-02.py": {
+      "path": "../../source/audit-round-02.py",
+      "sha256": "ecfa814bb5cc66ac32d1b0f2db00eb9f5e892a1fb062ce7ec4aef01c7e9e6d85"
+    },
+    "candidateResource:source:round-01.py": {
+      "path": "../../source/round-01.py",
+      "sha256": "78d0a8434334c13e86e14e4fe036c24908fb69d1cd6e596848b0219a746b60a2"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "24d9216d42d265ee09f8c9fcc8a92fd51136127e2c14e5f59fb043c6c3da5b56"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "static-N.png",
+      "sha256": "dbb9330e6790a916562e36f4ad7a11b1f29f273af4bfa9c6c3f7c2327c6950ca",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "E": {
+      "path": "static-E.png",
+      "sha256": "9142e2de6ea3dc8df03845f93bf3f33df20c7ae9a2a00a47a7e7dbddb38dd183",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "S": {
+      "path": "static-S.png",
+      "sha256": "96300f0478514a9deb3a8aa3971326a6093e1d9e4f24135f20a4e189e6a21255",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "W": {
+      "path": "static-W.png",
+      "sha256": "7a2b6a4bd5d512933b403b685a6947b8227315480dd95f547171d4329ef094e8",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "6b353dfb0e8b30ae7318a40a96320d5cdf4cb25da8eb6b79ad85d4c8322783d9"
+    },
+    "logical-four-view-sheet": {
+      "path": "logical-four-view-sheet.png",
+      "sha256": "7bf009bfb0c988f97de7ace142a47fdc2212e67b7e98a47eaaebbb1170d02541"
+    },
+    "repeated": {
+      "path": "repeated.png",
+      "sha256": "302ce3bb8ba7b4df738f6b3031a371b9defb0edcd5e81c6212832ce79c21fa3b"
+    },
+    "backgrounds": {
+      "path": "backgrounds.png",
+      "sha256": "ed708e39d920bf2341c4dd9802846618817cc84aa7c5e2f59dbfd214e42f506b"
+    }
+  }
+}

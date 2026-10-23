@@ -1,0 +1,16 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/source/reproduce-round-01.py:30: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;n.clear();l=m.node_tree.links
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/source/reproduce-round-01.py:105: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Symmetric soft blue ambient');world.use_nodes=True;world.node_tree.nodes['Background'].inputs['Color'].default_value=(.72,.83,1,1);world.node_tree.nodes['Background'].inputs['Strength'].default_value=.24;SC.world=world
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/source/reproduce-round-01.py", line 149, in <module>
+    ROOT.rotation_euler.z=math.radians(degrees);SC.frame_set(1);bpy.context.view_layer.update();measurement=measure();measurements[direction]=[measurement]
+                                                                                                            ~~~~~~~^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/source/reproduce-round-01.py", line 141, in measure
+    rec.update(vertices=len(mesh.vertices),polygons=len(mesh.polygons),bounds=bounds(pts),boundaryEdges=sum(v==1 for v in edgecounts.values()),nonManifoldEdges=sum(v!=2 for v in edgecounts.values()),groundVertices=sum(abs(p.z)<1e-6 for p in pts),meshAnimation=temporal(ob.data),shapeKeys=bool(ob.data.shape_keys),materials=[m.name for m in ob.data.materials],modifiers=[{'type':m.type,'name':m.name} for m in ob.modifiers])
+                                                                                                                                                                                                                                                                                                                                    ^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+Info: Saved as "round-01.blend"
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}body{margin:0;background:#ddd;color:#222;font:13px sans-serif}h1{font-size:16px;margin:8px}#scenes{display:grid;grid-template-columns:repeat(4,max-content);gap:6px;padding:8px}.panel{padding:4px}.panel canvas{display:block}label{display:block;height:20px}.phone #scenes{grid-template-columns:repeat(2,max-content)}
+</style></head><body><h1 id="title">Safe passage original current consumer</h1><div id="scenes"></div><script type="module">
+import {worldRasterPlan,paintWorldRaster} from './resources/world-sprite-raster.js';
+import {spriteFrame,clipFor,groundRoot,orderPlacements} from './resources/sprite-layout.js';
+const asset=await (await fetch('./resources/catalog-object.json')).json();
+const query=new URLSearchParams(location.search);const zoom=query.get('size')==='phone'?.5:1;const mode=query.get('source')||'current';
+const bg={light:'#eeeeee',gray:'#777777',dark:'#121820'}[query.get('bg')||'gray'];
+document.body.className=query.get('size')==='phone'?'phone':'';document.body.style.background=bg;
+document.body.style.color=query.get('bg')==='light'?'#111':'#fff';document.getElementById('title').textContent=`safe-passage · ${mode} · ${query.get('size')} · ${query.get('bg')}`;
+const images={};for(const d of 'NESW'){const img=new Image();img.src=mode==='current'?`./resources/original-ambient-${d}.png`:`./published/ambient-${d}.png`;await img.decode();images[d]=img;}
+const panels=[];for(const direction of 'NESW') {let node=document.createElement('div');node.className='panel';node.style.background=bg;node.innerHTML=`<label>${direction}</label><canvas></canvas>`;document.getElementById('scenes').append(node);panels.push({direction,canvas:node.querySelector('canvas')});}
+window.evidence={asset:'safe-passage',helper:'unchanged world-sprite-raster.js + sprite-layout.js',zoom,source:mode,bg,plans:[],frames:[],playback:[]};
+window.setFrame=(index)=>{
+ const seconds=index/12;window.evidence.plans=[];window.evidence.frames=[];
+ for(const {direction,canvas} of panels){
+  const placement=orderPlacements([{object:asset.id,x:0,y:0,direction}], [asset])[0];
+  const root=groundRoot(placement,asset);const frame=spriteFrame(asset,clipFor(asset,'ambient'),direction,seconds);
+  const sprites=[{x:root[0]-frame.root[0],y:root[1]-frame.root[1],width:frame.frameSize[0],height:frame.frameSize[1],rect:frame.rect,url:images[direction].src}];
+  const bounds=[sprites[0].x,sprites[0].y,frame.frameSize[0],frame.frameSize[1]];const plan=worldRasterPlan(sprites,bounds);paintWorldRaster(canvas,plan,[images[direction]]);
+  canvas.style.width=`${plan.width/plan.scale*zoom}px`;canvas.style.height=`${plan.height/plan.scale*zoom}px`;
+  window.evidence.plans.push({direction,root,frame,plan,css:[plan.width/plan.scale*zoom,plan.height/plan.scale*zoom]});window.evidence.frames.push(frame.frame);
+ }return window.evidence;
+};
+window.setFrame(6);window.ready=true;
+window.startPlayback=()=>{window.evidence.playback=[];let started=performance.now();function tick(t){const index=Math.floor((t-started)*12/1000+1e-7);window.setFrame(index);window.evidence.playback.push({time:t-started,index,frames:[...window.evidence.frames]});if(t-started<2150)requestAnimationFrame(tick);else window.playbackDone=true;}requestAnimationFrame(tick)};
+</script></body></html>

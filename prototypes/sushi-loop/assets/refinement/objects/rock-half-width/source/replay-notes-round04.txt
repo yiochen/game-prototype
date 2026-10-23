@@ -1,0 +1,15 @@
+Round04 replay notes
+
+Run reproductions only in a NEW isolated archive staging workspace. Never rerun writing drivers inside a signed round. Paths resolve from this object root. All previously signed rounds and the target/brief remain unchanged.
+
+The editable .blend has no external image or library dependency. Blender 5.2.2 LTS and the exact external executable hashes/settings are recorded in commands-and-blender-runtime.json and actual-field-audit.json. Native captures use the fixed camera, 4x/filter.01, all4 proper root rotations; publication is one whole-frame BOX4x-to2x operation.
+
+Restore source/round-01-resources/frozen-brief.json to brief.json only in the new staging workspace if the archive does not already contain it. Retain the frozen contract/reconciliation/source metadata/target inputs listed in used-resources.json.
+
+The browser driver checks the actual current helper originals against the retained exact snapshots. In a portable archive, restore source/round-01-resources/sprite-layout.js and world-sprite-raster.js to ../../../../wireframe/ under the new archive staging tree. Do not overwrite production. These complete helper bytes are retained; no download is needed. For an archive without node_modules, select the retained actual-loaded closure with NODE_PATH=source/round-01-resources/node-loaded. Compatible exact external Chromium/headless-shell executables are recorded, not copied. Both prescribed launch option sets remain unchanged.
+
+Python modules loaded by publication/analysis and their hashes are retained under source/round-01-resources/python-runtime/PIL. PYTHONPATH may select that snapshot with a compatible recorded interpreter/ABI. Always set PYTHONDONTWRITEBYTECODE=1. No frozen bytecode, browser or application tree is included.
+
+Desktop screenshot tiles are lossless full-coverage inspection aids; the original declared screenshots remain the evidence sources. They never feed publication or the consumer. Superseded native course experiments are outside the final used closure at /tmp/rock-half-width-editor-unsubmitted.
+
+This is an editor handoff. Native technical data does not approve visible quality; the original independent judge owns that verdict.

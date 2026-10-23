@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "asset": "submarine-yellow",
+  "stage": "Stage1-v6 focused glass recheck before body and component-interface freeze",
+  "verdict": "ready-for-component-freeze",
+  "finalAssetApproval": false,
+  "createdAt": "2026-10-22T10:47:05.681984+00:00",
+  "binding": {
+    "sourceSHA256": "c8462a4072c8ce12f2afcc6907a02d705dcd7df6858f7d790bb2a1dcc5d7fb0e",
+    "handoffSHA256": "87fa8f617662f9cc84453f1241265e00ad45e83752c39aba4687db308ee85084",
+    "stage1SealSHA256": "1b344632a39f624d279e2cf4fde8ac371b2bc2ba39a1bf7f853ed4965132542b",
+    "v5SourceSHA256": "87647d3167633d4f3a7c4cd4bf5a4af4e221a6a944d57cd06400df8df9d1ea94",
+    "v5FeedbackSHA256": "58ce8f83967aaa93df584a4362d3650a341d92f0afbf58a8d220665d668c5c81",
+    "briefSHA256": "a00e23446a46bee3e05d080ef406a105a05c8bc948d90ae6b978a7a0cb7b608d",
+    "nativeContractSHA256": "6a369bb8406890499724827234e8efd83e242583c51c9917a1c97d67d19680fe",
+    "fixedTargetSHA256": "398f8b181f6f445869504b32af2c2cb11517d6fa9ef92f0fbf0658044951f6d3",
+    "proposedMountsSHA256": "0453d2b60f1223de8eb79b8464d2922c3ed44c8c7a4e1603bd6e9ce4c7ecb5f6",
+    "inputManifestSHA256": "f5ee6ea6e2df8c974cbac28563a851ca1ff4178087c17a2fd9d5c171fa57af99",
+    "all66Stage1ResourceHashesVerified": true,
+    "allUsedOriginalAndSnapshotHashesRecheckedUnchanged": true
+  },
+  "scope": "This clears the single Stage1-v5 glass blocker and accepts the preliminary body/material/interface basis for coordinator freeze. It does not approve final main asset, canonical component art, future cover/family publication, complete sprite consumer contexts or final 576 images/48 atlases.",
+  "inspectedFiles": [
+    "resources/candidates/stage1-v6/dock-ready-N.png",
+    "resources/candidates/stage1-v6/dock-ready-E.png",
+    "resources/candidates/stage1-v6/dock-ready-S.png",
+    "resources/candidates/stage1-v6/dock-ready-W.png",
+    "resources/candidates/stage1-v6/upgraded-dock-ready-N.png",
+    "resources/candidates/stage1-v6/upgraded-dock-ready-E.png",
+    "resources/candidates/stage1-v6/upgraded-dock-ready-S.png",
+    "resources/candidates/stage1-v6/upgraded-dock-ready-W.png",
+    "resources/candidates/stage1-v6/family-PROVISIONAL-N.png",
+    "resources/candidates/stage1-v6/family-PROVISIONAL-E.png",
+    "resources/candidates/stage1-v6/family-PROVISIONAL-S.png",
+    "resources/candidates/stage1-v6/family-PROVISIONAL-W.png",
+    "resources/candidates/stage1-v6/v5-v6-glass-logical-comparison.png",
+    "resources/candidates/stage1-v6/dock-ready-logical-backgrounds.png",
+    "resources/candidates/stage1-v6/upgraded-dock-ready-logical-backgrounds.png",
+    "resources/candidates/stage1-v6/representatives-half-logical-backgrounds.png",
+    "resources/source/stage1-v6/resources/target.png",
+    "independent-replay-v2-dock-ready-S.png"
+  ],
+  "blockers": [],
+  "resolvedV5Blocker": {
+    "issue": "Focal porthole previously read as a softly shaded, nearly uniform blue disc with weak glass depth/reflection.",
+    "result": "Resolved. The revised native material gives the lens a deeper blue surround, a lighter rounded interior reflection and a controlled curved highlight near the rim. It reads as stylized glass rather than a flat painted insert. These cues survive 320\u00d7384 logical and 160\u00d7192 half-logical display in N/E/S/W on light, gray and dark backgrounds, both without and with provisional equipment.",
+    "viewNotes": {
+      "S": "Curved pale-blue upper reflection and darker surrounding blue make the convex window and glass edge legible at its largest frontal presentation. The blue focal area remains dominant; there is no clipped white wash.",
+      "N": "The smaller foreshortened oval still separates its blue depth from a restrained brighter reflection at the near edge, without a dark dead patch.",
+      "E/W": "A broad blue-tinted oval reflection shifts coherently with the view while a deeper blue edge keeps the porthole distinct from its gold ring. The lighter region remains bounded and does not erase the blue glass."
+    },
+    "referenceInterpretation": "A broader, simpler reflection than the target is accepted. Literal transparency, copied target glint direction/count, photoreal refraction or pixel identity were never required. No new decorative detail is demanded at this partial checkpoint."
+  },
+  "independentNativeIdentity": {
+    "validProof": "independent-identity-and-glass-v2.json",
+    "proofSHA256": "5c3cea666a2de0962ce6c3fe42825adb441574729c0d520eef6c272e063ab90a",
+    "allChecksPass": true,
+    "verifiedUnchanged": [
+      "All object names, hierarchy, transforms, visibility, custom properties, constraints and drivers in the native object collection.",
+      "Base and evaluated geometry, normals, UV layers, material face indices, modifier settings and absence of shape/data animation.",
+      "Native action owner cohorts, timing, slots, keys, handles, extrapolation and F-curve modifiers.",
+      "Camera, renderer/frame/sampling/alpha settings, symmetric lights, world graph and color management.",
+      "All preexisting material graphs and settings; all other object material assignments.",
+      "No image resources or linked libraries added."
+    ],
+    "actualChanges": {
+      "changedObjectMaterialSlots": [
+        "body__convex_blue_glass"
+      ],
+      "addedMaterials": [
+        "Sub Native depth glass v6"
+      ]
+    },
+    "normalization": "The initial generic settings snapshot included Blender runtime session_uid and datablock users. Diagnostics show only those ephemeral fields differ outside the intended glass change. Valid v2 comparison excludes only these fields; the old blue material user count drops 2\u21921 because the independently checked glass material assignment moved. Raw diagnostics are retained in identity-metadata-diagnostics.json. No functional geometry/material/render difference was hidden.",
+    "shaderInspection": "Actual new graph is static native nodes on the existing convex mesh: angle-dependent blue depth, reflected Incoming/Normal ray, world-Z elevation ramp, blue-tinted reflection and a polished Principled coat with restrained radiance. No horizontal X/Y azimuth branch, image texture, glint card, per-view material assignment, node animation, time/UV/position texture, Normal connection or Displacement connection was found. Alpha remains 1 and transmission 0. Stylized opaque glass is allowed.",
+    "shaderMotionImplication": "Body/glass motion remains unchanged translation under each fixed orthographic facing. The static shader uses normal/view direction and reflection elevation rather than time or position, so it introduces no new geometry, opacity or shader-motion channel. Broad phase tests were not repeated once exact relevant identity was established."
+  },
+  "reusedV5Evidence": {
+    "basis": "Exact independent native identity, not editor claims alone, permits reuse of the original judge Stage1-v5 technical proof.",
+    "nativePhases": "576 runtime + 576 half + 48 endpoint evaluations, including 40 true loop closures; own v5 audit found zero supplied-bounds/visibility differences and zero envelope violations.",
+    "hover": "Source-like .0370000005\u2013.0730000138 world-unit clearance over the exact paired floor remains within frozen .02\u2013.09. Docked hover and body/skid bob remain unchanged.",
+    "interfaces": "Exact same positive uniform transforms .5/.35/.4, legacy attachment-base coordinates, finite contact faces, neutral reservations, component separation and distinct main65\u00b0/standalone55.00798\u00b0 projections apply. The v5 independent finite-seat-face audit remains authority alongside the reservation volumes.",
+    "scopeQualification": "Actual final canonical contact contouring/art/readability and standalone idle/active clips still require each component judge. Neutral reservation fit is not approval of those future bytes."
+  },
+  "savedSourceReplay": {
+    "method": "Independently reopened the exact v6 source and rendered baseline S frame1 from saved native actions in background Blender5.2.2. Original source and primary captures were never resaved or corrected.",
+    "result": {
+      "source": "c8462a4072c8ce12f2afcc6907a02d705dcd7df6858f7d790bb2a1dcc5d7fb0e",
+      "direction": "S",
+      "clip": "dock-ready",
+      "frame": 1,
+      "maxRGBAChannelDifference": 1,
+      "differentPixels": 3,
+      "exactRGBA": false,
+      "selectedPrimaryCaptureUnmodified": true
+    },
+    "interpretation": "Maximum1/255 in3 pixels is consistent with disclosed tiny EEVEE replay variation and does not affect the visible verdict. Exact primary selected capture bytes remain authoritative; no universal byte-identity claim."
+  },
+  "remainingDifferences": [
+    "The glass reflection is deliberately broader and simpler than the target highlight pattern. It remains sufficiently readable as native stylized glass at the inspected sizes.",
+    "The body keeps the accepted golden finish and constructed toy-like forms; exact target lighting direction and rivet density are not required.",
+    "All equipment shown remains provisional fit evidence and receives no canonical art approval here."
+  ],
+  "freezeRecommendation": "Coordinator may freeze this exact v6 preliminary body/material source and the unchanged proposed mount law before the three fresh component pairs construct. Preserve the finite contact surfaces, neutral geometry adoption scope, declared uniform transforms, legacy attachment references, registered captures and motion contract. Any later body/material/interface change requires its own review binding.",
+  "pendingAfterFreeze": [
+    "Three independent canonical component editor/judge pairs, preserving each own registered camera/root/frame/idle/active contract.",
+    "Adopt exact approved neutral geometry, normals, UVs and materials at frozen transforms without post-approval reshaping/recoloring/re-beveling or new active-main mapping.",
+    "Final complete 576 native frames/48 atlases, all required views/backgrounds/quarter phases/phone/landscape/native and exact-sprite family contexts, hover/socket/component proofs and original main judge asset review."
+  ],
+  "stop": "Focused Stage1-v6 preflight complete. No final asset approval. No source/model/brief/target/production/Git/live Blender/other-object/additional-agent changes."
+}

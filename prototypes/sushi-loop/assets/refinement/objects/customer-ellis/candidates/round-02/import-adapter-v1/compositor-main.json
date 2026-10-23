@@ -1,0 +1,1007 @@
+{
+  "asset": "customer-ellis",
+  "mode": "main",
+  "kind": "read-only-native-compositor-inspection",
+  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-ellis/source/round-02.blend",
+  "sourceSHA256": "efd52778e1f3949465e474809f18496e1fa67bb667fc4082f0855830b1cfcca5",
+  "blenderVersion": "5.2.2 LTS",
+  "scene": "S33 Native Asset Library Export",
+  "rootObject": "customer_ellis__ground_root.001",
+  "sceneUseNodes": true,
+  "renderCompositingSettings": {
+    "use_compositing": true,
+    "use_sequencer": true,
+    "use_stamp_sequencer_strip": false,
+    "sequencer_gl_preview": "SOLID",
+    "use_sequencer_override_scene_strip": false,
+    "compositor_device": "GPU",
+    "compositor_precision": "AUTO",
+    "compositor_denoise_device": "AUTO",
+    "compositor_denoise_preview_quality": "BALANCED",
+    "compositor_denoise_final_quality": "HIGH"
+  },
+  "activeCompositorTree": "S33 approved sRGB contrast 135 S33 Native Asset Library Export.003",
+  "compositorTrees": {
+    "S33 approved sRGB contrast 135 S33 Native Asset Library Export.003": {
+      "name": "S33 approved sRGB contrast 135 S33 Native Asset Library Export.003",
+      "type": "CompositorNodeTree",
+      "nodes": [
+        {
+          "name": "Render Layers",
+          "type": "CompositorNodeRLayers",
+          "mute": false,
+          "properties": {
+            "type": "R_LAYERS",
+            "location": [
+              -900.0,
+              0.0
+            ],
+            "location_absolute": [
+              -900.0,
+              0.0
+            ],
+            "width": 240.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Render Layers",
+            "label": "Unchanged materials and lighting",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "INPUT",
+            "select": true,
+            "show_options": true,
+            "show_preview": true,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodeRLayers",
+            "bl_label": "Render Layers",
+            "bl_description": "Input render passes from a scene render",
+            "bl_icon": "NONE",
+            "bl_static_type": "R_LAYERS",
+            "bl_width_default": 240.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "layer": "ViewLayer"
+          },
+          "inputs": [],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            },
+            {
+              "name": "Alpha",
+              "identifier": "Alpha",
+              "type": "NodeSocketFloat"
+            }
+          ],
+          "sceneReference": "S33 Native Asset Library Export"
+        },
+        {
+          "name": "Alpha Convert",
+          "type": "CompositorNodePremulKey",
+          "mute": false,
+          "properties": {
+            "type": "PREMULKEY",
+            "location": [
+              -680.0,
+              0.0
+            ],
+            "location_absolute": [
+              -680.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Alpha Convert",
+            "label": "Unpremultiply before grading",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodePremulKey",
+            "bl_label": "Alpha Convert",
+            "bl_description": "Convert to and from premultiplied (associated) alpha",
+            "bl_icon": "NONE",
+            "bl_static_type": "PREMULKEY",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "name": "Type",
+              "identifier": "Type",
+              "type": "NodeSocketMenu",
+              "linked": false,
+              "defaultValue": "To Straight"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            }
+          ]
+        },
+        {
+          "name": "Convert Colorspace",
+          "type": "CompositorNodeConvertColorSpace",
+          "mute": false,
+          "properties": {
+            "type": "CONVERT_COLORSPACE",
+            "location": [
+              -460.0,
+              0.0
+            ],
+            "location_absolute": [
+              -460.0,
+              0.0
+            ],
+            "width": 160.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Convert Colorspace",
+            "label": "Match browser sRGB",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodeConvertColorSpace",
+            "bl_label": "Convert Colorspace",
+            "bl_description": "Convert between color spaces",
+            "bl_icon": "NONE",
+            "bl_static_type": "CONVERT_COLORSPACE",
+            "bl_width_default": 160.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "from_color_space": "scene_linear",
+            "to_color_space": "sRGB"
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            }
+          ]
+        },
+        {
+          "name": "Separate Color",
+          "type": "CompositorNodeSeparateColor",
+          "mute": false,
+          "properties": {
+            "type": "SEPARATE_COLOR",
+            "location": [
+              -240.0,
+              0.0
+            ],
+            "location_absolute": [
+              -240.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Separate Color",
+            "label": "",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodeSeparateColor",
+            "bl_label": "Separate Color",
+            "bl_description": "Split an image into its composite color channels",
+            "bl_icon": "NONE",
+            "bl_static_type": "SEPARATE_COLOR",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "mode": "RGB",
+            "ycc_mode": "ITUBT709"
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Red",
+              "identifier": "Red",
+              "type": "NodeSocketFloat"
+            },
+            {
+              "name": "Green",
+              "identifier": "Green",
+              "type": "NodeSocketFloat"
+            },
+            {
+              "name": "Blue",
+              "identifier": "Blue",
+              "type": "NodeSocketFloat"
+            },
+            {
+              "name": "Alpha",
+              "identifier": "Alpha",
+              "type": "NodeSocketFloat"
+            }
+          ]
+        },
+        {
+          "name": "Combine Color",
+          "type": "CompositorNodeCombineColor",
+          "mute": false,
+          "properties": {
+            "type": "COMBINE_COLOR",
+            "location": [
+              200.0,
+              0.0
+            ],
+            "location_absolute": [
+              200.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Combine Color",
+            "label": "",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodeCombineColor",
+            "bl_label": "Combine Color",
+            "bl_description": "Combine an image from its composite color channels",
+            "bl_icon": "NONE",
+            "bl_static_type": "COMBINE_COLOR",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "mode": "RGB",
+            "ycc_mode": "ITUBT709"
+          },
+          "inputs": [
+            {
+              "name": "Red",
+              "identifier": "Red",
+              "type": "NodeSocketFloatFactor",
+              "linked": true,
+              "defaultValue": 0.0
+            },
+            {
+              "name": "Green",
+              "identifier": "Green",
+              "type": "NodeSocketFloatFactor",
+              "linked": true,
+              "defaultValue": 0.0
+            },
+            {
+              "name": "Blue",
+              "identifier": "Blue",
+              "type": "NodeSocketFloatFactor",
+              "linked": true,
+              "defaultValue": 0.0
+            },
+            {
+              "name": "Alpha",
+              "identifier": "Alpha",
+              "type": "NodeSocketFloatFactor",
+              "linked": true,
+              "defaultValue": 1.0
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            }
+          ]
+        },
+        {
+          "name": "Math",
+          "type": "ShaderNodeMath",
+          "mute": false,
+          "properties": {
+            "type": "MATH",
+            "location": [
+              -10.0,
+              0.0
+            ],
+            "location_absolute": [
+              -10.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Math",
+            "label": "Red: clamp(1.35 \u00d7 c \u2212 0.175)",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "ShaderNodeMath",
+            "bl_label": "Math",
+            "bl_description": "Perform math operations",
+            "bl_icon": "NONE",
+            "bl_static_type": "MATH",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "operation": "MULTIPLY_ADD",
+            "use_clamp": true
+          },
+          "inputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat",
+              "linked": true,
+              "defaultValue": 0.5
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_001",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": 1.350000023841858
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_002",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": -0.17499999701976776
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat"
+            }
+          ]
+        },
+        {
+          "name": "Math.001",
+          "type": "ShaderNodeMath",
+          "mute": false,
+          "properties": {
+            "type": "MATH",
+            "location": [
+              -10.0,
+              -160.0
+            ],
+            "location_absolute": [
+              -10.0,
+              -160.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Math.001",
+            "label": "Green: clamp(1.35 \u00d7 c \u2212 0.175)",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "ShaderNodeMath",
+            "bl_label": "Math",
+            "bl_description": "Perform math operations",
+            "bl_icon": "NONE",
+            "bl_static_type": "MATH",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "operation": "MULTIPLY_ADD",
+            "use_clamp": true
+          },
+          "inputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat",
+              "linked": true,
+              "defaultValue": 0.5
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_001",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": 1.350000023841858
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_002",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": -0.17499999701976776
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat"
+            }
+          ]
+        },
+        {
+          "name": "Math.002",
+          "type": "ShaderNodeMath",
+          "mute": false,
+          "properties": {
+            "type": "MATH",
+            "location": [
+              -10.0,
+              -320.0
+            ],
+            "location_absolute": [
+              -10.0,
+              -320.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Math.002",
+            "label": "Blue: clamp(1.35 \u00d7 c \u2212 0.175)",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "ShaderNodeMath",
+            "bl_label": "Math",
+            "bl_description": "Perform math operations",
+            "bl_icon": "NONE",
+            "bl_static_type": "MATH",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "operation": "MULTIPLY_ADD",
+            "use_clamp": true
+          },
+          "inputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat",
+              "linked": true,
+              "defaultValue": 0.5
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_001",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": 1.350000023841858
+            },
+            {
+              "name": "Value",
+              "identifier": "Value_002",
+              "type": "NodeSocketFloat",
+              "linked": false,
+              "defaultValue": -0.17499999701976776
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Value",
+              "identifier": "Value",
+              "type": "NodeSocketFloat"
+            }
+          ]
+        },
+        {
+          "name": "Convert Colorspace.001",
+          "type": "CompositorNodeConvertColorSpace",
+          "mute": false,
+          "properties": {
+            "type": "CONVERT_COLORSPACE",
+            "location": [
+              420.0,
+              0.0
+            ],
+            "location_absolute": [
+              420.0,
+              0.0
+            ],
+            "width": 160.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Convert Colorspace.001",
+            "label": "Return to working linear space",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodeConvertColorSpace",
+            "bl_label": "Convert Colorspace",
+            "bl_description": "Convert between color spaces",
+            "bl_icon": "NONE",
+            "bl_static_type": "CONVERT_COLORSPACE",
+            "bl_width_default": 160.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "from_color_space": "sRGB",
+            "to_color_space": "scene_linear"
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            }
+          ]
+        },
+        {
+          "name": "Alpha Convert.001",
+          "type": "CompositorNodePremulKey",
+          "mute": false,
+          "properties": {
+            "type": "PREMULKEY",
+            "location": [
+              640.0,
+              0.0
+            ],
+            "location_absolute": [
+              640.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Alpha Convert.001",
+            "label": "",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "CONVERTER",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "CompositorNodePremulKey",
+            "bl_label": "Alpha Convert",
+            "bl_description": "Convert to and from premultiplied (associated) alpha",
+            "bl_icon": "NONE",
+            "bl_static_type": "PREMULKEY",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "name": "Type",
+              "identifier": "Type",
+              "type": "NodeSocketMenu",
+              "linked": false,
+              "defaultValue": "To Premultiplied"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "Image",
+              "identifier": "Image",
+              "type": "NodeSocketColor"
+            }
+          ]
+        },
+        {
+          "name": "Group Output",
+          "type": "NodeGroupOutput",
+          "mute": false,
+          "properties": {
+            "type": "GROUP_OUTPUT",
+            "location": [
+              860.0,
+              0.0
+            ],
+            "location_absolute": [
+              860.0,
+              0.0
+            ],
+            "width": 140.0,
+            "height": 100.0,
+            "dimensions": [
+              0.0,
+              0.0
+            ],
+            "name": "Group Output",
+            "label": "",
+            "warning_propagation": "ALL",
+            "use_custom_color": false,
+            "color": [
+              0.6079999804496765,
+              0.6079999804496765,
+              0.6079999804496765
+            ],
+            "color_tag": "INTERFACE",
+            "select": true,
+            "show_options": true,
+            "show_preview": false,
+            "hide": false,
+            "mute": false,
+            "show_texture": false,
+            "bl_idname": "NodeGroupOutput",
+            "bl_label": "Group Output",
+            "bl_description": "Output data from inside of a node group",
+            "bl_icon": "NONE",
+            "bl_static_type": "GROUP_OUTPUT",
+            "bl_width_default": 140.0,
+            "bl_width_min": 100.0,
+            "bl_width_max": 700.0,
+            "bl_height_default": 100.0,
+            "bl_height_min": 30.0,
+            "bl_height_max": 3.4028234663852886e+38,
+            "is_active_output": true
+          },
+          "inputs": [
+            {
+              "name": "Image",
+              "identifier": "Socket_0",
+              "type": "NodeSocketColor",
+              "linked": true,
+              "defaultValue": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "name": "",
+              "identifier": "__extend__",
+              "type": "NodeSocketVirtual",
+              "linked": false,
+              "defaultValue": null
+            }
+          ],
+          "outputs": []
+        }
+      ],
+      "links": [
+        {
+          "fromNode": "Render Layers",
+          "fromSocket": "Image",
+          "toNode": "Alpha Convert",
+          "toSocket": "Image",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Alpha Convert",
+          "fromSocket": "Image",
+          "toNode": "Convert Colorspace",
+          "toSocket": "Image",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Convert Colorspace",
+          "fromSocket": "Image",
+          "toNode": "Separate Color",
+          "toSocket": "Image",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Separate Color",
+          "fromSocket": "Red",
+          "toNode": "Math",
+          "toSocket": "Value",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Math",
+          "fromSocket": "Value",
+          "toNode": "Combine Color",
+          "toSocket": "Red",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Separate Color",
+          "fromSocket": "Green",
+          "toNode": "Math.001",
+          "toSocket": "Value",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Math.001",
+          "fromSocket": "Value",
+          "toNode": "Combine Color",
+          "toSocket": "Green",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Separate Color",
+          "fromSocket": "Blue",
+          "toNode": "Math.002",
+          "toSocket": "Value",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Math.002",
+          "fromSocket": "Value",
+          "toNode": "Combine Color",
+          "toSocket": "Blue",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Render Layers",
+          "fromSocket": "Alpha",
+          "toNode": "Combine Color",
+          "toSocket": "Alpha",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Combine Color",
+          "fromSocket": "Image",
+          "toNode": "Convert Colorspace.001",
+          "toSocket": "Image",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Convert Colorspace.001",
+          "fromSocket": "Image",
+          "toNode": "Alpha Convert.001",
+          "toSocket": "Image",
+          "valid": true,
+          "muted": false
+        },
+        {
+          "fromNode": "Alpha Convert.001",
+          "fromSocket": "Image",
+          "toNode": "Group Output",
+          "toSocket": "Socket_0",
+          "valid": true,
+          "muted": false
+        }
+      ]
+    }
+  },
+  "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 32,
+    "resolution": [
+      384,
+      640
+    ],
+    "percentage": 100,
+    "fps": 12,
+    "filmTransparent": true,
+    "imageColorMode": "RGBA",
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "operation": "No render; no source save; only this JSON written."
+}

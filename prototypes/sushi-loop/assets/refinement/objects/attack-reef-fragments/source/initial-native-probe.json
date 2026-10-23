@@ -1,0 +1,4716 @@
+{
+  "blender_version": "5.2.2 LTS",
+  "collection": "S33_CFX_attack-reef-fragments.001",
+  "collection_custom_properties": {},
+  "depsgraph_updated_before_evaluated_measurements": true,
+  "evaluated_union_root_relative_bounds": {
+    "max": [
+      0.4839707016944885,
+      0.2710553705692291,
+      0.5488352179527283
+    ],
+    "min": [
+      -0.35055139660835266,
+      -0.5000885725021362,
+      0.08000000566244125
+    ],
+    "span": [
+      0.8345220983028412,
+      0.7711439430713654,
+      0.468835212290287
+    ]
+  },
+  "evaluated_union_world_bounds": {
+    "max": [
+      0.4839707016944885,
+      0.2710553705692291,
+      0.5488352179527283
+    ],
+    "min": [
+      -0.35055139660835266,
+      -0.5000885725021362,
+      0.08000000566244125
+    ],
+    "span": [
+      0.8345220983028412,
+      0.7711439430713654,
+      0.468835212290287
+    ]
+  },
+  "fps": 12,
+  "fps_base": 1.0,
+  "frame_current": 4,
+  "frame_end": 12,
+  "frame_start": 1,
+  "frame_subframe": 0.0,
+  "limits": [
+    "Raw scene settings are observations, not a frozen future capture contract.",
+    "No camera, size, envelope, or contact lock is inferred from target pixels.",
+    "Only own collection geometry, ownership, materials, and actions were inspected.",
+    "No other experiment brief, criteria, review, or preparation analysis was read."
+  ],
+  "materials": {
+    "attack-reef-fragments approved S33_CFX_purple": {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.19120168685913086,
+        0.12477181851863861,
+        0.5028864741325378,
+        1.0
+      ],
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "nodes": [
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.19120168685913086,
+              0.12477181851863861,
+              0.5028864741325378,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              0.19120168685913086,
+              0.12477181851863861,
+              0.5028864741325378,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.800000011920929,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "ShaderNodeEmission"
+        },
+        {
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "ShaderNodeValToRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.19120168685913086,
+              0.12477181851863861,
+              0.5028864741325378,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "ShaderNodeMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "ShaderNodeMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "ShaderNodeMixRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "ShaderNodeBsdfPrincipled"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true
+    },
+    "attack-reef-fragments approved S33_CFX_reef": {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.06847816705703735,
+        0.20863686501979828,
+        0.423267662525177,
+        1.0
+      ],
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "nodes": [
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.06847816705703735,
+              0.20863686501979828,
+              0.423267662525177,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              0.06847816705703735,
+              0.20863686501979828,
+              0.423267662525177,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.800000011920929,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "ShaderNodeEmission"
+        },
+        {
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "ShaderNodeValToRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.06847816705703735,
+              0.20863686501979828,
+              0.423267662525177,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "ShaderNodeMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "ShaderNodeMath"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "ShaderNodeMixRGB"
+        },
+        {
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "ShaderNodeBsdfPrincipled"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true
+    }
+  },
+  "objects": [
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2079",
+      "evaluated_matrix_root_relative": [
+        [
+          0.10999999940395355,
+          0.0,
+          0.0,
+          0.15000000596046448
+        ],
+        [
+          0.0,
+          0.09000000357627869,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.11999999731779099,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.10999999940395355,
+          0.0,
+          0.0,
+          0.15000000596046448
+        ],
+        [
+          0.0,
+          0.09000000357627869,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.11999999731779099,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.24838675558567047,
+            0.07655760645866394,
+            0.3199999928474426
+          ],
+          "min": [
+            0.051613256335258484,
+            -0.07655760645866394,
+            0.08000000566244125
+          ],
+          "span": [
+            0.196773499250412,
+            0.15311521291732788,
+            0.23999998718500137
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.24838675558567047,
+            0.07655760645866394,
+            0.3199999928474426
+          ],
+          "min": [
+            0.051613256335258484,
+            -0.07655760645866394,
+            0.08000000566244125
+          ],
+          "span": [
+            0.196773499250412,
+            0.15311521291732788,
+            0.23999998718500137
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_purple"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_0.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.15000000596046448,
+          0.0,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.15000000596046448,
+          0.0,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2080",
+      "evaluated_matrix_root_relative": [
+        [
+          0.1131822019815445,
+          -0.03765108436346054,
+          0.041930511593818665,
+          -0.19908955693244934
+        ],
+        [
+          0.06183171644806862,
+          0.07994131743907928,
+          -0.004259156063199043,
+          0.18238241970539093
+        ],
+        [
+          -0.039895229041576385,
+          0.017081646248698235,
+          0.11235520243644714,
+          0.2800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.1131822019815445,
+          -0.03765108436346054,
+          0.041930511593818665,
+          -0.19908955693244934
+        ],
+        [
+          0.06183171644806862,
+          0.07994131743907928,
+          -0.004259156063199043,
+          0.18238241970539093
+        ],
+        [
+          -0.039895229041576385,
+          0.017081646248698235,
+          0.11235520243644714,
+          0.2800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            -0.07910461723804474,
+            0.2710553705692291,
+            0.39235520362854004
+          ],
+          "min": [
+            -0.31907451152801514,
+            0.09370948374271393,
+            0.16764479875564575
+          ],
+          "span": [
+            0.2399698942899704,
+            0.1773458868265152,
+            0.2247104048728943
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.07910461723804474,
+            0.2710553705692291,
+            0.39235520362854004
+          ],
+          "min": [
+            -0.31907451152801514,
+            0.09370948374271393,
+            0.16764479875564575
+          ],
+          "span": [
+            0.2399698942899704,
+            0.1773458868265152,
+            0.2247104048728943
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_reef"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_1.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.19908955693244934,
+          0.18238241970539093,
+          0.2800000011920929
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.20000000298023224,
+          0.30000001192092896,
+          0.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.19908955693244934,
+          0.18238241970539093,
+          0.2800000011920929
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.20000000298023224,
+          0.30000001192092896,
+          0.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2081",
+      "evaluated_matrix_root_relative": [
+        [
+          0.07134891301393509,
+          -0.05906189605593681,
+          0.07304152101278305,
+          0.03409585356712341
+        ],
+        [
+          0.1111193522810936,
+          0.06144082918763161,
+          0.02726643905043602,
+          -0.3885067105293274
+        ],
+        [
+          -0.09034279733896255,
+          0.028926074504852295,
+          0.0912221297621727,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.07134891301393509,
+          -0.05906189605593681,
+          0.07304152101278305,
+          0.03409585356712341
+        ],
+        [
+          0.1111193522810936,
+          0.06144082918763161,
+          0.02726643905043602,
+          -0.3885067105293274
+        ],
+        [
+          -0.09034279733896255,
+          0.028926074504852295,
+          0.0912221297621727,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.13672129809856415,
+            -0.27692481875419617,
+            0.48137497901916504
+          ],
+          "min": [
+            -0.06852959096431732,
+            -0.5000885725021362,
+            0.23862504959106445
+          ],
+          "span": [
+            0.20525088906288147,
+            0.22316375374794006,
+            0.24274992942810059
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.13672129809856415,
+            -0.27692481875419617,
+            0.48137497901916504
+          ],
+          "min": [
+            -0.06852959096431732,
+            -0.5000885725021362,
+            0.23862504959106445
+          ],
+          "span": [
+            0.20525088906288147,
+            0.22316375374794006,
+            0.24274992942810059
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_purple"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_2.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.03409585356712341,
+          -0.3885067105293274,
+          0.36000001430511475
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.4000000059604645,
+          0.6000000238418579,
+          1.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.03409585356712341,
+          -0.3885067105293274,
+          0.36000001430511475
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.4000000059604645,
+          0.6000000238418579,
+          1.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2082",
+      "evaluated_matrix_root_relative": [
+        [
+          0.004836804699152708,
+          -0.07127830386161804,
+          0.07307522743940353,
+          0.09126590937376022
+        ],
+        [
+          0.0682058185338974,
+          0.04496162757277489,
+          0.07259362190961838,
+          0.11904004961252213
+        ],
+        [
+          -0.08616596460342407,
+          0.03158886730670929,
+          0.06156441941857338,
+          0.4399999976158142
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.004836804699152708,
+          -0.07127830386161804,
+          0.07307522743940353,
+          0.09126590937376022
+        ],
+        [
+          0.0682058185338974,
+          0.04496162757277489,
+          0.07259362190961838,
+          0.11904004961252213
+        ],
+        [
+          -0.08616596460342407,
+          0.03158886730670929,
+          0.06156441941857338,
+          0.4399999976158142
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.1859152466058731,
+            0.21250998973846436,
+            0.5464891195297241
+          ],
+          "min": [
+            -0.0033834241330623627,
+            0.025570105761289597,
+            0.3335108757019043
+          ],
+          "span": [
+            0.18929867073893547,
+            0.18693988397717476,
+            0.21297824382781982
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.1859152466058731,
+            0.21250998973846436,
+            0.5464891195297241
+          ],
+          "min": [
+            -0.0033834241330623627,
+            0.025570105761289597,
+            0.3335108757019043
+          ],
+          "span": [
+            0.18929867073893547,
+            0.18693988397717476,
+            0.21297824382781982
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_reef"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_3.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.09126590937376022,
+          0.11904004961252213,
+          0.4399999976158142
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.6000000238418579,
+          0.8999999761581421,
+          1.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.09126590937376022,
+          0.11904004961252213,
+          0.4399999976158142
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.6000000238418579,
+          0.8999999761581421,
+          1.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2083",
+      "evaluated_matrix_root_relative": [
+        [
+          -0.020357193425297737,
+          -0.08205759525299072,
+          0.045847415924072266,
+          -0.26587268710136414
+        ],
+        [
+          0.04448127746582031,
+          0.02862248197197914,
+          0.10667818784713745,
+          -0.047028880566358566
+        ],
+        [
+          -0.12582528591156006,
+          0.02339455857872963,
+          0.03029484488070011,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          -0.020357193425297737,
+          -0.08205759525299072,
+          0.045847415924072266,
+          -0.26587268710136414
+        ],
+        [
+          0.04448127746582031,
+          0.02862248197197914,
+          0.10667818784713745,
+          -0.047028880566358566
+        ],
+        [
+          -0.12582528591156006,
+          0.02339455857872963,
+          0.03029484488070011,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            -0.1811939924955368,
+            0.059649307280778885,
+            0.3168944716453552
+          ],
+          "min": [
+            -0.35055139660835266,
+            -0.15370707213878632,
+            0.08310553431510925
+          ],
+          "span": [
+            0.16935740411281586,
+            0.2133563794195652,
+            0.23378893733024597
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.1811939924955368,
+            0.059649307280778885,
+            0.3168944716453552
+          ],
+          "min": [
+            -0.35055139660835266,
+            -0.15370707213878632,
+            0.08310553431510925
+          ],
+          "span": [
+            0.16935740411281586,
+            0.2133563794195652,
+            0.23378893733024597
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_purple"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_4.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.26587268710136414,
+          -0.047028880566358566,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.800000011920929,
+          1.2000000476837158,
+          2.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.26587268710136414,
+          -0.047028880566358566,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.800000011920929,
+          1.2000000476837158,
+          2.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2084",
+      "evaluated_matrix_root_relative": [
+        [
+          -0.009067305363714695,
+          -0.08962257206439972,
+          0.008618582040071487,
+          0.32906433939933777
+        ],
+        [
+          0.0067734788171947,
+          0.006252812221646309,
+          0.11960219591856003,
+          -0.20932431519031525
+        ],
+        [
+          -0.1595991998910904,
+          0.005357097368687391,
+          0.0045863366685807705,
+          0.2800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          -0.009067305363714695,
+          -0.08962257206439972,
+          0.008618582040071487,
+          0.32906433939933777
+        ],
+        [
+          0.0067734788171947,
+          0.006252812221646309,
+          0.11960219591856003,
+          -0.20932431519031525
+        ],
+        [
+          -0.1595991998910904,
+          0.005357097368687391,
+          0.0045863366685807705,
+          0.2800000011920929
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.4066491723060608,
+            -0.08972211927175522,
+            0.4206984341144562
+          ],
+          "min": [
+            0.25147950649261475,
+            -0.3289265036582947,
+            0.1393015831708908
+          ],
+          "span": [
+            0.15516966581344604,
+            0.23920438438653946,
+            0.28139685094356537
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.4066491723060608,
+            -0.08972211927175522,
+            0.4206984341144562
+          ],
+          "min": [
+            0.25147950649261475,
+            -0.3289265036582947,
+            0.1393015831708908
+          ],
+          "span": [
+            0.15516966581344604,
+            0.23920438438653946,
+            0.28139685094356537
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_reef"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_5.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.32906433939933777,
+          -0.20932431519031525,
+          0.2800000011920929
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.0,
+          1.5,
+          2.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.32906433939933777,
+          -0.20932431519031525,
+          0.2800000011920929
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.0,
+          1.5,
+          2.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2085",
+      "evaluated_matrix_root_relative": [
+        [
+          0.024742115288972855,
+          -0.08547449111938477,
+          -0.026138445362448692,
+          -0.038940444588661194
+        ],
+        [
+          -0.0035269029904156923,
+          -0.0207577683031559,
+          0.11670123785734177,
+          0.14485731720924377
+        ],
+        [
+          -0.1071232408285141,
+          -0.019058508798480034,
+          -0.009879409335553646,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.024742115288972855,
+          -0.08547449111938477,
+          -0.026138445362448692,
+          -0.038940444588661194
+        ],
+        [
+          -0.0035269029904156923,
+          -0.0207577683031559,
+          0.11670123785734177,
+          0.14485731720924377
+        ],
+        [
+          -0.1071232408285141,
+          -0.019058508798480034,
+          -0.009879409335553646,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.03861872851848602,
+            0.26155856251716614,
+            0.4602319300174713
+          ],
+          "min": [
+            -0.11649961769580841,
+            0.028156079351902008,
+            0.2597680985927582
+          ],
+          "span": [
+            0.15511834621429443,
+            0.23340248316526413,
+            0.20046383142471313
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.03861872851848602,
+            0.26155856251716614,
+            0.4602319300174713
+          ],
+          "min": [
+            -0.11649961769580841,
+            0.028156079351902008,
+            0.2597680985927582
+          ],
+          "span": [
+            0.15511834621429443,
+            0.23340248316526413,
+            0.20046383142471313
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_purple"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_6.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.038940444588661194,
+          0.14485731720924377,
+          0.36000001430511475
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.2000000476837158,
+          1.7999999523162842,
+          3.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.038940444588661194,
+          0.14485731720924377,
+          0.36000001430511475
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.2000000476837158,
+          1.7999999523162842,
+          3.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.10999999940395355,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2086",
+      "evaluated_matrix_root_relative": [
+        [
+          0.06382346898317337,
+          -0.06632773578166962,
+          -0.057968828827142715,
+          -0.12444528192281723
+        ],
+        [
+          0.023907355964183807,
+          -0.04118044301867485,
+          0.10456380248069763,
+          -0.23961088061332703
+        ],
+        [
+          -0.11653327941894531,
+          -0.04477503523230553,
+          -0.010296870023012161,
+          0.4399999976158142
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.06382346898317337,
+          -0.06632773578166962,
+          -0.057968828827142715,
+          -0.12444528192281723
+        ],
+        [
+          0.023907355964183807,
+          -0.04118044301867485,
+          0.10456380248069763,
+          -0.23961088061332703
+        ],
+        [
+          -0.11653327941894531,
+          -0.04477503523230553,
+          -0.010296870023012161,
+          0.4399999976158142
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            -0.017468277364969254,
+            -0.1350470781326294,
+            0.5488352179527283
+          ],
+          "min": [
+            -0.2314222902059555,
+            -0.34417468309402466,
+            0.33116480708122253
+          ],
+          "span": [
+            0.21395401284098625,
+            0.20912760496139526,
+            0.21767041087150574
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.017468277364969254,
+            -0.1350470781326294,
+            0.5488352179527283
+          ],
+          "min": [
+            -0.2314222902059555,
+            -0.34417468309402466,
+            0.33116480708122253
+          ],
+          "span": [
+            0.21395401284098625,
+            0.20912760496139526,
+            0.21767041087150574
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_reef"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_7.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.12444528192281723,
+          -0.23961088061332703,
+          0.4399999976158142
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.399999976158142,
+          2.0999999046325684,
+          3.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          -0.12444528192281723,
+          -0.23961088061332703,
+          0.4399999976158142
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.399999976158142,
+          2.0999999046325684,
+          3.5
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.13500000536441803,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": {
+        "action_blend_type": "REPLACE",
+        "action_influence": 1.0,
+        "actions": [],
+        "active_action": null,
+        "drivers": [],
+        "nla_tracks": [],
+        "use_nla": true
+      },
+      "children": [],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data": "Icosphere.2087",
+      "evaluated_matrix_root_relative": [
+        [
+          0.07711883634328842,
+          -0.041707996279001236,
+          -0.08923053741455078,
+          0.36633554100990295
+        ],
+        [
+          0.0892898365855217,
+          -0.04426993057131767,
+          0.08019497990608215,
+          0.13378439843654633
+        ],
+        [
+          -0.10807409882545471,
+          -0.06633714586496353,
+          0.0025837875436991453,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          0.07711883634328842,
+          -0.041707996279001236,
+          -0.08923053741455078,
+          0.36633554100990295
+        ],
+        [
+          0.0892898365855217,
+          -0.04426993057131767,
+          0.08019497990608215,
+          0.13378439843654633
+        ],
+        [
+          -0.10807409882545471,
+          -0.06633714586496353,
+          0.0025837875436991453,
+          0.20000000298023224
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "boundary_edges": 0,
+        "edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_root_relative_bounds": {
+          "max": [
+            0.4839707016944885,
+            0.24951185286045074,
+            0.3142326772212982
+          ],
+          "min": [
+            0.24870039522647858,
+            0.018056944012641907,
+            0.08576732128858566
+          ],
+          "span": [
+            0.23527030646800995,
+            0.23145490884780884,
+            0.22846535593271255
+          ]
+        },
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.4839707016944885,
+            0.24951185286045074,
+            0.3142326772212982
+          ],
+          "min": [
+            0.24870039522647858,
+            0.018056944012641907,
+            0.08576732128858566
+          ],
+          "span": [
+            0.23527030646800995,
+            0.23145490884780884,
+            0.22846535593271255
+          ]
+        },
+        "face_material_index_counts": {
+          "0": 20
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ],
+          "span": [
+            1.788849949836731,
+            1.7012799978256226,
+            2.0
+          ]
+        },
+        "material_slots": [
+          "attack-reef-fragments approved S33_CFX_purple"
+        ],
+        "nonmanifold_edges": 0,
+        "polygon_sizes": {
+          "3": 20
+        },
+        "polygons": 20,
+        "shape_keys": [],
+        "smooth_faces": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertex_groups": [],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "attack-reef-fragments__fragment_8.001",
+      "parent": "attack-reef-fragments__ground_root.001",
+      "parent_bone": "",
+      "parent_in_own_collection": true,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.36633554100990295,
+          0.13378439843654633,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.600000023841858,
+          2.4000000953674316,
+          4.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "type": "MESH",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.36633554100990295,
+          0.13378439843654633,
+          0.20000000298023224
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          1.600000023841858,
+          2.4000000953674316,
+          4.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.09000000357627869,
+          0.11999999731779099
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    },
+    {
+      "animation": null,
+      "children": [
+        "attack-reef-fragments__fragment_0.001",
+        "attack-reef-fragments__fragment_1.001",
+        "attack-reef-fragments__fragment_2.001",
+        "attack-reef-fragments__fragment_3.001",
+        "attack-reef-fragments__fragment_4.001",
+        "attack-reef-fragments__fragment_5.001",
+        "attack-reef-fragments__fragment_6.001",
+        "attack-reef-fragments__fragment_7.001",
+        "attack-reef-fragments__fragment_8.001"
+      ],
+      "collections": [
+        "S33_CFX_attack-reef-fragments.001"
+      ],
+      "constraints": [],
+      "custom_properties": {
+        "animation_recipes": "{\"windup\": {\"frames\": 12, \"fps\": 12, \"loop\": false, \"static\": false}, \"active\": {\"frames\": 12, \"fps\": 12, \"loop\": false, \"static\": false}, \"recovery\": {\"frames\": 12, \"fps\": 12, \"loop\": false, \"static\": false}}",
+        "artStyle": "faceted-approved-2026-10-19",
+        "asset_id": "attack-reef-fragments",
+        "footprint_cells": "[1, 1]",
+        "ground_root": "[0,0,0]",
+        "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"attack-reef-fragments\", \"clips\": {\"windup\": [\"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_0.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_1.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_2.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_3.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_4.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_5.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_6.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_7.001\", \"S33_NATIVE__attack-reef-fragments__windup__attack-reef-fragments__fragment_8.001\"], \"active\": [\"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_0.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_1.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_2.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_3.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_4.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_5.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_6.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_7.001\", \"S33_NATIVE__attack-reef-fragments__active__attack-reef-fragments__fragment_8.001\"], \"recovery\": [\"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_0.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_1.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_2.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_3.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_4.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_5.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_6.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_7.001\", \"S33_NATIVE__attack-reef-fragments__recovery__attack-reef-fragments__fragment_8.001\"]}}",
+        "notes": "[\"Accepted reef-breaking fragment presentation, with no damage/scheduling logic.\"]",
+        "production_id": "attack-reef-fragments",
+        "projection": "square-top-front-oblique",
+        "sockets": "{}",
+        "source": "creature_fx_builders.py",
+        "visual_height": 0.9
+      },
+      "data": null,
+      "evaluated_matrix_root_relative": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "name": "attack-reef-fragments__ground_root.001",
+      "parent": null,
+      "parent_bone": "",
+      "parent_in_own_collection": null,
+      "parent_type": "OBJECT",
+      "raw_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "type": "EMPTY",
+      "updated_local_pose": {
+        "delta_location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "delta_scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "matrix_parent_inverse": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "rotation_axis_angle": [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "rotation_euler": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_mode": "XYZ",
+        "rotation_quaternion": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      "visibility_after_enable": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "visible_get": true
+      }
+    }
+  ],
+  "raw_scene_capture_settings": {
+    "active_camera": {
+      "clip_end": 1000.0,
+      "clip_start": 0.10000000149011612,
+      "lens": 50.0,
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "S33 Capture Camera.240",
+      "ortho_scale": 1.5,
+      "shift_x": 0.0,
+      "shift_y": 0.4583320617675781,
+      "type": "ORTHO"
+    },
+    "engine": "BLENDER_EEVEE",
+    "exposure": 0.0,
+    "film_transparent": true,
+    "gamma": 1.0,
+    "lights": [
+      {
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "energy": 140.0,
+        "hide_render": false,
+        "hide_viewport": false,
+        "matrix_world": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            4.5
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "S33 Faceted overhead.001",
+        "type": "AREA"
+      },
+      {
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "energy": 100.0,
+        "hide_render": false,
+        "hide_viewport": false,
+        "matrix_world": [
+          [
+            -1.6292068494294654e-07,
+            -0.31622758507728577,
+            0.9486833810806274,
+            3.0
+          ],
+          [
+            1.0,
+            1.3353419703321379e-08,
+            1.7618459935420105e-07,
+            0.0
+          ],
+          [
+            -6.838259736241525e-08,
+            0.9486833810806274,
+            0.31622758507728577,
+            1.7999999523162842
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "S33 Faceted fill-0.001",
+        "type": "AREA"
+      },
+      {
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "energy": 100.0,
+        "hide_render": false,
+        "hide_viewport": false,
+        "matrix_world": [
+          [
+            -1.0,
+            1.8364526965797268e-07,
+            -9.794846533850432e-08,
+            0.0
+          ],
+          [
+            -1.5099580252808664e-07,
+            -0.3162277042865753,
+            0.9486833214759827,
+            3.0
+          ],
+          [
+            1.432471918860756e-07,
+            0.9486833214759827,
+            0.3162277042865753,
+            1.7999999523162842
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "S33 Faceted fill-1.001",
+        "type": "AREA"
+      },
+      {
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "energy": 100.0,
+        "hide_render": false,
+        "hide_viewport": false,
+        "matrix_world": [
+          [
+            -1.6292068494294654e-07,
+            0.31622758507728577,
+            -0.9486833810806274,
+            -3.0
+          ],
+          [
+            -1.0,
+            1.3353419703321379e-08,
+            1.7618459935420105e-07,
+            0.0
+          ],
+          [
+            6.838259736241525e-08,
+            0.9486833810806274,
+            0.31622758507728577,
+            1.7999999523162842
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "S33 Faceted fill-2.001",
+        "type": "AREA"
+      },
+      {
+        "color": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "energy": 100.0,
+        "hide_render": false,
+        "hide_viewport": false,
+        "matrix_world": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.3162277042865753,
+            -0.9486833214759827,
+            -3.0
+          ],
+          [
+            0.0,
+            0.9486833214759827,
+            0.3162277042865753,
+            1.7999999523162842
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "S33 Faceted fill-3.001",
+        "type": "AREA"
+      }
+    ],
+    "look": "None",
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0,
+    "resolution_percentage": 100,
+    "resolution_x": 768,
+    "resolution_y": 1280,
+    "view_transform": "Standard",
+    "world": "S33 Soft World.001"
+  },
+  "raw_visibility": {
+    "layers": [
+      [
+        {
+          "collection_hide_render": false,
+          "collection_hide_viewport": false,
+          "exclude": false,
+          "hide_viewport": false,
+          "name": "Scene Collection"
+        },
+        {
+          "collection_hide_render": true,
+          "collection_hide_viewport": true,
+          "exclude": true,
+          "hide_viewport": false,
+          "name": "S33_CFX_attack-reef-fragments.001"
+        }
+      ]
+    ],
+    "objects": {
+      "attack-reef-fragments__fragment_0.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_1.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_2.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_3.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_4.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_5.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_6.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_7.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__fragment_8.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      },
+      "attack-reef-fragments__ground_root.001": {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false
+      }
+    }
+  },
+  "root": "attack-reef-fragments__ground_root.001",
+  "scene": "S33 Native Asset Library Export",
+  "scope": "initial-only raw read-only probe; no render, construction, or blend save",
+  "source_path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "view_layer": "ViewLayer",
+  "visibility_enabled_before_evaluated_measurements": true
+}

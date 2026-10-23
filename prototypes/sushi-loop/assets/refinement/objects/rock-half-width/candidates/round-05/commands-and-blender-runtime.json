@@ -1,0 +1,29 @@
+{
+  "Blender": {
+    "path": "/Applications/Blender.app/Contents/MacOS/Blender",
+    "bytes": 182900560,
+    "sha256": "f5c1f2a0c0bca3389ec772d355242b700975ea84e66cbb3f5257a7bce8e5adeb",
+    "version": "5.2.2 LTS",
+    "wrapper": {
+      "path": "/opt/homebrew/Caskroom/blender/5.2.2/.homebrew-command-wrappers/blender",
+      "sha256": "a12b9bc15c1a0f62c50fac2efef8f3b89040e5bcd11c00c58d7b374e66e0b106"
+    },
+    "policy": "external binary hashed, not copied"
+  },
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/reproduce-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/replay-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/audit-field-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/publish-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/verify-prior-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/analyze-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/compare-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/inspect-strips-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/portable-consumer-replay-round05.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/finalize-round05.py",
+    "DEBUG=pw:browser node source/capture-consumer-round05.mjs"
+  ],
+  "workingDirectory": "object root; scripts resolve their paths from their own location",
+  "scope": "Same executable and exact arguments as worktree-qualified invocations; background Blender only. Actual version/binary path also recorded by read-only native field audit.",
+  "unsubmittedExploration": "Native plane/shoulder field look-development trials retained outside final used closure in /tmp/rock-half-width-editor-unsubmitted. No unsubmitted image is used to repair or stand in for final native output."
+}

@@ -9,7 +9,7 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -79,45 +79,31 @@
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0000610351562
+      192.0,
+      496.00003
     ],
     "unitX": [
-      512.0,
+      256.0,
       0.0
     ],
     "unitDepth": [
       0.0,
-      511.99993896484375
+      255.99997
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.20007
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "revision": "warm-soft-native-toon-round08",
+    "lighting": "Uniform world + centered85W overhead + four equal30W fills; native camera-ray materials provide symmetric soft stylized radiance",
+    "denoising": false,
+    "samples": 1,
+    "samplingPattern": "TABULATED_SOBOL",
+    "scramblingDistance": 0,
+    "pixelFilter": "BOX1",
+    "dither": 0
   },
   "name": "square top/front oblique"
 }

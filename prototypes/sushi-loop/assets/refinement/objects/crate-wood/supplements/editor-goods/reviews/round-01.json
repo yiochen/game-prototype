@@ -1,0 +1,80 @@
+{
+  "asset": "crate-wood",
+  "experiment": "editor-goods-supplement",
+  "round": 1,
+  "verdict": "approve",
+  "candidatePacketSHA256": "71173912f86d371a5aef2698132fe27109a468c952b61b284605c2915fd0203d",
+  "inspectedFiles": [
+    "goods.png",
+    "logical-backgrounds.png",
+    "context-card.png",
+    "native-comparison.png",
+    "reopened.png",
+    "consumer/context-candidate-layout-page0-540x960.png",
+    "consumer/context-candidate-layout-page0-786x1398.png",
+    "consumer/context-candidate-layout-page0-1280x720.png",
+    "consumer/context-candidate-layout-page1-540x960.png",
+    "consumer/context-candidate-layout-page1-786x1398.png",
+    "consumer/context-candidate-layout-page1-1280x720.png",
+    "consumer/context-candidate-floor-540x960.png",
+    "consumer/context-candidate-floor-786x1398.png",
+    "consumer/context-candidate-floor-1280x720.png",
+    "consumer/background-original-66-cream.png",
+    "consumer/background-candidate-66-cream.png",
+    "consumer/background-original-96-cream.png",
+    "consumer/background-candidate-96-cream.png",
+    "consumer/background-original-66-light.png",
+    "consumer/background-candidate-66-light.png",
+    "consumer/background-original-96-light.png",
+    "consumer/background-candidate-96-light.png",
+    "consumer/background-original-66-gray.png",
+    "consumer/background-candidate-66-gray.png",
+    "consumer/background-original-96-gray.png",
+    "consumer/background-candidate-96-gray.png",
+    "consumer/background-original-66-dark.png",
+    "consumer/background-candidate-66-dark.png",
+    "consumer/background-original-96-dark.png",
+    "consumer/background-candidate-96-dark.png",
+    "consumer/background-candidate-384-light.png",
+    "consumer/background-candidate-384-gray.png",
+    "consumer/background-candidate-384-dark.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The native three-quarter view shows the approved crate lid, front panel/diagonal brace and right panel as coherent solid volume. The rounded boards, continuous rims and corner junctions remain clean and attached. This is visibly the same crate rather than a flat world sprite or replacement design.",
+    "Compared with the old accepted goods snapshot, the honey-golden lid and amber rim have softer edge catches; front and right inset panels are lifted to readable warm brown. The dark near-black lower-panel treatment of the old goods view is gone without introducing white gloss or target-colored fringe.",
+    "At full-canvas66px on current cream, light, gray and dark backgrounds, the crate silhouette, lid/front/right separation and diagonal brace remain identifiable. At96px, the separate lid boards and rounded perimeter/corners remain legible. The fine brace edge is restrained but clear at66px.",
+    "Inspected the native and reopened PNGs and384px light/gray/dark composites. No clipping, colored halo, isolated alpha debris, black seam patch, detached brace, broken corner, overlap/coplanar stripe or ground shadow residue is visible.",
+    "Inspected the actual copied current consumer screens for page0, page1 and floor at540x960,786x1398 and1280x720. The crate reads clearly on its cream card with Crate/2 left. Existing other labels/counts, disabled floor state, controls, cream surfaces and layout remain unchanged.",
+    "The context room is explicitly a solid placeholder. These images establish goods-card consumer quality and preservation; they do not establish a completed full-game atlas cutover."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed target uses a frontal world view and stronger orange contrast. The approved source finish and exact three-quarter goods camera govern this supplement; no extra grade or target-driven reshaping is needed.",
+    "Wood faces remain simplified and grain-free, consistent with the approved world source and small-card readability.",
+    "Full-game combined atlas integration and final room rendering are outside this packet approval."
+  ],
+  "technicalEvidence": {
+    "integrity": "candidate_packet.py verify passed. Independently calculated packet SHA256 equals71173912f86d371a5aef2698132fe27109a468c952b61b284605c2915fd0203d. Frozen criteria and immutable delivery manifest are explicitly packet-bound.",
+    "independentNativeInspection": "Opened the sealed source/round-01.blend in a fresh read-only Blender5.2.2 process with autoexec disabled. Compared my resulting candidate-source-inspection.json with my earlier approved-source-inspection.json: objects, geometry/modifiers/evaluated bounds/transforms/parenting, material graphs/bindings, lights, world nodes, compositor/dependencies all match exactly. RootS0 remains identity and all8 meshes remain native. Only render resolution and pixel aspect differ in those records. No candidate/source file was saved or changed.",
+    "nativeParityRecord": "Packet-bound native-parity.json also has identical source/candidate section hashes for objects, materials, lights and pipeline, including detailed UV/native pipeline records, with only camera, square resolution/pixel aspect and output path changes allowed. Dependencies contain no external images/libraries. The approved world source remains at exact SHA3950226374590a781e8582854f205fb7a3630abece10f6721774b8e986c9dbb5.",
+    "camera": "Independently compared the actual candidate Blender camera to inputs/camera-contract.json: world matrix maximum float error5.960464477539063e-08, projection matrix error0, ortho_scale exactly1.7256749868392944, resolution384x384 at100percent and square pixels. The stored35degree elevation/azimuth contract is preserved within native floating-point representation.",
+    "colorResponse": "Native source/candidate pipeline hashes match; Standard/None exposure0 gamma1, approved material graphs, world strength0.08, centered210W overhead and four65W cardinal fills are retained. No raster card/recolor or additional/double grade is evidenced; native compositor is absent and render compositing is disabled in the parity record.",
+    "reopenAndDependencies": "Read reopen-native.json, validation.json and portable-proof.json. Saved source SHAd76dd79dc2cd65c8370bf82f9f6cf5c61885a8f4f285ad57484a4470fbc3cf55 was reopened/rendered in a fresh Blender process. Independently decoded goods.png and reopened.png and confirmed exact384x384x4 RGBA equality, pixel SHAa7262ca80bbd31d726ff592bf2f2e23f5d73ce577d259ec82c7c5b1294288e08. Portable proof binds127 declared resources and exact native plus42consumer PNG replay pixels; verify_portable.py reads immutable candidates/round-01/delivery.json and does not read mutable canonical delivery.",
+    "currentConsumerAndAtlas": "Independently verified current production consumer files still match their copied snapshot hashes. Candidate atlas crate region contains exact native goods pixels and all atlas pixels outside that384square crate cell are unchanged. All six goods IDs are preserved. Independently compared9candidate/original context pairs: page0 differences are confined to the crate full-canvas destination; page1/floor images are pixel-identical.",
+    "floor": "Independently confirmed floor PNG SHA2566ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177 and atlas crop RGBA pixel SHA2561cee44c04199f35fd17b2774d667dfa7ed95656ad2b8f88f16df628d2d8a1ce1. Exact source/crop preservation passes.",
+    "inspectionCoverage": "All required packet render/preview paths inspected directly. Inspected all9full candidate consumer context PNGs and native reopened render directly. The16original/candidate66/96background images were inspected through logical-backgrounds.png after independently verifying each sheet region has exact corresponding image pixels. Additional384px light/gray/dark images were inspected directly.",
+    "judgeArtifacts": [
+      "reviews/round-01-independent-native-checks.json",
+      "reviews/round-01-independent-pixel-checks.json",
+      "reviews/candidate-source-inspection.json"
+    ],
+    "limits": "I independently opened the saved candidate for native inspection and independently checked actual decoded pixels/consumer differences; I did not regenerate sealed art or replay the full portable Godot process. Fresh native/consumer replay is evidenced by the packet-bound records. Approval is limited to this exact supplement packet and does not promote world files or approve a full-game cutover."
+  }
+}

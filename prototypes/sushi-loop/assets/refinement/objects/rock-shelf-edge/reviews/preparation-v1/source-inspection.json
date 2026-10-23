@@ -1,0 +1,5161 @@
+{
+  "blender": "5.2.2 LTS",
+  "scenes": [
+    {
+      "name": "S33 Native Asset Library Export",
+      "objects": 1998,
+      "camera": "S33 Capture Camera.240",
+      "render": {
+        "engine": "BLENDER_EEVEE",
+        "x": 768,
+        "y": 1280,
+        "aspect": [
+          1.0,
+          1.0
+        ]
+      },
+      "eevee": {
+        "taa_render_samples": 32
+      }
+    }
+  ],
+  "collections": [
+    {
+      "name": "S33_PROP_rock-shelf-edge.001",
+      "hide_render": true,
+      "objects": [
+        {
+          "name": "rock-shelf-edge__root.001",
+          "type": "EMPTY",
+          "parent": null,
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {
+            "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"rock-shelf-section-v1\", \"normal\": [-1, 0, 0]}, {\"direction\": \"E\", \"position\": [0.5, 0, 0], \"profile\": \"rock-shelf-section-v1\", \"normal\": [1, 0, 0]}]",
+            "nonblocking": false,
+            "depth_layer": "world",
+            "support_cells": "[[0, 0]]",
+            "asset_id": "rock-shelf-edge",
+            "family": "issue-33-world-props",
+            "footprint_cells": "[1, 1]",
+            "ground_root": "[0, 0, 0]",
+            "visual_height": 0.45,
+            "sockets": "{}",
+            "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+            "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+            "axis_convention": "X=x; depth=-Y; height=Z",
+            "source": "prop_builders.py",
+            "notes": "[\"Continuous native loft. Endpoint profile is exact; intermediate facets/detail never alter the seam. Match only identical profile IDs.\"]",
+            "artStyle": "faceted-approved-2026-10-19",
+            "production_id": "rock-shelf-edge",
+            "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"rock-shelf-edge\", \"clips\": {\"static\": []}}"
+          }
+        },
+        {
+          "name": "rock-shelf-edge__rock-shelf_continuous_core.001",
+          "type": "MESH",
+          "parent": "rock-shelf-edge__root.001",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {},
+          "vertices": [
+            [
+              -0.5,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.5,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.5,
+              0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              -0.5,
+              0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              -0.5,
+              -0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              -0.5,
+              -0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              -0.3499999940395355,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.3499999940395355,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.3499999940395355,
+              0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              -0.3499999940395355,
+              0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              -0.3499999940395355,
+              -0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              -0.3499999940395355,
+              -0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              -0.10000000149011612,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.10000000149011612,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              -0.10000000149011612,
+              0.44999998807907104,
+              0.2693985402584076
+            ],
+            [
+              -0.10000000149011612,
+              0.38999998569488525,
+              0.4369412660598755
+            ],
+            [
+              -0.10000000149011612,
+              -0.38999998569488525,
+              0.4388127624988556
+            ],
+            [
+              -0.10000000149011612,
+              -0.44999998807907104,
+              0.27078777551651
+            ],
+            [
+              0.10000000149011612,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              0.10000000149011612,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              0.10000000149011612,
+              0.44999998807907104,
+              0.2778140604496002
+            ],
+            [
+              0.10000000149011612,
+              0.38999998569488525,
+              0.4419825077056885
+            ],
+            [
+              0.10000000149011612,
+              -0.38999998569488525,
+              0.4290981888771057
+            ],
+            [
+              0.10000000149011612,
+              -0.44999998807907104,
+              0.26824986934661865
+            ],
+            [
+              0.3499999940395355,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              0.3499999940395355,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              0.3499999940395355,
+              0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              0.3499999940395355,
+              0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              0.3499999940395355,
+              -0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              0.3499999940395355,
+              -0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              0.5,
+              -0.44999998807907104,
+              0.0
+            ],
+            [
+              0.5,
+              0.44999998807907104,
+              0.0
+            ],
+            [
+              0.5,
+              0.44999998807907104,
+              0.2800000011920929
+            ],
+            [
+              0.5,
+              0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              0.5,
+              -0.38999998569488525,
+              0.4300000071525574
+            ],
+            [
+              0.5,
+              -0.44999998807907104,
+              0.2800000011920929
+            ]
+          ],
+          "polygons": [
+            {
+              "vertices": [
+                5,
+                4,
+                3,
+                2,
+                1,
+                0
+              ],
+              "normal": [
+                -0.9999999403953552,
+                0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                30,
+                31,
+                32,
+                33,
+                34,
+                35
+              ],
+              "normal": [
+                0.9999999403953552,
+                0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                0,
+                1,
+                7,
+                6
+              ],
+              "normal": [
+                -0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                1,
+                2,
+                8,
+                7
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                3,
+                9,
+                8
+              ],
+              "normal": [
+                0.0,
+                0.9284766912460327,
+                0.3713906705379486
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                3,
+                4,
+                10,
+                9
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "material": 1,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                5,
+                11,
+                10
+              ],
+              "normal": [
+                0.0,
+                -0.9284766912460327,
+                0.3713906705379486
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                5,
+                0,
+                6,
+                11
+              ],
+              "normal": [
+                -0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                6,
+                7,
+                13,
+                12
+              ],
+              "normal": [
+                -0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                7,
+                8,
+                14,
+                13
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                8,
+                9,
+                15,
+                14
+              ],
+              "normal": [
+                0.0025877731386572123,
+                0.9354305863380432,
+                0.35350099205970764
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                9,
+                10,
+                16,
+                15
+              ],
+              "normal": [
+                -0.03149237856268883,
+                0.0011990813072770834,
+                0.9995032548904419
+              ],
+              "material": 1,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                10,
+                11,
+                17,
+                16
+              ],
+              "normal": [
+                0.00028204492991790175,
+                -0.935610830783844,
+                0.3530329763889313
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                11,
+                6,
+                12,
+                17
+              ],
+              "normal": [
+                -0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                12,
+                13,
+                19,
+                18
+              ],
+              "normal": [
+                -0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                13,
+                14,
+                20,
+                19
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                14,
+                15,
+                21,
+                20
+              ],
+              "normal": [
+                -0.011443705298006535,
+                0.9402971267700195,
+                0.34016239643096924
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                15,
+                16,
+                22,
+                21
+              ],
+              "normal": [
+                0.011682241223752499,
+                -0.007058843970298767,
+                0.9999068975448608
+              ],
+              "material": 1,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                16,
+                17,
+                23,
+                22
+              ],
+              "normal": [
+                0.01049907598644495,
+                -0.9393652081489563,
+                0.34275761246681213
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                17,
+                12,
+                18,
+                23
+              ],
+              "normal": [
+                -0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                18,
+                19,
+                25,
+                24
+              ],
+              "normal": [
+                -0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                19,
+                20,
+                26,
+                25
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                20,
+                21,
+                27,
+                26
+              ],
+              "normal": [
+                0.00699100736528635,
+                0.9341512322425842,
+                0.3568090498447418
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                21,
+                22,
+                28,
+                27
+              ],
+              "normal": [
+                0.022155169397592545,
+                -0.008256870321929455,
+                0.9997205138206482
+              ],
+              "material": 1,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                22,
+                23,
+                29,
+                28
+              ],
+              "normal": [
+                -0.009112491272389889,
+                -0.9328606724739075,
+                0.3601219058036804
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                23,
+                18,
+                24,
+                29
+              ],
+              "normal": [
+                -0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                24,
+                25,
+                31,
+                30
+              ],
+              "normal": [
+                -0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 2,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                25,
+                26,
+                32,
+                31
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                26,
+                27,
+                33,
+                32
+              ],
+              "normal": [
+                0.0,
+                0.9284766912460327,
+                0.3713906705379486
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                27,
+                28,
+                34,
+                33
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "material": 1,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                28,
+                29,
+                35,
+                34
+              ],
+              "normal": [
+                0.0,
+                -0.9284766912460327,
+                0.3713906705379486
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                29,
+                24,
+                30,
+                35
+              ],
+              "normal": [
+                -0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 2,
+              "smooth": false
+            }
+          ],
+          "modifiers": [],
+          "materials": [
+            {
+              "name": "rock-shelf-edge approved S33_rock",
+              "diffuse": [
+                0.03071344457566738,
+                0.10461648553609848,
+                0.26635560393333435,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.03071344457566738,
+                      0.10461648553609848,
+                      0.26635560393333435,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.03071344457566738,
+                      0.10461648553609848,
+                      0.26635560393333435,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "rock-shelf-edge approved S33_rock_light",
+              "diffuse": [
+                0.08865558356046677,
+                0.22696587443351746,
+                0.44520118832588196,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.08865558356046677,
+                      0.22696587443351746,
+                      0.44520118832588196,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.08865558356046677,
+                      0.22696587443351746,
+                      0.44520118832588196,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "rock-shelf-edge approved S33_rock_dark",
+              "diffuse": [
+                0.01599629409611225,
+                0.052860647439956665,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rock-shelf-edge__top_crack_0.001",
+          "type": "MESH",
+          "parent": "rock-shelf-edge__root.001",
+          "location": [
+            -0.25,
+            -0.03999999910593033,
+            0.44600000977516174
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.10000000149011612
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {},
+          "vertices": [
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ]
+          ],
+          "polygons": [
+            {
+              "vertices": [
+                0,
+                1,
+                3,
+                2
+              ],
+              "normal": [
+                -1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                3,
+                7,
+                6
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                6,
+                7,
+                5,
+                4
+              ],
+              "normal": [
+                1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                5,
+                1,
+                0
+              ],
+              "normal": [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                6,
+                4,
+                0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                7,
+                3,
+                1,
+                5
+              ],
+              "normal": [
+                0.0,
+                -0.0,
+                1.0
+              ],
+              "material": 0,
+              "smooth": false
+            }
+          ],
+          "modifiers": [],
+          "materials": [
+            {
+              "name": "rock-shelf-edge approved S33_rock_dark",
+              "diffuse": [
+                0.01599629409611225,
+                0.052860647439956665,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rock-shelf-edge__top_crack_1.001",
+          "type": "MESH",
+          "parent": "rock-shelf-edge__root.001",
+          "location": [
+            0.0,
+            -0.03999999910593033,
+            0.44600000977516174
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            -0.10000000149011612
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {},
+          "vertices": [
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ]
+          ],
+          "polygons": [
+            {
+              "vertices": [
+                0,
+                1,
+                3,
+                2
+              ],
+              "normal": [
+                -1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                3,
+                7,
+                6
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                6,
+                7,
+                5,
+                4
+              ],
+              "normal": [
+                1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                5,
+                1,
+                0
+              ],
+              "normal": [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                6,
+                4,
+                0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                7,
+                3,
+                1,
+                5
+              ],
+              "normal": [
+                0.0,
+                -0.0,
+                1.0
+              ],
+              "material": 0,
+              "smooth": false
+            }
+          ],
+          "modifiers": [],
+          "materials": [
+            {
+              "name": "rock-shelf-edge approved S33_rock_dark",
+              "diffuse": [
+                0.01599629409611225,
+                0.052860647439956665,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rock-shelf-edge__top_crack_2.001",
+          "type": "MESH",
+          "parent": "rock-shelf-edge__root.001",
+          "location": [
+            0.25,
+            -0.03999999910593033,
+            0.44600000977516174
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.10000000149011612
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {},
+          "vertices": [
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              -0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              -0.23999999463558197,
+              0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              -0.003000000026077032
+            ],
+            [
+              0.006500000134110451,
+              0.23999999463558197,
+              0.003000000026077032
+            ]
+          ],
+          "polygons": [
+            {
+              "vertices": [
+                0,
+                1,
+                3,
+                2
+              ],
+              "normal": [
+                -1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                3,
+                7,
+                6
+              ],
+              "normal": [
+                0.0,
+                1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                6,
+                7,
+                5,
+                4
+              ],
+              "normal": [
+                1.0,
+                -0.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                5,
+                1,
+                0
+              ],
+              "normal": [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                6,
+                4,
+                0
+              ],
+              "normal": [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                7,
+                3,
+                1,
+                5
+              ],
+              "normal": [
+                0.0,
+                -0.0,
+                1.0
+              ],
+              "material": 0,
+              "smooth": false
+            }
+          ],
+          "modifiers": [],
+          "materials": [
+            {
+              "name": "rock-shelf-edge approved S33_rock_dark",
+              "diffuse": [
+                0.01599629409611225,
+                0.052860647439956665,
+                0.13013647496700287,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.01599629409611225,
+                      0.052860647439956665,
+                      0.13013647496700287,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rock-shelf-edge__shelf_flake.001",
+          "type": "MESH",
+          "parent": "rock-shelf-edge__root.001",
+          "location": [
+            0.0,
+            -0.38999998569488525,
+            0.1899999976158142
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            0.27000001072883606,
+            0.14000000059604645,
+            0.17000000178813934
+          ],
+          "matrix_world": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "hide_render": false,
+          "props": {},
+          "vertices": [
+            [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            [
+              0.7235999703407288,
+              -0.5257200002670288,
+              -0.4472149908542633
+            ],
+            [
+              -0.27638500928878784,
+              -0.8506399989128113,
+              -0.4472149908542633
+            ],
+            [
+              -0.8944249749183655,
+              0.0,
+              -0.4472149908542633
+            ],
+            [
+              -0.27638500928878784,
+              0.8506399989128113,
+              -0.4472149908542633
+            ],
+            [
+              0.7235999703407288,
+              0.5257200002670288,
+              -0.4472149908542633
+            ],
+            [
+              0.27638500928878784,
+              -0.8506399989128113,
+              0.4472149908542633
+            ],
+            [
+              -0.7235999703407288,
+              -0.5257200002670288,
+              0.4472149908542633
+            ],
+            [
+              -0.7235999703407288,
+              0.5257200002670288,
+              0.4472149908542633
+            ],
+            [
+              0.27638500928878784,
+              0.8506399989128113,
+              0.4472149908542633
+            ],
+            [
+              0.8944249749183655,
+              0.0,
+              0.4472149908542633
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "polygons": [
+            {
+              "vertices": [
+                0,
+                1,
+                2
+              ],
+              "normal": [
+                0.18759655952453613,
+                -0.5773536562919617,
+                -0.7946510910987854
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                1,
+                0,
+                5
+              ],
+              "normal": [
+                0.6070647239685059,
+                0.0,
+                -0.7946524024009705
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                0,
+                2,
+                3
+              ],
+              "normal": [
+                -0.4911220669746399,
+                -0.35682904720306396,
+                -0.7946522235870361
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                0,
+                3,
+                4
+              ],
+              "normal": [
+                -0.4911220669746399,
+                0.35682904720306396,
+                -0.7946522235870361
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                0,
+                4,
+                5
+              ],
+              "normal": [
+                0.18759655952453613,
+                0.5773536562919617,
+                -0.7946510910987854
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                1,
+                5,
+                10
+              ],
+              "normal": [
+                0.9822461009025574,
+                0.0,
+                -0.18759679794311523
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                1,
+                6
+              ],
+              "normal": [
+                0.3035355508327484,
+                -0.9341715574264526,
+                -0.1875891387462616
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                3,
+                2,
+                7
+              ],
+              "normal": [
+                -0.7946491837501526,
+                -0.5773593783378601,
+                -0.1875869482755661
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                3,
+                8
+              ],
+              "normal": [
+                -0.7946491837501526,
+                0.5773593783378601,
+                -0.1875869631767273
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                5,
+                4,
+                9
+              ],
+              "normal": [
+                0.3035355508327484,
+                0.9341715574264526,
+                -0.1875891536474228
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                1,
+                10,
+                6
+              ],
+              "normal": [
+                0.7946491837501526,
+                -0.5773593783378601,
+                0.1875869631767273
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                2,
+                6,
+                7
+              ],
+              "normal": [
+                -0.3035355508327484,
+                -0.9341715574264526,
+                0.1875891536474228
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                3,
+                7,
+                8
+              ],
+              "normal": [
+                -0.9822461009025574,
+                0.0,
+                0.18759679794311523
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                4,
+                8,
+                9
+              ],
+              "normal": [
+                -0.3035355508327484,
+                0.9341715574264526,
+                0.1875891387462616
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                5,
+                9,
+                10
+              ],
+              "normal": [
+                0.7946491837501526,
+                0.5773593783378601,
+                0.1875869482755661
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                6,
+                10,
+                11
+              ],
+              "normal": [
+                0.4911220669746399,
+                -0.35682904720306396,
+                0.7946522235870361
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                7,
+                6,
+                11
+              ],
+              "normal": [
+                -0.18759655952453613,
+                -0.5773536562919617,
+                0.7946510910987854
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                8,
+                7,
+                11
+              ],
+              "normal": [
+                -0.6070647239685059,
+                0.0,
+                0.7946524024009705
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                9,
+                8,
+                11
+              ],
+              "normal": [
+                -0.18759655952453613,
+                0.5773536562919617,
+                0.7946510910987854
+              ],
+              "material": 0,
+              "smooth": false
+            },
+            {
+              "vertices": [
+                10,
+                9,
+                11
+              ],
+              "normal": [
+                0.4911220669746399,
+                0.35682904720306396,
+                0.7946522235870361
+              ],
+              "material": 0,
+              "smooth": false
+            }
+          ],
+          "modifiers": [],
+          "materials": [
+            {
+              "name": "rock-shelf-edge approved S33_rock",
+              "diffuse": [
+                0.03071344457566738,
+                0.10461648553609848,
+                0.26635560393333435,
+                1.0
+              ],
+              "use_nodes": true,
+              "nodes": [
+                {
+                  "name": "Principled BSDF",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.03071344457566738,
+                      0.10461648553609848,
+                      0.26635560393333435,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8199999928474426,
+                    "IOR": 1.5,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.23999999463558197,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                },
+                {
+                  "name": "Material Output",
+                  "type": "OUTPUT_MATERIAL",
+                  "operation": null,
+                  "inputs": {
+                    "Displacement": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Thickness": 0.0
+                  }
+                },
+                {
+                  "name": "Emission",
+                  "type": "EMISSION",
+                  "operation": null,
+                  "inputs": {
+                    "Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Strength": 1.0,
+                    "Weight": 0.0
+                  }
+                },
+                {
+                  "name": "Geometry",
+                  "type": "NEW_GEOMETRY",
+                  "operation": null,
+                  "inputs": {}
+                },
+                {
+                  "name": "Separate XYZ",
+                  "type": "SEPXYZ",
+                  "operation": null,
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Map Range",
+                  "type": "MAP_RANGE",
+                  "operation": null,
+                  "inputs": {
+                    "Value": 1.0,
+                    "From Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "From Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "To Min": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "To Max": [
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Steps": [
+                      4.0,
+                      4.0,
+                      4.0
+                    ],
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Color Ramp",
+                  "type": "VALTORGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 0.5
+                  },
+                  "color_ramp": [
+                    {
+                      "position": 0.0,
+                      "color": [
+                        0.20999999344348907,
+                        0.2184000015258789,
+                        0.23100000619888306,
+                        1.0
+                      ]
+                    },
+                    {
+                      "position": 0.8999999761581421,
+                      "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Mix (Legacy)",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.03071344457566738,
+                      0.10461648553609848,
+                      0.26635560393333435,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Vector Math",
+                  "type": "VECT_MATH",
+                  "operation": "DOT_PRODUCT",
+                  "inputs": {
+                    "Vector": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Scale": 1.0
+                  }
+                },
+                {
+                  "name": "Math",
+                  "type": "MATH",
+                  "operation": "ABSOLUTE",
+                  "inputs": {
+                    "Value": 0.5
+                  }
+                },
+                {
+                  "name": "Math.001",
+                  "type": "MATH",
+                  "operation": "MULTIPLY_ADD",
+                  "inputs": {
+                    "Value": 0.800000011920929
+                  }
+                },
+                {
+                  "name": "Mix (Legacy).001",
+                  "type": "MIX_RGB",
+                  "operation": null,
+                  "inputs": {
+                    "Factor": 1.0,
+                    "Color1": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ],
+                    "Color2": [
+                      0.5,
+                      0.5,
+                      0.5,
+                      1.0
+                    ]
+                  }
+                },
+                {
+                  "name": "Principled BSDF.001",
+                  "type": "BSDF_PRINCIPLED",
+                  "operation": null,
+                  "inputs": {
+                    "Base Color": [
+                      0.800000011920929,
+                      0.800000011920929,
+                      0.800000011920929,
+                      1.0
+                    ],
+                    "Metallic": 0.0,
+                    "Roughness": 0.8500000238418579,
+                    "IOR": 1.4500000476837158,
+                    "Alpha": 1.0,
+                    "Thin Wall": false,
+                    "Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Weight": 0.0,
+                    "Diffuse Roughness": 0.0,
+                    "Subsurface Weight": 0.0,
+                    "Subsurface Radius": [
+                      1.0,
+                      0.20000000298023224,
+                      0.10000000149011612
+                    ],
+                    "Subsurface Scale": 0.004999999888241291,
+                    "Subsurface IOR": 1.399999976158142,
+                    "Subsurface Anisotropy": 0.0,
+                    "Specular IOR Level": 0.029999999329447746,
+                    "Specular Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Anisotropic": 0.0,
+                    "Anisotropic Rotation": 0.0,
+                    "Tangent": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Transmission Weight": 0.0,
+                    "Coat Weight": 0.0,
+                    "Coat Roughness": 0.029999999329447746,
+                    "Coat IOR": 1.5,
+                    "Coat Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Coat Normal": [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    "Sheen Weight": 0.0,
+                    "Sheen Roughness": 0.5,
+                    "Sheen Tint": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Color": [
+                      1.0,
+                      1.0,
+                      1.0,
+                      1.0
+                    ],
+                    "Emission Strength": 0.0,
+                    "Thin Film Thickness": 0.0,
+                    "Thin Film IOR": 1.3300000429153442
+                  }
+                }
+              ],
+              "links": [
+                {
+                  "from": [
+                    "Geometry",
+                    "Position"
+                  ],
+                  "to": [
+                    "Separate XYZ",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Separate XYZ",
+                    "Z"
+                  ],
+                  "to": [
+                    "Map Range",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Map Range",
+                    "Result"
+                  ],
+                  "to": [
+                    "Color Ramp",
+                    "Factor"
+                  ]
+                },
+                {
+                  "from": [
+                    "Color Ramp",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy)",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Normal"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Geometry",
+                    "Incoming"
+                  ],
+                  "to": [
+                    "Vector Math",
+                    "Vector"
+                  ]
+                },
+                {
+                  "from": [
+                    "Vector Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math",
+                    "Value"
+                  ],
+                  "to": [
+                    "Math.001",
+                    "Value"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color1"
+                  ]
+                },
+                {
+                  "from": [
+                    "Math.001",
+                    "Value"
+                  ],
+                  "to": [
+                    "Mix (Legacy).001",
+                    "Color2"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy).001",
+                    "Color"
+                  ],
+                  "to": [
+                    "Emission",
+                    "Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Mix (Legacy)",
+                    "Color"
+                  ],
+                  "to": [
+                    "Principled BSDF.001",
+                    "Base Color"
+                  ]
+                },
+                {
+                  "from": [
+                    "Principled BSDF.001",
+                    "BSDF"
+                  ],
+                  "to": [
+                    "Material Output",
+                    "Surface"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

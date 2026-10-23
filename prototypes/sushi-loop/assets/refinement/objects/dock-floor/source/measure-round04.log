@@ -1,0 +1,102 @@
+00:00.515  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/round-04.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/measure-floor-round04.py:37: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  report={'asset':'dock-floor','project':str(Path(bpy.data.filepath).relative_to(OBJ)),'projectSHA256':sha(bpy.data.filepath),'measurement':'actual evaluated native mesh BVH and boundary-edge/face extraction; no raster/AABB substitute for shared boundary','rootObject':root.name,'rootMatrix':[list(r) for r in root.matrix_world],'nativeGeometry':records,'meshBounds':[[min(v[i] for v in vs) for i in range(3)],[max(v[i] for v in vs) for i in range(3)]],'contactSections':sections,'sharedBoundary':{'Y':-1.5,'Z':.22,'requiredSupportX':[-.48,.48],'actualEdges':segments,'facePolygons':actual_face,'coverageGaps':gaps,'maxTopError':max(abs(p['z']-.22) for p in seam if p['z'] is not None),'missingSamples':sum(p['z'] is None for p in sections),'maxTopNormalError':max(abs(p['normal'][2]-1) for p in seam if p['normal'])},'supportCellCenters':[top(x,y) for x in [-1,0,1] for y in [-1,0,1]],'materialIntegrity':{'images':resources,'allMaterialsUseNodes':all(m.use_nodes for m in bpy.data.materials),'targetImageUsedAsResource':False,'noGroundPlane':True},'lights':[{'name':o.name,'type':o.data.type,'energy':o.data.energy,'size':o.data.size,'location':list(o.location)} for o in bpy.data.objects if o.type=='LIGHT'],'colorManagement':{'viewTransform':bpy.context.scene.view_settings.view_transform,'look':bpy.context.scene.view_settings.look,'exposure':bpy.context.scene.view_settings.exposure},'nativeCaptures':json.loads((OUT/'candidate-phases.json').read_text()),'preExistingNeighborSupportGaps':{'workshop-hut':.035,'submarine-yellow':.055,'scope':'Roots retained; later per-object repair, no contact certification'}}
+BlenderMCP addon registered
+{
+  "bounds": [
+    [
+      -1.496999979019165,
+      -1.5,
+      0.0
+    ],
+    [
+      1.496999979019165,
+      1.5,
+      0.23200000822544098
+    ]
+  ],
+  "sharedBoundary": {
+    "Y": -1.5,
+    "Z": 0.22,
+    "requiredSupportX": [
+      -0.48,
+      0.48
+    ],
+    "coverageGaps": [],
+    "maxTopError": 2.8610229491077277e-08,
+    "missingSamples": 0,
+    "maxTopNormalError": 0.0
+  },
+  "meshIssues": [
+    {
+      "name": "dock-floor__crafted_deck",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__low_joist_-1.17",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__low_joist_1.17",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.001",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.002",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.003",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.004",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.005",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.006",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    },
+    {
+      "name": "dock-floor__domed_fixing.007",
+      "nonmanifoldEdges": 0,
+      "looseVertices": 0,
+      "zeroAreaFaces": 0
+    }
+  ]
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

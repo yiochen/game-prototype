@@ -1,0 +1,437 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-straight-s",
+  "stage": "independent-initial-inspection",
+  "verdict": "criteria_proposed_no_candidate_reviewed",
+  "independence": {
+    "editorProposalsRead": false,
+    "siblingAestheticReviewsRead": false,
+    "scope": "Source snapshot, fixed target, own brief/judge prompt, actual original Blender collection/actions, catalog/source records, frozen family settings/native reference and approval receipt only. No subagents."
+  },
+  "inspectedFiles": [
+    "brief.json",
+    "prompts/judge.txt",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/family-concept.png",
+    "inputs/approved-family-native-S.png",
+    "inputs/family-settings.json",
+    "inputs/family-approval.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "inputs/catalog-object.json",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "reviews/native-source-inspection.json",
+    "reviews/initial-context.png",
+    "reviews/original-four-facing.png",
+    "reviews/original-all96.png"
+  ],
+  "visualObservations": {
+    "original": "The original is a legible straight conveyor: seven dark blue-gray deck bands between uninterrupted coral rails, over a brown timber support. N/S show a long deck with two front feet; E/W show a broad rail and exposed support. The rails are flat rectangular bars, slat surfaces are shallow and even, and the legs are very dark, with little readable construction detail.",
+    "fixedTarget": "The fixed target keeps the coral/slate/wood palette while showing softly rounded volumes, broad warm rail highlights, pillow-like slate slats with thin readable darker separators, honey timber with restrained grain, rounded darker foot bands and small round brass fasteners. These make the simple structure look crafted and tangible. The target is a style/design exploration at different framing and scale; it is not registration evidence.",
+    "familyReference": "The actual native family image independently inspected has warmer legible wood, restrained grain, foot bands and small brass points, plus more dimensional coral rails and slate deck shading than the original. Its continuous rail ends and seven-period deck are the binding family continuity reference. Approval of N does not establish S approval.",
+    "constraintConflicts": "The target end collars, isolated rounded endcaps, large rail highlights that turn around the ends, generous framing and apparent slat depth cannot override the exact open rail/deck joining profiles. Useful support construction and decorative detail inside the declared envelope remain welcome. Do not copy target edge fringe or force target camera/framing."
+  },
+  "nativeSourceFindings": {
+    "collection": "S33_FB_belt-straight-s.001",
+    "root": "belt-straight-s__root.001",
+    "orientationObject": "belt-straight-s__orientation.001",
+    "intrinsicOrientationRadians": 0.0,
+    "inspectionMethod": "Original collection linked to a new isolated active scene, collection/object viewport and render hidden flags enabled, hide_set false, dependency graph updated after every frame/root change; no .blend saved.",
+    "sourceCameraCaution": "The original library active camera S33 Capture Camera.240 is an unrelated 35-degree presentation capture with square pixels and a 768x1280 frame. It is not the authoritative registered belt camera. Inspection reconstructed the registered capture from inputs/source-camera.json and production capture_runtime.py convention, and measured its calibration.",
+    "registeredCapture": {
+      "nativeFrame": [
+        384,
+        704
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "nativeRoot": [
+        192,
+        496
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "cellLogicalPixels": 128,
+      "elevationDegrees": 55.00797980144134,
+      "pixelAspect": [
+        1.2206555604934692,
+        1
+      ],
+      "rootMeasuredNative": [
+        192.0,
+        496.0
+      ],
+      "worldXDeltaNative": [
+        256,
+        0
+      ],
+      "worldDepthDeltaNative": [
+        0,
+        255.9999389648438
+      ],
+      "worldHeightDeltaNative": [
+        0,
+        -179.20004272460938
+      ],
+      "cameraMatrices": "See source-camera.json and native-source-inspection.json; equivalent orthographic sensor-fit parameterizations must preserve measured projection, not library active-camera parameters."
+    },
+    "publisherRootRotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "sourceUVAndFlow": "At S/root0 the original deck UV.x=0 is incoming at world (0,+0.5,0.64), UV.x=1 is outgoing at (0,-0.5,0.64). Thus UV.x increases toward the declared south flow. Preserve this actual S mapping; do not import N intrinsic pi or E intrinsic pi/2.",
+    "actualPorts": {
+      "N": {
+        "publisherRootAngleDegrees": 180,
+        "deckMatrixWorld": [
+          [
+            -1.0,
+            8.742277657347586e-08,
+            0.0,
+            0.0
+          ],
+          [
+            -8.742277657347586e-08,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ports": {
+          "incoming": {
+            "world": [
+              2.9802322387695312e-08,
+              -0.5,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              0.0,
+              6.655970573425293
+            ]
+          },
+          "outgoing": {
+            "world": [
+              -2.9802322387695312e-08,
+              0.5,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              -5.7220458984375e-06,
+              -121.34400177001953
+            ]
+          }
+        },
+        "bounds": [
+          [
+            -0.48000001907348633,
+            -0.5000000596046448,
+            0.0
+          ],
+          [
+            0.48000001907348633,
+            0.5000000596046448,
+            0.6950000524520874
+          ]
+        ]
+      },
+      "E": {
+        "publisherRootAngleDegrees": 90,
+        "deckMatrixWorld": [
+          [
+            -4.371138828673793e-08,
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            -4.371138828673793e-08,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ports": {
+          "incoming": {
+            "world": [
+              -0.5,
+              -2.9802322387695312e-08,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              -63.999999046325684,
+              -57.34401035308838
+            ]
+          },
+          "outgoing": {
+            "world": [
+              0.5,
+              2.9802322387695312e-08,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              63.999996185302734,
+              -57.34402084350586
+            ]
+          }
+        },
+        "bounds": [
+          [
+            -0.5,
+            -0.48000001907348633,
+            0.0
+          ],
+          [
+            0.5,
+            0.48000001907348633,
+            0.6950000524520874
+          ]
+        ]
+      },
+      "S": {
+        "publisherRootAngleDegrees": 0,
+        "deckMatrixWorld": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ports": {
+          "incoming": {
+            "world": [
+              0.0,
+              0.5,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              0.0,
+              -121.34400177001953
+            ]
+          },
+          "outgoing": {
+            "world": [
+              0.0,
+              -0.5,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              0.0,
+              6.655970573425293
+            ]
+          }
+        },
+        "bounds": [
+          [
+            -0.47999998927116394,
+            -0.5,
+            0.0
+          ],
+          [
+            0.47999998927116394,
+            0.5,
+            0.6950000524520874
+          ]
+        ]
+      },
+      "W": {
+        "publisherRootAngleDegrees": -90,
+        "deckMatrixWorld": [
+          [
+            -4.371138828673793e-08,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            -1.0,
+            -4.371138828673793e-08,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "ports": {
+          "incoming": {
+            "world": [
+              0.5,
+              -2.9802322387695312e-08,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              63.999996185302734,
+              -57.34401035308838
+            ]
+          },
+          "outgoing": {
+            "world": [
+              -0.5,
+              2.9802322387695312e-08,
+              0.6399999856948853
+            ],
+            "rootRelativeLogical": [
+              -63.999999046325684,
+              -57.34402084350586
+            ]
+          }
+        },
+        "bounds": [
+          [
+            -0.5,
+            -0.48000001907348633,
+            0.0
+          ],
+          [
+            0.5,
+            0.48000001907348633,
+            0.6950000524520874
+          ]
+        ]
+      }
+    },
+    "sourceBoundsAtS": [
+      [
+        -0.47999998927116394,
+        -0.5,
+        0
+      ],
+      [
+        0.47999998927116394,
+        0.5,
+        0.6950000524520874
+      ]
+    ],
+    "connectorProfile": {
+      "longitudinalEndPlanesY": [
+        -0.5,
+        0.5
+      ],
+      "deckX": [
+        -0.35,
+        0.35
+      ],
+      "deckZ": 0.64,
+      "leftRailX": [
+        -0.48,
+        -0.35
+      ],
+      "rightRailX": [
+        0.35,
+        0.48
+      ],
+      "railsZ": [
+        0.505,
+        0.695
+      ],
+      "rootZ": 0,
+      "socketDeck": [
+        0,
+        0,
+        0.64
+      ]
+    },
+    "nativeAnimation": {
+      "materialOwner": "S33_belt-straight-s_moving_deck.001",
+      "nodeTreeOwner": "Shader Nodetree",
+      "action": "S33_NATIVE__belt-straight-s__running__Shader_Nodetree.001",
+      "slot": "NTShader Nodetree",
+      "channel": "nodes[\"Value\"].outputs[0].default_value",
+      "frames": 24,
+      "firstFrame": 1,
+      "lastUniqueFrame": 24,
+      "closureFrame": 25,
+      "fps": 12,
+      "interpolation": "LINEAR",
+      "periodsPerCell": 7,
+      "phase": "-7*i/24 for i=0..24",
+      "evaluatedAll25Frames": true,
+      "phaseAtFrame25": -7,
+      "geometryAnimationOwners": 0,
+      "motion": "Source shader uses FRACT(7*UV.x + phase); rail/support geometry stays fixed."
+    }
+  },
+  "inputIntegrity": {
+    "allChecksPass": true,
+    "checks": "reviews/initial-hash-checks.json",
+    "frozenFamilySettingsSHA256": "599d7a731dcf8f22305f3d7b8a67a1fa45743535ed34937620dd9a834377ba15",
+    "approvalReceipt": "inputs/family-approval.json",
+    "statusMeaning": "Pending labels inside frozen family-settings.json describe its capture time; the separate approval receipt supplies the later approval."
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Make the slate deck and coral rails feel softly dimensional, warm and carefully finished while retaining the exact shared open connector profile, seven-period cadence, native S flow and approved family appearance."
+    },
+    {
+      "rank": 2,
+      "outcome": "Give visible timber supports coherent weight and legible craft through restrained rounded volumes, warm grain/trim or useful construction details inside the functional envelope; remove the original near-black unreadable feet without visual clutter."
+    },
+    {
+      "rank": 3,
+      "outcome": "Keep the same clear, artifact-free appearance at all actual facings, throughout the 24-frame loop and closure, and in repeated/mixed family joins at 128/55/32 through the unchanged approved Godot consumer."
+    }
+  ],
+  "evidenceLimits": "No S candidate has been submitted, so this is neither an aesthetic approval nor a technical pass. The original atlas thumbnails are baseline previews derived from production atlases; Pillow thumbnails do not prove actual Godot filtering. Later review requires hash-bound native captures and actual consumer evidence. Tiny interior support shading residuals require visible localization and explicit judgment, never a silent waiver."
+}

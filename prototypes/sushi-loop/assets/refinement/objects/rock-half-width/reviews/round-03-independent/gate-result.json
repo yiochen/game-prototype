@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+    "rock-half-width",
+    "--round",
+    "round-03"
+  ],
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "gateSourceSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+  "candidatePacketSHA256": "e6e8d20d76627da2a5a7085409e33f98255348cfcbb5875f48cbdecd84076fb4",
+  "reviewSHA256": "7178adbfc84dfc666b6e6cb1c83f56fc4bb25d10c78a4b55e5c0c3fc3d9f4b0d",
+  "supplementalManifestSHA256": "c441bef6b7f8d2543ef0887399b15e9f83a4d473ff6dde4a47f9df75a6c03b45",
+  "exitCode": 1,
+  "expectedResult": "Rejected because verdict is revise and blockers remain. This is not an approval or weakened-gate pass.",
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 105, in <module>\n    result = acceptance(Path(__file__).resolve().parents[1] / 'objects' / args.asset, args.round)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 40, in acceptance\n    require(packet.get('asset') == folder.name\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 23, in require\n    raise ValueError(message)\nValueError: Acceptance binds wrong or blocked candidate\n"
+}

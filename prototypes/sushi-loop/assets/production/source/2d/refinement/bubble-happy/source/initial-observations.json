@@ -1,0 +1,62 @@
+{
+  "role": "fresh independent existing native2D editor; inspected before frozen criteria or judge proposals",
+  "inspected": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "../../../production/source/2d/generated/bubble-happy.png",
+    "inputs/runtime-variants/smile/original.png",
+    "inputs/runtime-variants/smile/target.png",
+    "inputs/runtime-variants/smile/original-source/bubble-happy-smile.png",
+    "inputs/original-2d-pipeline/publish_2d.py",
+    "inputs/runtime-variants/smile/original-source/pack_feedback.py",
+    "inputs/catalog-object.json",
+    "inputs/runtime-variants/smile/original-manifest.json",
+    "../../../../godot/scripts/restaurant_view.gd",
+    "../../../../godot/scripts/art_book.gd"
+  ],
+  "visibleSource": {
+    "heart": "Cream oval speech balloon with lower-left tail, large red/pink heart and two amber excitement marks upper-right. Bold brown outlines and broad white highlights. Registered image is small above its root, with no ground shadow.",
+    "smile": "Same cream balloon family with joyful round yellow face, closed smiling eyes, open mouth/tongue and coral cheeks. Separate existing runtime semantic variant, not a replacement for the main heart."
+  },
+  "targetObservations": {
+    "heart": "Fixed target keeps the identity and palette but rounds/inflates the cream bevel and red heart, with warm lower cream shading and smoother dimensional highlight transition.",
+    "smile": "Fixed target retains delighted open mouth, curved eyes, rosy cheeks and yellow face. Cream outer balloon and amber accent marks are rounded/inflated similarly to the heart target.",
+    "alpha": "Both fixed targets retain real transparent background and complete raw source canvas."
+  },
+  "technicalSource": {
+    "pipeline": "Existing raster source plus editable deterministic2D publisher, not a Blender mesh.",
+    "main": "4 clips \u00d712 frames \u00d74 camera-facing direction aliases=192 slots; 48 independently generated S frames.",
+    "variant": "Separate manifest with happy-smile-appear/idle/fade/transition, 12 S frames each=48 actual runtime variant frames; S fallback handled by native ArtBook.",
+    "canvas": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "fps": 12,
+    "atlas": [
+      2304,
+      1280
+    ],
+    "atlasLayout": [
+      6,
+      2
+    ],
+    "singleSourceCrop": "alpha >8 fixed rectangle, preserve original alpha, uniform164px/82logical width",
+    "animation": "Original 3logical-pixel sinusoidal bob. Appear half-to-full sine scale and 1/12-to-full opacity. Fade1-to1/12 opacity. Transition1\u00b1.12 sine pulse. Idle loop only.",
+    "actualRuntimeRole": "restaurant_view satisfied phase selects smile-transition for first1s, smile-idle then smile-fade until happy_duration(default2.2s). Current BUBBLE_ATTACHMENT is[0,-172]logical, plus current customer_pose_offset. Catalog historical interaction has[0,-90]and will be shown separately as catalog context."
+  },
+  "methodDecision": "Use each fixed raw target as its own new native2D artwork source. One fixed alpha rectangle per source, one common82logical width normalization, exact original animation math and packing; no artistic painting, erasure, warp, regrade or perframe fitting.",
+  "notReviewed": [
+    "reviews/initial.json",
+    "reviews/criteria.json",
+    "sibling aesthetic critiques"
+  ]
+}

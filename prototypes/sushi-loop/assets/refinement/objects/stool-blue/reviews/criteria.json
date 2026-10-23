@@ -1,0 +1,92 @@
+{
+  "asset": "stool-blue",
+  "status": "proposed-for-coordinator-freeze",
+  "style": "warm, softly lit cartoon",
+  "immutableTechnicalConstraints": [
+    "Preserve native editable 3D stool, actual legs/support/cushion construction, authored height and proportions, footprint [1,1], ground root and seat socket [0,0,0.685].",
+    "Preserve registered camera projection, pixel aspect, world scale, logical frame [192,352], root [96,248], sourceScale 2 and 384x704 native delivered frame; no per-view fit, recoloring, raster card, or target-image registration substitution.",
+    "Deliver N/E/S/W independent native static facings, one frame each, 12 fps metadata and non-looping/static behavior; required four-view and repeated previews use the same capture.",
+    "Soft horizontally neutral world lighting across all directions; no directional ground cast shadow or added backing plane."
+  ],
+  "aestheticCriteria": [
+    {
+      "id": "shapeVolume",
+      "priority": 1,
+      "desiredVisibleOutcome": "Seat reads as a padded rounded-square blue cushion with broad continuous surface variation and gently softened edge transitions; preserve seat size, native construction and usable attachment height. Legs and crossbar remain recognizable structural pieces.",
+      "failureExamples": [
+        "Large perfectly uniform flat top with hard stepped rim bands",
+        "Over-inflated seat that changes the native footprint, height or contact",
+        "Blobby legs or merged supports that obscure stool construction"
+      ]
+    },
+    {
+      "id": "color",
+      "priority": 2,
+      "desiredVisibleOutcome": "Retain a saturated blue cushion and warm honey wood legs/supports, with color variation that feels softly lit and friendly. Wood remains bright enough to read down to the feet; cushion blue remains distinct from wood.",
+      "failureExamples": [
+        "Nearly black lower-leg patches",
+        "Electric cyan flat panel separated by harsh royal-blue strips",
+        "Gray/brown muddy supports or palette change away from blue-and-honey-wood identity"
+      ]
+    },
+    {
+      "id": "lightingHighlights",
+      "priority": 1,
+      "desiredVisibleOutcome": "Broad low-contrast highlights and gentle occlusion describe the cushion, legs and support joints. Keep horizontal symmetry; each facing belongs to one scene and lighting scheme.",
+      "failureExamples": [
+        "Strong left/right key-light bias",
+        "Blown white/glassy spots or hard highlight stripes",
+        "Crushed dark joints, underside or feet",
+        "Any directional cast ground shadow"
+      ]
+    },
+    {
+      "id": "materialDetail",
+      "priority": 3,
+      "desiredVisibleOutcome": "Cushion and wood feel softly tactile with restrained roughness and optional subtle coherent grain or fabric variation. Prioritize clean large forms and readable edges over target microtexture.",
+      "failureExamples": [
+        "Noisy speckles or strong procedural bands visible at logical size",
+        "Heavy grain competing with shape",
+        "Cushion/wood polished plastic glare",
+        "Abrupt normal seams or coplanar flicker"
+      ]
+    },
+    {
+      "id": "artifactFreeReadability",
+      "priority": 1,
+      "desiredVisibleOutcome": "All four static facings remain clean and legible at 192x352 logical frame size as well as native enlargement. No material dead spots: opaque black patches, broken corners, clipped geometry, merged supports, exposed ends, seams or unwanted fringe. Clean transparency on light, neutral and dark backgrounds.",
+      "failureExamples": [
+        "Halo copied from imagegen target",
+        "Jagged bright/dark alpha border",
+        "Dark gap incorrectly filled by opaque background",
+        "Lost wood leg or support at use size"
+      ]
+    }
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "The large cushion reads as softly padded blue volume at catalog scale, using continuous gentle shading and rounded edge transitions while preserving the authored envelope and seat attachment."
+    },
+    {
+      "rank": 2,
+      "outcome": "Wooden legs and supports read as warm honey wood with clear construction and readable lower faces; remove the original almost-black lower-leg dead areas without flattening contact depth."
+    },
+    {
+      "rank": 3,
+      "outcome": "Unify all four native facings with broad soft highlights, restrained material variation and clean alpha; no directional horizontal light preference, cast ground shadow, harsh stripes, halo, seams or merged joints."
+    }
+  ],
+  "nonRequirements": [
+    "Target canvas, padding, scale and placement changes",
+    "Target inflated silhouette or changed proportions",
+    "Imagegen colored fringe/halo",
+    "Exact target pixel match or surface microtexture",
+    "Invented unseen-facing geometry from the single-view target"
+  ],
+  "approvalEvidence": [
+    "Hash-bound immutable candidate packet and exact native render bytes for all four required facings plus declared previews.",
+    "Native camera/root/footprint/seat-socket/height/geometry/lighting validation and editable scene evidence.",
+    "Direct visual inspection of each facing at logical size and enlargement on suitable backgrounds; passing contract plus visible improvement toward frozen style criteria."
+  ]
+}

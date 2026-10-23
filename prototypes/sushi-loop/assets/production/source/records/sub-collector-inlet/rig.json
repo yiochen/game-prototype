@@ -1,8 +1,12 @@
 {
   "assetId": "sub-collector-inlet",
   "fps": 12,
-  "source": "native_actions.py",
-  "static": false,
+  "groundRootObject": "collector__root",
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 0.55,
   "clips": {
     "idle": {
       "frames": 1,
@@ -12,42 +16,7 @@
       "firstFrame": 1,
       "lastUniqueFrame": 1,
       "closingKeyFrame": null,
-      "actions": [
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__dark_mouth.001",
-          "action": "S33_NATIVE__sub-collector-inlet__idle__collector_inlet__dark_mouth.001",
-          "slotIdentifier": "OBcollector_inlet__dark_mouth.001",
-          "keyframeCount": 3
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_-0.001",
-          "action": "S33_NATIVE__sub-collector-inlet__idle__collector_inlet__guard_-0.001",
-          "slotIdentifier": "OBcollector_inlet__guard_-0.001",
-          "keyframeCount": 3
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_0.001",
-          "action": "S33_NATIVE__sub-collector-inlet__idle__collector_inlet__guard_0.001",
-          "slotIdentifier": "OBcollector_inlet__guard_0.001",
-          "keyframeCount": 3
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_0.002",
-          "action": "S33_NATIVE__sub-collector-inlet__idle__collector_inlet__guard_0.002",
-          "slotIdentifier": "OBcollector_inlet__guard_0.002",
-          "keyframeCount": 3
-        }
-      ],
-      "controlsByFrame": [
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "pose": "neutral"
     },
     "active": {
       "frames": 12,
@@ -57,83 +26,2273 @@
       "firstFrame": 1,
       "lastUniqueFrame": 12,
       "closingKeyFrame": 13,
-      "actions": [
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__dark_mouth.001",
-          "action": "S33_NATIVE__sub-collector-inlet__active__collector_inlet__dark_mouth.001",
-          "slotIdentifier": "OBcollector_inlet__dark_mouth.001",
-          "keyframeCount": 39
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_-0.001",
-          "action": "S33_NATIVE__sub-collector-inlet__active__collector_inlet__guard_-0.001",
-          "slotIdentifier": "OBcollector_inlet__guard_-0.001",
-          "keyframeCount": 39
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_0.001",
-          "action": "S33_NATIVE__sub-collector-inlet__active__collector_inlet__guard_0.001",
-          "slotIdentifier": "OBcollector_inlet__guard_0.001",
-          "keyframeCount": 39
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "collector_inlet__guard_0.002",
-          "action": "S33_NATIVE__sub-collector-inlet__active__collector_inlet__guard_0.002",
-          "slotIdentifier": "OBcollector_inlet__guard_0.002",
-          "keyframeCount": 39
-        }
-      ],
-      "controlsByFrame": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "mechanics": "Native mouth sleeve/dark throat scaleZ pulse plus connected guard cage rotationX rocking. Three native owners, six saved actions; no new effect or mechanic."
     }
   },
-  "armatures": [],
-  "footprint": [
-    1,
-    1
+  "actions": [
+    {
+      "name": "INLET_NATIVE__active__collector__guard_rock",
+      "slots": [
+        "OBcollector__guard_rock"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              -0.2549999952316284,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.11900000274181366,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.11900000274181366,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.162268728017807,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.19789226353168488,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.20996515452861786,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.1952524483203888,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.1576964259147644,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.10736018419265747,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.057731278240680695,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.02210773155093193,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.010034848935902119,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.02474754862487316,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0623035728931427,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.11263981461524963,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.162268728017807,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INLET_NATIVE__active__collector__mouth_pulse",
+      "slots": [
+        "OBcollector__mouth_pulse"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.21699999272823334,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.21699999272823334,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.9927224516868591,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.035470724105835,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0499582290649414,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.032302975654602,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.9872357249259949,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.9268321990966797,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.8672775030136108,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.8245292901992798,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.8100418448448181,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.8276970386505127,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.8727642893791199,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.9331677556037903,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.9927224516868591,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INLET_NATIVE__active__collector__mouth_sleeve",
+      "slots": [
+        "OBcollector__mouth_sleeve"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.13300000131130219,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.13300000131130219,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              1.0227224826812744,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0654706954956055,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.079958200454712,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0623029470443726,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0172357559204102,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.956832230091095,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.8972775340080261,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.8545292615890503,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.8400418162345886,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.857697069644928,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.9027642607688904,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.9631677865982056,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0227224826812744,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INLET_NATIVE__idle__collector__guard_rock",
+      "slots": [
+        "OBcollector__guard_rock"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              -0.24899999797344208,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.11900000274181366,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INLET_NATIVE__idle__collector__mouth_pulse",
+      "slots": [
+        "OBcollector__mouth_pulse"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              -0.2199999988079071,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.21699999272823334,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "INLET_NATIVE__idle__collector__mouth_sleeve",
+      "slots": [
+        "OBcollector__mouth_sleeve"
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.13300000131130219,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    }
   ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "collector_inlet__root.001",
-  "sockets": {},
-  "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
-  "actionCount": 8,
-  "createdAtUnix": 1792392925.2401779,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "049e6f615e91a71d74c9cc9b4f37adc079abd5c4ab648c97f981eebb9d672be4",
-    "production_library.py": "9d8665b8e512f9b1c649b423ed69478d6ba4a0f745df3cdfd70d044cd3ff4236",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  "source": "source/round-02.blend",
+  "neutralAdoption": "CanonicalS idle nativeframe1 at frozen positive uniform mount only; activeframe1 is not neutral."
 }

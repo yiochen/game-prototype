@@ -1,0 +1,9 @@
+00:00.338  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-edge/reviews/preparation-v1/resources/native/source-library.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-edge/reviews/preparation-v1/resources/inspect_original.py:30: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  output={'asset':'wreck-edge','source':str(bpy.data.filepath),'sourceSHA256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'blenderVersion':bpy.app.version_string,'root':root.name,'rootProperties':props(root),'collections':[{'name':c.name,'properties':props(c),'objects':[o.name for o in c.all_objects]} for c in bpy.data.collections if root.name in c.all_objects], 'objects':objects,'materials':[{'name':m.name,'users':m.users,'diffuseColor':list(m.diffuse_color),'useNodes':m.use_nodes,'properties':props(m),'tree':tree(m.node_tree)} for m in sorted(mats,key=lambda x:x.name)],'images':[{'name':i.name,'filepath':i.filepath,'source':i.source,'packed':bool(i.packed_file),'users':i.users} for i in bpy.data.images if i.users],'libraries':[{'name':l.name,'filepath':l.filepath} for l in bpy.data.libraries], 'scenes':scenes,'actions':[{'name':a.name,'users':a.users} for a in bpy.data.actions if a.users and any(ob.animation_data and ob.animation_data.action==a for ob in owned)]}
+BlenderMCP addon registered
+WRECK_EDGE_ORIGINAL_INSPECTED 13 /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-edge/reviews/preparation-v1/original-native-inspection.json
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

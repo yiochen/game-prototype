@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 1,
+  "asset": "wall-outer-corner",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "asset": "wall-outer-corner",
+    "status": "frozen-by-coordinator",
+    "scope": "Initial visible success criteria only; no candidate approval.",
+    "authority": "User-selected warm soft cartoon direction and brief.modelingPolicy, subject to the locked native capture/gameplay/modular contract.",
+    "criteria": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "desiredVisibleOutcome": "A single coherent outward/convex wall bend, with a substantial blue coping and clearly built warm wood below. The turn reads as intentional continuous construction with softened volume rather than a flat L sticker or an accidental stack of boxes.",
+        "evaluate": "Compare original and candidate at the same registered scale in N/E/S/W. Inspect the convex outside and concave inside of the bend enlarged, then check whether the volume still reads at logical 192x352.",
+        "failures": [
+          "Pinched or collapsed bend",
+          "Diagonal triangular shading scar across an otherwise continuous top",
+          "A new post, ledge or decoration that masks a broken joint",
+          "Reversing the source bend or flattening depth by changing the camera"
+        ],
+        "freedom": "Rebuild geometry and improve contour, construction and purposeful detail away from locked ports/clearance. No required mesh count or exact source interior board count."
+      },
+      {
+        "id": "palette-family",
+        "priority": 2,
+        "desiredVisibleOutcome": "Honey-orange wood and a blue coping remain the dominant palette. Wood feels warm and lively, blue remains clean and rich, and their value separation keeps the cap/trim/panel hierarchy readable.",
+        "evaluate": "Compare the fixed target and family concept at intended size; then compare the actual approved wall-middle alongside the corner under identical capture settings.",
+        "failures": [
+          "Muddy nearly black lower wood",
+          "Washed gray blue",
+          "Yellow/white burn that erases surface form",
+          "A visible color/material band step where corner meets straight"
+        ],
+        "dependency": "Final family matching uses approved inputs/family-settings.json and its bound source/renders, not the unapproved concept's end shape."
+      },
+      {
+        "id": "light-highlights",
+        "priority": 2,
+        "desiredVisibleOutcome": "Broad soft shading reveals the cap thickness, bend and board relief. Controlled highlights soften exposed edges while retaining colored surfaces. Every facing feels lit by the same horizontally symmetric rig.",
+        "evaluate": "Inspect all facings on light, gray and dark backgrounds, including cap top, inside turn, trim underside and lower wood. Native evidence must establish shared materials, lights and actual rotations.",
+        "failures": [
+          "Black dead patches",
+          "Blown white contour bands dominating blue/wood",
+          "Abrupt normal changes unrelated to a designed edge",
+          "Directional ground shadow",
+          "Per-facing recoloring or lighting overrides"
+        ],
+        "allowedDifference": "Native highlights need not trace ImageGen's exact bright rim. Soft, coherent native volume is the required outcome."
+      },
+      {
+        "id": "material-crafted-detail",
+        "priority": 3,
+        "desiredVisibleOutcome": "Wood has restrained, broad grain or similarly useful crafted detail that remains visible at game size, plus clean shallow course/edge relief. The cap has an intentional finished surface with enough variation to avoid a large dead flat area.",
+        "evaluate": "Inspect logical-size sprites and enlarged crops of the cap, broad wood face, turn and narrow leg. Check that added detail helps material identity and does not overwhelm the small sprite.",
+        "failures": [
+          "Featureless blank planes reproducing the original's weak presentation",
+          "Noisy high-frequency grain or sparkling pixels",
+          "Repeated knots/seams that make the bend look tiled arbitrarily",
+          "Decoration blocking the functional path/clearance or hiding a join"
+        ],
+        "freedom": "Specific ornament, grain pattern, board count away from the terminal sections, and implementation method remain editor choices."
+      },
+      {
+        "id": "modular-continuity",
+        "priority": 1,
+        "desiredVisibleOutcome": "Both local W and S open ports meet the approved straight wall as a continuous family. Cap, trim and wood bands align in shape, color, shading and coverage, with no visible split, dark cut line, gap or doubled outline.",
+        "evaluate": "Inspect native corner-to-approved-straight paired joins and a three-module L assembly, then independent assemblies made from the delivered corner and approved straight sprites using unchanged registered roots and grid translations. Cover W and S in each N/E/S/W facing. Compare visible RGB and alpha join strips enlarged and at logical size.",
+        "failures": [
+          "Rounded-back or capped open end",
+          "Mismatched terminal profile/band height",
+          "Transparent slit or bright/dark alpha fringe",
+          "RGB step despite matching alpha",
+          "Overlap/coplanar artifact or doubled bevel line",
+          "A connected native render that passes while independently exported sprites visibly break"
+        ],
+        "technicalRequirement": "Provide actual source and candidate profile measurements at x=-0.5 and y=-0.5; compare exact native material-role bands and approved family settings. Bind straight-wall dependencies in the candidate packet. Outside ends should stay inspectable.",
+        "limit": "Mathematical byte identity across separately antialiased imagery is not the aesthetic requirement. Any tolerance must be disclosed with RGB/alpha evidence; no material visible seam is acceptable."
+      },
+      {
+        "id": "artifact-free-readability",
+        "priority": 1,
+        "desiredVisibleOutcome": "All four facings have clean transparent silhouettes and readable cap/wood construction at logical 192x352. No required view contains a material defect or dead spot.",
+        "evaluate": "Inspect actual full native frames, four-view sheet, and relevant assemblies at logical size and enlarged against light/gray/dark backgrounds.",
+        "failures": [
+          "Floating pixels or ImageGen-style halo",
+          "Clipping",
+          "Exposed broken ends at connected ports",
+          "Z-fighting or coplanar shimmer",
+          "Muddy merged forms",
+          "Holes, chipped corners or seams caused by modeling/normal defects",
+          "Detail lost at use size"
+        ],
+        "note": "Preserve native perspective/occlusion differences across facings. A single target image does not define hidden views."
+      }
+    ],
+    "immutableTechnicalChecks": [
+      "Actual editable native 3D model and native renders; no painted target card, image warp or raster correction.",
+      "Preserve source projection/camera, pixel aspect, logical192x352/root96,256, export384x704/sourceScale2, cellSize128 and atlas layout. Validate projected root/calibration numerically; never fit to visible bounds.",
+      "Use and record measured actual root rotations S0/E+90/N180/W-90, with one material/light configuration.",
+      "Preserve one-cell footprint, outward/convex W/S source L path, declared functional height1.02 and gameplay contacts/clearance.",
+      "Keep exact W/S terminal planes and source terminal profiles/material-role bands recorded in initial.json. Match approved wall-middle family capture/material settings before final candidate review.",
+      "Static clip remains one frame at12fps, nonlooping; required N/E/S/W are native rotations.",
+      "Transparent background, no preferred horizontal illumination direction or directional ground shadow."
+    ],
+    "requiredCandidateEvidence": [
+      "Immutable candidate packet with hashes for the actual .blend, all required native frames/previews, validation and dependency closure.",
+      "Approved wall-middle inputs/family-settings.json and hash-bound approved native source plus sprites; absence requires needs_evidence.",
+      "N/E/S/W actual native frames, four-view sheet and intended-size transparent-background review surfaces.",
+      "Native joined context and independently assembled exported sprites covering both ports and all facings, with disclosed placement/orientation/root data.",
+      "Native geometry/profile, root/camera/calibration/rotation, functional envelope, material/light and external-resource audits.",
+      "Visible RGB and alpha seam strips/comparison evidence; neither matching geometry nor matching alpha alone certifies family continuity."
+    ],
+    "decisionPolicy": "Apply frozen criteria consistently. Reward useful authorized modeling improvements; exact target pixels and source part counts are not required. Missing evidence means needs_evidence. Material defects mean revise. Approval requires visible style improvement plus passing native and continuity evidence; scores are comparative observations rather than a numeric pass threshold.",
+    "recommendedRankedPriorities": [
+      "Coherent improved bend volume without scars or pinches",
+      "Warm crafted blue/wood material and soft light at logical size",
+      "Both-port RGB/alpha continuity with the approved family in every facing"
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      256
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "549d002b9e809acd9f1b98c98bfaaaa6d28e6ea912b0b04deec52ea7e8f05b34"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "backup": {
+      "path": "../../../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "814839693c4668440f84bc90c9fba0607d45bf19e68e06395adf44b549dd1551"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "52860a9aed0b1f941879b7d55eacab8fa28a4029abf9c6d00c071574cd438427"
+    },
+    "candidateProject": {
+      "path": "../../source/round-03.blend",
+      "sha256": "f4b3980e4feb12ed2f390ab2c9bcba1b67ebb37ac4af277d1281f1d3dcfba618"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "d5a17e50b21959de0590e52ea6e314ee8e73c281bef379b3099215bc28a0d304"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "f6643d02ad9af4a4bc7d9cedf1d3d29194016d31194b9272c75ec7d5a2664ad7"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "f7fc579d415194e75d9185ef197d2cb83130756374636f60be7e6c09b9e0e7c1"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "4e4c84810216fd3756cbeeaaff65077f4417b0bc795ee3bbd98d31853afcac21"
+    },
+    "candidateResource:technical:family-settings": {
+      "path": "../../inputs/family-settings.json",
+      "sha256": "690f0ee33c4ff18f02f4352fd91f326f0c42610e335c16a802222c4f216357ef"
+    },
+    "candidateResource:round:native-assetRecord.json": {
+      "path": "native-assetRecord.json",
+      "sha256": "aab8568eec45a962fbc327f15d5d47cf8e6d90769a1c31f5d823ff5be96e8a37"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "e960dc883a64d9cae798d11a42634729db6ccf31a63e23afdc63e89980694c1a"
+    },
+    "candidateResource:round:native-audit.json": {
+      "path": "native-audit.json",
+      "sha256": "1e551bcca4c0675edea1b0a00c892a55ee5d5cfb2db776ac8dcf096c2eb6212d"
+    },
+    "candidateResource:round:native-rig.json": {
+      "path": "native-rig.json",
+      "sha256": "1c3f6c317158928601f18852d23aeb110926c6bbecde63d43d036d833612eb93"
+    },
+    "candidateResource:round:native-camera.json": {
+      "path": "native-camera.json",
+      "sha256": "fe6575f1b689e0d48a1ccbb55bad406255ebe490711551717632b8be2125ebe3"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "d5a17e50b21959de0590e52ea6e314ee8e73c281bef379b3099215bc28a0d304"
+    },
+    "candidateResource:round:assembly-validation.json": {
+      "path": "assembly-validation.json",
+      "sha256": "4ace82557048e57f08ee288834c1a1b30d2cef4cccd3e22f77a9ab69036dfc9d"
+    },
+    "candidateResource:round:previews-map.json": {
+      "path": "previews-map.json",
+      "sha256": "bb0fd726a91b42fd9b02722afc5fc9155214c0485ba01607d979d9bb259a9ea7"
+    },
+    "candidateResource:round:previews/join-W-S-logical-backgrounds.png": {
+      "path": "previews/join-W-S-logical-backgrounds.png",
+      "sha256": "a889d38fa4fc213b919e9ea533b97aed14a3f45425907fed9b5a56b286a16d6b"
+    },
+    "candidateResource:round:previews/join-E-W-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-E-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ed20722a2782743f963c8421e5207548654ff94220536ab6e610e79890abe43b"
+    },
+    "candidateResource:round:previews/join-N-S-RGB-difference-x8.png": {
+      "path": "previews/join-N-S-RGB-difference-x8.png",
+      "sha256": "60c5186c42fe174edca31973bcf688cb3505a9924119709e8b130da16cc5dd92"
+    },
+    "candidateResource:round:previews/four-view-logical-backgrounds.png": {
+      "path": "previews/four-view-logical-backgrounds.png",
+      "sha256": "06071a1efece5135420fab41dba7739e66210c137c690494911780b57d135421"
+    },
+    "candidateResource:round:previews/join-N-WS-logical-backgrounds.png": {
+      "path": "previews/join-N-WS-logical-backgrounds.png",
+      "sha256": "ae5f3fe2964cd56ebdc34746039dbf4daaa2ef3fdc0cef0c9833a4d8d5ca1982"
+    },
+    "candidateResource:round:previews/join-N-S-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-N-S-S-RGB-alpha-enlarged.png",
+      "sha256": "908db740c477451b519cfc0ca2a54109d21259e7054702f5f9e6007b87f9b66f"
+    },
+    "candidateResource:round:previews/join-E-WS-RGB-difference-x8.png": {
+      "path": "previews/join-E-WS-RGB-difference-x8.png",
+      "sha256": "b7988d997ae59a95079dece34e29eeb87d7889be5ab4c0111a66e471ddf10d32"
+    },
+    "candidateResource:round:previews/join-N-WS-alpha-logical.png": {
+      "path": "previews/join-N-WS-alpha-logical.png",
+      "sha256": "0dec2c20f9ffd837260a099f496aec0f75d922aad50b5da6c5f738134c62be03"
+    },
+    "candidateResource:round:previews/join-W-W-RGB-difference-x8.png": {
+      "path": "previews/join-W-W-RGB-difference-x8.png",
+      "sha256": "685c3d5a5e029a29b65968628545b99a42db0d43ade4af7c77bdaa4392645744"
+    },
+    "candidateResource:round:previews/join-W-W-logical-backgrounds.png": {
+      "path": "previews/join-W-W-logical-backgrounds.png",
+      "sha256": "0c317faa8b4a85ce40c0c558caa383f88987b3d46c0bb46741e9fc7084780016"
+    },
+    "candidateResource:round:previews/join-E-S-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-E-S-S-RGB-alpha-enlarged.png",
+      "sha256": "d7a9215f7a43beb55531012b34a7e8daf75cf32d5860d2d7a07ed716bd3b9628"
+    },
+    "candidateResource:round:previews/join-E-S-RGB-difference-x8.png": {
+      "path": "previews/join-E-S-RGB-difference-x8.png",
+      "sha256": "8b5a71708992ac9cd5d9be967f5f3951f2f9729389815f7f3146bec5b801404f"
+    },
+    "candidateResource:round:previews/join-E-WS-logical-backgrounds.png": {
+      "path": "previews/join-E-WS-logical-backgrounds.png",
+      "sha256": "a89d8b48b4040f31544ea07f49f58f9a3fb6798a7b70bc6b50a11088f324eb12"
+    },
+    "candidateResource:round:previews/join-S-W-RGB-difference-x8.png": {
+      "path": "previews/join-S-W-RGB-difference-x8.png",
+      "sha256": "bc67f2369ba07cba113842417366d80cc4372f1a3897e31ea13ccccab4ffc07a"
+    },
+    "candidateResource:round:previews/join-N-W-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-N-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ebead81eb3e7d4dc892e1fc2498f09673871b6d33097ea332883ed9853cf40b1"
+    },
+    "candidateResource:round:previews/join-S-WS-logical-backgrounds.png": {
+      "path": "previews/join-S-WS-logical-backgrounds.png",
+      "sha256": "cb8d243a4525974ebc45153b7e96c3cd1d29483cb5225e1a94514eb0b8c8ebd7"
+    },
+    "candidateResource:round:previews/four-view-alpha-enlarged.png": {
+      "path": "previews/four-view-alpha-enlarged.png",
+      "sha256": "26b605f3f3428e5a270ce0e212d97353220e3b0ca2ba151fe8d39737f596d400"
+    },
+    "candidateResource:round:previews/join-W-S-RGB-difference-x8.png": {
+      "path": "previews/join-W-S-RGB-difference-x8.png",
+      "sha256": "15b85f5fc0cbb26fb5f0a5c9eb5dd02d53c49baaaa7c611435365a3e60c8048e"
+    },
+    "candidateResource:round:previews/join-S-S-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-S-S-S-RGB-alpha-enlarged.png",
+      "sha256": "eaa0a60d45eb95dc49aa9dafe83127771eb37d03dff4e9032721768a9e97b959"
+    },
+    "candidateResource:round:previews/join-N-S-logical-backgrounds.png": {
+      "path": "previews/join-N-S-logical-backgrounds.png",
+      "sha256": "143aa0eadef8e08d86dea0c23e9e35f8bee57c01544f5f1aaa8e7952eb47c22d"
+    },
+    "candidateResource:round:previews/join-E-WS-alpha-logical.png": {
+      "path": "previews/join-E-WS-alpha-logical.png",
+      "sha256": "901a92277017bec6b65192850f84b2ef8655b3b29253b3b2fdcefe5673dc5e2f"
+    },
+    "candidateResource:round:previews/join-N-W-RGB-difference-x8.png": {
+      "path": "previews/join-N-W-RGB-difference-x8.png",
+      "sha256": "0fb7d25b7c01b452b0374fbe89c3b0aea0e61389cb1baccbfc4c06389534ee91"
+    },
+    "candidateResource:round:previews/join-S-S-RGB-difference-x8.png": {
+      "path": "previews/join-S-S-RGB-difference-x8.png",
+      "sha256": "276e61ebbc8db89f88ca7adf3e0268a12bd4f1f913bea3f5479fdac32382b400"
+    },
+    "candidateResource:round:previews/repeated.png": {
+      "path": "previews/repeated.png",
+      "sha256": "1b03a956f608cb8ed3361580e98f7f5276f54cd9d5b9cedc23d86e376db0791d"
+    },
+    "candidateResource:round:previews/join-S-W-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-S-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ad83b77992918dbc910944b81b8388237416324ded6ec5b04a076501e68e05e1"
+    },
+    "candidateResource:round:previews/join-N-W-logical-backgrounds.png": {
+      "path": "previews/join-N-W-logical-backgrounds.png",
+      "sha256": "338918a530187b0020fb0a7d7ac689f2715b13c65d5973c8367c0c2eadfdfed0"
+    },
+    "candidateResource:round:previews/join-E-W-RGB-difference-x8.png": {
+      "path": "previews/join-E-W-RGB-difference-x8.png",
+      "sha256": "ae9bab5e21dabebb5e38625d31f42e72914d03b69cf723281da3f05b955bc31b"
+    },
+    "candidateResource:round:previews/join-W-WS-alpha-logical.png": {
+      "path": "previews/join-W-WS-alpha-logical.png",
+      "sha256": "f3e0f58ca207e5c8040f86ff864d37390ec6830b34a8ea36fb88e543652aba4d"
+    },
+    "candidateResource:round:previews/join-S-S-logical-backgrounds.png": {
+      "path": "previews/join-S-S-logical-backgrounds.png",
+      "sha256": "76412a32bc9a1dd0f700e4bb57e0d4249e72fbc814e71ebe2e5ed706b9d49307"
+    },
+    "candidateResource:round:previews/join-S-WS-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-S-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "f02801ceaa57a6a8e0619f891b1337e7bc201674409fb93dcc3bbdf51f591dce"
+    },
+    "candidateResource:round:previews/join-N-WS-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-N-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "22a612a012c36e0b4274a491907186d9236172367f5abb4d0b8b14e5830f443b"
+    },
+    "candidateResource:round:previews/join-S-WS-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-S-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "1c3ee0c9385f4bac98cba786b8ee6f18aff81f9341cd823cd48998f2d4ba469f"
+    },
+    "candidateResource:round:previews/join-S-W-logical-backgrounds.png": {
+      "path": "previews/join-S-W-logical-backgrounds.png",
+      "sha256": "dc02e08e2aa669f8a7ebdd3258e6b0e84c47e36647958142816f2bbaf2cd3e31"
+    },
+    "candidateResource:round:previews/join-N-WS-RGB-difference-x8.png": {
+      "path": "previews/join-N-WS-RGB-difference-x8.png",
+      "sha256": "08d3930a87a7be4623a72e92f07e3e1af7cb49806cf787310a4ad0c45dfde807"
+    },
+    "candidateResource:round:previews/join-N-WS-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-N-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "83c910fe1af62d649f803da68081862fb9a3fbfb0a98463ddf45fdd5b4d2950e"
+    },
+    "candidateResource:round:previews/join-E-WS-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-E-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "03909cdb43395b2dbc997f56d7f64b64c97fc067db586c0243b41df072bfbb63"
+    },
+    "candidateResource:round:previews/join-W-S-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-W-S-S-RGB-alpha-enlarged.png",
+      "sha256": "c5046e1dbc4acea2cffbdf27471c320e7a76644023bd429cf25a5bffede4831e"
+    },
+    "candidateResource:round:previews/join-W-WS-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-W-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "3f1b9d28139e5fc14be593c3739873996354ae0830c7be85c610aa707df4aabf"
+    },
+    "candidateResource:round:previews/join-E-W-logical-backgrounds.png": {
+      "path": "previews/join-E-W-logical-backgrounds.png",
+      "sha256": "3b5a130d127815ebbf7bef559de32dc005ace42c023a6a24b77677aef7796ae5"
+    },
+    "candidateResource:round:previews/join-W-WS-logical-backgrounds.png": {
+      "path": "previews/join-W-WS-logical-backgrounds.png",
+      "sha256": "6bcebe22e3a2e7d7062aea8bd8c96e778dee51f87ae255ae61daaecaf977bf25"
+    },
+    "candidateResource:round:previews/join-S-WS-alpha-logical.png": {
+      "path": "previews/join-S-WS-alpha-logical.png",
+      "sha256": "b323d143ca2e8fb408c2e5e6f513b5c3ac8a150d42153ecff9dbcc1f2afc8cef"
+    },
+    "candidateResource:round:previews/join-E-WS-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-E-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "cf5c8234b75794555cf85cbdcf0e9b66eefcba8c28ae21b32ff2fe0853951894"
+    },
+    "candidateResource:round:previews/join-S-WS-RGB-difference-x8.png": {
+      "path": "previews/join-S-WS-RGB-difference-x8.png",
+      "sha256": "8577137231aa07bc53732f703f28626131ae18b47912314c1ab1a24c9037db05"
+    },
+    "candidateResource:round:previews/join-E-S-logical-backgrounds.png": {
+      "path": "previews/join-E-S-logical-backgrounds.png",
+      "sha256": "9a91b5ddc8904f4625f025e3abe81ba3013b5b64e6d402c489158e76d8bdda0e"
+    },
+    "candidateResource:round:previews/four-view-alpha-logical.png": {
+      "path": "previews/four-view-alpha-logical.png",
+      "sha256": "ee49c5bee365139694d020a1edf34aff29389b095b5857921f04e7d0828cf717"
+    },
+    "candidateResource:round:previews/join-W-W-W-RGB-alpha-enlarged.png": {
+      "path": "previews/join-W-W-W-RGB-alpha-enlarged.png",
+      "sha256": "76cb814f3acd7f6a324a7665b1425f17a646cabec6d7d5a53729b3dade90dec1"
+    },
+    "candidateResource:round:previews/join-W-WS-RGB-difference-x8.png": {
+      "path": "previews/join-W-WS-RGB-difference-x8.png",
+      "sha256": "3d4efa34cb2b0568b894b60ba3397deacd7b22399edb5d1365d1dfd93b51fb22"
+    },
+    "candidateResource:round:previews/join-W-WS-S-RGB-alpha-enlarged.png": {
+      "path": "previews/join-W-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "a78480a9e71638866496fedff9b8a11dc2112cece20af50fa94dd1a8a0a3d365"
+    },
+    "candidateResource:round:previews/four-view-sheet.png": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "dc61f04ee83a4c8689beb3cef61fff5f78a92ea717dde14ef84c3f10171a670b"
+    },
+    "candidateResource:round:atlases/static-N.png": {
+      "path": "atlases/static-N.png",
+      "sha256": "b5147c8393135df757421c6cc5222afdc1358efb4e376bb834a09ca56267822d"
+    },
+    "candidateResource:round:atlases/static-S.png": {
+      "path": "atlases/static-S.png",
+      "sha256": "b73c5345ad3062c7432d5f9a3d8b216c5a0674ff9f12850d3ebf365ab155f8fc"
+    },
+    "candidateResource:round:atlases/static-E.png": {
+      "path": "atlases/static-E.png",
+      "sha256": "1180dd6659da728a132fe605a7eb84cb6190fb9178fb33a204a9f48b1bad746a"
+    },
+    "candidateResource:round:atlases/static-W.png": {
+      "path": "atlases/static-W.png",
+      "sha256": "23ad5d1bf2bc621c94686d5866e96a6f117d7e04c01091e9b919d845432dfdfe"
+    },
+    "candidateResource:round:sprite-joins/static-N-WS.png": {
+      "path": "sprite-joins/static-N-WS.png",
+      "sha256": "4ce303931a69baf5ca3886b264576d4bd112565bccdb94a034ef5facdb6ebf0e"
+    },
+    "candidateResource:round:sprite-joins/static-E-S.png": {
+      "path": "sprite-joins/static-E-S.png",
+      "sha256": "5b92a9dc9edbdef2193a88fe2a5a0f349b80df009a9258632c079d4c2594e249"
+    },
+    "candidateResource:round:sprite-joins/static-E-W.png": {
+      "path": "sprite-joins/static-E-W.png",
+      "sha256": "f1af0383c6516fa62225390f3a53cfe5bf3b2906312f81a1bfe8b5025e8f0a28"
+    },
+    "candidateResource:round:sprite-joins/static-W-WS.png": {
+      "path": "sprite-joins/static-W-WS.png",
+      "sha256": "31ee34a9c52394cdea21ed24dc7f7d3c5c2a54825b1260a23c9803fbb514c7b7"
+    },
+    "candidateResource:round:sprite-joins/static-E-WS.png": {
+      "path": "sprite-joins/static-E-WS.png",
+      "sha256": "387faac1ebec53e2fd2843d994ce53a357020f802e152b62735850bcc3c2202f"
+    },
+    "candidateResource:round:sprite-joins/static-S-W.png": {
+      "path": "sprite-joins/static-S-W.png",
+      "sha256": "72dd363eeb9fe785909d691ed1dc4e64ee1e85c6268e08c0ab04ed60136aa2b3"
+    },
+    "candidateResource:round:sprite-joins/static-W-S.png": {
+      "path": "sprite-joins/static-W-S.png",
+      "sha256": "4767745dcebdccde8be46caadcab2bb71cb186be36a6e87cf4beaad5fda3e2ef"
+    },
+    "candidateResource:round:sprite-joins/static-N-S.png": {
+      "path": "sprite-joins/static-N-S.png",
+      "sha256": "8d03373c35b2adc83fe473422c42e8b1ed0b028d42a70d249c4671fd9e89c94c"
+    },
+    "candidateResource:round:sprite-joins/static-N-W.png": {
+      "path": "sprite-joins/static-N-W.png",
+      "sha256": "5af5aa648c4eb453bde0c9cb449470ede494f6d968d46f4610ede54acd0e4978"
+    },
+    "candidateResource:round:sprite-joins/static-W-W.png": {
+      "path": "sprite-joins/static-W-W.png",
+      "sha256": "faf557a70b14f9beb82a635d1e417258c3a1feac6ff7fe558ae46b216d606ebf"
+    },
+    "candidateResource:round:sprite-joins/static-S-S.png": {
+      "path": "sprite-joins/static-S-S.png",
+      "sha256": "9b8d3fa2cfcc14ca1d7a0f8a665864de675ed39e1672fcf74ee64fc767f6e242"
+    },
+    "candidateResource:round:sprite-joins/static-S-WS.png": {
+      "path": "sprite-joins/static-S-WS.png",
+      "sha256": "d23cfdc7f459ed0afb6d3d71666cee5af1602bd50b871696e6eb77eb9105110c"
+    },
+    "candidateResource:round:native-joins/static-N-WS.png": {
+      "path": "native-joins/static-N-WS.png",
+      "sha256": "e0a454cbb2176bba5181b0d20b53278abebbb4d44768111180b763d84a2c37b4"
+    },
+    "candidateResource:round:native-joins/static-E-S.png": {
+      "path": "native-joins/static-E-S.png",
+      "sha256": "820a02950490532c89ddc489565590c4779846d178d196cce4d2de24b1daa9bb"
+    },
+    "candidateResource:round:native-joins/static-E-W.png": {
+      "path": "native-joins/static-E-W.png",
+      "sha256": "7e932a7d443efda02fc89f4c05eb40b6b56160379c243069d5e0fa2e505408df"
+    },
+    "candidateResource:round:native-joins/static-W-WS.png": {
+      "path": "native-joins/static-W-WS.png",
+      "sha256": "c1a136e291061d1e7aeb647fd43c7f9d421dc14354cc593ca19588ac7667dbf5"
+    },
+    "candidateResource:round:native-joins/static-E-WS.png": {
+      "path": "native-joins/static-E-WS.png",
+      "sha256": "a4c197348e4a2bc9680002998d6c160f30e0d28b199cda1647b8fde79be829b8"
+    },
+    "candidateResource:round:native-joins/static-S-W.png": {
+      "path": "native-joins/static-S-W.png",
+      "sha256": "0d68600931f00de003aecd5c8c585903a53896c61008263d01a067d6c4255bb1"
+    },
+    "candidateResource:round:native-joins/static-W-S.png": {
+      "path": "native-joins/static-W-S.png",
+      "sha256": "fe59d2274fe5e48576f9a0f4a35567c3c6a563403ecc9aca52d327866626fa86"
+    },
+    "candidateResource:round:native-joins/static-N-S.png": {
+      "path": "native-joins/static-N-S.png",
+      "sha256": "ec80fe1670c00ba02b3918a583faefc29a34c114bbabbbd0ca0c415c2108d210"
+    },
+    "candidateResource:round:native-joins/static-N-W.png": {
+      "path": "native-joins/static-N-W.png",
+      "sha256": "f2875333db52b17dc7acd879ea07ed19b4d5d6a82170830bfe8bf853d8b4029a"
+    },
+    "candidateResource:round:native-joins/static-W-W.png": {
+      "path": "native-joins/static-W-W.png",
+      "sha256": "044dd45543933475cf82e3f952e12358d3e4ef5a018eb41045585f0805c925aa"
+    },
+    "candidateResource:round:native-joins/static-S-S.png": {
+      "path": "native-joins/static-S-S.png",
+      "sha256": "c068a63f2c1683168753356c4106189ae8bb48a6a7bc32e67009fadf8a362155"
+    },
+    "candidateResource:round:native-joins/static-S-WS.png": {
+      "path": "native-joins/static-S-WS.png",
+      "sha256": "078b4c4f1345392f0974ade375c9311a8a168f210b5054edb472a88b2f61718b"
+    },
+    "candidateResource:round:raw/static-W-0000.png": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "23ad5d1bf2bc621c94686d5866e96a6f117d7e04c01091e9b919d845432dfdfe"
+    },
+    "candidateResource:round:raw/static-N-0000.png": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "b5147c8393135df757421c6cc5222afdc1358efb4e376bb834a09ca56267822d"
+    },
+    "candidateResource:round:raw/static-E-0000.png": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "1180dd6659da728a132fe605a7eb84cb6190fb9178fb33a204a9f48b1bad746a"
+    },
+    "candidateResource:round:raw/static-S-0000.png": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "b73c5345ad3062c7432d5f9a3d8b216c5a0674ff9f12850d3ebf365ab155f8fc"
+    },
+    "candidateResource:source:round-03.py": {
+      "path": "../../source/round-03.py",
+      "sha256": "b9029318d9f6c610ed0abcc3d7c345d347f4b867c09fb4945a8a633567e65004"
+    },
+    "candidateResource:source:assemble-preview.py": {
+      "path": "../../source/assemble-preview.py",
+      "sha256": "ff8f26909331b7169481a643276f8017ea60aed07b975b20560b7dbebc6a746f"
+    },
+    "candidateResource:source:round-02.py": {
+      "path": "../../source/round-02.py",
+      "sha256": "1dae6928030c916e9f2ce4cdb33bf92f0c0e460a615f57e364746e3a6885e6e4"
+    },
+    "candidateResource:source:source-inspection.json": {
+      "path": "../../source/source-inspection.json",
+      "sha256": "d6663c3522c7ee9d125a65fc8be24e08d25ce78372466aef6d3a30a25d115aaf"
+    },
+    "candidateResource:source:inspect-source.py": {
+      "path": "../../source/inspect-source.py",
+      "sha256": "dc1de131b5eb0130c9e00f79924ce7e6fee510b3becf1ca81f5abb93cf988e9d"
+    },
+    "candidateResource:source:prepare-round-03.py": {
+      "path": "../../source/prepare-round-03.py",
+      "sha256": "d63f61ad35099149f2ba9400914d140a3764bf845c1310194ff25ae63fe8234c"
+    },
+    "candidateResource:source:audit-native.py": {
+      "path": "../../source/audit-native.py",
+      "sha256": "b93940f8197b19e40afe127ff7cb229a768fd41e777c0caac40101e89d14c534"
+    },
+    "candidateResource:source:round-02.blend": {
+      "path": "../../source/round-02.blend",
+      "sha256": "498cc0bf28180d0f0a9dffeb9140694a6e8a2d5141f19e9991cd07e61dfbefd0"
+    },
+    "candidateResource:source:add-alpha-evidence.py": {
+      "path": "../../source/add-alpha-evidence.py",
+      "sha256": "a77fe55cc029c614cc7e133c8402972b6705a421cc28b2ebd50750fad44e9e50"
+    },
+    "candidateResource:source:finalize-delivery.py": {
+      "path": "../../source/finalize-delivery.py",
+      "sha256": "5655882bad7d64c056b3ecf41d0c2466de24bef5e7bff444958e9ed8abc61575"
+    },
+    "candidateResource:source:round-01.py": {
+      "path": "../../source/round-01.py",
+      "sha256": "9c64f1c2356062f5d46a1fba11d365f492887896c8e61e170a4c462dff647f3c"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "6853d8f752fcbe863501602fafeee036107ad0b291ccba72ffaed7be0c68311a"
+    },
+    "candidateResource:source:round-03.blend": {
+      "path": "../../source/round-03.blend",
+      "sha256": "f4b3980e4feb12ed2f390ab2c9bcba1b67ebb37ac4af277d1281f1d3dcfba618"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "b5147c8393135df757421c6cc5222afdc1358efb4e376bb834a09ca56267822d",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "E": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "1180dd6659da728a132fe605a7eb84cb6190fb9178fb33a204a9f48b1bad746a",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "S": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "b73c5345ad3062c7432d5f9a3d8b216c5a0674ff9f12850d3ebf365ab155f8fc",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "W": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "23ad5d1bf2bc621c94686d5866e96a6f117d7e04c01091e9b919d845432dfdfe",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-logical-backgrounds": {
+      "path": "previews/four-view-logical-backgrounds.png",
+      "sha256": "06071a1efece5135420fab41dba7739e66210c137c690494911780b57d135421"
+    },
+    "four-view-sheet": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "dc61f04ee83a4c8689beb3cef61fff5f78a92ea717dde14ef84c3f10171a670b"
+    },
+    "join-N-W-logical-backgrounds": {
+      "path": "previews/join-N-W-logical-backgrounds.png",
+      "sha256": "338918a530187b0020fb0a7d7ac689f2715b13c65d5973c8367c0c2eadfdfed0"
+    },
+    "join-N-W-W-RGB-alpha-enlarged": {
+      "path": "previews/join-N-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ebead81eb3e7d4dc892e1fc2498f09673871b6d33097ea332883ed9853cf40b1"
+    },
+    "join-N-W-RGB-difference-x8": {
+      "path": "previews/join-N-W-RGB-difference-x8.png",
+      "sha256": "0fb7d25b7c01b452b0374fbe89c3b0aea0e61389cb1baccbfc4c06389534ee91"
+    },
+    "join-N-S-logical-backgrounds": {
+      "path": "previews/join-N-S-logical-backgrounds.png",
+      "sha256": "143aa0eadef8e08d86dea0c23e9e35f8bee57c01544f5f1aaa8e7952eb47c22d"
+    },
+    "join-N-S-S-RGB-alpha-enlarged": {
+      "path": "previews/join-N-S-S-RGB-alpha-enlarged.png",
+      "sha256": "908db740c477451b519cfc0ca2a54109d21259e7054702f5f9e6007b87f9b66f"
+    },
+    "join-N-S-RGB-difference-x8": {
+      "path": "previews/join-N-S-RGB-difference-x8.png",
+      "sha256": "60c5186c42fe174edca31973bcf688cb3505a9924119709e8b130da16cc5dd92"
+    },
+    "join-N-WS-logical-backgrounds": {
+      "path": "previews/join-N-WS-logical-backgrounds.png",
+      "sha256": "ae5f3fe2964cd56ebdc34746039dbf4daaa2ef3fdc0cef0c9833a4d8d5ca1982"
+    },
+    "join-N-WS-W-RGB-alpha-enlarged": {
+      "path": "previews/join-N-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "83c910fe1af62d649f803da68081862fb9a3fbfb0a98463ddf45fdd5b4d2950e"
+    },
+    "join-N-WS-S-RGB-alpha-enlarged": {
+      "path": "previews/join-N-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "22a612a012c36e0b4274a491907186d9236172367f5abb4d0b8b14e5830f443b"
+    },
+    "join-N-WS-RGB-difference-x8": {
+      "path": "previews/join-N-WS-RGB-difference-x8.png",
+      "sha256": "08d3930a87a7be4623a72e92f07e3e1af7cb49806cf787310a4ad0c45dfde807"
+    },
+    "join-E-W-logical-backgrounds": {
+      "path": "previews/join-E-W-logical-backgrounds.png",
+      "sha256": "3b5a130d127815ebbf7bef559de32dc005ace42c023a6a24b77677aef7796ae5"
+    },
+    "join-E-W-W-RGB-alpha-enlarged": {
+      "path": "previews/join-E-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ed20722a2782743f963c8421e5207548654ff94220536ab6e610e79890abe43b"
+    },
+    "join-E-W-RGB-difference-x8": {
+      "path": "previews/join-E-W-RGB-difference-x8.png",
+      "sha256": "ae9bab5e21dabebb5e38625d31f42e72914d03b69cf723281da3f05b955bc31b"
+    },
+    "join-E-S-logical-backgrounds": {
+      "path": "previews/join-E-S-logical-backgrounds.png",
+      "sha256": "9a91b5ddc8904f4625f025e3abe81ba3013b5b64e6d402c489158e76d8bdda0e"
+    },
+    "join-E-S-S-RGB-alpha-enlarged": {
+      "path": "previews/join-E-S-S-RGB-alpha-enlarged.png",
+      "sha256": "d7a9215f7a43beb55531012b34a7e8daf75cf32d5860d2d7a07ed716bd3b9628"
+    },
+    "join-E-S-RGB-difference-x8": {
+      "path": "previews/join-E-S-RGB-difference-x8.png",
+      "sha256": "8b5a71708992ac9cd5d9be967f5f3951f2f9729389815f7f3146bec5b801404f"
+    },
+    "join-E-WS-logical-backgrounds": {
+      "path": "previews/join-E-WS-logical-backgrounds.png",
+      "sha256": "a89d8b48b4040f31544ea07f49f58f9a3fb6798a7b70bc6b50a11088f324eb12"
+    },
+    "join-E-WS-W-RGB-alpha-enlarged": {
+      "path": "previews/join-E-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "03909cdb43395b2dbc997f56d7f64b64c97fc067db586c0243b41df072bfbb63"
+    },
+    "join-E-WS-S-RGB-alpha-enlarged": {
+      "path": "previews/join-E-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "cf5c8234b75794555cf85cbdcf0e9b66eefcba8c28ae21b32ff2fe0853951894"
+    },
+    "join-E-WS-RGB-difference-x8": {
+      "path": "previews/join-E-WS-RGB-difference-x8.png",
+      "sha256": "b7988d997ae59a95079dece34e29eeb87d7889be5ab4c0111a66e471ddf10d32"
+    },
+    "join-S-W-logical-backgrounds": {
+      "path": "previews/join-S-W-logical-backgrounds.png",
+      "sha256": "dc02e08e2aa669f8a7ebdd3258e6b0e84c47e36647958142816f2bbaf2cd3e31"
+    },
+    "join-S-W-W-RGB-alpha-enlarged": {
+      "path": "previews/join-S-W-W-RGB-alpha-enlarged.png",
+      "sha256": "ad83b77992918dbc910944b81b8388237416324ded6ec5b04a076501e68e05e1"
+    },
+    "join-S-W-RGB-difference-x8": {
+      "path": "previews/join-S-W-RGB-difference-x8.png",
+      "sha256": "bc67f2369ba07cba113842417366d80cc4372f1a3897e31ea13ccccab4ffc07a"
+    },
+    "join-S-S-logical-backgrounds": {
+      "path": "previews/join-S-S-logical-backgrounds.png",
+      "sha256": "76412a32bc9a1dd0f700e4bb57e0d4249e72fbc814e71ebe2e5ed706b9d49307"
+    },
+    "join-S-S-S-RGB-alpha-enlarged": {
+      "path": "previews/join-S-S-S-RGB-alpha-enlarged.png",
+      "sha256": "eaa0a60d45eb95dc49aa9dafe83127771eb37d03dff4e9032721768a9e97b959"
+    },
+    "join-S-S-RGB-difference-x8": {
+      "path": "previews/join-S-S-RGB-difference-x8.png",
+      "sha256": "276e61ebbc8db89f88ca7adf3e0268a12bd4f1f913bea3f5479fdac32382b400"
+    },
+    "join-S-WS-logical-backgrounds": {
+      "path": "previews/join-S-WS-logical-backgrounds.png",
+      "sha256": "cb8d243a4525974ebc45153b7e96c3cd1d29483cb5225e1a94514eb0b8c8ebd7"
+    },
+    "join-S-WS-W-RGB-alpha-enlarged": {
+      "path": "previews/join-S-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "f02801ceaa57a6a8e0619f891b1337e7bc201674409fb93dcc3bbdf51f591dce"
+    },
+    "join-S-WS-S-RGB-alpha-enlarged": {
+      "path": "previews/join-S-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "1c3ee0c9385f4bac98cba786b8ee6f18aff81f9341cd823cd48998f2d4ba469f"
+    },
+    "join-S-WS-RGB-difference-x8": {
+      "path": "previews/join-S-WS-RGB-difference-x8.png",
+      "sha256": "8577137231aa07bc53732f703f28626131ae18b47912314c1ab1a24c9037db05"
+    },
+    "join-W-W-logical-backgrounds": {
+      "path": "previews/join-W-W-logical-backgrounds.png",
+      "sha256": "0c317faa8b4a85ce40c0c558caa383f88987b3d46c0bb46741e9fc7084780016"
+    },
+    "join-W-W-W-RGB-alpha-enlarged": {
+      "path": "previews/join-W-W-W-RGB-alpha-enlarged.png",
+      "sha256": "76cb814f3acd7f6a324a7665b1425f17a646cabec6d7d5a53729b3dade90dec1"
+    },
+    "join-W-W-RGB-difference-x8": {
+      "path": "previews/join-W-W-RGB-difference-x8.png",
+      "sha256": "685c3d5a5e029a29b65968628545b99a42db0d43ade4af7c77bdaa4392645744"
+    },
+    "join-W-S-logical-backgrounds": {
+      "path": "previews/join-W-S-logical-backgrounds.png",
+      "sha256": "a889d38fa4fc213b919e9ea533b97aed14a3f45425907fed9b5a56b286a16d6b"
+    },
+    "join-W-S-S-RGB-alpha-enlarged": {
+      "path": "previews/join-W-S-S-RGB-alpha-enlarged.png",
+      "sha256": "c5046e1dbc4acea2cffbdf27471c320e7a76644023bd429cf25a5bffede4831e"
+    },
+    "join-W-S-RGB-difference-x8": {
+      "path": "previews/join-W-S-RGB-difference-x8.png",
+      "sha256": "15b85f5fc0cbb26fb5f0a5c9eb5dd02d53c49baaaa7c611435365a3e60c8048e"
+    },
+    "join-W-WS-logical-backgrounds": {
+      "path": "previews/join-W-WS-logical-backgrounds.png",
+      "sha256": "6bcebe22e3a2e7d7062aea8bd8c96e778dee51f87ae255ae61daaecaf977bf25"
+    },
+    "join-W-WS-W-RGB-alpha-enlarged": {
+      "path": "previews/join-W-WS-W-RGB-alpha-enlarged.png",
+      "sha256": "3f1b9d28139e5fc14be593c3739873996354ae0830c7be85c610aa707df4aabf"
+    },
+    "join-W-WS-S-RGB-alpha-enlarged": {
+      "path": "previews/join-W-WS-S-RGB-alpha-enlarged.png",
+      "sha256": "a78480a9e71638866496fedff9b8a11dc2112cece20af50fa94dd1a8a0a3d365"
+    },
+    "join-W-WS-RGB-difference-x8": {
+      "path": "previews/join-W-WS-RGB-difference-x8.png",
+      "sha256": "3d4efa34cb2b0568b894b60ba3397deacd7b22399edb5d1365d1dfd93b51fb22"
+    },
+    "repeated": {
+      "path": "previews/repeated.png",
+      "sha256": "1b03a956f608cb8ed3361580e98f7f5276f54cd9d5b9cedc23d86e376db0791d"
+    },
+    "four-view-alpha-logical": {
+      "path": "previews/four-view-alpha-logical.png",
+      "sha256": "ee49c5bee365139694d020a1edf34aff29389b095b5857921f04e7d0828cf717"
+    },
+    "four-view-alpha-enlarged": {
+      "path": "previews/four-view-alpha-enlarged.png",
+      "sha256": "26b605f3f3428e5a270ce0e212d97353220e3b0ca2ba151fe8d39737f596d400"
+    },
+    "join-N-WS-alpha-logical": {
+      "path": "previews/join-N-WS-alpha-logical.png",
+      "sha256": "0dec2c20f9ffd837260a099f496aec0f75d922aad50b5da6c5f738134c62be03"
+    },
+    "join-E-WS-alpha-logical": {
+      "path": "previews/join-E-WS-alpha-logical.png",
+      "sha256": "901a92277017bec6b65192850f84b2ef8655b3b29253b3b2fdcefe5673dc5e2f"
+    },
+    "join-S-WS-alpha-logical": {
+      "path": "previews/join-S-WS-alpha-logical.png",
+      "sha256": "b323d143ca2e8fb408c2e5e6f513b5c3ac8a150d42153ecff9dbcc1f2afc8cef"
+    },
+    "join-W-WS-alpha-logical": {
+      "path": "previews/join-W-WS-alpha-logical.png",
+      "sha256": "f3e0f58ca207e5c8040f86ff864d37390ec6830b34a8ea36fb88e543652aba4d"
+    }
+  }
+}

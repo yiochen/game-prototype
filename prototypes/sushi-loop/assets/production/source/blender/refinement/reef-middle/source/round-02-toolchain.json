@@ -1,0 +1,47 @@
+{
+  "blender": "5.2.2LTS d13f752e3b9c",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "pillow": "12.3.0",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "node": "v22.18.0",
+  "playwrightTest": "1.63.0",
+  "playwrightCore": "1.63.0",
+  "fullChrome": "155.0.8059.85",
+  "headlessShell": "153.0.8010.12",
+  "executables": {
+    "blenderWrapper": {
+      "path": "/opt/homebrew/bin/blender",
+      "sha256": "a12b9bc15c1a0f62c50fac2efef8f3b89040e5bcd11c00c58d7b374e66e0b106"
+    },
+    "blenderBinary": {
+      "path": "/Applications/Blender.app/Contents/MacOS/Blender",
+      "sha256": "f5c1f2a0c0bca3389ec772d355242b700975ea84e66cbb3f5257a7bce8e5adeb"
+    },
+    "pillowPython": {
+      "path": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "sha256": "494f72dd95d0dc196169c5821219fc6cfa9c1ef582332b95b53874b10acea6e0"
+    },
+    "node": {
+      "path": "/usr/local/bin/node",
+      "sha256": "89f912a473528ef70577bd0299a7c5742ff152f57f68097b5067952304eef34f"
+    },
+    "fullChrome": {
+      "path": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "sha256": "6e156f2271cef44afce9db36a5b920e94518857b94a4160f082696f8c3bd1c9d"
+    },
+    "headlessShell": {
+      "path": "/Users/yiouchen/Library/Caches/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+      "sha256": "a0bfe7b4da4787b66058477d696cd1d09065d25f06a548947722b9af77ee8282"
+    }
+  },
+  "runtimeCopies": false,
+  "actualConsumerChildArgv": "source/round-02-consumer-capture.log",
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --python source/reproduce-round-02.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --python source/reproduce-round-02.py -- --replay --out candidates/round-02/reopened-replay",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --python source/audit-round-02-preservation.py",
+    "DEBUG=pw:browser node source/capture-round-02-consumer.cjs",
+    "PYTHONDONTWRITEBYTECODE=1 PILLOW_PYTHON source/assemble-round-02-evidence.py",
+    "PYTHONDONTWRITEBYTECODE=1 PILLOW_PYTHON source/supplement-round-02-evidence.py"
+  ]
+}

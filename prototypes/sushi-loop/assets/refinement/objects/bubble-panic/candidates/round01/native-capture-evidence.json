@@ -1,0 +1,812 @@
+{
+  "asset": "bubble-panic",
+  "evidence": "Actual Godot viewport frames from isolated native2D harness inheriting byte-exact current RestaurantView and ArtBook; not full production-game capture.",
+  "godotVersion": "4.7.2.stable.official.ed1daf0bf",
+  "methods": [
+    "sprite",
+    "_customer_at",
+    "_feedback_at",
+    "customer_feedback",
+    "customer_pose_offset",
+    "ArtBook.frame_data",
+    "ArtBook.registered_rect"
+  ],
+  "currentAttachmentLogical": [
+    0,
+    -172
+  ],
+  "currentCustomer": "customer-rosa walk / phases walking and leaving / navigation_mode=wander",
+  "poseOffsetCell": [
+    0.06,
+    -0.02
+  ],
+  "legacy": "Explicit separate -90logical seated-wait/stool screenshot; not runtime attachment",
+  "runtimeSequence": {
+    "frames": 48,
+    "fps": 12,
+    "duration": 4,
+    "selection": "Original customer_feedback: appear t<1 then idle(t-1); exact ArtBook floor/clamp/loop; no runtime fade or timer ring",
+    "reducedMotion": "Original customer_feedback idle frame0 with seconds0"
+  },
+  "selectionAssertions": [
+    [
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 3.9
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 3.9
+      }
+    ],
+    [
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 3.9
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 3.9
+      }
+    ],
+    [
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 3.9
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 3.9
+      }
+    ],
+    [
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 3.9
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 3.9
+      }
+    ],
+    [
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "walking",
+        "wander_elapsed": 3.9
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.5
+      },
+      {
+        "artBookFrame": 11,
+        "feedback": {
+          "clip": "appear",
+          "object": "bubble-panic",
+          "seconds": 0.916666666666667,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 0.916666666666667
+      },
+      {
+        "artBookFrame": 0,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.0,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.0
+      },
+      {
+        "artBookFrame": 6,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 0.5,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 1.5
+      },
+      {
+        "artBookFrame": 10,
+        "feedback": {
+          "clip": "idle",
+          "object": "bubble-panic",
+          "seconds": 2.9,
+          "timer": -1.0
+        },
+        "phase": "leaving",
+        "wander_elapsed": 3.9
+      }
+    ]
+  ],
+  "runtimeScripts": {
+    "art_book.gd": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48",
+    "restaurant_view.gd": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd",
+    "typography.gd": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+  },
+  "harnessSHA256": "f74d96b8ea8f13f961b5106fa6e65908ed24e516862c4a34f38bfead84a3ddd4",
+  "candidateAtlases": {
+    "2d-appear-S.png": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4",
+    "2d-fade-S.png": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49",
+    "2d-idle-S.png": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+  },
+  "renderSettings": "gl_compatibility; original linear_with_mipmaps;1080x760; cells128/80/50",
+  "files": [
+    {
+      "key": "native-current-context",
+      "name": "native-current-context.png",
+      "sha256": "af1ad61bff5b71e290f48ffb961b0aed40e20fc890dbfdcce782d4e028bbde4e",
+      "flags": []
+    },
+    {
+      "key": "native-current-context-posed",
+      "name": "native-current-context-posed.png",
+      "sha256": "1b4bd4cab434b4afcc3d71691b2631e2d29a3e50cb2370ce8516ede79d583712",
+      "flags": [
+        "--posed"
+      ]
+    },
+    {
+      "key": "native-reduced-motion",
+      "name": "native-reduced-motion.png",
+      "sha256": "51b1996cf1c749cac65d4139e0a69bec5114c92439b63395623a11664f00ef4d",
+      "flags": [
+        "--posed",
+        "--reduced"
+      ]
+    },
+    {
+      "key": "legacy-catalog-90",
+      "name": "legacy-catalog-90.png",
+      "sha256": "0123442a4e3e67a1bc854030b6fb4889c5f31cfc5b06c889a5a1b38b0f02a010",
+      "flags": [
+        "--legacy"
+      ]
+    },
+    {
+      "key": "native-runtime-wander-playback",
+      "name": "native-runtime-wander-playback.png",
+      "sha256": "bdcdf2ac1cc1c6f6cce5863f7a21cc881e3587b618030752e93547c0488a24a2",
+      "frames": 48,
+      "fps": 12,
+      "durationSeconds": 4,
+      "poseOffsetCell": [
+        0.06,
+        -0.02
+      ],
+      "pixelSHA256ByFrame": [
+        "cd72284a5b63645254615ab590df8832f5c1db116473e9396a59e1971e919ecc",
+        "30294738955da7e39c725975204201b3600d56aa5f1ad5366b9ce6e2c80ae0d5",
+        "b07b00e9481c900e62ca32536b2cd54b38aaeb7435dc345fb87688dc10037001",
+        "984380b18f54376000547b49b3ce532657caafbcbc19e41826b3aa9626a9198f",
+        "24279738f18f12de10ce6b19b7be986c020a6932ccf9498ccbca6c29432170d8",
+        "5d9d82f88c19bd4b5aecf766e73cfd952ca5480e95d6d9643c3bfa382ddaa085",
+        "9d19a8fee8191bdc189df53770615c8f678948fe25d30d05dba8dbf262c7d12e",
+        "e21e213a94d8a09c0addb2c029891454ce8b21daa3eb6b38c2094faf2c5e3692",
+        "6ef06de224d1c718e60c6f027ff556cad4f85f0b6ad39f5073aed906a0a69b10",
+        "73de6298d70895c92f35e3ad4b03060eabc7e32114df7094431b2205330a373e",
+        "d6c3361825a64884a71734121d06858110b315b8c2eeb678815aa2b6b237eaf9",
+        "1c923ee7c8f3cf1240f79169fc148eb5e155c75165d49c1775c77f2703054b36",
+        "3e11b2cc9a6610626e7451198cc52b9cf23ef4da41fc43c01dda1feb0b3f3a81",
+        "07463dc7eb994c7bb32327be79d789d734b9f3520198dc31c28d41e54873e7d8",
+        "130a2b72f615f3189f5aa8df12adf8b8792fc5a9922854dd5f18cf233f877087",
+        "f102c51dfb60aed7c0c149de07480ff17c0ebe1e16c611b4ab751273ad809d28",
+        "df55d1479df9deb48e896c4a85bec4f7ff735c502443a3ada6f74fa4814e97d9",
+        "45fae682c971aa8523ec98a15667e3b0b34e2b7a232be90ff7f1ac7e8340e365",
+        "7102b7e2ef0bd3201738fca7fe34580491ed3455a8f22fb8dee6c164321dd630",
+        "096a299a6e54e2f0298cacf761c609c989a83adabab4a54abf862dd19e20e686",
+        "c1aeaa751603ebc907e7893dcc73f349070776b48057ae9b018e57d383973bdc",
+        "2562009d17d3482bd1e0dbf34e3a03b5d9b47bcd1b29fc0fea4e4d1f05cf475b",
+        "6747d03076347180e92bfc3f215630ee78ad368d6128a334918679afd8c510d4",
+        "25885ca2bd9b6dbb66e816c19234a92a92a885fc028d5fda35e7909a13287a73",
+        "34ba41b512c9217d53843fd624cebb1aa7ad3600fe043c547ed3fe9c7a7c7386",
+        "9e26b7c3675cc0ae8e0da773978d4f54ddcd8b4aaa30c50af09772b381e45d85",
+        "1f2397e298085bd6ea36da2997a249925508a9a0e14caf7e61296d35d2b1f8bb",
+        "0580d27202825b81d73f64caee94190eae3eb0acf0a4c1284792e375353e1f0d",
+        "5c5819e42d152410f1b87cbcb490cd8d3d1ed7b9d55735aa298e44797d257563",
+        "fbf7bccb7c12eeff6c2a2a9dbf3ceff30d387839a6b87eb9f43edad6671bf308",
+        "f6b984c165c7446d0e0a9bf28f18402310f935f370e28c7dc2787c9ddf2caf38",
+        "c04df619040236c7436ba15e5d95e9d0c7895620ce6ae6d3ae83179345c29c45",
+        "aa2df4aac72fa342c21148fd332c08cd589256b0828725ed96d43eec6272d816",
+        "4330d34023af8a127b5ed68e02ae735e5bc94458df07ac1cc0de25da9755d65f",
+        "fd62cca6a3085ca0d59c6fb82df7be67ef0dee60b036f4c4404fb0d8db2907fe",
+        "0fb815b8f7e8188b750b074976b345e8bccb320dad929b9213ce7b20914daa04",
+        "226436a1a4a179075ba2185beb7a7c23878334968ed0ee5cf6c09f70302d0d9c",
+        "74645dcd76d05f638f45ac3ed82ccd33214dfe2eed48962bb77602b716d9ad8b",
+        "d751c09d14822ea7518fbfba78918c6d46a848239b493a21ed7c85adda67335d",
+        "3fd0e8d58aa0164dd77af50fb5d07999c0246a736fb284ec4648e66f36a0ccd9",
+        "844dd5e8ea5bf054bab7643db6593ca99f95354e8c81b6ea3ebe0a917cad31f9",
+        "62104f1618e924a1d1e485206f19f302a9f1879f5f6ece2ad571b6c67eab3bf1",
+        "a2059d923676ff26705fb19cdd39bb87a4a4376b976d2250d0295834178f802f",
+        "6a69287047832e19dc6cba03d40cdc17cde5dd213fdf724ee7dd6c31ba60c9ef",
+        "d5ab79e099600d122303f9e513780bcafaf7719ad5feb6c1779611b544428c89",
+        "574b7b5de30c504b9f85907b7041580b8ab19e36c00a2d0305e1e9d2e2929ce1",
+        "4b948e9233ff2d9db4ec816522e69948a4819277f34f312117463349de476af3",
+        "96b9ec418a9e5c9e20f148c0d8f580212e94e79ab4e9c590c6148b7b5d8712a9"
+      ]
+    }
+  ],
+  "captureLogSHA256": "fb1062c7a42e019c10f9424bf890a881794b18065b65e03dad55e48cb80378fa",
+  "replay": "Run publisher then capture_native.py on Godot-enabled machine. Portable deterministic publisher copies retained original native evidence verbatim."
+}

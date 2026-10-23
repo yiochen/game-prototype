@@ -1,0 +1,99 @@
+{
+  "round": "round-05",
+  "asset": "backdrop-entrance",
+  "verdict": "revise",
+  "candidatePacketSHA256": "b796f9f7c9f416b1970364e08da172a2d5ecabc7a3af2dbd5129234034a6ba73",
+  "inspectedFiles": [
+    "static-S-000.png",
+    "four-view-sheet.png",
+    "repeated.png",
+    "background-sheet.png",
+    "native-joined.png",
+    "independent-assembled.png",
+    "entrance-join-strips.png",
+    "native-joined-raw.png",
+    "independent-assembled-raw.png",
+    "static-S.png",
+    "reopened-S.png",
+    "wall-context-S.png"
+  ],
+  "inspectedFilesNotes": {
+    "four-view-sheet.png": "Byte-identical to background-sheet.png; verified hashes. This is correctly a single S background sheet, not invented directions.",
+    "static-S.png": "Byte-identical to static-S-000.png; verified hashes.",
+    "reopened-S.png": "Compared actual pixel data against selected S; maximum channel difference 1, visually equivalent.",
+    "native-joined-raw.png": "Inspected through labeled native-joined.png plus pixel-exact native-scale crop. Verified labeled image below its 64px header equals the raw image composited on its beige background.",
+    "independent-assembled-raw.png": "Inspected through labeled independent-assembled.png plus pixel-exact native-scale crop. Verified labeled image below its 64px header equals the raw image composited on its beige background.",
+    "wall-context-S.png": "Inspected as the bound source of the independently assembled wall modules and by pixel samples; context only, no sibling wall approval."
+  },
+  "referenceFilesInspected": [
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "../../brief.json",
+    "validation.json",
+    "family-settings.json",
+    "native-records/camera.json",
+    "native-records/rig.json",
+    "native-records/asset-record.json",
+    "../../source/round-05.blend",
+    "../../source/assemble_delivery_round05.py"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 7
+  },
+  "scoreContext": "Comparative scores against the original and fixed target, not approval thresholds. The asset is visibly improved and close in treatment; the remaining join defect prevents approval.",
+  "observations": [
+    "At 576x448, gold lanterns now show rounded shoulders, soft paper volume and clearly separated brass rings. They retain golden color without clipped white centers. Wood brackets, jambs and feet have restrained soft edge light.",
+    "The 64 flat roof slabs remain a blue pitched canopy with darker blue fascia. Small bevel transitions add depth without copying the target's intense cyan gloss or rounded barrel forms.",
+    "Three separate red panels remain clear, with gentle edge undulation and broad soft tonal variation. The cream fish body, tail and eye are continuous and legible. Cloth treatment is quieter than the target but visibly softer than the original.",
+    "The doorway is a coherent intentional dark navy recess. Threshold stays a distinct muted brown-gray step. Dark lantern fittings, fabric gaps and the threshold joint are intentional; no unintended black smears, crushed material patches, clipped emblem or alpha halo were found.",
+    "Blank ochre wall fields remain calm and decoration-free. Native connected facade has continuous field, fascia and baseboard and no broad horizontal module gradient.",
+    "The independently assembled exported facade introduces faint vertical dark/light hairlines absent in the native connected render. These run through wall field and baseboard at both entrance joins and repeat at wall joins. They remain visible as subtle module boundaries in repeated.png at the logical 128px tile pitch.",
+    "All preview labels correctly identify the matching wall as context only. This review does not approve or promote the wall."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "criterion": "C3-modular-continuity / Q5-dark-regions-and-defects",
+      "location": "independent-assembled-raw.png at entrance boundary x=1248 and x=2784, and repeated wall boundaries such as x=480,864,3168,3552,3936; wall field and baseboard",
+      "effect": "Thin repeated vertical dark/light seams expose the modular sprite boundaries across otherwise continuous blank surfaces. Native joined geometry is continuous at the same positions.",
+      "evidence": "For example at row900 near x=1248, independent assembly changes from [177,145,94] interior to [168,136,88] at x=1247 and [173,136,91] at x=1248, then recovers. Near x=480 at row1200, baseboard drops from about [164,112,60] to [153,103,56] and then rebounds. Native connected pixels remain approximately constant across those joins. Alpha samples are fully opaque, so an alpha-only seam check does not establish color continuity.",
+      "desiredVisibleOutcome": "The independently assembled exported sprites should retain the continuous wall field and baseboard seen in the native connected facade, without a visible vertical dark/light line at either entrance boundary or repeated wall boundary at intended size. Preserve the exact registered roots, pitch, protected profiles, camera and palette."
+    }
+  ],
+  "remainingDifferences": [
+    "Lower gloss, saturation and texture complexity than the imagegen target are accepted: the blue roof, warm wood, gold paper and red cloth remain readable and coherent.",
+    "The target's alpha noise, perimeter halo, canvas/padding drift, broad wall gradients and stronger cloth mottling are deliberately absent.",
+    "Cloth folds are gentler and simpler than the target. The visible edge turns and tonal variation are sufficient for this small backdrop.",
+    "Subpixel roof bevel difference gives evaluated projected height 2.99904269 tiles versus source declared 3; this does not materially change the registered silhouette, envelope, contact or sprite layout."
+  ],
+  "technicalEvidence": {
+    "packetVerification": {
+      "recordCount": 75,
+      "hashFailures": [],
+      "packetSHA256": "b796f9f7c9f416b1970364e08da172a2d5ecabc7a3af2dbd5129234034a6ba73",
+      "method": "Independently resolved and SHA-256 checked every files/candidateRenders/previews record."
+    },
+    "nativeProject": "Reopened exact candidate source in Blender background mode without saving. Actual source hash 21de5f388133312bfb861fb62c8a2ab874d3db3aa67721dc6d2736187f79a1e8 matches packet.",
+    "nativeChecks": [
+      "Actual named gate collection contains 114 meshes, 2 curves and 1 root, matching source semantic structure.",
+      "Actual ORTHO camera matrix, scale4.5 and shift [0,0.2696022093296051] match bound camera validation. Required native frame1728x1344, square pixels and transparent capture are present.",
+      "Bound validation measures elevation34.9999843 degrees, contact [864,1248.000366], logical root[288,416], x-pitch383.999977 native pixels per world unit and 2-unit clear opening.",
+      "Bound validation reports twelve protected gate profile objects unchanged and matching source geometry/matrices; no false protected-profile checks.",
+      "Source root retains threshold socket[0,-0.5,0]; native origin and front contact registration are correctly distinguished.",
+      "Actual source has no linked libraries or image resources; native geometry/materials are self-contained. Actual scene has one infinite sun with shadows disabled, Cycles96 samples, BOX filtering and transparent film.",
+      "Bound family settings use the shared material variants, Z-only sky and X-neutral infinite sun; no ground geometry or local lamp wall light is present.",
+      "Independent assembly code uses the supplied wall/entrance exports at exact384-native-pixel pitch and registered roots, without fit, warp, recolor or painted seam treatment.",
+      "Verified labeled joined previews reproduce raw pixel composites. Verified reopen pixel difference maximum1 and selected atlas/raw byte identity."
+    ],
+    "limits": [
+      "Reviewed only required static S; generic inherited N/E/S/W root metadata does not imply additional required facings.",
+      "Wall family context is technical join evidence only; wall aesthetics/production require the separate fresh pair.",
+      "No candidate files were modified; all evidence and verdict bind the exact packet bytes.",
+      "The native source checks support capture/identity integrity; they do not excuse the visible independently assembled color seam."
+    ]
+  }
+}

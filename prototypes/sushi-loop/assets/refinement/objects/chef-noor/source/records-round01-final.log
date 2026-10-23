@@ -1,0 +1,11 @@
+00:00.256  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/round-01.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/records_round01.py", line 16, in <module>
+    ref=sourceBy[r['clip'],r['direction'],r['index']];ss=[g for n,g in ref['geometry'].items() if '__image_plane' not in n and '__knife_' not in n];cc=[g for n,g in r['geometry'].items() if '__image_plane' not in n and '__knife_' not in n];bounds=lambda a:[[min(g['bounds'][i][0] for g in a),max(g['bounds'][i][1] for g in a)] for i in range(3)];sb=bounds(ss);cb=bounds(cc);env.append({'clip':r['clip'],'direction':r['direction'],'index':r['index'],'sourceBodyBounds':sb,'candidateBodyBounds':cb,'topDeltaToOriginal':cb[2][1]-sb[2][1]})
+                                                                       ~~~^^^^^^^^^^^^
+KeyError: 'geometry'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

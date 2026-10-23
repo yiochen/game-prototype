@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "asset": "backdrop-wall",
+  "round": "round-01",
+  "project": "source/round-01.blend",
+  "recipe": "source/round-01-recipe.json",
+  "recipeScript": "source/build_round01.py",
+  "validation": "candidates/round-01/validation.json",
+  "heroes": {
+    "S": "candidates/round-01/static-S-000.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "direction": "S",
+      "index": 0,
+      "path": "candidates/round-01/static-S-000.png"
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-01/four-view-sheet.png",
+    "repeated": "candidates/round-01/repeated.png",
+    "background-sheet": "candidates/round-01/background-sheet.png",
+    "native-joined": "candidates/round-01/native-joined.png",
+    "independent-assembled": "candidates/round-01/independent-assembled.png",
+    "entrance-join-strips": "candidates/round-01/entrance-join-strips.png",
+    "joined-logical": "candidates/round-01/joined-logical.png",
+    "rgb-join-comparison": "candidates/round-01/rgb-join-comparison.png"
+  },
+  "atlases": [
+    {
+      "clip": "static",
+      "direction": "S",
+      "path": "candidates/round-01/static-S.png",
+      "sha256": "21315ae20e6f13659cc980cb63964408fec917894c882096c8ddd1e67095f4ce",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        576,
+        1344
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          576,
+          1344
+        ]
+      ]
+    }
+  ],
+  "nativeRecords": {
+    "camera": "candidates/round-01/native-records/camera.json",
+    "assetRecord": "candidates/round-01/native-records/asset-record.json",
+    "rig": "candidates/round-01/native-records/rig.json"
+  },
+  "resources": [
+    "source/build_geometry.py",
+    "source/geometry-stage.blend",
+    "source/build_round01.py",
+    "source/round-01-recipe.json",
+    "source/audit_native.py",
+    "source/render_context_round01.py",
+    "source/render_reopened_round01.py",
+    "source/package_round01.py",
+    "source/source-inspection-corrected.json",
+    "source/round-01-join-context.blend",
+    "candidates/round-01/dependencies/entrance-native.blend",
+    "candidates/round-01/dependencies/entrance-approved-S.png",
+    "candidates/round-01/native-joined-raw.png",
+    "candidates/round-01/native-repeated-raw.png",
+    "candidates/round-01/independent-assembled-raw.png",
+    "candidates/round-01/independent-repeated-raw.png",
+    "candidates/round-01/reopened-S.png",
+    "candidates/round-01/family-settings.json",
+    "source/finalize_records_round01.py"
+  ],
+  "notes": [
+    "Static S only; the legacy four-view-sheet slot shows the required S facing on backgrounds at logical 192\u00d7448.",
+    "New architecture is native modeled geometry. No target billboard, AI texture, paint-over, image fit, alpha overlap correction or post-render seam repair.",
+    "Original camera world matrix and equivalent narrow crop preserve 35\u00b0 square-pixel sourceScale3 registration. Front contact projects to (288,1248.00037); actual world origin projects to (288,1137.87373).",
+    "Source envelope, protected profiles and four-per-unit roof cadence preserved. New molding, shallow field inset, curved corbels and recessed baseboard stay inside module boundaries.",
+    "Approved entrance round-06 native source and exact approved render are copied as hash-bound dependencies, used unchanged for both native and independent connection evidence.",
+    "Source inspection was repeated with the source-hidden wall collection explicitly visible before reading evaluated transforms. Corrected source audit is authoritative; initial stale-transform inspection is retained as diagnostic history."
+  ]
+}

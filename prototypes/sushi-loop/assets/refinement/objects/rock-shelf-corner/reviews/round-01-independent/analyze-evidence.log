@@ -1,0 +1,104 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/round-01-independent/analyze-evidence.py:7: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  d=ImageChops.difference(a,b);ps=list(d.getdata());return {'equalRGBA':a.tobytes()==b.tobytes(),'differentPixels':sum(any(v) for v in ps),'maxRGBA':[max(v[k] for v in ps) for k in range(4)]}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/round-01-independent/analyze-evidence.py:20: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  box=(math.floor(min(x for x,y in project))-3,math.floor(min(y for x,y in project))-3,math.ceil(max(x for x,y in project))+4,math.ceil(max(y for x,y in project))+4);a=native.crop(box);b=consumer.crop(box);aa=list(a.getdata());bb=list(b.getdata());opaque=[i for i,v in enumerate(aa) if v[3]==255];loss=[255-bb[i][3] for i in opaque];rgb=[[abs(aa[i][k]-bb[i][k]) for k in range(3)] for i in opaque];rec['ports'][port]={'box':box,'nativeOpaquePixels':len(opaque),'opaquePixelsWithIndependentAlphaLoss':sum(v>0 for v in loss),'maxAlphaLoss':max(loss,default=0),'maxRGBDifferenceOnOpaque':[max((v[k] for v in rgb),default=0) for k in range(3)],'meanRGBDifferenceOnOpaque':[sum(v[k] for v in rgb)/len(rgb) if rgb else 0 for k in range(3)]}
+{
+  "heroRGBAReplay": {
+    "N": {
+      "equalRGBA": false,
+      "differentPixels": 118,
+      "maxRGBA": [
+        3,
+        3,
+        2,
+        0
+      ]
+    },
+    "E": {
+      "equalRGBA": false,
+      "differentPixels": 54,
+      "maxRGBA": [
+        2,
+        2,
+        3,
+        0
+      ]
+    },
+    "S": {
+      "equalRGBA": false,
+      "differentPixels": 23,
+      "maxRGBA": [
+        1,
+        1,
+        2,
+        0
+      ]
+    },
+    "W": {
+      "equalRGBA": false,
+      "differentPixels": 69,
+      "maxRGBA": [
+        3,
+        2,
+        2,
+        0
+      ]
+    }
+  },
+  "browserParity": {
+    "images": 300,
+    "different": 276
+  },
+  "nativeFamilyFreshVsSubmittedExact": 0,
+  "totalLocalAlphaLossPixels": 0,
+  "capControls": [
+    {
+      "port": "W",
+      "mode": "albedo",
+      "equalRGBA": true,
+      "differentPixels": 0,
+      "maxRGBA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "port": "W",
+      "mode": "normal",
+      "equalRGBA": true,
+      "differentPixels": 0,
+      "maxRGBA": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "port": "N",
+      "mode": "albedo",
+      "equalRGBA": false,
+      "differentPixels": 1,
+      "maxRGBA": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "port": "N",
+      "mode": "normal",
+      "equalRGBA": false,
+      "differentPixels": 43956,
+      "maxRGBA": [
+        1,
+        1,
+        1,
+        0
+      ]
+    }
+  ]
+}

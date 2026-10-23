@@ -1,0 +1,23 @@
+00:00.378  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/source/round-01.py:36: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;n.clear()
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/source/round-01.py:86: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Soft neutral ambient');world.use_nodes=True
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/source/round-01.py:101: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  sc.use_nodes=False
+00:05.544  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/candidates/round-01/N.png'
+00:07.163  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/candidates/round-01/E.png'
+00:08.638  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/candidates/round-01/S.png'
+00:10.509  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/candidates/round-01/W.png'
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/barrel-wood/source/round-01.py", line 128, in <module>
+    assert all(abs(bounds[k][i]-source_bounds[k][i])<.008 for k in ('min','max') for i in range(3)),(bounds,source_bounds)
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ({'min': [-0.42413848638534546, -0.43330657482147217, 0.013500000350177288], 'max': [0.42413848638534546, 0.43330657482147217, 0.8379999995231628]}, {'min': [-0.42466679215431213, -0.4349921643733978, -0.029999999329447746], 'max': [0.42466679215431213, 0.4349921643733978, 0.8100000023841858]})
+BlenderMCP addon registered
+Info: No new files have been packed
+Info: Saved as "round-01.blend"
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,182 @@
+{
+  "asset": "wall-inner-corner",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "provenance": "imagegen-builtin",
+    "interpretation": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints.",
+    "prompt": "inputs/imagegen-prompt.txt",
+    "familyStyleImage": "inputs/family-concept.png"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      256
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "constraints": {
+    "preserve": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "designFreedom": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "modularFamily": {
+      "family": "restaurant-wall-wood-blue-v2",
+      "joinPorts": [
+        "W",
+        "N"
+      ],
+      "joinPlanes": "Exact native W and N cross-sections and their four native rotations",
+      "requirements": [
+        "Keep the source L path, concave opening, occupied envelope and height; allow useful modeling/decoration away from joins.",
+        "Match the approved wall-middle materials/capture/connection settings once provided.",
+        "Show actual native corner-to-straight and independent exported-sprite assembly in all facings."
+      ]
+    }
+  },
+  "qualityCriteria": {
+    "asset": "wall-inner-corner",
+    "status": "frozen-by-coordinator",
+    "style": "Warm, softly lit cartoon; original blue and amber palette family; native design improvements encouraged.",
+    "referencePolicy": "Fixed target supplies aesthetic direction. Family concept supplies style only. Preserve native registration and modular function rather than target canvas drift, directional highlight bias or imagegen artifacts.",
+    "aestheticCriteria": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "outcome": "The blue L cap and supporting wood read as substantial, intentionally crafted volumes with softened transitions. The inside bend remains clearly open and coherent; corners and exposed faces do not look like intersecting boxes or a flat painted cutout. Useful improved forms/structure are visible at logical size.",
+        "judgeAt": "All four individual native facings, logical size and enlarged; compare directly with source and fixed target."
+      },
+      {
+        "id": "color",
+        "priority": 1,
+        "outcome": "Clear saturated blue is balanced by warm amber/golden wood. Blue top, side depth and wood bands remain distinguishable without neon white rims, black lower bands or muddy brown patches. Palette/material bands meet the approved wall-middle seamlessly.",
+        "judgeAt": "All facings on light, mid-gray and dark backgrounds; native and sprite assemblies."
+      },
+      {
+        "id": "lighting-highlights",
+        "priority": 1,
+        "outcome": "Broad soft lighting describes the cap edge roll, inside turn and wood volume, without blown highlight strips, harsh directional shading or a dark dead face. Facings receive the same horizontally symmetric lighting treatment; there is no directional ground shadow.",
+        "judgeAt": "Four-view sheet and corresponding material faces across true rotations; connected previews."
+      },
+      {
+        "id": "material-detail",
+        "priority": 2,
+        "outcome": "Blue and wood have distinct but compatible soft cartoon material character. Wood has purposeful crafted detail or surface richness that supports its construction without noisy fine grain; edge and band separation remain readable. Added structure/decoration improves the design and stays away from functional clearance and joining faces.",
+        "judgeAt": "Intended 192x352 logical frame first, enlarged second. Do not demand literal target grain, gloss, diagonal crease or source part count."
+      },
+      {
+        "id": "artifact-free-readability",
+        "priority": 1,
+        "outcome": "The complete corner reads cleanly at game size in every facing. No black/coplanar patches, faceting seams, pinched inside corners, clipping, stray pixels, detached highlights, alpha fringes, accidental halos or collapsed material gaps distract from the form.",
+        "judgeAt": "Native RGBA at logical size and enlarged on light/gray/dark; alpha-only views and assemblies."
+      },
+      {
+        "id": "modular-continuity",
+        "priority": 1,
+        "outcome": "Both corner ports connect to the approved straight wall in each true facing. Blue cap, wood band heights, profile thickness, texture scale and light response continue through joins without gaps, doubled rims, exposed end caps, vertical steps or abrupt color changes. Sprite joins remain visually sound after independent placement using authored roots/ports.",
+        "judgeAt": "All four native corner-to-straight assemblies and independently assembled exported RGBA sprites, both RGB-composited and alpha-only at logical and enlarged scales. Inspect W and N joins separately when necessary."
+      }
+    ],
+    "hardConstraints": [
+      "Keep actual registered camera/projection/pixel aspect, frame 384x704/sourceScale2, logical 192x352/root[96,256], atlas layout and fixed world scale. Do not fit each view independently.",
+      "Preserve one-cell footprint and occupied envelope, functional height1.02, source L path and concave clearance.",
+      "Preserve W/N join plane positions, normals/handedness, exact native cross-sections and approved family material bands through all rotations.",
+      "Render actual native N/E/S/W geometry rotations with the single shared capture/material/light setup; static one frame,12fps, no loop.",
+      "Use real transparent native 3D output and editable Blender source; no image warp, paint-over or camera-facing target card.",
+      "No preferred horizontal light direction or directional ground cast shadow."
+    ],
+    "requiredReviewEvidence": [
+      "Immutable candidate packet and SHA256-bound native Blender source, all required renders/previews, external resource closure and technical validation.",
+      "Four individual RGBA facings and a verified four-view sheet; inspect both 192x352 logical presentation and enlarged pixels against light/gray/dark.",
+      "Native corner-to-approved-straight assemblies covering both ports in all four true facings, with camera, geometry, bounds/clearance, ports and profile audit.",
+      "Independently assembled exported sprites placed by declared root/port positions with RGB/light-gray-dark composites and alpha-only evidence at logical and enlarged scales. Assembly must not reuse a connected native render as its sole proof.",
+      "Approved wall-middle technical family settings and validation that corner uses the same family material/capture/connection contract."
+    ],
+    "approvalRule": "Approve only actual packet-bound native exports that visibly improve the source toward the agreed style, satisfy all hard constraints and all required evidence, and show no material defect in any required facing or join. Missing evidence means needs_evidence. Initial criteria do not approve a candidate."
+  },
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "static",
+        "sourceClipId": "static",
+        "name": "Static",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false,
+        "frameOrder": [
+          0
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "modelingPolicy": {
+    "version": 2,
+    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
+    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "allowed": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "locked": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "wall-family-settings": "inputs/family-settings.json"
+  },
+  "criteriaVersion": 1
+}

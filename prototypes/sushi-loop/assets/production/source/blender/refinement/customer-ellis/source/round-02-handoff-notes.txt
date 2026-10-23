@@ -1,0 +1,39 @@
+Ellis round02 native handoff; independent visual review is pending.
+
+The actually executed body recipe is build_round02.py. It opens the immutable
+original source projects in separate background Blender 5.2.2 processes and saves
+round-02.blend and round-02-runtime.blend. The full main/runtime render capture
+and audit recipe is capture_audit_round02.py. Each source is packed and editable.
+
+reproduce_round02.py is a path-only adapter around that unchanged executed body
+recipe. It reads the copied frozen brief and food map from source/resources and
+writes separate source/reproductions and candidates/reproduction-round02 outputs.
+Twenty study renders from the portable adapter were compared with the final
+native frames; their decoded RGBA pixels matched exactly. This is measured local
+reproduction evidence, not a cross-renderer or whole-animation bit-identity claim.
+
+The frame outputs are unedited native RGBA renders. Atlases copy every complete
+384x640 frame into the original 6x2 / 2304x1280 arrangement with no fitting, warping
+or padding changes. Logical frame 192x320/root 96,248/captureScale 2. The camera is
+the actual original source camera, not the stale scale 4 source metadata.
+
+The exact canonical food images are packed. FullUV, uniform aspect and each
+frozen alpha >= 128 occupied-width/bottom-rim map are fixed in mesh coordinates.
+Original food-root, yaw, render-visibility actions and .6 camera-ray depth remain.
+The food plane uses one static BLENDED material/no-shadow flag configuration in
+every pose and facing. Original DITHERED flags and matched native comparisons
+are retained. Food remains 2D; the actor, clothes, shoes and hair are native 3D.
+
+The failed unsealed draft used head weights on replaced palm/thumb meshes.
+Its exact source .blend1 bytes match the failed audits and are retained with all
+failed native frames, atlases, clips, contexts and logs in draft-01-hand-weights.
+The failure and available recipe reconstruction limits are explicit there.
+Round02 preserves each original primitive's intended deformation group. All 576
+evaluated hand/sole/seat/mouth-carrier surface witnesses were measured against
+source transforms with BVH nearest-surface checks, in addition to the bone audit.
+
+Desktop and 390x844 phone runs played all 48 actual 12 fps clips. Nonloop states ended
+on their final frames; desktop dropped 0 decoder frames, phone maximum 2. Every
+required native PNG and the source animation keys remain available for inspection.
+VP9 alpha preview clips use 4:2:0 chroma; the deliverable PNG frames/atlases retain
+their exact native RGBA pixels. No visual approval is asserted by the editor.

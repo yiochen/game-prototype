@@ -1,0 +1,80 @@
+{
+  "round": 3,
+  "asset": "stool-blue",
+  "verdict": "approve",
+  "candidatePacketSHA256": "1b75a5c62ed81751b6d6a30fa35ea5b2e774963272139c353cf2ec27f4b4fe98",
+  "inspectedFiles": [
+    "static-N.png",
+    "static-E.png",
+    "static-S.png",
+    "static-W.png",
+    "four-view-sheet.png",
+    "logical-four-view-sheet.png",
+    "repeated.png",
+    "backgrounds.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The direction correction is confirmed against original publisher code, not inferred from the nearly symmetric stool silhouette. The immutable native_actions.py revision identified by inputs/source-rig.json uses S=0, E=+90, N=180, W=-90 degrees at line 468. Submitted and reopened evaluated root matrices now follow that convention for every named facing.",
+    "My prior round-02 review accepted four rotations without comparing their direction names to the original publisher. That contract conclusion was incorrect. This review checks the original source convention explicitly and does not rely on round-02 approval as evidence of correct direction labels.",
+    "All four current native PNGs and every packet preview were inspected directly. The blue padded seat keeps soft continuous corner and sidewall transitions, broad gentle shading, a distinct lower upholstered volume and clean separation from warm honey wood supports. Legs, crossbar, feet and open gaps remain readable at logical size and on light, gray and dark backgrounds.",
+    "The correction preserves the established appearance: independently decoded RGBA comparisons confirm new N equals old S, new E equals old W, new S equals old N, and new W equals old E. The corrected facing pixels also equal their corresponding reopened native renders. No visual regression, new seam, black dead patch, clipped corner, merged support or target halo was found.",
+    "Lighting stays horizontally neutral with no directional ground shadow. The repeated preview remains coherent at one-cell pitch. The source stool construction, slight crossbar-height distinction between N/S and E/W, and matte restrained material treatment are retained."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The selected target has stronger pillow inflation, brighter edge catches and richer fabric/wood texture. The candidate retains subtler padding and matte detail within the native geometry envelope and remains readable at intended size.",
+    "Target canvas placement, padding, changed proportions and colored silhouette fringe remain excluded from the criteria."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "1b75a5c62ed81751b6d6a30fa35ea5b2e774963272139c353cf2ec27f4b4fe98",
+      "boundFileEntriesVerified": 65,
+      "hashMismatches": 0,
+      "helperResult": "candidate_packet.py verify --packet candidates/round-03/packet.json: Artifact integrity verified."
+    },
+    "originalFacingConvention": {
+      "source": "../../../production/source/blender/revisions/4fa9e22e555f8aad/native_actions.py",
+      "sha256": "4fa9e22e555f8aad5da1a76ecb556a2e55b8c5eae303c955b0e65d3bd8a30e3c",
+      "provenance": "Exact revision hash from inputs/source-rig.json sourceFiles.native_actions.py; actual source bytes independently hashed.",
+      "line": 468,
+      "code": "asset['root'].rotation_euler.z={'S':0.,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}[direction]",
+      "requiredAndConfirmedDegrees": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "currentCitedPublisherHashAlsoVerified": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f"
+    },
+    "nativeCaptureReviewed": [
+      "candidates/round-03/validation.json",
+      "candidates/round-03/reopened-source.json",
+      "candidates/round-03/direction-convention.json",
+      "source/round-03-camera.json",
+      "source/round-03-rig.json",
+      "inputs/source-camera.json",
+      "inputs/source-rig.json",
+      "inputs/catalog-object.json"
+    ],
+    "checks": [
+      "Independently verified the exact packet SHA-256 and all 65 bound file/render/preview entries against actual bytes. The frozen quality criteria match the brief. Original project, backup and target hashes remain intact.",
+      "Each submitted native render and each reopened render has direction-specific actual evaluated root rotation evidence. Independently checked all four angles and 4x4 root matrices against S=0, E=+90, N=180, W=-90 within 1e-6 numeric tolerance.",
+      "Independently compared decoded RGBA bytes for all four submitted/reopened pairs: identical. Independently compared the corrected prior-round correspondence N<-S, E<-W, S<-N, W<-E: identical pixels, with no look change.",
+      "All four PNGs are 384x704 and have alpha bounds [106,299,278,568]. Directly inspected each native image, logical-size sheet, native sheet, repeated preview and all light/neutral/dark composites; additionally inspected enlarged native stool crops.",
+      "Independently compared source and candidate camera world/projection matrices and pixel aspect: unchanged. Rig seat/ground sockets and footprint equal the original catalog contract. Native root remains [0,0,0], seat [0,0,0.685], logical frame [192,352], logical root [96,248], sourceScale 2 and footprint [1,1].",
+      "Native validation retains zero envelope delta, zero original support-transform delta, manifold meshes, no zero-area faces, static one-frame/12-fps/non-looping metadata, one fixed camera/material set, four symmetric fills and no ground receiver.",
+      "Reopened-source evidence is bound to the current candidate project SHA-256 and records one native scene, no external images and no linked libraries. Candidate native render identity is unchanged in geometry, materials and lighting."
+    ],
+    "limits": [
+      "I inspected the supplied hash-bound native validation and reopened-source evidence and independently checked pixels, matrices and source citations; I did not launch an additional Blender replay. Exact geometry measurements derive from native records, not target pixels."
+    ]
+  },
+  "approvalScope": "Exact round-03 packet-bound source and render bytes only. Round-02 files and review are unmodified; this corrected approval does not endorse the old direction mapping or unreviewed future renders."
+}

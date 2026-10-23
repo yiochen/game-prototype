@@ -1,0 +1,199 @@
+{
+  "id": "belt-corner-w-s",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    192,
+    352
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "running": {
+      "frames": 24,
+      "fps": 12,
+      "loop": true
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 0.695,
+  "sockets": {
+    "deck": [
+      0,
+      0,
+      0.64
+    ]
+  },
+  "flow": {
+    "incoming": "W",
+    "outgoing": "S",
+    "deckHeight": 0.64,
+    "periodCells": 0.14285714285714285,
+    "durationSeconds": 2,
+    "speedCellsPerSecond": 0.5,
+    "turnPhaseMapping": "endpoint derivative matched, compressed radially inside turn",
+    "uvConvention": "incoming-to-outgoing-v1",
+    "incomingUV": 0.0,
+    "outgoingUV": 1.0,
+    "shaderPhase": "-7*t"
+  },
+  "supportLayout": {
+    "version": 2,
+    "kind": "quarter-annular-wood-support",
+    "coordinateFrame": "canonical N-to-E orientation parent",
+    "slab": {
+      "part": "lower_wood_frame",
+      "centerXY": [
+        0.5,
+        0.5
+      ],
+      "innerRadius": 0.13,
+      "outerRadius": 0.87,
+      "angleStart": 3.141592653589793,
+      "angleEnd": 4.71238898038469,
+      "segments": 48,
+      "bottomZ": 0.42,
+      "topZ": 0.52,
+      "bevelWidth": 0.008,
+      "boundsXY": [
+        [
+          -0.37,
+          0.5
+        ],
+        [
+          -0.37,
+          0.5
+        ]
+      ]
+    },
+    "legs": [
+      {
+        "part": "wood_leg_(-0.28, -0.28)",
+        "arcFraction": 0.3,
+        "radius": 0.24,
+        "center": [
+          0.2861584341947917,
+          0.3910422800625088,
+          0.25
+        ],
+        "size": [
+          0.16,
+          0.16,
+          0.5
+        ],
+        "rotationZ": 3.612831551628262
+      },
+      {
+        "part": "wood_leg_(-0.28, 0.28)",
+        "arcFraction": 0.18,
+        "radius": 0.76,
+        "center": [
+          -0.22982320111447674,
+          0.28796675941018574,
+          0.25
+        ],
+        "size": [
+          0.16,
+          0.16,
+          0.5
+        ],
+        "rotationZ": 3.4243359924128747
+      },
+      {
+        "part": "wood_leg_(0.28, -0.28)",
+        "arcFraction": 0.7,
+        "radius": 0.24,
+        "center": [
+          0.39104228006250874,
+          0.2861584341947917,
+          0.25
+        ],
+        "size": [
+          0.16,
+          0.16,
+          0.5
+        ],
+        "rotationZ": 4.241150082346221
+      },
+      {
+        "part": "wood_leg_(0.28, 0.28)",
+        "arcFraction": 0.82,
+        "radius": 0.76,
+        "center": [
+          0.28796675941018546,
+          -0.22982320111447663,
+          0.25
+        ],
+        "size": [
+          0.16,
+          0.16,
+          0.5
+        ],
+        "rotationZ": 4.429645641561608
+      }
+    ],
+    "unchanged": [
+      "deck-path",
+      "deck-UV",
+      "deck-material",
+      "shader-phase",
+      "rails",
+      "flow-ports",
+      "orientation-parent",
+      "ground-root",
+      "asset-height",
+      "capture-frame"
+    ]
+  },
+  "artStyle": {
+    "method": "recipe-reuse",
+    "family": {
+      "straight": {
+        "asset": "belt-straight-n",
+        "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+        "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+        "review": "objects/belt-straight-n/reviews/round-11.json",
+        "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+      },
+      "corner": {
+        "asset": "belt-corner-n-e",
+        "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+        "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+        "review": "objects/belt-corner-n-e/reviews/round-01.json",
+        "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+      }
+    },
+    "nativeNoRasterTextures": true
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "sourceScale": 2,
+  "publishedSourceScale": 2,
+  "nativeCaptureScale": 2,
+  "nativeResolution": [
+    384,
+    704
+  ],
+  "nominalFunctionalHeight": 0.695,
+  "measuredPhysicalBounds": [
+    [
+      -0.5000000596046448,
+      -0.5000000596046448,
+      0.0
+    ],
+    [
+      0.48000001907348633,
+      0.47999995946884155,
+      0.6949999928474426
+    ]
+  ]
+}

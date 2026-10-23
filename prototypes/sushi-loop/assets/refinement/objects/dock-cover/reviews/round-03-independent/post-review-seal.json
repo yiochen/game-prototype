@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "asset": "dock-cover",
+  "round": "round-03",
+  "candidatePacketSHA256": "a7656de630ffde8fce53cdbd7a5a4e2ba8c998a89c1c52c686f772ed722bbc06",
+  "verdict": "approve",
+  "reviewSHA256": "9de88a2d3f93ae032ebfaedaa614ec03550bdfaf153708cb202de5b93cbe58e6",
+  "supplementalManifestSHA256": "abb6747a4dc6211b601bbabb7b431db99d4bd1f71ef43942648969a1975737dc",
+  "acyclic": "Review binds one supplemental manifest; manifest binds actual-used closure. This unreferenced post-review seal binds review/manifest/final gates and unchanged checks.",
+  "gates": [
+    {
+      "tool": "prototypes/sushi-loop/assets/refinement/tools/catalog_metadata_override.py",
+      "toolSHA256": "1c4760a6398b14a35d454008d46d250b294c88d238d6926320086e38d0a1872e",
+      "returnCode": 0,
+      "log": "reviews/round-03-independent/metadata-final.log",
+      "logSHA256": "b40bf9ffb0d99cb0c33fd9311cd4260057696ba9862b65b2a08b14c03afd68e6"
+    },
+    {
+      "tool": "prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+      "toolSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+      "returnCode": 0,
+      "log": "reviews/round-03-independent/acceptance-final.log",
+      "logSHA256": "6fe7cd61b6b71f6f62a94ac7ecf813dcc577e3ad1a6e8f007e241bf0b6c2afc6"
+    }
+  ],
+  "files": [
+    {
+      "path": "reviews/round-03.json",
+      "sha256": "9de88a2d3f93ae032ebfaedaa614ec03550bdfaf153708cb202de5b93cbe58e6"
+    },
+    {
+      "path": "reviews/round-03-independent/supplemental-manifest.json",
+      "sha256": "abb6747a4dc6211b601bbabb7b431db99d4bd1f71ef43942648969a1975737dc"
+    },
+    {
+      "path": "reviews/round-03-independent/metadata-final.log",
+      "sha256": "b40bf9ffb0d99cb0c33fd9311cd4260057696ba9862b65b2a08b14c03afd68e6"
+    },
+    {
+      "path": "reviews/round-03-independent/acceptance-final.log",
+      "sha256": "6fe7cd61b6b71f6f62a94ac7ecf813dcc577e3ad1a6e8f007e241bf0b6c2afc6"
+    },
+    {
+      "path": "reviews/round-03-independent/final-unchanged-check.json",
+      "sha256": "309b4430e5fec24caa5622e656c82b3a84bf1a9d5996b1b48c486f2ec802a6bc"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "scope": "Whitespace check excludes only exact hash-listed vendor/raw-diagnostic bytes. Product implementation, tests, docs and other evidence remain checked.",
+  "exceptions": [
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-floor/reviews/round-05-independent/resources/executed-vite-runtime/deps/phaser.js",
+      "sha256": "d00b3aa61cc14c3dfbd55b92e35e4531b31b9dc6d738c2c6e57002edef86690e",
+      "reason": "Exact executed third-party Vite runtime captured as independent review evidence; byte preservation takes precedence over reformatting vendor source."
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/verification/native-canvas-sampling-v1/initial-vite-hot-reload-interruption.log",
+      "sha256": "ae473d23e06fbb69862246f4ac789a9f1f1633d1807b6bcf61243f1e4773f9fa",
+      "reason": "Original raw Playwright failure log, retained exactly as diagnostic history. Product source is separately checked; reformatting a raw log is not an implementation fix."
+    }
+  ],
+  "reviewSHA256": "4d38b4100dfdc6325c0e725716128c07586b445b1af1500a08dd1a55692c9149",
+  "supplementalManifestSHA256": "8404ef2093f4bd7c2e087c04553434f926d4baae66aa9afab7c2df34aef32b34"
+}

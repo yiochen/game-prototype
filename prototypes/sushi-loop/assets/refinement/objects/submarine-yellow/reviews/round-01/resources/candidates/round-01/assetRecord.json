@@ -1,0 +1,127 @@
+{
+  "id": "submarine-yellow",
+  "projection": "character-orthographic",
+  "frame": [
+    320,
+    384
+  ],
+  "anchor": [
+    160,
+    288
+  ],
+  "scale": 2,
+  "clips": {
+    "idle": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "travel": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "impact": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "protection": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "dock-charging": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "dock-ready": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-idle": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-travel": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-impact": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "upgraded-protection": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-dock-charging": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-dock-ready": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    }
+  },
+  "footprint": [
+    1,
+    2
+  ],
+  "height": 1.02,
+  "sockets": {
+    "sub_harpoon": [
+      0.24,
+      -0.4,
+      0.37
+    ],
+    "sub_collector": [
+      0.0,
+      -0.53,
+      0.21
+    ]
+  },
+  "camera_elevation_degrees": 65,
+  "artStyle": {
+    "revision": "warm-soft-final-canonical-candidate-round-01",
+    "lighting": "Frozenv6:210Woverhead+4equal85Wcardinalfills,world.3gray,Standard/None exposure-.35 gamma1; no receiver plane",
+    "glass": "Static native opaque polished depth/reflection shader from acceptedv6; no added textures/cards",
+    "source": "exact acceptedbodyv6 + exact3 approved IDLE neutral components; native main visibility only"
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "variants": {
+    "baseline": {
+      "clips": [
+        "idle",
+        "travel",
+        "impact",
+        "protection",
+        "dock-charging",
+        "dock-ready"
+      ]
+    },
+    "upgraded": {
+      "clips": [
+        "upgraded-idle",
+        "upgraded-travel",
+        "upgraded-impact",
+        "upgraded-protection",
+        "upgraded-dock-charging",
+        "upgraded-dock-ready"
+      ]
+    }
+  }
+}

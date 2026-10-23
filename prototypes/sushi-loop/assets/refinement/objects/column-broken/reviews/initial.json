@@ -1,0 +1,142 @@
+{
+  "asset": "column-broken",
+  "role": "fresh independent judge",
+  "stage": "initial inspection before editor proposals or candidates",
+  "inspectedFiles": {
+    "prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": {
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/brief.json": {
+      "sha256": "2e48bb6fe07daa94c5f68949f7a9acf031dbaaee12f89d6e3eb2a65911a6099f",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/original.png": {
+      "sha256": "ac36d38d06c11f19da028eadadf36287284783cd304b7199a107919dfb852b6f",
+      "imageSize": [
+        384,
+        640
+      ]
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/target.png": {
+      "sha256": "22b531dccf021cc527f89608c86b931f9143e7bbe5fb2b5c24fde90fdf924943",
+      "imageSize": [
+        971,
+        1619
+      ]
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/source-camera.json": {
+      "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/source-rig.json": {
+      "sha256": "cd3476d6366e1a7d792620369fba58390c4dfab774f887c0cb41be41db6655bf",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/source-assetRecord.json": {
+      "sha256": "2689568a6bdd798edf6395f4e3c7e3f0697f94bc8a623d843415f5d01c10c276",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/inputs/catalog-object.json": {
+      "sha256": "1f5dfa890afa466db5e00862ea958e1cc69da3813dbf48f30a963117b166f260",
+      "imageSize": null
+    },
+    "prototypes/sushi-loop/assets/refinement/objects/column-broken/reviews/source-inspection.json": {
+      "sha256": "ef4d9342d252f932a315aaecbdf85b9fa17a21e33aa0bbaee1ebc1981bfd40fd",
+      "imageSize": null
+    }
+  },
+  "sourceNativeInspection": "reviews/source-inspection.json",
+  "sourceObservations": [
+    "The supplied snapshot shows a tall pale faceted pillar on a broad square foot. Stone crown is washed out, cool cyan-gray side shading is broad and flat, moss is represented by a few bright green block shapes, and the fracture is a thin dark stroke.",
+    "The directly opened immutable Blender library has a canonical identity root at ground (0,0,0), ten mesh parts, no armature and no declared sockets or port profiles. Actual physical source bounds are [-.5,-.5,0] to [.5,.5,1.7990000248]. Nominal catalog height 1.88 is distinct from that measured source maximum.",
+    "The generic repeated terrain interaction is not evidence of a connector contract; this standalone column needs footprint/contact/scale review rather than artificial seam matching."
+  ],
+  "targetObservations": [
+    "The fixed ImageGen target makes pale stone read as warm ivory with softly rounded fractured volumes, a broken crown with distinct stone ledges, broad natural moss pads and growth following cracks. The base has a more crafted weathered stone construction. These are permitted useful design improvements.",
+    "The target uses clear large cracks, small stone chips and warm/cool surface variation. Fine mottling and the exact crack map are secondary to readable volume and crown/moss silhouette at the registered game scale.",
+    "The target is one artistic view with a different raw canvas from the source. Its apparent scale/camera/registration and directional brighter left side are not technical evidence or requirements; target edge contamination or halos must not be copied."
+  ],
+  "comparativePriorities": [
+    "Replace the source blank washed-out pillar and cubic moss with readable warm stone volume and purposeful native broken-crown/moss forms.",
+    "Keep pale warm stone versus lime/olive moss separation and soft broad shading in all actual rotated views; preserve the pale-column role.",
+    "At logical 192x320/128px-cell scale retain silhouette, major cracks and moss masses without black recesses, bright clipped patches, jaggies, floating geometry or floor shadow."
+  ],
+  "contractFindings": {
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "nativeCaptureScale": 4,
+    "nativeResolution": [
+      768,
+      1280
+    ],
+    "publishedSourceScale": 2,
+    "publishedResolution": [
+      384,
+      640
+    ],
+    "cameraElevationDegrees": 35,
+    "pixelAspect": [
+      1,
+      1
+    ],
+    "facingRotationsRadians": {
+      "S": 0,
+      "E": 1.5707963267948966,
+      "N": 3.141592653589793,
+      "W": -1.5707963267948966
+    },
+    "physicalFootprintBoundsXY": [
+      [
+        -0.5,
+        -0.5
+      ],
+      [
+        0.5,
+        0.5
+      ]
+    ],
+    "actualOriginalPhysicalMaxZ": 1.7990000247955322,
+    "functionalHeightMaximum": 1.88,
+    "footingCaptureTransform": "After facing rotation, world.y *= 1 + (1/sin(35deg)-1) * max(0,1-max(0,world.z)/.42)^2. Physical footprint remains 1x1; capture depth expansion near floor is intentional.",
+    "requiredStaticViews": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "clips": {
+      "static": {
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false
+      }
+    },
+    "sockets": {},
+    "portProfiles": {},
+    "groundRootObject": "S33 production concept pale-column root"
+  },
+  "technicalAmbiguities": [
+    {
+      "issue": "Measured source 1.799 versus declared 1.88 height",
+      "resolution": "Coordinator explicitly reconciled before criteria freeze: retain source measurement truthfully; 1.88 is maximum functional envelope, not a mandated exact crown height or forced increase."
+    },
+    {
+      "issue": "Source camera record calls projection character-orthographic; published catalog calls height-dependent-35-square-footing",
+      "resolution": "Both describe same 35-degree orthographic upper camera with source capture-footing transform. Candidate must prove matrices and capture transform, not rely on labels."
+    },
+    {
+      "issue": "Current Godot restaurant selection excludes this column",
+      "resolution": "Require actual browser SpriteScene consumer proof with world-raster composition. Do not invent an unused Godot bench or claim shipping integration."
+    }
+  ],
+  "criteriaStatus": "Proposed, awaiting coordinator freeze; no candidate inspected or approval issued."
+}

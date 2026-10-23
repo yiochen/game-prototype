@@ -1,0 +1,37 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "preparationOnly": true,
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/inspect-locators.py",
+      "log": "logs/inspect-locators.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/freeze-inputs.py",
+      "purpose": "Freeze minimal inspected/imported own native inputs, catalog record and consumers."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/resources/native/untouched-library.blend --python prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/replay-native.py",
+      "log": "logs/replay-native.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/prepare-evidence.py",
+      "log": "logs/prepare-evidence.log"
+    },
+    {
+      "command": "node prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/capture-consumer.mjs",
+      "log": "logs/capture-consumer.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/inspect-consumer.py",
+      "log": "logs/inspect-consumer.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/attack-reef-fragments/reviews/preparation-v1/commands/finalize-preparation.py",
+      "purpose": "Write final preparation report, closure and immutable seal."
+    }
+  ]
+}

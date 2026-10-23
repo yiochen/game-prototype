@@ -79,13 +79,13 @@ export function sceneBounds(placements, objects, cellSize = 128, gridSize = [3, 
   return [minX - pad, minY - pad, maxX - minX + pad * 2, maxY - minY + pad * 2];
 }
 export function orderPlacements(placements, objects) {
-  return placements.map((placement, index) => ({ ...placement, _index: index })).sort((a, b) => {
-    const get = placement => objects.find(object => object.id === placement.object);
-    const pass = placement => {
-      const object = get(placement) || {};
-      const value = placement.renderPass || object.renderPass || (object.kind === 'floor' ? 'background' : 'world');
-      return value === 'background' ? 0 : ['foreground', 'overhead', 'overlay'].includes(value) ? 2 : 1;
-    };
+  const get = placement => objects.find(object => object.id === placement.object);
+  const pass = placement => {
+    const object = get(placement) || {};
+    const value = placement.renderPass || object.renderPass || (object.kind === 'floor' ? 'background' : 'world');
+    return value === 'background' ? 0 : ['foreground', 'overhead', 'overlay'].includes(value) ? 2 : 1;
+  };
+  const ordered = placements.map((placement, index) => ({ ...placement, _index: index })).sort((a, b) => {
     const rank = placement => placement.layer ?? get(placement)?.layer ?? (get(placement)?.kind === 'floor' ? 0 : get(placement)?.kind === 'belt' ? 1 : 2);
     const depth = placement => {
       const object = get(placement) || {};
@@ -96,6 +96,28 @@ export function orderPlacements(placements, objects) {
     };
     return pass(a) - pass(b) || depth(a) - depth(b) || rank(a) - rank(b) || a._index - b._index;
   });
+  if (!ordered.some(placement => placement.supportedBy)) return ordered;
+
+  // Explicit support keeps an on-deck sprite above its platform without moving
+  // the platform behind external stairs or changing ordinary world depth.
+  // Prefer a placement id; an object id is valid only for a unique placement.
+  const supports = new Map();
+  for (const placement of ordered) {
+    if (!placement.supportedBy) continue;
+    const named = ordered.filter(candidate => candidate.id === placement.supportedBy);
+    const matches = named.length ? named : ordered.filter(candidate => candidate.object === placement.supportedBy);
+    if (matches.length !== 1 || matches[0] === placement) throw new Error(`Invalid or ambiguous sprite support: ${placement.supportedBy}`);
+    if (pass(matches[0]) > pass(placement)) throw new Error('Sprite support cannot override a later render pass');
+    supports.set(placement, matches[0]);
+  }
+  const result = [], remaining = new Set(ordered);
+  while (remaining.size) {
+    const next = ordered.find(placement => remaining.has(placement) && !remaining.has(supports.get(placement)));
+    if (!next) throw new Error('Cyclic sprite support relationships');
+    result.push(next);
+    remaining.delete(next);
+  }
+  return result;
 }
 export function repeatedPlacements(object, direction = 'S', clip) {
   const footprint = footprintFor(object, direction);

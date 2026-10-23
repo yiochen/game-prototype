@@ -1,0 +1,61 @@
+{
+  "asset": "barrel-wood",
+  "round": 3,
+  "verdict": "revise",
+  "candidatePacketSHA256": "3af72d92fc6c3a04dbb3c7c2e8f80518f197e6001ac23f887046a5d25779d733",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "previews/four-view-sheet.png",
+    "previews/repeated.png",
+    "previews/background-readability.png"
+  ],
+  "comparisonFiles": ["../../inputs/original.png", "../../inputs/target.png"],
+  "scores": {
+    "shapeVolume": 7,
+    "color": 7,
+    "lightingHighlights": 5,
+    "materialDetail": 6,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The honey-gold wood and navy palette remains faithful to the original. The lid is no longer nearly lemon-yellow, and lower staves remain substantially warmer and more readable than the original dark lower region.",
+    "The closed planked lid, shoulder, bulging stave body and two bands are clear in all four actual rotations. The E/W lid seam orientation changes coherently from N/S; no invented unseen facing is required.",
+    "Native images and all three previews are clean: no visible black seam void, clipping, bright alpha halo, broken corner, directional ground shadow or material dead spot appears on light, gray or dark backgrounds.",
+    "The lid remains an almost uniform honey-colored face at intended size, divided primarily by thin straight brown lines. Its edges and plank seams do not yet convey the gently rounded, softly lit plank depth that makes the fixed target read as warm cartoon wood.",
+    "The body retains broad, clearly stepped planar light bands. Useful faceting is welcome, but in combination with the uniform lid and nearly solid-color hoops the overall treatment still reads closer to the source's flat faceted rendering than to the selected softly lit target.",
+    "Both navy hoops remain visually thin, hard, solid-color ribbons at 192 x 352 logical size. Their separation is excellent, but little modest edge light or cross-band volume survives the intended-size previews. The missing cue is dimensional softness, not target gloss or wood noise.",
+    "The repeated preview is consistent and free of repeated defects; it also confirms that the present flat lid and hoop treatment is a material style gap rather than an enlarged-image-only concern."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "location": "Lid planks, seams and upper wood shoulder in N/E/S/W; especially clear in four-view-sheet and repeated previews",
+      "effect": "The large lid reads as a uniform cutout with drawn divisions, leaving the main visible wood surface without the soft plank depth and broad gentle light treatment required by the frozen criteria.",
+      "desiredVisibleOutcome": "At logical display size, reveal gently rounded lid/plank edges and softly recessed divisions, with restrained broad warm light variation that keeps honey color and existing plank identity. Retain useful faceting and all registration; do not add fine grain/noise, glare or a horizontal lighting bias."
+    },
+    {
+      "rank": 2,
+      "location": "Upper and lower navy hoops in all native rotations",
+      "effect": "The bands remain almost flat navy ribbons with hard edge transitions, so their material volume does not reach the softly lit cartoon treatment even though their palette and readability are correct.",
+      "desiredVisibleOutcome": "Give each band a modest rounded edge/cross-band light transition that remains visible at logical size and preserves dark navy body color. Keep the finish controlled and matte-to-satin; high gloss, bright sparkles and a preferred horizontal light direction are unnecessary."
+    }
+  ],
+  "remainingDifferences": [
+    "Exact target canvas, internal placement and silhouette drift are intentionally not copied.",
+    "Fine grain, target edge fringe and stronger blue glossy accents are not required.",
+    "Native four-view continuation and retained useful body faceting are acceptable; only the visible soft volume gap described in the blockers needs revision."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": "candidate_packet.py verify --packet candidates/round-03/packet.json returned Artifact integrity verified; packet SHA-256 independently matches the supplied 3af72d92fc6c3a04dbb3c7c2e8f80518f197e6001ac23f887046a5d25779d733.",
+    "evidenceRead": ["validation.json", "records/camera.json", "../../source/audit-round-03.py", "../../../../../production/source/records/barrel-wood/camera.json"],
+    "nativeEvidence": "Hash-bound validation records a reopened Blender 5.2.2 LTS project with the named scene/camera, source project SHA-256 matching the packet, CYCLES rendering, 384 x 704 native frame, non-square registered pixel aspect, 12 fps and frame range [1, 1]. It records actual root rotations pi, pi/2, 0 and -pi/2 for N/E/S/W and a common root pixel [192, 496].",
+    "geometryAndContract": "Validation reports preserved root, unit scale, one-cell footprint, static/non-loop frame semantics, no sockets/ports, original object names, geometry within the original envelope, zero evaluated boundary/non-manifold edges, no negative scales and no external dependencies. The measured bounds change is inward by about 0.00077 x and 0.00245 y with identical z limits.",
+    "originalCameraComparison": "Compared the preserved production camera record. Logical frame/root, projection, cell size, fps, axes, elevation and pixel aspect agree. World/projection matrix differences are floating-point rounding (largest observed about 0.00000051). Original source calibration is captureScale 4 and candidate is the brief-required sourceScale 2, so native pixel calibration halves while logical registration agrees. Atlas bytes match the four inspected native render bytes exactly.",
+    "lightingAndAlpha": "Validation records centered overhead plus four equal cardinal area lights, no ground shadow receiver, transparent native renders, zero nontransparent border pixels and no clipping. Direct visual inspection is consistent with those claims.",
+    "limits": "The judge read the hash-bound native reopen audit and validation rather than rerendering or altering the project. The packet certifies supplied file integrity, not style success. Packet-only helper verification passes; running the helper with this revise review correctly reports that independent approval has not been granted. No style approval is given in this round."
+  }
+}

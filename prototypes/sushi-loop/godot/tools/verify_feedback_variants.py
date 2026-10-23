@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import zlib
 
 CLIPS = ['happy-smile-appear', 'happy-smile-idle', 'happy-smile-fade', 'happy-smile-transition']
 
@@ -29,6 +30,9 @@ def _verify_feedback_variants(project: Path, source_project: Path | None = None)
     source = prototype / 'assets/production/source/variants/customer-feedback'
     runtime = project / 'assets/feedback-variants'
     manifest = read(runtime / 'manifest.json')
+    if 'refinement' in manifest:
+        from refined_feedback_contract import verify_refined_feedback
+        return verify_refined_feedback(project, source_project)
     generation = read(source / 'imagegen.json')
     publication = read(source / 'publication.json')
     base = read(source_project / 'assets/catalog/manifest.json')['objects']['bubble-happy']
@@ -75,7 +79,7 @@ def verify_feedback_variants(project: Path, source_project: Path | None = None) 
         return _verify_feedback_variants(project, source_project)
     except ValueError:
         raise
-    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error) as error:
+    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error, zlib.error) as error:
         raise ValueError(f'Incomplete or invalid smiling-face feedback contract: {error}') from error
 
 

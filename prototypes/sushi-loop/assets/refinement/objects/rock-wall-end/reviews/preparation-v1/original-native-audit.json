@@ -1,0 +1,496 @@
+{
+  "collection": "S33_PROP_rock-wall-end.001",
+  "collectionProperties": {},
+  "objects": [
+    {
+      "name": "rock-wall-end__root.001",
+      "type": "EMPTY",
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {
+        "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"rock-wall-full-cell-v2\", \"normal\": [-1, 0, 0]}]",
+        "nonblocking": false,
+        "depth_layer": "world",
+        "support_cells": "[[0, 0]]",
+        "asset_id": "rock-wall-end",
+        "family": "issue-33-world-props",
+        "footprint_cells": "[1, 1]",
+        "ground_root": "[0, 0, 0]",
+        "visual_height": 1.17,
+        "sockets": "{}",
+        "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+        "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+        "axis_convention": "X=x; depth=-Y; height=Z",
+        "source": "prop_builders.py",
+        "notes": "[]",
+        "art_revision": "approved-art-rollout-2026-10-19-v1",
+        "art_revision_changes": "[\"Cobalt canyon has a one-cell-wide/deep contact mass and a broad uneven crown. All wall-family port sections share the same native profile.\"]",
+        "artStyle": "faceted-approved-2026-10-19",
+        "production_id": "rock-wall-end",
+        "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"rock-wall-end\", \"clips\": {\"static\": []}}"
+      },
+      "bounds": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "constraints": [],
+      "modifiers": []
+    },
+    {
+      "name": "rock-wall-end__full_width_continuous_crag",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          1.1632190942764282
+        ]
+      },
+      "constraints": [],
+      "modifiers": [],
+      "vertices": 48,
+      "polygons": 42,
+      "materials": [
+        "rock-wall-end approved S33_rock",
+        "rock-wall-end approved S33_rock_light",
+        "rock-wall-end approved S33_rock_dark"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": []
+    },
+    {
+      "name": "rock-wall-end__broad_contact_shoulder",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0010000000474974513
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.20999999344348907
+        ]
+      },
+      "constraints": [],
+      "modifiers": [],
+      "vertices": 12,
+      "polygons": 10,
+      "materials": [
+        "rock-wall-end approved S33_rock_dark"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": []
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_0",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        -0.209999993,
+        -0.504999995,
+        0.400000006
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.14000000059604645,
+          -0.006000000052154064,
+          -0.13500000536441803
+        ],
+        "max": [
+          0.14000000059604645,
+          0.006000000052154064,
+          0.13500000536441803
+        ]
+      },
+      "constraints": [],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "materials": [
+        "rock-wall-end approved S33_rock_light"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_1",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        0.180000007,
+        -0.504999995,
+        0.699999988
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.125,
+          -0.006000000052154064,
+          -0.15000000596046448
+        ],
+        "max": [
+          0.125,
+          0.006000000052154064,
+          0.15000000596046448
+        ]
+      },
+      "constraints": [],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "materials": [
+        "rock-wall-end approved S33_rock_dark"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_2",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        0.029999999,
+        0.504999995,
+        0.330000013
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.17499999701976776,
+          -0.006000000052154064,
+          -0.10999999940395355
+        ],
+        "max": [
+          0.17499999701976776,
+          0.006000000052154064,
+          0.10999999940395355
+        ]
+      },
+      "constraints": [],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "materials": [
+        "rock-wall-end approved S33_rock_light"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "rock-wall-end__finished_end_strata",
+      "type": "MESH",
+      "parent": "rock-wall-end__root.001",
+      "location": [
+        0.504999995,
+        0.0,
+        0.469999999
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "properties": {},
+      "bounds": {
+        "min": [
+          -0.006000000052154064,
+          -0.41499999165534973,
+          -0.017500000074505806
+        ],
+        "max": [
+          0.006000000052154064,
+          0.41499999165534973,
+          0.017500000074505806
+        ]
+      },
+      "constraints": [],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "materials": [
+        "rock-wall-end approved S33_rock_dark"
+      ],
+      "smoothPolygons": 0,
+      "uvLayers": [
+        "UVMap"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "name": "S33 Native Asset Library Export",
+      "camera": "S33 Capture Camera.240",
+      "renderEngine": "BLENDER_EEVEE",
+      "resolution": [
+        768,
+        1280,
+        100
+      ],
+      "pixelAspect": [
+        1.0,
+        1.0
+      ],
+      "frame": [
+        1,
+        12,
+        4
+      ],
+      "filmTransparent": true,
+      "viewSettings": {
+        "view_transform": "Standard",
+        "look": "None",
+        "exposure": 0.0,
+        "gamma": 1.0
+      },
+      "world": "S33 Soft World.001",
+      "objects": 1998
+    }
+  ],
+  "cameras": [
+    {
+      "name": "S33 Capture Camera.240",
+      "location": [
+        0.0,
+        -8.191520691,
+        5.735764503
+      ],
+      "rotation": [
+        0.959931314,
+        -0.0,
+        0.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 1.5,
+      "shift": [
+        0.0,
+        0.4583320617675781
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "name": "S33 Faceted fill-0.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "location": [
+        3.0,
+        0.0,
+        1.799999952
+      ],
+      "size": 4.0,
+      "shadow": true
+    },
+    {
+      "name": "S33 Faceted fill-1.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "location": [
+        0.0,
+        3.0,
+        1.799999952
+      ],
+      "size": 4.0,
+      "shadow": true
+    },
+    {
+      "name": "S33 Faceted fill-2.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "location": [
+        -3.0,
+        0.0,
+        1.799999952
+      ],
+      "size": 4.0,
+      "shadow": true
+    },
+    {
+      "name": "S33 Faceted fill-3.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "location": [
+        0.0,
+        -3.0,
+        1.799999952
+      ],
+      "size": 4.0,
+      "shadow": true
+    },
+    {
+      "name": "S33 Faceted overhead.001",
+      "type": "AREA",
+      "energy": 140.0,
+      "location": [
+        0.0,
+        0.0,
+        4.5
+      ],
+      "size": 3.5,
+      "shadow": true
+    }
+  ],
+  "images": [
+    {
+      "name": "dish-cucumber.png",
+      "filepath": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-cucumber.png",
+      "packed": true
+    },
+    {
+      "name": "dish-salmon.png",
+      "filepath": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png",
+      "packed": true
+    }
+  ],
+  "libraries": []
+}

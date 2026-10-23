@@ -1,0 +1,5 @@
+import { chromium } from '@playwright/test';import path from 'node:path';
+const b=await chromium.launch();const p=await b.newPage();p.on('pageerror',e=>console.log('PAGEERROR',e.message));p.on('requestfailed',r=>console.log('FAILED',r.url(),r.failure()));
+const base=path.resolve('prototypes/sushi-loop/assets/refinement/objects/rock-wall-middle');
+await p.route('**/assets/production/sprites/rock-wall-middle/static-*.png*',async r=>{if(new URL(r.request().url()).searchParams.has('import'))return r.continue();console.log('ROUTED',r.request().url());const d=r.request().url().match(/static-([NESW])/)[1];await r.fulfill({path:path.join(base,`candidates/round-03/atlas-static-${d}.png`)});});
+await p.goto('http://127.0.0.1:5194/prototypes/sushi-loop/assets/refinement/objects/rock-wall-middle/source/consumer-bench.html?direction=N&mode=connected',{waitUntil:'domcontentloaded'});console.log('loaded');await p.waitForTimeout(1000);console.log(await p.locator('image').evaluateAll(es=>es.map(e=>({href:e.href.baseVal,rect:e.getBoundingClientRect().toJSON()}))));await p.screenshot({path:path.join(base,'candidates/round-03/diagnostic-page.png')});await b.close();

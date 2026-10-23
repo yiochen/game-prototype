@@ -1,0 +1,9 @@
+{
+  "correctionTo": "reviews/initial.json limits: supplied original was labelled N00; the correct exact native exported match is S00.",
+  "sourceSnapshot": "inputs/original.png",
+  "actualAtlas": "production/sprites/belt-straight-w/running-S.png",
+  "atlasFrame": 0,
+  "allRGBAValuesEqual": true,
+  "cause": "The early N00 equality check used Pillow RGBA difference.getbbox() with alpha-only default. A complete NumPy RGBA comparison corrected the facing label.",
+  "scope": "No source/target/criteria/candidate/packet bytes changed. Intrinsic W orientation, UV endpoints, publisher-facing flow and frozen criteria were measured independently from the native .blend and remain correct. The current8 source and9 mixed-route reproduction results compare fullRGBA arrays and are exact. Approval review3e57d33bd310455f16a2e7ee3947daac4ac366d3987c06c699be90a02c77133e and packet binding are unchanged."
+}

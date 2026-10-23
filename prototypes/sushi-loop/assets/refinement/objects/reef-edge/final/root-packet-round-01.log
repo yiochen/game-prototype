@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/seal_object.py", line 107, in <module>
+    main()
+    ~~~~^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/seal_object.py", line 103, in main
+    runpy.run_path(HELPER)['create'](packet_args)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py", line 65, in create
+    require(set(brief['capture'].get('previews', [])) <= set(previews), 'Missing required preview')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py", line 31, in require
+    raise ValueError(message)
+ValueError: Missing required preview

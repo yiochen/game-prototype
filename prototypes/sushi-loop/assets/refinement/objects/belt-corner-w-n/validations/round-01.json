@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-corner-w-n",
+  "method": "recipe-reuse",
+  "verdict": "validated",
+  "independentReview": false,
+  "authority": "Direct user instruction; coordinator technical validation after representative visual inspection.",
+  "candidatePacketSHA256": "c6a0f7b97cd06281de51a22cd997a1952acfd1bcbd0b81f7032835fdfe44a465",
+  "blockers": [],
+  "policySHA256": "3f541c48a4cfc7f2e9d2537e5a631b1cf481c120888bb285a8854356b38df589",
+  "family": {
+    "straight": {
+      "asset": "belt-straight-n",
+      "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+      "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+      "review": "objects/belt-straight-n/reviews/round-11.json",
+      "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+    },
+    "corner": {
+      "asset": "belt-corner-n-e",
+      "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+      "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+      "review": "objects/belt-corner-n-e/reviews/round-01.json",
+      "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+    }
+  },
+  "checks": {
+    "familyRecipeAndMaterials": true,
+    "intendedSizeInspection": true,
+    "nativeContinuity": true,
+    "nativeRegistration": true,
+    "originalClipsAndCadence": true,
+    "portsAndPhase": true,
+    "publishedPixelsAndResourceClosure": true
+  },
+  "evidence": {
+    "candidates/round-01/validation.json": "a7db0203875b333fab2edbb33746432a2d64c763ddd6894023597aed93b4af68",
+    "candidates/round-01/technical-checks.json": "f4da62e74951c02d1e66c97ee1751f89326ecd179fd71929489df1dcac601c19",
+    "candidates/round-01/source-contract.json": "83216d816de33c692037fab14381b60bba87782159ab1870a4d8038600a0353c",
+    "candidates/round-01/native-continuity.json": "ffb0d1807978e202bdc11081fe8ae086dd6e5327a53e3cb32a9266ff5f402ce1",
+    "candidates/round-01/recipe-equivalence.json": "b289c411a5b5f3454b89bec480aea1a9c08f02b005e226733fd3475d9ee9b1d8",
+    "candidates/round-01/consumer-metrics.json": "43b239be348734d7d7355584f4944466ad296f61d3623c0772acda5fa7024129"
+  },
+  "supplementalEvidence": {},
+  "inspectedFiles": [
+    "hero-N.png",
+    "hero-E.png",
+    "hero-S.png",
+    "hero-W.png",
+    "previews/four-view-sheet.png",
+    "consumer/phone-four-facings.png"
+  ],
+  "inspectionMethod": "Coordinator inspected actual four-facing source sheet and390x844phone for this named asset in a labeled five-object contact layout; source images unchanged. Allfourheroes represented, stable shared recipe/no visible artifact. Technical checks cover all96+4 nativephases, source/camera/UV/intrinsic/ports/actions, wholeatlas pixels and ownactualconsumer reports.",
+  "closurePixelResiduals": {
+    "N": {
+      "maximumRGBA": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "RGBDifferenceBounds": [
+        244,
+        403,
+        266,
+        406
+      ]
+    },
+    "E": {
+      "maximumRGBA": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": [
+        268,
+        447,
+        269,
+        448
+      ]
+    },
+    "S": {
+      "maximumRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": null
+    },
+    "W": {
+      "maximumRGBA": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": [
+        197,
+        256,
+        206,
+        289
+      ]
+    }
+  },
+  "remainingDifferences": [
+    "Rotation/reference pixel identity is False; retained maximumRGBA [17, 21, 8, 0]. Exact per-sample differences remain in recipe-equivalence.json. Own native and actual consumer functional joins pass <=1RGB/exactalpha; no visible family mismatch in representative views.",
+    "Tiny non-bitidentical closure residuals, where present, are measured <=1RGB/exactalpha. Shared broad filtering/motion coverage is reused explicitly, no new independent artistic review."
+  ],
+  "coverage": "Own complete native/phase/atlas and representative current consumer checks. Reused common family/filter/motion coverage is labeled in recipe-equivalence.json; no independent artistic judge is claimed."
+}

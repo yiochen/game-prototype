@@ -1,0 +1,799 @@
+{
+  "project": "source/original-library.blend",
+  "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "blender": "5.2.2 LTS",
+  "scenes": [
+    "S33 Native Asset Library Export"
+  ],
+  "scene": "S33 Native Asset Library Export",
+  "libraryActiveCamera": {
+    "name": "S33 Capture Camera.240",
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "ortho_scale": 1.5,
+    "shift_y": 0.4583320617675781
+  },
+  "libraryActiveRender": {
+    "engine": "BLENDER_EEVEE",
+    "resolution_x": 768,
+    "resolution_y": 1280,
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0,
+    "film_transparent": true
+  },
+  "note": "The original library active capture is for another object. Actual chef-blackboard registered capture is inputs/source-camera.json, copied to source/resources/registered-camera.json.",
+  "objects": [
+    {
+      "name": "chef-blackboard__root",
+      "type": "EMPTY",
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": null,
+      "materials": [],
+      "modifiers": [],
+      "props": {
+        "asset_id": "chef-blackboard",
+        "family": "issue-33-world-props",
+        "footprint_cells": "[1, 1]",
+        "ground_root": "[0, 0, 0]",
+        "visual_height": 1.0,
+        "sockets": "{\"recipe_face\": [0, -0.434, 0.61], \"display_face\": [0, -0.434, 0.61]}",
+        "directions": "[\"S\"]",
+        "animation_recipes": "{\"idle\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}, \"selected\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"recipe_change\": {\"frames\": 12, \"fps\": 12, \"loop\": false}}",
+        "axis_convention": "X=x; depth=-Y; height=Z",
+        "source": "prop_builders.py",
+        "notes": "[]",
+        "composition_context": "{\"role\": \"front-edge-player-facing-overlay\", \"allowCoOccupancy\": true, \"displayDirection\": \"S\", \"groundBandY\": [-0.5, -0.27]}",
+        "art_revision": "approved-art-rollout-2026-10-19-v1",
+        "art_revision_changes": "[\"Single player-facing blank blackboard lives in front .23-cell band, sharing one tile with the chef. Recipe content is a later dynamic 2D overlay; no food/chalk tokens are baked.\"]",
+        "artStyle": "faceted-approved-2026-10-19",
+        "production_id": "chef-blackboard",
+        "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"chef-blackboard\", \"clips\": {\"idle\": [\"S33_NATIVE__chef-blackboard__idle__chef-blackboard__front_post_-0.33\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__short_foot_-0.33\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__front_post_0.33\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__short_foot_0.33\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__blank_dynamic_face\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__frame_side_-0.35\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__frame_side_0.35\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__frame_end_0.275\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__frame_end_0.945\", \"S33_NATIVE__chef-blackboard__idle__chef-blackboard__chalk_ledge\"], \"selected\": [\"S33_NATIVE__chef-blackboard__selected__chef-blackboard__front_post_-0.33\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__short_foot_-0.33\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__front_post_0.33\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__short_foot_0.33\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__blank_dynamic_face\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__frame_side_-0.35\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__frame_side_0.35\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__frame_end_0.275\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__frame_end_0.945\", \"S33_NATIVE__chef-blackboard__selected__chef-blackboard__chalk_ledge\"], \"recipe_change\": [\"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__front_post_-0.33\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__short_foot_-0.33\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__front_post_0.33\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__short_foot_0.33\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__blank_dynamic_face\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__frame_side_-0.35\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__frame_side_0.35\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__frame_end_0.275\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__frame_end_0.945\", \"S33_NATIVE__chef-blackboard__recipe_change__chef-blackboard__chalk_ledge\"]}}"
+      }
+    },
+    {
+      "name": "chef-blackboard__front_post_-0.33",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        -0.33000001311302185,
+        -0.35499998927116394,
+        0.49000000953674316
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.33000001311302185
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.35499998927116394
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.49000000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.3725000023841858,
+          -0.4099999964237213,
+          0.0
+        ],
+        [
+          -0.2875000238418579,
+          -0.29999998211860657,
+          0.9800000190734863
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__short_foot_-0.33",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        -0.33000001311302185,
+        -0.375,
+        0.03500000014901161
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.33000001311302185
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.375
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.03500000014901161
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.39500001072883606,
+          -0.47999998927116394,
+          0.0
+        ],
+        [
+          -0.26500001549720764,
+          -0.27000001072883606,
+          0.07000000029802322
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_dark"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__front_post_0.33",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.33000001311302185,
+        -0.35499998927116394,
+        0.49000000953674316
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.33000001311302185
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.35499998927116394
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.49000000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          0.2875000238418579,
+          -0.4099999964237213,
+          0.0
+        ],
+        [
+          0.3725000023841858,
+          -0.29999998211860657,
+          0.9800000190734863
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__short_foot_0.33",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.33000001311302185,
+        -0.375,
+        0.03500000014901161
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.33000001311302185
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.375
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.03500000014901161
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          0.26500001549720764,
+          -0.47999998927116394,
+          0.0
+        ],
+        [
+          0.39500001072883606,
+          -0.27000001072883606,
+          0.07000000029802322
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_dark"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__blank_dynamic_face",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.0,
+        -0.4000000059604645,
+        0.6100000143051147
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.6100000143051147
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.3100000023841858,
+          -0.42750000953674316,
+          0.32500001788139343
+        ],
+        [
+          0.3100000023841858,
+          -0.3725000023841858,
+          0.8949999809265137
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_board"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__frame_side_-0.35",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        -0.3499999940395355,
+        -0.4099999964237213,
+        0.6100000143051147
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.3499999940395355
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4099999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.6100000143051147
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.38749998807907104,
+          -0.46000000834465027,
+          0.25
+        ],
+        [
+          -0.3125,
+          -0.35999998450279236,
+          0.9700000286102295
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_light"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__frame_side_0.35",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.3499999940395355,
+        -0.4099999964237213,
+        0.6100000143051147
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.3499999940395355
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4099999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.6100000143051147
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          0.3125,
+          -0.46000000834465027,
+          0.25
+        ],
+        [
+          0.38749998807907104,
+          -0.35999998450279236,
+          0.9700000286102295
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_light"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__frame_end_0.275",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.0,
+        -0.4099999964237213,
+        0.2750000059604645
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4099999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.2750000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.38499999046325684,
+          -0.46000000834465027,
+          0.23750001192092896
+        ],
+        [
+          0.38499999046325684,
+          -0.35999998450279236,
+          0.3125
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_light"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__frame_end_0.945",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.0,
+        -0.4099999964237213,
+        0.9449999928474426
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4099999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.9449999928474426
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.38499999046325684,
+          -0.46000000834465027,
+          0.9074999690055847
+        ],
+        [
+          0.38499999046325684,
+          -0.35999998450279236,
+          0.9825000166893005
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood_light"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    },
+    {
+      "name": "chef-blackboard__chalk_ledge",
+      "type": "MESH",
+      "parent": "chef-blackboard__root",
+      "location": [
+        0.0,
+        -0.4449999928474426,
+        0.2750000059604645
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.4449999928474426
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.2750000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": [
+        [
+          -0.38499999046325684,
+          -0.4950000047683716,
+          0.2475000023841858
+        ],
+        [
+          0.38499999046325684,
+          -0.39499998092651367,
+          0.30250000953674316
+        ]
+      ],
+      "materials": [
+        "chef-blackboard approved S33_wood"
+      ],
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL"
+        }
+      ],
+      "props": {}
+    }
+  ]
+}

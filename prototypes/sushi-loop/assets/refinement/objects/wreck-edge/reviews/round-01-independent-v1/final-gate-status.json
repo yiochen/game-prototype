@@ -1,0 +1,17 @@
+{
+  "candidatePacketSHA256": "84ba81e113279c5777e9cd5a1ce682dd05755bb6bf5175fe60f7fe0443d12c49",
+  "reviewSHA256": "6582ca696607c85af4e49b926532cbe7babf6252126bdc73b38c98014fa0a1f7",
+  "verdict": "needs_evidence",
+  "directionGate": {
+    "status": "rejected",
+    "evidence": "direction-audit-preliminary.log",
+    "reason": "Following the packet nativeValidation target discards the outer measured captureRecords; the target lacks a supported capture ledger."
+  },
+  "preliminaryCoverageGate": {
+    "status": "passed before direction failure",
+    "receiptSHA256": "b354178dccab7575333c9d5d41dda54c750ec14bee15b0238188fe2dc9705f62",
+    "evidence": "acceptance-gate-preliminary.log",
+    "superseded": true
+  },
+  "finalCoverageGateExpected": "Blocked because final review carries a needs_evidence verdict and blocker; preserve actual rejection."
+}

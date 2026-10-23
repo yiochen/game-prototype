@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py", line 105, in <module>
+    result = acceptance(Path(__file__).resolve().parents[1] / 'objects' / args.asset, args.round)
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py", line 40, in acceptance
+    require(packet.get('asset') == folder.name
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and receipt.get('asset', packet['asset']) == folder.name
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and receipt.get('candidatePacketSHA256') == sha(packet_path)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and receipt.get('blockers') == [], 'Acceptance binds wrong or blocked candidate')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py", line 23, in require
+    raise ValueError(message)
+ValueError: Acceptance binds wrong or blocked candidate

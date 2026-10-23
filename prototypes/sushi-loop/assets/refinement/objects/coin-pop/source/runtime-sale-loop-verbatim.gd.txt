@@ -1,0 +1,6 @@
+	for pop in sale_pops:
+		var age := time - float(pop.time)
+		if age >= 0.0 and age < 0.9:
+			# Native pop frames already rise above this registered customer root.
+			# Keep its authored scale/motion and the existing quiet alpha fade.
+			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))

@@ -1,0 +1,665 @@
+{
+  "id": "customer-june",
+  "projection": "character-orthographic",
+  "frame": [
+    192,
+    320
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "eat-salmon": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "seated-wait-empty": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 1.2746186554431915,
+  "sockets": {
+    "ground": [
+      0,
+      0,
+      0
+    ],
+    "seat_contact": [
+      0,
+      0,
+      0.4477801191577021
+    ],
+    "hand_left": [
+      -0.267,
+      -0.023,
+      0.211
+    ],
+    "hand_right": [
+      0.267,
+      -0.023,
+      0.211
+    ],
+    "mouth": [
+      0,
+      -0.255,
+      0.543
+    ]
+  },
+  "artStyle": {
+    "style": "Warm softly lit native cartoon",
+    "actualRenderSettings": {
+      "engine": "BLENDER_EEVEE",
+      "resolution": [
+        384,
+        640,
+        100
+      ],
+      "pixelAspect": [
+        1.0,
+        1.0
+      ],
+      "filmTransparent": true,
+      "imageSettings": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "depth": "8",
+        "compression": 45
+      },
+      "dither": 0.0,
+      "colorManagement": {
+        "viewTransform": "Standard",
+        "look": "None",
+        "exposure": 0.0,
+        "gamma": 1.0
+      },
+      "eevee": {
+        "samples": 64,
+        "raytracing": false
+      },
+      "worldNodes": {
+        "nodes": [
+          {
+            "type": "ShaderNodeBackground",
+            "inputs": {
+              "Color": [
+                0.6800000071525574,
+                0.7200000286102295,
+                0.7799999713897705,
+                1.0
+              ],
+              "Strength": 0.30000001192092896,
+              "Weight": 0.0
+            },
+            "properties": {}
+          },
+          {
+            "type": "ShaderNodeOutputWorld",
+            "inputs": {},
+            "properties": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              0,
+              "Background"
+            ],
+            "to": [
+              1,
+              "Surface"
+            ]
+          }
+        ]
+      },
+      "lighting": [
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -1.0,
+              -1.5099580252808664e-07,
+              0.0,
+              0.0
+            ],
+            [
+              1.5099580252808664e-07,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              4.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 320.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 3.5,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              7.549790126404332e-08,
+              -0.5734622478485107,
+              0.8192319869995117,
+              3.0
+            ],
+            [
+              1.0,
+              1.3934737808085629e-08,
+              -8.240260740421945e-08,
+              0.0
+            ],
+            [
+              3.5839001100157475e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -0.7071069478988647,
+              -0.4054989218711853,
+              0.5792843699455261,
+              2.1213202476501465
+            ],
+            [
+              0.7071065902709961,
+              -0.4054991602897644,
+              0.5792846083641052,
+              2.1213202476501465
+            ],
+            [
+              2.301603174714728e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -1.0,
+              -1.879298565654608e-07,
+              5.276300285572688e-08,
+              1.8369701465288538e-16
+            ],
+            [
+              1.5099580252808664e-07,
+              -0.5734621286392212,
+              0.8192320466041565,
+              3.0
+            ],
+            [
+              -1.2370057334010198e-07,
+              0.8192320466041565,
+              0.5734621286392212,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -0.7071069478988647,
+              0.4054989218711853,
+              -0.5792843699455261,
+              -2.1213202476501465
+            ],
+            [
+              -0.7071065902709961,
+              -0.4054991602897644,
+              0.5792846083641052,
+              2.1213202476501465
+            ],
+            [
+              -2.301603174714728e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              7.549790126404332e-08,
+              0.5734622478485107,
+              -0.8192319869995117,
+              -3.0
+            ],
+            [
+              -1.0,
+              1.3934737808085629e-08,
+              -8.240260740421945e-08,
+              3.6739402930577075e-16
+            ],
+            [
+              -3.5839001100157475e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              0.7071067690849304,
+              0.4054991602897644,
+              -0.5792844295501709,
+              -2.1213202476501465
+            ],
+            [
+              -0.7071067690849304,
+              0.40549904108047485,
+              -0.5792844891548157,
+              -2.1213202476501465
+            ],
+            [
+              -9.85924799579152e-08,
+              0.8192319273948669,
+              0.5734623074531555,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              1.0,
+              1.053433502153145e-16,
+              -1.5049043791454022e-16,
+              -5.510910704284357e-16
+            ],
+            [
+              -1.8369701465288538e-16,
+              0.5734624266624451,
+              -0.8192318677902222,
+              -3.0
+            ],
+            [
+              -1.8763921222233888e-23,
+              0.8192318677902222,
+              0.5734624266624451,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              0.7071067690849304,
+              -0.4054991602897644,
+              0.5792844295501709,
+              2.1213202476501465
+            ],
+            [
+              0.7071067690849304,
+              0.40549904108047485,
+              -0.5792844891548157,
+              -2.1213202476501465
+            ],
+            [
+              9.85924799579152e-08,
+              0.8192319273948669,
+              0.5734623074531555,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        }
+      ],
+      "compositingNodeGroup": {
+        "nodes": [
+          {
+            "type": "CompositorNodeRLayers",
+            "inputs": {},
+            "properties": {}
+          },
+          {
+            "type": "NodeGroupOutput",
+            "inputs": {
+              "Socket_0": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "properties": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              0,
+              "Image"
+            ],
+            "to": [
+              1,
+              "Socket_0"
+            ]
+          }
+        ]
+      }
+    },
+    "sourceStyleIsHistoricalProvenance": true
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "locomotion": {
+    "walkCellsPerSecond": 0.225,
+    "panicCellsPerSecond": 0.45,
+    "worldTravelPerWalkCycle": 0.225
+  },
+  "fps": 12,
+  "nativeFrame": [
+    384,
+    640
+  ],
+  "food": {
+    "asset": "dish-salmon",
+    "representation": "2D ImageGen sprite, not modeled sushi",
+    "canonicalPackedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "expectedCanonicalSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "imageSize": [
+      731,
+      505
+    ],
+    "vertices": [
+      [
+        -0.13606125116348267,
+        0.03276219591498375,
+        0.0
+      ],
+      [
+        0.14018571376800537,
+        0.03276219591498375,
+        0.0
+      ],
+      [
+        0.14018571376800537,
+        0.22360311448574066,
+        0.0
+      ],
+      [
+        -0.13606125116348267,
+        0.22360311448574066,
+        0.0
+      ]
+    ],
+    "selectedMapping": {
+      "threshold": 128,
+      "originalOccupiedWidthWorld": 0.3443639390623302,
+      "sourceWorldPerPixel": 0.00028180355078750427,
+      "canonicalWorldPerPixel": 0.0004723785172322774,
+      "canonicalFullQuadWorld": [
+        0.34530869609679476,
+        0.23855115120230008
+      ],
+      "canonicalOccupiedCenterFromLeftPixels": 365.5,
+      "preserveSourceSupportOffsetAboveFoodRoot": 0.041425122326894354,
+      "newFullQuadLeftWorld": -0.17007655565897797,
+      "sourceBottomRowSupportXWorld": 0.0035225494238839694,
+      "canonicalBottomRowSupportXPixel": 367.5,
+      "newFullQuadBottomWorld": 0.04095274380966207,
+      "pointConvention": "pixel boundary edges: occupied x extent [xmin,xmax+1], support y at bottom edge ymax+1; pixel-center alternative documented separately",
+      "pixelCenterSupportDeltaWorld": 9.528748322238655e-05,
+      "canonicalFullQuadNativeVertices": [
+        [
+          -0.13606124452718238,
+          0.03276219504772966,
+          0
+        ],
+        [
+          0.14018571235025343,
+          0.03276219504772966,
+          0
+        ],
+        [
+          0.14018571235025343,
+          0.22360311600956972,
+          0
+        ],
+        [
+          -0.13606124452718238,
+          0.22360311600956972,
+          0
+        ]
+      ]
+    },
+    "uvs": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "depthWorld": 0.33,
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      }
+    ],
+    "inheritedSourcePropertiesProvenance": {
+      "representation": "2D ImageGen sprite, not modeled sushi",
+      "source_image": "//canonical-salmon.png",
+      "source_sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "world_width_cells": 0.34530870586032636,
+      "camera_ray_depth_bias_world_cells": 0.33,
+      "meal_variant": "salmon eating; no food while waiting",
+      "mapping_threshold": 128,
+      "mapping_convention": "pixel-boundary EDGE; bottommost occupied row support midpoint",
+      "current_full_quad_world_dimensions": [
+        0.34530870586032636,
+        0.23855114722603685
+      ],
+      "legacy_fixed_alpha_rectangle_provenance": "[0, 56, 1242, 1169]",
+      "legacy_nominal_world_width_provenance": 0.35
+    },
+    "currentInterpretation": "Full canonical UV0..1 uses selected map128 EDGE support convention. Inherited source fixed_alpha_rectangle/world_width_cells are unmodified provenance; current width/support comes from actual vertices and selectedMapping."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "asset": "column-broken",
+  "round": 4,
+  "pipeline": "native-3d",
+  "metadataOnly": true,
+  "reason": "Round03 native metadata correctly described a scale4 768x1280 Blender capture, but catalog promotion consumes scale2 384x640 source frames. Round04 points published metadata/rawFrames to already approved published2 bytes, halves pixel-valued calibration, retains exact world/projection matrices, logical frame/root and native records, and separates actual mesh height from existing catalog maximum. No model or image was rendered, modified or re-encoded for this round.",
+  "priorArtReference": {
+    "round": 3,
+    "packet": "candidates/round-03/packet.json",
+    "packetSHA256": "0b658d666e19de42fbdba60f06ec9087a91d1ceca44c9b765a43fefac5259ea5",
+    "review": "reviews/round-03.json",
+    "reviewSHA256": "15fd219045af721e647bd90525947282cd4887d4d9779e90c13a95a0f1b38778",
+    "scope": "Prior approval identifies unchanged art only. Round04 metadata adaptation awaits independent review."
+  },
+  "project": "source/round-03.blend",
+  "projectSHA256": "33653eace2509deaf25a9fbe3d67a0649038c529a84b04a0790f645aea57295f",
+  "sourceAudit": "candidates/round-03/source-audit.json",
+  "round04Audit": "candidates/round-04/audit.json",
+  "replay": "candidates/round-04/replay.json",
+  "checks": {
+    "allRound03FilesUnchanged": true,
+    "exactApprovedBlend": true,
+    "worldMatrixUnchanged": true,
+    "projectionMatrixUnchanged": true,
+    "logicalFrameUnchanged": true,
+    "logicalRootUnchanged": true,
+    "pixelCalibrationUniformHalf": true,
+    "publishedCameraScale2": true,
+    "publishedAssetScale2": true,
+    "nativeScale4Explicit": true,
+    "publishedRawFrames384x640": true,
+    "nativeRawFrames768x1280Separate": true,
+    "nativeHeightSeparateFromCatalogMaximum": true,
+    "clipsFacingsFootprintSocketsPortsUnchanged": true,
+    "rigExactUnchanged": true,
+    "allPublishedSamplingExact": true,
+    "heroesAndAtlasesExactUnchanged": true,
+    "allFourRootMatricesUnchanged": true,
+    "priorNativePortableReplayAllFourExactRGBA": true
+  },
+  "artHashes": {
+    "blend": "33653eace2509deaf25a9fbe3d67a0649038c529a84b04a0790f645aea57295f",
+    "native4": {
+      "N": "2c61e46941e0e09c2f2ef152c05569e247bc4b1b2d5c0ce0a8c972a67fc8fb14",
+      "E": "5283119d7dbd6be5997b87ddf22f87222bf4dd245640dc35f5c6dcf72b850733",
+      "S": "75f884ef32a5fe78bad642faf419923c8bd2da527cea31a5e98cf19176e39d89",
+      "W": "bf2b612744421476ed930b71474602a5ef1dc8c1176ce2e2454201f47b5d81fa"
+    },
+    "published2": {
+      "N": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+      "E": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+      "S": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+      "W": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2"
+    },
+    "atlases": {
+      "N": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+      "E": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+      "S": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+      "W": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2"
+    }
+  },
+  "nativeTechnicalEvidenceUnchanged": "candidates/round-03/validation.json",
+  "consumerEvidenceUnchanged": "candidates/round-03/consumer/evidence.json",
+  "newIndependentMetadataVerdict": "pending"
+}

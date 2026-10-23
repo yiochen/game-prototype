@@ -1,0 +1,304 @@
+{
+  "round": 8,
+  "asset": "belt-straight-n",
+  "verdict": "revise",
+  "candidatePacketSHA256": "5c80f784b32c0c2d24863543ee4a137192c0ef50e73f2f14869793b00c7a160b",
+  "summary": "Native art materially improves toward the warm soft cartoon target and preserves the measured native contract. Approval is blocked by real consumer RGB/opacity seams after independent sprite filtering. Raw assembly equality does not establish consumer continuity, and no runtime correction is implemented.",
+  "inspectedFiles": [
+    "hero-N.png",
+    "hero-E.png",
+    "hero-S.png",
+    "hero-W.png",
+    "previews/all24-N.png",
+    "previews/running-N.png",
+    "previews/native-vs-assembled-N.png",
+    "previews/game-filter-individual-first-N.png",
+    "previews/all24-E.png",
+    "previews/running-E.png",
+    "previews/native-vs-assembled-E.png",
+    "previews/game-filter-individual-first-E.png",
+    "previews/all24-S.png",
+    "previews/running-S.png",
+    "previews/native-vs-assembled-S.png",
+    "previews/game-filter-individual-first-S.png",
+    "previews/all24-W.png",
+    "previews/running-W.png",
+    "previews/native-vs-assembled-W.png",
+    "previews/game-filter-individual-first-W.png",
+    "previews/four-facing-1x.png",
+    "previews/four-facing-2x.png",
+    "previews/review.html",
+    "filtered-game-scale/critical-mip1-N-12.png",
+    "filtered-game-scale/critical-mip1-E-12.png",
+    "filtered-game-scale/critical-mip1-joins-enlarged-N-12.png",
+    "assemblies/assembled-S-00.png",
+    "coordinator-consumption/imported-linear-mips-128.png",
+    "coordinator-consumption/composite-imported-linear-mips-128.png",
+    "coordinator-consumption/nearest-128.png",
+    "coordinator-consumption/imported-linear-mips-32.png",
+    "coordinator-consumption/composite-imported-linear-mips-32.png",
+    "coordinator-consumption/nearest-32.png"
+  ],
+  "inspectionMethods": {
+    "direct": "All four heroes; logical and enlarged four-facing sheets; all24 contact sheets; declared critical mip1 images; repeated assembled S0; all six declared Godot filter images.",
+    "animation": "Opened previews/review.html in Chrome and inspected progressing single/native3/independent RGBA3/individually filtered motion in all four facing rows. Independently decoded all12 declared APNGs, verified all576 displayed frames against the native-frame or native/assembly pair pixels, and inspected all24-frame contact sheets extracted from the eight paired APNGs. Running APNG pixels equal the independently verified all24 single sheets.",
+    "registration": "Inspected192x352 logical and384x704 native views and enlarged seam crops. Light/gray/dark raw and mip1 comparisons plus RGB/alpha local crops were inspected. Supplemental Godot imports were also composed over a light background at actual128 size and32 size enlarged4x for seam visibility.",
+    "scope": "Independent judge read fixed prompt, unchanged frozen criteria, initial critique and actual evidence. No editor self-ratings or design rationale were used; no candidate/source/brief file was changed."
+  },
+  "scores": {
+    "shapeVolume": 7,
+    "color": 8,
+    "lightingHighlights": 7,
+    "materialDetail": 7,
+    "artifactFreeReadability": 5
+  },
+  "scoreNotes": {
+    "shapeVolume": "Soft slat shoulder shading and rail edge response give more volume than the source; shaped warm supports and shoes improve construction. Exact open rectangular profiles appropriately limit endpoint rounding.",
+    "color": "Coral rails, blue-charcoal slats and honey wood form a clear palette hierarchy. The support midtones are substantially more readable than the original near-black legs.",
+    "lightingHighlights": "Broad restrained gradients are coherent across all four views, without a glaring directional hot spot or native black dead region.",
+    "materialDetail": "Wood variation, shaped feet and small fasteners add readable native construction detail. The result is deliberately simpler and less glossy than the imagegen target.",
+    "artifactFreeReadability": "Individual/native raw readability is good, but the intended consumer has visible joining-rail breaks and significant alpha/color discrepancy. This score includes that blocking actual-use defect; it is not an aesthetic approval threshold."
+  },
+  "observations": [
+    {
+      "id": "native-design-improvement",
+      "evidence": [
+        "previews/four-facing-1x.png",
+        "previews/four-facing-2x.png",
+        "hero-N.png",
+        "hero-E.png",
+        "hero-S.png",
+        "hero-W.png"
+      ],
+      "observation": "The source dark-bar supports have become substantial honey-brown legs with shaped lower shoes, restrained wood variation and small fasteners. Deck stripes now read as softly crowned slats. Rail edges have a continuous warm highlight and front-facing rail depth remains readable in E/W. There is no material aesthetic blocker in the inspected native views."
+    },
+    {
+      "id": "motion-and-native-assembly",
+      "evidence": [
+        "previews/all24-N.png",
+        "previews/all24-E.png",
+        "previews/all24-S.png",
+        "previews/all24-W.png",
+        "previews/review.html"
+      ],
+      "observation": "All24 source times in all four native facings retain coherent material and geometry. Native3 and unmodified independently assembled RGBA3 run pixels have exactly equal alpha throughout100 samples including closure; local joins differ by at most1/255 premultiplied RGB. Phase travels coherently through both joins. The first and closure single-frame pixels match in all facings, with24 distinct pixel frames per facing."
+    },
+    {
+      "id": "consumer-failure",
+      "evidence": [
+        "filtered-game-scale/critical-mip1-N-12.png",
+        "filtered-game-scale/critical-mip1-joins-enlarged-N-12.png",
+        "coordinator-consumption/linear-mips-128.png",
+        "coordinator-consumption/composite-linear-mips-128.png"
+      ],
+      "observation": "Separately filtering source sprites before RGBA assembly creates seam-local rail color/opacity bands. N/S ideal mip1 has64.5/255 maximum alpha error and43.7588/255 premultiplied RGB error at joins; actual Godot generated-mip128 images show horizontal rail breaks at each module boundary. This is absent from the corresponding precomposed-then-filtered run."
+    },
+    {
+      "id": "exact-game-import-confirmation",
+      "evidence": [
+        "../../../../diagnostics/belt-filtering-game-import/imported-linear-mips-128.png",
+        "../../../../diagnostics/belt-filtering-game-import/imported-linear-mips-32.png"
+      ],
+      "observation": "Supplemental actual Godot tests using the game exact mipmaps/generate=true importer setting confirm discrepancy at both128-cell and32-cell sizes. Independently recomputed direct-versus-precomposed maxRGBA is[50,22,16,64] over260 differing pixels at128 and[38,20,24,60] over72 differing pixels at32. The no-mip default-import32 equality inside the packet is not evidence of a clean game consumer."
+    },
+    {
+      "id": "limits-of-fixes",
+      "evidence": [
+        "coordinator-consumption/nearest-128.png",
+        "coordinator-consumption/measurements.json"
+      ],
+      "observation": "Nearest has different sampling results from its precomposed reference and has not been established as a drop-in solution. Precomposed filtering is a useful comparison image; a production compositor or equivalent correction has not been implemented. Neither can be assumed for approval."
+    }
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "id": "consumer-rgb-alpha-join-continuity",
+      "severity": "blocking",
+      "criteria": [
+        "native-and-rgba-continuity",
+        "rgb-alpha-integrity",
+        "all-facing-readability"
+      ],
+      "location": "Both joining boundaries of the N/S longitudinal rails; actual Godot S/frame0 generated-mip/imported-mip runs at cell128 and cell32 demonstrate the consumer failure. In the packet logical run comparison, join ROIs are[160,248,128,21] and[160,376,128,21].",
+      "effect": "The connected conveyor visibly resolves into separate modules after independent texture filtering, with rail breaks and opacity/color bands. This violates the unchanged requirement for continuity in both RGB and alpha at intended use size despite the clean raw source-scale2 assembly.",
+      "desiredVisibleOutcome": "The concrete accepted consumer must render a continuous rail/deck run at actual intended scales and filtering, with no seam-specific RGB or alpha band, notch, or double edge. Preserve the source profiles, camera, roots, ports and timing. Supply reviewed production-use evidence for all four facings, all24 times and closure after any correction; a proposed future compositor or unverified nearest setting is insufficient.",
+      "evidence": [
+        "filtered-game-scale/critical-mip1-N-12.png",
+        "coordinator-consumption/linear-mips-128.png",
+        "coordinator-consumption/composite-linear-mips-128.png"
+      ],
+      "externalEvidence": "Separate exact-game-import diagnostic listed in technicalEvidence.externalEvidence."
+    }
+  ],
+  "remainingDifferences": [
+    "Rails retain straight open terminal profiles rather than the target rounded isolated end caps. This is necessary for the fixed modular connection contract.",
+    "Native rail/slat highlights are quieter and more regular than the target glossy bevels. They still give a meaningful warm soft cartoon improvement at logical size.",
+    "Wood grain and decorative joinery are simpler than the target. Readability and useful native support construction are adequate; copying target ornament counts or microtexture is unnecessary."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": {
+      "sha256": "5c80f784b32c0c2d24863543ee4a137192c0ef50e73f2f14869793b00c7a160b",
+      "checkedEntries": 1279,
+      "hashFailures": 0,
+      "groups": [
+        "files",
+        "candidateRenders",
+        "previews"
+      ],
+      "criteria": "Packet qualityCriteria and brief frozen criteria match the original judge proposal except status changed to frozen-by-coordinator."
+    },
+    "actualNativeInspection": {
+      "method": "Opened exact candidate round-08.blend and original b1765262bfa897ad source in separate in-memory Blender states without saving. Enabled dependency evaluation, measured publisher S/root0 geometry and compared endpoints directly. Bound the actual shader action and evaluated25 samples in each actual root rotation.",
+      "candidateProjectSHA256": "d210743fdff9c17e393d4d2ca59e61c9ea1d5819c2952c10ea40f29b21ff0328",
+      "endpointComparisons": 6,
+      "maximumSourceEndpointCornerDistance": 0.0,
+      "phaseSampleCount": 100,
+      "maximumPhaseError": 1.5894571969710114e-07,
+      "rootRotationsDegrees": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "worldBounds": [
+        [
+          -0.48000001907348633,
+          -0.5000000596046448,
+          0.0
+        ],
+        [
+          0.48000001907348633,
+          0.5000000596046448,
+          0.6950000524520874
+        ]
+      ],
+      "deckSocket": [
+        0,
+        0,
+        0.64
+      ],
+      "camera": "384x704, pixel aspect[1.2206555604934692,1], actual world/projection matrices match source registered capture within float precision (reported max5.96e-8).",
+      "lighting": "Actual85W centered area at[0,0,4.5], size5; four equal30W cardinal area fills at XY radius3,z2.5,size4.",
+      "externalImages": [],
+      "linkedLibraries": [],
+      "savedEvidence": "round-08-evidence/independent-native-checks.json"
+    },
+    "independentPixelChecks": {
+      "nativeFrameCount": 96,
+      "nativeFrameSize": [
+        384,
+        704
+      ],
+      "atlases": "All96 crops of four2304x2816 6x4 atlases equal their native384x704 source frames byte for byte.",
+      "verifiedContactSheetCells": 96,
+      "verifiedAPNGFrames": 576,
+      "allClosuresPixelEqual": true,
+      "uniquePixelFramesPerFacing": 24,
+      "nativeVsRebuiltAssemblySamples": 100,
+      "rawAlphaMax": 0.0,
+      "rawPremultipliedRGBMax": 19.0,
+      "rawJoinAlphaMax": 0.0,
+      "rawJoinPremultipliedRGBMax": 1.0,
+      "rawDifferenceLimit": "The worst full-image RGB difference lies outside the joining ROIs: S0 has12 pixels over8/255 around y1021, not a continuous rail seam. No material visible raw defect was found there.",
+      "errors": [],
+      "savedEvidence": "round-08-evidence/independent-pixels-checks.json"
+    },
+    "packetAuxiliaryFilesInspected": [
+      "known-issues.json",
+      "validation.json",
+      "technical-checks.json",
+      "camera.json",
+      "assetRecord.json",
+      "rig.json",
+      "raw-frame-records.json",
+      "continuity-metrics.json",
+      "mip1-continuity-metrics.json",
+      "coordinator-consumption/measurements.json",
+      "coordinator-consumption/inputs/provenance.json",
+      "coordinator-consumption/bench.gd",
+      "coordinator-consumption/project.godot",
+      "coordinator-consumption/inputs/sprite.png.import",
+      "coordinator-consumption/linear-mips-128.png",
+      "coordinator-consumption/composite-linear-mips-128.png",
+      "coordinator-consumption/linear-mips-32.png",
+      "coordinator-consumption/composite-linear-mips-32.png",
+      "coordinator-consumption/godot-comparison.png",
+      "comparisons/join-RGB-alpha-enlarged-N-12.png",
+      "comparisons/join-RGB-alpha-enlarged-S-23.png",
+      "comparisons/join-RGB-alpha-enlarged-E-12.png",
+      "comparisons/join-RGB-alpha-enlarged-W-23.png",
+      "comparisons/backgrounds-N-12.png"
+    ],
+    "externalEvidence": {
+      "packetBound": false,
+      "purpose": "Supplemental actual consumer diagnostic, inspected separately from packet-bound render/preview list. It confirms rather than replaces the packet known filtering failure.",
+      "directory": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import",
+      "files": [
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/measurements.json",
+          "sha256": "c64d9a47b33d826d5740ce4d408d61e8d1aa90d719c7395ca8240fecac7e8886"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/project.godot",
+          "sha256": "3cdbf76182f815429b702281c9c91e2000d71f9b25fe43cf419de41ea8d165e0"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/inputs/provenance.json",
+          "sha256": "eb8b47c8db0a0d7a8e08dce138cfa3a7a4d18f59801713371c061163a6c74c24"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/inputs/sprite.png",
+          "sha256": "fb6f16f886642589f01d9440fd5b4a9a14c67cd01736c98d0de3a3df2b6f4c81"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/inputs/sprite.png.import",
+          "sha256": "b080bc73b07cf1009886793612195bfead876fa9d51340f4f9057e23f43c2eb6"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/imported-linear-mips-128.png",
+          "sha256": "b26af14302c49ea8ebda988db552e985f73ba179b5ffb6b27e53d84d94f2005e"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/composite-imported-linear-mips-128.png",
+          "sha256": "9fd481efdd67960cd7714de623a5c757e2b24e150a66fce685cd7e30c8da065e"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/imported-linear-mips-32.png",
+          "sha256": "75a6c6fb68f24e6e6be8c786bfdf776f5c5ca4668389b46032f6f310441bfda8"
+        },
+        {
+          "path": "prototypes/sushi-loop/assets/refinement/diagnostics/belt-filtering-game-import/composite-imported-linear-mips-32.png",
+          "sha256": "2c86ae3d859a12b9e93ada76d7bd389e288cc49e7fa0f258fb3e972c3b665a89"
+        }
+      ],
+      "sourceInputSHA256": "fb6f16f886642589f01d9440fd5b4a9a14c67cd01736c98d0de3a3df2b6f4c81",
+      "independentlyRecomputedMetrics": {
+        "128": {
+          "maxRGBA": [
+            50,
+            22,
+            16,
+            64
+          ],
+          "differentPixels": 260
+        },
+        "32": {
+          "maxRGBA": [
+            38,
+            20,
+            24,
+            60
+          ],
+          "differentPixels": 72
+        }
+      },
+      "savedJudgeComparison": "round-08-evidence/exact-game-import-comparison.png"
+    },
+    "limits": [
+      "Supplemental actual Godot test samples S/frame0; it establishes a real failure but does not establish all-facing/all-time consumer success.",
+      "Packet imported32 local no-mip equality is not game importer parity; game project.godot explicitly generates mipmaps. Explicit generated-mip tests and the separate exact-import experiment are the relevant current-use evidence.",
+      "No production consumer correction is implemented or approved. No candidate re-render, model edit, brief change, integration or deployment was performed by this judge."
+    ]
+  }
+}

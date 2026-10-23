@@ -1,0 +1,161 @@
+{
+  "asset": "chef-noor",
+  "version": "v2-held-food-canonical-source",
+  "status": "proposed-awaiting-coordinator-freeze",
+  "scope": "Narrow food dependency closure; prior approved body/knife/model/rig/actions/material/light/camera and historical evidence are immutable.",
+  "semanticMeasurement": {
+    "predicate": "alpha>=128/255",
+    "sensitivityPredicates": [
+      "alpha>=64/255",
+      "alpha>=192/255"
+    ],
+    "coordinateConvention": "Top-origin texture pixels; bounding rectangle right/bottom are exclusive; bottom point X is midpoint of support in last occupied row and Y is its exclusive bottom edge. Thresholds measure only, never alterRGBA/UV crop.",
+    "sourceCrop": [
+      0,
+      85,
+      1242,
+      1198
+    ],
+    "sourceSupport": [
+      16,
+      237,
+      1238,
+      1051
+    ],
+    "sourceWidthPixels": 1222,
+    "sourceBottomPoint": [
+      633.5,
+      1051
+    ],
+    "canonicalFullSize": [
+      731,
+      505
+    ],
+    "canonicalFullUV": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "canonicalSupport": [
+      1,
+      1,
+      730,
+      504
+    ],
+    "canonicalWidthPixels": 729,
+    "canonicalBottomPoint": [
+      367.5,
+      504
+    ],
+    "sourceOccupiedWidthWorld": 0.344363940528451,
+    "sourceOccupiedWidthLogicalPixels": 44.078584387641726
+  },
+  "rankedVisibleCriteria": [
+    {
+      "rank": 1,
+      "id": "exact-canonical-art-and-aspect",
+      "outcome": "The complete approved canonical731x505 salmon/rice/plate is recognizable and clean at native/use/phone sizes. Exact4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4RGBA is packed unchanged, fullUV0..1 with canonical aspect; no additional crop, distortion, recolor, gamma/alpha grade, painting, shadow or halo."
+    },
+    {
+      "rank": 2,
+      "id": "same-visible-plate-size-and-support",
+      "outcome": "One global map keeps source alpha128 occupied plate width44.0785844logicalpx and the source semantic plate-bottom point attached to the original evaluated palm trajectory in every live hold/load frame/facing. Compare projected unoccluded texture support/anchor to source; do not demand full width in N where body occlusion is inherited. Do not preserve padded old quad corners or misread nominal.35 as exact visible plate width.",
+      "numericCheck": "Constant UV/vertex map within1e-5world of proposed values or an equivalent documented global map that preserves the same semantic width/bottom point within0.1logicalpx. No per-frame/per-view fit.64/192 sensitivity for the proposed fixed map has width deltas\u00b10.0605logicalpx and bottom-point deltas under0.1logicalpx."
+    },
+    {
+      "rank": 3,
+      "id": "supported-stable-readable-food",
+      "outcome": "All96 visible hold/load native frames show stable supported food with no floating/sliding plate, wrong-facing flip, new alpha rectangle/fringe, body/hand penetration artifact or material worsening of contact/occlusion. Preserve source-consistent N occlusion and out-and-back load ending held. Canonical aspect adds approximately1.052logicalpx visible height at fixed occupied width; judge its real contact/face occlusion at phone and serving scale without suppressing it by crop, fit or a foreign depth law."
+    }
+  ],
+  "feasibleSourceSpecificGlobalMapping": {
+    "uvLoops": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "worldQuadSize": [
+      0.34530869756693783,
+      0.23855115221792558
+    ],
+    "localQuadSize": [
+      0.27624695805355026,
+      0.19084092177434048
+    ],
+    "localQuadCenterX": 0.002062233920315452,
+    "localQuadBottomY": 0.03276219588804786,
+    "localVertices": [
+      [
+        -0.13606124510645967,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.22360311766238833,
+        0
+      ],
+      [
+        -0.13606124510645967,
+        0.22360311766238833,
+        0
+      ]
+    ],
+    "planeObjectTransform": "Unchanged source object transform, action assignment and drivers; constant mesh-local vertex mapping only. Do not move keyed foodRoot or alter ray/yaw drivers.",
+    "preserves": "Exact robust visible occupied width plus plate-bottom support midpoint in projected camera basis; canonical fullRGBA/aspect preserved.",
+    "expectedCanonicalOccupiedHeightLogicalPixels": 30.41361858296816,
+    "sourceOccupiedHeightLogicalPixels": 29.361676309587605,
+    "expectedCanonicalSupportCenterHorizontalShiftLogicalPixels": 0.11353165432709983
+  },
+  "lockedNativeContract": {
+    "approvedBodySHA256": "8225bd9a7269434a678691699ee7a0827469f39348ab37ce0df6afc23e8d113c",
+    "preserve": "Exact approved physical body/knife mesh data, modifiers/weights/rest, transforms/evaluated poses, rig/actions, body/knife materials, all lights/world/render treatment, camera/root/frame/scale/footprint, original clip timings/visibility/loop policy and contact/serving behavior.",
+    "foodParentAndActions": "Preserve keyed foodRoot transforms/action cohorts exactly. Apply only one fixed mesh-local quad mapping and fullUV image replacement, with portable packed/resource closure.",
+    "ownYawAndDepth": {
+      "rootScale": 1.25,
+      "planeRotationX": 0.9599310755729675,
+      "planeZLocal": 0.27531668543815613,
+      "yawExpression": "-facing",
+      "locationXExpression": "-sin(facing)*0.39319298125871605",
+      "locationYExpression": "-cos(facing)*0.39319298125871605",
+      "worldRayBiasCells": 0.6,
+      "actualDriverRoot": "chef_noor__ground_root.001",
+      "worldRayBiasVectorApprox": [
+        0,
+        -0.49149122657339506,
+        0.3441458618106276
+      ]
+    },
+    "shader": "Preserve Noor actual Linear/CLIP texture sampling, STRAIGHTalpha/sRGB source interpretation, Strength1 transparent/emission graph and all ray visibility. No shader/light/depth correction to force bodyRGB equality.",
+    "hiddenStates": "Idle/work retain food hidden. Hidden evaluated matrices may be identity/stale; test authored channels and actual visibility rather than imposing an active held-plane transform while excluded.",
+    "runtimeVariants": [],
+    "rgbaBodyValidation": "Idle/work unchanged-food-hidden renders should reproduce approved source within declared native reproducibility tolerance. Hold/load food emission can change bodyRGB; independently compare immutable body/knife/material/light/camera/rig state and use a same-input render control if an apparent body change needs isolation. Never infer body geometry/material changes from changed food radiance alone."
+  },
+  "requiredFutureCandidateEvidence": [
+    "Immutable packet bound to frozen brief-v2, exact candidate.blend, canonicalRGBA SHA, portable dependency closure and exact raw frames/atlases/previews. Retain all previous round01 evidence unchanged.",
+    "Full192 native frames: idle/work/hold/load\u00d712\u00d7N/E/S/W, original384x640 frame/logical192x320/root[96,248], sourceScale2,35degree camera and publisherS0/E90/N180/W-90.16 original2304x1280 six-by-two atlases with exact frame mapping and16 actual12fps clips preserving loop/end policy.",
+    "All96 live hold/load contact/occlusion frames and source comparisons on light/gray/dark, semantic width/bottom support numerical checks, unchanged own ray/yaw drivers with actual target pointers, explicit hidden-state visibility/action audit, and actual phone-scale plus serving-belt contexts at the original registration/pitch.",
+    "Exact structural invariance evidence for protected approved body/knife/rig/actions/material/light/camera plus reopened native source/render evidence; distinguish canonical food emission changes from bodyRGB changes. If needed bind source-texture/original-plane same-input control renders for a fair body comparison.",
+    "No new Noor runtime food variants. Canonical dependency remains honestly separate2D, never claimed modeled3D."
+  ],
+  "judgmentRule": "No verdict at preparation stage. After freeze, require exact canonical dependency, semantic size/support/occlusion readability, immutable native body contract and complete bound evidence. Missing evidence yields needs_evidence; visual/contact defects yield revise."
+}

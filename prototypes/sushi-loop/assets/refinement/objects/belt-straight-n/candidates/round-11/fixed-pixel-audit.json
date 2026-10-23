@@ -1,0 +1,112 @@
+{
+  "renderer": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime-round11/restaurant_view_native.gd",
+  "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd",
+  "drawingCalls": [
+    {
+      "line": 105,
+      "function": "caption",
+      "expression": "draw_string(heading if use_heading else font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, maxi(1, pixels), color)"
+    },
+    {
+      "line": 113,
+      "function": "_draw",
+      "expression": "draw_rect(Rect2(Vector2.ZERO, size), NIGHT)"
+    },
+    {
+      "line": 125,
+      "function": "_draw",
+      "expression": "draw_rect(Rect2(Vector2.ZERO, size), NIGHT)"
+    },
+    {
+      "line": 138,
+      "function": "_room",
+      "expression": "draw_rect(portrait, Color(\"e9cda3\"))"
+    },
+    {
+      "line": 235,
+      "function": "_editor_ground",
+      "expression": "draw_rect(rect, Color(Color(\"bfd4af\"), 0.48 * editor_selection_alpha))"
+    },
+    {
+      "line": 245,
+      "function": "_editor_ground",
+      "expression": "draw_polyline(PackedVector2Array([point + across, point, point + down]), Color(Color(\"233d58\"), editor_selection_alpha), thickness, true)"
+    },
+    {
+      "line": 252,
+      "function": "_editor_ghost",
+      "expression": "draw_rect(footprint, Color(color, 0.32))"
+    },
+    {
+      "line": 253,
+      "function": "_editor_ghost",
+      "expression": "draw_rect(footprint.grow(-1.5 * _native_screen_pixel_scale), color, false, 3.0 * _native_screen_pixel_scale, true)"
+    },
+    {
+      "line": 379,
+      "function": "_chef_at",
+      "expression": "draw_circle(center, pitch * 0.10, PAPER)"
+    },
+    {
+      "line": 380,
+      "function": "_chef_at",
+      "expression": "draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4 * _native_screen_pixel_scale, true)"
+    },
+    {
+      "line": 381,
+      "function": "_chef_at",
+      "expression": "draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4 * _native_screen_pixel_scale, true)"
+    },
+    {
+      "line": 464,
+      "function": "_feedback_at",
+      "expression": "draw_circle(center, radius + stroke, Color(\"fff5dc\"))"
+    },
+    {
+      "line": 465,
+      "function": "_feedback_at",
+      "expression": "draw_arc(center, radius, 0, TAU, 36, Color(\"c5ccbc\"), stroke, true)"
+    },
+    {
+      "line": 468,
+      "function": "_feedback_at",
+      "expression": "draw_arc(center, radius, -PI * 0.5, -PI * 0.5 + TAU * progress, 36, Color(\"3c8d7b\") if progress > 0.25 else Color(\"bf8147\"), stroke, true)"
+    },
+    {
+      "line": 489,
+      "function": "_gallery",
+      "expression": "draw_style_box(_paper_style(), panel)"
+    },
+    {
+      "line": 534,
+      "function": "_paper_style",
+      "expression": "style.set_border_width_all(4)"
+    },
+    {
+      "line": 535,
+      "function": "_paper_style",
+      "expression": "style.set_corner_radius_all(18)"
+    },
+    {
+      "line": 537,
+      "function": "_paper_style",
+      "expression": "style.shadow_size = 10"
+    }
+  ],
+  "worldStrokes": {
+    "_chef_at": "Fixed ring/hand1.4 source-Control pixels now multiplied by _native_screen_pixel_scale before native rendering. Pitch-scaled circle radius/hand length/position unchanged.",
+    "_feedback_at": "Fixed1.4 stroke minimum now multiplied by _native_screen_pixel_scale before max with pitch*.032. Circle backing radius+stroke therefore also retains original minimum dimensions. Progress thresholds/colors/timing unchanged.",
+    "_editor_ground": "Previously corrected2px inset/minimum stroke already use _native_screen_pixel_scale. Arm and relative stroke width use cell.",
+    "_editor_ghost": "Previously corrected1.5px inset/3px stroke already use _native_screen_pixel_scale."
+  },
+  "directOnly": {
+    "caption": "All caption calls are in _gallery; native targets disabled for gallery. Font pixel arguments and default30 stay unchanged.",
+    "_paper_style": "Only called by _gallery; border4,corner18,shadow10 stay direct and unchanged."
+  },
+  "logicalOffsets": "Bubble/clock/board positions and sizes use pitch or pitch/art.cell_size. Grid bounds/fill rectangles use cell. They are native-scaled geometry, not fixed screen strokes.",
+  "correctionScope": "Exactly3 expression edits versus sealed round10. No other drawing stroke exists in the inspected renderer. Default scale1 preserves direct/gallery behavior. Four helper/shader files remain byte-identical; no art/source/camera/action/UV/frame edits.",
+  "changedRuntimeFiles": [
+    "restaurant_view_native.gd"
+  ],
+  "dimensionlessConstants": "Arc sample counts24/36, angle constants and progress threshold/color selection are not pixel sizes and remain unchanged."
+}

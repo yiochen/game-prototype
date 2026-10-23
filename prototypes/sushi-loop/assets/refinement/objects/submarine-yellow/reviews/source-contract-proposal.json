@@ -1,0 +1,1530 @@
+{
+  "asset": "submarine-yellow",
+  "stage": "source contract proposal pending rootfreeze; preparation complete; editor construction and candidate review pending",
+  "createdAt": "2026-10-22T09:06:47.345456+00:00",
+  "sources": {
+    "originalAndBackupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "fixedTargetSHA256": "398f8b181f6f445869504b32af2c2cb11517d6fa9ef92f0fbf0658044951f6d3",
+    "nativeInventory": "preparation-v1/native-inventory-v2.json",
+    "validPhaseAudit": "preparation-v1/native-576-phases-v2.json",
+    "closuresAndInbetweens": "preparation-v1/native-closures-and-inbetweens-v2.json",
+    "invalidAttempt": "preparation-v1/invalid-evaluation-v0-note.json",
+    "immutability": "All mutable used inputs copied to own reviews resources with exactSHA256. No source/target/brief/production/Git/liveBlender edits."
+  },
+  "hardFunctional": {
+    "capture": {
+      "logicalFrame": [
+        320,
+        384
+      ],
+      "nativeFrame": [
+        640,
+        768
+      ],
+      "logicalRoot": [
+        160,
+        288
+      ],
+      "nativeRoot": [
+        320,
+        576
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "pixelAspect": [
+        1,
+        1
+      ],
+      "cameraWorldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.906307817,
+          -0.42261821,
+          -4.226182461
+        ],
+        [
+          0.0,
+          0.42261821,
+          0.906307817,
+          9.063077927
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "orthoScale": 3,
+      "shiftY": 0.25,
+      "elevationDegrees": 65.00000399518224,
+      "nativeUnitBasis": {
+        "X": [
+          256,
+          0
+        ],
+        "Y": [
+          0,
+          -232.014793396
+        ],
+        "Z": [
+          0,
+          -108.190246582
+        ]
+      },
+      "rotationsZ": {
+        "S": 0,
+        "E": 1.5707963267948966,
+        "N": 3.141592653589793,
+        "W": -1.5707963267948966
+      },
+      "fitting": false
+    },
+    "footprint": {
+      "N": [
+        1,
+        2
+      ],
+      "E": [
+        2,
+        1
+      ],
+      "S": [
+        1,
+        2
+      ],
+      "W": [
+        2,
+        1
+      ]
+    },
+    "logicalRootCells": {
+      "N": [
+        0.5,
+        1
+      ],
+      "E": [
+        1,
+        0.5
+      ],
+      "S": [
+        0.5,
+        1
+      ],
+      "W": [
+        1,
+        0.5
+      ]
+    },
+    "clips": [
+      {
+        "id": "idle",
+        "sourceClipId": "idle",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "travel",
+        "sourceClipId": "travel",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "impact",
+        "sourceClipId": "impact",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "protection",
+        "sourceClipId": "protection",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "dock-charging",
+        "sourceClipId": "dock-charging",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "dock-ready",
+        "sourceClipId": "dock-ready",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-idle",
+        "sourceClipId": "upgraded-idle",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-travel",
+        "sourceClipId": "upgraded-travel",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-impact",
+        "sourceClipId": "upgraded-impact",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-protection",
+        "sourceClipId": "upgraded-protection",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-dock-charging",
+        "sourceClipId": "upgraded-dock-charging",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "upgraded-dock-ready",
+        "sourceClipId": "upgraded-dock-ready",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "runtimeAtlas": {
+      "count": 48,
+      "size": [
+        3840,
+        1536
+      ],
+      "columns": 6,
+      "rows": 2,
+      "cell": [
+        640,
+        768
+      ],
+      "gutter": 0
+    },
+    "attachmentBases": {
+      "sub_harpoon": [
+        0.24,
+        -0.4,
+        0.37
+      ],
+      "sub_collector": [
+        0.0,
+        -0.53,
+        0.21
+      ]
+    },
+    "dockRootSourceFacingS": [
+      -0.7,
+      -0.42,
+      0.23
+    ],
+    "role": "actor; docked hover selected by root after ambiguity reconciliation; preserve wholebody/skid bob and positive source-like clearance. No new mechanics."
+  },
+  "sourceDescriptive": {
+    "collection": "S33_PROP_submarine_base.001",
+    "objects": 56,
+    "meshes": 53,
+    "rootStructure": "Main baseline root contains baseline23 meshes; upgraded child root29 meshes; shared charge-indicator childroot with1 mesh. Visibility switches baseline/upgraded; charge lamp separately visible in protection and dock states. No armature.",
+    "actions": {
+      "count": 636,
+      "perClipCohort": 53,
+      "nativeKeys": "Frames1\u201312 unique; loop closure13 for10 loopclips; impact2 variants one-shot12. Every cohort action resolved against native b176 bytes with exactslotidentifier.",
+      "frameAudit": 576,
+      "loopClosures": 40,
+      "meaningfulHalfFrames": 240,
+      "closureBoundsMaximumError": 0.0
+    },
+    "visibleCountsByClip": [
+      {
+        "clip": "idle",
+        "visibleCounts": [
+          23
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.519999981,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.005499959
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "travel",
+        "visibleCounts": [
+          23
+        ],
+        "bounds": [
+          [
+            -0.551858723,
+            -0.519999981,
+            0.036339689
+          ],
+          [
+            0.551858723,
+            0.662499964,
+            0.996160269
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.276858777,
+            -0.300000012,
+            0.036339689
+          ],
+          [
+            0.276858777,
+            0.319999993,
+            0.123660304
+          ]
+        ]
+      },
+      {
+        "clip": "impact",
+        "visibleCounts": [
+          23
+        ],
+        "bounds": [
+          [
+            -0.56976974,
+            -0.519999981,
+            0.044999946
+          ],
+          [
+            0.580492675,
+            0.662499964,
+            0.987500012
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.294769824,
+            -0.300000012,
+            0.044999946
+          ],
+          [
+            0.305492759,
+            0.319999993,
+            0.115000047
+          ]
+        ]
+      },
+      {
+        "clip": "protection",
+        "visibleCounts": [
+          24
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.519999981,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.066249967
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "dock-charging",
+        "visibleCounts": [
+          24
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.519999981,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.054999948
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "dock-ready",
+        "visibleCounts": [
+          24
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.519999981,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.054999948
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-idle",
+        "visibleCounts": [
+          29
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.612499952,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.005499959
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-travel",
+        "visibleCounts": [
+          29
+        ],
+        "bounds": [
+          [
+            -0.551858723,
+            -0.612499952,
+            0.036339689
+          ],
+          [
+            0.551858723,
+            0.662499964,
+            0.996160269
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.276858777,
+            -0.300000012,
+            0.036339689
+          ],
+          [
+            0.276858777,
+            0.319999993,
+            0.123660304
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-impact",
+        "visibleCounts": [
+          29
+        ],
+        "bounds": [
+          [
+            -0.56976974,
+            -0.612499952,
+            0.044999946
+          ],
+          [
+            0.580492675,
+            0.662499964,
+            0.987500012
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.294769824,
+            -0.300000012,
+            0.044999946
+          ],
+          [
+            0.305492759,
+            0.319999993,
+            0.115000047
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-protection",
+        "visibleCounts": [
+          30
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.612499952,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.066249967
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-dock-charging",
+        "visibleCounts": [
+          30
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.612499952,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.054999948
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      },
+      {
+        "clip": "upgraded-dock-ready",
+        "visibleCounts": [
+          30
+        ],
+        "bounds": [
+          [
+            -0.539999962,
+            -0.612499952,
+            0.026999947
+          ],
+          [
+            0.539999962,
+            0.662499964,
+            1.054999948
+          ]
+        ],
+        "supportSkidBounds": [
+          [
+            -0.265000045,
+            -0.300000012,
+            0.026999947
+          ],
+          [
+            0.265000045,
+            0.319999993,
+            0.133000046
+          ]
+        ]
+      }
+    ],
+    "motion": {
+      "idleAndDockBody": "Z+.018sin(2\u03c0t), propeller1 revolution per cycle; lamp fixed atZ1.01, not bodybob.",
+      "travel": "Z+.01sin(4\u03c0t),X+.012sin(2\u03c0t+.37),propeller2 revolutions/cycle.",
+      "impact": "damped lateralX+.045sin(6\u03c0t)(1\u2212t), no new knockback mechanic.",
+      "protection": "idlebody motion plus shared cyan lamp scale factor1+.25sin(2\u03c0t).",
+      "dockCharging": "idlebody plus shared cyan lamp scale factor.8+.2sin(2\u03c0t).",
+      "dockReady": "idlebody plus shared steady cyan lamp. Semantic ready-headlight intent is documented but baked source uses charge/periscope bead; do not invent new timing or unsupported binding.",
+      "upgraded": "Same main state timing/bodymotion, visibility selects upgraded hull/equipment. Integrated extra equipment rides body and has no independent active/main state mapping."
+    },
+    "sourceLightRecipe": [
+      {
+        "name": "S33 Faceted overhead.001",
+        "type": "AREA",
+        "energy": 140.0,
+        "location": [
+          0.0,
+          0.0,
+          4.5
+        ],
+        "size": 3.5
+      },
+      {
+        "name": "S33 Faceted fill-0.001",
+        "type": "AREA",
+        "energy": 100.0,
+        "location": [
+          3.0,
+          0.0,
+          1.799999952
+        ],
+        "size": 4.0
+      },
+      {
+        "name": "S33 Faceted fill-1.001",
+        "type": "AREA",
+        "energy": 100.0,
+        "location": [
+          0.0,
+          3.0,
+          1.799999952
+        ],
+        "size": 4.0
+      },
+      {
+        "name": "S33 Faceted fill-2.001",
+        "type": "AREA",
+        "energy": 100.0,
+        "location": [
+          -3.0,
+          0.0,
+          1.799999952
+        ],
+        "size": 4.0
+      },
+      {
+        "name": "S33 Faceted fill-3.001",
+        "type": "AREA",
+        "energy": 100.0,
+        "location": [
+          0.0,
+          -3.0,
+          1.799999952
+        ],
+        "size": 4.0
+      }
+    ],
+    "sourceFilterSize": 1.5,
+    "sourceHeightMetadata": 1.02,
+    "actualProtectionMaxZ": 1.066249967,
+    "UVsResources": "Native meshes have source UV layers where present; no own image texture dependency found. Whole library contains packed dish images unrelated to this object, no linked .blend libraries. UV topology/partcounts not locked under authorized modeling freedom.",
+    "unrelatedActiveCamera": {
+      "name": "S33 Capture Camera.240",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.573576272,
+          -0.819152176,
+          -8.191520691
+        ],
+        [
+          0.0,
+          0.819152176,
+          0.573576272,
+          5.735764503
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 1.5,
+      "shift_x": 0.0,
+      "shift_y": 0.4583320617675781
+    },
+    "actualCalibratedCamera": {
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.906307817,
+          -0.42261821,
+          -4.226182461
+        ],
+        [
+          0.0,
+          0.42261821,
+          0.906307817,
+          9.063077927
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho_scale": 3,
+      "shift_y": 0.25,
+      "root": [
+        320.0,
+        575.999931335
+      ],
+      "unitX": [
+        575.999984741,
+        575.999931335
+      ],
+      "unitY": [
+        320.0,
+        343.985137939
+      ],
+      "unitZ": [
+        320.0,
+        467.809684753
+      ],
+      "elevationDegrees": 65.00000399518224
+    }
+  },
+  "dockHoverEvidence": {
+    "docs": [
+      "resources/role-catalog.md W10/W13",
+      "resources/role-expedition-gameplay-and-controls.md dock section",
+      "resources/role-README.md dock context"
+    ],
+    "documented": "Charging/ready/navigation availability, shared3\u00d73 floor with hut right, restrained ready light; exact charging effects/lighting left open. No explicit skid-grounding or deliberate-hover statement.",
+    "ambiguity": "Actor kind/supportCells[] plus actual wholebody/skid bob and positive clearance support hover as coherent source reading. Source gap alone did not establish a flaw or require grounded contact.",
+    "rootReconciliation": "Root selected explicit docked hover, preserved bob/positive clearance, no docking strut/grounding invention. Grounded alternative retained only as historical proposal.",
+    "broadDeck": "Exact floor04 broad horizontal surfaceZ.219999999, distinct from fixing topsZ.232000008. Exactskid bottom horizontal faces atphase0 localZ.044999946..050, x\u00b1.207..253,y\u2212.288..308. This is a finite underside face, not merely minvertex/AABB evidence.",
+    "measuredClearance": {
+      "sourceRootZ": 0.23,
+      "deckZ": 0.22,
+      "nominal": 0.055,
+      "allDockFramesRange": [
+        0.037,
+        0.073
+      ]
+    },
+    "sourceContactEvidence": "preparation-v1/native-contact-and-sockets.json",
+    "alternativeNotSelected": "Grounded skids would need bounded geometric/motion repair at fixedroot because oldgapvaries withbob; no such repair authorized or required under selected hover role.",
+    "proposedHoverNumerics": {
+      "minimumClearance": 0.02,
+      "maximumClearance": 0.09,
+      "meaning": "source-like looseness pending rootfreeze; native exactsurface positive separation required in all dock frames/closures, not merely opaque pixel overlap."
+    }
+  },
+  "dockSourceEnvelopes": [
+    {
+      "clip": "dock-ready",
+      "direction": "N",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.540000021,
+          -0.662500024,
+          0.026999947
+        ],
+        [
+          0.540000021,
+          0.519999981,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "dock-ready",
+      "direction": "E",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.662500024,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.519999981,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "dock-ready",
+      "direction": "S",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.539999962,
+          -0.519999981,
+          0.026999947
+        ],
+        [
+          0.539999962,
+          0.662499964,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": [
+        [
+          -1.239999962,
+          -0.9399999809999999,
+          0.256999947
+        ],
+        [
+          -0.16000003799999996,
+          0.242499964,
+          1.284999948
+        ]
+      ]
+    },
+    {
+      "clip": "dock-ready",
+      "direction": "W",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.519999981,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.662500024,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "dock-charging",
+      "direction": "N",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.540000021,
+          -0.662500024,
+          0.026999947
+        ],
+        [
+          0.540000021,
+          0.519999981,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "dock-charging",
+      "direction": "E",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.662500024,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.519999981,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "dock-charging",
+      "direction": "S",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.539999962,
+          -0.519999981,
+          0.026999947
+        ],
+        [
+          0.539999962,
+          0.662499964,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": [
+        [
+          -1.239999962,
+          -0.9399999809999999,
+          0.256999947
+        ],
+        [
+          -0.16000003799999996,
+          0.242499964,
+          1.284999948
+        ]
+      ]
+    },
+    {
+      "clip": "dock-charging",
+      "direction": "W",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.519999981,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.662500024,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-ready",
+      "direction": "N",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.540000021,
+          -0.662500024,
+          0.026999947
+        ],
+        [
+          0.540000021,
+          0.612500012,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-ready",
+      "direction": "E",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.662500024,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.612499952,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-ready",
+      "direction": "S",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.539999962,
+          -0.612499952,
+          0.026999947
+        ],
+        [
+          0.539999962,
+          0.662499964,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": [
+        [
+          -1.239999962,
+          -1.032499952,
+          0.256999947
+        ],
+        [
+          -0.16000003799999996,
+          0.242499964,
+          1.284999948
+        ]
+      ]
+    },
+    {
+      "clip": "upgraded-dock-ready",
+      "direction": "W",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.612499952,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.662500024,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-charging",
+      "direction": "N",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.540000021,
+          -0.662500024,
+          0.026999947
+        ],
+        [
+          0.540000021,
+          0.612500012,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-charging",
+      "direction": "E",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.662500024,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.612499952,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    },
+    {
+      "clip": "upgraded-dock-charging",
+      "direction": "S",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.539999962,
+          -0.612499952,
+          0.026999947
+        ],
+        [
+          0.539999962,
+          0.662499964,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": [
+        [
+          -1.239999962,
+          -1.032499952,
+          0.256999947
+        ],
+        [
+          -0.16000003799999996,
+          0.242499964,
+          1.284999948
+        ]
+      ]
+    },
+    {
+      "clip": "upgraded-dock-charging",
+      "direction": "W",
+      "visiblePhaseUnionLocal": [
+        [
+          -0.612499952,
+          -0.540000021,
+          0.026999947
+        ],
+        [
+          0.662500024,
+          0.540000021,
+          1.054999948
+        ]
+      ],
+      "fixedDockSourceFacingSRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "worldAtFixedRootIfS": null
+    }
+  ],
+  "proposedMaximumEnvelope": {
+    "status": "proposed pending root/cover/component reconciliation",
+    "sourceFacingSLocalDock": [
+      [
+        -0.56,
+        -0.64,
+        0.01
+      ],
+      [
+        0.56,
+        0.68,
+        1.12
+      ]
+    ],
+    "sourceFacingSDockWorldAtFixedRoot": [
+      [
+        -1.26,
+        -1.06,
+        0.24
+      ],
+      [
+        -0.14,
+        0.26,
+        1.35
+      ]
+    ],
+    "motionReserveX": [
+      -0.6,
+      0.6
+    ],
+    "purpose": "Allows modest useful improved forms/trim/attachments and hover, rather than locking oldtopology or shrinking for oldcover. Cover must clear this measured final family at all required phases. Exact new maxcaps freeze after preliminarybody/anchor measurements.",
+    "sourceCapsAreNotRestrictions": "Actual source dockenvelopes above are descriptive, not all hiddenvariants aggregated into everyframe."
+  },
+  "socketsAndResources": {
+    "declaredKeys": {
+      "sub_harpoon": [
+        0.24,
+        -0.4,
+        0.37
+      ],
+      "sub_collector": [
+        0.0,
+        -0.53,
+        0.21
+      ]
+    },
+    "socketKind": "Root-relative metadata attachmentbases; no exact Blender socketobjects. Preservekeys/coords.",
+    "derivedGeometry": "Integrated harpoon muzzle center[.29,\u2212.45,.66] is distinct from attachmentbase[.24,\u2212.40,.37]; collector lip frontY\u2212.6125 distinct from attachmentY\u2212.53. Derivedgeometrytips are descriptive, not new registeredports.",
+    "unboundRequirementNames": [
+      "cable",
+      "headlight"
+    ],
+    "effectStatus": "2D effects deferred; do not invent new bindings.",
+    "componentPlan": {
+      "discovery": "Main baseline/upgraded body share builder _submarine. They are separate native objects/datablocks and share main submarine materials. Upgraded equipment comes from _submarine(equipment=True). Separately catalogued pieces call build_equipment(kind), with different geometry/proportions and separate prefixed material datablocks; no canonical component link currently exists.",
+      "sourceFunctions": {
+        "file": "preparation-v1/resources/prop_builders.py",
+        "main": "_submarine lines345\u2013378; build_submarine lines381\u2013395",
+        "standalone": "build_equipment lines398\u2013418",
+        "sourceExactSHA256": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a"
+      },
+      "actualStandalone": [
+        {
+          "asset": "sub-hull-panels",
+          "idle": "1 frame static=true,loop=false",
+          "active": "12 frames loop=true; location/scale gentle pulse, no main mapping",
+          "sourceParts": "plate .58\u00d7.73\u00d7.30 atZ.18; ridge .17\u00d7.59\u00d7.06 atZ.35;4 gold rivets; main integrated counterpart is2 separate .18\u00d7.47\u00d7.075 yellow-light boxes centered\u00b1.21,\u2212.02,.67."
+        },
+        {
+          "asset": "sub-harpoon-mount",
+          "idle": "1 frame static=true,loop=false",
+          "active": "12 frames loop=false; barrel/muzzle recoil in localY, no main mapping",
+          "sourceParts": "red base .50\u00d7.56\u00d7.20; metal rail .24\u00d7.68\u00d7.14; dark barrel radius.08 length.65; light muzzle radius.10 length.08. Integrated version has only barrel radius.055 length.40 centered.29,\u2212.25,.66 and red rail .14\u00d7.28\u00d7.10 centered.29,\u2212.08,.67."
+        },
+        {
+          "asset": "sub-collector-inlet",
+          "idle": "1 frame static=true,loop=false",
+          "active": "12 frames loop=true; dark-mouth scale/guard rotation, no main mapping",
+          "sourceParts": "silver frame .62\u00d7.50\u00d7.43; dark mouth and3 metal guards; yellow lower lip .65\u00d7.20\u00d7.10. Integrated version has dark intake .28\u00d7.19\u00d7.14 at0,\u2212.49,.21 and silver lip .32\u00d7.045\u00d7.18 at0,\u2212.59,.21."
+        }
+      ],
+      "actualConsumerRole": "Standalone catalog interactions are comparison placements beside eel and main submarine. No separate-component raster overlay consumer found in inspected wireframe functions/showcase. Main underwater showcase uses native integrated upgraded-travel. Requirements and docs describe upgrade appearance, not new component state mechanics.",
+      "projectionDifference": "Main registered orthographic65\u00b0, square pixels, logical basis X128,Y\u2212116.0074,Z\u221254.0951. Standalone3 use square-grid orthographic55.00798\u00b0, pixelAspect1.22065556, logical basis X128,Y\u2212128,Z\u221289.6. Preserve each actual registered camera; exact shared physical geometry/anchors does not imply raster pixel identity.",
+      "proposedCanonicalFlow": [
+        {
+          "stage": 1,
+          "action": "Main editor builds preliminary body and native assembly anchors, measures all variant clearances/motion and reserves component envelopes at exact registered roots/camera. Freeze those exactbody bytes, semantic anchors, allowed uniform transforms and body-motion contract."
+        },
+        {
+          "stage": 2,
+          "action": "Pause original main editor instance; use3 separately authorized fresh editor/judge pairs to tune canonical hull panels, harpoon mount and collector inlet against immutable preliminarybody. Keep each standalone registered camera/root/frame, own idle/active timing and function. Native shape/material datablocks and declared physical anchor transforms are shared truth."
+        },
+        {
+          "stage": 3,
+          "action": "Original main editor resumes and adopts exact approved component geometry/material resources into upgraded main variant using frozen static local transforms or declared uniform placement scale. No reshaping/recoloring/re-beveling after approval; datahash/materialhash and external closure must prove identity. Preserve neutral idle integration, bodybob and variant visibility; do not map standalone active animations onto existing main clips without explicit semantic authorization."
+        },
+        {
+          "stage": 4,
+          "action": "Audit adopted component joins/occlusion/window clearance, effect attachment-base coordinates, body/socket continuity and all variant bounds. If a cap/anchor conflict requires body or component changes, reconcile and review the changed bytes before final rendering. Then perform one final complete main576-frame native batch and independent review."
+        }
+      ],
+      "functionalFit": "Fits source role when component canonical dimensions/local mounting transforms are fixed after preliminarybody measurement. Old full-size standalone geometry cannot simply be overlaid unscaled on current main without collisions; improved canonical shapes/scales need body-context approval. Exact original component topology is not locked.",
+      "evidence": [
+        "preparation-v1/family-geometry-audit.json",
+        "preparation-v1/component-native-phases.json (156 evaluated native component phases)",
+        "preparation-v1/native-contact-and-sockets.json",
+        "preparation-v1/native-inventory-v2.json",
+        "preparation-v1/resources/catalog-sub-hull-panels.json",
+        "preparation-v1/resources/catalog-sub-harpoon-mount.json",
+        "preparation-v1/resources/catalog-sub-collector-inlet.json"
+      ]
+    }
+  },
+  "consumerContract": {
+    "snapshotCodeManifest": "preparation-v1/source-code-manifest-v2.json",
+    "actualSourceFixture": "preparation-v1/consumer-source.html",
+    "execution": "Chromium153.0.8010.12,12 cases, phone390\u00d7844/landscape1200\u00d7900; no browsererrors. Bothscreenshots inspected.",
+    "sampling": "worldRasterPlan common nativegrid; paintWorldRaster nearestcomposition, restores imageSmoothingEnabled=false after canvasresize; finalcanvas ordinaryfiltering imageRendering=auto. No per-sprite pixelmask/camerafit.",
+    "platformDepth": "Explicit supportedBy:dock-deck for submarine/hut; visualassociation only for hoveredactor. Oldsource metadata snapshot lacks declaredsupport; source ordinarydepth hides sub N/W andhut E/S.",
+    "cover": "Oldsource ordinaryworldpass renderscover underneathsomeoccupants. Futurecoverownapprovedpublication needs renderPass:overhead. Existingoldcover is not an approvedconstraint on newbody/envelope.",
+    "cameraMix": "Main65\u00b0 versus docks/components square-grid55.00798\u00b0; preserve actual sourcecameraexceptions. Nativephysicalassembly and independentlyassembledsprites both required; do not claim exactcrossprojection pixelidentity.",
+    "sourceSnapshotsUse": "Snapshot currentconsumer/catalog/source fixtures as technicalinputs. Floor04/entry06 inputs pending independentapproval; no familyapproval implied.",
+    "companionHashes": {
+      "dock-floor-round04.blend": "94b509984dc442547602f32feada987c5119e3b9031eb1bd65a6a07769880418",
+      "dock-entry-round06.blend": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37"
+    }
+  },
+  "baselineReproduction": {
+    "representativeRenders": 12,
+    "extraFilterStudy": 1,
+    "settings": "preparation-v1/baseline-reproduction-settings.json",
+    "comparisons": "preparation-v1/baseline-reproduction-comparison.json",
+    "inspected": "Eight baseline/upgraded4facings dock-ready logicalsheet plus travelS/impactE/chargingminmax comparison;13th filter0.5 study nativecomparison. All576 existing publishedsourceframes viewed in12 contact sheets; sheettitle quarterlogical is mislabeled:160\u00d7192 is half logical linear size / quarter native, not quarter logical.",
+    "pixelParityLimit": "Historical4xsource frames (1280\u00d71536) are not present at inspected registeredcapture paths; fingerprints supply hashes only. Publishedsource4x\u21922x Lanczos/contrast1.35 pipeline differs from direct2x native reproduction; no exact old raw-raster parity claim. Camera/root/nativegeometry/visibility checked separately.",
+    "filterProposal": "Use uniform native0.5 candidatecapture filter consistent with currentdockrecipe, subject to rootfreeze and allframe native/logical alpha/readability proof. Source actualfilter1.5 is recorded unchanged. Trial0.5 source produces crisper, more stepped nativeedges without geometryshift; candidate should prove antialias quality at logical/phone size."
+  },
+  "provenanceGaps": {
+    "historicalRaw4x": "Capturefingerprints name000\u2013011 andSHA256 but actualrawfiles absent in inspected registeredsource paths. Do not invent byteclosure.",
+    "exactRecordedSourceFilesMissing": {
+      "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
+      "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
+      "character_composition.py": "049e6f615e91a71d74c9cc9b4f37adc079abd5c4ab648c97f981eebb9d672be4",
+      "production_library.py": "9d8665b8e512f9b1c649b423ed69478d6ba4a0f745df3cdfd70d044cd3ff4236"
+    },
+    "nativeActionsUsable": "Actual b176 .blend contains all636 referenced actiondatablocks/slots; audit uses direct explicitcohort assignment. Currentwrapper/sourcefiles not falselyclaimedhistoricalexact."
+  },
+  "unresolvedBeforeFreeze": [
+    "Approve final hoverclearance numericbounds and preliminarybody maxenvelope against newcover; no actor grounding assumption.",
+    "Approve staged canonicalbody/component adoption dependency and exact resource/transform hashing; separatecameras do not need pixelidentity.",
+    "Freeze semantic attachmentbases unchanged; explicitly classify source headlight/chargebead discrepancy and vague cable/headlight names without new binding/mechanics.",
+    "Freeze own0.5nativefilter recipe or alternative from evidence; keep sourcefilter1.5 provenance honest.",
+    "Final immutable floor/entry/hut/cover/human/equipment companion bytes must be independentlyapproved and bound for candidatefamily proof; current technical snapshots are pending.",
+    "Historicalraw4x and4 recordedscript hashes remain unavailable; disclose rather than claim exactlegacy pixelreproduction."
+  ],
+  "finalCandidateReviewStillRequired": "All576 newnativeframes, all48atlases, native/logical/phone/landscape/background/quarterphase context, closure/inbetweens, hover/envelope/socket/component proof and immutable resource packet. No candidate approved in this preparation."
+}

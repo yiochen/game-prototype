@@ -1,0 +1,65 @@
+{
+  "scope": "Coordinator-owned actual Godot sampling diagnostic, supplemental to editor native captures; not a change to the game or approval.",
+  "engine": "Godot4.7.2 stable, OpenGL4.1 Metal compatibility, AppleM4",
+  "sample": "S, native frame0 of belt-straight-n round08; exact source copy hash in inputs/provenance.json",
+  "pipeline": "Three actual independent textures at registered pitch vs exact precomposed native-alpha-over image; same Godot SubViewport sampling. Native-cell128 and phone-cell32. Imported PNG default flags and explicit ImageTexture mip-generation tested separately.",
+  "currentConsumer": "restaurant_view.baseline.gd uses CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS; default sprite.png.import mipmaps/generate=false",
+  "metrics": {
+    "linear-mips-128": {
+      "maxRGBA": [
+        65,
+        42,
+        32,
+        64
+      ],
+      "differentPixels": 316
+    },
+    "imported-linear-mips-128": {
+      "maxRGBA": [
+        51,
+        22,
+        16,
+        63
+      ],
+      "differentPixels": 260
+    },
+    "nearest-128": {
+      "maxRGBA": [
+        132,
+        72,
+        65,
+        255
+      ],
+      "differentPixels": 14364
+    },
+    "linear-mips-32": {
+      "maxRGBA": [
+        52,
+        33,
+        40,
+        60
+      ],
+      "differentPixels": 84
+    },
+    "imported-linear-mips-32": {
+      "maxRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "differentPixels": 0
+    },
+    "nearest-32": {
+      "maxRGBA": [
+        63,
+        42,
+        47,
+        0
+      ],
+      "differentPixels": 860
+    }
+  },
+  "interpretation": "Existing individually filtered rendering has a measured N/S edge discrepancy at128-cell scale. Imported-texture32-cell S0 is clean in this sample, so this is placement/scale-sensitive. Nearest is not established as a drop-in fix: native Godot128 nearest sampling differs from the nearest precomposed reference. Filtering a correctly precomposed layer is a tested visual comparison; no runtime compositor is implemented. Native asset and actual-use acceptance belong to judge.",
+  "artifactPolicy": "These test sources/outputs are frozen supplemental evidence. Further experiments use a new folder. Editor handoff hash list covers editor files, not these coordinator additions or packet/delivery snapshot."
+}

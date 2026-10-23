@@ -1,0 +1,36 @@
+{
+  "revision": "round-05",
+  "signedPriorReview": "source/round-05-resources/round-04-review.json",
+  "construction": "Re-sample the same continuous roof, shoulder, wrapped native stone field and shallow cavities with adaptive object-space edge subdivision. Freeze canonical endpoint collars and copied native terminal caps. Conforming edge vertices use actual evaluated centers for cell fans; no collinear hanging-edge fans. Continuous surface derivatives provide native smooth normals, with actual canonical normals at W/N boundaries.",
+  "nativeTessellation": {
+    "method": "Adaptive native 3D edge-length subdivision of the same continuous geometric field; shared edge stitching, no render or pixel fit. Exact .025 endpoint collars retain their original sampling.",
+    "targetWorldEdge": 0.006,
+    "maximumSubdivisionLevel": 4,
+    "leafCount": 743772,
+    "refinedCells": 189124,
+    "leafLevels": {
+      "0": 138289,
+      "1": 101321,
+      "2": 167738,
+      "3": 83880,
+      "4": 252544
+    },
+    "uniqueRoofVertices": 771429,
+    "maxNonCollarLeafEdge": 0.006824631281598419
+  },
+  "normalReconstruction": {
+    "method": "Continuous object-space native surface derivatives in float64; no raster or view-dependent operation. Same geometry field/material/capture as round04. Actual canonical endpoint normals override reconstructed interior shading.",
+    "worldDerivativeStep": 0.00025,
+    "sideParameterStep": 0.025,
+    "reconstructedVertices": 902217,
+    "maxVectorDeltaVsDiscreteQuadNormals": 1.414213604519943,
+    "meanVectorDeltaVsDiscreteQuadNormals": 0.009314228539500601
+  },
+  "retainedTrials": {
+    "normalOnly": "source/round-05-draft-a.blend",
+    "adaptiveFineInterrupted": "source/round-05-draft-b.py; interrupted before project save"
+  },
+  "comparison": "candidates/round-05/native-round04-round05-comparison.json records actual changed body coordinates/topology/albedo/normals and identical canonical cap data. Resampling changes per-vertex values; it is not claimed byte-identical to round04.",
+  "capture": "Frozen canonical camera, material, lights, Cycles48 seed0 BOX1.5 no denoise; whole native4x BOX to published2x. No post-raster repair.",
+  "approval": "Pending original independent judge"
+}

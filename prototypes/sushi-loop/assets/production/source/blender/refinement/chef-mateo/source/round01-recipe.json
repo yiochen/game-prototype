@@ -1,0 +1,103 @@
+{
+  "asset": "chef-mateo",
+  "round": "round01",
+  "blenderVersion": "5.2.2 LTS",
+  "sourceProject": "source/original-library.blend",
+  "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "candidateProject": "source/round01.blend",
+  "candidateSHA256": "91c87dd06f9fc1378e57e51752cbe797a5034c577baf3e39e886e8e8c398c169",
+  "frozenTarget": "inputs/target.png",
+  "qualityCriteria": "brief.json qualityCriteria version1",
+  "nativePlaybackModule": "source/native_actions.py",
+  "orderedReproductionSteps": [
+    {
+      "tool": "Blender background",
+      "open": "source/original-library.blend",
+      "script": "source/inspect_source.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/original-library.blend",
+      "script": "source/build_round01.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/finalize_native_project.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/clean_native_topology.py",
+      "notes": "Read-only audit of34closed manifold generated native meshes with outward normals. Pole welding/periodic piping/oriented strap thickness are part of build recipe."
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/capture_round01.py",
+      "notes": "192 raw native PNGs; no raster grading or per-view fitting"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/supplemental_native_checks.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/context_round01.py",
+      "notes": "Read-only original belt/customer context on a larger same-scale review canvas; no source save"
+    },
+    {
+      "tool": "Python with Pillow and ffmpeg/ffprobe",
+      "script": "source/package_round01.py",
+      "notes": "Lossless atlas assembly and review-only background composites; all16 actual12fps MP4s"
+    },
+    {
+      "tool": "Python with Pillow and ffprobe",
+      "script": "source/verify_delivery.py",
+      "notes": "Read-only final project/records/192raw frames/16exact atlases/16actual12fps clips/hash closure verification; never an editor visual approval."
+    }
+  ],
+  "nativeCapture": {
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "frame": [
+      384,
+      640
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "captureScale": 2,
+    "projection": "orthographic35degrees",
+    "facingsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "fps": 12,
+    "framesPerClip": 12,
+    "clips": [
+      "idle",
+      "work",
+      "hold",
+      "load"
+    ],
+    "atlases": {
+      "count": 16,
+      "size": [
+        2304,
+        1280
+      ],
+      "columns": 6,
+      "rows": 2
+    }
+  },
+  "modeling": "Baked native rounded/subdivision rest topology, original armature and action curves, new sculpted hair/folded bandana/apron/straps/pocket/tie/smile. Original source skin/red/blue/ivory palette, with one symmetric native material/light setup. Original packed2D salmon remains disclosed and unchanged.",
+  "approval": "No editor approval. Coordinator seals exact bytes; independent judge decides."
+}

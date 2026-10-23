@@ -1,0 +1,127 @@
+{
+  "asset": "lantern-gold",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "01a7cedaf95b2eb66d3bd511004bd4d6e279311bad3fbebd2ceed7a387d09572",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "previews/idle-N.gif",
+    "previews/idle-N.mp4",
+    "previews/contact-N.png",
+    "previews/idle-E.gif",
+    "previews/idle-E.mp4",
+    "previews/contact-E.png",
+    "previews/idle-S.gif",
+    "previews/idle-S.mp4",
+    "previews/contact-S.png",
+    "previews/idle-W.gif",
+    "previews/idle-W.mp4",
+    "previews/contact-W.png",
+    "previews/four-view-sheet.png",
+    "previews/alpha-contexts.png",
+    "previews/repeated.png",
+    "previews/four-view-motion.gif",
+    "previews/four-view-motion.mp4",
+    "previews/repeated-motion.gif",
+    "previews/repeated-motion.mp4"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "Compared with the original, the five golden ribs retain their octagonal rhythm but now have softly rounded edge transitions rather than hard saturated yellow/orange stripes. The paper body keeps broad warm golden faces, with clear separation among rib bands, paper and dark caps at logical game size.",
+    "The brown plinth, post and overhang now have readable warm faces and rounded edge depth. The source near-black base is replaced with restrained mid-brown volume; the wood remains distinct from the gold without a shiny plastic highlight or noisy texture.",
+    "N, E, S and W show coherent independent geometry: the bracket, post occlusion, cage and caps change correctly with facing. The original support and hanging construction are retained; the target was not used to inflate the silhouette or change padding.",
+    "The gold remains bright and softly luminous without clipping the bands to white. Equivalent exposed regions receive a balanced warm treatment in the different facings; no dominant horizontal light bias or directional ground shadow is visible.",
+    "All 48 raw native frames were inspected through verified logical-size contact sheets and enlarged frame crops. The small cage sway is continuous, the base stays planted, and caps/ribs remain together. No material clipping flash, detached end, black patch, z-fighting, root jitter, texture swimming or loop discontinuity was found.",
+    "All 19 packet previews were inspected: seven still PNG previews directly, all eight per-facing GIF/MP4 idle files through decoded 12-frame sheets, and the four composite motion files through decoded sample sheets with all 12 frames numerically checked against their source assembly. Compression and GIF palette differences are confined to presentation previews; the lossless native sprite data is intact.",
+    "Light, gray and dark alpha contexts show clean object edges without an external bloom ring or cast-shadow patch. The repeated placement preview remains consistently readable."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed target has stronger luminous center-to-edge variation and more visible brown surface variation. This candidate uses a quieter, flatter cartoon material treatment while still meeting the agreed broad softness and readable-volume goals.",
+    "The original octagonal construction remains visible rather than adopting the target's more inflated rib shapes. This is consistent with the frozen construction and envelope constraints.",
+    "The inherited sway is very subtle at logical size. It retains the source timing and amplitude rather than adding new motion."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "01a7cedaf95b2eb66d3bd511004bd4d6e279311bad3fbebd2ceed7a387d09572",
+      "helperVerification": "candidate_packet.py verify --packet candidates/round-01/packet.json returned Artifact integrity verified.",
+      "boundFileEntries": 102,
+      "heroRendersInspected": 4,
+      "packetPreviewsInspected": 19
+    },
+    "nativeSource": {
+      "projectPath": "../../source/round-01.blend",
+      "projectSHA256": "367a30958f3c0bef7d2aa49efb28c9f991e81ff310a170c0b708084c8c124752",
+      "checks": "Reviewed the hash-bound native validation, fresh-process reopened-source evidence and the actual validation/recipe code. Independently recomputed original-versus-candidate transforms and bounds from all 13 measured frames in all four facings, including the closure key.",
+      "worldTransformMaxDelta": 0.0,
+      "localTransformMaxDelta": 0.0,
+      "sourceEnvelopeMaxEscape": 0.0,
+      "exactActionsPreserved": true,
+      "cameraWorldMatrixMaxDeltaFromSource": 5.960464477539063e-08,
+      "cameraProjectionMatrixMaxDeltaFromSource": 3.8743019104003906e-07,
+      "pixelAspectMaxDeltaFromSource": 0.0,
+      "registration": "Logical 192x384 at root 96,288; native 384x768, sourceScale 2. Projection/calibration, one-cell footprint, registered height 1.34, original ground root and attachment relationships retained within native floating-point precision.",
+      "construction": "13 owned objects including the root; 12 native meshes. No external image resources or linked libraries. No ground plane, no compositor, true RGBA output. Centered overhead plus eight equal radial white fills and neutral world provide horizontal symmetry.",
+      "reopenedSource": "Fresh-process report measures all 52 facing/frame/closure combinations; candidate SHA matches, saved actions remain assigned, no external image/library dependencies, maximum geometry/transform delta 0.",
+      "reopenedRenderComparison": {
+        "differentPixels": 2,
+        "max8BitChannelDifference": 1,
+        "alphaExactlyEqual": true,
+        "assessment": "Independently confirmed the disclosed Metal RGB differences. They are immaterial and do not change the approved packet bytes."
+      }
+    },
+    "animationContract": {
+      "runtimeFramesPerFacing": 12,
+      "facingCount": 4,
+      "fps": 12,
+      "loop": true,
+      "duplicateClosureKeyExcluded": 13,
+      "originalUniqueTransformPoses": {
+        "N": 7,
+        "E": 7,
+        "S": 8,
+        "W": 7
+      },
+      "candidateUniqueTransformPoses": {
+        "N": 7,
+        "E": 7,
+        "S": 8,
+        "W": 7
+      },
+      "assessment": "The registered catalog requires 12 runtime frame indices and at least six unique native frames; repeated authored sway poses occur in the untouched source. Frozen wording about 12 unique idle frames is applied to the original 12 runtime entries, not interpreted as authorization to rewrite preserved actions into 12 different transforms. The original action records and all source transforms are exactly preserved.",
+      "loopClosureWorldTransformDelta": {
+        "N": 0.0,
+        "E": 0.0,
+        "S": 0.0,
+        "W": 0.0
+      }
+    },
+    "atlasesAndPreviews": {
+      "atlasPaths": [
+        "idle-N.png",
+        "idle-E.png",
+        "idle-S.png",
+        "idle-W.png"
+      ],
+      "atlasLayout": "Independently compared all four 2304x1536 atlases with the original catalog 6-column/2-row rect layout. Every one of the 48 cells is pixel-exact to its 384x768 raw native frame.",
+      "contactCorrespondence": "Every sprite region of every labeled contact sheet is pixel-exact to the corresponding raw frame uniformly downsampled to 192x384 and composited on gray; labels are confined to the top padding.",
+      "motionDecode": "Decoded each of the six GIF files and six MP4 files. Every file contains the expected 12 frames; per-facing MP4 streams report 12/1 fps and 1 second. Idle GIF timing totals 1000 ms with the intended 80/90 ms centisecond cadence.",
+      "motionCorrespondence": "All decoded composite movie frames were compared to expected assemblies of the same indexed native frames. Maximum whole-frame mean channel error stays below 0.094 for GIF and 0.636 for MP4 on an 8-bit scale, consistent with palette/video compression. Visual sampled composites and full per-facing decoded sheets show no motion/content substitution."
+    },
+    "inspectionLimits": [
+      "The judge did not launch a second Blender process; native source certification uses the hash-bound fresh-reload report, inspected validation code and independently recomputed measurement comparisons.",
+      "Motion was inspected through decoded ordered frames and timing evidence; no claim of a separate real-time player session is made.",
+      "Approval applies only to the exact packet and source/render bytes above. Re-rendering or changing art requires a new packet and review."
+    ]
+  }
+}

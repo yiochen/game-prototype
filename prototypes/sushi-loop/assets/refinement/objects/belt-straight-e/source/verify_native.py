@@ -1,0 +1,8 @@
+import bpy,json,pathlib,math,hashlib
+P=pathlib.Path(__file__).resolve().parents[1];O=P/'candidates/round-01';D=O/'reproduction';D.mkdir(exist_ok=True);H=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();bpy.ops.wm.open_mainfile(filepath=str(P/'source/main.blend'));s=bpy.context.scene;c=bpy.data.collections['S33_FB_belt-straight-e.001'];root=next(o for o in c.objects if '__root.' in o.name);deck=next(o for o in c.objects if 'connected_straight_deck' in o.name);phase=deck.data.materials[0].node_tree.nodes['Value'];records=[]
+for d,a in {'N':math.pi,'E':math.pi/2,'S':0,'W':-math.pi/2}.items():
+ root.rotation_euler.z=a
+ for i in range(25):
+  s.frame_set(i+1);bpy.context.view_layer.update();path=D/f'running-{d}-{i:02d}.png';s.render.filepath=str(path);bpy.ops.render.render(write_still=True);original=O/'frames'/path.name;records.append({'direction':d,'index':i,'path':str(path),'original':str(original),'phase':float(phase.outputs[0].default_value),'sha256':H(path),'originalSHA256':H(original),'byteExact':H(path)==H(original)})
+row={'project':str(P/'source/main.blend'),'projectSHA256':H(P/'source/main.blend'),'blender':bpy.app.version_string,'actualSavedSourceScene':s.name,'all100RerenderedFromNormalSavedSource':True,'allPNGBytesExact':all(r['byteExact'] for r in records),'renderSamples':records,'actualActionOwner':{'material':deck.data.materials[0].name,'nodeTree':deck.data.materials[0].node_tree.name,'action':deck.data.materials[0].node_tree.animation_data.action.name,'slot':deck.data.materials[0].node_tree.animation_data.action_slot.identifier},'linkedIDs':[]}
+(O/'render-reproduction.json').write_text(json.dumps(row,indent=2));print('ALL_100_SOURCE_RENDERS_BYTE_EXACT',row['allPNGBytesExact'])

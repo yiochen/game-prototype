@@ -1,0 +1,183 @@
+{
+  "asset": "chef-ama",
+  "reviewStage": "independent-initial-inspection",
+  "createdAtUTC": "2026-10-21T10:03:20.165913+00:00",
+  "candidateVerdict": null,
+  "independence": {
+    "readEditorProposals": false,
+    "receivedPriorAestheticConclusions": false,
+    "scope": "Ama only; own reviews/ only. No source, brief, target, production or candidate files modified."
+  },
+  "authority": {
+    "skill": "/Users/yiouchen/.codex/skills/refine-3d-model/SKILL.md",
+    "judgePrompt": "prompts/judge.txt",
+    "brief": "brief.json",
+    "nativeSource": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "sourceHashMatchesBrief": true,
+    "nativeActionsAndEvaluatedGeometryTakePriorityOverStaleCustomProperties": true
+  },
+  "inspectedFiles": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "103c81b2acb6d7a0a9c442c97eb8b856b88684a94e7eea169cbd31dc53f529c2",
+      "inspection": "Direct image at native384x640; logical-size diagnostic comparison."
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "701cc27f71bf58a8d5b2437b9b41f3cdbfaa81e98706da20179fa5d6654a622b",
+      "inspection": "Direct large image and logical192x320 canvas fit; used only as style/design direction, not registration."
+    },
+    {
+      "path": "../../style/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+      "inspection": "Direct style-only image; warm broad light and readable dimensional forms."
+    },
+    {
+      "path": "inputs/family-concept.png",
+      "sha256": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1",
+      "inspection": "Direct family-style image and logical-size diagnostic; its white toque/blue apron/red tie do not replace Ama identity."
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "inspection": "Read complete registered camera record."
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "inspection": "Read source key structure, native action cohorts, clip policy, bones/sockets via script; evaluated actual action assignments in Blender."
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "inspection": "Read original asset record; captureScale4 is historical source record, brief/catalog requires scale2 delivery."
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "inspection": "Read registration, all16 atlas layouts, timing, footprint, interactions and declared contacts."
+    },
+    {
+      "path": "../../prompts/native-capture-notes.md",
+      "inspection": "Read technical notes only, including isolated scene and native facing convention."
+    },
+    {
+      "path": "reviews/source-state-facing-gray.png",
+      "inspection": "Direct full sheet: all16 clip/facing frame-zero crops at logical192x320."
+    },
+    {
+      "path": "reviews/source-state-facing-light.png",
+      "inspection": "Direct full sheet on warm light background."
+    },
+    {
+      "path": "reviews/source-state-facing-dark.png",
+      "inspection": "Direct full sheet on dark blue-gray background."
+    },
+    {
+      "path": "reviews/reference-logical-size.png",
+      "inspection": "Direct comparison; target fills more of its canvas and must not drive camera fitting."
+    },
+    {
+      "path": "reviews/source-inspection.json",
+      "inspection": "Generated read-only native inspection; every source clip evaluated across frames1..12 in direction S."
+    },
+    {
+      "path": "reviews/source-sheets.json",
+      "inspection": "Hash/rect mapping of diagnostic sheets to original production atlases."
+    }
+  ],
+  "nativeSourceFindings": {
+    "blenderVersion": "5.2.2 LTS",
+    "collection": "S33_CHARACTER_chef_ama.002",
+    "groundRoot": "chef_ama__ground_root.002",
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "rootRotationAtInspection": [
+      0,
+      0,
+      0
+    ],
+    "objectCount": 63,
+    "meshCount": 59,
+    "idleFrame1EvaluatedBounds": [
+      [
+        -0.4025000035762787,
+        -0.3481249511241913,
+        1.1109793085495312e-08
+      ],
+      [
+        0.4341636896133423,
+        0.3829374611377716,
+        1.5249998569488525
+      ]
+    ],
+    "nativeActionCohorts": "6 owners per state, all24 assigned actions present. All12 unique source frames per state evaluated without calling procedural pose().",
+    "actualFacingMeaning": "Original production sheets show S front, N back, E/W opposite profiles; publisher root rotations S0,E+90,N180,W-90 must retain actual source child transforms.",
+    "heldDishProvenance": "Source held_dish-salmon contains an explicitly named image_plane with transparent_2D_material. This legacy source insert is not evidence of a rebuilt native3D dish. Keep provenance honest; native geometry/action evidence is authoritative for chef and actual attachments.",
+    "functionalEnvelopeInterpretation": "One-cell body/rest envelope and functional1.525 height remain locked. Original action hold/load dish reaches y about-0.643 at frame1; do not incorrectly reject the preserved functional held-prop extension by comparing all action bounds to idle-body bounds."
+  },
+  "sourceBaseline": {
+    "scores": {
+      "shapeVolume": 4,
+      "color": 5,
+      "lightingHighlights": 3,
+      "materialDetail": 3,
+      "artifactFreeReadability": 6
+    },
+    "scoreScope": "Comparative initial impressions from original front and16 frame-zero crops; not candidate grades, not a numeric pass threshold.",
+    "observations": [
+      "Ama is recognizable in front: dark-brown face, short scalloped dark fringe, golden-yellow headwrap, ivory coat, green bib/apron and tie, small dark shoe ends. These identities are already clear and should survive refinement.",
+      "The original headwrap has a pointed angular crown and near-flat very bright yellow upper faces; its horizontal folds read as parallel extruded bars. The target gives the cloth more believable broad folds and a softly rolled band.",
+      "The source apron is mainly stacked flat rectangular masses with a tiny rectangular pocket mark; sleeves and torso show harsh faceted transitions. At logical size the lower garment details merge into a green block.",
+      "Original E/W profiles show a very thin front headwrap edge, compact nose/face edge, rounded hair mass at back and a slab-like sleeve/torso transition. Side and rear design quality needs an independent bar because the target supplies only a front view.",
+      "The source yellow highlights approach flat pale neon yellow while skin and green apron shade down strongly. The target offers warmer graded golden fabric, cream coat and green volume separation but its lighter orange skin conflicts with the identity lock.",
+      "Source footwear is a small dark horizontal toe indication; it should remain grounded/readable without adding incompatible height or changing action feet.",
+      "The target apron straps, pocket edge, collar/cuffs and tied waist are useful purposeful construction cues. Exact stitching, button count, hair lobe count, source part count and decorative arrangement are not required.",
+      "Intentional dark pupils, hair, shoe soles, and contact creases are legitimate. Unexplained near-black patches, merged surfaces and invisible shape changes would be defects."
+    ]
+  },
+  "targetInterpretation": {
+    "adopt": [
+      "Warm softly lit cartoon volume",
+      "Readable folded headwrap with softly rounded cloth boundaries",
+      "Short dark fringe/expressive friendly face",
+      "Constructed ivory collar and cuffs",
+      "Green apron/tie with readable functional detail and coherent silhouette"
+    ],
+    "doNotCopy": [
+      "Lighter orange/copper skin drift",
+      "Target canvas filling/framing or apparent different camera/scale",
+      "Colored alpha fringe/halo and detached bright specks",
+      "Unseen rear/profile forms invented as reference facts",
+      "Family concept white toque, blue apron or red necktie",
+      "Photo-texture or exact microstitching that disappears at intended size"
+    ],
+    "modelingFreedom": "Native proportions, forms, structure and purposeful decorations may improve; source weak geometry/part counts are not constraints. Aesthetic departures are judged by outcome and locked identity/function."
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "A golden folded cloth headwrap and friendly short-fringe head that have soft, deliberate volume and coherent front/profile/rear construction, with Ama still dark-brown."
+    },
+    {
+      "rank": 2,
+      "outcome": "An ivory chef coat and green apron/tie that read as connected crafted garments with meaningful visible collar/cuff/apron/pocket/waist hierarchy at logical use size."
+    },
+    {
+      "rank": 3,
+      "outcome": "Warm broad light, controlled highlights and clean separations through all states/facings, with grounded feet and continuous hand/knife/dish/load action contacts."
+    }
+  ],
+  "evidenceLimits": [
+    "No candidate submitted or judged; this initial file grants no approval.",
+    "Inspected all16 original clip/facing frame-zero image crops, not every frame of every source atlas or source playback.",
+    "Native source evaluated all48 clip/frame poses in S only; all-cardinal candidate review still requires complete192 actual native frames, every clip/facing playback, contact/evaluated geometry evidence and hash-bound packet.",
+    "No exact camera/root/envelope measurements inferred from target or diagnostic sheet pixels. Exact native restoration and projection calibration remain candidate validation requirements.",
+    "The source inspection script does not certify correct rendered hand/dish/knife contact from bone coordinates alone."
+  ]
+}

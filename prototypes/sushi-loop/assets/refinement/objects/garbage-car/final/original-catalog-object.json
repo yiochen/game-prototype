@@ -1,0 +1,1833 @@
+{
+  "id": "garbage-car",
+  "name": "Wrecked car",
+  "family": "W09",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    3,
+    2
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    576,
+    832
+  ],
+  "root": [
+    288,
+    544
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "idle",
+      "sourceClipId": "idle",
+      "name": "Idle",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/garbage-car/idle-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            1152,
+            1664
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/garbage-car/idle-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            1152,
+            1664
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/garbage-car/idle-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            1152,
+            1664
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/garbage-car/idle-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            1152,
+            1664
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "highlighted",
+      "sourceClipId": "highlighted",
+      "name": "Highlighted",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/garbage-car/highlighted-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/garbage-car/highlighted-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/garbage-car/highlighted-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/garbage-car/highlighted-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "clearance",
+      "sourceClipId": "clearance",
+      "name": "Clearance",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/garbage-car/clearance-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/garbage-car/clearance-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/garbage-car/clearance-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/garbage-car/clearance-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            6912,
+            3328
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              0,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              0,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              0,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              0,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              0,
+              1152,
+              1664
+            ],
+            [
+              0,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              1152,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              2304,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              3456,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              4608,
+              1664,
+              1152,
+              1664
+            ],
+            [
+              5760,
+              1664,
+              1152,
+              1664
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Whole garbage assembly and human scale",
+      "gridSize": [
+        6,
+        3
+      ],
+      "placements": [
+        {
+          "object": "garbage-car",
+          "x": 0,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "chef-lena",
+          "x": 4,
+          "y": 0,
+          "direction": "S",
+          "clip": "idle"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "clearance"
+    ],
+    "variants": [
+      "normal",
+      "highlighted"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "floor-cream",
+      "chef-lena"
+    ],
+    "notes": "Whole distinct assembly plus supporting rubbish, not repeated debris stamps. Mask is declared integer cells before capture; example extent may be narrowed by authored disjoint support. Clean floor revealed separately."
+  },
+  "height": 1.32,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "variants": {
+    "normal": {
+      "clips": [
+        "idle"
+      ]
+    },
+    "highlighted": {
+      "clips": [
+        "highlighted"
+      ]
+    },
+    "clearance": {
+      "clips": [
+        "clearance"
+      ]
+    }
+  },
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      3,
+      2
+    ],
+    "E": [
+      2,
+      3
+    ],
+    "S": [
+      3,
+      2
+    ],
+    "W": [
+      2,
+      3
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      1.5,
+      1.0
+    ],
+    "E": [
+      1.0,
+      1.5
+    ],
+    "S": [
+      1.5,
+      1.0
+    ],
+    "W": [
+      1.0,
+      1.5
+    ]
+  },
+  "rootCell": [
+    1.5,
+    1.0
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      576,
+      832
+    ],
+    "anchor": [
+      288,
+      544
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "camera": "source/records/garbage-car/camera.json",
+    "guide": "source/registered/garbage-car/idle-N/guide.json",
+    "guides": [
+      "source/registered/garbage-car/idle-N/guide.json",
+      "source/registered/garbage-car/idle-E/guide.json",
+      "source/registered/garbage-car/idle-S/guide.json",
+      "source/registered/garbage-car/idle-W/guide.json",
+      "source/registered/garbage-car/highlighted-N/guide.json",
+      "source/registered/garbage-car/highlighted-E/guide.json",
+      "source/registered/garbage-car/highlighted-S/guide.json",
+      "source/registered/garbage-car/highlighted-W/guide.json",
+      "source/registered/garbage-car/clearance-N/guide.json",
+      "source/registered/garbage-car/clearance-E/guide.json",
+      "source/registered/garbage-car/clearance-S/guide.json",
+      "source/registered/garbage-car/clearance-W/guide.json"
+    ],
+    "assetRecord": "source/records/garbage-car/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/garbage-car/idle-N/source-captures/000.png",
+        "sha256": "fe9c40efd395026ff396cf01f1dda9734191fada69336cc2f83bf8bd8d6d29a4",
+        "clip": "idle",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/idle-E/source-captures/000.png",
+        "sha256": "14ed35342954c84ed6b449d62256fa36d1989e7deb1fb412f65b8d2deab39a04",
+        "clip": "idle",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/idle-S/source-captures/000.png",
+        "sha256": "1aa415c6ce160c2b6825e11d275bf0917ecd41a960fb4529020bf30023f0df30",
+        "clip": "idle",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/idle-W/source-captures/000.png",
+        "sha256": "9e2352d221d0ffcf310b998ed3b7b2cf0f78e03f25c94a3a584c6e4e27b438f5",
+        "clip": "idle",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/000.png",
+        "sha256": "643cfdfe53d7473a1c710aa250e189268800c5e5c987f4bd727f38faa7420f01",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/001.png",
+        "sha256": "61a842b29eb391954ee8043c62eca813ea9045d7fb4071d52b2a7d3c2350d781",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/002.png",
+        "sha256": "bb1c881607e0066d6000cf83cecb9c2acdf7d4fd37c1dc436a95f4d699623b18",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/003.png",
+        "sha256": "8e792b0b6ac1416b3f140a258a0aa7fa8e2da94d7bbe1576c0b0d454662e352b",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/004.png",
+        "sha256": "56b3f002c96270eca180cd986d5b4b9d94b6aaffade4798ba6d1cba4f559040e",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/005.png",
+        "sha256": "bcc15b048c8e62012a0b4b0eb3752ca856f9ae3a205fcbf576fbfd8832c637d6",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/006.png",
+        "sha256": "80e9ecc29ce7efe76b2a302158f82b1bae57f6dbe080f75342ec9cfc5a7e69df",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/007.png",
+        "sha256": "00d385ded3db8beaaeef003eaf03806a31cc55a8f4636c1103c3a4f771ae07de",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/008.png",
+        "sha256": "4d98937c55cc541c7da2881e02aecf5cc80ae600271334d428c1c0dbc494a17c",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/009.png",
+        "sha256": "47286ab5312e31190fd2027a43c8dea4fc4cdb56f92bda29acc0c4e64639eb18",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/010.png",
+        "sha256": "b0473515a1d24601ed6859516599633569b57c04327a489dd44d3b4040d05875",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-N/source-captures/011.png",
+        "sha256": "33e0b92cb8c30f8262f0dc6bf5ed764d3951903dd6ff0b5cabf28119a6cacc68",
+        "clip": "highlighted",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/000.png",
+        "sha256": "0b7c4865a6b94db494693eed0b1c931f9e6bda5fc0c3b2aca891be5c7bc8aeec",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/001.png",
+        "sha256": "80b7ab58b05ef855c766cb0df6c414fdd8e998d525a236e2e883d69c8de98b1d",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/002.png",
+        "sha256": "e43f98f48ec7d2ee1058ca18d7ff368a8efbaa873410d13d299bb9e2ac33ea6d",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/003.png",
+        "sha256": "593dceabc5a7f1a532fefc4599cd49f9abefef086200d75138cbd314c64d7d6a",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/004.png",
+        "sha256": "0a5db88b895a7e381e723959073d531c9b4f78e5bc9aff72e0dba67bf2b3b1ef",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/005.png",
+        "sha256": "a65b6c7789fe9276ffdb1b4a2365a984fea0b7fd294010c13228c17f55b080bb",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/006.png",
+        "sha256": "42b3013f5198e3967ff5a590a28d891b70ebaf0ac3b8bdca684a6d2b41a5b23c",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/007.png",
+        "sha256": "995430ccf3a046fd3ac41db1ba5bc26fc63ab4941421763f4aba0da325a835ce",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/008.png",
+        "sha256": "b87958e388b27354488ef4f4a0656f507b2fb14dab0ed6c2cdd446032a8eb5d8",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/009.png",
+        "sha256": "e18e775a20f59b3e719d28a2c934d02485bd436c9e36ec6dd8b69a3c356a8e9a",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/010.png",
+        "sha256": "9150c2f5ab7a440c8138b5c3a1cc13bd24fe70ec32125cafbaac35bd53927a1e",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-E/source-captures/011.png",
+        "sha256": "e9b8f172d0ecd719d6f1421b63aa180b4437a5aa5106dde032c34697a9b5628e",
+        "clip": "highlighted",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/000.png",
+        "sha256": "15b99bede1ca82129de7270c32048cfee38f50bf92470a4179c11d1d83817db9",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/001.png",
+        "sha256": "6b580fdc255e0bbc78a4f017d2f45a9219edbc20518701c44704775c0c0b46c9",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/002.png",
+        "sha256": "9f7c9c3144464b13d22b2767ed2c1c8f2372a5613d73c2ab8884bc5bf63511c8",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/003.png",
+        "sha256": "a722a33f9da05ad7640a0519650eb94140419b3b85d71f44d1853ad857eca518",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/004.png",
+        "sha256": "b16abee5869a90e1d751ff1b31b2401b285bf0ac8b3f75adf4bdd35d54dc3eac",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/005.png",
+        "sha256": "1af1b5a266d76a04c861c984163a667b1c0f0b9f27a19ecc96d0b2683fb0831b",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/006.png",
+        "sha256": "5a30c71576306898fb06011fc8548e0d05c7fa1e3f878435bbf1c4e7c912ba95",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/007.png",
+        "sha256": "ab05ad682fb626e7719b9eefed3c59a54bf482e8f993e9feed742dfb12aef35d",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/008.png",
+        "sha256": "c9320f8c75b0d36207ea1da2169273ab4e8e9664b1a528b7d60f069a7bfa1a50",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/009.png",
+        "sha256": "81e24259dd2df7e6ebe632b811e6554fd5eec36c6f96a796b5b654b88aba7ddf",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/010.png",
+        "sha256": "1086244f9ced362176c6c3ef6223e269109749bb3b435ca6346b435b1c425767",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-S/source-captures/011.png",
+        "sha256": "8ef2e0c8325195a71a73fb9862d78e18dc8a8ccb4de967c81a57017fe9e02bc4",
+        "clip": "highlighted",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/000.png",
+        "sha256": "b49b5d104bd012e38b55cbeea8b8ca9d758b7ef2f59afccb43bbc45d5da7c423",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/001.png",
+        "sha256": "f38b7c6abf73b9a76fd4757647d3857d79a6bad083c1a372147bfe6760818f88",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/002.png",
+        "sha256": "4ca0f0a2a42453318f8639fa010e5d9ad0f78894aa2a5120c33c62cc5565a173",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/003.png",
+        "sha256": "7a54b36516dc56ad0eab6a460928e84e60210ddaa24a6e009e181d809b8c29e6",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/004.png",
+        "sha256": "073c4e13752f12c333f42ef8f5514c2e938c535f66a0494a9235ab05516a0365",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/005.png",
+        "sha256": "9be1fd2dd5b6de899de4fdd939b71c033999fcdcc10f81871415cdb99073730f",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/006.png",
+        "sha256": "aa56e7ac02b7b7ba683a690df5c5928a0d28fafb97f229a98ffc588537e9f910",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/007.png",
+        "sha256": "87f58d90ac2258b8a10bce3c149cbe747be60dfd708391187d5f5a5ee44e042d",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/008.png",
+        "sha256": "ba3e10e8075d1a9bbad4efa4d8cb7780fc64e1f1b8fea4c8c66ef7e24b0540ec",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/009.png",
+        "sha256": "f0fd2ba390cc0ec169ac707e6e6f92d116ed2efb02a83c083daefcfeb29feb39",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/010.png",
+        "sha256": "1ad785dcf455a0ab51ef44047b45581b39a6e2662a10b3db3f06ad9c17f470c8",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/highlighted-W/source-captures/011.png",
+        "sha256": "4d6edc62fa3c83a004758a6be73936169edeb8e0a30064a171a68c2e80f800d4",
+        "clip": "highlighted",
+        "direction": "W",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/000.png",
+        "sha256": "e84e6f90eb63d74029cf16c4e17eb983fd951d2b87ffa5f97a4bed1d7cb9f5c6",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/001.png",
+        "sha256": "3099e034a6817287d37effc6f4dd34d8b291ca570be4190358c705e78a3f6732",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/002.png",
+        "sha256": "31213a5d6bea39beaea55de85eb7472966ab179e8ceda9da15f6bed99a43a388",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/003.png",
+        "sha256": "d19fe0148b2dd188c10cb9131e959c59004b8ed97cfa09fa16b58261e6b4c7dd",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/004.png",
+        "sha256": "c193d908747bd16f7c98c343efc7b6725145d71d2d204bc00e0d1bd4eece9ff5",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/005.png",
+        "sha256": "e2e54189e3088f8529b2bafdbe417fe1d9d315a02deb467e1e678205646048a0",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/006.png",
+        "sha256": "38622dfbc1d60a7f11ebb240220ce738885aee8771041a5fd1f9c917e0e0b6b3",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/007.png",
+        "sha256": "9c54de88acb9b6ee9f5d3be5b148d9f307619cffff114be2e6835305e6b5ac9a",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/008.png",
+        "sha256": "27062eb8e65d5e8b8d1ed1d02a02cd1e9dbe5a1793a829fa8a15ac2e17889b9a",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/009.png",
+        "sha256": "0cbb4e83c424ebf7d4b7a5349862ee88da85f5f4b6e92d204d9fa53eae460289",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/010.png",
+        "sha256": "3aa3f115dfda83efd16a34c3d3ad1518f7299eb9198bb9afca03661410178171",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-N/source-captures/011.png",
+        "sha256": "46f72dc374fdcf2e9fdd09d404eaabce8bdef53ab7a8463d2423a7a4f70da667",
+        "clip": "clearance",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/000.png",
+        "sha256": "c204e6b6f485c4eb480d8a499f70f2b5444a11dad12b47181f517e00e22ecbfa",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/001.png",
+        "sha256": "1ffe032455528f86ed361f5c1eec176aba926521c8b0165534821f31493933f1",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/002.png",
+        "sha256": "8d3ba0ab24c188fa00c3e459761c78b30606bdc3a30386cb938649244da4d2cc",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/003.png",
+        "sha256": "c08e1b9b01ee63d162c2bf6889f44aa640b41814941d5632bd84270d25822b46",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/004.png",
+        "sha256": "ff8b47b67fc2a5a4337563361b60a5a2d5673e5f9ed36f77f793bd3cefc67ced",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/005.png",
+        "sha256": "420b6d13c43117191bf98cad138ed6f8446dd72d0c0eaa7a6e07ab4f308c6fb7",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/006.png",
+        "sha256": "88a2456597058bac74a16fd06fa9022fab357f7927a2942caf620680634b19c5",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/007.png",
+        "sha256": "2eb874d9b9e81d16a7c69ed5b22eae937495fcfb569b7126de245680919f1259",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/008.png",
+        "sha256": "b95eaa2589bb5d269f72f1e810e18ebe494e524b4abf5c54b9cec844074dd884",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/009.png",
+        "sha256": "2ef3f35de5ec98a80b11529c329a71e0b8f86e39e0f4463dd9d488d001bc65e6",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/010.png",
+        "sha256": "1b0400e2c32243f68eeedcfcd69557d86271b0d69c1d959cb2121e8fe8822402",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-E/source-captures/011.png",
+        "sha256": "1e920445652bcf7aa483d91be7241ded3dc01ed0e2c9f6c3e7af76794108ebf5",
+        "clip": "clearance",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/000.png",
+        "sha256": "de77243c48a71b8b055ba307ffab7cb7527c9157ff6b7ad052e2de0e1e0a55de",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/001.png",
+        "sha256": "b8d03793fbf9adee39bcd991ec59439279ae6ba04cc7afb406ae0e50f6b5584e",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/002.png",
+        "sha256": "a77ddaba686987d7505075f2ff294cf9cf30f6af365ebd504d798aa8f4e9619e",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/003.png",
+        "sha256": "14097341497d4b0bcdcc7d13f79ed467946cfb9f3ac3d948690805b8639d8064",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/004.png",
+        "sha256": "01a56f479588c3b163cfee0e7d895145ab8672980594b4d9aa4e33711fa9d536",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/005.png",
+        "sha256": "d95c8a677971336158f7c7b39a919cef58b86c57e9faa0fe07396aa5b478c807",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/006.png",
+        "sha256": "19e761fb39b971b4417998edf044e35585882707a24cd1caf30ad6ff4cdf34e4",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/007.png",
+        "sha256": "1768aea618d5ea2fdc2d5f511aa5ac07027c782270b538e25c244aaa2d9b59f6",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/008.png",
+        "sha256": "4d505b1070befe7d640b8a5764ed91e54a2bc823eafaa704064c36ca8f9caa90",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/009.png",
+        "sha256": "00514a44b71fb4a58ab75b072994542b159c26be6ca0093a75c5aab0e2144aed",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/010.png",
+        "sha256": "ed4e24036adb5ddf56145b2a7d96e91151eccd5364816dc98181aef2fbbefbb4",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-S/source-captures/011.png",
+        "sha256": "6c954536dde81f65e0972ce2b4fb40ff2421497ddbc6320c64493f9c7856be9d",
+        "clip": "clearance",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/000.png",
+        "sha256": "c2ab0a2b61803b90802dd75b74a8b96a6655885191ef6555c60b94c5cef9bcdd",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/001.png",
+        "sha256": "65a6ee47e5708bd17c4332be4e9fa77a32eaffbd09972e0ac1068789a3d6f191",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/002.png",
+        "sha256": "e4154931d96f1f62270561693176686c0654e4ecf13fdcab2d3f2601d80cf012",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/003.png",
+        "sha256": "806ffb4df2cbe3f50966c05adf0be76da1fb37c05f4b959e862cf61762e83897",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/004.png",
+        "sha256": "2250bc66b3657601c682fb139eb37c1f92eebe9a9ac583bd05218d22317a6b20",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/005.png",
+        "sha256": "da903ec4291dcc9bdc3006d78b89ac05a8d8c55c0afe49dbdb3af1b33f4e3aa9",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/006.png",
+        "sha256": "00f55d8cceb7081fe57eb5f0e5a0094a2072b0b9108009043c018e7778314c63",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/007.png",
+        "sha256": "f054531d2b87ccf13ca771f8fc6ee8dc882db7d0adeffda04ee8ad2d7ef3d6c8",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/008.png",
+        "sha256": "a1dea40fc33216a411bda3d52d4a8c4cfdb1e92c7c2eec6b757bbb8130bf2aa6",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/009.png",
+        "sha256": "fb94ce7efdd4dec4b4fa12eec0fef347d7d98214aeae887fecf222f722774822",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/010.png",
+        "sha256": "679afa395a7491e61527d4144514c67838cdacc253c0da7139295f3d73551638",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/garbage-car/clearance-W/source-captures/011.png",
+        "sha256": "8a7bdb870d5aff08d24cde5320ea53827720ef2fec98e4290a28e363913be6c2",
+        "clip": "clearance",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/garbage-car/rig.json"
+  },
+  "captureFingerprint": "6de7c4bf5c5584c78397fdc1887c7a70a8df7c52832a1e90b2c227edcc728999",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

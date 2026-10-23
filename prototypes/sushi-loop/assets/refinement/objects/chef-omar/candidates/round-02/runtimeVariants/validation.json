@@ -1,0 +1,141 @@
+{
+  "ok": true,
+  "asset": "chef-omar",
+  "round": "round-02",
+  "sourceSHA256": "87da0e18bcadfebc48307ecb47898e06e28cbd8c4c1c736c7fe0c0260034d6c0",
+  "candidateSHA256": "6a26cdc069b95b5e2a4b8e2ddbc14e496b7f7a7c6b4dcd18373e1e1a742927ae",
+  "source": "round-02-resources/approved-runtime.blend",
+  "project": "runtime-round-02.blend",
+  "variant": "cucumber",
+  "nativeFrameManifest": "candidates/round-02/runtimeVariants/native-frames.json",
+  "maximum": {
+    "position": 0.0,
+    "vertexNormal": 0.0,
+    "cornerNormal": 0.0,
+    "pose": 0.0,
+    "control": 0.0,
+    "quadNativePx": 3.814697265625e-05,
+    "bottomNativePx": 3.814697265625e-05,
+    "perpendicularWorld": 1.00170274522156e-07,
+    "analyticDepthWorld": 5.5429354883784754e-08,
+    "frontSideDepthDeltaWorld": 0,
+    "oldShippingOffRayWorld": 1.6946785514110785e-07
+  },
+  "allNonFoodStaticSemanticsEqual": true,
+  "yawDriverAndMappingEqual": true,
+  "staticAudit": "candidates/round-02/runtimeVariants/static-semantic-parity.json",
+  "continuousLawAudit": "candidates/round-02/runtimeVariants/continuous-law-validation.json",
+  "failures": [],
+  "nativeFloatPrecisionToleranceWorld": 1e-06,
+  "shippingProjectionToleranceNativePx": 0.001,
+  "camera": {
+    "name": "S33 Capture Camera.261",
+    "worldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.800000011920929,
+        0.0,
+        -0.5499976873397827
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "nativeResolution": [
+      384,
+      640
+    ],
+    "nativeCaptureScale": 2,
+    "publishedResolution": [
+      384,
+      640
+    ],
+    "publishedSourceScale": 2,
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "rootNativePixel": [
+      192.0,
+      495.999755859375
+    ],
+    "publicationSampling": "Identity whole-canvas copy; native and published scale both2. No sampling/crop/fit."
+  },
+  "image": {
+    "name": "dish-cucumber.png",
+    "size": [
+      635,
+      511
+    ],
+    "packed": true,
+    "packedSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "path": "//round-02-resources/dish-cucumber.png",
+    "colorspace": "sRGB",
+    "alphaMode": "STRAIGHT",
+    "interpolation": "Linear",
+    "extension": "CLIP"
+  },
+  "linkedLibraries": [],
+  "notes": [
+    "All visible/deforming body meshes: actual evaluated numeric positions/normals compared in memory. Fixed viewport-culled knife meshes: unchanged local geometry under actual evaluated utensil parent and native parent inverse/basis, explicitly reconstructed; cross-checked against actual evaluated visible work knife geometry. Compact per-frame/per-mesh results are serialized; raw arrays are discarded.",
+    "World food positions change along the approved ray; projected shipping registration is compared to canonical-v2 source mapping.",
+    "Intermediate legacy off-ray snapping is quantified separately; candidate follows analytic C1 law, not defective legacy mapping.",
+    "Exact saved renderer, camera, lights/materials are checked semantically. RGB differences from food-dependent transport/denoising are assessed separately."
+  ],
+  "initialDiagnosticIssue": "Viewport-culled idle/work food objects can return stale identity matrices. Original observations are retained in *-initial-culled-observations.json; only derived food-transform evidence is corrected, with source/render/controller bytes unchanged.",
+  "foodTransformAudit": "all-frame-food-transform-validation.json",
+  "nonFoodObjectCount": 79,
+  "nonFoodMeshCount": 69,
+  "hiddenMeshNumericAudit": "hidden-mesh-evaluation-validation.json",
+  "renderManifest": "native-frames.json",
+  "nativeFrameCount": 96
+}

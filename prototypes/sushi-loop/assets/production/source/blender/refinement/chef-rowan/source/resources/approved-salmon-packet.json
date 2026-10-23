@@ -1,0 +1,583 @@
+{
+  "schemaVersion": 1,
+  "asset": "dish-salmon",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. For native3D assets use real Blender renders; this existing2D asset retains honest raster source and editable packing recipe. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "schemaVersion": 1,
+    "asset": "dish-salmon",
+    "status": "frozen-by-coordinator",
+    "fixedTargetSHA256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168",
+    "representation": "existing-imagegen-2d; raster artwork plus deterministic publisher, never a Blender dish model",
+    "designFreedom": "Reward useful changes to food and plate forms, proportions, construction and edible detail. Original part counts, source contour minutiae and awkward forms are not aesthetic constraints; preserve role, palette family and locked registration/contact contract.",
+    "visibleSuccessCriteria": [
+      {
+        "id": "salmon-identity",
+        "priority": 1,
+        "outcome": "One unmistakable salmon nigiri on one small round ivory plate. Coral/orange fish, pale fat bands and warm white rice remain separable; no extra food, garnish, chopsticks, scene or text.",
+        "check": "Inspect enlarged,66 logical dish width,40 logical bubble food width, and32 px cell reductions. At the smallest scale require the orange/white/plate recipe cue rather than individual grain visibility."
+      },
+      {
+        "id": "coherent-forms",
+        "priority": 1,
+        "outcome": "Fish forms a rounded, continuous drape over a compact coherent rice mound. The top and hanging ends have purposeful thickness and smooth volume; rice remains attached and supports the fish. The ceramic plate has a coherent ellipse, raised lip and continuous edge.",
+        "check": "No broken or doubled rim, distorted ellipse, melted fish/rice junction, floating grains, unexplained holes, tangles or flat/dead shape patches. Improve weak source construction where useful."
+      },
+      {
+        "id": "warm-soft-material",
+        "priority": 1,
+        "outcome": "Visible progress toward the fixed warm soft cartoon target: broad gentle light, warm readable midtones, rounded transitions and controlled highlights. Salmon can be appetizingly glossy, rice softly rounded and ceramic gently glazed while each material remains distinct.",
+        "check": "Avoid harsh photographic wet glare, faceted fish interiors, clipped white patches, black crevices, noisy microtexture and a strong horizontal lighting preference. No directional external ground shadow."
+      },
+      {
+        "id": "purposeful-edible-detail",
+        "priority": 2,
+        "outcome": "A few readable pale fat stripes follow fish volume; rice has controlled varied grain/cluster cues and a clean mound silhouette. The plate edge adds crafted finish without clutter.",
+        "check": "Detail reinforces form at132 native/66 logical and40 logical widths instead of dissolving into speckle. It must still look like edible salmon/rice, not plastic balloons, random beads or a striped cloth."
+      },
+      {
+        "id": "game-context-readability",
+        "priority": 1,
+        "outcome": "The same approved food art stays legible and properly seated in standalone, serving-surface and preference-bubble contexts at the original scale. Held-food dependencies are disclosed and eventually use the exact corresponding approved raster without pose/contact drift.",
+        "check": "Inspect on light/gray/dark, at native and enlarged,66 logical width and32 px cell reduction; inspect actual40 logical preference composition. Check serving placement under the original foreground occlusion. Native held captures and runtime variants require separate new hash-bound evidence with their existing object pairs before final Godot cutover; standalone approval cannot silently approve stale held art."
+      },
+      {
+        "id": "clean-alpha",
+        "priority": 1,
+        "outcome": "Clean transparent silhouette with no visible exterior halo, detached debris, accidental semitransparent background veil or cutout fringe on light/gray/dark backgrounds. No clipped plate or food edges.",
+        "check": "Inspect actual finalframe alpha and enlarged background composites, including isolated exterior components. Raw target/source low alpha specks do not grant permission for visible export defects. Check raw source nonzero alpha bounds too: original native held-plane UVs use alpha > 0, unlike the standalone alpha > 8 crop. Faint exterior pixels must not silently change apparent held-food size/shape when dependency captures are rebuilt."
+      }
+    ],
+    "lockedTechnicalCriteria": [
+      {
+        "id": "fixed-registration",
+        "outcome": "384 \u00d7 640 native fullcanvas; logical 192 \u00d7 320; logical root 96,248; sourceScale 2; cellSize 128. Preserve original once-only alpha > 8crop plus uniform dish width132 native and center192,496 native; no per view/pose fitting, warping or direction-specific crop.",
+        "evidence": "Editable deterministic raster publisher and machine-readable packing report; reproduce exports from bound source bytes."
+      },
+      {
+        "id": "facing-and-clip",
+        "outcome": "Exactly one static frame,12 fps, nonlooping; required N/E/S/W all share identical camera-facing pixels and matching atlas bytes/rect 0,0,384,640. No directional rotations or invented unseenviews.",
+        "evidence": "All four registered frame/atlas entries with pixel/filehash checks. Shared atlas path is valid when the manifest proves the identical bytes policy."
+      },
+      {
+        "id": "honest-provenance",
+        "outcome": "Retain untouched original source+backup hash, fixed target+exact prompt provenance, actual candidate raster source and deterministic publisher. Any artistic edit/background removal must have imagegen provenance; Python may pack/view/audit only.",
+        "evidence": "Hash-bound immutable candidate packet names every source,recipe,frame,atlas,preview and validation dependency. No fake Blender camera,geometry,bounds,rig or model records."
+      },
+      {
+        "id": "dependency-disclosure",
+        "outcome": "Declare bubble composition and native heldtextured-plane uses. A new standalone food approval is object/candidate specific; it does not certify downstream native captures until they are rebuilt and reviewed with the same approved food bytes.",
+        "evidence": "Packet dependency closure and actual use context images; coordinator retains followup status for affected character/variant pair reviews."
+      }
+    ],
+    "requiredCandidateReviewEvidence": [
+      "Immutable packet and packetSHA256; bound editable raster/source recipe, fixed target and exact ImageGen provenance.",
+      "Each registered N/E/S/W static frame and atlas/rect metadata; actual alpha and reproduction/hash validation.",
+      "Four view sheet and repeated dish preview at identical registered scale.",
+      "Actual standalone food on light/gray/dark at native, enlarged,66 logical and32 px cell reduction;40 logical preference-bubble composition and reduced context; serving belt context using original offsets.",
+      "Honest held food dependency disclosure and representative existing held context; downstream replacement captures remain a separately tracked final cutover requirement."
+    ],
+    "verdictPolicy": "No numeric score threshold. Approve only exact reviewed bytes after visible improvement, no material defects/dead spots in all required contexts and passing locked technical contract. Missing evidence yields needs_evidence; visible blockers yield revise. No candidate approval at criteria stage.",
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "3585458476ae5a45f87fbb3d8772fde0efd71a44a1a17ae2b0363fc6ad5f1013",
+    "clarifications": [
+      "Ordinary once-only alpha>8 bounds crop is the authorized existing2D publisher operation. It may produce a canonical unresized source PNG by lossless rectangle crop, preserving all pixels/alpha inside the rectangle and retaining full raw target bytes/provenance. No thresholding/painting/background-removal is permitted via Python.",
+      "If using a cropped canonical source, publisher must not crop it again: uniform132native-width resize and center192,496 only. Audit reproduction directly against fullrawtarget >8 boundingbox and exactpixel crop, plus fullsource nonzeroalpha bounds for heldUV.",
+      "Same canonical source must be the named downstream held/bubble dependency. Sourcecrop/UV registration will be explicitly versioned and re-reviewed by the same character pairs before finalGodotcutover, preserving worldwidth/attachments/action/camera. Standalone approval does not approve those pending updates.",
+      "A remaining material visible defect/halo/debris still requires correction and independent review. Deterministic crop is no exemption for visible defects."
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "views": [
+      "S",
+      "N",
+      "E",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "screen-space-2d"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "e1e138d959808b875cf4c9aa779184fedad441583091ef6f99307484be69b7ae"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/2d/generated/dish-salmon.png",
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "backup": {
+      "path": "../../../../backups/5de7475813a133bb-dish-salmon.png",
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "b8c55341e03c29cbc3e44d547980d479731d8ecba1b8c8a54b823efb47e72e06"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168"
+    },
+    "candidateProject": {
+      "path": "../../source/round01/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "78b5283fb0ff21aada74f918cf639299449dd4fcea367284f43d7b03bae9c836"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "adb7fd47c9e8a3e94653abdb2393373529a4b6260f40bcbf9ef4b38da4e133e3"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "aef7cb3d06cc1bbb64dd85a3d947e464850856406a26faa438320c658593b0c5"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "a6ad41bccde9a2b9723ede6b7b83bf6ce7de14b75a1f2cb03db9517821790a26"
+    },
+    "candidateResource:input:imagegen-prompt.txt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "adb7fd47c9e8a3e94653abdb2393373529a4b6260f40bcbf9ef4b38da4e133e3"
+    },
+    "candidateResource:input:original.png": {
+      "path": "../../inputs/original.png",
+      "sha256": "b8c55341e03c29cbc3e44d547980d479731d8ecba1b8c8a54b823efb47e72e06"
+    },
+    "candidateResource:input:catalog-object.json": {
+      "path": "../../inputs/catalog-object.json",
+      "sha256": "209642051831ee279e2f39e49027436e63bdd4efe520d6ac9a0be5bba8008887"
+    },
+    "candidateResource:input:target.png": {
+      "path": "../../inputs/target.png",
+      "sha256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168"
+    },
+    "candidateResource:input:original-2d-pipeline/overrides.json": {
+      "path": "../../inputs/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:input:original-2d-pipeline/README.md": {
+      "path": "../../inputs/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:input:original-2d-pipeline/prompts.json": {
+      "path": "../../inputs/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:input:original-2d-pipeline/publish_2d.py": {
+      "path": "../../inputs/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:input:original-2d-pipeline/__pycache__/publish_2d.cpython-312.pyc": {
+      "path": "../../inputs/original-2d-pipeline/__pycache__/publish_2d.cpython-312.pyc",
+      "sha256": "b35adb2105f10da7db738911a615494ad9a15f58a6397bb57aa601083b2d2ebb"
+    },
+    "candidateResource:delivery:resources:0": {
+      "path": "../../source/round01/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4"
+    },
+    "candidateResource:delivery:resources:1": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "c56922caa5ca3f25efaf9dabd414bad547d21000a3599d6392cc072eb184713d"
+    },
+    "candidateResource:delivery:resources:2": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "2b8c5eb4c77b5d467e24fb595bc5db86abca70d415e632b472743002c9e616ef"
+    },
+    "candidateResource:delivery:resources:3": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "a991b4e341ade31a3b2e7fb2306491c1fb17fe09409c5231de4bbe0aae528b73"
+    },
+    "candidateResource:delivery:resources:4": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "fce0ec5e569f8864ad3273a368e8f356b811534147c61b488d0f00301b4a9c1d"
+    },
+    "candidateResource:delivery:resources:5": {
+      "path": "../../source/round01/resources/context-library.json",
+      "sha256": "78dac86e81f015ebf63352f1f4981004b94f2feb7e7cb4035aae65216df40caa"
+    },
+    "candidateResource:delivery:resources:6": {
+      "path": "../../source/round01/resources/context/author_meals.py",
+      "sha256": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1"
+    },
+    "candidateResource:delivery:resources:7": {
+      "path": "../../source/round01/resources/context/bubble-preference-raw.png",
+      "sha256": "819ff9ee1b8cfb803b26be62621799522221473b759ffc3a753ac413dce0dfc3"
+    },
+    "candidateResource:delivery:resources:8": {
+      "path": "../../source/round01/resources/context/character_composition.py",
+      "sha256": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0"
+    },
+    "candidateResource:delivery:resources:9": {
+      "path": "../../source/round01/resources/context/sprites/belt-straight-e/running-S.png",
+      "sha256": "e486bc6d3cb044072b6d323fee5934dbf55965f02eb1de53eba33153e807ea6e"
+    },
+    "candidateResource:delivery:resources:10": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-E.png",
+      "sha256": "80d94d608d1cb45a711cfb278e8d191d709a05280e1b4cb3d7cd82527cdfc255"
+    },
+    "candidateResource:delivery:resources:11": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-N.png",
+      "sha256": "35fad477a23254e2ca0e4297f1973e802700033fed99df5ae0f5de943fb2096b"
+    },
+    "candidateResource:delivery:resources:12": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-S.png",
+      "sha256": "fd57d04e2bc0ce32895b0ecf71ec05e722139fe8ed511a7349a91e255e19ee49"
+    },
+    "candidateResource:delivery:resources:13": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-W.png",
+      "sha256": "d39162d2714b49ec42b8d5453c28c8a1208fd231386ca3908a45796371c61f79"
+    },
+    "candidateResource:delivery:resources:14": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/seated-wait-N.png",
+      "sha256": "7726be20348c60735ffbce6dec537bdaeea0ab2d954338d8a91345420f7a9a6e"
+    },
+    "candidateResource:delivery:resources:15": {
+      "path": "../../source/round01/resources/context/sprites/stool-wood/static-S.png",
+      "sha256": "7d16f15b70adc2b720644a147488a2ff17864bc076e2cfb5b568d8fc40ebfeb9"
+    },
+    "candidateResource:delivery:resources:16": {
+      "path": "../../source/round01/resources/exact-imagegen-target-prompt.txt",
+      "sha256": "adb7fd47c9e8a3e94653abdb2393373529a4b6260f40bcbf9ef4b38da4e133e3"
+    },
+    "candidateResource:delivery:resources:17": {
+      "path": "../../source/round01/resources/fixed-target-raw.png",
+      "sha256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168"
+    },
+    "candidateResource:delivery:resources:18": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "e1e138d959808b875cf4c9aa779184fedad441583091ef6f99307484be69b7ae"
+    },
+    "candidateResource:delivery:resources:19": {
+      "path": "../../source/round01/resources/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:delivery:resources:20": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:delivery:resources:21": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:delivery:resources:22": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:23": {
+      "path": "../../source/round01/resources/original-artwork.png",
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "candidateResource:delivery:resources:24": {
+      "path": "../../source/round01/resources/original-backup.png",
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "candidateResource:delivery:resources:25": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "209642051831ee279e2f39e49027436e63bdd4efe520d6ac9a0be5bba8008887"
+    },
+    "candidateResource:delivery:resources:26": {
+      "path": "../../source/round01/resources/original-registered.png",
+      "sha256": "b8c55341e03c29cbc3e44d547980d479731d8ecba1b8c8a54b823efb47e72e06"
+    },
+    "candidateResource:delivery:resources:27": {
+      "path": "../../source/round01/resources/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+    },
+    "candidateResource:delivery:resources:28": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "df970d669c439a33f61013a48ef58898da37f962229f9ae2034be8dbe80f81e3"
+    },
+    "candidateResource:delivery:rawFrames:0": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:rawFrames:1": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:rawFrames:2": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:rawFrames:3": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:atlases:0": {
+      "path": "atlases/2d-static-N.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:atlases:1": {
+      "path": "atlases/2d-static-E.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:atlases:2": {
+      "path": "atlases/2d-static-S.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:atlases:3": {
+      "path": "atlases/2d-static-W.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "4b1728af979f60bbb293071dbca0f56cb54495142858bc291ad11c50925e7c2f"
+    },
+    "candidateResource:round:reproduction.json": {
+      "path": "reproduction.json",
+      "sha256": "fcb834fab53b15afd785eb6f33a37aec9740d81b6f23086b853f4a38519eb8ed"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "4b1728af979f60bbb293071dbca0f56cb54495142858bc291ad11c50925e7c2f"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "78b5283fb0ff21aada74f918cf639299449dd4fcea367284f43d7b03bae9c836"
+    },
+    "candidateResource:round:previews/original-candidate-actual-widths.png": {
+      "path": "previews/original-candidate-actual-widths.png",
+      "sha256": "51447f4e0b12d7b6579c986ac38d95cb078861ed87a009182312c8ad707fd285"
+    },
+    "candidateResource:round:previews/canonical-source-backgrounds.png": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "c88e51231a00514ef9d4af3edd9f93d56324af0a9cbbcedbfe03d3c91136bbdc"
+    },
+    "candidateResource:round:previews/backgrounds-actual-widths.png": {
+      "path": "previews/backgrounds-actual-widths.png",
+      "sha256": "062d177874335ccb16bdd0f2facac0bf5585e954ed1b8dfcc2152522afe0b25f"
+    },
+    "candidateResource:round:previews/repeated.png": {
+      "path": "previews/repeated.png",
+      "sha256": "c3d698e11b9acb2bbcdd6a2f62297c97e4d7a87eb24c65ae5946aab6a4696d86"
+    },
+    "candidateResource:round:previews/serving-belt-without-foreground.png": {
+      "path": "previews/serving-belt-without-foreground.png",
+      "sha256": "9aedd976afc6dbd60984ed963bc9511529a1a2f24478cbb193da02367863fea8"
+    },
+    "candidateResource:round:previews/held-existing-dependency.png": {
+      "path": "previews/held-existing-dependency.png",
+      "sha256": "bca3f79f456152b3c50c3362e28d6b7f4a4b6befd8f5e5243e240866beb88919"
+    },
+    "candidateResource:round:previews/preference-actual40-context.png": {
+      "path": "previews/preference-actual40-context.png",
+      "sha256": "98b4b95d0601260e301dba24a1a4f67f8777b66d29ef83875dd50821e92ea54d"
+    },
+    "candidateResource:round:previews/serving-full-original-offsets.png": {
+      "path": "previews/serving-full-original-offsets.png",
+      "sha256": "9796b1f3d5ed8da65a182ceb67c20a0dc98a978c1708b7502d41006b67e222a5"
+    },
+    "candidateResource:round:previews/preference-full-frame.png": {
+      "path": "previews/preference-full-frame.png",
+      "sha256": "f33d4204a36b1fac504de7c2cf0b2fa9ee60eaa5b1902b7a9080cf8fcc6f6c02"
+    },
+    "candidateResource:round:previews/four-view-sheet.png": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "5b87be1c18dd1a89acfb0a91816692835a122768a48245c1cab6bd25b7cbb2a5"
+    },
+    "candidateResource:round:previews/registered-frames-backgrounds.png": {
+      "path": "previews/registered-frames-backgrounds.png",
+      "sha256": "a523e6af414b0088bcbd9cc9f979d83586973bef3e78a11759c93554640b2985"
+    },
+    "candidateResource:round:previews/serving-context.png": {
+      "path": "previews/serving-context.png",
+      "sha256": "1dfade8e4b880dba28c1ee87d3ab37b3914ef7eca0dfc89f1b5c5f2f1de73ecc"
+    },
+    "candidateResource:round:atlases/2d-static-N.png": {
+      "path": "atlases/2d-static-N.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:atlases/2d-static-W.png": {
+      "path": "atlases/2d-static-W.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:atlases/2d-static-S.png": {
+      "path": "atlases/2d-static-S.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:atlases/2d-static-E.png": {
+      "path": "atlases/2d-static-E.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:raw/static-W-0000.png": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:raw/static-N-0000.png": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:raw/static-E-0000.png": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:round:raw/static-S-0000.png": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:source:independent-inspection/inspect.py": {
+      "path": "../../source/independent-inspection/inspect.py",
+      "sha256": "119ba13c561f84e1ac073793968d96add8c614ef0e9e8ff550646205f1c3f34f"
+    },
+    "candidateResource:source:independent-inspection/observations.json": {
+      "path": "../../source/independent-inspection/observations.json",
+      "sha256": "74994c839f1b189140c86018bb2294d6c82c4477da33a6fd0f618ff2dd45b443"
+    },
+    "candidateResource:source:round01/prepare_sources.py": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "c56922caa5ca3f25efaf9dabd414bad547d21000a3599d6392cc072eb184713d"
+    },
+    "candidateResource:source:round01/provenance.json": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "2b8c5eb4c77b5d467e24fb595bc5db86abca70d415e632b472743002c9e616ef"
+    },
+    "candidateResource:source:round01/recipe.json": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "fce0ec5e569f8864ad3273a368e8f356b811534147c61b488d0f00301b4a9c1d"
+    },
+    "candidateResource:source:round01/verify.py": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "df970d669c439a33f61013a48ef58898da37f962229f9ae2034be8dbe80f81e3"
+    },
+    "candidateResource:source:round01/publish.py": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "a991b4e341ade31a3b2e7fb2306491c1fb17fe09409c5231de4bbe0aae528b73"
+    },
+    "candidateResource:source:round01/resources/context-library.json": {
+      "path": "../../source/round01/resources/context-library.json",
+      "sha256": "78dac86e81f015ebf63352f1f4981004b94f2feb7e7cb4035aae65216df40caa"
+    },
+    "candidateResource:source:round01/resources/frozen-brief.json": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "e1e138d959808b875cf4c9aa779184fedad441583091ef6f99307484be69b7ae"
+    },
+    "candidateResource:source:round01/resources/original-catalog-object.json": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "209642051831ee279e2f39e49027436e63bdd4efe520d6ac9a0be5bba8008887"
+    },
+    "candidateResource:source:round01/resources/context/author_meals.py": {
+      "path": "../../source/round01/resources/context/author_meals.py",
+      "sha256": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1"
+    },
+    "candidateResource:source:round01/resources/context/character_composition.py": {
+      "path": "../../source/round01/resources/context/character_composition.py",
+      "sha256": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/overrides.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/prompts.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/publish_2d.py": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "E": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "S": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "W": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976",
+      "frame": [
+        384,
+        640
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "5b87be1c18dd1a89acfb0a91816692835a122768a48245c1cab6bd25b7cbb2a5"
+    },
+    "repeated": {
+      "path": "previews/repeated.png",
+      "sha256": "c3d698e11b9acb2bbcdd6a2f62297c97e4d7a87eb24c65ae5946aab6a4696d86"
+    },
+    "backgrounds-actual-widths": {
+      "path": "previews/backgrounds-actual-widths.png",
+      "sha256": "062d177874335ccb16bdd0f2facac0bf5585e954ed1b8dfcc2152522afe0b25f"
+    },
+    "canonical-source-backgrounds": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "c88e51231a00514ef9d4af3edd9f93d56324af0a9cbbcedbfe03d3c91136bbdc"
+    },
+    "registered-frames-backgrounds": {
+      "path": "previews/registered-frames-backgrounds.png",
+      "sha256": "a523e6af414b0088bcbd9cc9f979d83586973bef3e78a11759c93554640b2985"
+    },
+    "preference-full-frame": {
+      "path": "previews/preference-full-frame.png",
+      "sha256": "f33d4204a36b1fac504de7c2cf0b2fa9ee60eaa5b1902b7a9080cf8fcc6f6c02"
+    },
+    "preference-actual40-context": {
+      "path": "previews/preference-actual40-context.png",
+      "sha256": "98b4b95d0601260e301dba24a1a4f67f8777b66d29ef83875dd50821e92ea54d"
+    },
+    "serving-full-original-offsets": {
+      "path": "previews/serving-full-original-offsets.png",
+      "sha256": "9796b1f3d5ed8da65a182ceb67c20a0dc98a978c1708b7502d41006b67e222a5"
+    },
+    "serving-belt-without-foreground": {
+      "path": "previews/serving-belt-without-foreground.png",
+      "sha256": "9aedd976afc6dbd60984ed963bc9511529a1a2f24478cbb193da02367863fea8"
+    },
+    "serving-context": {
+      "path": "previews/serving-context.png",
+      "sha256": "1dfade8e4b880dba28c1ee87d3ab37b3914ef7eca0dfc89f1b5c5f2f1de73ecc"
+    },
+    "held-existing-dependency": {
+      "path": "previews/held-existing-dependency.png",
+      "sha256": "bca3f79f456152b3c50c3362e28d6b7f4a4b6befd8f5e5243e240866beb88919"
+    },
+    "original-candidate-actual-widths": {
+      "path": "previews/original-candidate-actual-widths.png",
+      "sha256": "51447f4e0b12d7b6579c986ac38d95cb078861ed87a009182312c8ad707fd285"
+    }
+  }
+}

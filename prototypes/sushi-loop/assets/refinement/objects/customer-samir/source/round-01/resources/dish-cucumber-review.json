@@ -1,0 +1,114 @@
+{
+  "asset": "dish-cucumber",
+  "round": "round02",
+  "reviewType": "metadata-only handoff with verified reuse of previously inspected identical artwork",
+  "candidatePacketSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
+  "verdict": "approve",
+  "blockers": [],
+  "approvalScope": "Approve the round02 handoff for the exact previously approved standalone cucumber artwork, unchanged raster/publisher/frames/atlases/previews, and the newly explicit frozen criteria source dependency. All prior native held/bubble/starter-meal dependency limitations remain. No global runtime or final Godot cutover approval is issued.",
+  "representation": "Existing ImageGen raster plus deterministic 2D packing. No Blender dish claims.",
+  "priorVisualApproval": {
+    "path": "../../reviews/round01.json",
+    "sha256": "a9004c7a7b1d7d4a4df94d2089b5dc9092c2643b21ba87f2f00cdf51fe6f65f7",
+    "candidatePacketSHA256": "fa4df8e1bc80c21cda4e7fd77d731ba6a0b91ecf7437bc08c9af7d2be3423571",
+    "method": "Reused the round01 visual inspection after verifying exact SHA-256 equality and resolved file identity for every required render/atlas/preview alias and exact source/resource parity. No fresh visual inspection is claimed for round02.",
+    "allFourFramesFourAtlasesAnd23PreviewsCovered": true
+  },
+  "inspectedFiles": [
+    "../round01/raw/static-N-0000.png",
+    "../round01/raw/static-E-0000.png",
+    "../round01/raw/static-S-0000.png",
+    "../round01/raw/static-W-0000.png",
+    "../round01/atlases/2d-static-N.png",
+    "../round01/atlases/2d-static-E.png",
+    "../round01/atlases/2d-static-S.png",
+    "../round01/atlases/2d-static-W.png",
+    "../round01/previews/four-view-sheet.png",
+    "../round01/previews/repeated.png",
+    "../round01/previews/backgrounds-actual-widths.png",
+    "../round01/previews/full-native-light.png",
+    "../round01/previews/full-logical-light.png",
+    "../round01/previews/full-cell32-light.png",
+    "../round01/previews/full-native-gray.png",
+    "../round01/previews/full-logical-gray.png",
+    "../round01/previews/full-cell32-gray.png",
+    "../round01/previews/full-native-dark.png",
+    "../round01/previews/full-logical-dark.png",
+    "../round01/previews/full-cell32-dark.png",
+    "../round01/previews/canonical-source-backgrounds.png",
+    "../round01/previews/registered-frames-backgrounds.png",
+    "../round01/previews/preference-full-frame.png",
+    "../round01/previews/preference-actual40-context.png",
+    "../round01/previews/serving-full-original-offsets.png",
+    "../round01/previews/serving-belt-without-foreground.png",
+    "../round01/previews/serving-cell32-original-offsets.png",
+    "../round01/previews/serving-cell32-inspection-only.png",
+    "../round01/previews/serving-context.png",
+    "../round01/previews/held-existing-dependency.png",
+    "../round01/previews/original-candidate-actual-widths.png",
+    "packet.json",
+    "delivery.snapshot.json",
+    "../../delivery-round02.json",
+    "../../reviews/criteria.json",
+    "../../reviews/round01.json",
+    "../round01/packet.json",
+    "../round01/delivery.snapshot.json",
+    "../round01/validation.json",
+    "../../source/round01/publish.py",
+    "../../source/round01/recipe.json",
+    "../../source/round01/provenance.json",
+    "../../source/round01/dish-cucumber.png"
+  ],
+  "inspectionMethod": "The exact ../round01/... image aliases in inspectedFiles were verified as identical to the files opened and visually reviewed in round01. New inspection here concerns metadata, binding, parity and declared-only source reproduction; it does not claim that unchanged image pixels were re-opened.",
+  "frozenCriteriaFileSHA256": "3c2919f38b95ec6bb3af3b52298379287a8530018ad77ff573123c1a3332718a",
+  "findings": [
+    {
+      "id": "art-resource-and-capture-parity",
+      "result": "pass",
+      "finding": "The candidate source, raw target/originals, provenance, immutable publisher/preparation/verification scripts, recipe, all four frames, all four atlases and all23previews have unchanged hashes relative to the approved round01 packet. All74 common bound resource paths are unchanged. Quality criteria and capture contract are equal, including384x640frame, logical192x320/root[96,248],sourceScale2 and identical camera-facing static pixels."
+    },
+    {
+      "id": "versioned-metadata-handoff",
+      "result": "pass",
+      "finding": "Round02 binds the exact frozen criteria JSON at../../reviews/criteria.json with SHA2563c2919f38b95ec6bb3af3b52298379287a8530018ad77ff573123c1a3332718a and includes it in the versioned delivery resource list. New delivery.snapshot.json equals delivery-round02.json. Its only delivery changes are round identifier, added criteria dependency and explanatory handoffRevision; original canonical root delivery.json remains the unchanged round01 file."
+    },
+    {
+      "id": "declared-only-publisher-dependency-closure",
+      "result": "pass",
+      "finding": "I copied only the30 explicitly declared delivery resources into a fresh temporary object, with no candidate directory, root delivery or cache directories. The unchanged publisher completed with exit0 and reproduced every one of the31 approved PNG outputs byte-for-byte. Its validation.json and historical delivery.json output bytes also matched round01. Every input was independently confirmed bound in the round02 packet."
+    },
+    {
+      "id": "prior-evidence-correction",
+      "result": "resolved",
+      "finding": "The earlier round01 reproduction check copied reviews/criteria.json separately even though it was absent from that handoff\u2019s declared resources. It proved reproduction inside that augmented copy, but not declared-only promoted-source closure. Round02 explicitly binds and packages that dependency, and the new independently executed source-only test closes this gap."
+    },
+    {
+      "id": "visual-criteria-carry-forward",
+      "result": "pass-by-exact-art-identity",
+      "finding": "The prior visible outcomes for rounded warm food/ceramic materials, cucumber identity, game-size readability, clean export alpha and fixed2Dregistration remain valid because their exact image/source bytes are unchanged. Existing serving foreground occlusion and older baked held art remain disclosed; no downstream recapture is approved by this metadata handoff."
+    }
+  ],
+  "independentEvidence": {
+    "path": "../../reviews/round02-independent-checks.json",
+    "sha256": "855de6eafae6c9aaffdf2af812deb91e54dca2e6e2d550b3b037af7f1381cbb3",
+    "packetRecordsVerified": 98,
+    "newSourceInputCount": 30,
+    "matchedPNGOutputs": 31,
+    "cacheDirectoriesUsed": false,
+    "preexistingOutputsUsed": false,
+    "allSealedArtifactsUnchanged": true,
+    "sourceProjectSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "exportSHA256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa"
+  },
+  "supplementalCoordinatorEvidence": {
+    "path": "../../final/proposed-source-closure-round02.json",
+    "role": "Supplemental coordinator receipt, not a sealed candidate resource and not substituted for independent reproduction."
+  },
+  "limitations": [
+    "This approved standalone art has not yet replaced old packed native character textures. New same-character editor/judge rounds must version/repack the canonical texture/UV/aspect/lowest plate registration while preserving body, rig, pose, drivers, camera and actions.",
+    "The40px preference composition is context evidence at original idle index0, not approval of every downstream bubble appear/idle/fade clip or starter-meal runtime variant.",
+    "Original serving offsets include substantial preexisting customer foreground occlusion. It is shown explicitly and does not result from a new scale/root change.",
+    "At32px cell scale, rice-grain detail is naturally subpixel; the assessed outcome is the retained two-roll green/cream dish cue at approximately16.5px width."
+  ],
+  "summary": "Approve this exact immutable metadata handoff. The visual approval carries forward by verified byte identity, and the missing criteria dependency is now explicitly bound and independently shown sufficient for source-only publisher reproduction."
+}

@@ -1,0 +1,20 @@
+Native dock-floor round03 reproduction
+
+Use Blender5.2.2 LTS(/opt/homebrew/bin/blender in the original environment). Always copy the complete object folder into a clean writable reproduction destination before executing recipes; never run them over a sealed/approved source.
+
+1. blender -b --python source/build-floor-round03.py -- --render
+   Rebuilds native geometry, packed deterministic grayscale UV timber grain and the registered common light/camera rig, saves source/round-03.blend BEFORE rendering any facing. Produces four896x960 PNG frames and byte-identical1x1atlases at12fps. The imagegen target is never used as a render material or scene card.
+2. blender -b source/round-03.blend --python source/measure-floor.py
+   Measures actual evaluated floor mesh integrity, native dimensions/sections/boundary, camera phases and resources.
+3. blender -b source/round-03.blend --python source/capture-paired.py
+   Appends the exact inputs/paired-native/dock-entry-round-05.blend in memory only. Four1152x1280 depth-tested pair captures. No standalone source is resaved. The paired SHA is asserted.
+4. blender -b source/round-03.blend --python source/measure-exact-boundary.py
+   Extracts actual evaluated native boundary edges and normals; interpolates the shared profile in doubleprecision. The exact terminal evaluated edge isW=.81400001049; guaranteed cap-clear usableW=.78. Raw BVH probes1e-7inside seam are retained as numerical diagnostics and do not replace exact face/edge extraction.
+5. blender -b -t6 --python source/capture-family.py
+   Loads exact native sources, original b176 family collections and native actions, then emits all40full-family/source/human/path/context captures into native-context-replay. The original independent entry-editor exports are separately retained. On reproduction pixels agree within1/255 in a few rounding pixels. A prior all-mesh minimum included a hidden knife_handle dummy; it is not a sole-contact measurement. Visibility-filtered native minimal_foot_L/R contact is approximately+5.5e-8relative to support. Current approved Rosa sprites in browser evidence remain the consumer reference.
+6. Use bundled Python with Pillow/numpy to execute source/prepare-browser.py then source/make-static-evidence.py. prepare-browser.py is an original intake snapshot recipe requiring repository production paths; the complete already-copied source/resources/browser contains every actually consumed source atlas and metadata, so no live production access is necessary for consumer replay.
+7. Start Vite from the repository root and execute node source/browser-v2-supported/capture.mjs and node source/browser-v2-supported/export-composites.mjs with DOCK_EVIDENCE_URL pointing to this object source/browser-v2-supported/index.html. Actual immutable renderer functions live in source/resources/browser; whole frames, native source scale, ordinary image/canvas sampling, registered roots and common phase offsets are used.
+
+Original b176 source and source backup remain exactSHA b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6. Own round03 source and paired native entry are immutable after exchange. The first two exposure/modeling drafts, all failures, exact native captures, original-layout atlases, browser diagnostics and logs are retained. Root coordinator alone seals/promotes after independent judgement.
+
+Final consumer evidence uses brief-v2-supported-ordering.json and the exact supportedBy renderer snapshot. Native source/round-03.blend inherits the original geometry brief; geometry, target and light/camera recipe were not changed by the consumer addendum. source/browser and candidates/round-03/browser are historical failed-before-support-order records; source/browser-v2-supported and candidates/round-03/browser-v2-supported are corrected final evidence. Both exact renderer versions are retained in inputs.

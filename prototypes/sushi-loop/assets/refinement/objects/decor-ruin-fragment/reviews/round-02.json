@@ -1,0 +1,227 @@
+{
+  "asset": "decor-ruin-fragment",
+  "round": 2,
+  "verdict": "revise",
+  "candidatePacketSHA256": "7eaec8595bbac630d5df051a80a52a8c6ef9ae303b76a55dccaa5c1a3effb92e",
+  "candidateProjectSHA256": "97487414aadd87fe90de171adff131574838638a9a1f4f874d4178896459ae74",
+  "briefSHA256": "e44b8d97a3215b01c157a9457e2ffb34cb3967f819f59eea2d01c6ba158e145e",
+  "frozenCriteriaSHA256": "2b882d8fb6b244a8e4dbf5cf76e24c8dca9f691b84d82b30f8a505cb1419c648",
+  "inspectedFiles": [
+    "frames/static-N.png",
+    "frames/static-E.png",
+    "frames/static-S.png",
+    "frames/static-W.png",
+    "previews/four-view-sheet.png",
+    "previews/logical-four-view-sheet.png",
+    "previews/backgrounds-logical.png",
+    "previews/backgrounds-enlarged.png",
+    "previews/comparison-logical.png",
+    "consumer/phone-repeated.png",
+    "consumer/phone-interaction.png",
+    "consumer/phone-four-facings.png",
+    "consumer/desktop-repeated.png",
+    "consumer/desktop-interaction.png",
+    "consumer/phone-standalone-context.png",
+    "consumer/landscape-four-facings.png"
+  ],
+  "additionalInspectedFiles": [
+    "native/capture-validation.json",
+    "native/camera.json",
+    "native/static-N.png",
+    "native/static-E.png",
+    "native/static-S.png",
+    "native/static-W.png",
+    "portable-replay/verification.json",
+    "portable-replay/static-N.png",
+    "portable-replay/static-E.png",
+    "portable-replay/static-S.png",
+    "portable-replay/static-W.png",
+    "portable-recipe-replay/verification.json",
+    "consumer/evidence.json",
+    "consumer/phone-W12-family.png",
+    "consumer/phone-ruin-thumbnail.png",
+    "validation.json",
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "../../reviews/initial.json",
+    "../../reviews/proposedcriteria.json",
+    "../../source/round-02/capture.py",
+    "../../source/round-02/consumer.mjs",
+    "../../source/round-02/settings.json",
+    "../../source/round-02/published-camera.json",
+    "../../source/round-02/published-assetRecord.json",
+    "../../source/round-02/published-rig.json"
+  ],
+  "inspectionMethod": "All candidateRenders and all12 packet previews were directly viewed. All four full published frames were inspected individually, plus enlarged/logical sheets and cream/gray/dark grounds. Sealed native frames were inspected through an independently rendered verified replay sheet: every decoded RGBA pixel in the judge source replay equals its sealed native frame, and published frames equal exact whole-frame Lanczos native4-to2. Actual consumer captures, full phone surroundings, repeated scene, recorded submarine/eel scene, landscape and W12 thumbnail were directly viewed. No editor rationale/self-rating or previous coordinator art conclusion was used.",
+  "scores": {
+    "shapeVolume": 6,
+    "color": 7,
+    "lightingHighlights": 5,
+    "materialDetail": 4,
+    "artifactFreeReadability": 8,
+    "intendedSizeReadability": 7
+  },
+  "scoreInterpretation": "Comparative observations against original and selected target, not a numerical approval threshold. This round improves several original weaknesses but does not yet meet the frozen high-priority shape/material outcomes.",
+  "observations": [
+    {
+      "area": "progress",
+      "evidence": "Warm ivory replaces the original blank white head; blue base midtones are more readable and the green no longer clips to neon. The inset eye niches, longer coherent face, grounded thick plants and small pale rubble make the ruin more legible and intentional."
+    },
+    {
+      "area": "shapeVolume",
+      "evidence": "The heavy brow, long nose, eye recesses, lip and ears remain immediately recognizable, and all four directions have real thickness. The crown/forehead/brow still read as clean chamfered blocks; the sparse zigzag cracks and isolated corner notches do not yet establish the worn, sculptural stone construction visible in the target."
+    },
+    {
+      "area": "materialDetail",
+      "evidence": "Across S/E/W/N, the major crown moss patches read as flat oval caps or stacked disks. The North rear patch reads as a round applied badge. Contact is technically present, but little thickness, wrapping or rounded edge-light makes the growth feel integrated into the stone."
+    },
+    {
+      "area": "reefFooting",
+      "evidence": "The cobalt foot is substantial and registered, but the uniformly straight octagonal upper/lower boundaries and very broad flat color triangles read as a manufactured pedestal. The fixed target has broad, worn rock facets and softened irregular shoulder transitions. Exact target faceting or every pebble is not required."
+    },
+    {
+      "area": "lightingHighlights",
+      "evidence": "Horizontal illumination is balanced and there is no directional cast ground shadow. Stone planes have readable warm midtones, but low local edge/plane separation leaves much of the head and moss caps visually flat compared with the target. This observation supports the two sculptural/material blockers; it is not a demand for glossy or directional lighting."
+    },
+    {
+      "area": "intendedSize",
+      "evidence": "The phone four-view row and W12 thumbnail retain the face and three main material masses. The repeated3x3 scene stays coherent, and in the6x4 interaction scene the yellow submarine and eel remain easy to distinguish. The disk-like crown shapes are particularly prominent in the repeated phone scene."
+    },
+    {
+      "area": "defects",
+      "evidence": "No blocking alpha halo/speckles, clipping, black patches, torn normals, exposed ends or incorrect direction labels were observed. Deliberately dark eye recesses and broad calm rear/side planes are not defects."
+    }
+  ],
+  "criteriaAssessment": [
+    {
+      "id": "shape-volume",
+      "status": "partial",
+      "reason": "Clear grounded carved-face identity and useful eye/face construction, but the clean block stack and pedestal read remain too strong."
+    },
+    {
+      "id": "stone-growth-material",
+      "status": "revise",
+      "reason": "Rounded attached moss volume and convincing broad weathered stone/rock transitions remain the main gap."
+    },
+    {
+      "id": "warm-readable-palette",
+      "status": "pass",
+      "reason": "Ivory stone, controlled green and readable cobalt retain the palette family without clipping or a yellow wash."
+    },
+    {
+      "id": "soft-balanced-light",
+      "status": "partial",
+      "reason": "Balance/no-shadow pass; edge and plane response should better support the sculptural changes, without requiring gloss."
+    },
+    {
+      "id": "phone-readability",
+      "status": "pass-with-style-gap",
+      "reason": "Identity and actor hierarchy are clear; crown discs remain visually prominent at intended size."
+    },
+    {
+      "id": "all-view-coherence",
+      "status": "pass-with-style-gap",
+      "reason": "Consistent same-object geometry/materials in all directions; no unfinished rear or need for a second face, but growth needs the same integrated finish throughout."
+    },
+    {
+      "id": "defect-free",
+      "status": "pass",
+      "reason": "No material render/capture artifacts identified in complete required evidence."
+    }
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "criterion": "stone-growth-material",
+      "location": "Crown caps in all four facings, stacked patches on S crown, and circular North rear patch.",
+      "effect": "Thin cap/badge silhouettes and nearly uniform fill make the green read as separate disks attached to clean stones, rather than softly rounded reef growth. This remains a high-priority material/volume gap from the fixed target.",
+      "desiredVisibleOutcome": "Growth should have readable attached thickness and rounded, irregular volume with a few convincing wraps over stone edges or into contacts. Keep a restrained, coherent growth pattern that survives logical/phone size. Re-proportioning within2.18 is allowed; exact old crown heights and patch counts are not constraints."
+    },
+    {
+      "rank": 2,
+      "criterion": "shape-volume / stone-growth-material",
+      "location": "Front crown/forehead/brow, the long head edges and cobalt footing shoulders/front planes; confirm the improvement from E/W/N as well.",
+      "effect": "Regular chamfered bars, hairline zigzag cracks and the straight octagonal blue slab retain a clean assembled-block appearance. The added decoration does not yet make the primary masses read as a weathered carved ruin on natural reef rock.",
+      "desiredVisibleOutcome": "Give the main stone and reef masses a small number of deliberate worn plane changes, edge breaks and softened chipped transitions substantial enough to read at intended size. The face should feel carved into coherent stone, with broad controlled highlights revealing those forms. Preserve calm planes and recognizable features; do not substitute noisy crack webs, generic surface texture or exact target part replication."
+    }
+  ],
+  "remainingDifferences": [
+    "Target normalized framing/enlargement and external halo/speckles remain excluded; native camera/root/scale are correctly preserved.",
+    "The target has painterly fine texture and a directional golden sheen. Exact texture and sheen are unnecessary; native rough matte surfaces and symmetric light are acceptable when the broader volumes/materials read.",
+    "Exact target crown count, crack paths, vegetation layout, upper slab arrangement and every pebble are not requirements.",
+    "Quiet side/rear planes and a single frontal carved face are acceptable. No invented rear face, sockets or modular joining features are needed."
+  ],
+  "technicalEvidence": {
+    "result": "Required capture/native/registration/dependency evidence passes. Verdict is visual revise, not needs_evidence.",
+    "packetHashes": {
+      "entriesChecked": 190,
+      "allMatch": true,
+      "audit": "reviews/round-02-independent-native/packet-hash-audit.json"
+    },
+    "independentSourceAudit": {
+      "path": "reviews/round-02-independent-native/independent-source-audit.json",
+      "scene": "Ruin fragment warm native round 02",
+      "camera": "Registered ruin camera 35deg",
+      "meshCount": 136,
+      "rootPosition": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "nativeBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.180000066757202
+        ]
+      },
+      "heightTolerance": "2.18 plus normal float storage tolerance; old2.097 feature height is not enforced.",
+      "linkedLibraries": [],
+      "imageDatablocks": [],
+      "actions": 0,
+      "armatures": 0,
+      "rasterSubstitute": "None; native volume meshes and native material nodes. Compositor references the candidate scene itself."
+    },
+    "camera": "Confirmed35deg object-specific recorded world/projection matrices, HORIZONTAL ortho1.5, shift[0,.75], pixelAspect1, logical192x480/root96,384. Native capture768x1920 scale4; published384x960 scale2. Native root calibration[384,1536.000967], unitX[511.999969,0], depth[0,293.67106], height[0,-419.40591].",
+    "facingsAndFooting": "Native root matrices establish N180/E90/S0/W-90. Exactly one worldY correction belowZ.42 after rotation expands capture ground depth to\u00b1.871723 from undeformed\u00b1.5. Ground remainsZ0; projected silhouette spans N2.32017/E2.43871/S2.41072/W2.41204 cells, all below3. No view fitting or output clipping.",
+    "nativeLightMaterialSettings": "Centered110W warm overhead plus four equal72W cardinal fills and uniform world strength.16; native lower-height material factor.71..1. Passthrough compositor correctly sources own scene. Historical140/100/135 numeric settings are adjustable per frozen reconciliation. No ground-plane object/baked ground shadow observed.",
+    "sourceReplay": {
+      "method": "Judge reopened exact sealedproject in Blender5.2.2 and ran exact sealedcapture.py into reviews only. No project/candidate bytes saved or changed.",
+      "directory": "reviews/round-02-independent-native",
+      "verification": "reviews/round-02-independent-native/judge-rgba-verification.json",
+      "allFourDecodedRGBAExact": true,
+      "maxChannelDifference": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "publishedFramesExactWholeCanvasLanczos": true,
+      "atlasesExactFrameCopies": true,
+      "nativePNGFileBytes": "Differ because Blender writes path/time metadata; decoded RGBA is exact."
+    },
+    "supplementalRecipeReplay": "Independently compared supplied full-recipe rebuild pixels: each facing differs by at most1LSB RGB and exactly matches alpha. This is explicitly non-bit-identical supplemental evidence. It does not invalidate the exact required reopened saved-source replay. validation.allTechnicalChecksPass=false includes this supplemental equality flag; no required frozen constraint failure is inferred from that aggregate.",
+    "captureSeed": "settings.json describes build seed317; capture.py explicitly sets seed0 and both sealed/independent capture records report actual seed0. Exact replay verifies the executed capture setting.",
+    "consumerEvidence": "Read actual consumer.mjs route/capture procedure and hash-bound evidence.json. Production sprite image requests were redirected to exact candidate atlas URLs and all observed payload hashes matched. Real SpriteScene/world-sprite-raster consumer screenshots show all views, repeated3x3,6x4 sub/eel context at390x844 phone and844x390 landscape; W12 thumbnail72x96. No page errors or production renderer mutations reported. These are spacing/scale/hierarchy checks, not modular seam claims.",
+    "sourceIntegrity": "Original source and backup hash still b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6. Candidate source remains97487414aadd87fe90de171adff131574838638a9a1f4f874d4178896459ae74 after judge replay.",
+    "limits": "No live Godot integration reviewed. This static standalone asset has no motion/rig/modular-connector requirement. Review binds exact packet only and grants no production/publication approval."
+  },
+  "judgeEvidenceFiles": [
+    "reviews/round-02-independent-native/verified-native-replay-sheet.png",
+    "reviews/round-02-independent-native/independent-source-audit.json",
+    "reviews/round-02-independent-native/capture-validation.json",
+    "reviews/round-02-independent-native/judge-rgba-verification.json",
+    "reviews/round-02-independent-native/packet-hash-audit.json",
+    "reviews/round-02-native-audit.py"
+  ]
+}

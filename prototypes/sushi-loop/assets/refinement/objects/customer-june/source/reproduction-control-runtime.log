@@ -1,0 +1,22 @@
+00:00.282  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/source/original-runtime.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/source/reproduce_round02_portable.py:33: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new('June warm '+key);m.diffuse_color=(*rgb(h),1);m.use_nodes=True;n=m.node_tree.nodes;n.clear();out=n.new('ShaderNodeOutputMaterial');bs=n.new('ShaderNodeBsdfPrincipled');bs.inputs['Base Color'].default_value=(*rgb(h),1);bs.inputs['Roughness'].default_value=rough;bs.inputs['Specular IOR Level'].default_value=specular;bs.inputs['Coat Weight'].default_value=coat;bs.inputs['Coat Roughness'].default_value=.4
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/source/reproduce_round02_portable.py:189: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('June neutral warm ambient');world.use_nodes=True;world.node_tree.nodes.get('Background').inputs[0].default_value=(.68,.72,.78,1);world.node_tree.nodes.get('Background').inputs[1].default_value=.30;sc.world=world
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/source/reproduce_round02_portable.py:190: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  sc.use_nodes=True;sc.compositing_node_group=None
+00:01.203  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/candidates/reproduction-control/runtime/frames/eat-salmon-S/000.png'
+BlenderMCP addon registered
+Info: Saved as "reproduction-control-runtime.blend"
+JUNE_CAPTURE runtime eat-salmon S 1 envelope True boneErr 0.0
+00:01.987  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/candidates/reproduction-control/runtime/frames/eat-salmon-E/000.png'
+JUNE_CAPTURE runtime eat-salmon E 1 envelope True boneErr 0.0
+00:02.786  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/candidates/reproduction-control/runtime/frames/eat-salmon-N/000.png'
+JUNE_CAPTURE runtime eat-salmon N 1 envelope True boneErr 0.0
+00:03.296  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/candidates/reproduction-control/runtime/frames/eat-salmon-W/000.png'
+JUNE_CAPTURE runtime eat-salmon W 1 envelope True boneErr 0.0
+JUNE_DONE runtime reproduction-control 4
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,58 @@
+{
+  "asset": "wall-inner-corner",
+  "stage": "independent initial inspection; no candidate reviewed",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/family-concept.png",
+    "reviews/initial-inspection-logical.png",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "brief.json",
+    "prompts/judge.txt"
+  ],
+  "independence": "Inspected the source snapshot, fixed target, style-only family concept and asset records directly. Did not read other object aesthetic reviews, editor proposals or candidate rationale.",
+  "sourceObservations": [
+    "The source reads as a blue L-shaped wall cap over amber horizontal wood bands. The open inner corner and the long horizontal and returning portions identify the modular corner.",
+    "The blue cap is a nearly uniform, flat saturated area. Its planes have little visible depth or edge roll, and the inside bend is a sharp, graphic notch.",
+    "The wood reads as broad rectangular bands with straight narrow dark separators. Its lower area becomes considerably darker; the surfaces have little crafted material information or rounded volume.",
+    "At the 192 by 352 logical frame the silhouette and palette are clear, but the large blue surface and wood bands look comparatively spare and hard-edged."
+  ],
+  "targetObservations": [
+    "The fixed target makes the blue cap visibly rounded and substantial, with a broad blue top plane, darker blue side depth, and softened outer and inner edges.",
+    "Warm amber wood gains separate rounded planes, warm edge light and restrained broad grain. The cap and wood feel more deliberately made.",
+    "At logical size the stronger volume and warm/cool separation survive. Large highlights are more useful than the fine grain lines.",
+    "The target has a bright, nearly white rim and a diagonal crease across the blue bend. These are aesthetic information, not required geometry; avoid copying a sharp crease, halo or overly glossy edge if it harms soft cartoon cohesion.",
+    "The target is internally larger and differently placed than the source on its canvas. Its apparent silhouette extent and placement cannot define the production footprint or registration.",
+    "The family-concept image supports the same blue-cap/amber-wood treatment and soft edge volume. It is style-only evidence and does not establish the corner form or exact straight-wall settings."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Make the corner feel like a coherent, softly rounded native construction, with readable blue cap thickness and an intentional inside turn, while retaining its open L clearance and matching join profiles."
+    },
+    {
+      "rank": 2,
+      "outcome": "Bring warm wood and clear blue material separation into the existing palette family, with broad soft highlights, readable warm wood bands and no large dead dark surfaces in any facing."
+    },
+    {
+      "rank": 3,
+      "outcome": "Use purposeful crafted detail and improved surface/edge forms that remain visible at logical size, then prove the corner belongs to a continuous wall in native and independently assembled sprite joins."
+    }
+  ],
+  "immutableConstraints": {
+    "registration": "Actual orthographic camera and pixel aspect from source-camera.json; logical frame 192x352, root [96,256], one-world-unit/128-logical-pixel cell, native frame 384x704 at sourceScale 2. No view fitting, image warping or camera-facing reference card.",
+    "geometryAndFunction": "One-cell footprint, functional height 1.02, L path, concave opening/clearance, occupied envelope, W and N connection planes, cross-sections, handedness and material bands preserved through actual N/E/S/W rotations.",
+    "family": "Use the approved wall-middle family settings when supplied. Native and sprite connection continuity is required, not inferred from a lone corner image.",
+    "capture": "Static one-frame clip, all four actual native rotations, transparent RGBA, no directional ground shadow and no preferred horizontal lighting direction."
+  },
+  "modelingFreedom": "Original part counts, blank surfaces and awkward nonfunctional geometry are not constraints. Reward useful changes to native forms, structure and decoration away from locked joins and clearance.",
+  "limitsAndPendingEvidence": [
+    "Only one original snapshot and one fixed aesthetic target view are supplied. No unseen reference view is invented; future views must be coherent with the same object and family.",
+    "inputs/family-settings.json was not present at initial inspection. Final family technical settings remain pending from the coordinator.",
+    "Source records describe camera, envelope and ports; this initial visual inspection has not independently measured the Blender scene.",
+    "No candidate, technical capture audit or modular assembly has been reviewed. This file grants no candidate approval."
+  ]
+}

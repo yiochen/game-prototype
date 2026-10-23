@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "asset": "dish-salmon",
+  "status": "proposed-awaiting-coordinator-freeze",
+  "fixedTargetSHA256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168",
+  "representation": "existing-imagegen-2d; raster artwork plus deterministic publisher, never a Blender dish model",
+  "designFreedom": "Reward useful changes to food and plate forms, proportions, construction and edible detail. Original part counts, source contour minutiae and awkward forms are not aesthetic constraints; preserve role, palette family and locked registration/contact contract.",
+  "visibleSuccessCriteria": [
+    {
+      "id": "salmon-identity",
+      "priority": 1,
+      "outcome": "One unmistakable salmon nigiri on one small round ivory plate. Coral/orange fish, pale fat bands and warm white rice remain separable; no extra food, garnish, chopsticks, scene or text.",
+      "check": "Inspect enlarged,66 logical dish width,40 logical bubble food width, and32 px cell reductions. At the smallest scale require the orange/white/plate recipe cue rather than individual grain visibility."
+    },
+    {
+      "id": "coherent-forms",
+      "priority": 1,
+      "outcome": "Fish forms a rounded, continuous drape over a compact coherent rice mound. The top and hanging ends have purposeful thickness and smooth volume; rice remains attached and supports the fish. The ceramic plate has a coherent ellipse, raised lip and continuous edge.",
+      "check": "No broken or doubled rim, distorted ellipse, melted fish/rice junction, floating grains, unexplained holes, tangles or flat/dead shape patches. Improve weak source construction where useful."
+    },
+    {
+      "id": "warm-soft-material",
+      "priority": 1,
+      "outcome": "Visible progress toward the fixed warm soft cartoon target: broad gentle light, warm readable midtones, rounded transitions and controlled highlights. Salmon can be appetizingly glossy, rice softly rounded and ceramic gently glazed while each material remains distinct.",
+      "check": "Avoid harsh photographic wet glare, faceted fish interiors, clipped white patches, black crevices, noisy microtexture and a strong horizontal lighting preference. No directional external ground shadow."
+    },
+    {
+      "id": "purposeful-edible-detail",
+      "priority": 2,
+      "outcome": "A few readable pale fat stripes follow fish volume; rice has controlled varied grain/cluster cues and a clean mound silhouette. The plate edge adds crafted finish without clutter.",
+      "check": "Detail reinforces form at132 native/66 logical and40 logical widths instead of dissolving into speckle. It must still look like edible salmon/rice, not plastic balloons, random beads or a striped cloth."
+    },
+    {
+      "id": "game-context-readability",
+      "priority": 1,
+      "outcome": "The same approved food art stays legible and properly seated in standalone, serving-surface and preference-bubble contexts at the original scale. Held-food dependencies are disclosed and eventually use the exact corresponding approved raster without pose/contact drift.",
+      "check": "Inspect on light/gray/dark, at native and enlarged,66 logical width and32 px cell reduction; inspect actual40 logical preference composition. Check serving placement under the original foreground occlusion. Native held captures and runtime variants require separate new hash-bound evidence with their existing object pairs before final Godot cutover; standalone approval cannot silently approve stale held art."
+    },
+    {
+      "id": "clean-alpha",
+      "priority": 1,
+      "outcome": "Clean transparent silhouette with no visible exterior halo, detached debris, accidental semitransparent background veil or cutout fringe on light/gray/dark backgrounds. No clipped plate or food edges.",
+      "check": "Inspect actual finalframe alpha and enlarged background composites, including isolated exterior components. Raw target/source low alpha specks do not grant permission for visible export defects. Check raw source nonzero alpha bounds too: original native held-plane UVs use alpha > 0, unlike the standalone alpha > 8 crop. Faint exterior pixels must not silently change apparent held-food size/shape when dependency captures are rebuilt."
+    }
+  ],
+  "lockedTechnicalCriteria": [
+    {
+      "id": "fixed-registration",
+      "outcome": "384 \u00d7 640 native fullcanvas; logical 192 \u00d7 320; logical root 96,248; sourceScale 2; cellSize 128. Preserve original once-only alpha > 8crop plus uniform dish width132 native and center192,496 native; no per view/pose fitting, warping or direction-specific crop.",
+      "evidence": "Editable deterministic raster publisher and machine-readable packing report; reproduce exports from bound source bytes."
+    },
+    {
+      "id": "facing-and-clip",
+      "outcome": "Exactly one static frame,12 fps, nonlooping; required N/E/S/W all share identical camera-facing pixels and matching atlas bytes/rect 0,0,384,640. No directional rotations or invented unseenviews.",
+      "evidence": "All four registered frame/atlas entries with pixel/filehash checks. Shared atlas path is valid when the manifest proves the identical bytes policy."
+    },
+    {
+      "id": "honest-provenance",
+      "outcome": "Retain untouched original source+backup hash, fixed target+exact prompt provenance, actual candidate raster source and deterministic publisher. Any artistic edit/background removal must have imagegen provenance; Python may pack/view/audit only.",
+      "evidence": "Hash-bound immutable candidate packet names every source,recipe,frame,atlas,preview and validation dependency. No fake Blender camera,geometry,bounds,rig or model records."
+    },
+    {
+      "id": "dependency-disclosure",
+      "outcome": "Declare bubble composition and native heldtextured-plane uses. A new standalone food approval is object/candidate specific; it does not certify downstream native captures until they are rebuilt and reviewed with the same approved food bytes.",
+      "evidence": "Packet dependency closure and actual use context images; coordinator retains followup status for affected character/variant pair reviews."
+    }
+  ],
+  "requiredCandidateReviewEvidence": [
+    "Immutable packet and packetSHA256; bound editable raster/source recipe, fixed target and exact ImageGen provenance.",
+    "Each registered N/E/S/W static frame and atlas/rect metadata; actual alpha and reproduction/hash validation.",
+    "Four view sheet and repeated dish preview at identical registered scale.",
+    "Actual standalone food on light/gray/dark at native, enlarged,66 logical and32 px cell reduction;40 logical preference-bubble composition and reduced context; serving belt context using original offsets.",
+    "Honest held food dependency disclosure and representative existing held context; downstream replacement captures remain a separately tracked final cutover requirement."
+  ],
+  "verdictPolicy": "No numeric score threshold. Approve only exact reviewed bytes after visible improvement, no material defects/dead spots in all required contexts and passing locked technical contract. Missing evidence yields needs_evidence; visible blockers yield revise. No candidate approval at criteria stage."
+}

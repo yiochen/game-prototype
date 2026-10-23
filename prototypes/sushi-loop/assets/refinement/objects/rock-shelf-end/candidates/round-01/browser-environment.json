@@ -1,0 +1,24 @@
+{
+  "normativeModes": [
+    {
+      "path": "candidates/round-01/consumer/fullChrome/manifest.json",
+      "browser": "153.0.8010.12",
+      "launch": {
+        "headless": true,
+        "channel": "chromium"
+      }
+    },
+    {
+      "path": "candidates/round-01/consumer/shell/manifest.json",
+      "browser": "153.0.8010.12",
+      "launch": {
+        "headless": true
+      }
+    }
+  ],
+  "desktopPilot": {
+    "attempt": "cua.getApp Google Chrome",
+    "result": "Mac locked; automatic unlock failed",
+    "relevance": "Discarded native desktop interpretation; fullChrome and shell mean two completed headless launch modes. No missing normative browser evidence inferred."
+  }
+}

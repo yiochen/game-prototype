@@ -1,0 +1,99 @@
+{
+  "round": "round-07",
+  "asset": "dock-post-rope",
+  "verdict": "approve",
+  "candidatePacketSHA256": "a1674534cd10da9ffa0e8a0cfd00fc8da9f5c7ff8b4497d9d545a4a21e565fa7",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "static-N-000.png",
+    "static-E-000.png",
+    "static-S-000.png",
+    "static-W-000.png",
+    "four-view-sheet.png",
+    "four-view-logical.png",
+    "backgrounds-all-facings.png",
+    "joined-independent-N.png",
+    "joined-native-N.png",
+    "joined-comparison-N.png",
+    "joined-independent-E.png",
+    "joined-native-E.png",
+    "joined-comparison-E.png",
+    "joined-independent-S.png",
+    "joined-native-S.png",
+    "joined-comparison-S.png",
+    "joined-independent-W.png",
+    "joined-native-W.png",
+    "joined-comparison-W.png",
+    "source-candidate-logical.png",
+    "cap-shared-edge-crops.png",
+    "repeated.png",
+    "repeated-native.png"
+  ],
+  "additionalInspectedFiles": [
+    "fresh-reload-S.png",
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "../../brief.json",
+    "validation.json",
+    "../../source/round-07.blend",
+    "../round-06/joined-independent-E.png",
+    "../round-06/joined-independent-W.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 9
+  },
+  "scoreNotes": "Comparative evidence against the original and fixed target; approval is based on the frozen visible/technical outcomes rather than a numeric threshold.",
+  "observations": [
+    "All four registered native views retain the source half-post, cap, paired bindings and sagging cream rope construction. Soft amber body curvature, gentle cap ring/form shading and cream rope top/front/underside separation visibly improve on the original flat yellow cap and bright flat span. This improvement remains legible at logical 192 x 352 size.",
+    "The broad cap and body highlights stay warm and controlled, with no blown lemon patch, thin white rim, wet gloss or directional ground shadow. The four facings use one coherent treatment; intentionally exposed outer half-post planes are accepted modular geometry.",
+    "N/S independent and native three-module assemblies form full posts/caps/bindings without a visible center split, doubled ridge, hole or disconnected rope. E/W assemblies now also preserve continuous cap surfaces across both internal joins.",
+    "The round-06 E/W cap blocker is resolved. At native shared rows y=484 and y=740 the previous straight darker bisector is no longer visible in round-07 independent alpha-over assemblies. The ring/color field reads continuously against the joined-native E/W contexts at logical size, full native size and enlarged nearest-pixel crops. Small residual native-versus-independent sampling differences do not form a line or material dead spot.",
+    "Inspected all four exact native renders and every named packet preview, including four-view full/logical/background sheets, N/E/S/W independent/native/comparison joins, source comparison, cap-edge crops, repeated and repeated-native. Additional honest half-scale assemblies confirmed intended-size join readability. No material clipping, halo, black wedge, abrupt normal defect, cap/binding intersection or newly exposed end remains."
+  ],
+  "blockers": [],
+  "resolvedPriorBlockers": [
+    {
+      "round": "round-06",
+      "id": "ew-cap-shared-edge-rgb",
+      "status": "resolved",
+      "evidence": "Direct inspection of joined-independent-E/W and joined-native-E/W, all comparisons, cap-shared-edge-crops.png and independently derived logical-size assemblies. The former diameter stripe is absent. Independent saved pixel samples over x=541..610 at rows 484/740 now have mean RGB deltas approximately [-0.07,0.06,0.26] / [-0.11,-0.10,-0.44] rather than the prior multi-channel negative stripe; alpha remains 255. Pixel numbers corroborate the visual result."
+    }
+  ],
+  "criteriaEvaluation": {
+    "capture-registration": "pass: unchanged native mesh envelope, source camera/calibration, full-frame dimensions, root and original atlas layout.",
+    "native-views": "pass: all four actual root rotations are recorded and rendered from the same native scene; static one-frame non-looping 12-fps contract remains.",
+    "modular-construction": "pass: exact source base/evaluated mesh coordinates, topology, UVs, protected +/-0.5 profiles, height and sockets/ports retained.",
+    "lighting-symmetry": "pass: centered overhead and four equal cardinal fills, common materials, no ground mesh or directional cast shadow.",
+    "shape-volume": "pass: soft cap/wood/rope volume is readable without silhouette inflation or changed construction contacts.",
+    "color": "pass: warm amber wood and distinct cream rope retain the original palette family with gentle variation.",
+    "light-highlights": "pass: broad controlled highlights and warm legible shadows across all facings.",
+    "material-detail": "pass: restrained coherent wood variation and cap rings; no noisy grain or target halo/gloss copied.",
+    "artifact-free-readability": "pass: no remaining material dead spots or artifacts in the required native views/previews.",
+    "joined-continuity": "pass: repeated same-profile modules make full posts/bindings and connected rope in all required orientations, including visually continuous E/W cap shared edges."
+  },
+  "remainingDifferences": [
+    "The source lightly segmented rope, original faceted silhouettes, thin caps, intentional half-post outer boundaries and original frame padding remain. The target inflated/glossy segments and composition drift are not copied.",
+    "The wood is quieter than the imagegen target, using broad low-contrast cap rings and body shading rather than conspicuous grain. This remains readable at logical size and meets the frozen cartoon material criteria.",
+    "Minor stochastic native-versus-independent RGB variation remains under enlarged pixel comparison, without a visible seam or form discontinuity."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": {
+      "verified": true,
+      "packetSHA256": "a1674534cd10da9ffa0e8a0cfd00fc8da9f5c7ff8b4497d9d545a4a21e565fa7",
+      "method": "candidate_packet.py verify checked every files/candidateRenders/previews artifact hash and the four native PNG frame sizes. Brief, frozen criteria, target, original backup and candidate source are bound.",
+      "renderPreviewUniquePaths": 23
+    },
+    "nativeSavedSource": "Independently reopened exact round-07.blend in read-only background Blender. Found declared collection/root, 20 native meshes, saved root at zero/S rotation, registered orthographic camera (ortho scale 1.5, shiftY .3072107434), full 384 x 704 frame, pixel aspect [1.2206555604934692,1], BOX width 1 filter and disabled denoising. Saved file has no linked libraries, external images or image texture nodes.",
+    "sourceGeometryComparison": "Independently isolated candidate and original source collections in temporary in-memory scenes. Base coordinates, evaluated world coordinates, evaluated topology, base UVs and all evaluated UV layers compare exactly with preserve_all_data_layers=True. Bounds match exactly at [-0.5,-0.17499999701976776,0] to [0.5,0.17499999701976776,0.7770000100135803]. No candidate/source file was edited or saved.",
+    "cameraAndRotation": "Bound capture records retain the source camera matrices within float precision and native root calibration [192,496.00017738342285]. Required rotations are S0, E+90, N180, W-90; every required render is 384 x 704. Recorded port positions/normals/profiles, height .78 metadata, root, logical frame/sourceScale and one-frame 12-fps static clip are preserved.",
+    "materialsAndLighting": "Native scene has the broad centered overhead and four equal cardinal fill lights. Cap-cut continuity uses the same procedural native material in every facing, with analytic math/geometry inputs, a camera-ray emission/BSDF mix and no image texture. This remains rendered native 3D geometry under the fixed capture contract; no raster correction, camera-facing card, changed profile or per-facing material variant is required.",
+    "assemblies": "Independently recomposed N/E/S/W with standard alpha-over from exact packet frames and recorded integer native root placements/depth order. Each recomposed RGBA array is pixel-exact to its joined-independent preview. The actual three-module repeated S preview and matching native mesh preview were inspected; all cardinal native joined contexts and comparison previews were inspected.",
+    "edgeRGBAndCoverage": "Independently sampled both E/W cap shared rows and inspected their actual enlarged/native/logical pixels. Coverage is fully opaque and the color stripe has disappeared. Approval relies on visible surface continuity, not the zero-undercoverage assertion.",
+    "freshReload": "Packet fresh-reload-S.png RGBA pixels independently compare exactly to static-S-000.png. Bound reopen validation reports manifold nondegenerate meshes and self-contained dependencies, consistent with saved-file inspection.",
+    "limits": "No new candidate render, integration or deployment was performed. This approval binds only the exact supplied packet/source/export bytes; any subsequent art edit or re-render requires renewed review."
+  }
+}

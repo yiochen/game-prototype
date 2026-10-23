@@ -1,0 +1,9 @@
+import bpy,pathlib,math,json
+P=pathlib.Path(__file__).resolve().parents[2].parent/'belt-corner-n-w';O=P/'candidates/round-01/supplemental-01';assert not (O/'supplemental-packet.json').exists(),'Immutable diagnostic already sealed; use a new versioned output';bpy.ops.wm.open_mainfile(filepath=str(P/'source/round-01.blend'));s=bpy.context.scene;c=bpy.data.collections['S33_FB_belt-corner-n-w.001'];root=next(o for o in c.objects if '__root.' in o.name);root.rotation_euler.z=math.pi;s.frame_set(1);bpy.context.view_layer.update();colors={'deck':(0,0,1,1),'coral':(1,0,0,1),'wood':(1,1,0,1),'foot':(1,0,1,1),'brass':(0,1,0,1)};groups={}
+for k,col in colors.items():
+ m=bpy.data.materials.new('DIAGNOSTIC_ID_'+k);m.use_nodes=True;nt=m.node_tree;nt.nodes.clear();e=nt.nodes.new('ShaderNodeEmission');e.inputs['Color'].default_value=col;e.inputs['Strength'].default_value=1;o=nt.nodes.new('ShaderNodeOutputMaterial');nt.links.new(e.outputs[0],o.inputs['Surface']);groups[k]=m
+objects=[]
+for o in c.all_objects:
+ if o.type!='MESH':continue
+ names=' '.join(m.name for m in o.data.materials);k='deck' if 'Deck' in names or 'moving_deck' in names else 'coral' if 'Coral' in names else 'foot' if 'WoodFoot' in names else 'brass' if 'Brass' in names else 'wood';o.data.materials.clear();o.data.materials.append(groups[k]);objects.append({'name':o.name,'diagnosticGroup':k})
+s.render.filepath=str(O/'native-material-ID-N.png');bpy.ops.render.render(write_still=True);(O/'material-ID-provenance.json').write_text(json.dumps({'method':'Diagnostic-only native opaque primary-color emission overrides on exact saved geometry/camera/rootN/frame1; no source save and no production raster modification. Object/material groups identify actual visible native surface at candidate pixels.','groups':colors,'objects':objects,'rootMatrix':[list(r) for r in root.matrix_world]},indent=2))

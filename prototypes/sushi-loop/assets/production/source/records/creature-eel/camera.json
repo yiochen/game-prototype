@@ -9,13 +9,20 @@
     352
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
+  "nativeFrame": [
+    1792,
+    2048
+  ],
+  "logicalRoot": [
+    224,
+    352
+  ],
+  "nativeRoot": [
+    896.0,
+    1408.0
+  ],
   "camera": {
     "type": "orthographic",
     "worldMatrix": [
@@ -71,52 +78,180 @@
       ]
     ],
     "pixelAspect": [
-      1.0,
-      1.0
+      1,
+      1
     ],
     "worldUnitsPerCell": 1,
-    "elevationDegrees": 35
+    "elevationDegrees": 35,
+    "orthoScale": 3.5,
+    "sensorFit": "HORIZONTAL",
+    "shift": [
+      0.0,
+      0.21428516507148743
+    ]
   },
   "calibration": {
     "root": [
-      896.0,
-      1408.0
+      448.0,
+      704.0
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
-      0.0,
-      293.6710205078125
+      -0.0,
+      146.83551025390625
     ],
     "unitHeight": [
       0.0,
-      -419.4058837890625
+      -209.70294189453125
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
+  "sourceSHA256": "cbc7592d1c77782dbd046312bd700d31b27675ccde05c889b0fe46c192f1989c",
+  "blenderVersion": "5.2.2 LTS",
+  "lights": [
+    {
+      "name": "Eel01 broad overhead",
+      "location": [
+        0.0,
+        0.0,
         4.5
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+      "rotation": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "power": 160.0,
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.949999988079071,
+        0.8600000143051147
+      ]
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  }
+    {
+      "name": "Eel01 symmetric fill 0",
+      "location": [
+        3.0,
+        0.0,
+        1.5
+      ],
+      "rotation": [
+        1.2193516492843628,
+        3.455340547020569e-08,
+        1.5707964897155762
+      ],
+      "power": 65.0,
+      "size": 4.0,
+      "color": [
+        0.8799999952316284,
+        0.949999988079071,
+        1.0
+      ]
+    },
+    {
+      "name": "Eel01 symmetric fill 1",
+      "location": [
+        0.0,
+        3.0,
+        1.5
+      ],
+      "rotation": [
+        1.2193515300750732,
+        -1.417663781921874e-07,
+        -3.141592502593994
+      ],
+      "power": 65.0,
+      "size": 4.0,
+      "color": [
+        0.8799999952316284,
+        0.949999988079071,
+        1.0
+      ]
+    },
+    {
+      "name": "Eel01 symmetric fill 2",
+      "location": [
+        -3.0,
+        0.0,
+        1.5
+      ],
+      "rotation": [
+        1.2193516492843628,
+        -3.455340547020569e-08,
+        -1.5707964897155762
+      ],
+      "power": 65.0,
+      "size": 4.0,
+      "color": [
+        0.8799999952316284,
+        0.949999988079071,
+        1.0
+      ]
+    },
+    {
+      "name": "Eel01 symmetric fill 3",
+      "location": [
+        0.0,
+        -3.0,
+        1.5
+      ],
+      "rotation": [
+        1.2193515300750732,
+        -0.0,
+        0.0
+      ],
+      "power": 65.0,
+      "size": 4.0,
+      "color": [
+        0.8799999952316284,
+        0.949999988079071,
+        1.0
+      ]
+    },
+    {
+      "name": "Eel01 underside lift",
+      "location": [
+        0.0,
+        0.0,
+        -3.0
+      ],
+      "rotation": [
+        3.141592502593994,
+        -0.0,
+        0.0
+      ],
+      "power": 20.0,
+      "size": 4.0,
+      "color": [
+        0.800000011920929,
+        0.8999999761581421,
+        1.0
+      ]
+    }
+  ],
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "resolution": [
+      1792,
+      2048
+    ],
+    "percentage": 100,
+    "filterSize": 1.5,
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "filmTransparent": true,
+    "worldStrength": 0.18000000715255737,
+    "compositor": null
+  },
+  "nativeCaptureScale": 4,
+  "publishedFrame": [
+    896,
+    1024
+  ],
+  "publication": "Whole1792x2048canvas LANCZOS896x1024; no occupied-bound fitting."
 }

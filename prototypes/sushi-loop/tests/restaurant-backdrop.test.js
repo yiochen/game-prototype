@@ -17,7 +17,16 @@ test('the approved catalog replaces the retired entrance and lays out three wall
     assert.equal(object.backdrop.lighting,'uniform ambient');
     assert.deepEqual(Object.keys(object.clips[0].directions),['S']);
     const path=new URL(object.clips[0].directions.S.image,root);
-    assert.equal(hash(path),hash(new URL(`../restaurant-backdrop/uniform35/renders/${source}.png`,root)));
+    if (object.refinement?.status === 'approved') {
+      const packetUrl=new URL(`../refinement/objects/${id}/candidates/${object.refinement.round}/packet.json`,root);
+      const packet=JSON.parse(readFileSync(packetUrl));
+      const review=JSON.parse(readFileSync(new URL(`../refinement/objects/${id}/reviews/${object.refinement.round}.json`,root)));
+      assert.equal(hash(packetUrl),review.candidatePacketSHA256);
+      assert.equal(review.verdict,'approve');
+      assert.ok([...Object.values(packet.files),...Object.values(packet.candidateRenders)].some(file=>file.sha256===hash(path)));
+    } else {
+      assert.equal(hash(path),hash(new URL(`../restaurant-backdrop/uniform35/renders/${source}.png`,root)));
+    }
     assert.ok(existsSync(new URL(object.source.blend,root)));
   }
   const layout=backdropLayout(21);

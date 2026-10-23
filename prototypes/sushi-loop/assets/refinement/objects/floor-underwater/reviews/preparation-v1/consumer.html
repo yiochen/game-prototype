@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8"><title>Floor underwater preparation consumer</title>
+<style>html,body{margin:0;padding:0;background:#fff}svg{display:block}</style>
+<div id="host"></div>
+<script type="module">
+import {spriteFrame,groundRoot,repeatedPlacements,orderPlacements,sceneBounds} from './resources/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from './resources/world-raster-functions.js';
+const object=await (await fetch('./resources/inputs/catalog-object.json')).json();
+const images={};
+for(const direction of 'NESW') {const im=new Image();im.src='./packed/scroll-'+direction+'.png';await im.decode();images[direction]=im;}
+const fixtures=await (await fetch('./resources/context/records.json')).json();
+for(const object of fixtures){const im=new Image();im.src='./resources/context/'+object.clips[0].directions.S.image;await im.decode();images[object.id]=im;}
+const ns='http://www.w3.org/2000/svg';
+window.renderCase=async function({direction='S',phase=0,background='#eee',width=320,offset=[0,0],pan=[0,0],context=false}) {
+ const placements=repeatedPlacements(object,direction,'scroll').map(p=>({...p,offset}));
+ const objects=[object,...fixtures];
+ if(context)placements.push({object:'submarine-yellow',direction:'S',x:.25,y:1},{object:'rock-wall-middle',direction:'S',x:2,y:.5});
+ const bounds=sceneBounds(placements,objects,128,[3,3]);bounds[0]+=pan[0];bounds[1]+=pan[1];
+ const sprites=orderPlacements(placements,objects).map(p=>{const item=objects.find(o=>o.id===p.object),frame=spriteFrame(item,item.clips[0],p.direction,phase/12),[x,y]=groundRoot(p,item);return {imageKey:item.id===object.id?direction:item.id,rect:frame.rect,x:x-frame.root[0],y:y-frame.root[1],width:frame.frameSize[0],height:frame.frameSize[1]};});
+ const plan=worldRasterPlan(sprites,bounds);
+ const svg=document.createElementNS(ns,'svg');svg.style.width=width+'px';svg.style.background=background;svg.setAttribute('viewBox',bounds.join(' '));svg.setAttribute('width',width);svg.setAttribute('height',width*bounds[3]/bounds[2]);
+ const foreign=document.createElementNS(ns,'foreignObject');foreign.setAttribute('x',plan.x);foreign.setAttribute('y',plan.y);foreign.setAttribute('width',plan.width/plan.scale);foreign.setAttribute('height',plan.height/plan.scale);
+ const canvas=document.createElement('canvas');canvas.style.cssText='display:block;width:100%;height:100%';foreign.append(canvas);svg.append(foreign);document.getElementById('host').replaceChildren(svg);
+ paintWorldRaster(canvas,plan,sprites.map(s=>images[s.imageKey]));
+ await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame);
+ const ctx=canvas.getContext('2d'),left=Math.ceil((offset[0]-plan.x)*plan.scale)+1,top=Math.ceil((offset[1]-plan.y)*plan.scale)+1;
+ const sample=ctx.getImageData(left,top,766,766).data;let minAlpha=255,nonOpaque=0;for(let i=3;i<sample.length;i+=4){minAlpha=Math.min(minAlpha,sample[i]);if(sample[i]!=255)nonOpaque++;}
+ return {direction,phase,background,width,offset,pan,context,bounds,plan:{x:plan.x,y:plan.y,width:plan.width,height:plan.height,scale:plan.scale},interiorAlpha:{minAlpha,nonOpaque,sampleSize:[766,766]},sprites};
+};
+window.ready=true;
+</script>

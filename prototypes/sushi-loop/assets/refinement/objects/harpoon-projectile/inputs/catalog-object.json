@@ -1,0 +1,1303 @@
+{
+  "id": "harpoon-projectile",
+  "name": "Harpoon projectile",
+  "family": "W16",
+  "status": "ready",
+  "kind": "effect",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    256,
+    352
+  ],
+  "root": [
+    128,
+    224
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "launch",
+      "sourceClipId": "launch",
+      "name": "Launch",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/launch-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/launch-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/launch-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/launch-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "flight",
+      "sourceClipId": "flight",
+      "name": "Flight",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/flight-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/flight-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/flight-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/flight-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "hook",
+      "sourceClipId": "hook",
+      "name": "Hook",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/hook-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/hook-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/hook-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/hook-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "World effect beside submarine and eel",
+      "gridSize": [
+        6,
+        5
+      ],
+      "placements": [
+        {
+          "object": "submarine-yellow",
+          "x": 0,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        },
+        {
+          "object": "creature-eel",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "pursuit"
+        },
+        {
+          "object": "harpoon-projectile",
+          "x": 1,
+          "y": 2,
+          "direction": "S"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "launch",
+      "flight",
+      "hook"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "creature-eel"
+    ],
+    "notes": "Separate projectile and explicit mount/target sockets; no baked ship or creature pixels."
+  },
+  "height": 0.55,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      256,
+      352
+    ],
+    "anchor": [
+      128,
+      224
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {
+    "tailCable": [
+      4.898587196589413e-17,
+      0.4,
+      0.3
+    ],
+    "hookTip": [
+      -7.83773951454306e-17,
+      -0.64,
+      0.3
+    ]
+  },
+  "sockets": {
+    "N": {
+      "tailCable": [
+        -1.2540383223268897e-14,
+        24.3199935913086
+      ],
+      "hookTip": [
+        2.0064613157230235e-14,
+        -108.8000064086914
+      ]
+    },
+    "E": {
+      "tailCable": [
+        -51.2,
+        -26.880006408691415
+      ],
+      "hookTip": [
+        81.92,
+        -26.88000640869139
+      ]
+    },
+    "S": {
+      "tailCable": [
+        6.270191611634449e-15,
+        -78.0800064086914
+      ],
+      "hookTip": [
+        -1.0032306578615117e-14,
+        55.0399935913086
+      ]
+    },
+    "W": {
+      "tailCable": [
+        51.2,
+        -26.8800064086914
+      ],
+      "hookTip": [
+        -81.92,
+        -26.880006408691408
+      ]
+    }
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "e2308af11f7cf3166d5c14beb0e1677471dd12e31428125e7c5655c8e1b7720d",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+    "camera": "source/records/harpoon-projectile/camera.json",
+    "guide": "source/registered/harpoon-projectile/launch-N/guide.json",
+    "assetRecord": "source/records/harpoon-projectile/asset.json",
+    "rig": "source/records/harpoon-projectile/rig.json"
+  }
+}

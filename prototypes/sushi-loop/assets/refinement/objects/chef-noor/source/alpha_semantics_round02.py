@@ -1,0 +1,11 @@
+from pathlib import Path
+from PIL import Image
+import json,numpy as np,hashlib
+P=Path(__file__).parent;B=P.parent;old=json.loads((P/'approved-food-state-round02.json').read_text());new=json.loads((P/'recipe-round02.json').read_text());rows=[]
+def support(path,cut):
+ a=np.asarray(Image.open(path).convert('RGBA'))[:,:,3];ys,xs=np.where(a>=cut);last=ys.max();xx=np.where(a[last]>=cut)[0];return {'alphaAtLeast':cut,'size':[a.shape[1],a.shape[0]],'bounds':[int(xs.min()),int(ys.min()),int(xs.max()+1),int(ys.max()+1)],'bottomPoint':[(float(xx.min())+float(xx.max()+1))/2,float(last+1)]}
+def local(quad,uv,rec):
+ q=np.array(quad);lo=q.min(0);hi=q.max(0);uv=np.array(uv);u0,v0=uv.min(0);u1,v1=uv.max(0);w,h=rec['size'];x,y=rec['bottomPoint'];return {'pointLocal':[float(lo[0]+(hi[0]-lo[0])*(x/w-u0)/(u1-u0)),float(lo[1]+(hi[1]-lo[1])*(1-y/h-v0)/(v1-v0)),0.0],'occupiedWidthLocal':float((hi[0]-lo[0])*(rec['bounds'][2]-rec['bounds'][0])/w/(u1-u0))}
+for cut in [64,128,192]:
+ s=support(P/'dependencies-round02/source-control-dish-salmon.png',cut);n=support(P/'dependencies-round02/dish-salmon.png',cut);sl=local(old['quad'],old['uv'],s);nl=local(new['actualNativeQuad'],new['actualUV'],n);rows.append({'cutoff':cut,'source':s,'canonical':n,'sourceLocal':sl,'candidateLocal':nl,'widthDeltaLogicalPixels':(nl['occupiedWidthLocal']-sl['occupiedWidthLocal'])*1.25*128,'bottomDeltaLogicalCameraBasis':[(nl['pointLocal'][i]-sl['pointLocal'][i])*1.25*128 for i in range(2)]})
+r={'asset':'chef-noor','method':'Independent alpha>=64/128/192 occupancy from exact fullRGBA. Last occupied-row support midpoint and exclusive bottom edge. Measurements only; no threshold/crop/alpha modification. Source local coordinates are inverted from its actual stored UVs, not nominal padded quad.','sourceSHA256':hashlib.sha256((P/'dependencies-round02/source-control-dish-salmon.png').read_bytes()).hexdigest(),'canonicalSHA256':hashlib.sha256((P/'dependencies-round02/dish-salmon.png').read_bytes()).hexdigest(),'reference':128,'references':rows};(P/'support-reference-round02.json').write_text(json.dumps(r,indent=2));assert abs(rows[1]['widthDeltaLogicalPixels'])<1e-5;assert max(abs(v) for v in rows[1]['bottomDeltaLogicalCameraBasis'])<1e-5;print(json.dumps(rows,indent=2))

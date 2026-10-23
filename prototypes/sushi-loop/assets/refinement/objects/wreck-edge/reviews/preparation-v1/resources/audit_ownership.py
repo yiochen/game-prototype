@@ -1,0 +1,7 @@
+import bpy,json,sys,hashlib
+from pathlib import Path
+sys.dont_write_bytecode=True
+BASE=Path(__file__).resolve().parent;kind=sys.argv[sys.argv.index('--')+1];root=bpy.data.objects['wreck-edge__root.001' if kind=='original' else 'wreck-middle__root'];owned={root,*root.children_recursive};mats={m for o in owned if hasattr(o.data,'materials') for m in o.data.materials if m};records=[]
+for m in sorted(mats,key=lambda m:m.name):
+ users=[o for o in bpy.data.objects if hasattr(o.data,'materials') and m in list(o.data.materials)];records.append({'material':m.name,'objectUsers':[o.name for o in users],'outsideObjectUsers':[o.name for o in users if o not in owned],'nodeGroups':[n.node_tree.name for n in m.node_tree.nodes if hasattr(n,'node_tree') and n.node_tree],'imageNodes':[n.image.name for n in m.node_tree.nodes if n.type=='TEX_IMAGE' and n.image],'animation':bool(m.animation_data or m.node_tree.animation_data)})
+out={'sourceSHA256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'asset':kind,'materials':records,'sourceDependencies':'Self-contained native nodes; derivative-owned material object users measured. Original library unrelated packed food images are not used by this asset. Runtime Blender itself is an external toolchain boundary.'};assert all(not r['outsideObjectUsers'] and not r['imageNodes'] and not r['animation'] for r in records);(BASE.parent/(kind+'-resource-ownership.json')).write_text(json.dumps(out,indent=2)+'\n');print('PRIVATE_RESOURCE_OWNERSHIP_VERIFIED',kind,len(records))

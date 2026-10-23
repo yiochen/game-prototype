@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/round-01-independent-v1/resources/verify-bindings.py", line 7, in <module>
+    path=(C/f['path']).resolve();assert sha(path)==f['sha256'],(group,name,path);assert path.stat().st_size<100_000_000;checked[str(path.relative_to(OBJ.resolve()))]=f['sha256']
+                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend' is not in the subpath of '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end'

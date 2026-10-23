@@ -1,0 +1,968 @@
+{
+  "schemaVersion": 1,
+  "asset": "chef-blackboard",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "asset": "chef-blackboard",
+    "version": 1,
+    "status": "frozen-by-coordinator",
+    "fixedTarget": {
+      "path": "inputs/target.png",
+      "sha256": "9480077fc72de0404eb3be389aa4739fe3be400016f8d2e3cdbb8946542bf8e5"
+    },
+    "style": "Warm, softly lit cartoon, retaining wood/slate palette and player-facing blank recipe-board identity.",
+    "modelingPolicy": "Reward useful native form, proportion, construction and purposeful decoration improvements. Do not require original part counts or weak geometry; do not require a literal imagegen repaint.",
+    "aestheticOutcomes": [
+      {
+        "id": "crafted-volume",
+        "observable": "At logical game scale the board has rounded, substantial rails and clearly organized supports/joints. Added detail communicates craft or structure. Silhouette and material changes improve identity/readability within the locked envelope."
+      },
+      {
+        "id": "warm-palette",
+        "observable": "Frame reads warm honey/orange wood, distinct from a quiet dark blue-slate writing surface. Warm lower supports remain readable rather than collapsing into black or muddy brown."
+      },
+      {
+        "id": "soft-coherent-light",
+        "observable": "Soft highlights follow native edge volumes coherently across rails, caps and supports; transitions retain midtone volume with no blown white/yellow slabs, black dead spots, arbitrary face-tone discontinuities or baked horizontal light bias."
+      },
+      {
+        "id": "material-detail",
+        "observable": "Wood and slate feel intentionally different with restrained native material character and useful crafted accents. Detail remains stable in motion and does not become stripes/noise or imitate imagegen halos."
+      },
+      {
+        "id": "usable-display",
+        "observable": "Writing area stays empty, visibly blue-slate and readable, with useful interior space around the exact recipe/display socket. No text, recipe icons, bolts or other decoration encroach on the dynamic content clearance."
+      },
+      {
+        "id": "artifact-free-motion",
+        "observable": "Idle and all selected/recipe-change frames keep distinct readable rail/support volumes with no coplanar flicker, accidental dark overlaps, clipping, detached trim, broken corners, halos, opaque matte, unwanted cast shadow or texture swimming. Selected playback closes naturally; nonloop recipe-change remains coherent."
+      }
+    ],
+    "technicalRequirements": {
+      "pipeline": "Native editable Blender geometry/materials/animation; actual source-rendered exports. No target-facing raster substitute or painted sprite replacement.",
+      "viewContract": {
+        "required": [
+          "S"
+        ],
+        "facingPolicy": "single-player-facing",
+        "genericPreviewAlias": "four-view-sheet does not create N/E/W obligations"
+      },
+      "registration": {
+        "projection": "top-down-oblique-square-grid",
+        "logicalFrame": [
+          192,
+          352
+        ],
+        "logicalRoot": [
+          96,
+          248
+        ],
+        "cellSize": 128,
+        "atlasSourceScale": 2,
+        "atlasFrame": [
+          384,
+          704
+        ],
+        "nativeCaptureScale": 4,
+        "nativeCaptureFrame": [
+          768,
+          1408
+        ],
+        "pixelAspect": [
+          1.2206555604934692,
+          1.0
+        ],
+        "cameraReference": "inputs/source-camera.json",
+        "cameraReferenceSHA256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181",
+        "requirement": "Exact registered camera world/projection matrices, pixel aspect, root/ground transform and one capture setup for all frames, with normal floating-point comparison tolerance only; no subject fitting, per-frame recentering, anisotropic scale, crop or image warp."
+      },
+      "functionalEnvelope": {
+        "footprint": [
+          1,
+          1
+        ],
+        "declaredHeight": 1.0,
+        "groundBandY": [
+          -0.5,
+          -0.27
+        ],
+        "coOccupancy": "Front-edge foreground board shares chef ground cell. Preserve native contacts and useful clearance; actual rest and animated bounds must be measured against the original contract rather than inferred from alpha bounds.",
+        "sockets3D": {
+          "recipe_face": [
+            0,
+            -0.434,
+            0.61
+          ],
+          "display_face": [
+            0,
+            -0.434,
+            0.61
+          ]
+        },
+        "displayRequirement": "Verify both authored socket metadata and actual native blank face location/orientation/clearance; preserve existing dynamic overlay alignment."
+      },
+      "clips": [
+        {
+          "id": "idle",
+          "sourceClipId": "idle",
+          "view": "S",
+          "frames": 1,
+          "fps": 12,
+          "static": true,
+          "loop": false,
+          "atlasColumns": 1,
+          "atlasRows": 1,
+          "atlasSize": [
+            384,
+            704
+          ]
+        },
+        {
+          "id": "selected",
+          "sourceClipId": "selected",
+          "view": "S",
+          "frames": 12,
+          "fps": 12,
+          "static": false,
+          "loop": true,
+          "nativeFrames": [
+            1,
+            12
+          ],
+          "closingKeyFrame": 13,
+          "minimumUniqueFrames": 6,
+          "atlasColumns": 6,
+          "atlasRows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ]
+        },
+        {
+          "id": "recipe-change",
+          "sourceClipId": "recipe_change",
+          "view": "S",
+          "frames": 12,
+          "fps": 12,
+          "static": false,
+          "loop": false,
+          "nativeFrames": [
+            1,
+            12
+          ],
+          "minimumUniqueFrames": 6,
+          "atlasColumns": 6,
+          "atlasRows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ]
+        }
+      ],
+      "atlasRule": "Preserve row-major frameOrder 0..11, rects, existing labels, timing, loop behavior and duplicate-closure exclusion. Supply all 25 native S frames plus final atlases and intended-size state evidence.",
+      "lightingAlpha": "Real transparency, no directional ground shadows; soft neutral horizontal lighting without a preferred horizontal direction. Native shading/material changes allowed to achieve style.",
+      "sourceClosure": "Editable round-specific .blend with packed resources or complete hash-bound external resource closure. Capture recipe must reproduce actual candidate frames; no missing images/libraries/fonts or unbound external scripts needed for capture."
+    },
+    "reviewEvidence": {
+      "immutablePacket": "Packet SHA binds exact source, all frame images/atlases/previews, validation and resources. Judge checks hashes of inspected evidence.",
+      "visual": "Inspect every required S frame directly or through a verified contact sheet, idle enlarged and at 192x352 logical scale, selected and recipe-change intended-scale playback/sequence, transparency on light/gray/dark, and useful repeated/context preview for front-band scale and co-occupancy. A generic four-view layout may repeat S.",
+      "native": "Compact actual Blender measurements for camera matrices, projection/scale/root, bounds for all25 frames, functional face/socket position/clearance, action/frame bindings, loop closure, render/alpha settings and dependency closure. Hashes plus representative compact records are proportionate; do not emit huge raw geometry dumps.",
+      "decision": "Missing material visual or native evidence yields needs_evidence. Approve only when actual pixels improve toward these outcomes, no material blockers remain, and locked constraints pass. At most three ranked blockers; implementation belongs to editor."
+    },
+    "nonRequirements": [
+      "Exact painted grain, bolt count, highlight shape or target proportion is not required.",
+      "Target alpha speckles, halos, distorted geometry or bright painted glints must not be copied.",
+      "No extra unseen directional views.",
+      "No restriction to original mesh count, topology or nonfunctional construction."
+    ],
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "1f30907c0d8eaaf9e875bcf0f371ed46793c192297c8e8e3360626a9cbb03e2a"
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "S"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "selected-S",
+      "recipe-change-S"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid",
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "nativeCaptureScale": 4,
+    "facingPolicy": "single-player-facing"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "bd2074e185720275957a9a16d4ea0c2c95db271a542118fc49a4b7ccd24633a5"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "backup": {
+      "path": "../../../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "930d2242b56b3471dfb8d4b95c6cf7c428ece804b3721084185ab05227409dd4"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "9480077fc72de0404eb3be389aa4739fe3be400016f8d2e3cdbb8946542bf8e5"
+    },
+    "candidateProject": {
+      "path": "../../source/round-01.blend",
+      "sha256": "f98ad04344d7eeecc66837820ff377efe77a7fed78fc98b986e8047dcd306c53"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "40bdd22254c9bc8b2511f94a81e6a81379dae9cfd1b937e90c2a7ef920cac363"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "8e797ceab26f33388ea920832ce2cb73a960a252265c748c349180c75ed52942"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "f7fc579d415194e75d9185ef197d2cb83130756374636f60be7e6c09b9e0e7c1"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "4e4c84810216fd3756cbeeaaff65077f4417b0bc795ee3bbd98d31853afcac21"
+    },
+    "candidateResource:frozenQualityCriteria": {
+      "path": "../../reviews/criteria.json",
+      "sha256": "1f30907c0d8eaaf9e875bcf0f371ed46793c192297c8e8e3360626a9cbb03e2a"
+    },
+    "candidateResource:input:source-rig.json": {
+      "path": "../../inputs/source-rig.json",
+      "sha256": "d28e5ee7cd0aebf22633a91d6693d8510f49d75cef14293e2b75d0338f1801ae"
+    },
+    "candidateResource:input:imagegen-prompt.txt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "8e797ceab26f33388ea920832ce2cb73a960a252265c748c349180c75ed52942"
+    },
+    "candidateResource:input:original.png": {
+      "path": "../../inputs/original.png",
+      "sha256": "930d2242b56b3471dfb8d4b95c6cf7c428ece804b3721084185ab05227409dd4"
+    },
+    "candidateResource:input:catalog-object.json": {
+      "path": "../../inputs/catalog-object.json",
+      "sha256": "ddc7522f44c78dfcdd90ad5fe90e00a10dc99082c87e9411473c1b0f9d3346c2"
+    },
+    "candidateResource:input:source-assetRecord.json": {
+      "path": "../../inputs/source-assetRecord.json",
+      "sha256": "551caf5478bdf8335e068c5107ad360d07cbd1186aaed635c25ffd54f3f49ac2"
+    },
+    "candidateResource:input:source-camera.json": {
+      "path": "../../inputs/source-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    "candidateResource:input:target.png": {
+      "path": "../../inputs/target.png",
+      "sha256": "9480077fc72de0404eb3be389aa4739fe3be400016f8d2e3cdbb8946542bf8e5"
+    },
+    "candidateResource:delivery:resources:0": {
+      "path": "../../source/capture-round-01.py",
+      "sha256": "a26da751bb15433999dedd5bcfcc7d36a17062aa26e959ad5674bd2857190def"
+    },
+    "candidateResource:delivery:resources:1": {
+      "path": "../../source/criteria-acknowledgment.json",
+      "sha256": "9125337eaa1c14b73db417772ccbdd7dcee3a25f11fdfd6bc8963c9d7ebf3de8"
+    },
+    "candidateResource:delivery:resources:2": {
+      "path": "../../source/initial-observations.json",
+      "sha256": "6f19040e8e55b55460204e682e6564f18a7a7f06bcb8d26e952bdb5b0a473b21"
+    },
+    "candidateResource:delivery:resources:3": {
+      "path": "../../source/inspect-actions.py",
+      "sha256": "93ef694d1a13d2f3a36d2c5607e9e35bf493a76e5b4983a3d86afb7929052ebd"
+    },
+    "candidateResource:delivery:resources:4": {
+      "path": "../../source/inspect-source.py",
+      "sha256": "5dbc24db36e59f61e62610a2a6afcd839c08e075c94ba005b0542a95193a08ee"
+    },
+    "candidateResource:delivery:resources:5": {
+      "path": "../../source/measure-original.py",
+      "sha256": "10d9653e12ff41fc040323375e14e0a8b539c4f7e91f1765081ea88996b0c6ca"
+    },
+    "candidateResource:delivery:resources:6": {
+      "path": "../../source/original-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "candidateResource:delivery:resources:7": {
+      "path": "../../source/package-round-01.py",
+      "sha256": "0688030223a2882a55f82157f16de4b00413c1e64897b96981982259cee517e5"
+    },
+    "candidateResource:delivery:resources:8": {
+      "path": "../../source/resources/asset-original.json",
+      "sha256": "551caf5478bdf8335e068c5107ad360d07cbd1186aaed635c25ffd54f3f49ac2"
+    },
+    "candidateResource:delivery:resources:9": {
+      "path": "../../source/resources/context/belt-straight-e.png",
+      "sha256": "9a2c77dbb1a26b49836a60c868b8f8feb013872b2961f71f7232028a78403268"
+    },
+    "candidateResource:delivery:resources:10": {
+      "path": "../../source/resources/context/chef-lena.png",
+      "sha256": "d5099892156618b9c0e4cad5329a05a3c3d2827bf1c3676babeb70ce4d500db2"
+    },
+    "candidateResource:delivery:resources:11": {
+      "path": "../../source/resources/context/dish-salmon.png",
+      "sha256": "ea1104f2d17e852aefdee5f3e5582e920a3b2789cb25f0864c3e97eb23260976"
+    },
+    "candidateResource:delivery:resources:12": {
+      "path": "../../source/resources/context/floor-cream.png",
+      "sha256": "e0eb4d070f53d671e05ad74936f443df324ffcade5b2e8db064d777da865d0d1"
+    },
+    "candidateResource:delivery:resources:13": {
+      "path": "../../source/resources/context-provenance.json",
+      "sha256": "dac1700bfe7f220fe63611eaa4da96b4eb70ba4f047ad4c21f3c87f0f637afa2"
+    },
+    "candidateResource:delivery:resources:14": {
+      "path": "../../source/resources/original-actions.json",
+      "sha256": "0343cc2d512283bb0b858c36748d88d2d69c2a0cb8d9e1565e2b07cf5716feff"
+    },
+    "candidateResource:delivery:resources:15": {
+      "path": "../../source/resources/original-catalog.json",
+      "sha256": "ddc7522f44c78dfcdd90ad5fe90e00a10dc99082c87e9411473c1b0f9d3346c2"
+    },
+    "candidateResource:delivery:resources:16": {
+      "path": "../../source/resources/original-rig.json",
+      "sha256": "d28e5ee7cd0aebf22633a91d6693d8510f49d75cef14293e2b75d0338f1801ae"
+    },
+    "candidateResource:delivery:resources:17": {
+      "path": "../../source/resources/original.png",
+      "sha256": "930d2242b56b3471dfb8d4b95c6cf7c428ece804b3721084185ab05227409dd4"
+    },
+    "candidateResource:delivery:resources:18": {
+      "path": "../../source/resources/registered-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    "candidateResource:delivery:resources:19": {
+      "path": "../../source/round-01-recipe.json",
+      "sha256": "39dd01651bb003f3ae47880abeb69a98f433503d7e7344d4737ebd0e15b53247"
+    },
+    "candidateResource:delivery:resources:20": {
+      "path": "../../source/round-01-recipe.py",
+      "sha256": "f0d43f22fda2479f526b5736ba0929453020849151de15a13e2fbde74a060fe0"
+    },
+    "candidateResource:delivery:resources:21": {
+      "path": "../../source/round-01.blend",
+      "sha256": "f98ad04344d7eeecc66837820ff377efe77a7fed78fc98b986e8047dcd306c53"
+    },
+    "candidateResource:delivery:resources:22": {
+      "path": "../../source/source-animation-bounds.json",
+      "sha256": "18744fe21ad22d1d03ee0f5dce00a50568c022d4ea02e3db005c8f3072ba8aa9"
+    },
+    "candidateResource:delivery:resources:23": {
+      "path": "../../source/source-native-inspection.json",
+      "sha256": "3b75e752f840c9f84ce92079cc6633804f228dbd62532b458f3f26a8828b72d7"
+    },
+    "candidateResource:delivery:resources:24": {
+      "path": "native-validation.json",
+      "sha256": "3c15cfda92eba2fe8a399bfde542c282e4b938656351d39fa5df4e57b629257d"
+    },
+    "candidateResource:delivery:resources:25": {
+      "path": "closed-replay.json",
+      "sha256": "958eebc3258cfbd503b4fe10ebafb99e1dcea2c90b060c8fea22cb1475499644"
+    },
+    "candidateResource:delivery:resources:26": {
+      "path": "atlas-manifest.json",
+      "sha256": "db0a4f086eb756bcdcf48b9199c16b559fdc0332396d3e181b867466c37699cf"
+    },
+    "candidateResource:delivery:resources:27": {
+      "path": "records/assetRecord.json",
+      "sha256": "32b41bb7364d350c6b400e0e724bc891b74d34bec06727ffb5f0bb54054c19a1"
+    },
+    "candidateResource:delivery:resources:28": {
+      "path": "records/camera.json",
+      "sha256": "226214a6c46a664940c84ff31dc309ca92ae8a8e1344fe19eca722ab87911515"
+    },
+    "candidateResource:delivery:resources:29": {
+      "path": "records/rig.json",
+      "sha256": "0821adf3aef40cd5644e073ffee4b91f94b127c7d84b1e3a8e761a974e2073fa"
+    },
+    "candidateResource:delivery:rawFrames:0": {
+      "path": "frames/idle-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:rawFrames:1": {
+      "path": "frames/selected-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:rawFrames:2": {
+      "path": "frames/selected-S-001.png",
+      "sha256": "d7d6ed6afe5f3ade0dffbabe6c9e5c3e04c092b193547f1e19828f6dfd6aa387"
+    },
+    "candidateResource:delivery:rawFrames:3": {
+      "path": "frames/selected-S-002.png",
+      "sha256": "1b878e904c12e0a75e5e32df424aa9238d63e930af3bd9c869365a8938da03b6"
+    },
+    "candidateResource:delivery:rawFrames:4": {
+      "path": "frames/selected-S-003.png",
+      "sha256": "af70049f17e8fc35c7cbf3192c066227e2eecdcc30d7ab59c14d96697261b76c"
+    },
+    "candidateResource:delivery:rawFrames:5": {
+      "path": "frames/selected-S-004.png",
+      "sha256": "1b878e904c12e0a75e5e32df424aa9238d63e930af3bd9c869365a8938da03b6"
+    },
+    "candidateResource:delivery:rawFrames:6": {
+      "path": "frames/selected-S-005.png",
+      "sha256": "d7d6ed6afe5f3ade0dffbabe6c9e5c3e04c092b193547f1e19828f6dfd6aa387"
+    },
+    "candidateResource:delivery:rawFrames:7": {
+      "path": "frames/selected-S-006.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:rawFrames:8": {
+      "path": "frames/selected-S-007.png",
+      "sha256": "eb8ddcaf9f77c7cfbb240a12b75a1ce2e36e75d1de210292fcf8a746da8d810d"
+    },
+    "candidateResource:delivery:rawFrames:9": {
+      "path": "frames/selected-S-008.png",
+      "sha256": "5947371d54df7d7d0822e8ebc9e98df13af7da2417e9314f0fb4f8a80c668d46"
+    },
+    "candidateResource:delivery:rawFrames:10": {
+      "path": "frames/selected-S-009.png",
+      "sha256": "1446fdebfdba349cdc20a8e385b272c4819fa1eb534d56aba4804b4a0dc54404"
+    },
+    "candidateResource:delivery:rawFrames:11": {
+      "path": "frames/selected-S-010.png",
+      "sha256": "5947371d54df7d7d0822e8ebc9e98df13af7da2417e9314f0fb4f8a80c668d46"
+    },
+    "candidateResource:delivery:rawFrames:12": {
+      "path": "frames/selected-S-011.png",
+      "sha256": "eb8ddcaf9f77c7cfbb240a12b75a1ce2e36e75d1de210292fcf8a746da8d810d"
+    },
+    "candidateResource:delivery:rawFrames:13": {
+      "path": "frames/recipe-change-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:rawFrames:14": {
+      "path": "frames/recipe-change-S-001.png",
+      "sha256": "b93648a54c6265f8f7c74dee81b2b7dae98b54cf5b409810b7fda25cf4ad8d88"
+    },
+    "candidateResource:delivery:rawFrames:15": {
+      "path": "frames/recipe-change-S-002.png",
+      "sha256": "1ad136c1e5a8f47308deef5b8ae47b17cdf49745482fbc606adae77cd6be6a47"
+    },
+    "candidateResource:delivery:rawFrames:16": {
+      "path": "frames/recipe-change-S-003.png",
+      "sha256": "1ebff32540cb984f5cf00738da7f7d5d4373c15255f506864b3ebb4c02aca666"
+    },
+    "candidateResource:delivery:rawFrames:17": {
+      "path": "frames/recipe-change-S-004.png",
+      "sha256": "2ca05931917477e4abaaab1ec6081d15c0e9b322050b1abf44ae7e7d9ec9ef50"
+    },
+    "candidateResource:delivery:rawFrames:18": {
+      "path": "frames/recipe-change-S-005.png",
+      "sha256": "05f17cac9880b1dbdc6ec9de6a60d3c9faa73a4a823d48da1b2e1e7516e3ca61"
+    },
+    "candidateResource:delivery:rawFrames:19": {
+      "path": "frames/recipe-change-S-006.png",
+      "sha256": "002fa4104b9aa3b0105dc5ddd810c3b1f5683f1548f76863025ded47f126f1ae"
+    },
+    "candidateResource:delivery:rawFrames:20": {
+      "path": "frames/recipe-change-S-007.png",
+      "sha256": "c3c54533e11fc98fcc79b5482d7a5875614dfddc0d601f3c9781120545c4fd42"
+    },
+    "candidateResource:delivery:rawFrames:21": {
+      "path": "frames/recipe-change-S-008.png",
+      "sha256": "df735557cc567d4409ec2241755c9279a1d5c4870f8462c6e39f55f88674abc7"
+    },
+    "candidateResource:delivery:rawFrames:22": {
+      "path": "frames/recipe-change-S-009.png",
+      "sha256": "30247f155c180e830da9ddafa8a468caf57721c89b9e9e8da64fb56ed61eb112"
+    },
+    "candidateResource:delivery:rawFrames:23": {
+      "path": "frames/recipe-change-S-010.png",
+      "sha256": "29badcbd49891650d0e7f0233451e1f0c414a608cfa93e05ec20557dc27d507d"
+    },
+    "candidateResource:delivery:rawFrames:24": {
+      "path": "frames/recipe-change-S-011.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:atlases:0": {
+      "path": "atlases/idle-S.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:delivery:atlases:1": {
+      "path": "atlases/selected-S.png",
+      "sha256": "aca0941b5a5fd3171062c2235f43bbcd701437133004693e76f29a84cd46603f"
+    },
+    "candidateResource:delivery:atlases:2": {
+      "path": "atlases/recipe-change-S.png",
+      "sha256": "b3cfae2fff391662e33a177711ad2ba77d3e0626ab0ad027473fe26391de870a"
+    },
+    "candidateResource:round:selected-S.png": {
+      "path": "selected-S.png",
+      "sha256": "82c9bca96a0c89605b95ecc3ccce9fb82463dc9d91d01e443fd1180e0682cd1c"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "6194144b30b3c37ee90a49024c458e41de6cc1a2441a96e151dc4214de806d8a"
+    },
+    "candidateResource:round:recipe-change-S.webp": {
+      "path": "recipe-change-S.webp",
+      "sha256": "c9a1b1cf3cfe72d1c782195ef5a88bd067f94b005994d08b86d34edabc639d05"
+    },
+    "candidateResource:round:closed-replay.json": {
+      "path": "closed-replay.json",
+      "sha256": "958eebc3258cfbd503b4fe10ebafb99e1dcea2c90b060c8fea22cb1475499644"
+    },
+    "candidateResource:round:selected-S-detail.png": {
+      "path": "selected-S-detail.png",
+      "sha256": "d28f1215290f191d27a162db2c08605363f6368d445357e1c83a8386169c1c01"
+    },
+    "candidateResource:round:atlas-manifest.json": {
+      "path": "atlas-manifest.json",
+      "sha256": "db0a4f086eb756bcdcf48b9199c16b559fdc0332396d3e181b867466c37699cf"
+    },
+    "candidateResource:round:native-validation.json": {
+      "path": "native-validation.json",
+      "sha256": "3c15cfda92eba2fe8a399bfde542c282e4b938656351d39fa5df4e57b629257d"
+    },
+    "candidateResource:round:idle-enlarged.png": {
+      "path": "idle-enlarged.png",
+      "sha256": "29544483829055c4fe19beabc8d216a16a38dfd97b7e3a4d910b29aee8e4696b"
+    },
+    "candidateResource:round:idle-logical.png": {
+      "path": "idle-logical.png",
+      "sha256": "b1bf981c8d502b9a37d20a0582071c77925020b6453286e29801c2d04946fe69"
+    },
+    "candidateResource:round:selected-S.webp": {
+      "path": "selected-S.webp",
+      "sha256": "8d173c10547163d5af10bae2b8abb218a959a7303759618d29de2ad2ca4c8bc0"
+    },
+    "candidateResource:round:repeated.png": {
+      "path": "repeated.png",
+      "sha256": "6a3d9aaa73983e161736cbd20ca37e93b76d383655e719e6a38fc7ac3f96eb15"
+    },
+    "candidateResource:round:chef-cooccupancy.png": {
+      "path": "chef-cooccupancy.png",
+      "sha256": "689632cee5942bd407a7a0f4ca73ba4cfe3efa598c001fe1ab24d64ecf0a2bfb"
+    },
+    "candidateResource:round:hero-S.png": {
+      "path": "hero-S.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:blank-display-and-runtime-overlay.png": {
+      "path": "blank-display-and-runtime-overlay.png",
+      "sha256": "225798a041faf5d7a5611a7582629158b39da318b6208ab54554da13395d0787"
+    },
+    "candidateResource:round:recipe-change-S-detail.png": {
+      "path": "recipe-change-S-detail.png",
+      "sha256": "d5a51107fbfa49b7511daa58bf73e1b005262ebc6aec10ceebe3cb230b76c9be"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "40bdd22254c9bc8b2511f94a81e6a81379dae9cfd1b937e90c2a7ef920cac363"
+    },
+    "candidateResource:round:recipe-change-S.png": {
+      "path": "recipe-change-S.png",
+      "sha256": "cfa76278b2067b8408e9a50d1d72d7cbb78a74b957b941ade722a576b7e1ea0a"
+    },
+    "candidateResource:round:source-candidate-logical.png": {
+      "path": "source-candidate-logical.png",
+      "sha256": "f4ecf4bd81d3ddb2ec7d4a8c9de4fb1df04b4db604e3da9877259599bc071781"
+    },
+    "candidateResource:round:transparency-backgrounds.png": {
+      "path": "transparency-backgrounds.png",
+      "sha256": "d660b803a14ca86467f1f1acf78dc6e0fd7675b6fa297ae73afdf5784b66eb36"
+    },
+    "candidateResource:round:four-view-sheet.png": {
+      "path": "four-view-sheet.png",
+      "sha256": "9d7af7a7b4185a30c8d6c5da341391d1a9110205bce21bbe4c00e553dd49e9b0"
+    },
+    "candidateResource:round:records/rig.json": {
+      "path": "records/rig.json",
+      "sha256": "0821adf3aef40cd5644e073ffee4b91f94b127c7d84b1e3a8e761a974e2073fa"
+    },
+    "candidateResource:round:records/camera.json": {
+      "path": "records/camera.json",
+      "sha256": "226214a6c46a664940c84ff31dc309ca92ae8a8e1344fe19eca722ab87911515"
+    },
+    "candidateResource:round:records/assetRecord.json": {
+      "path": "records/assetRecord.json",
+      "sha256": "32b41bb7364d350c6b400e0e724bc891b74d34bec06727ffb5f0bb54054c19a1"
+    },
+    "candidateResource:round:frames/selected-S-003.png": {
+      "path": "frames/selected-S-003.png",
+      "sha256": "af70049f17e8fc35c7cbf3192c066227e2eecdcc30d7ab59c14d96697261b76c"
+    },
+    "candidateResource:round:frames/recipe-change-S-011.png": {
+      "path": "frames/recipe-change-S-011.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:frames/recipe-change-S-005.png": {
+      "path": "frames/recipe-change-S-005.png",
+      "sha256": "05f17cac9880b1dbdc6ec9de6a60d3c9faa73a4a823d48da1b2e1e7516e3ca61"
+    },
+    "candidateResource:round:frames/idle-S-000.png": {
+      "path": "frames/idle-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:frames/recipe-change-S-004.png": {
+      "path": "frames/recipe-change-S-004.png",
+      "sha256": "2ca05931917477e4abaaab1ec6081d15c0e9b322050b1abf44ae7e7d9ec9ef50"
+    },
+    "candidateResource:round:frames/recipe-change-S-010.png": {
+      "path": "frames/recipe-change-S-010.png",
+      "sha256": "29badcbd49891650d0e7f0233451e1f0c414a608cfa93e05ec20557dc27d507d"
+    },
+    "candidateResource:round:frames/selected-S-002.png": {
+      "path": "frames/selected-S-002.png",
+      "sha256": "1b878e904c12e0a75e5e32df424aa9238d63e930af3bd9c869365a8938da03b6"
+    },
+    "candidateResource:round:frames/selected-S-000.png": {
+      "path": "frames/selected-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:frames/recipe-change-S-006.png": {
+      "path": "frames/recipe-change-S-006.png",
+      "sha256": "002fa4104b9aa3b0105dc5ddd810c3b1f5683f1548f76863025ded47f126f1ae"
+    },
+    "candidateResource:round:frames/recipe-change-S-007.png": {
+      "path": "frames/recipe-change-S-007.png",
+      "sha256": "c3c54533e11fc98fcc79b5482d7a5875614dfddc0d601f3c9781120545c4fd42"
+    },
+    "candidateResource:round:frames/selected-S-001.png": {
+      "path": "frames/selected-S-001.png",
+      "sha256": "d7d6ed6afe5f3ade0dffbabe6c9e5c3e04c092b193547f1e19828f6dfd6aa387"
+    },
+    "candidateResource:round:frames/selected-S-005.png": {
+      "path": "frames/selected-S-005.png",
+      "sha256": "d7d6ed6afe5f3ade0dffbabe6c9e5c3e04c092b193547f1e19828f6dfd6aa387"
+    },
+    "candidateResource:round:frames/selected-S-011.png": {
+      "path": "frames/selected-S-011.png",
+      "sha256": "eb8ddcaf9f77c7cfbb240a12b75a1ce2e36e75d1de210292fcf8a746da8d810d"
+    },
+    "candidateResource:round:frames/recipe-change-S-003.png": {
+      "path": "frames/recipe-change-S-003.png",
+      "sha256": "1ebff32540cb984f5cf00738da7f7d5d4373c15255f506864b3ebb4c02aca666"
+    },
+    "candidateResource:round:frames/recipe-change-S-002.png": {
+      "path": "frames/recipe-change-S-002.png",
+      "sha256": "1ad136c1e5a8f47308deef5b8ae47b17cdf49745482fbc606adae77cd6be6a47"
+    },
+    "candidateResource:round:frames/selected-S-010.png": {
+      "path": "frames/selected-S-010.png",
+      "sha256": "5947371d54df7d7d0822e8ebc9e98df13af7da2417e9314f0fb4f8a80c668d46"
+    },
+    "candidateResource:round:frames/selected-S-004.png": {
+      "path": "frames/selected-S-004.png",
+      "sha256": "1b878e904c12e0a75e5e32df424aa9238d63e930af3bd9c869365a8938da03b6"
+    },
+    "candidateResource:round:frames/selected-S-006.png": {
+      "path": "frames/selected-S-006.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:frames/recipe-change-S-000.png": {
+      "path": "frames/recipe-change-S-000.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:frames/recipe-change-S-001.png": {
+      "path": "frames/recipe-change-S-001.png",
+      "sha256": "b93648a54c6265f8f7c74dee81b2b7dae98b54cf5b409810b7fda25cf4ad8d88"
+    },
+    "candidateResource:round:frames/selected-S-007.png": {
+      "path": "frames/selected-S-007.png",
+      "sha256": "eb8ddcaf9f77c7cfbb240a12b75a1ce2e36e75d1de210292fcf8a746da8d810d"
+    },
+    "candidateResource:round:frames/selected-S-009.png": {
+      "path": "frames/selected-S-009.png",
+      "sha256": "1446fdebfdba349cdc20a8e385b272c4819fa1eb534d56aba4804b4a0dc54404"
+    },
+    "candidateResource:round:frames/selected-S-008.png": {
+      "path": "frames/selected-S-008.png",
+      "sha256": "5947371d54df7d7d0822e8ebc9e98df13af7da2417e9314f0fb4f8a80c668d46"
+    },
+    "candidateResource:round:frames/recipe-change-S-009.png": {
+      "path": "frames/recipe-change-S-009.png",
+      "sha256": "30247f155c180e830da9ddafa8a468caf57721c89b9e9e8da64fb56ed61eb112"
+    },
+    "candidateResource:round:frames/recipe-change-S-008.png": {
+      "path": "frames/recipe-change-S-008.png",
+      "sha256": "df735557cc567d4409ec2241755c9279a1d5c4870f8462c6e39f55f88674abc7"
+    },
+    "candidateResource:round:atlases/selected-S.png": {
+      "path": "atlases/selected-S.png",
+      "sha256": "aca0941b5a5fd3171062c2235f43bbcd701437133004693e76f29a84cd46603f"
+    },
+    "candidateResource:round:atlases/idle-S.png": {
+      "path": "atlases/idle-S.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff"
+    },
+    "candidateResource:round:atlases/recipe-change-S.png": {
+      "path": "atlases/recipe-change-S.png",
+      "sha256": "b3cfae2fff391662e33a177711ad2ba77d3e0626ab0ad027473fe26391de870a"
+    },
+    "candidateResource:round:raw/recipe-change-S/002.png": {
+      "path": "raw/recipe-change-S/002.png",
+      "sha256": "1e05883716376c01932daa5be1fb35ae81cde181e20d8492286df92bd585d140"
+    },
+    "candidateResource:round:raw/recipe-change-S/003.png": {
+      "path": "raw/recipe-change-S/003.png",
+      "sha256": "bd9aa5c05371ea6102a65909b51456ef841efe60c2baf6df1770d57200e4c343"
+    },
+    "candidateResource:round:raw/recipe-change-S/001.png": {
+      "path": "raw/recipe-change-S/001.png",
+      "sha256": "9b1b546ab1c35cc39d52dabb4a5852b483e46977a6dbc0795e7dc6474bd1caa0"
+    },
+    "candidateResource:round:raw/recipe-change-S/000.png": {
+      "path": "raw/recipe-change-S/000.png",
+      "sha256": "9cc63489917de731d3e489655e31779b3efa9815d1e2c9bbacdc7a3ae290c3eb"
+    },
+    "candidateResource:round:raw/recipe-change-S/010.png": {
+      "path": "raw/recipe-change-S/010.png",
+      "sha256": "be8a70468d53a7101278ff3967b327590ccb9471726468f30ebbe69ffd801d4a"
+    },
+    "candidateResource:round:raw/recipe-change-S/004.png": {
+      "path": "raw/recipe-change-S/004.png",
+      "sha256": "fa8e44f5bd058fd22a39fc689fb5aecdf476d8c327a97f26554917f518a51b39"
+    },
+    "candidateResource:round:raw/recipe-change-S/005.png": {
+      "path": "raw/recipe-change-S/005.png",
+      "sha256": "72dabde228f579133bc8196249ce40a7c9e9159e426464bb4293a5c003babdcc"
+    },
+    "candidateResource:round:raw/recipe-change-S/011.png": {
+      "path": "raw/recipe-change-S/011.png",
+      "sha256": "536b818e96e64b172fa7a53b0ac9b0ed2c6ac9a06c81bd1867a46eba3c40d979"
+    },
+    "candidateResource:round:raw/recipe-change-S/007.png": {
+      "path": "raw/recipe-change-S/007.png",
+      "sha256": "b33f31c5e7eb0cc497d3ab8753b8e02169ada6e2010f3624b60377b7cef3d49d"
+    },
+    "candidateResource:round:raw/recipe-change-S/006.png": {
+      "path": "raw/recipe-change-S/006.png",
+      "sha256": "d0a83c0d8ae490c39f18b0beb66f51d42c5b70d7046e36678d536bffea81fe65"
+    },
+    "candidateResource:round:raw/recipe-change-S/008.png": {
+      "path": "raw/recipe-change-S/008.png",
+      "sha256": "c0c80412ae6dd4b58f9d442f0cb6ce4d6aa5f80b91eaf8b7bff7acd6404e256f"
+    },
+    "candidateResource:round:raw/recipe-change-S/009.png": {
+      "path": "raw/recipe-change-S/009.png",
+      "sha256": "cd2a17a20b54fcaddcb05f5b00a41392e653cc4a9dc7c216b9347c00d46dee09"
+    },
+    "candidateResource:round:raw/idle-S/000.png": {
+      "path": "raw/idle-S/000.png",
+      "sha256": "7b272beb4c37f8144e55511c1738860d9f3e4eb56bd5b2b3281f12828a582ec6"
+    },
+    "candidateResource:round:raw/selected-S/002.png": {
+      "path": "raw/selected-S/002.png",
+      "sha256": "921e4fe8542802f49a87a4ae0d97304448d9a1636b0b6292e7970f7ebf6f851c"
+    },
+    "candidateResource:round:raw/selected-S/003.png": {
+      "path": "raw/selected-S/003.png",
+      "sha256": "49be6dd408eee4b42ed54490189ca778a4e37994c4e1e03de69fa219e53ad7cc"
+    },
+    "candidateResource:round:raw/selected-S/001.png": {
+      "path": "raw/selected-S/001.png",
+      "sha256": "2e9d3407c48254e79cd0d3a25b25b537eec30d50e172e4dea097f6be53c6fd0f"
+    },
+    "candidateResource:round:raw/selected-S/000.png": {
+      "path": "raw/selected-S/000.png",
+      "sha256": "19112368b4e6a3dd88ffebb0f6d320c14282c042abb90049e21f76cc265e3690"
+    },
+    "candidateResource:round:raw/selected-S/010.png": {
+      "path": "raw/selected-S/010.png",
+      "sha256": "5be19329c7a15dcd5067e5f90726ffd1a55d94e9c2d96a8fe010fe44caf0c6a7"
+    },
+    "candidateResource:round:raw/selected-S/004.png": {
+      "path": "raw/selected-S/004.png",
+      "sha256": "1065c3730d586e5332c74b707f5b4b04ebf44e92d9bc0abd792658c78b459dc8"
+    },
+    "candidateResource:round:raw/selected-S/005.png": {
+      "path": "raw/selected-S/005.png",
+      "sha256": "94c48d32c9472d6df8eb1323227bed542650b6970785fe92d503eb8ef9de6199"
+    },
+    "candidateResource:round:raw/selected-S/011.png": {
+      "path": "raw/selected-S/011.png",
+      "sha256": "cb7c2a5ed447f7aeb0f1c33347522d7d632c011784d3beb068ad46d4587cbfdc"
+    },
+    "candidateResource:round:raw/selected-S/007.png": {
+      "path": "raw/selected-S/007.png",
+      "sha256": "7c7a9887eadd7b3eb6048c53ea61ba878936a676d799a183ae162ba4ed06f5e6"
+    },
+    "candidateResource:round:raw/selected-S/006.png": {
+      "path": "raw/selected-S/006.png",
+      "sha256": "7c206b39f2602251b2084ff65d0ffc87ee327dc288abaf727a937a038eb4b4c2"
+    },
+    "candidateResource:round:raw/selected-S/008.png": {
+      "path": "raw/selected-S/008.png",
+      "sha256": "96b6b198a18dd33f68a5f09652c2bbc7882ceb9433c15566a499f090398504c7"
+    },
+    "candidateResource:round:raw/selected-S/009.png": {
+      "path": "raw/selected-S/009.png",
+      "sha256": "7b7bac75dd723ec395ca4a806d32532fe1eef58d8e492c98dc473ca4f89cdc29"
+    },
+    "candidateResource:source:criteria-acknowledgment.json": {
+      "path": "../../source/criteria-acknowledgment.json",
+      "sha256": "9125337eaa1c14b73db417772ccbdd7dcee3a25f11fdfd6bc8963c9d7ebf3de8"
+    },
+    "candidateResource:source:round-01-recipe.py": {
+      "path": "../../source/round-01-recipe.py",
+      "sha256": "f0d43f22fda2479f526b5736ba0929453020849151de15a13e2fbde74a060fe0"
+    },
+    "candidateResource:source:inspect-source.py": {
+      "path": "../../source/inspect-source.py",
+      "sha256": "5dbc24db36e59f61e62610a2a6afcd839c08e075c94ba005b0542a95193a08ee"
+    },
+    "candidateResource:source:package-round-01.py": {
+      "path": "../../source/package-round-01.py",
+      "sha256": "0688030223a2882a55f82157f16de4b00413c1e64897b96981982259cee517e5"
+    },
+    "candidateResource:source:source-native-inspection.json": {
+      "path": "../../source/source-native-inspection.json",
+      "sha256": "3b75e752f840c9f84ce92079cc6633804f228dbd62532b458f3f26a8828b72d7"
+    },
+    "candidateResource:source:original-library.blend": {
+      "path": "../../source/original-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "candidateResource:source:round-01-recipe.json": {
+      "path": "../../source/round-01-recipe.json",
+      "sha256": "39dd01651bb003f3ae47880abeb69a98f433503d7e7344d4737ebd0e15b53247"
+    },
+    "candidateResource:source:initial-observations.json": {
+      "path": "../../source/initial-observations.json",
+      "sha256": "6f19040e8e55b55460204e682e6564f18a7a7f06bcb8d26e952bdb5b0a473b21"
+    },
+    "candidateResource:source:source-animation-bounds.json": {
+      "path": "../../source/source-animation-bounds.json",
+      "sha256": "18744fe21ad22d1d03ee0f5dce00a50568c022d4ea02e3db005c8f3072ba8aa9"
+    },
+    "candidateResource:source:measure-original.py": {
+      "path": "../../source/measure-original.py",
+      "sha256": "10d9653e12ff41fc040323375e14e0a8b539c4f7e91f1765081ea88996b0c6ca"
+    },
+    "candidateResource:source:capture-round-01.py": {
+      "path": "../../source/capture-round-01.py",
+      "sha256": "a26da751bb15433999dedd5bcfcc7d36a17062aa26e959ad5674bd2857190def"
+    },
+    "candidateResource:source:inspect-actions.py": {
+      "path": "../../source/inspect-actions.py",
+      "sha256": "93ef694d1a13d2f3a36d2c5607e9e35bf493a76e5b4983a3d86afb7929052ebd"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "f98ad04344d7eeecc66837820ff377efe77a7fed78fc98b986e8047dcd306c53"
+    },
+    "candidateResource:source:resources/context-provenance.json": {
+      "path": "../../source/resources/context-provenance.json",
+      "sha256": "dac1700bfe7f220fe63611eaa4da96b4eb70ba4f047ad4c21f3c87f0f637afa2"
+    },
+    "candidateResource:source:resources/registered-camera.json": {
+      "path": "../../source/resources/registered-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    "candidateResource:source:resources/original-catalog.json": {
+      "path": "../../source/resources/original-catalog.json",
+      "sha256": "ddc7522f44c78dfcdd90ad5fe90e00a10dc99082c87e9411473c1b0f9d3346c2"
+    },
+    "candidateResource:source:resources/original-actions.json": {
+      "path": "../../source/resources/original-actions.json",
+      "sha256": "0343cc2d512283bb0b858c36748d88d2d69c2a0cb8d9e1565e2b07cf5716feff"
+    },
+    "candidateResource:source:resources/asset-original.json": {
+      "path": "../../source/resources/asset-original.json",
+      "sha256": "551caf5478bdf8335e068c5107ad360d07cbd1186aaed635c25ffd54f3f49ac2"
+    },
+    "candidateResource:source:resources/original-rig.json": {
+      "path": "../../source/resources/original-rig.json",
+      "sha256": "d28e5ee7cd0aebf22633a91d6693d8510f49d75cef14293e2b75d0338f1801ae"
+    }
+  },
+  "candidateRenders": {
+    "S": {
+      "path": "hero-S.png",
+      "sha256": "698d86bd7ee5d0345454e0597b40ccbf79d728737911429e6a615a3ca7b30bff",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "9d7af7a7b4185a30c8d6c5da341391d1a9110205bce21bbe4c00e553dd49e9b0"
+    },
+    "idle-enlarged": {
+      "path": "idle-enlarged.png",
+      "sha256": "29544483829055c4fe19beabc8d216a16a38dfd97b7e3a4d910b29aee8e4696b"
+    },
+    "idle-logical": {
+      "path": "idle-logical.png",
+      "sha256": "b1bf981c8d502b9a37d20a0582071c77925020b6453286e29801c2d04946fe69"
+    },
+    "selected-S": {
+      "path": "selected-S.png",
+      "sha256": "82c9bca96a0c89605b95ecc3ccce9fb82463dc9d91d01e443fd1180e0682cd1c"
+    },
+    "selected-S-detail": {
+      "path": "selected-S-detail.png",
+      "sha256": "d28f1215290f191d27a162db2c08605363f6368d445357e1c83a8386169c1c01"
+    },
+    "selected-S-playback": {
+      "path": "selected-S.webp",
+      "sha256": "8d173c10547163d5af10bae2b8abb218a959a7303759618d29de2ad2ca4c8bc0"
+    },
+    "recipe-change-S": {
+      "path": "recipe-change-S.png",
+      "sha256": "cfa76278b2067b8408e9a50d1d72d7cbb78a74b957b941ade722a576b7e1ea0a"
+    },
+    "recipe-change-S-detail": {
+      "path": "recipe-change-S-detail.png",
+      "sha256": "d5a51107fbfa49b7511daa58bf73e1b005262ebc6aec10ceebe3cb230b76c9be"
+    },
+    "recipe-change-S-playback": {
+      "path": "recipe-change-S.webp",
+      "sha256": "c9a1b1cf3cfe72d1c782195ef5a88bd067f94b005994d08b86d34edabc639d05"
+    },
+    "transparency-backgrounds": {
+      "path": "transparency-backgrounds.png",
+      "sha256": "d660b803a14ca86467f1f1acf78dc6e0fd7675b6fa297ae73afdf5784b66eb36"
+    },
+    "source-candidate-logical": {
+      "path": "source-candidate-logical.png",
+      "sha256": "f4ecf4bd81d3ddb2ec7d4a8c9de4fb1df04b4db604e3da9877259599bc071781"
+    },
+    "repeated": {
+      "path": "repeated.png",
+      "sha256": "6a3d9aaa73983e161736cbd20ca37e93b76d383655e719e6a38fc7ac3f96eb15"
+    },
+    "chef-cooccupancy": {
+      "path": "chef-cooccupancy.png",
+      "sha256": "689632cee5942bd407a7a0f4ca73ba4cfe3efa598c001fe1ab24d64ecf0a2bfb"
+    },
+    "blank-display-and-runtime-overlay": {
+      "path": "blank-display-and-runtime-overlay.png",
+      "sha256": "225798a041faf5d7a5611a7582629158b39da318b6208ab54554da13395d0787"
+    }
+  }
+}

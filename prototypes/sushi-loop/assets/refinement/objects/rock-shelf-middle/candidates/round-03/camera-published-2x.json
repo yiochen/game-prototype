@@ -1,0 +1,146 @@
+{
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    192,
+    352
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "cellSize": 128,
+  "captureScale": 2,
+  "fps": 12,
+  "axes": {
+    "x": "X",
+    "depth": "-Y",
+    "height": "Z"
+  },
+  "camera": {
+    "type": "orthographic",
+    "worldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8192318081855774,
+        -0.5734625458717346,
+        -5.734623432159424
+      ],
+      [
+        0.0,
+        0.5734625458717346,
+        0.8192318081855774,
+        8.1923189163208
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.8877494931221008,
+        0.0,
+        -0.4090892970561981
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "worldUnitsPerCell": 1,
+    "elevationDegrees": 55.00797980144134,
+    "orthoScale": 1.5,
+    "sensorFit": "HORIZONTAL"
+  },
+  "calibration": {
+    "root": [
+      192.0,
+      496.0000305175781
+    ],
+    "unitX": [
+      256.0,
+      0.0
+    ],
+    "unitDepth": [
+      0.0,
+      255.99996948242188
+    ],
+    "unitHeight": [
+      0.0,
+      -179.2000732421875
+    ]
+  },
+  "sourceProjectSHA256": "3e6c7cbe865a918dbeec5faf1a48af540f6290e7afc41ef4c987162617199422",
+  "measured": {
+    "ledger": "candidates/round-03/pose-ledger.json",
+    "ledgerSHA256": "214e5cb497e2c0609181ee5d070280cc5ab232bde9689022d6f81f60909348ed",
+    "frame": 1,
+    "view": "S",
+    "method": "Actual Blender camera/root/projection measured while capturing all4; exactsource clean-reopen control also retained.",
+    "filterSize": 0.5
+  },
+  "publishedRasterFrame": [
+    384,
+    704
+  ],
+  "nativeCapture": {
+    "captureScale": 4,
+    "frame": [
+      768,
+      1408
+    ],
+    "measuredCalibration": {
+      "root": [
+        384.0,
+        992.0000610351562
+      ],
+      "unitX": [
+        512.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        511.99993896484375
+      ],
+      "unitHeight": [
+        0.0,
+        -358.400146484375
+      ]
+    },
+    "record": "candidates/round-03/native-camera-4x.json",
+    "recordSHA256": "4fa8a35737c7bdca3bbfaf1bbf85f7959c792726f1bed25adf6ba88472af3d11"
+  },
+  "publication": {
+    "operation": "Wholeframe RGBA BOX4x-to2x",
+    "provenance": "candidates/round-03/replay-publication-proof.json",
+    "provenanceSHA256": "b987882326935694a88f959e4164d26089f04e6c7042564ab5dd7c9518741911",
+    "cameraNormalization": "PublishedScale2 calibration is exactly half measured native4x pixelcalibration. Matrices/projection/aspect unchanged; no native2x render is fabricated."
+  }
+}

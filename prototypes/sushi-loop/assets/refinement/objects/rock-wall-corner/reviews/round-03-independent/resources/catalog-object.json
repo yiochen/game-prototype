@@ -1,0 +1,314 @@
+{
+  "id": "rock-wall-corner",
+  "name": "Cobalt canyon rock wall corner",
+  "family": "W11",
+  "status": "ready",
+  "kind": "terrain",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    256
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/rock-wall-corner/static-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/rock-wall-corner/static-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/rock-wall-corner/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/rock-wall-corner/static-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Connected matching-profile modules",
+      "gridSize": [
+        5,
+        5
+      ],
+      "placements": [
+        {
+          "object": "rock-wall-corner",
+          "x": 2,
+          "y": 2,
+          "direction": "S"
+        },
+        {
+          "object": "rock-wall-middle",
+          "x": 2,
+          "y": 1,
+          "direction": "E"
+        },
+        {
+          "object": "rock-wall-middle",
+          "x": 1,
+          "y": 2,
+          "direction": "S"
+        }
+      ],
+      "note": "Each reviewed port meets the same native cross-section with its authored handedness. Outside edges remain open so the joins can be inspected.",
+      "connectionReview": {
+        "kind": "profile-join",
+        "object": "rock-wall-corner",
+        "profile": "rock-wall-full-cell-v2"
+      }
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "rock-wall-middle"
+    ],
+    "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced."
+  },
+  "height": 1.17,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      256
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "ports": {
+    "N": {
+      "W": [
+        64.0,
+        7.83773951454306e-15
+      ],
+      "N": [
+        -7.83773951454306e-15,
+        64.0
+      ]
+    },
+    "E": {
+      "W": [
+        -3.91886975727153e-15,
+        64.0
+      ],
+      "N": [
+        -64.0,
+        -3.91886975727153e-15
+      ]
+    },
+    "S": {
+      "W": [
+        -64.0,
+        -0.0
+      ],
+      "N": [
+        0.0,
+        -64.0
+      ]
+    },
+    "W": {
+      "W": [
+        -3.91886975727153e-15,
+        -64.0
+      ],
+      "N": [
+        64.0,
+        -3.91886975727153e-15
+      ]
+    }
+  },
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "1189d4caae04bc83a1b7901e53c62e0ba5b10a5972acde8d022c0ba9c10ce4d8",
+  "portProfiles": {
+    "W": "rock-wall-full-cell-v2",
+    "N": "rock-wall-full-cell-v2"
+  },
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "camera": "source/records/rock-wall-corner/camera.json",
+    "guide": "source/registered/rock-wall-corner/static-N/guide.json",
+    "assetRecord": "source/records/rock-wall-corner/asset.json",
+    "rig": "source/records/rock-wall-corner/rig.json"
+  }
+}

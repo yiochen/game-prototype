@@ -1,0 +1,40 @@
+{
+  "status": "Preparation complete; all further prep writes stop at this handoff. Coordinator reconciles and freezes before fresh editor construction. No candidate reviewed or approved.",
+  "files": {
+    "initial": "initial.json",
+    "proposedCriteria": "proposedcriteria.json",
+    "proposedTechnicalContract": "source-contract-proposal.json",
+    "auditSummary": "preparation-v1/audit-summary.json",
+    "native96Evidence": "preparation-v1/native-phase-audit.json",
+    "family96Evidence": "preparation-v1/family-phase-audit.json",
+    "rasterEvidence": "preparation-v1/raster-evidence.json",
+    "consumerEvidence": "preparation-v1/consumer-evidence.json",
+    "rawResources": "preparation-v1/input-resource-evidence.json"
+  },
+  "mainFindings": [
+    "Source motion uses native location/scale actions only. Alpha remains 1. Covered loops at 12 fps over 12 frames, with exact geometry closure at key 13. Uncover retracts once and holds its final state; no dissolve, cloth simulation or new mechanical choreography is required.",
+    "Corner tie bottoms are local Z 0.24, so their actual world Z is 0.47 at the fixed root Z 0.23. Measured deck top is 0.22: the source support gap is 0.25 world units.",
+    "Source cloth and seams cut the hut roof/chimney across covered and uncover phases. The independent visible-mesh triangle audit reports concrete object pairs and all 96 phases, not AABB-only clearance. These source faults are not accepted final family behavior.",
+    "Uncover moves rotated beam/seam geometry outside the nominal footprint: terminal local Y reaches 2.52750015. Detached bars are visible in all required views. Useful native reconstruction should keep attached hems/seams with the folding cloth.",
+    "Proposed cover-only maximum evaluated local envelope is X/Y [-1.5,1.5], Z [-0.012,2.20], preserving roots/capture/footprint. Nominal deck contact is local Z -0.01, matched to actual paired deck profiles within 1e-5 world. A raised canopy and a compact rear fold can clear the fixed hut envelope without moving or flattening companions. These bounds require coordinator reconciliation and do not approve a construction.",
+    "The exact old source consumer renderer 099de618 uses ordinary world-depth order for the cover despite native overhead metadata. Covered N paints the whole hut over opaque cloth. Explicit cover overhead/order metadata must be reconciled before freeze, then proven against native and independently assembled actual candidate pixels. No cover-specific consumer change was made.",
+    "Old source diagnostic sampling is pinned to exact e0b586 world-raster code under consumer-code. Root later versioned common-native-canvas sampling for floor/entry. This evidence is not proof of that later remedy and cannot certify the unresolved floor/entry pair.",
+    "Actual future candidate hut/hull/deck hashes and evaluated profiles are required for final family support and clearance. Source original companions and these preparation screenshots grant no future family approval."
+  ],
+  "counts": {
+    "nativeFullFrames": 96,
+    "exactLayoutAtlases": 8,
+    "nativeInbetweenRenders": 12,
+    "nativeFamilyRenders": 24,
+    "independentConsumerFamilyHumanRenders": 24,
+    "terminalQuarterPhaseComposites": 16,
+    "playbackStreams": 8
+  },
+  "visualLimits": "All 96 native phases were directly inspected through verified gray wholeframe contact sheets, plus listed full native/inbetween images and native family sheets. Browser source family/human contexts were inspected on light/gray/dark at logical, phone and landscape sampling. See audit-summary for exact inspected lists and limits; no claim that every generated background sheet or published source contact sheet was directly viewed.",
+  "integrity": {
+    "originalSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "targetSHA256": "7e7625a216757ed1657f5ca1c770637cc0d1288edf4458cda8958904aeeed940",
+    "onlyWrites": "New dock-cover/reviews files. No source/production/brief/target/Git/live Blender changes and no additional agents."
+  }
+}

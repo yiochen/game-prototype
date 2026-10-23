@@ -1,0 +1,138 @@
+{
+  "scope": "Technical source-only study; historical pixels retained. No candidate, source edit or approved alternative. Whole frames only, no per-edge repair, alpha clamps, profile inflation or warps.",
+  "cases": [
+    {
+      "direction": "S",
+      "nativeFilterSize": 1.5,
+      "wholeCanvasKernel": "lanczos",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": [
+        233,
+        235
+      ],
+      "path": "join-historical-lanczos-S.png"
+    },
+    {
+      "direction": "S",
+      "nativeFilterSize": 1.5,
+      "wholeCanvasKernel": "box",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": [
+        240,
+        242
+      ],
+      "path": "join-historical-box-S.png"
+    },
+    {
+      "direction": "S",
+      "nativeFilterSize": 0.01,
+      "wholeCanvasKernel": "lanczos",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": [
+        242,
+        242
+      ],
+      "path": "join-narrow-lanczos-S.png"
+    },
+    {
+      "direction": "S",
+      "nativeFilterSize": 0.01,
+      "wholeCanvasKernel": "box",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": [
+        255,
+        255
+      ],
+      "path": "join-narrow-box-S.png"
+    },
+    {
+      "direction": "E",
+      "nativeFilterSize": 1.5,
+      "wholeCanvasKernel": "lanczos",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": null,
+      "path": "join-historical-lanczos-E.png"
+    },
+    {
+      "direction": "E",
+      "nativeFilterSize": 1.5,
+      "wholeCanvasKernel": "box",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": null,
+      "path": "join-historical-box-E.png"
+    },
+    {
+      "direction": "E",
+      "nativeFilterSize": 0.01,
+      "wholeCanvasKernel": "lanczos",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": null,
+      "path": "join-narrow-lanczos-E.png"
+    },
+    {
+      "direction": "E",
+      "nativeFilterSize": 0.01,
+      "wholeCanvasKernel": "box",
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "joinedCommonCanvas": [
+        896,
+        1280
+      ],
+      "sampleAlphaAtSSeam": null,
+      "path": "join-narrow-box-E.png"
+    }
+  ],
+  "finding": "Native filter0.01 plus whole-frame BOX gives fully opaque S seam samples at the exact registered cut, while historical/LANCZOS and single-method changes retain partial-alpha seams. Root must decide this explicit capture change before editor freeze. E requires actual browser and native all-facing follow-through; these diagnostics do not approve style."
+}

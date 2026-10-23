@@ -1,0 +1,112 @@
+{
+  "role": "pre-refinement measured continuity evidence; no candidate approval",
+  "connectors": "connector-measurements.json",
+  "canonicalBoundarySamples": "canonical-boundary-samples.json",
+  "sourceReplay": "reproduction-metrics.json",
+  "nativeAll4": "native-joins-all4-gray.png",
+  "consumerAll4": [
+    "consumer-logical-all4.png",
+    "consumer-phone-all4.png",
+    "consumer-landscape-all4.png"
+  ],
+  "consumerFixture": "consumer-fixture.mjs",
+  "consumerCases": "consumer-baseline/cases.json",
+  "nativeRecipePreserved": {
+    "render": "CYCLES 48; BOX filter; stored filter_size 1.5; seed0; no denoise",
+    "publication": "BOX from 4x native to 2x published, proven pixel identical all4",
+    "consumer": "orderPlacements (including supportedBy ordering) then common native canvas scale2; imageSmoothingEnabled=false set after any canvas resize; ordinary browser filtering of final whole canvas via SVG foreignObject."
+  },
+  "oldCornerPublishedVsCanonicalNearWJoinS": [
+    {
+      "sourcePointXYZ": [
+        -0.5,
+        -0.5,
+        0.15
+      ],
+      "cornerInsidePixel": [
+        66,
+        613
+      ],
+      "middleInsidePixel": [
+        317,
+        613
+      ],
+      "cornerRGBA": [
+        0,
+        0,
+        24,
+        254
+      ],
+      "middleRGBA": [
+        24,
+        62,
+        110,
+        255
+      ],
+      "maxRGBDelta": 86
+    },
+    {
+      "sourcePointXYZ": [
+        -0.5,
+        -0.5,
+        0.35
+      ],
+      "cornerInsidePixel": [
+        66,
+        577
+      ],
+      "middleInsidePixel": [
+        317,
+        577
+      ],
+      "cornerRGBA": [
+        0,
+        9,
+        42,
+        254
+      ],
+      "middleRGBA": [
+        24,
+        67,
+        115,
+        255
+      ],
+      "maxRGBDelta": 73
+    },
+    {
+      "sourcePointXYZ": [
+        -0.5,
+        -0.5,
+        0.55
+      ],
+      "cornerInsidePixel": [
+        66,
+        541
+      ],
+      "middleInsidePixel": [
+        317,
+        541
+      ],
+      "cornerRGBA": [
+        0,
+        20,
+        57,
+        254
+      ],
+      "middleRGBA": [
+        22,
+        79,
+        129,
+        255
+      ],
+      "maxRGBDelta": 72
+    }
+  ],
+  "observations": [
+    "Port positions/outer profile meet geometrically without overlap or camera fitting in all four assembly rotations.",
+    "Old corner is blank, sharply faceted and substantially darker than the native carved middle. There are abrupt crown/face color and normal transitions at both joins.",
+    "N/E inside-bend views expose top concavity/blank expanse. S/W exterior views expose near-black bottom/shoulder and abrupt broad edges.",
+    "Independent published consumer baseline retains the same old material discontinuity at logical/phone/landscape sizes. This evidence is not a candidate or acceptance test.",
+    "Canonical published source reproduces exactly from immutable native project with BOX publication. Do not transplant source-old corner Lanczos or dock capturefilter .5 without an explicit family reconciliation."
+  ]
+}

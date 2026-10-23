@@ -1,0 +1,45 @@
+{
+  "asset": "barrel-wood",
+  "experiment": "editor-goods-supplement",
+  "phase": "independent-pre-candidate-review",
+  "verdict": "await_candidate",
+  "approval": false,
+  "inspectedImages": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "../../../../../ui/editor/v4/raw/b-indigo-ceramic.png"
+  ],
+  "evidenceRead": [
+    "brief.json",
+    "prompts/judge.txt",
+    "inputs/camera-contract.json",
+    "inputs/approved-world-model.blend",
+    "reviews/source-inspection.json",
+    "../../../../../ui/editor/goods-v1/README.md",
+    "../../../../../../godot/content/editor.json"
+  ],
+  "observations": [
+    "The accepted old goods view is a real lower-angle three-quarter barrel with diagonal lid divisions, bulging staves, broad visible side volume and two navy hoops. It establishes framing but uses the older bright yellow lid/dark lower-body finish.",
+    "The reused target is the same approved barrel target previously reviewed. Its warm soft material and rounded wood/band edge cues remain relevant, but its upper-looking camera and AI canvas drift cannot be imposed on the accepted goods camera.",
+    "Accepted B uses warm cream card surfaces, indigo controls and clear separated goods/stock badges. The barrel's honey/navy family is coherent with it; no UI design change is needed.",
+    "The approved world barrel already resolved lid and hoop volume in its world review. This supplement should expose that exact result honestly from the accepted goods camera rather than retune the model or its finish.",
+    "The actual current inventory has six goods; Wood barrel is on the later layout page with count 1. Cream floor is 0/unavailable. Baseline, selected and zero-count disabled fixtures must preserve their paired values and existing controls."
+  ],
+  "sourceInspection": {
+    "method": "Independent read-only Blender 5.2.2 LTS background reopen of inputs/approved-world-model.blend using reviews/inspect-approved-source.py; no render, model edit or save.",
+    "approvedProjectSHA256": "7415ed8fe80f1c7e6237e262cffef13c797973143cd51a2749e720a57974d4a1",
+    "productionAndBackupHashesMatch": true,
+    "scene": "Barrel Warm Soft Round 04",
+    "root": "barrel-wood__root already has location [0,0,0], scale [1,1,1] and rotation [0,0,0] in reopened source.",
+    "closure": "30 scene objects, no image files or linked libraries, external dependency count 0; actual source has the existing soft neutral world, centered overhead and four equal fills.",
+    "settingsNote": "The reopened source reports Standard/None, exposure 0, gamma 1, transparent CYCLES render; scene.use_nodes reports true. Candidate parity must compare actual complete compositor/render state, not infer it from an earlier summary or silently disable it.",
+    "limits": "No goods candidate exists yet. This initial source inspection establishes baseline availability/closure, not candidate source parity or visual approval."
+  },
+  "rankedDesiredOutcomes": [
+    {"rank": 1, "outcome": "Exact approved native barrel captured with the exact old 384-square 35/35 goods camera and complete source resource parity; no art or camera fitting changes."},
+    {"rank": 2, "outcome": "Readable warm lid, rounded hoops and bulging wood silhouette at 384/96/66 pixels with clean alpha on the existing cream/light/gray/dark consumer backgrounds."},
+    {"rank": 3, "outcome": "Only the barrel icon differs in current phone/wider Layout paging, Floor, selected count-1 and controlled count-0 disabled contexts; all other goods/floor/UI pixels and properties retain exact identity."}
+  ],
+  "criteriaPath": "reviews/proposedcriteria.json",
+  "criteriaSHA256": "d722992039e31348783fefb5aabca2211359b4245908be084d00f5d6f59acb7f"
+}

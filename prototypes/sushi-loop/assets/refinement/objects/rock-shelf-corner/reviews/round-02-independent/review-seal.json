@@ -1,0 +1,30 @@
+{
+  "asset": "rock-shelf-corner",
+  "round": "round-02",
+  "verdict": "approve",
+  "candidatePacketSHA256": "84465cb7c4b2eb05e0460ac59608ffc9b9d215f94193180b0e79d52ccff9e8f0",
+  "sourceSHA256": "eedbbe559114b3b0f4f9900bb4f1813b87a18add08ec724fbe6be68594668e78",
+  "review": {
+    "path": "reviews/round-02.json",
+    "sha256": "54b6255d7fb26422ddfefe5498661c53efa0ef0c18185fc0825331233f9077e9"
+  },
+  "supplementalManifest": {
+    "path": "reviews/round-02-independent/supplemental-manifest.json",
+    "sha256": "6b399afb86cb894ad1573fbe4106c0f1ae6752685d3491e38caf053a19e15c59"
+  },
+  "unchangedAcceptanceGate": {
+    "path": "reviews/round-02-independent/final-gate.json",
+    "sha256": "0e8953294b05bddfe8ddc074d690b647b8a0a1ba2206f3f03eb2ce4d06ae24a3",
+    "accepted": true
+  },
+  "acyclicOrder": [
+    "evidence",
+    "supplemental-manifest",
+    "review",
+    "unchanged gate",
+    "review seal",
+    "postseal verification"
+  ],
+  "fileCount": 729,
+  "scope": "Exact corner and bounded tested middle compatibility only; no family-wide/production/Godot approval."
+}

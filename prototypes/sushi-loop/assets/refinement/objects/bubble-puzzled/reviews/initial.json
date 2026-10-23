@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "asset": "bubble-puzzled",
+  "reviewType": "initial independent inspection",
+  "status": "criteria-proposed-no-candidate-reviewed",
+  "independence": "Inspected actual original source, source publisher, catalog capture/animation data, fixed target and supplied family context before editor proposals. No editor proposals or sibling aesthetic reviews were read. Only this object's reviews/ files were written.",
+  "aestheticFindings": {
+    "original": "Recognizable clear plum hook and round dot in an ivory balloon, with clean lower tail; the original has a comparatively flat center and crisp dark contour. Identity and small-size read are already sound.",
+    "target": "Retains the emotion and palette while introducing a warmer rounded rim, softer cream volume and a more inflated glossy plum symbol. It is relevant to the requested warm softly lit cartoon style.",
+    "familyContext": "Heart/smile supplied native references have rounded cream balloons, warm rim shading and simple glossy center symbols at the same82logical full-size width. Puzzled should cohere in finish while keeping its own question mark and tail.",
+    "rankedDesiredOutcomes": [
+      "Coherent soft rim and cream volume with a clean tail join.",
+      "Puffy readable plum hook and dot with clear separation and restrained soft highlights.",
+      "Same registered family scale, clean alpha and coherent motion/attachment across the original clips."
+    ]
+  },
+  "discoveredContract": {
+    "pipeline": "Existing imagegen-2d raster plus deterministic native2D publisher; honest source/provenance. Retain raw original and fixed target bytes. Ordinary once-only alpha-bounds crop, uniform same-asset normalization, original fixed-canvas packing and original animation are authorized. No Python painting/warping/repair, per-frame/facing fit or fabricated Blender evidence.",
+    "registration": {
+      "projection": "screen-space-2d",
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "captureFrame": [
+        384,
+        640
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "nominalFullSizeArtworkWidthLogical": 82,
+      "atlasLayout": {
+        "columns": 6,
+        "rows": 2,
+        "size": [
+          2304,
+          1280
+        ],
+        "frameRects": "Original row-major 384x640 rects, frameOrder0..11"
+      },
+      "footprint": [
+        1,
+        1
+      ],
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "poseFitting": false
+    },
+    "directionPolicy": {
+      "catalogRequiredAliases": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "policy": "camera-facing",
+      "expected": "Four equal alias entries to the same S atlas for each clip; no rotated/repainted variant. Current Godot catalog intentionally stores only S and falls back to S; this consumer reduction is not evidence of four distinct facings."
+    },
+    "clips": [
+      {
+        "id": "appear",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "idle",
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "fade",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "originalAnimation": "For indexi0..11, phase=i/12*2pi; center=[rootX,rootY-52-3*sin(phase)]. Full artwork width82logical. Appear uniform scale=.5+.5*sin((i+1)/12*pi/2), opacity=(i+1)/12; idle full-size/full-opacity; fade opacity=1-i/12. Preserve original raster rounding and full-frame packing. Original distinct RGBA counts12/6/12; declared minimum6 each.",
+    "currentRuntime": {
+      "script": "prototypes/sushi-loop/godot/scripts/restaurant_view.gd",
+      "attachmentLogical": [
+        0,
+        -172
+      ],
+      "formula": "bubble_base = customer ground base + customer_pose_offset(customer,pitch) + Vector2(0,-172)*pitch/128; sprite uses S and registered root/frame. Artwork center has its additional authored -52logical bob offset inside the frame.",
+      "poseOffset": "[render_offset_x,render_offset_y]*pitch, plus existing transient satisfied-state hop when applicable. Bubble and customer use the same function. No new behavior or offset alteration is authorized.",
+      "puzzledUse": "phase entrance_wait; first second appear, intermediate idle, final second fade; reduced_motion uses idle frame0."
+    },
+    "legacyCatalogContext": {
+      "source": "inputs/catalog-object.json interactions[0]",
+      "customer": "customer-rosa seated-wait plus stool-wood",
+      "attachmentLogical": [
+        0,
+        -90
+      ],
+      "distinction": "Historical catalog example. This is not the current Godot -172 attachment or the standing entrance-wait pose. Label it separately; do not adjust candidate registration to compensate for it."
+    },
+    "scope": "This object only. No gameplay, source runtime attachment, customer pose, sibling asset or excluded floor changes."
+  },
+  "technicalFindings": {
+    "sourceReplay": "All36 original RGBA frame pixels reproduced exactly with the actual production publisher; frozen input publisher hash matches production publisher.",
+    "originalAtlasUniqueFrames": {
+      "appear": 12,
+      "idle": 6,
+      "fade": 12
+    },
+    "originalDirectionAliases": "N/E/S/W entries equal S for all3 clips. Actual Godot manifest stores S only and ArtBook falls back to S.",
+    "targetCanvasIsNotRegistration": {
+      "size": [
+        972,
+        1619
+      ],
+      "alphaBoundsGreaterThan0": [
+        0,
+        87,
+        948,
+        1595
+      ],
+      "alphaBoundsGreaterThan8": [
+        174,
+        633,
+        798,
+        1194
+      ],
+      "note": "Faint nonzero-alpha pixels extend well beyond the visible balloon. A declared once-only crop/normalization must preserve raw target provenance and not pretend this target canvas establishes the original root."
+    }
+  },
+  "inspectedFiles": [
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/brief.json",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/catalog-object.json",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/original.png",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/target.png",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/approved-feedback-family-heart.png",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/approved-feedback-family-smile.png",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/original-2d-pipeline/publish_2d.py",
+    "prototypes/sushi-loop/assets/production/source/2d/generated/bubble-puzzled.png",
+    "prototypes/sushi-loop/godot/scripts/restaurant_view.gd",
+    "prototypes/sushi-loop/godot/scripts/art_book.gd",
+    "prototypes/sushi-loop/godot/assets/catalog/manifest.json",
+    "prototypes/sushi-loop/assets/production/sprites/bubble-puzzled/2d-appear-S.png",
+    "prototypes/sushi-loop/assets/production/sprites/bubble-puzzled/2d-idle-S.png",
+    "prototypes/sushi-loop/assets/production/sprites/bubble-puzzled/2d-fade-S.png",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/imagegen-prompt.txt",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/original-2d-pipeline/README.md",
+    "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/prompts/judge.txt"
+  ],
+  "visualEvidence": {
+    "directory": "reviews/initial-evidence",
+    "viewed": [
+      "baseline-target-family-comparison.png",
+      "original-appear-allframes-backgrounds.png",
+      "original-idle-allframes-backgrounds.png",
+      "original-fade-allframes-backgrounds.png",
+      "original-idle-completeframes.png",
+      "original-appear-completeframes.png",
+      "original-fade-completeframes.png"
+    ],
+    "fullFramesInspected": "All36 complete registered frames were inspected in appear/idle/fade contact sheets with root crosses, and all36 frame contents were inspected on light/gray/dark at82logical full-size width through a fixed viewport with no per-frame fitting.",
+    "replay": "reviews/initial-evidence/original-replay.json",
+    "audit": "reviews/initial-evidence/original-audit.json",
+    "motion": "All frame sequence content and exact original motion formula inspected. Review-only portable original-motion.html retained. Live browser playback was attempted using file URL but browser policy rejects file protocol, so live playback is not claimed; no workaround attempted. Candidate approval still requires actual playback inspection through an allowed supplied review surface."
+  },
+  "ambiguitiesForCoordinator": [
+    "The frozen target has alpha>0 outliers beyond visible bounds. Existing publisher uses >8 only to determine a once-only crop; pixels inside that crop remain unchanged. Confirm this same declared crop/normalization interpretation rather than arbitrary postprocessing.",
+    "Catalog requirements.states lists appear/fade while actual clips and brief include idle; all3 actual clips must remain. Four catalog aliases are required even though current Godot consumer stores S only by design.",
+    "Keep legacy catalog seated/-90 context distinct from current Godot entrance-wait/-172 plus customer_pose_offset. No source behavior changes are needed.",
+    "Browser file-protocol policy blocked local original-motion.html playback. Candidate handoff should include an allowed review surface or inspectable native playback; missing playback evidence prevents approval."
+  ],
+  "criteriaProposal": "reviews/proposedcriteria.json",
+  "criteriaProposalSHA256": "1a569ea845dc26d9736c5f5fdb419aafae629ac33d29ba52e22b83c0a3142bf7",
+  "nextAction": "Coordinator reconciles and freezes criteria in brief.qualityCriteria; await sealed candidate and approved criteria before candidate review."
+}

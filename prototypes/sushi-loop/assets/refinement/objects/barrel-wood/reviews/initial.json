@@ -1,0 +1,36 @@
+{
+  "asset": "barrel-wood",
+  "phase": "initial-independent-source-target-review",
+  "verdict": "await_candidate",
+  "inspectedFiles": ["inputs/original.png", "inputs/target.png"],
+  "evidenceRead": ["brief.json", "prompts/judge.txt", "inputs/catalog-object.json"],
+  "sourceObservations": [
+    "The source is immediately identifiable as a closed wooden barrel: a planked oval-looking lid in the registered projection, a broad bulging stave body and two narrow navy hoops.",
+    "Its very bright, almost uniform lemon-yellow lid loses soft material volume; thin orange lid divisions remain visible but mostly read as flat lines.",
+    "The shoulder/body show pronounced planar light-to-dark changes, and the lower staves become much darker and muddier than the honey upper wood.",
+    "The hoops preserve strong navy contrast but have hard thin edges and limited soft material volume."
+  ],
+  "targetObservations": [
+    "The reskin preserves the recognizable honey/gold wood and navy hoop identity while making the lid planks, shoulder blocks and barrel staves feel more softly modeled.",
+    "Warm local wood variation, soft seam depth and restrained rounded edge transitions are the useful style signal.",
+    "The hoops have more explicit dimensional edges and blue accents. Exact gloss, tiny wood grain, bright edge fringe and target padding/scale drift are not success requirements.",
+    "Only the shown facing is a direct style reference; unseen native facings should be judged for coherent continuation without inventing unseen target details."
+  ],
+  "sourceScores": {
+    "shapeVolume": 6,
+    "color": 5,
+    "lightingHighlights": 4,
+    "materialDetail": 5,
+    "artifactFreeReadability": 6
+  },
+  "rankedDesiredOutcomes": [
+    {"rank": 1, "location": "lid and body wood", "outcome": "A colored honey lid and warm readable lower staves with broad soft volume instead of a flat bright top and muddy bottom."},
+    {"rank": 2, "location": "lid plank divisions, barrel shoulder, stave boundaries and hoops", "outcome": "Tidy softened seams and edge transitions that strengthen the existing barrel construction at intended size without changing lid/stave identity or adding noise."},
+    {"rank": 3, "location": "all native rotations and repeated preview", "outcome": "A coherent navy/honey material treatment without directional shadow, dark dead spots, clipping or registration changes."}
+  ],
+  "technicalEvidence": {
+    "knownContract": "Four actual native N/E/S/W rotations; 384 x 704 source captures; 192 x 352 logical frame; [96, 248] logical root; one-cell footprint; one static frame and 12 fps metadata.",
+    "limits": "The initial snapshot and target alone do not certify camera, geometry, registration, four native views, lighting symmetry or alpha-edge quality on multiple backgrounds. Candidate packet and native validation are required."
+  },
+  "approval": false
+}

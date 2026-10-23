@@ -1,23 +1,16 @@
 {
-  "projection": "top-down-oblique-square-grid",
   "frame": [
     192,
     352
   ],
   "anchor": [
-    96,
-    248
+    96.0,
+    248.0
   ],
-  "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
-    "type": "orthographic",
+    "type": "ORTHO",
     "worldMatrix": [
       [
         1.0,
@@ -27,14 +20,14 @@
       ],
       [
         0.0,
-        0.8192318081855774,
+        0.8192317485809326,
         -0.5734625458717346,
         -5.734623432159424
       ],
       [
         0.0,
         0.5734625458717346,
-        0.8192318081855774,
+        0.8192317485809326,
         8.1923189163208
       ],
       [
@@ -55,7 +48,7 @@
         0.0,
         0.8877494931221008,
         0.0,
-        -0.4090892970561981
+        -0.40908879041671753
       ],
       [
         0.0,
@@ -70,54 +63,40 @@
         1.0
       ]
     ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.30721035599708557
+    ],
     "pixelAspect": [
       1.2206555604934692,
-      1.0
-    ],
-    "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+      1
+    ]
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0000610351562
+      96.0,
+      248.0
     ],
     "unitX": [
-      512.0,
+      128.0,
       0.0
     ],
     "unitDepth": [
       0.0,
-      511.99993896484375
+      127.99996948242188
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -89.60002136230469
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  },
-  "name": "square top/front oblique"
+  "captureSettings": {
+    "engine": "BLENDER_EEVEE",
+    "filter_size": 0.5,
+    "taa_render_samples": 64,
+    "persistedSource": "source/round-06.blend",
+    "persistedSourceSHA256": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37",
+    "nativeCadenceNote": "Actual sourceUI24fps/range250, noactions; catalogstatic1frame12fps/nonloop."
+  }
 }

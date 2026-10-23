@@ -1,0 +1,20 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { libraryObjects } from '../../../../../wireframe/object-review-data.js';
+import { spriteFrame, groundRoot, orderPlacements } from '../../../../../wireframe/sprite-layout.js';
+const q=new URLSearchParams(location.search), direction=q.get('direction')||'S', mode=q.get('mode')||'independent';
+const pitch=Number(q.get('pitch')||128),phaseX=Number(q.get('phaseX')||0),phaseY=Number(q.get('phaseY')||0),background=q.get('background')||'#808080';
+const base=libraryObjects.find(o=>o.id==='rock-wall-middle');
+const edge=libraryObjects.find(o=>o.id==='rock-wall-edge');
+const connected=structuredClone(base);connected.id='connected-native-rock-wall-middle';connected.name='Connected native reference';connected.frameSize=[448,608];connected.root=[224,384];connected.sourceScale=2;
+connected.footprint=[3,1];connected.rootCell=[1.5,.5];connected.directionFootprints={S:[3,1],N:[3,1],E:[1,3],W:[1,3]};connected.directionRootCells={S:[1.5,.5],N:[1.5,.5],E:[.5,1.5],W:[.5,1.5]};
+connected.clips=structuredClone(edge.clips);connected.clips=connected.clips.filter(c=>c.id==='static');
+for(const entry of Object.values(connected.clips[0].directions)){entry.atlasSize=[896,1216];entry.rects=[[0,0,896,1216]];entry.columns=1;entry.rows=1;entry.frameSize=[448,608];entry.root=[224,384];entry.sourceScale=2;}
+libraryObjects.push(connected);
+const { SpriteScene }=await import('../../../../../wireframe/object-review.jsx');
+const vertical=['E','W'].includes(direction);
+const placements=mode==='connected'?[{object:connected.id,x:0,y:0,direction}]:[0,1,2].map(i=>({object:base.id,x:vertical?0:i,y:vertical?i:0,direction}));
+const center=vertical?[64,192]:[192,64];const bounds=[center[0]-224-phaseX*128/pitch,center[1]-384-phaseY*128/pitch,448,608];
+window.benchEvidence={renderer:'actual SpriteScene with shared world-sprite-raster.js from wireframe/object-review.jsx',layout:'actual sprite-layout.js spriteFrame/groundRoot/orderPlacements',direction,mode,pitch,phaseX,phaseY,background,bounds,placements:orderPlacements(placements,libraryObjects).map(p=>({placement:p,root:groundRoot(p,libraryObjects.find(o=>o.id===p.object)),frame:spriteFrame(libraryObjects.find(o=>o.id===p.object),libraryObjects.find(o=>o.id===p.object).clips[0],direction)}))};
+document.getElementById('root').style.width=`${448*pitch/128}px`;
+createRoot(document.getElementById('root')).render(<SpriteScene placements={placements} gridSize={[0,0]} seconds={0} overlays={false} showGrid={false} background={background} cameraBounds={bounds.map(v=>v/128)} label={`${direction} ${mode} actual consumer ${pitch}px`}/>);

@@ -1,0 +1,906 @@
+{
+  "schema": "wreck-edge-native-contract-proposal-v1",
+  "asset": "wreck-edge",
+  "status": "proposed for root freeze; no editor construction authorized by this document",
+  "candidateApproval": false,
+  "original": {
+    "sourcePath": "reviews/preparation-v1/resources/native/source-library.blend",
+    "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "root": "wreck-edge__root.001",
+    "collection": "S33_PROP_wreck-edge.001",
+    "frame": 1,
+    "sourceMeshObjects": 12,
+    "nativeInspection": "reviews/preparation-v1/original-native-audit.json",
+    "sourceRegistration": "reviews/preparation-v1/resources/inputs/source-camera.json",
+    "staticOwnership": "No owned actions, armatures, material or node-tree animation, image nodes, external linked libraries or socket attachments. Five actual source materials are asset-private (original-resource-ownership.json). Unrelated packed food images in the unchanged original library are not dependencies of wreck-edge."
+  },
+  "role": "Blue-painted old hull frame with continuous lower/top/rear sections and an exposed broken-sheet edge feature; no new barrier/gate mechanic.",
+  "registeredCapture": {
+    "projection": "top-down-oblique-square-grid",
+    "elevationDegrees": 55.00797980144134,
+    "pixelAspect": [
+      1.2206555604934692,
+      1
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "worldCellPitch": 1,
+    "orthoScale": 1.5,
+    "newNativeScale": 2,
+    "newNativeFrame": [
+      384,
+      704
+    ],
+    "newNativeRoot": [
+      192,
+      496
+    ],
+    "newFilterSize": 0.01,
+    "publication": "exact direct native PNG identity; same whole frame and original atlas1x1/rect[0,0,384,704]; no reduction",
+    "requiredDirections": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "rotationRule": "Proper root Z rotations; preserve handed profiles, never mirror. Actual root matrices/camera calibration must be measured during native capture. Source library unrelated startup35/frame4 is incidental.",
+    "static": {
+      "clip": "static",
+      "sourceClipId": "static",
+      "uniqueFrames": 1,
+      "authoredFrame": 1,
+      "fps": 12,
+      "loop": false,
+      "range": [
+        1,
+        1
+      ]
+    }
+  },
+  "interfaces": {
+    "root": [
+      0,
+      0,
+      0
+    ],
+    "footprint": [
+      1,
+      1
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "sockets": {},
+    "ports": {
+      "W": {
+        "position": [
+          -0.5,
+          0,
+          0
+        ],
+        "outwardNormal": [
+          -1,
+          0,
+          0
+        ],
+        "sections": [
+          {
+            "sourceObject": "wreck-edge__back_hull_lip.001",
+            "orderedCapLoop": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ]
+            ],
+            "outwardNormal": [
+              -1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "sourceObject": "wreck-edge__lower_hull_rail.001",
+            "orderedCapLoop": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "outwardNormal": [
+              -1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "sourceObject": "wreck-edge__upper_hull_rail.001",
+            "orderedCapLoop": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "outwardNormal": [
+              -1.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      },
+      "E": {
+        "position": [
+          0.5,
+          0,
+          0
+        ],
+        "outwardNormal": [
+          1,
+          0,
+          0
+        ],
+        "sections": [
+          {
+            "sourceObject": "wreck-edge__back_hull_lip.001",
+            "orderedCapLoop": [
+              [
+                0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ]
+            ],
+            "outwardNormal": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "sourceObject": "wreck-edge__lower_hull_rail.001",
+            "orderedCapLoop": [
+              [
+                0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ]
+            ],
+            "outwardNormal": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "sourceObject": "wreck-edge__upper_hull_rail.001",
+            "orderedCapLoop": [
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ]
+            ],
+            "outwardNormal": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      }
+    },
+    "verifiedCompatibility": {
+      "sameOrderedOriginalSourceGeometryAsCanonical": true,
+      "sameSourceOrderedLoopsProof": "reviews/preparation-v1/ordered-port-check.json",
+      "mismatch": "No port-plane/profile/handedness mismatch found. Current source collar material/normal fields differ from approved middle; these are to adopt, not an accepted derivative seam.",
+      "sectionSummary": "Three disconnected YZ rectangles at X\u00b1.5: lower Y\u00b1.18/Z.04..20; upper Y\u00b1.09/Z.60..74; rear Y.20..26/Z.16..35. Retain same ordered geometry and opposite outward cap windings. Equivalent tessellation is allowed."
+    }
+  },
+  "finiteSupport": {
+    "minimumZ": 0.03999999910593033,
+    "geometricZ0Intersection": [],
+    "finiteLowestPatch": {
+      "z": 0.04,
+      "xyPolygonCCW": [
+        [
+          -0.5,
+          -0.18000000715255737
+        ],
+        [
+          0.5,
+          -0.18000000715255737
+        ],
+        [
+          0.5,
+          0.18000000715255737
+        ],
+        [
+          -0.5,
+          0.18000000715255737
+        ]
+      ],
+      "areaNominal": 0.36,
+      "measuredEvaluatedArea": 0.36000001825081734
+    },
+    "rule": "Keep finite lower-rail support and .04 clearance; declared support cell is occupancy, not a square solid floor. No new Z0 contact or invented full-floor patch."
+  },
+  "authoringEnvelopeProposal": {
+    "xyPolygonCCW": [
+      [
+        -0.5,
+        -0.18000000715255737
+      ],
+      [
+        -0.26939657330513,
+        -0.3881094455718994
+      ],
+      [
+        -0.26397061347961426,
+        -0.39258062839508057
+      ],
+      [
+        0.2804070711135864,
+        -0.3598787188529968
+      ],
+      [
+        0.5,
+        -0.18000000715255737
+      ],
+      [
+        0.5,
+        0.25999999046325684
+      ],
+      [
+        -0.5,
+        0.25999999046325684
+      ]
+    ],
+    "z": [
+      0.04,
+      0.78
+    ],
+    "tolerance": 1e-06,
+    "status": "proposal for root freeze; source raw XY convex hull plus catalog height, not source3D/perpart locks",
+    "sourceEvaluatedBounds": [
+      [
+        -0.5,
+        0.5
+      ],
+      [
+        -0.39121073484420776,
+        0.25999999046325684
+      ],
+      [
+        0.03999999910593033,
+        0.7400000095367432
+      ]
+    ],
+    "sourceEvaluatedXYHull": [
+      [
+        -0.5,
+        -0.18000000715255737
+      ],
+      [
+        -0.2603931725025177,
+        -0.3885280191898346
+      ],
+      [
+        -0.25713759660720825,
+        -0.39121073484420776
+      ],
+      [
+        0.2714036703109741,
+        -0.35946014523506165
+      ],
+      [
+        0.5,
+        -0.18000000715255737
+      ],
+      [
+        0.5,
+        0.25999999046325684
+      ],
+      [
+        -0.5,
+        0.25999999046325684
+      ]
+    ],
+    "reason": "Derivative-specific original raw XY convex hull includes the tilted broken sheet; catalog height .78 gives finite vertical budget. This explicitly proposes a finite size envelope for root freeze rather than borrowing the middle hull or treating an AABB as the shape.",
+    "freedom": "Native interior construction, proportions, upper forms, purposeful decoration, topology and counts may change within this proposed finite XY\u00d7Z budget. Source3D convex hull, per-part boxes, blank bays and exact tilted-sheet shape are observations, not additional locks. Edge identity and functional interfaces remain.",
+    "approvalState": "Root must reconcile/freeze this actual seven-point XY polygon and height budget before fresh editor work."
+  },
+  "canonicalAdoption": {
+    "asset": "wreck-middle",
+    "round": "round-02",
+    "sourceSHA256": "d44748684c4e13a25bfd7e28fe5862232ccb8b0d11d530cd9702ea66f525d46c",
+    "packetSHA256": "f371a2509c600cce6b4f53223aa6c0ed546a9db00b79ffcc78dc8fb710b68005",
+    "reviewSHA256": "6f06d28d217abe29bff3ceaa672814a1233553b87a856f54afb4d28a1a33ac76",
+    "reviewVerdict": "approve",
+    "bindingEvidence": "reviews/preparation-v1/canonical-approval-binding.json",
+    "source": "reviews/preparation-v1/resources/native/canonical-middle02.blend",
+    "recipe": "reviews/preparation-v1/resources/canonical/reproduce-round02.py",
+    "frozenContract": "reviews/preparation-v1/resources/canonical/root-native-contract.json",
+    "endpointDescriptor": "reviews/preparation-v1/resources/canonical/canonical-endpoint-fields.json",
+    "actualIndependentDerivativeJudgeMeasurement": "reviews/preparation-v1/canonical-native-audit.json",
+    "scope": "Exact approved middle02 provides reusable technical connection fields/rig/capture only. No derivative/end/corner/family approval inferred.",
+    "fullFiniteCollars": {
+      "W": [
+        -0.5,
+        -0.42
+      ],
+      "E": [
+        0.42,
+        0.5
+      ],
+      "longitudinalDerivative": "Actual canonical fields are longitudinally constant across every complete .08 collar; derivative must agree over the same finite domains and transition continuously into interior.",
+      "actualGeometryFields": "48 measured finite side faces: 8 per rail per port, with constant FLOAT_VECTOR CORNER values on each face. Actual active graph uses CanonicalNormal -> Object-to-World NORMAL -> Normalize -> Principled Normal, so normalized post-interpolation field is constant per side face under proper root rotations. Cap normal fields are distinct from visible side fields. Actual six cap shader fields independently verified in canonical-cap-field-proof.json; both cap output and side output use the active geometry attribute-normalize path.",
+      "activeMaterialFields": [
+        {
+          "canonicalMaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "baseLinearRGBA": [
+            0.00802319310605526,
+            0.2746773064136505,
+            0.7529422044754028,
+            1.0
+          ],
+          "principled": {
+            "Metallic": 0.02500000037252903,
+            "Roughness": 0.6200000047683716,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Anisotropic": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "scalarWorldZRamp": {
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705
+          },
+          "clamp": true
+        },
+        {
+          "canonicalMaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "baseLinearRGBA": [
+            0.006512090563774109,
+            0.18782077729701996,
+            0.5972017645835876,
+            1.0
+          ],
+          "principled": {
+            "Metallic": 0.019999999552965164,
+            "Roughness": 0.6800000071525574,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Anisotropic": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "scalarWorldZRamp": {
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705
+          },
+          "clamp": true
+        },
+        {
+          "canonicalMaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "baseLinearRGBA": [
+            0.03433980792760849,
+            0.07618538290262222,
+            0.14126329123973846,
+            1.0
+          ],
+          "principled": {
+            "Metallic": 0.1599999964237213,
+            "Roughness": 0.5299999713897705,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Anisotropic": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "scalarWorldZRamp": {
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705
+          },
+          "clamp": true
+        }
+      ],
+      "materialAssignment": "Lower all8 side faces use lower layered blue; rear all8 use slate iron; upper negative-Y side uses slate iron, remaining upper sides use canonical blue. Full measured transverse descriptors and active graphs are retained in native audit/baseline-analysis, beyond a profile ID or coincident cut ring.",
+      "albedo": "The above base linear colors multiply the actual clamped world-Z affine .66..1.03 ramp over .04...78. Z is invariant under proper Z rotation and X translation: albedo and every constant material field have zero longitudinal derivative. No X/Y/UV/random/noise terms on canonical collars.",
+      "alphaTangent": "Opaque Alpha1; anisotropic0 and no active tangent/UV inputs; tangent is not used by current collar response. If a future method uses them, its actual shader-used fields must be proven equivalent too.",
+      "methodFreedom": "Equivalent native methods are allowed. Require actual full finite normalized output/albedo/material/alpha/needed tangent/longitudinal-response agreement; no literal attribute name, storage or graph identity veto."
+    },
+    "lightingAndWorld": {
+      "engine": "BLENDER_EEVEE",
+      "viewTransform": "Standard",
+      "look": "None",
+      "exposure": 0,
+      "gamma": 1,
+      "dither": 0,
+      "compositing": "canonical source active renderer output; no historical source contrast135 grade introduced",
+      "worldColor": [
+        0.7200000286102295,
+        0.800000011920929,
+        1,
+        1
+      ],
+      "worldStrength": 0.2800000011920929,
+      "lights": [
+        {
+          "name": "overhead",
+          "energy": 195.0,
+          "shape": "DISK",
+          "size": 8.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "location": [
+            0.0,
+            0.0,
+            5.0
+          ],
+          "matrix": [
+            [
+              -1.0,
+              -1.5099580252808664e-07,
+              0.0,
+              0.0
+            ],
+            [
+              1.5099580252808664e-07,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              5.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "shadow": false
+        },
+        {
+          "name": "cardinal0",
+          "energy": 114.0,
+          "shape": "DISK",
+          "size": 8.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "location": [
+            6.0,
+            0.0,
+            4.0
+          ],
+          "matrix": [
+            [
+              -4.371138828673793e-08,
+              -0.5547001957893372,
+              0.8320502638816833,
+              6.0
+            ],
+            [
+              1.0,
+              -5.734122510148154e-08,
+              1.430706841887286e-08,
+              0.0
+            ],
+            [
+              3.9774647575541167e-08,
+              0.8320502638816833,
+              0.5547001957893372,
+              4.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "shadow": false
+        },
+        {
+          "name": "cardinal1",
+          "energy": 114.0,
+          "shape": "DISK",
+          "size": 8.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "location": [
+            3.6739402930577075e-16,
+            6.0,
+            4.0
+          ],
+          "matrix": [
+            [
+              -1.0,
+              -1.882929296925795e-07,
+              5.594575824829917e-08,
+              3.6739402930577075e-16
+            ],
+            [
+              1.5099580252808664e-07,
+              -0.5547001361846924,
+              0.8320503234863281,
+              6.0
+            ],
+            [
+              -1.2563607754145778e-07,
+              0.8320503234863281,
+              0.5547001361846924,
+              4.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "shadow": false
+        },
+        {
+          "name": "cardinal2",
+          "energy": 114.0,
+          "shape": "DISK",
+          "size": 8.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "location": [
+            -6.0,
+            7.347880586115415e-16,
+            4.0
+          ],
+          "matrix": [
+            [
+              -4.371138828673793e-08,
+              0.5547001957893372,
+              -0.8320502638816833,
+              -6.0
+            ],
+            [
+              -1.0,
+              -5.734122510148154e-08,
+              1.430706841887286e-08,
+              7.347880586115415e-16
+            ],
+            [
+              -3.9774647575541167e-08,
+              0.8320502638816833,
+              0.5547001957893372,
+              4.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "shadow": false
+        },
+        {
+          "name": "cardinal3",
+          "energy": 114.0,
+          "shape": "DISK",
+          "size": 8.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "location": [
+            -1.1021821408568715e-15,
+            -6.0,
+            4.0
+          ],
+          "matrix": [
+            [
+              1.0,
+              1.0189677315293675e-16,
+              -1.5284516303812757e-16,
+              -1.1021821408568715e-15
+            ],
+            [
+              -1.8369702788777518e-16,
+              0.5547001957893372,
+              -0.8320503234863281,
+              -6.0
+            ],
+            [
+              1.2584500805764496e-24,
+              0.8320503234863281,
+              0.5547001957893372,
+              4.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "shadow": false
+        }
+      ],
+      "rule": "Same exact chosen canonical camera/light/world/material-response fields at contacts and across all4. Five disk area lights, one overhead195W size8 at(0,0,5) plus four114W size8 radius6/Z4; all no-shadow. No per-view light, color or root adjustment."
+    },
+    "actualCapFieldProof": "reviews/preparation-v1/canonical-cap-field-proof.json"
+  },
+  "historicalSourceReplay": {
+    "historicalReduction": "whole-frame768x1408 to384x704 LANCZOS only; diagnostic source replay",
+    "sourceScale": 4,
+    "filterSize": 1.5,
+    "replayPath": "baseline/historical-published2-S.png",
+    "originalSnapshotSHA256": "b9a2dbb7ee4e79a99db8936d1b272fc3d4301f29493b18298be54831bcaac40b",
+    "decodedEqual": true,
+    "maxRGBA": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "differentPixels": 0,
+    "boundsOfDifference": null
+  },
+  "baselines": {
+    "captureRecords": "reviews/preparation-v1/baseline/capture-records.json",
+    "mixedNative": "All4 original derivative center with exact approved middle02 at transformed local\u00b11, proper directions and true unit pitch; no model/material edits; baseline only.",
+    "sourceUnderCanonicalRig": "Unmodified derivative all4 directnative2x/filter.01 source diagnostic; not a candidate.",
+    "consumer": "reviews/preparation-v1/consumer-baseline/results.json",
+    "observation": "The original derivative has visibly flat darker blue, abrupt material/value changes at both middle joins, darker small hardware and a flat dark sheet. This baseline is not visually acceptable as the refined derivative. No numeric port equality waives these mismatches.",
+    "residuals": [
+      {
+        "direction": "N",
+        "maxRGBA": [
+          3,
+          3,
+          4,
+          0
+        ],
+        "differentPixels": 86314,
+        "interpretation": "Raw independent source+middle baseline versus connected native; no pixel repair or color correction."
+      },
+      {
+        "direction": "E",
+        "maxRGBA": [
+          3,
+          3,
+          4,
+          3
+        ],
+        "differentPixels": 64137,
+        "interpretation": "Raw independent source+middle baseline versus connected native; no pixel repair or color correction."
+      },
+      {
+        "direction": "S",
+        "maxRGBA": [
+          3,
+          5,
+          3,
+          0
+        ],
+        "differentPixels": 87616,
+        "interpretation": "Raw independent source+middle baseline versus connected native; no pixel repair or color correction."
+      },
+      {
+        "direction": "W",
+        "maxRGBA": [
+          6,
+          12,
+          5,
+          4
+        ],
+        "differentPixels": 64312,
+        "interpretation": "Raw independent source+middle baseline versus connected native; no pixel repair or color correction."
+      }
+    ],
+    "cssCrossMode": [
+      {
+        "case": "logical128-integer",
+        "sameSize": true,
+        "maxRGBA": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "differentPixels": 168188,
+        "interpretation": "Actual CSS mode residual retained; separate from shared native canvas equivalence and visible join bar."
+      },
+      {
+        "case": "logical128-fractional",
+        "sameSize": true,
+        "maxRGBA": [
+          19,
+          15,
+          12,
+          0
+        ],
+        "differentPixels": 88880,
+        "interpretation": "Actual CSS mode residual retained; separate from shared native canvas equivalence and visible join bar."
+      },
+      {
+        "case": "phone32-integer",
+        "sameSize": true,
+        "maxRGBA": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "differentPixels": 45309,
+        "interpretation": "Actual CSS mode residual retained; separate from shared native canvas equivalence and visible join bar."
+      },
+      {
+        "case": "phone32-fractional",
+        "sameSize": true,
+        "maxRGBA": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "differentPixels": 44495,
+        "interpretation": "Actual CSS mode residual retained; separate from shared native canvas equivalence and visible join bar."
+      }
+    ]
+  },
+  "prohibitedRepairs": [
+    "No sprite crop/fit/warp/root nudge/overlap/paint/recolor/target card/alpha-RGB correction/per-view adjustments/shared consumer changes.",
+    "Do not force solid pixels into legitimate open framing or alter fixed profiles for arbitrary alpha coverage.",
+    "Broad finite-area light/renderer exterior precision residuals remain separately documented. The existing comparison-only extent diagnosis may be used only for a concrete discrepancy with zero visible discard and exact integer restoration; never as runtime adjustment or blanket waiver."
+  ],
+  "requiredEvidence": "reviews/preparation-v1/evidence-plan.json",
+  "scope": "Own reviews preparation only. STOP for root reconciliation/freeze and fresh editor. No candidate construction, asset/family/production/Git/live Blender/device/publishing approval.",
+  "pathBase": "object root unless an explicitly named preparation resource base is provided"
+}

@@ -1,0 +1,990 @@
+{
+  "id": "portal-entry",
+  "name": "Portal entry effect",
+  "family": "W14",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    384
+  ],
+  "root": [
+    96,
+    288
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "enter",
+      "sourceClipId": "enter",
+      "name": "Enter",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/portal-entry/enter-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/portal-entry/enter-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/portal-entry/enter-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/portal-entry/enter-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Route object beside the traveling submarine",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "portal-entry",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "enter"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "floor-underwater"
+    ],
+    "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+  },
+  "height": 1.48,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      384
+    ],
+    "anchor": [
+      96,
+      288
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {
+    "entry": [
+      0,
+      0,
+      0.74
+    ]
+  },
+  "sockets": {
+    "N": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "E": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "S": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "W": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    }
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+    "camera": "source/records/portal-entry/camera.json",
+    "guide": "source/registered/portal-entry/enter-N/guide.json",
+    "guides": [
+      "source/registered/portal-entry/enter-N/guide.json",
+      "source/registered/portal-entry/enter-E/guide.json",
+      "source/registered/portal-entry/enter-S/guide.json",
+      "source/registered/portal-entry/enter-W/guide.json"
+    ],
+    "assetRecord": "source/records/portal-entry/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/000.png",
+        "sha256": "03f1bc49e6e0125e7cae11e4eb706792962dbebeffcaeb9db62fe342beab4a09",
+        "clip": "enter",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/001.png",
+        "sha256": "b30778edbfb165533c4780abb08d43450d4376cee59f582d51ffe8f327bfd6f0",
+        "clip": "enter",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/002.png",
+        "sha256": "f5828f050dce327ba5a52b6c7594898f345941a456ce5486795b11eb7258d8f6",
+        "clip": "enter",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/003.png",
+        "sha256": "76c4664491793bad72a06bc8ffdd90e76bec8869ae92a2ae3fbb1642286335b9",
+        "clip": "enter",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/004.png",
+        "sha256": "fccc7549de7b28497ca03497f2a7098f6535cb0406940c66553b248ad3f200c4",
+        "clip": "enter",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/005.png",
+        "sha256": "36abb2cb34d48d8fc1a91eb607bed9abe90f86359e7b4acbfcf6d756fdb804ad",
+        "clip": "enter",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/006.png",
+        "sha256": "38b42e03275263381ca3027a63ad4082da56aed5ca8ca7ba69ca07c32cbcaff0",
+        "clip": "enter",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/007.png",
+        "sha256": "a97f3f3b815e7852032db88a948231e4da468294d5fc22d8ec88449ec4ade0bd",
+        "clip": "enter",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/008.png",
+        "sha256": "d2589b29a28d0852b5f875ef419a0c86a8a2733f5ee99c8dd1627b9071d59e36",
+        "clip": "enter",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/009.png",
+        "sha256": "2d162e44d63920cf35f0ca29fe9543dcabed5e5c46f44186f8ccfacbe1eba27c",
+        "clip": "enter",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/010.png",
+        "sha256": "dcc0a381d5d97ed281b473b0774a3e44a21a92df4d7798eac00bce64ef407fc3",
+        "clip": "enter",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-entry/enter-N/source-captures/011.png",
+        "sha256": "0501d8fd78c806b0ac8832cdd415dcdafa42af3d3b89f80708fd36b1637d21e2",
+        "clip": "enter",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/000.png",
+        "sha256": "1402d2fa4be36cd3d1c1102172a7d3bb22546d68f4cdbe9d7f7e3c8aa2b5efc2",
+        "clip": "enter",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/001.png",
+        "sha256": "d3adede4e1671bf8a0bd65d71cb54e9248421e4e82ecf6ac408361447e34b371",
+        "clip": "enter",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/002.png",
+        "sha256": "93241c38df3f2f434b94460f2e44ab7f0f3338a45cf689c3cd5ac0131966019d",
+        "clip": "enter",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/003.png",
+        "sha256": "7fc013028e95481eec790167c6d7b792a0b912d40e60014a253ea61f12141f46",
+        "clip": "enter",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/004.png",
+        "sha256": "4414c032891c1b3a2575e14bf4fe5f74ee1c16e38811b216f4ef4aa8f6390822",
+        "clip": "enter",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/005.png",
+        "sha256": "137fd73903b1dede06254b7479dd0e17456a1ee5ea8a9e8b14f7efb6444fb07e",
+        "clip": "enter",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/006.png",
+        "sha256": "a7b3a8a7504c447aaee64dc0678b5630f84b0823403fb859eb20f567642d2bf4",
+        "clip": "enter",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/007.png",
+        "sha256": "d0073a54bf41ad8ec26c468fa494f1619869664501d5dde3fda80c5aa3b8a9b8",
+        "clip": "enter",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/008.png",
+        "sha256": "78b127469d0c8f3b1bfe0af98236d3639ace25336a34d721227ee11b52607da3",
+        "clip": "enter",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/009.png",
+        "sha256": "1599d440a8ca1b5fb41ec418ffd4ef2687bb4f334fc935b9eb565b81fb5cd3b0",
+        "clip": "enter",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/010.png",
+        "sha256": "ad1e90604c8dd21ed9888286008beb812cd9dc007040a3949c612c98387a8896",
+        "clip": "enter",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-entry/enter-E/source-captures/011.png",
+        "sha256": "3c20daa18b2a97d9870516a6fa145ca195afd8d2168ea5339aeef948867f2f9e",
+        "clip": "enter",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/000.png",
+        "sha256": "8905523123233885881555140af6a9946c87e81f86f947fd7be7513b10c81005",
+        "clip": "enter",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/001.png",
+        "sha256": "29b6a157160e559c972d85865d7fec913c477951c3c1613423c7efb0e6884296",
+        "clip": "enter",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/002.png",
+        "sha256": "d6c872d237cc22e32abd65d53b6cf60d802879512dd2f586a348280b1ad5e084",
+        "clip": "enter",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/003.png",
+        "sha256": "f2e93afe21b5f82e6ea2ffe400ce7da1f0dae0b3cb1dd603d2c1a9e5a18f7ccb",
+        "clip": "enter",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/004.png",
+        "sha256": "e11e05fcd3a502fddc9ed282c8e86ad0b2bfabac1cecf8a9946e7926bf17e2f5",
+        "clip": "enter",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/005.png",
+        "sha256": "280a64ab1222f734a15a37b2bcbbaeae22e6fd529da3addf907e4a15bfe42355",
+        "clip": "enter",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/006.png",
+        "sha256": "447265bcdc73d5aca2b3f8ff4fb5563a2ff8a8670ec58f9a761fe7af668f6298",
+        "clip": "enter",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/007.png",
+        "sha256": "dc6b344ebcc4691c3763823396c5b5f84d3af82ac17ae12474c4415f65fdb38f",
+        "clip": "enter",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/008.png",
+        "sha256": "6881264da0d8402e53cabfcaadcbd03f1664fb032740512d8d4bb9a2fe308752",
+        "clip": "enter",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/009.png",
+        "sha256": "1bcc85149aa3c22637e7c328946d5ba8db0759e8a34ab8b905609c546ee5d664",
+        "clip": "enter",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/010.png",
+        "sha256": "76c0599aa4ede1cc45c2e75272519eb8de63b25100b6135af97a3219d8ec4dde",
+        "clip": "enter",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-entry/enter-S/source-captures/011.png",
+        "sha256": "373bee8f12195427644a36c389ba82a070cb9fc3823a244f2e7ffdfcd30c94e7",
+        "clip": "enter",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/000.png",
+        "sha256": "da1b029a8d2c30ad54b168a243e5fe79c9d3c7240b75473ee1ad554d15705587",
+        "clip": "enter",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/001.png",
+        "sha256": "42f31fc845deb24f26a1b2bdc8855ecb189628935a4e0062404a2d54eef4fe3a",
+        "clip": "enter",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/002.png",
+        "sha256": "b67d2ba2740e6d2ffa7ca52e5fbd03abbed48fbcce2ed692ae636739a5647928",
+        "clip": "enter",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/003.png",
+        "sha256": "cfd908da66472342836fe2affb818de204ce766134fab14220d0ee315e789414",
+        "clip": "enter",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/004.png",
+        "sha256": "acb95c40036477a0bd9778a869bd97344d2d5bde2b9a234b1c9523270fec1da2",
+        "clip": "enter",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/005.png",
+        "sha256": "a05d874d67f52f51aa61dd47712c6ed8dfabba7cef2cbfeae16c3246767ccd63",
+        "clip": "enter",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/006.png",
+        "sha256": "8a7d5d10e23e41f6cc9ee2f13fba708ba35bdb98fccb84d1015164706dc72eca",
+        "clip": "enter",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/007.png",
+        "sha256": "0993b26cde5fe4ad36e1a3f01d3086f303188f921ee297feff107f73f57faed8",
+        "clip": "enter",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/008.png",
+        "sha256": "a80bf6c4137b3b3e89e92fb83881f39a06a509b0386e8519363cf6e3d9ecb2d1",
+        "clip": "enter",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/009.png",
+        "sha256": "541e070cc7a8aa302df0190a49bca1b8d9fa314e8fb93c9afc4fc7e51f3350b1",
+        "clip": "enter",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/010.png",
+        "sha256": "cf546fe578eb2c258c20d40aa2892934831a243db7bcd6c3d87486a8e549d830",
+        "clip": "enter",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-entry/enter-W/source-captures/011.png",
+        "sha256": "f56a8f24d8a29bd08a931a616e60a499643a1bd6d0bcbba92bba455f6ed0fef4",
+        "clip": "enter",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/portal-entry/rig.json"
+  },
+  "captureFingerprint": "373b6e7cb79e58e6cbe6be295da01b5ae79d8a3ca1ebe7f1cdf7d4df0e621cdd",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

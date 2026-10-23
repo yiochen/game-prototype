@@ -9,7 +9,18 @@
     224,
     352
   ],
-  "scale": 4,
+  "scale": 2,
+  "footprint": [
+    2,
+    2
+  ],
+  "height": 1.08,
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
   "clips": {
     "idle": {
       "frames": 1,
@@ -20,55 +31,39 @@
     "highlighted": {
       "frames": 12,
       "fps": 12,
-      "loop": true
+      "loop": true,
+      "static": false
     },
     "clearance": {
       "frames": 12,
       "fps": 12,
-      "loop": false
+      "loop": false,
+      "static": false
     }
   },
-  "footprint": [
-    2,
-    2
-  ],
-  "height": 1.08,
   "sockets": {},
-  "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
-  },
-  "directions": [
-    "N",
-    "E",
-    "S",
-    "W"
+  "groundRootObject": "garbage-sofa__root",
+  "semanticDrivers": [
+    "garbage-sofa__base",
+    "garbage-sofa__foot_-0.75_-0.39",
+    "garbage-sofa__foot_-0.75_0.39",
+    "garbage-sofa__foot_0.75_-0.39",
+    "garbage-sofa__foot_0.75_0.39",
+    "garbage-sofa__old_back",
+    "garbage-sofa__old_arm_-0.84",
+    "garbage-sofa__old_arm_0.84",
+    "garbage-sofa__sagging_seat_0",
+    "garbage-sofa__old_back_cushion_0",
+    "garbage-sofa__sagging_seat_1",
+    "garbage-sofa__old_back_cushion_1",
+    "garbage-sofa__sagging_seat_2",
+    "garbage-sofa__old_back_cushion_2",
+    "garbage-sofa__torn_fabric",
+    "garbage-sofa__exposed_stuffing",
+    "garbage-sofa__exposed_spring",
+    "garbage-sofa__loose_debris_0",
+    "garbage-sofa__loose_debris_1",
+    "garbage-sofa__loose_debris_2"
   ],
-  "variants": {
-    "normal": {
-      "clips": [
-        "idle"
-      ]
-    },
-    "highlighted": {
-      "clips": [
-        "highlighted"
-      ]
-    },
-    "clearance": {
-      "clips": [
-        "clearance"
-      ]
-    }
-  }
+  "nativeGeometryCount": 73
 }

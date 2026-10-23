@@ -9,7 +9,7 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
   "clips": {
     "idle": {
       "frames": 12,
@@ -65,6 +65,126 @@
     ]
   },
   "artStyle": {
+    "revision": "Mateo native warm soft round02: fitted cloth headband",
+    "lightingRig": [
+      {
+        "name": "Mateo overhead softbox",
+        "position": [
+          0,
+          0,
+          4.5
+        ],
+        "power": 150,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 0",
+        "position": [
+          3.0,
+          0.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 1",
+        "position": [
+          1.8369701987210297e-16,
+          3.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 2",
+        "position": [
+          -3.0,
+          3.6739403974420594e-16,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 3",
+        "position": [
+          -5.51091059616309e-16,
+          -3.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      }
+    ],
+    "worldStrength": 0.24,
+    "worldColor": [
+      0.72,
+      0.76,
+      0.82
+    ],
+    "horizontalSymmetry": 4,
+    "noGroundPlane": true,
+    "colorManagement": {
+      "view": "Standard",
+      "look": "None",
+      "exposure": 0
+    },
+    "engine": "CYCLES",
+    "samples": 32,
+    "denoise": true,
+    "device": "GPU",
+    "devices": [
+      {
+        "name": "Apple M4",
+        "type": "CPU",
+        "use": false
+      },
+      {
+        "name": "Apple M4 (GPU - 10 cores)",
+        "type": "METAL",
+        "use": true
+      }
+    ]
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "locomotion": {
+    "walkCellsPerSecond": 0.225,
+    "panicCellsPerSecond": 0.45,
+    "worldTravelPerWalkCycle": 0.225
+  },
+  "authoredSourceArtStyleMetadata": {
     "revision": "faceted-approved-2026-10-19",
     "contrast": 1.35,
     "contrastSpace": "sRGB",
@@ -78,15 +198,12 @@
     "beltRailColor": "#966B60",
     "floorAlbedoCalibration": 0.42
   },
-  "directions": [
-    "N",
-    "E",
-    "S",
-    "W"
-  ],
-  "locomotion": {
-    "walkCellsPerSecond": 0.225,
-    "panicCellsPerSecond": 0.45,
-    "worldTravelPerWalkCycle": 0.225
+  "metadataProvenance": "Original registration, footprint, nominal height, source static socket fields and clip records retained. Static authored sockets are provenance; evaluated actual palms/feet/knife/food behavior are measured in validation.json. artStyle now records unchanged approved round02 native capture settings.",
+  "heldFoodDependency": {
+    "representation": "Exact canonical2D RGBA on a fixed native quad, not modeled3D food",
+    "resource": "source/round03-resources/canonical-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "mapping": "brief-v3-held-food-semantic-contact.json constraints.heldFoodSemanticMapping",
+    "validation": "candidates/round03/validation.json"
   }
 }

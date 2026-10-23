@@ -1,0 +1,26 @@
+{
+  "Blender": {
+    "path": "/Applications/Blender.app/Contents/MacOS/Blender",
+    "bytes": 182900560,
+    "sha256": "f5c1f2a0c0bca3389ec772d355242b700975ea84e66cbb3f5257a7bce8e5adeb",
+    "version": "5.2.2 LTS",
+    "wrapper": {
+      "path": "/opt/homebrew/Caskroom/blender/5.2.2/.homebrew-command-wrappers/blender",
+      "sha256": "a12b9bc15c1a0f62c50fac2efef8f3b89040e5bcd11c00c58d7b374e66e0b106"
+    },
+    "policy": "external binary hashed, not copied"
+  },
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/reproduce-round03.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/replay-round03.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/publish-round03.py",
+    "DEBUG=pw:browser node source/capture-consumer-round03.mjs",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/analyze-round03.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/finalize-round03.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b --factory-startup --python source/audit-field-round03.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/compare-round03.py"
+  ],
+  "workingDirectory": "object root (source scripts resolve paths from their own location)",
+  "scope": "recipe commands use the same executable and exact argument sequence as worktree-qualified invocations; live Blender not used",
+  "actualAuditBinaryPath": "/Applications/Blender.app/Contents/MacOS/Blender"
+}

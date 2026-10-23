@@ -1,0 +1,18 @@
+Original independent judge, round-02 consumer-only revision
+
+Scope
+The exact native source, fixed target, criteria, camera, sampling, all raw/published/native-patch/atlas media and the 37 prior declared visual inspections are unchanged. coverage-map.json maps each exact new packet path to its verified prior source/hash/actual inspection receipt, plus two newly opened browser context previews. The prior round-01 needs_evidence verdict and its full-Chrome failure evidence remain immutable. This review concerns only this exact asset packet and the bound current helper; no deployment, other-object/family or general renderer approval is implied.
+
+Reproduction
+All descriptor paths use explicit object pathBase. Preserve relative paths. Do not rerun scripts in the sealed directory; use an independently copied experiment, verify initial hashes, and direct new evidence into that copy. Runtime binaries are prerequisites, not staged application trees. Bytecode writes are disabled.
+1. PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 reviews/round-02-inspection/verify_review.py
+2. In the copy, prepare_audit.py rehashes old 770-file closure and all new packet resources, records 39 exact media mappings, snapshots exact current/old native raster functions and minimal loaded Playwright package files.
+3. Node v24.19.0 replay.mjs serves exact frozen consumer.html/registered source fixture and overrides only its pure renderer function import with the exact frozen current production excerpt. It independently replays the complete 1,476-case matrix and eight 2.05-second 12fps playbacks in each backend. Same fixture + exact old-helper override then re-executes original first/worst inputs, preserving the Chrome failure positive control. All requested fixture resources/hashes are recorded in served-resources.json.
+4. order-control.mjs uses the exact asset atlas at 15 phase/offset cases per backend against an independently ordered full-floor reference, followed by a differently phased translucent actor and a later tile-phased foreground sprite. This catches illegal nonconsecutive grouping/reordering.
+5. analyze.py rehashes all 83 root proof resources and compares every one of the 1,476 input/position/frame/root/bounds/plan/painter-sequence records per backend to both old and provided current matrices. No input changes or backend selection waive the old failure.
+6. Run unchanged production acceptance_contract.py floor-underwater --round round-02 from repository root. Exact final passing stdout is acceptance-tool-output.json, bound by seal.json. To avoid review -> supplemental manifest -> acceptance output -> review hash cycle, final review, manifest, seal and final acceptance output are the explicit self/post-review exclusions of manifest.files. The seal binds their exact hashes. verify_review.py verifies both manifest closure and this final seal.
+
+Results
+Both independently rerun backends: 1,476 cases, minimum interior alpha255, zero nonopaque interiors/smoothing failures/errors, eight actual playbacks each visiting all12 phases and wrap. Exact old full-Chrome helper still produces first191/worst128 with1532 deficient pixels; current same inputs255/0. Both current asset ordering controls:15 cases, zero RGBA differences/alpha failures. Original full1476 old matrix retains264 failures, minimum128. Fresh current first/worst and all4 context screenshots were reviewed; two exact new packet browser previews were directly inspected.
+
+No source geometry, native captures, images, source pixels, target, criteria, acceptance tool, production or Git state was modified by this judge.

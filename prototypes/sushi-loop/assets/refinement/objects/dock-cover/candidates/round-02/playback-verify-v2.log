@@ -1,0 +1,16 @@
+PLAYED covered N 50 skipped 0 fps 11.951429390955157 hold 0
+PLAYED covered E 50 skipped 0 fps 11.951610125794357 hold 0
+PLAYED covered S 50 skipped 0 fps 11.951802526952537 hold 0
+PLAYED covered W 50 skipped 0 fps 11.951802526952537 hold 0
+PLAYED uncover N 12 skipped 0 fps 11.999616012287607 hold 3.249800000000003
+PLAYED uncover E 12 skipped 0 fps 11.999616012287607 hold 3.249800000000003
+PLAYED uncover S 12 skipped 0 fps 11.786135219114978 hold 3.2330999999999985
+PLAYED uncover W 12 skipped 0 fps 11.786135219114932 hold 3.2331999999999974
+file:///Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-cover/source/round-02/playback_verify.mjs:8
+const pass=records.every(r=>r.everyPublishedFrameObserved&&r.skippedClockSteps===0&&r.meanObservedFPS>11.8&&r.meanObservedFPS<12.2&&(r.clip==='covered'?r.observedWraps>=4:r.finalIndex===11&&r.heldTerminalSeconds>=3));fs.writeFileSync(path.join(OUT,'evidence.json'),JSON.stringify({method:'Eight genuine sequential wall-clock12fps rAF streams starting at the first presented rAF (frame0 at elapsed0) from exact original native atlases, using predecoded frame bitmaps and drawing only on index changes. Covered observed across four wraps; uncover runs once and holds beyond three seconds. No time acceleration or synthetic trace. Sequential isolation avoids the separately retained concurrent-under-load sampling failure.',allPass:pass,records,errors},null,2)+'\n');await b.close();server.close();if(!pass||errors.length)throw Error('Native playback verification failed');console.log('COMPLETE ALL EIGHT PLAYBACKS');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+
+Error: Native playback verification failed
+    at file:///Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-cover/source/round-02/playback_verify.mjs:8:826
+
+Node.js v22.18.0

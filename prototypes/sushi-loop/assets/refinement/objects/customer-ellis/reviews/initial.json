@@ -1,0 +1,81 @@
+{
+  "asset": "customer-ellis",
+  "stage": "independent source/target baseline before editor proposals",
+  "verdict": "baseline only; no candidate or approval",
+  "targetSHA256": "2359667e955627467e6a6749e795d68f46402a6c07b4866644e2d362af201edc",
+  "originalSnapshotSHA256": "98e317476d058ca5ed510844314e0369383de1463b2ee6918c7e5fc9f6679a5d",
+  "inspectedFiles": [
+    "../inputs/original.png",
+    "../inputs/target.png",
+    "food-source-canonical.png",
+    "legacy-labels.png",
+    "main-source-sheet.png",
+    "runtime-labels.png",
+    "main-native/eat-E.png",
+    "main-native/eat-N.png",
+    "main-native/eat-S.png",
+    "main-native/eat-W.png",
+    "main-native/seated_wait-E.png",
+    "main-native/seated_wait-N.png",
+    "main-native/seated_wait-S.png",
+    "main-native/seated_wait-W.png",
+    "main-native/stand-E.png",
+    "main-native/stand-N.png",
+    "main-native/stand-S.png",
+    "main-native/stand-W.png",
+    "runtime-native/eat-salmon-E.png",
+    "runtime-native/eat-salmon-N.png",
+    "runtime-native/eat-salmon-S.png",
+    "runtime-native/eat-salmon-W.png",
+    "runtime-native/seated-wait-empty-E.png",
+    "runtime-native/seated-wait-empty-N.png",
+    "runtime-native/seated-wait-empty-S.png",
+    "runtime-native/seated-wait-empty-W.png"
+  ],
+  "scores": {
+    "shapeVolume": 4,
+    "color": 6,
+    "lightingHighlights": 4,
+    "materialDetail": 3,
+    "artifactFreeReadability": 6
+  },
+  "observations": [
+    "Source is recognizable and readable: warm golden skin, dark cropped hair, round spectacles and blue outfit. Hair crown is a broad faceted cap, its fringe separate bead forms; side hair exposes conspicuous pale scalp notches, while the back reads as a thick horizontal hair block.",
+    "Head, ears and hands retain box-like planes. Collar reads as two disconnected flat rectangles rather than constructed garment; trousers/shoes merge into very dark horizontal bands. These are useful native modeling improvement opportunities rather than required source geometry.",
+    "Target is warmer, softer and more dimensional: full layered hair, rounded glasses/head/ears, cheek warmth, formed nose/smile, soft hands and clear polo/cuff/placket/shoe construction. Exact target texture, part counts and broadened framing are not necessary. The target right-side orange highlight is not authority for directional capture lighting.",
+    "At logical192x320, pupils and glasses must stay distinct despite softened shading. The all-facing source sheet shows why back/side construction and dark apparel detail matter beyond a front match.",
+    "Actual native source has a1.25 root scale and25bone rest rig. Main480samples plus runtime96samples measured independently. Seated/eat body maxworldZ~1.74698, standing~1.27611 and happy~1.33425, so a standing absolute height cap across every action would invalidate original motion.",
+    "Main food owner is held_dish-cucumber image plane. Runtime salmon retains a renamed S10 meal held_dish-cucumber owner. Exact original image bytes are1254square packed cutouts. Only main eat/seated_wait show food (96samples); runtime eat-salmon shows48 and seated-wait-empty remains invisible48.",
+    "Source nominal food quad width.35 includes transparent padding. Alpha128 occupied width is.3375202566 cucumber and.3443639405 salmon. Canonical whole rasters can keep exactly those visible widths and true bottom-rim support with fixedfullUV/aspect mappings. Padded quad-corner identity would incorrectly change visible plate size/support."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Rebuild Ellis as a coherent softly rounded chibi character, led by full connected hair, warm expressive glasses/face, soft hands and properly constructed compact clothing/shoes."
+    },
+    {
+      "rank": 2,
+      "outcome": "Make form shading gentle and horizontally symmetric; lift dark lower-body detail without losing navy identity or generating ground shadows."
+    },
+    {
+      "rank": 3,
+      "outcome": "Keep every source animation/contact/capture path while proving the canonical food occupied-width/bottom-rim map and natural all-facing occlusion across576frames."
+    }
+  ],
+  "technicalEvidence": {
+    "sourceContract": "proposed-source-contract.json",
+    "mapping": "proposed-food-mappings.json",
+    "allPoseBaselines": [
+      "main-contact-baselines.json",
+      "runtime-contact-baselines.json"
+    ],
+    "nativeAudits": [
+      "main-audit.json",
+      "runtime-audit.json"
+    ],
+    "inventory": "source-inventory.json",
+    "limits": "Measured all samples and inspected saved representative native images for initial definition of good. No immutable candidate reviewed; complete final clips/context playback remains required."
+  },
+  "independence": "No editor proposals, self-ratings or other object judge conclusions read. Only reviews/ written. Original projects opened read-only in background Blender and never saved.",
+  "next": "Coordinator reconcile/freeze criteria and exact source constraints, then submit immutable candidate packet. Await freeze before judging candidates."
+}

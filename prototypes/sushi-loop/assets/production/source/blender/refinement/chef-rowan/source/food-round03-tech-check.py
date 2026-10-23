@@ -1,0 +1,15 @@
+"""Reopened canonical image/UV/plane/source receipt, linked to compact native law audit."""
+import bpy,json,hashlib
+from pathlib import Path
+HERE=Path(__file__).parent;OBJ=HERE.parent;OUT=OBJ/'candidates/round-03'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+brief=json.loads((OBJ/'brief-v4-food-occlusion.json').read_text());audit=json.loads((OUT/'occlusion-native-audit.json').read_text());native=json.loads((OUT/'native-audit.json').read_text());rig=json.loads((OBJ/'inputs/source-rig.json').read_text())
+root=bpy.data.objects[rig['groundRootObject']];plane=bpy.data.objects[root.name+'__held_dish-salmon__image_plane'];textures=[]
+for im in bpy.data.images:
+ if im.source in ['FILE','TILED']:textures.append(dict(name=im.name,size=list(im.size),packed=bool(im.packed_file),sha256=hashlib.sha256(bytes(im.packed_file.data)).hexdigest() if im.packed_file else None,filepath=im.filepath))
+uv=[list(v.uv) for v in plane.data.uv_layers.active.data];dep=brief['foodDependency'];resources=[]
+for name,want in [('canonical-salmon.png',dep['sha256']),('approved-salmon-packet.json',dep['packetSHA256']),('approved-salmon-review.json',dep['reviewSHA256'])]:
+ actual=sha(HERE/'resources'/name);assert actual==want;resources.append(dict(path='source/resources/'+name,sha256=actual))
+checks=[dict(name='one exact canonical packed731x505 image, no stale old salmon',passed=len(textures)==1 and textures[0]['packed'] and textures[0]['sha256']==dep['sha256'] and textures[0]['size']==[731,505]),dict(name='one full-source UV rectangle',passed=sorted(uv)==sorted([[0.,0.],[1.,0.],[1.,1.],[0.,1.]])),dict(name='all192 exact width/aspect/yaw and original physical contacts',passed=all(abs(r['width']-.35)<1e-6 and abs(r['height']-.35*505/731)<1e-6 and r['orientationError']<1e-6 and r['maximumContactError']<1e-6 and r['foodRootError']<1e-6 for r in audit['records'])),dict(name='all192 native law/projection and original native body/knife',passed=audit['allChecksPassed']),dict(name='original native action/visibility/contact/height/camera validation',passed=native['allChecksPassed']),dict(name='all native drivers valid and fully saved',passed=all(f.driver.is_valid for f in plane.animation_data.drivers))]
+data=dict(activeBrief='brief-v4-food-occlusion.json',sourceSHA256=sha(Path(bpy.data.filepath)),representation='Exact packed2D canonical salmon, unchanged plane mesh/material/UV; native body/knife',textures=textures,fullUV=uv,oldSourceSHA256='5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe',newCanonicalSHA256=dep['sha256'],worldDisplayWidth=.35,worldDisplayHeight=.35*505/731,foodOcclusionPolicy=brief['foodOcclusionPolicy'],nativeOcclusionAudit=dict(path='candidates/round-03/occlusion-native-audit.json',sha256=sha(OUT/'occlusion-native-audit.json')),dependencyReceipts=resources,checks=checks,allChecksPassed=all(c['passed'] for c in checks))
+(OUT/'food-native-audit.json').write_text(json.dumps(data,indent=2)+'\n');print(json.dumps(data,indent=2));assert data['allChecksPassed']

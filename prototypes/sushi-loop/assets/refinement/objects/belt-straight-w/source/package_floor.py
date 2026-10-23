@@ -1,0 +1,27 @@
+from pathlib import Path
+from PIL import Image,ImageDraw
+import numpy as np,json,hashlib,collections
+P=Path(__file__).resolve().parents[1];O=P/'candidates/round-01';C=O/'consumer';H=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();d=json.loads((C/'floor-render-record.json').read_text());look={tuple(r[k] for k in ['pattern','direction','index','pitch','background','context','mode']):r for r in d['captures']};rows=[];summary={};worst={};loc=json.loads((O/'region-localization.json').read_text());raw={ (r['pattern'],r['direction'],r['index']):r for r in json.loads((O/'native-vs-independent-metrics.json').read_text())};outside=[]
+for r in d['captures']:
+ if r['mode']!='current':continue
+ key=tuple(r[k] for k in ['pattern','direction','index','pitch','background','context'])+('reference',);ref=look[key];a=np.asarray(Image.open(r['path']),dtype=np.int16);b=np.asarray(Image.open(ref['path']),dtype=np.int16);e=np.abs(a-b);q=np.argwhere(e.max(2)>1);m=e.reshape(-1,4).max(0).tolist();shift=np.array(r['nativeRootShift']);scale=r['pitch']/256;joins=[]
+ rects=[[316,496,8,360],[572,496,8,360]] if r['direction'] in 'NS' else [[320,496,256,42],[320,752,256,42]]
+ for x,y,w,h in rects:
+  lo=np.maximum(np.floor((np.array([x,y])+shift)*scale).astype(int)-2,[0,0]);hi=np.minimum(np.ceil((np.array([x+w,y+h])+shift)*scale).astype(int)+2,[a.shape[1],a.shape[0]]);v=e[lo[1]:hi[1],lo[0]:hi[0]];joins.append({'rect':[int(lo[0]),int(lo[1]),int(hi[0]-lo[0]),int(hi[1]-lo[1])],'maxRGBA':v.reshape(-1,4).max(0).tolist(),'differentAlphaPixels':int(np.count_nonzero(v[:,:,3])),'differentRGBOver1Pixels':int(np.count_nonzero(v[:,:,:3].max(2)>1))})
+ row={k:r[k] for k in ['pattern','direction','index','pitch','background','context','nativeRootShift']};row.update({'current':r['path'],'reference':ref['path'],'currentSHA256':H(r['path']),'referenceSHA256':H(ref['path']),'fullMaxRGBA':m,'fullResidualPixelsOver1':len(q),'fullResidualBoundsOver1':[int(q[:,1].min()),int(q[:,0].min()),int(q[:,1].max()+1),int(q[:,0].max()+1)] if len(q) else None,'joins':joins})
+ if len(q):
+  src=raw[r['pattern'],r['direction'],r['index']];box=src['fullResidualBoundsOver1'];roi=row['fullResidualBoundsOver1'];pr=[(box[0]+shift[0])*scale-2,(box[1]+shift[1])*scale-2,(box[2]+shift[0])*scale+2,(box[3]+shift[1])*scale+2];within=roi[0]>=pr[0] and roi[1]>=pr[1] and roi[2]<=pr[2] and roi[3]<=pr[3];row.update({'nativeResidualRegion':src['fullResidualRegionPixelCountsOver1'],'withinCrossbeamProjection':bool(within)})
+  if not within:outside.append(row)
+ rows.append(row);g=summary.setdefault(str(r['pitch']),{'pairs':0,'fullMaxRGBA':[0,0,0,0],'joinMaxRGBA':[0,0,0,0],'joinDifferentAlphaPixels':0,'joinRGBOver1Pixels':0});g['pairs']+=1;g['fullMaxRGBA']=np.maximum(g['fullMaxRGBA'],m).tolist();g['joinMaxRGBA']=np.maximum(g['joinMaxRGBA'],np.array([j['maxRGBA'] for j in joins]).max(0)).tolist();g['joinDifferentAlphaPixels']+=sum(j['differentAlphaPixels'] for j in joins);g['joinRGBOver1Pixels']+=sum(j['differentRGBOver1Pixels'] for j in joins)
+ if r['pitch'] not in worst or max(m)>max(worst[r['pitch']]['fullMaxRGBA']):worst[r['pitch']]=row
+for pitch,row in worst.items():
+ a=Image.open(row['current']).convert('RGB');b=Image.open(row['reference']).convert('RGB');delta=np.abs(np.asarray(a,dtype=np.int16)-np.asarray(b,dtype=np.int16));yy,xx,cc=np.unravel_index(delta.argmax(),delta.shape);box=(max(0,xx-12),max(0,yy-8),min(a.width,xx+13),min(a.height,yy+9));im=Image.new('RGB',(max(a.width*2,400),a.height+160),(230,233,227));im.paste(a,(0,24));im.paste(b,(a.width,24));im.paste(a.crop(box).resize((200,136),Image.Resampling.NEAREST),(0,a.height+24));im.paste(b.crop(box).resize((200,136),Image.Resampling.NEAREST),(200,a.height+24));ImageDraw.Draw(im).text((4,6),f'Actual floor {pitch}px current/native; residual {xx},{yy}',fill=(20,30,36));p=O/'previews'/f'worst-floor-residual-{pitch}.png';im.save(p);row['proof']=str(p)
+ floor=np.minimum(delta*16,255).astype(np.uint8);Image.fromarray(floor).save(O/'difference-maps'/f'floor-worst-{pitch}-RGBx16.png')
+closures={}
+for pat in ['WWW','WNW','NWN','WEW','EWE','WSW','SWS']:
+ for dire in 'NESW':
+  for pitch in [128,55,32]:
+   for ctx in [0,1]:
+    a=Image.open(C/'floor-outputs'/f'current-{pat}-{dire}-00-{pitch}-c{ctx}-game-floor-cream.png');b=Image.open(C/'floor-outputs'/f'current-{pat}-{dire}-24-{pitch}-c{ctx}-game-floor-cream.png');closures[f'{pat}-{dire}-{pitch}-{ctx}']=a.tobytes()==b.tobytes()
+D={'method':'Actual Godot GPU benchmark, exact frozen native compositor unchanged, actual production floor-cream sprite tiled at tested cell pitch under both output surfaces. Every native/independent pattern and24+closure/all facings at128/55/32 through integer/fractional origins. Actual floor is background fixture only and is never changed.','floorTexture':{'source':str((P/'../../../production/sprites/floor-cream/static-S.png').resolve()),'copiedFixture':str(C/'inputs/game-floor-cream.png'),'sha256':H(C/'inputs/game-floor-cream.png')},'godot':d['godot'],'renderer':d['renderer'],'captureCount':len(d['captures']),'pairCount':len(rows),'summaryByCellPitch':summary,'allClosuresPixelEqual':all(closures.values()),'closureCases':closures,'allResidualsWithinMeasuredCrossbeamProjection':not outside,'outsideProjectionCount':len(outside),'worstCases':list(worst.values()),'pairs':rows}
+(O/'floor-consumer-metrics.json').write_text(json.dumps(D,indent=2));print(json.dumps(summary,indent=2));print('FLOORPAIRS',len(rows),'outside',len(outside),'closure',all(closures.values()))

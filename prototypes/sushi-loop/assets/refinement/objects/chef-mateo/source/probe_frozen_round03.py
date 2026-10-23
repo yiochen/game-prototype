@@ -1,0 +1,8 @@
+"""Supplement frozen property details not required by projection fingerprint, no save."""
+import bpy,sys,importlib.util,json
+sys.dont_write_bytecode=True
+from pathlib import Path
+H=Path(__file__).resolve().parent;s=importlib.util.spec_from_file_location('mateo_r03_common',H/'round03_common.py');C=importlib.util.module_from_spec(s);s.loader.exec_module(C)
+sc,asset,arm,food=C.owned();C.N.apply_clip(asset,C.rig,'idle',1,'S',sc)
+extra={'cameraSensor':[sc.camera.data.sensor_width,sc.camera.data.sensor_height],'cameraDOF':C.rna_properties(sc.camera.data.dof,skip=('id_data',)),'worldColor':C.plain(sc.world.color),'lightsNodes':{o.name:C.node_tree(o.data.node_tree) if o.data.node_tree else None for o in sc.objects if o.type=='LIGHT'},'objectRayVisibility':{o.name:{p:getattr(o,p) for p in ['visible_camera','visible_diffuse','visible_glossy','visible_transmission','visible_volume_scatter','visible_shadow']} for o in asset['collection'].all_objects},'sceneColorWorldSettingsSHA256':C.invariants(sc,asset,arm,food)['captureLightingRenderSettings'],'linkedLibraries':[l.filepath for l in bpy.data.libraries],'images':[{'packed':bool(i.packed_file),'format':i.file_format,'alphaMode':i.alpha_mode,'colorSpace':i.colorspace_settings.name,'size':list(i.size),'filepath':i.filepath} for i in bpy.data.images if i.type=='IMAGE']}
+label='candidate' if Path(bpy.data.filepath).name=='round03.blend' else 'approved';C.write(C.OUT/('frozen-extra-'+label+'.json'),{'projectSHA256':C.sha(Path(bpy.data.filepath)),'extra':extra,'hashWithoutImageBinding':C.digest({k:v for k,v in extra.items() if k!='images'})})

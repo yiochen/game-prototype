@@ -1,0 +1,32 @@
+{
+  "asset": "salvage-metal",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "9c1d9337a2a6cf9bfc23c5d642bcbf1c66c6ddb78f953ffabfce7c008d89bd94",
+  "sourceSHA256": "8311f792f6965a7f57eece3908eec24c798060996982bfccfd7e0036586f1c62",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "01c79a86e4f7fa283d6d71a3e4cc0384ac3c1f3b4fec0f95bf8188e89b6e78fa"
+  },
+  "supplemental": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "5440b2cd28c90b5a03190f89169584d95732cea81c81a6d4e6adc764f799574e",
+    "membersVerified": 1073
+  },
+  "gates": {
+    "path": "reviews/round-01-independent/gates.json",
+    "sha256": "6f09a699f4cbfd1ed8c36d871c068b776c8168de2d57481b279cb11d71b98770",
+    "returnCodes": {
+      "packet": 0,
+      "directions": 0,
+      "acceptance": 0
+    }
+  },
+  "gateRunner": {
+    "path": "reviews/round-01-independent/run_gates.py",
+    "sha256": "b7d6f1875b00f747dd7618f17e73132d6da62028be56e56890949ca66c45885d"
+  },
+  "acyclicBinding": "supplemental manifest excludes review/gates/postseal; review binds supplemental; gates bind review; postseal binds all.",
+  "createdUTC": "2026-10-22T23:18:12.229275+00:00",
+  "scope": "Exact candidate only; no source edits, production, publishing, family or Godot approval."
+}

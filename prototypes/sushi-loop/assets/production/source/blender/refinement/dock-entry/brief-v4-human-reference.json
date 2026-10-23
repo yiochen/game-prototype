@@ -1,0 +1,337 @@
+{
+  "asset": "dock-entry",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "sha256": "a5b7676ecd8d72f005dec527e2cb0adf8b9e28e4cc6416fb8c18ca7cd9676b7f",
+    "provenance": "imagegen-builtin",
+    "references": [
+      {
+        "role": "native-edit-source",
+        "path": "inputs/original.png",
+        "sha256": "a23549a119e9ab90b6dabeb37899f1115e85d853aefe7105785628f9c9b13d49"
+      },
+      {
+        "role": "style-only",
+        "path": "../../style/warm-soft-reference.png",
+        "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+      }
+    ],
+    "interpretation": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints.",
+    "prompt": "inputs/imagegen-prompt.txt"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid",
+    "nativeAntialias": {
+      "engine": "BLENDER_EEVEE",
+      "filterSize": 0.5,
+      "nativeScale": 2,
+      "persistedInNewSourceRequired": true
+    }
+  },
+  "constraints": {
+    "preserve": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "designFreedom": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "dockConnection": "Frozen exterior-half native stair reconstruction with bounded floor transfer repair; inputs/shared-dock-entry-contract.json is authoritative. Original roots/camera/footprints/semantic markers remain; old submerged geometry and source part counts are not locks."
+  },
+  "qualityCriteria": {
+    "status": "frozen",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "2960060df7aabd0609ddf08b4675b8bdfbae823de1a80d5462ce2a207ef3a318",
+    "judgeProposal": {
+      "asset": "dock-entry",
+      "status": "independent proposed visible criteria; shared technical freeze pending",
+      "basis": {
+        "initial": "initial.json",
+        "initialSHA256": "a787a9a4dbe62115f8fdfa9fadea22bd667eb92621e633e3db0b4b921b84160e",
+        "fixedTarget": "../inputs/target.png",
+        "targetSHA256": "a5b7676ecd8d72f005dec527e2cb0adf8b9e28e4cc6416fb8c18ca7cd9676b7f",
+        "styleReference": "../../../style/warm-soft-reference.png",
+        "nativeReconstruction": "Useful structural/forms/detail improvements encouraged; no lock on source part count or awkward inboard tread arrangement. No other-object aesthetic criteria read."
+      },
+      "visibleSuccessCriteria": [
+        {
+          "dimension": "shapeVolume",
+          "outcome": "At logical size the unit reads as a stout, usable crafted timber stair entry. Treads/rises/side construction and capped posts have clean purposeful proportions and believable connection/support. Softer bevel transitions give weight and roundness without blobby edges. Rebuilt exterior-half stairs may differ from target/source count, but need a coherent rising path meeting the deck and a clear centered passage.",
+          "reject": "Flat alternating color rectangles as the only depth cue, floating posts/fasteners, paper-thin disconnected boards, hidden stair continuation painted above deck, collisions, unsupported gaps, accidental silhouette clipping."
+        },
+        {
+          "dimension": "color",
+          "outcome": "Warm honey/gold walking surfaces, richer reddish/orange brown supporting wood, darker controlled creases; restrained compatible warm metal or dark fixing color where useful. Large planes retain hue/value information, with enough separation to read each step at192x352/128pxcell.",
+          "reject": "Blown yellow/white cap panels, black dead risers/undersides, muddy orange wash merging all forms, unrelated palette/metal dominance."
+        },
+        {
+          "dimension": "lightingHighlights",
+          "outcome": "Broad soft highlights on top edges and caps describe the native curvature. Local contact shading can add depth while inner tread corners and undersides remain readable. All4facings share one horizontally symmetric warm-light treatment, with no directional groundshadow.",
+          "reject": "One-sided global brightening, hard directional key/cast-ground shadow, bright pixel fringe copied from target, clipped hot strips, abrupt normals/faceted seams that look broken rather than stylized."
+        },
+        {
+          "dimension": "materialDetail",
+          "outcome": "Wood has controlled broad native/procedural/packed grain or endgrain where it survives intended size. Purposeful fasteners/joinery/side construction add useful hierarchy and physical clarity, inspired by target round fixings and timber edge treatment. Small details are firmly attached, spaced deliberately and clear of walking path.",
+          "reject": "Dense hairline noise, decal-like illegible black scribbles, identical obvious texture stamps, tiny random bolt clutter, detached/highlight-only metal dots, grain that changes scale/swims across facings. No mandatory decoration count or shader recipe."
+        },
+        {
+          "dimension": "artifactFreeReadability",
+          "outcome": "Inspect enlarged, logical and actual phone/landscape consumer evidence. Silhouette/step edge rhythm reads immediately on light/gray/dark. Contact joins have clean RGB and alpha, without ghost stairs, floor holes, black cracks, red/yellow ringing, clipped geometry or detached detail. Allfacings remain coherent beyond single-view target.",
+          "reject": "Successful single S render while N/E/W fail, gaps hidden only by dark background, filtering seams, unreported consumer draw-order override, native-render/composite mismatch."
+        }
+      ],
+      "technicalAcceptance": "source-contract-proposal.json::tolerances",
+      "laterRequiredCoverage": [
+        {
+          "group": "immutableNativePacket",
+          "required": [
+            "Editable candidate blend plus dependency closure, exact source hash, target/style/input hashes, recipe/scripts, scene/camera/root/matrix/render/lighting/material/resource evidence. No image card or paintover.",
+            "All evaluated candidate entry geometry bounds and native world vertices or equivalent reproducible audit prove all solids exterior y[-.5,0], capmax .49, ground contact and central clearance. Cross-sections sample risers, side structure, terminal plane and actual W; supporting deck strip matches exact coupled floor candidate hash.",
+            "Candidate pair has exact semantic markers,1cell occupied/support cells, one shared registered rig and correct4 facing rotations. Report old neighbor support gaps as later scoped work."
+          ]
+        },
+        {
+          "group": "exactStandaloneEntryAtlases",
+          "required": [
+            "Four actual native N/E/S/W static captures at384x704 published2x (or actual bound historical4x raw captures plus uniform whole-frame downsample recipe), transparentRGBA. Each is1frame,12fps,loopfalse,logical192x352/root96,248/sourceScale2, no fitting/cropping/per-view recolor.",
+            "Four-view registered contact sheet at native/enlarged and logical sizes; each standalone inspected on light/gray/dark. All exact atlas bytes and optional packed output hash-bound. A repeated study is a readability study only, not an invented self-tiling requirement."
+          ]
+        },
+        {
+          "group": "coupledNativeAndIndependentJoin",
+          "required": [
+            "All4facings shared-scene native floor+entry depth-tested captures using actual accepted paired geometry, original floor root and rotated relative entryroot(0,-1.5,0); fixed uncropped context canvas/basis acrossfacings. Include shared plane/height cross-sections and full source-to-candidate context.",
+            "Separately export actual entry/floor sprites and independently assemble using actual consumer root/placement/draw-order utilities and original registration, without scene screenshot substitution, per-facing offsets, fitted scaling or hand mask. Show all4facings and quantify local RGB/alpha/visibility boundaries.",
+            "Current orderPlacements is expected sufficient only after proof. Include N floor-last, S/E/W entry-last output and native comparison; inspect caps/posts/undersides/terminal surface and contact with actual filtering at logical scale.",
+            "RGB+alpha detail crops through the contact on light/gray/dark, native and independent joins, ordinary viewer filtering plus x/y phases0,.25,.5,.75logicalpx. No physical run gap, no sustained visible crack/halo/ghost or wrong depth."
+          ]
+        },
+        {
+          "group": "registeredRoleContext",
+          "required": [
+            "All4facings native and independently composed registered dock context with unchanged workshop/submarine placements and source/frozen reference neighbors, plus appropriate humanoid scale/clearance reference and ground-to-stair-to-deck path markers. No fitting or moving a human to conceal poor support.",
+            "Demonstrate centered width>=.76 and contact/no snag/obstacle throughout flight; native local/world ground support and terminal sections. Human/path evidence is visual/geometry review, not new gameplay implementation.",
+            "Actual catalog browser portrait390x844 and landscape844x390 screenshots with real candidate assets at consumer size/filtering, on light/gray/dark, including a full context and zoomed detail. Synthetic phone thumbnails may supplement but do not replace browser consumer evidence."
+          ]
+        }
+      ],
+      "reviewPolicy": {
+        "scores": "Comparative shapeVolume,color,lightingHighlights,materialDetail,artifactFreeReadability; observations support score, no arbitrary numeric pass threshold.",
+        "missingEvidence": "needs_evidence rather than approval",
+        "blockers": "At most three ranked observable blockers per later candidate",
+        "noApprovalNow": true,
+        "scope": "Prep only: no source/production changes, no Git, no live Blender, no editor/adapter implementation or new agents."
+      }
+    },
+    "sourceContractFile": "reviews/source-contract-proposal.json",
+    "sourceContractSHA256": "7d21d12f163556f8b17c25d210add603510f4d4570c5ec88166a0b80ed920cd4",
+    "coordinatorResolution": {
+      "sharedContractFile": "inputs/shared-dock-entry-contract.json",
+      "sharedContractSHA256": "11a26923b709b3d73f485d234dd8600fde59fd3b67699f2364cfdcc45563c0f5",
+      "capture": "Use this object own asset-specific measured55.0079798degree camera/frame/root/sourceScale2 and actual S0/E90/N180/W-90 rotations. Historical4x metadata is provenance; actual2x delivery must close. Never use unrelated active saved camera.",
+      "structuralScope": "Known submerged source stair arrangement and earlier connected-mask proposal are superseded by exterior-half native reconstruction. No mask, new adapter or gameplay change is authorized by this freeze.",
+      "contactLaw": "Exact common Y/Z planes and mutual profile tolerance1e-5world take precedence over any earlier broad\u00b1.002 wording. Broad decorative relief away from seam stays\u00b1.002.",
+      "pairedEvidence": "Each editor saves its own standalone candidate blend before companion import; exchange exact immutable project bytes via own inputs/paired-native/ copy. Joined capture loads companion in memory only, never rewrites either saved native project. Bind both native geometry hashes; do not create circular packet dependencies. No final packet/approval until actual paired all-facing evidence passes.",
+      "neighborScope": "Keep exact hut/submarine/cover roots. Current b176 hut support gap and old canopy collisions are diagnostic own-object faults; exact approved Hut01 now an additional clearance fixture. Submarine role was reconciled as source-like docked hover .02..09 actual deck separation with existing bob, not a grounded-skid repair. Floor/entry do not certify future body/components/cover clearance.",
+      "nativeAudit": "Native mesh counts/topology/blank source details are descriptive only; no card/paintover, camera fit, per-facing material grade or new gameplay. Inspect actual native source first, then criteria. Exact approved bytes only after original judge approves.",
+      "consumerSupportOrdering": {
+        "addendum": "inputs/consumer-support-ordering-addendum.json",
+        "addendumSHA256": "db85f7aa868773d64f03b9544cc71b986520418c87b5c49b80ac297af1f33dcb",
+        "rendererSnapshot": "inputs/consumer-supported-ordering/sprite-layout.js",
+        "rendererSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+        "inheritedGeometryBrief": {
+          "path": "brief.json",
+          "sha256": "597e26eae3daf307756a73464334d3475a1636e20181955b2a3b481942fb8bb1"
+        },
+        "meaning": "Versioned actual viewer correction only; no lower bar, source/target/geometry or aesthetic criteria changes."
+      },
+      "humanReferenceEvidence": {
+        "plan": "inputs/shared-world-pose-v1/plan.json",
+        "planSHA256": "394b3dfe2b59c81e263cd0a4a5afc213f6e2346c23063a524dc047057ec84293",
+        "adoption": "inputs/shared-world-pose-v1/root-adoption.json",
+        "adoptionSHA256": "78779535674621f4d40a5b9afde56029a275766f871dbb409c9873cae2e78d6f",
+        "meaning": "Nine discrete physically supported representative stances, not continuous locomotion or door traversal. Same S-world XY/nativepose/Z is rotated all4 without per-facing fitting. Full visible shoes require finite useful support and no penetration; full body must clear true loadbearing/rail/post/cap and named companions. Actual published35deg actor atlas uses exact stand11/walk6 indices; native55deg physical reference is separately labeled. Existing actor/root authoredscale1.25 unchanged. Companion evaluated frame12 meshes frozen separately from actor samples with exact vertex/matrix/material parity. Both current b176 hut and independently approved Hut01 additional fixture checked; no future Sub/cover approval inferred."
+      }
+    }
+  },
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "static",
+        "sourceClipId": "static",
+        "name": "Static",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false,
+        "frameOrder": [
+          0
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "modelingPolicy": {
+    "version": 2,
+    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
+    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "allowed": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "locked": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "own-review:assemble-own-baseline.py": "reviews/assemble-own-baseline.py",
+    "own-review:capture-own-baseline.py": "reviews/capture-own-baseline.py",
+    "own-review:criteria.json": "reviews/criteria.json",
+    "own-review:initial.json": "reviews/initial.json",
+    "own-review:inspect-own-source.py": "reviews/inspect-own-source.py",
+    "own-review:inspect-source-semantics.py": "reviews/inspect-source-semantics.py",
+    "own-review:measure-own-interface.py": "reviews/measure-own-interface.py",
+    "own-review:own-S-join-detail-entry-over-floor.png": "reviews/own-S-join-detail-entry-over-floor.png",
+    "own-review:own-S-join-detail-floor-over-entry.png": "reviews/own-S-join-detail-floor-over-entry.png",
+    "own-review:own-S-join-detail-native.png": "reviews/own-S-join-detail-native.png",
+    "own-review:own-consumer-order.json": "reviews/own-consumer-order.json",
+    "own-review:own-interface-measurements.json": "reviews/own-interface-measurements.json",
+    "own-review:own-interface-measurements.log": "reviews/own-interface-measurements.log",
+    "own-review:own-joins-comparison.png": "reviews/own-joins-comparison.png",
+    "own-review:own-native-capture.log": "reviews/own-native-capture.log",
+    "own-review:own-native-entry-E.png": "reviews/own-native-entry-E.png",
+    "own-review:own-native-entry-N.png": "reviews/own-native-entry-N.png",
+    "own-review:own-native-entry-S.png": "reviews/own-native-entry-S.png",
+    "own-review:own-native-entry-W.png": "reviews/own-native-entry-W.png",
+    "own-review:own-native-entry-backgrounds-logical.png": "reviews/own-native-entry-backgrounds-logical.png",
+    "own-review:own-native-geometry-and-captures.json": "reviews/own-native-geometry-and-captures.json",
+    "own-review:own-native-inspection.json": "reviews/own-native-inspection.json",
+    "own-review:own-native-inspection.log": "reviews/own-native-inspection.log",
+    "own-review:own-native-joined-E.png": "reviews/own-native-joined-E.png",
+    "own-review:own-native-joined-N.png": "reviews/own-native-joined-N.png",
+    "own-review:own-native-joined-S.png": "reviews/own-native-joined-S.png",
+    "own-review:own-native-joined-W.png": "reviews/own-native-joined-W.png",
+    "own-review:own-published-assembly-evidence.json": "reviews/own-published-assembly-evidence.json",
+    "own-review:own-published-facings-logical.png": "reviews/own-published-facings-logical.png",
+    "own-review:own-published-joined-E-entry-over-floor.png": "reviews/own-published-joined-E-entry-over-floor.png",
+    "own-review:own-published-joined-E-floor-over-entry.png": "reviews/own-published-joined-E-floor-over-entry.png",
+    "own-review:own-published-joined-N-entry-over-floor.png": "reviews/own-published-joined-N-entry-over-floor.png",
+    "own-review:own-published-joined-N-floor-over-entry.png": "reviews/own-published-joined-N-floor-over-entry.png",
+    "own-review:own-published-joined-S-entry-over-floor.png": "reviews/own-published-joined-S-entry-over-floor.png",
+    "own-review:own-published-joined-S-floor-over-entry.png": "reviews/own-published-joined-S-floor-over-entry.png",
+    "own-review:own-published-joined-W-entry-over-floor.png": "reviews/own-published-joined-W-entry-over-floor.png",
+    "own-review:own-published-joined-W-floor-over-entry.png": "reviews/own-published-joined-W-floor-over-entry.png",
+    "own-review:own-saved-source-semantics.json": "reviews/own-saved-source-semantics.json",
+    "own-review:own-source-semantics.log": "reviews/own-source-semantics.log",
+    "own-review:proposedcriteria.json": "reviews/proposedcriteria.json",
+    "own-review:raw-evidence-manifest.json": "reviews/raw-evidence-manifest.json",
+    "own-review:source-contract-proposal.json": "reviews/source-contract-proposal.json",
+    "own-review:write-own-proposals.py": "reviews/write-own-proposals.py",
+    "shared-interface": "inputs/shared-dock-entry-contract.json",
+    "paired-technical-reconciliation": "inputs/dock-floor-technical-reconciliation.json",
+    "consumer-support-ordering-addendum": "inputs/consumer-support-ordering-addendum.json",
+    "consumer-renderer-before": "inputs/consumer-before-supported-ordering/sprite-layout.js",
+    "consumer-renderer-supported": "inputs/consumer-supported-ordering/sprite-layout.js",
+    "native-sampling:world-sprite-raster.spec.js": "inputs/consumer-native-sampling/world-sprite-raster.spec.js",
+    "native-sampling:world-sprite-raster-before.js": "inputs/consumer-native-sampling/world-sprite-raster-before.js",
+    "native-sampling:world-sprite-raster.js": "inputs/consumer-native-sampling/world-sprite-raster.js",
+    "native-sampling:browser-regressions.log": "inputs/consumer-native-sampling/browser-regressions.log",
+    "native-sampling:addendum": "inputs/consumer-native-sampling-addendum.json",
+    "shared-human:plan.json": "inputs/shared-world-pose-v1/plan.json",
+    "shared-human:raw-measurement.json.gz": "inputs/shared-world-pose-v1/raw-measurement.json.gz",
+    "shared-human:resources/inputs/approved-hut-v1/manifest.json": "inputs/shared-world-pose-v1/resources/inputs/approved-hut-v1/manifest.json",
+    "shared-human:resources/inputs/approved-hut-v1/packet.json": "inputs/shared-world-pose-v1/resources/inputs/approved-hut-v1/packet.json",
+    "shared-human:resources/inputs/approved-hut-v1/project.blend": "inputs/shared-world-pose-v1/resources/inputs/approved-hut-v1/project.blend",
+    "shared-human:resources/inputs/approved-hut-v1/review.json": "inputs/shared-world-pose-v1/resources/inputs/approved-hut-v1/review.json",
+    "shared-human:resources/inputs/paired-native/dock-entry-round-06.blend": "inputs/shared-world-pose-v1/resources/inputs/paired-native/dock-entry-round-06.blend",
+    "shared-human:resources/reviews/round-04-independent/supplemental-manifest.json": "inputs/shared-world-pose-v1/resources/reviews/round-04-independent/supplemental-manifest.json",
+    "shared-human:resources/reviews/round-04.json": "inputs/shared-world-pose-v1/resources/reviews/round-04.json",
+    "shared-human:resources/source/human-support-v4/cohort_scene.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/cohort_scene.py",
+    "shared-human:resources/source/human-support-v4/collision.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/collision.py",
+    "shared-human:resources/source/human-support-v4/freeze_plan.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/freeze_plan.py",
+    "shared-human:resources/source/human-support-v4/landing_study.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/landing_study.py",
+    "shared-human:resources/source/human-support-v4/lower_study.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/lower_study.py",
+    "shared-human:resources/source/human-support-v4/phase_study.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/phase_study.py",
+    "shared-human:resources/source/human-support-v4/physical_scene.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/physical_scene.py",
+    "shared-human:resources/source/human-support-v4/route_study.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/route_study.py",
+    "shared-human:resources/source/human-support-v4/study.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/study.py",
+    "shared-human:resources/source/human-support-v4/verify_plan.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/verify_plan.py",
+    "shared-human:resources/source/human-support-v4/verify_plan_v2.py": "inputs/shared-world-pose-v1/resources/source/human-support-v4/verify_plan_v2.py",
+    "shared-human:resources/source/resources/approved-human-v3/camera.json": "inputs/shared-world-pose-v1/resources/source/resources/approved-human-v3/camera.json",
+    "shared-human:resources/source/resources/approved-human-v3/customer-rosa-approved-catalog-object.json": "inputs/shared-world-pose-v1/resources/source/resources/approved-human-v3/customer-rosa-approved-catalog-object.json",
+    "shared-human:resources/source/resources/approved-human-v3/customer-rosa-approved.blend": "inputs/shared-world-pose-v1/resources/source/resources/approved-human-v3/customer-rosa-approved.blend",
+    "shared-human:resources/source/resources/approved-human-v3/native_actions.py": "inputs/shared-world-pose-v1/resources/source/resources/approved-human-v3/native_actions.py",
+    "shared-human:resources/source/resources/approved-human-v3/rig.json": "inputs/shared-world-pose-v1/resources/source/resources/approved-human-v3/rig.json",
+    "shared-human:resources/source/resources/original-library.blend": "inputs/shared-world-pose-v1/resources/source/resources/original-library.blend",
+    "shared-human:resources/source/round-04.blend": "inputs/shared-world-pose-v1/resources/source/round-04.blend",
+    "shared-human:root-adoption.json": "inputs/shared-world-pose-v1/root-adoption.json"
+  },
+  "consumerSamplingRevision": {
+    "inheritedBrief": "brief-v2-supported-ordering.json",
+    "inheritedBriefSHA256": "f7cc385c27b7eccc8b6bab727b0257c5b51c3c4949cd46f6e00614ff792b00ec",
+    "addendum": "inputs/consumer-native-sampling-addendum.json",
+    "addendumSHA256": "dff562892a9bf8c34993c17f08228703aab1e690f1e5dd8e2ae79333236c2961",
+    "scope": "Native filter.5 and intermediate-nearest common native composition; all prior physical/visible seam requirements unchanged."
+  },
+  "supersedes": {
+    "path": "brief-v3-native-sampling.json",
+    "sha256": "62ab23c69c337f5f84a42349f40562cce3330413fdbce4d8928c2093730ee713",
+    "reason": "Correct previously rejected representative human support/path evidence. Native floor/entry art, geometry, frames, registration, style, seam and sampling bars unchanged."
+  }
+}

@@ -1,0 +1,34 @@
+from pathlib import Path
+import json,hashlib,math
+p=Path('prototypes/sushi-loop/assets/refinement/objects/chef-ellis');cp=p/'candidates/round-05';out=p/'reviews/round-05-inspection'
+def read(f):return json.loads(f.read_text())
+def sha(f):return hashlib.sha256(f.read_bytes()).hexdigest()
+expected='abec422e883650f05bfe1dba21ad4e59e323d492e1d0a58ba1e13a70e8f25453';assert sha(cp/'packet.json')==expected
+pk=read(cp/'packet.json');records=[*pk['files'].values(),*pk['candidateRenders'].values(),*pk['previews'].values()];bad=[r['path'] for r in records if sha((cp/r['path']).resolve())!=r['sha256']];assert not bad
+assert sha(p/'reviews/criteria-v2-food.json')=='6019549319fe7b78d51daabd0d6ac3ffea635f8c0a9fdb2cdf4fd8b469897f55'
+assert read(cp/'delivery.snapshot.json')==read(p/'delivery-round05.json')
+oldpk=read(p/'candidates/round-04/packet.json');oldrecords=[*oldpk['files'].values(),*oldpk['candidateRenders'].values(),*oldpk['previews'].values()];oldbad=[r['path'] for r in oldrecords if sha((p/'candidates/round-04'/r['path']).resolve())!=r['sha256']];assert not oldbad
+receipts=[]
+for k in ['candidateResource:technical:approvedCanonicalSalmon','candidateResource:technical:approvedSalmonPacket','candidateResource:technical:approvedSalmonReview','candidateResource:technical:approvedBodyBaselinePacket','candidateResource:technical:approvedBodyBaselineReview','backup','originalProject']:
+ r=pk['files'][k];receipts.append({'role':k,'packetRelativePath':r['path'],'sha256':r['sha256'],'verified':sha((cp/r['path']).resolve())==r['sha256']})
+a=read(out/'candidate05-native-audit.json');b=read(out/'baseline04-native-audit.json');s=read(out/'independent-parity-summary.json');s['samples']['props']={'exact':all(x['props']==y['props'] for x,y in zip(a['samples'],b['samples'])),'differentSamples':[]};assert s['samples']['props']['exact']
+plane='chef_ellis__ground_root.001__held_dish-salmon__image_plane';food='chef_ellis__ground_root.001__held_dish-salmon';errs=[];offsets=[];widths=[];heights=[];loaddeltas=[]
+for row in a['samples']:
+ if row['clip'] in ['hold','load']:
+  m=row['props'][food]['matrix'];pm=row['props'][plane]['matrix'];palms=list(row['palms'].values());mid=[sum(v[j] for v in palms)/len(palms) for j in range(3)];pt=[m[j][3] for j in range(3)];errs.append(max(abs(pt[j]-mid[j]-(.0225 if j==2 else 0)) for j in range(3)));offsets.append([pm[j][3]-pt[j] for j in range(3)]);widths.append(math.sqrt(sum(pm[j][0]**2 for j in range(3)))*.2800000011920929);heights.append(math.sqrt(sum(pm[j][1]**2 for j in range(3)))*.19343365728855133)
+for d in ['N','E','S','W']:
+ rows=[r for r in a['samples'] if r['clip']=='load' and r['direction']==d];loaddeltas.append({'direction':d,'foodRootAndVisiblePlaneExactlyEqualFirstLast':all(rows[0]['props'][k]==rows[-1]['props'][k] for k in [food,plane]),'bodyBoneMatricesExactlyEqualFirstLast':rows[0]['boneMatrices']==rows[-1]['boneMatrices'],'dishVisibleAtBothEnds':all(rows[i]['props'][plane]['visible'] for i in [0,-1])})
+closures=[]
+for clip in ['idle','work','hold']:
+ for d in ['N','E','S','W']:
+  first=next(r for r in a['samples'] if r['clip']==clip and r['direction']==d and r['index']==0);last=a['closures'][clip+'-'+d];closures.append({'clip':clip,'direction':d,'boneMatricesExactFirstAnd13':first['boneMatrices']==last['boneMatrices'],'visiblePropsExactFirstAnd13':all(v==last['props'][k] for k,v in first['props'].items() if v['visible'])})
+s['closuresExactToApproved04']=a['closures']==b['closures'];s['contactAndFoodDisplay']={'visibleFoodSampleCount':len(errs),'maxFoodRootPalmMidpointPlus00225ZError':max(errs),'worldWidthRange':[min(widths),max(widths)],'worldHeightRange':[min(heights),max(heights)],'cameraRayBiasMagnitudeRange':[min(math.sqrt(sum(x*x for x in v)) for v in offsets),max(math.sqrt(sum(x*x for x in v)) for v in offsets)],'cameraRayBiasVectorsRounded6Decimals':sorted(set(tuple(round(x,6) for x in v) for v in offsets)),'loadEndpointChecks':loaddeltas};s['closures']=closures
+assert all(r['boneMatricesExactFirstAnd13'] and r['visiblePropsExactFirstAnd13'] for r in closures)
+assert max(errs)<1e-6 and all(r['foodRootAndVisiblePlaneExactlyEqualFirstLast'] and r['bodyBoneMatricesExactlyEqualFirstLast'] and r['dishVisibleAtBothEnds'] for r in loaddeltas)
+(out/'independent-parity-summary.json').write_text(json.dumps(s,indent=2)+'\n')
+frameRecords=read(cp/'native-frames.json');contacts=read(cp/'evaluated-contacts.json');assert len(frameRecords)==len(contacts)==192
+for rows in [frameRecords,contacts]:assert {(r['clip'],r['direction'],r['index']) for r in rows}=={(c,d,i) for c in ['idle','work','hold','load'] for d in ['N','E','S','W'] for i in range(12)}
+assert all(sha(p/r['path'])==r['sha256'] for r in frameRecords)
+pix=read(out/'pixel-verification.json');assert pix['failures']==[] and pix['atlasComparisons']==192 and pix['sheetCellComparisons']==576
+report={'candidatePacketSHA256':expected,'candidateProjectSHA256':sha(p/'source/round-05.blend'),'packetRecordsVerified':len(records),'packetGroups':{k:len(pk[k]) for k in ['files','candidateRenders','previews']},'hashMismatches':bad,'approved04PacketRecordsReverified':len(oldrecords),'approved04Mismatches':oldbad,'deliverySnapshotSemanticallyEqualsVersionedDelivery':True,'receipts':receipts,'nativeFrameAndContactRecords':192,'allFrameRecordHashesVerified':True,'nativeDependentTexture':{'path':'../../source/dependencies/round05/dish-salmon.png','exists':(p/'source/dependencies/round05/dish-salmon.png').is_file(),'sha256':sha(p/'source/dependencies/round05/dish-salmon.png')},'videoCount':len(pix['videos']),'videoMaxMeanRGBError':max(max(v['meanRGBErrorPerIndexedFrame']) for v in pix['videos']),'idleWorkMaxChannelDeltaToApproved04':max(r['maxRGBA'] for r in pix['idleWorkBodyPixelParity']),'idleWorkChangedPixelsRange':[min(r['changedPixels'] for r in pix['idleWorkBodyPixelParity']),max(r['changedPixels'] for r in pix['idleWorkBodyPixelParity'])],'closureMaxChannelDelta':max(r['maxRGBA'] for r in pix['closurePixels']),'closureChangedPixelRange':[min(r['pixels'] for r in pix['closurePixels']),max(r['pixels'] for r in pix['closurePixels'])],'browserPlaybackObserved':{'actualVideos':16,'readyState':4,'durationSeconds':1,'loopingIdleWorkHoldCount':12,'loadEndedPausedAtOneSecondCount':4,'index':'playback.html','method':'Chrome browser playback started with Play all from frame00; all 16 observed progressing, then 12 still playing and four load previews ended/paused at 1 second. Logical192x320 screenshot inspected. No browser-created files used as candidate evidence.'}}
+(out/'final-integrity-summary.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:report[k] for k in ['candidatePacketSHA256','packetRecordsVerified','packetGroups','hashMismatches','approved04Mismatches','videoMaxMeanRGBError','idleWorkMaxChannelDeltaToApproved04','closureMaxChannelDelta']},indent=2))

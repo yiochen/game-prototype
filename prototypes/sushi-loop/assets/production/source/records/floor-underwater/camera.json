@@ -9,13 +9,8 @@
     64
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
     "type": "orthographic",
     "worldMatrix": [
@@ -74,50 +69,45 @@
       1.2206555604934692,
       1.0
     ],
+    "orthoScale": 1.0,
+    "shift": [
+      0.0,
+      -1.9043711745325709e-06
+    ],
     "worldUnitsPerCell": 1,
     "elevationDegrees": 55.00797980144134
   },
   "calibration": {
     "root": [
-      256.0,
-      256.0
+      128.0,
+      128.0
     ],
     "unitX": [
-      512.0,
+      256.0,
       0.0
     ],
     "unitDepth": [
       0.0,
-      511.99993896484375
+      255.99996948242188
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.2000732421875
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+  "filterSize": 0.5,
+  "nativeFrame": [
+    256,
+    256
+  ],
+  "nativeMeasurement": {
+    "path": "candidates/round-01/native-camera.json",
+    "sha256": "8654571247c86abca1ab6efad00111a19502e4d6aa3f4dbe50f78f06999001f8",
+    "captureScale": 4,
+    "frame": [
+      512,
+      512
+    ]
   },
-  "name": "square top/front oblique"
+  "normalization": "Metadata unit conversion4x\u21922x matches the approved whole512\u2192256 LANCZOS. Camera matrix/projection/shift/aspect unchanged; no fitting or recapture at2x."
 }

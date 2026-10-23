@@ -1,0 +1,74 @@
+{
+  "asset": "backdrop-wall",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "bd5ac60709bd13ee7f8bec88fa98a715526121639c918ed39eb9e9055309e38a",
+  "targetSHA256": "4a71e6384b3393f1a5cf5787395d6098a761ebb5acdf92d2113a21ca7d3ccd13",
+  "criteriaVersion": 1,
+  "modelingPolicyVersion": 2,
+  "inspectedFiles": [
+    "static-S-000.png",
+    "four-view-sheet.png",
+    "repeated.png",
+    "background-sheet.png",
+    "native-joined.png",
+    "independent-assembled.png",
+    "entrance-join-strips.png",
+    "joined-logical.png",
+    "rgb-join-comparison.png",
+    "native-repeated-raw.png",
+    "independent-repeated-raw.png",
+    "native-joined-raw.png",
+    "independent-assembled-raw.png",
+    "reopened-S.png"
+  ],
+  "inspectionNotes": "Inspected every required native render and preview. The background-sheet and four-view-sheet are byte-identical, verified by SHA-256, so their common pixels were inspected once. Inspected the standalone at native size and logical 192-by-448 on light, gray and dark backgrounds; inspected repetition and both entrance joins in native and logical previews and raw images. Independently generated temporary nearest-neighbor RGB/alpha seam strips from the hash-verified raw native and sprite assemblies for enlarged inspection. Did not alter candidate files or entrance dependencies.",
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The native redesign materially improves the original flat wall: canopy tiles now have curved sections, softened thickness and visible edge responses; a coherent chamfered molding frames the wall field; paired capital/support blocks provide a deliberate eave detail; and the low wood base has a readable recessed panel.",
+    "These additions survive at logical size as clear architectural forms. They improve the wall's design without filling the background with small decorations or making it compete with the entrance. Original blankness and part counts were not treated as constraints.",
+    "Blue canopy, ochre field and honey wood remain distinct. The softer blue highlights and warm timber bevels give the asset more volume than the original. The quieter field remains a useful material and compositional rest area rather than a black or muddy dead spot.",
+    "Illumination is balanced across corresponding left/right trim and supports. Broad highlights describe canopy and wood geometry without glaring white streaks, global horizontal shading ramps or directional ground shadows.",
+    "Three-wall repetition is coherent in both connected geometry and independent native PNG assembly. Molding and lower-panel repetition reads as deliberate bays; it does not create double-width border posts or exposed terminal caps. The horizontal canopy, fascia and baseboard bands continue across module boundaries.",
+    "Both wall-to-entrance connections preserve continuous field color and band heights. The wall canopy's more curved interior forms transition to the unchanged entrance canopy as a controlled modeling difference; the protected end planes and canopy cadence remain aligned.",
+    "No material alpha gap, halo, isolated fragment, clipping, black overlap patch or broken corner is visible in the required standalone and connection evidence. Native versus independently assembled differences are confined largely to small edge/shading responses and sampling; neither assembly shows a visible structural or color seam at intended size."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed concept has a more bulbous/scalloped canopy, cream accent, brighter golden plaster, larger decorative supports and a taller ornamented base. The native candidate adapts these ideas to the fixed original envelope, protected band heights and approved family palette rather than copying them literally.",
+    "The wall field and wood remain smoother and less textured than the concept's plaster flecks and grain. This quieter finish is accepted because the structural details remain readable, material separation is clear and the result fits the frozen entrance family.",
+    "The concept's target fringe, loose alpha pixels and different canvas padding are intentionally absent."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": "Independently recomputed the packet SHA-256 and verified every record in files, candidateRenders and previews against its declared hash: 53 file records plus required render/preview records, with no mismatches or missing files.",
+    "sourceAndTarget": "The packet binds original source and backup SHA-256 927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05, fixed v2 target, frozen brief and family settings. Approval is for this candidate only.",
+    "nativeSourceInspection": "Opened source/round-01.blend in a disposable background Blender process without saving. The active Warm Soft Backdrop Wall scene exposes the intended wall collection with 31 native meshes, no images and no linked libraries. The bound validation reports 11,958 evaluated vertices and zero nonmanifold edges, boundary edges or degenerate faces.",
+    "registrationMeasured": {
+      "nativeFrame": [576, 1344],
+      "logicalFrame": [192, 448],
+      "sourceScale": 3,
+      "pixelAspect": [1, 1],
+      "fps": 12,
+      "camera": "ORTHO, original 35-degree world transform, HORIZONTAL sensor fit, ortho_scale 1.5 and shift_y 0.8088066577911377",
+      "frontContactNativePixels": [288.0, 1248.0003662109375],
+      "pixelBasisX": [383.9999771118164, 0.0],
+      "pixelBasisZ": [0.0, -314.55443572998047],
+      "rootPhase": "S, root rotation zero and identity root matrix. Front contact is (0,-0.5,0); the native origin is explicitly separate from the registration point."
+    },
+    "envelopeAndProfiles": "Independently measured evaluated bounds [-0.5,-0.784500002861023,0] to [0.5,0.699999988079071,3.2280924320220947], matching the source envelope. Bound validation contains original/candidate protected profiles and frozen family comparisons: all exact YZ checks and all family compatibility checks pass. New details remain inside the module, and the roof retains four-segment-per-unit cadence.",
+    "familySettings": "Bound family settings SHA-256 f40d571a2620d1ed82bcb59aa29b4d917fd16335baef75fa85df578af12588ff. Serialized shared world, lights and all 11 used shared materials compare equal to the frozen settings. Actual reopened source confirms Cycles GPU, 256 samples, denoising off, Cycles BOX filter width 1.0, transparent rendering and the x-neutral infinite SUN with shadows disabled. No external image texture or linked resource is required.",
+    "entranceDependency": "Both native and sprite context use the unchanged bound entrance-native.blend SHA-256 0f0bc376521da752d75893a358d097f54940e0d4908e2da09baab01ec3224151 and approved entrance sprite SHA-256 208c58d36f4862a8e78d3e51b12f8deb6fdaca8f9a456d0a045aa66bbb88a32d. These were treated as technical family dependencies, not re-reviewed or edited.",
+    "independentAssembly": "Independently reconstructed the 4416-by-1344 sprite context from the exact wall and entrance PNGs at integer placements and 384 native pixels per tile. The reconstruction matches independent-assembled-raw.png pixel-for-pixel. No fitting, scaling, overlap correction, seam painting or registration repair is needed.",
+    "independentSeamMeasurements": "Measured both raw native and independent sprite assemblies at x=480 (wall repeat), x=1248 (left entrance) and x=2784 (right entrance). Across canopy y175:405, fascia y460:495, field y650:1080 and baseboard y1168:1235, every sampled seam alpha is 255. Mean absolute adjacent RGB jumps range from approximately 0.37 to 1.67 code values; the maximum is 7. Enlarged RGB/alpha strips show no material join defect.",
+    "nativeVersusSprite": "Across 4,857,063 mutually opaque joined-context pixels, 99 percent have maximum per-pixel channel difference at most 6; the maximum is 48 at native coordinate (1245,410), near a canopy edge response. Only 4,361 pixels exceed 16. Directly inspected raw/context and join images show no material mismatch at logical size.",
+    "reopenedRender": "Bound reopened proof has no linked libraries or images and confirms the correct scene/collection. The reopened S render differs from the primary native export by at most one 8-bit code value in six channels, consistent with the supplied reproducibility tolerance. The atlas/static-S alias is byte-identical to the reviewed primary export.",
+    "rasterAndScope": "Bound raster audit records clear outer gutters, alpha bounds [95,96,481,1249] and zero isolated alpha pixels. The reviewed candidate is confined to this wall object; no excluded restaurant floor design is part of the redesign.",
+    "limits": "Review does not authorize edits, re-rendering after approval, changes to the approved entrance or publishing beyond the coordinator's already authorized scope. Promote only exact approved candidate bytes and their bound metadata."
+  }
+}

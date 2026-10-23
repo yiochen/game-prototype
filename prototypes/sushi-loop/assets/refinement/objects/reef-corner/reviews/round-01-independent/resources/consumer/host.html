@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>Independent reef-corner consumer control</title>
+<style>html,body{margin:0;padding:0;overflow:hidden}#stage{position:relative;overflow:hidden}#world{position:absolute;left:0;top:0;transform-origin:0 0}canvas{position:absolute;image-rendering:auto}</style>
+<div id="stage"><div id="world"><canvas id="raster"></canvas></div></div>
+<script type="module">
+import {worldRasterPlan,paintWorldRaster} from './world-sprite-raster.js';
+import {spriteFrame,groundRoot,orderPlacements} from './sprite-layout.js';
+const D=['S','E','N','W'],candidate='../../../../candidates/round-01/';
+const objects=['reef-corner','reef-middle'].map(id=>({id,kind:'terrain',layer:2,frameSize:[192,352],root:[96,248],sourceScale:2,rootCell:[.5,.5],footprint:[1,1],clips:[{id:'static',frames:1,fps:12,loop:false,static:true,directions:Object.fromEntries(D.map(d=>[d,{image:candidate+(id==='reef-corner'?`frames/static/${d}/000.png`:`canonical/static-${d}.png`),rects:[[0,0,384,704]],columns:1,rows:1}]))}]}));
+const cache=new Map();async function load(url){if(!cache.has(url)){const im=new Image();im.src=url;await im.decode();cache.set(url,im);}return cache.get(url);}
+window.capture=async settings=>{
+ const {direction,size,root,pan,background,control}=settings,index=D.indexOf(direction),a=({S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2})[direction];
+ const placements=[{object:'reef-corner',x:2,y:2,direction},{object:'reef-middle',x:2-Math.cos(a),y:2+Math.sin(a),direction},{object:'reef-middle',x:2-Math.sin(a),y:2-Math.cos(a),direction:D[(index+1)%4]}].map(x=>({...x,offset:[root,root]}));
+ const ordered=orderPlacements(placements,objects);
+ const individual=ordered.map(x=>{const object=objects.find(y=>y.id===x.object),frame=spriteFrame(object,object.clips[0],x.direction,0),r=groundRoot(x,object,128);return {url:frame.image,rect:frame.rect,x:r[0]-frame.root[0],y:r[1]-frame.root[1],width:frame.frameSize[0],height:frame.frameSize[1],placement:x};});
+ const sprites=control==='native'?[{url:`../../evidence/native/two-port-${direction}.png`,rect:[0,0,896,1216],x:96+root,y:-56+root,width:448,height:608}]:individual;
+ const plan=worldRasterPlan(sprites,[96,-56,448,608]),images=await Promise.all(sprites.map(x=>load(x.url))),canvas=document.getElementById('raster');paintWorldRaster(canvas,plan,images);
+ canvas.style.left=(plan.x-96)+'px';canvas.style.top=(plan.y+56)+'px';canvas.style.width=(plan.width/plan.scale)+'px';canvas.style.height=(plan.height/plan.scale)+'px';
+ const stage=document.getElementById('stage'),world=document.getElementById('world'),scale=size/128;stage.style.width=448*scale+'px';stage.style.height=608*scale+'px';stage.style.background=background;world.style.transform=`translate(${pan*scale}px,${pan*scale}px) scale(${scale})`;
+ await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ return {settings,placements,ordered,sprites,plan,dpr:devicePixelRatio,raw:canvas.toDataURL('image/png'),css:{world:world.style.transform,computed:getComputedStyle(world).transform,left:canvas.style.left,top:canvas.style.top,width:canvas.style.width,height:canvas.style.height,stage:stage.getBoundingClientRect().toJSON()}};
+};window.ready=true;
+</script>

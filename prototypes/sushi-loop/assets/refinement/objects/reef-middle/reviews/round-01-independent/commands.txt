@@ -1,0 +1,13 @@
+Drivers and copied native source/consumer modules were saved before execution. Runtime versions and browser child argv were recorded during actual execution. Commands below are exact invocations from the task tool-call context.
+
+CWD: /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype
+
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --factory-startup --python prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/reopen_audit.py > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/reopen.log 2>&1
+
+DEBUG=pw:browser node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/independent_consumer_replay.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/browser-launch.log 2>&1
+
+PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/analyze_native.py
+
+PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/round-01-independent/consumer_and_coverage.py
+
+Final acceptance invocation is retained separately in final-gate.json after the final review hash; it may not rewrite this review.

@@ -1,0 +1,16 @@
+00:00.301  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-collector-inlet/reviews/preparation/resources/frozen-main-v1/project.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-collector-inlet/reviews/preparation/mounted_source.py", line 25, in <module>
+    A.apply_clip({'root':root,'collection':col},rig,'idle',1,'S',s)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-collector-inlet/reviews/preparation/resources/19-native_actions.py", line 459, in apply_clip
+    objects=_all_objects(asset);nodes=_node_sockets(objects);shapes=_shape_meshes(objects)
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-collector-inlet/reviews/preparation/resources/19-native_actions.py", line 78, in _all_objects
+    if obj.parent and obj.parent not in objects:raise ValueError('Foreign parent dependency: '+obj.name)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Foreign parent dependency: collector_inlet__root.001
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

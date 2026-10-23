@@ -1,0 +1,9 @@
+Sushi Loop consumer browser configurations
+
+Use @playwright/test from this worktree with these two headless launch modes:
+  Full Chromium: chromium.launch({headless:true, channel:'chromium'})
+  Bundled headless shell: chromium.launch({headless:true})
+Record actual browser versions, launch options, DPR, viewport and helper hashes.
+Both configurations can run while the native Mac desktop is locked. They do not require CUA, a desktop screenshot, or a foreground Chrome window.
+Use your own exact fixture/candidate and retain both browser outputs. Independently composed native canvases and browser CSS screenshots are different evidence layers; report actual differences honestly. A pass in one mode does not establish the other, because earlier fractional raster seams differed by browser configuration.
+Technical example only: objects/rock-shelf-edge/source/capture-consumer.mjs. Do not copy another object's aesthetic verdict or substitute its media for your candidate.

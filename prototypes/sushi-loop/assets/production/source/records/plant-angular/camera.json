@@ -9,7 +9,7 @@
     288
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -79,45 +79,119 @@
   },
   "calibration": {
     "root": [
-      384.0,
-      1152.0
+      192.0,
+      576.0
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      512.0
+      255.99999618530273
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.20008087158203
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
+    "revision": "plant-angular-warm-round02",
+    "style": "Warm softly lit cartoon",
+    "lighting": {
+      "worldShader": "absolute world normal Z only; horizontally invariant",
+      "worldDiffuseStrength": 0.66,
+      "worldReflectionStrength": 1.35,
+      "sunType": "SUN",
+      "sunRotation": [
+        0.0,
+        0.0,
+        0.0
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+      "sunEnergy": 1.7999999523162842,
+      "sunAngle": 1.0499999523162842,
+      "groundPlane": false,
+      "receiverMeshCount": 0
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "renderSettings": {
+      "engine": "CYCLES",
+      "samples": 72,
+      "denoising": true,
+      "seed": 213,
+      "animatedSeed": false,
+      "RGBA": true,
+      "transparentFilm": true,
+      "perViewFit": false,
+      "perViewRecolor": false,
+      "postprocess": "none; native compositor retained from editable input",
+      "pixelFormat": "8-bit RGBA PNG"
+    }
   },
-  "name": "square top/front oblique"
+  "name": "square top/front oblique",
+  "nativeFrame": [
+    384,
+    768
+  ],
+  "nativeRoot": [
+    192,
+    576
+  ],
+  "nativeRegistration": {
+    "frame": [
+      384,
+      768
+    ],
+    "root": [
+      192.0,
+      576.0
+    ],
+    "unitX": [
+      447.99998474121094,
+      576.0
+    ],
+    "unitDepth": [
+      192.0,
+      831.9999961853027
+    ],
+    "unitHeight": [
+      192.0,
+      396.79991912841797
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "cameraMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8192318081855774,
+        -0.5734625458717346,
+        -5.734623432159424
+      ],
+      [
+        0.0,
+        0.5734625458717346,
+        0.8192318081855774,
+        8.1923189163208
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.4096146523952484
+    ]
+  },
+  "sourceCaptureScale": 2
 }

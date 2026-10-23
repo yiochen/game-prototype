@@ -1,0 +1,476 @@
+{
+  "asset": "garbage-shelving",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "sha256": "d9c243399f96332631baaa712fc1d8bb597b4bcbfa2253b2b963858f5265b08f",
+    "provenance": "imagegen-builtin",
+    "references": [
+      {
+        "role": "concept-edit-source",
+        "path": "inputs/target-v1.png",
+        "sha256": "b0339cc9605b4fe8bbdb6ba67696f8752e5aa508803946f80d97581db9a01b2a"
+      }
+    ],
+    "interpretation": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints.",
+    "prompt": "inputs/imagegen-prompt.txt",
+    "generationChain": [
+      {
+        "stage": "initial-design",
+        "image": "inputs/target-v1.png",
+        "prompt": "inputs/imagegen-prompt-v1.txt",
+        "references": [
+          {
+            "role": "native-edit-source",
+            "path": "inputs/original.png",
+            "sha256": "2bdb41e1c9ac53f08085509658e054da5ba709284a6f047a492bbf245460d195"
+          },
+          {
+            "role": "style-only",
+            "path": "../../style/warm-soft-reference.png",
+            "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+          }
+        ]
+      },
+      {
+        "stage": "background-correction-edit",
+        "image": "inputs/target.png",
+        "prompt": "inputs/imagegen-prompt.txt",
+        "references": [
+          {
+            "role": "concept-edit-source",
+            "path": "inputs/target-v1.png",
+            "sha256": "b0339cc9605b4fe8bbdb6ba67696f8752e5aa508803946f80d97581db9a01b2a"
+          }
+        ]
+      }
+    ],
+    "knownArtifacts": "Both design iterations retained exterior amber halo despite requested transparency. Target is a modeling/material reference only. Do not reproduce halo, background, castshadow or framing drift in native exports; technical alpha/camera/root remain original contract."
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      896,
+      1344
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "highlighted-N",
+      "highlighted-E",
+      "highlighted-S",
+      "highlighted-W",
+      "clearance-N",
+      "clearance-E",
+      "clearance-S",
+      "clearance-W"
+    ],
+    "logicalFrame": [
+      448,
+      672
+    ],
+    "logicalRoot": [
+      224,
+      448
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "constraints": {
+    "preserve": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "designFreedom": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "obstacleContract": {
+      "footprint": [
+        2,
+        2
+      ],
+      "nominalHeight": 1.68,
+      "nativeFrame": [
+        896,
+        1344
+      ],
+      "logicalFrame": [
+        448,
+        672
+      ],
+      "logicalRoot": [
+        224,
+        448
+      ],
+      "originalStates": "idle1 + highlighted12(loop) + clearance12(nonloop),all4actualpublisherfacings=100nativeframes",
+      "capture": "Registered55.00798degree orthographic square-grid camera/pixelaspect1.22065556,sourceScale2,actualS0/E90/N180/W-90; preserve authored source action/clearance envelope",
+      "modelingFreedom": "Build improved crafted/broken shelving native geometry,roundedwornplanks/sagging/boxes/fasteners; original count notconstraint. Keep discardedrole, honeywoodpalette,envelope and original animationcontacts. No paintedtargetcard."
+    }
+  },
+  "qualityCriteria": {
+    "status": "frozen",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "bdc70d2b8aea70b4bdb7e77e5af1ae75472899f31b0c5d6fff52c0f91c7614b6",
+    "judgeProposal": {
+      "schemaVersion": 1,
+      "asset": "garbage-shelving",
+      "stage": "independently-proposed-not-frozen",
+      "candidateVerdict": null,
+      "targetSHA256": "d9c243399f96332631baaa712fc1d8bb597b4bcbfa2253b2b963858f5265b08f",
+      "definitionOfGood": "A crafted, worn wooden shelving obstacle in warm softly lit cartoon3D, with more readable construction and useful purposeful detail than the source, inside the frozen spatial/contact/capture/animation contract.",
+      "sourceCountsAreNotLocks": true,
+      "singleViewTargetIsNotUnseenViewSpecification": true,
+      "rankedVisibleOutcomes": [
+        {
+          "rank": 1,
+          "category": "shapeVolume",
+          "desired": "The shelving reads as a heavy worn wooden assembly with a clear upper surface, load-bearing uprights/bracing, separated sagging shelf tiers and stored boxes. Rounded worn edges, chips, splitting planks and plausible joins improve the original plain box slabs. The detached board remains visibly related to the failed assembly.",
+          "evidenceOfSuccess": "At full native, logical448x672 and phone224x336, the top resolves as constructed wood rather than one blank golden rectangle; the shelf apertures and front/back/side volumes remain distinct. Useful native reconstruction is rewarded.",
+          "avoid": "Do not prescribe3topplanks,4old shelves,6boxes,18meshes or exact scratches. Do not make a clean new retail cabinet, remove the loose-board role or expand supports to achieve a target-sized screen silhouette."
+        },
+        {
+          "rank": 2,
+          "category": "materialDetail",
+          "desired": "Broad natural-looking stylized wood grain, worn corner breaks and a few coherent fasteners/join cues provide crafted scale; box folds, tape or simple seams distinguish stored contents from the frame. New detail has depth or surface continuity appropriate to the object.",
+          "evidenceOfSuccess": "A small set of stable cues survives phone size, with larger readable planes at logical size; close views show deliberate finish. Back and sides carry coherent construction, and moving details remain attached to their carriers.",
+          "avoid": "No wallpaper-like repeated grain, noisy high-frequency scratch coverage, floating bolts, penetrating tape, flat target billboards or details that flicker/swim through clearance."
+        },
+        {
+          "rank": 3,
+          "category": "color",
+          "desired": "Honey/ochre wood in the original warm brown family, brighter crown and warm mids with grounded darker cavities. Olive/tan/brown boxes and restrained dark metal accents separate functions.",
+          "evidenceOfSuccess": "Looks warmer and richer than the original muted ochre blocks without flattening wood, boxes and voids into one orange mass. Distinction survives neutral and dark backgrounds and phone scale.",
+          "avoid": "Do not copy exterior amber haze, black background, neon orange saturation or full-frame target grade. Exact target RGB values are not locks."
+        },
+        {
+          "rank": 4,
+          "category": "lightingHighlights",
+          "desired": "Soft broad highlight rolloff and rounded/faceted edge definition reveal thickness, sag and chips. Shelf cavities retain readable warm midtones. Lighting is balanced under quarter turns.",
+          "evidenceOfSuccess": "Every facing carries soft form cues with no systematic left/right preferred key or dark unseen side. The large upper plane has visible soft volume; highlights support wood edges without white wire outlines.",
+          "avoid": "No directional ground shadow, dark lower cabinet dead band, clipped white edges, harsh black AO, unearned emissive glow or an exterior alpha halo."
+        },
+        {
+          "rank": 5,
+          "category": "artifactFreeReadability",
+          "desired": "Clean coherent silhouette and native surfaces across all100frames. Apertures, shelf ends, support contacts and loose pieces stay readable; designed damage remains distinguishable from defects.",
+          "evidenceOfSuccess": "No coplanar shimmer, black seams, accidental pinholes, bevel blowouts, geometry collisions, clipping, detached additions or fuzzy fringe against light/gray/dark. Temporal playback retains source mechanics with no frame fit drift.",
+          "avoid": "Do not reject intentional worn wood notches or clearance scatter simply because it differs from idle; do not accept abrupt raw intersections as damage."
+        }
+      ],
+      "comparativeScoring": {
+        "dimensions": [
+          "shapeVolume",
+          "color",
+          "lightingHighlights",
+          "materialDetail",
+          "artifactFreeReadability"
+        ],
+        "use": "Comparative observations only; no universal numeric approval threshold. Technical success cannot substitute for useful visible improvement."
+      },
+      "technicalContractReference": "source-contract-proposal.json, to be reconciled and frozen by root before editor submission",
+      "laterCandidateEvidenceRequired": {
+        "nativeSource": "Hash-bound editable round-NN.blend, recipe/capture settings and closed resources. Fresh background reproduction required; no card/image warping or target paint substitute.",
+        "captures": "All100RGBA896x1344frames:idle1,highlighted12,clearance12 forN,E,S,W; camera/root/basis/bounds/contacts/material/visibility/action validation at each phase plus native highlighted closure13diagnostic.",
+        "atlases": "Original layout per facing:idle896x1344;highlighted andclearance5376x2688,6columns2rows,no gutters,frameOrder0..11. No subject fitting. Bind individual-frame and atlas hashes.",
+        "staticViews": "Four-facing registered sheets at native, logical448x672 and phone224x336; enlarged detail crops may supplement but must not replace registered sheets. Light warm gray235,231,219; middle gray118,118,118; dark27,34,41 or equivalent documented backgrounds.",
+        "humanContext": "Use the catalog interaction:garbage-shelving atgrid0,0 andchef-lena idle at3,0 in a5x3context. Repeat forfourfacings with one consistent registration/scale and frozen chef reference. No subject fitting.",
+        "repeatedContext": "At least a2x2set of whole assemblies on2-cell centers plus a one-cell-gap row; show masks/roots and unannotated views. Inspect touching stationary placement, directional consistency and transient clearance overlap separately. No per-cell debris stamps.",
+        "floorReveal": "Registered floor-cream context with support2x2mask outlined separately:idle,clearance all12 at12fps, lastframe fragment hold and an explicitly separate after-removal clean-floor image. The excluded floor design remains untouched and must show through actual transparency.",
+        "temporal": "Actual12fpsplayback forhighlighted loop andclearance one shot inallfourfacings atlogical/phone scale, using whole registered frame. Include original/candidate synchronized comparison, a one-shot hold/restart, closure diagnostic, and per-phase contact sheets so every frame can be inspected.",
+        "technicalResourceClosure": "List every native owner/action, external texture/library, shader/nodegroup and capture helper; hashes and no foreign dependencies; source integrity and candidate immutable packet. Material alpha/visibility and source group mapping must prove mechanical parity without topology/count locks.",
+        "packet": "Use candidate_packet helper or equivalent sealed SHA256 packet. Include allrender/atlas/preview/evidence files actually reviewed. Any missing view/phase/contract evidence yields needs_evidence at candidate stage."
+      },
+      "acceptanceBoundaries": [
+        "No candidate has been supplied or judged. This proposal grants no approval.",
+        "Root must resolve uncertainties and freezecriteria before an editor submits.",
+        "The reference halo, target registration drift and unseen target directions are not aesthetic requirements.",
+        "No topology, oldpartcount or exact oldblankshape fidelity criterion.",
+        "Actual source idle and transient envelopes, four support stations, root/camera and motion semantics remain enforceable after reconciliation."
+      ]
+    },
+    "sourceContractFile": "reviews/source-contract-proposal.json",
+    "sourceContractSHA256": "257090fd4bec8d621f09f1de3c6758d3163d53ca299c909ab291263d86f096c8",
+    "coordinatorResolution": {
+      "capture": "Adopt the actual asset camera: native896x1344, logical448x672/root224,448, sourceScale2,128logicalpx/cell, orthographic55.0079798deg/ortho3.5/shiftY.2048074454/pixelAspect1.22065556. Historical scale4/1792x2688 records are provenance. Save native direct scale2 captures and truthful current records; do not fit/crop/recolor by view. Adopt proposed native camera/root/basis tolerances and8nativepixel border.",
+      "placement": "The actual catalog/root source2x2 mask with rootCell[1,1] and four occupied/support cells is authoritative. Generic registered-guide occupiedCells[[0,0]] is inconsistent metadata, not permission to shrink this obstacle. Preserve root/world scale and no declared ports/sockets. Four support stations are semantic regions, not four required mesh objects.",
+      "idleAndHighlighted": "Adopt root-local idle XY within[-1,1]x[-1,1],Z[-.002,1.6801], substantial main-body width1.90..1.999world. This is functional capacity, not an old silhouette/per-vertex lock or requirement to fill blank space. Native per-part highlighted pulse may extend XY to+/-1.008 and Z to1.694, with minimum-.009; inspect every phase and closure. Target framing has no registration authority.",
+      "contacts": "Preserve four semantic support regions near(-.91,+/-.36) and(.85,+/-.36) with XY tolerance.03world. Require idle support/ground-piece surfaces to approach actual ground0 within.002world and no visible floating or intersection; continuous supports may satisfy the same regions. Loose-board/debris contact-region XY tolerance.05world. Source small hover gaps are not locks. Do not move the whole root/camera to correct them; new native geometry can improve contact. The.002 contact band is for idle; highlighted inherits source0.8percent scaling about native carrier centers, so a grounded upright may dip a few thousandths below0. This deliberate inherited pulse is bounded by highlighted minZ-.009, visually inspected and not corrected by root/camera motion. The initial tighter highlighted bound was corrected before any editor dispatch; prior freeze is retained in inputs/brief-first-native-freeze.json.",
+      "motion": "Preserve original per-part +/-0.8percent scale pulse,12frames/12fps/loop and authored key13 closure. No tint/shader/opacity animation or root bob substitute. Clearance is opaque radial scatter/lift/signed yaw/shrink,t=i/11, ending with visible.1scale fragments, then separate consumer removal. Original idle height/mask does not cap transient motion. All100 frames and inbetween native checks required.",
+      "mapping": "Declare semantic source-role-to-new-native-carrier mapping BEFORE construction. Source18meshes/54actions/144vertices/6materials are provenance, not topology/count locks. Primary distinct motion roles must retain their source phase/timing/trajectories; new or minor crafted detail can inherit appropriate semantic carriers. Do not silently regenerate choreography from a new part enumeration or collapse it to an assembly-scale/fade. Copied native carrier keys tolerance1e-5; measured primary equivalent paths within.002world/.002rad/.001scale, highlighted multiplier.0005 and native closure1e-6.",
+      "transientEnvelope": "Adopt source clearance UNION plus.03world outward per side, rotated with root: S min[-1.566082864,-1.555552869,-.002],max[1.563991098,1.250407248,2.277417688]. Record every actual phase against source and explain native design deltas. This is not a per-phase old geometry bbox/silhouette lock; no new unexplained timing/drift or frame clipping. Preserve intended mechanical behavior and functional contacts.",
+      "materials": "Improve native form/wood/box/metal materials, normal/bevel/light/compositor if useful. Preserve opaque component semantics and static authored visibility; no invented fade. Same horizontally balanced solution for all views, no directional ground shadow/receiver, amber halo, target card, paintover or frame fitting. Native unused old UVs/material counts are not locks.",
+      "evidence": "Adopt all100 native complete RGBA frames and12 exact original-layout atlases; all8 actual12fps moving streams,>=3highlight wraps, clearance one-shot/finalhold, native key13closure and source/candidate synchronized comparison. Inspect native/logical448x672/half224x336 plus actual55pxcell consumer scaling, all phases on light/gray/dark, all4facings registered literal catalog human placement, all4facings2x2fixed-root repeated and gap contexts, before/during/terminal/after-removal floor reveal, exposed underside/contact. Preserve excluded floor bytes. Bind all native records/phase ledgers/resources/failed drafts. Use immutable saved native action cohorts; current helper files differ from historical source and must not be claimed identical. No universal rerender PNG identity assumption."
+    }
+  },
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "idle",
+        "sourceClipId": "idle",
+        "name": "Idle",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false,
+        "frameOrder": [
+          0
+        ]
+      },
+      {
+        "id": "highlighted",
+        "sourceClipId": "highlighted",
+        "name": "Highlighted",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "clearance",
+        "sourceClipId": "clearance",
+        "name": "Clearance",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "modelingPolicy": {
+    "version": 2,
+    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
+    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "allowed": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "locked": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "initial-source:initial.json": "reviews/initial.json",
+    "initial-source:proposedcriteria.json": "reviews/proposedcriteria.json",
+    "initial-source:source-audit/analyze_native.py": "reviews/source-audit/analyze_native.py",
+    "initial-source:source-audit/audit_contacts.py": "reviews/source-audit/audit_contacts.py",
+    "initial-source:source-audit/audit_source.py": "reviews/source-audit/audit_source.py",
+    "initial-source:source-audit/blender-audit.log": "reviews/source-audit/blender-audit.log",
+    "initial-source:source-audit/blender-contacts.log": "reviews/source-audit/blender-contacts.log",
+    "initial-source:source-audit/contacts-shaders-resources.json": "reviews/source-audit/contacts-shaders-resources.json",
+    "initial-source:source-audit/evidence-manifest.json": "reviews/source-audit/evidence-manifest.json",
+    "initial-source:source-audit/motion-mechanism-measurements.json": "reviews/source-audit/motion-mechanism-measurements.json",
+    "initial-source:source-audit/native-audit.json": "reviews/source-audit/native-audit.json",
+    "initial-source:source-audit/native-clearance-E-all12.png": "reviews/source-audit/native-clearance-E-all12.png",
+    "initial-source:source-audit/native-clearance-N-all12.png": "reviews/source-audit/native-clearance-N-all12.png",
+    "initial-source:source-audit/native-clearance-S-all12.png": "reviews/source-audit/native-clearance-S-all12.png",
+    "initial-source:source-audit/native-clearance-W-all12.png": "reviews/source-audit/native-clearance-W-all12.png",
+    "initial-source:source-audit/native-highlighted-E-all12.png": "reviews/source-audit/native-highlighted-E-all12.png",
+    "initial-source:source-audit/native-highlighted-N-all12.png": "reviews/source-audit/native-highlighted-N-all12.png",
+    "initial-source:source-audit/native-highlighted-S-all12.png": "reviews/source-audit/native-highlighted-S-all12.png",
+    "initial-source:source-audit/native-highlighted-W-all12.png": "reviews/source-audit/native-highlighted-W-all12.png",
+    "initial-source:source-audit/native-idle-four-facing.png": "reviews/source-audit/native-idle-four-facing.png",
+    "initial-source:source-audit/native-original/clearance-E/000.png": "reviews/source-audit/native-original/clearance-E/000.png",
+    "initial-source:source-audit/native-original/clearance-E/001.png": "reviews/source-audit/native-original/clearance-E/001.png",
+    "initial-source:source-audit/native-original/clearance-E/002.png": "reviews/source-audit/native-original/clearance-E/002.png",
+    "initial-source:source-audit/native-original/clearance-E/003.png": "reviews/source-audit/native-original/clearance-E/003.png",
+    "initial-source:source-audit/native-original/clearance-E/004.png": "reviews/source-audit/native-original/clearance-E/004.png",
+    "initial-source:source-audit/native-original/clearance-E/005.png": "reviews/source-audit/native-original/clearance-E/005.png",
+    "initial-source:source-audit/native-original/clearance-E/006.png": "reviews/source-audit/native-original/clearance-E/006.png",
+    "initial-source:source-audit/native-original/clearance-E/007.png": "reviews/source-audit/native-original/clearance-E/007.png",
+    "initial-source:source-audit/native-original/clearance-E/008.png": "reviews/source-audit/native-original/clearance-E/008.png",
+    "initial-source:source-audit/native-original/clearance-E/009.png": "reviews/source-audit/native-original/clearance-E/009.png",
+    "initial-source:source-audit/native-original/clearance-E/010.png": "reviews/source-audit/native-original/clearance-E/010.png",
+    "initial-source:source-audit/native-original/clearance-E/011.png": "reviews/source-audit/native-original/clearance-E/011.png",
+    "initial-source:source-audit/native-original/clearance-N/000.png": "reviews/source-audit/native-original/clearance-N/000.png",
+    "initial-source:source-audit/native-original/clearance-N/001.png": "reviews/source-audit/native-original/clearance-N/001.png",
+    "initial-source:source-audit/native-original/clearance-N/002.png": "reviews/source-audit/native-original/clearance-N/002.png",
+    "initial-source:source-audit/native-original/clearance-N/003.png": "reviews/source-audit/native-original/clearance-N/003.png",
+    "initial-source:source-audit/native-original/clearance-N/004.png": "reviews/source-audit/native-original/clearance-N/004.png",
+    "initial-source:source-audit/native-original/clearance-N/005.png": "reviews/source-audit/native-original/clearance-N/005.png",
+    "initial-source:source-audit/native-original/clearance-N/006.png": "reviews/source-audit/native-original/clearance-N/006.png",
+    "initial-source:source-audit/native-original/clearance-N/007.png": "reviews/source-audit/native-original/clearance-N/007.png",
+    "initial-source:source-audit/native-original/clearance-N/008.png": "reviews/source-audit/native-original/clearance-N/008.png",
+    "initial-source:source-audit/native-original/clearance-N/009.png": "reviews/source-audit/native-original/clearance-N/009.png",
+    "initial-source:source-audit/native-original/clearance-N/010.png": "reviews/source-audit/native-original/clearance-N/010.png",
+    "initial-source:source-audit/native-original/clearance-N/011.png": "reviews/source-audit/native-original/clearance-N/011.png",
+    "initial-source:source-audit/native-original/clearance-S/000.png": "reviews/source-audit/native-original/clearance-S/000.png",
+    "initial-source:source-audit/native-original/clearance-S/001.png": "reviews/source-audit/native-original/clearance-S/001.png",
+    "initial-source:source-audit/native-original/clearance-S/002.png": "reviews/source-audit/native-original/clearance-S/002.png",
+    "initial-source:source-audit/native-original/clearance-S/003.png": "reviews/source-audit/native-original/clearance-S/003.png",
+    "initial-source:source-audit/native-original/clearance-S/004.png": "reviews/source-audit/native-original/clearance-S/004.png",
+    "initial-source:source-audit/native-original/clearance-S/005.png": "reviews/source-audit/native-original/clearance-S/005.png",
+    "initial-source:source-audit/native-original/clearance-S/006.png": "reviews/source-audit/native-original/clearance-S/006.png",
+    "initial-source:source-audit/native-original/clearance-S/007.png": "reviews/source-audit/native-original/clearance-S/007.png",
+    "initial-source:source-audit/native-original/clearance-S/008.png": "reviews/source-audit/native-original/clearance-S/008.png",
+    "initial-source:source-audit/native-original/clearance-S/009.png": "reviews/source-audit/native-original/clearance-S/009.png",
+    "initial-source:source-audit/native-original/clearance-S/010.png": "reviews/source-audit/native-original/clearance-S/010.png",
+    "initial-source:source-audit/native-original/clearance-S/011.png": "reviews/source-audit/native-original/clearance-S/011.png",
+    "initial-source:source-audit/native-original/clearance-W/000.png": "reviews/source-audit/native-original/clearance-W/000.png",
+    "initial-source:source-audit/native-original/clearance-W/001.png": "reviews/source-audit/native-original/clearance-W/001.png",
+    "initial-source:source-audit/native-original/clearance-W/002.png": "reviews/source-audit/native-original/clearance-W/002.png",
+    "initial-source:source-audit/native-original/clearance-W/003.png": "reviews/source-audit/native-original/clearance-W/003.png",
+    "initial-source:source-audit/native-original/clearance-W/004.png": "reviews/source-audit/native-original/clearance-W/004.png",
+    "initial-source:source-audit/native-original/clearance-W/005.png": "reviews/source-audit/native-original/clearance-W/005.png",
+    "initial-source:source-audit/native-original/clearance-W/006.png": "reviews/source-audit/native-original/clearance-W/006.png",
+    "initial-source:source-audit/native-original/clearance-W/007.png": "reviews/source-audit/native-original/clearance-W/007.png",
+    "initial-source:source-audit/native-original/clearance-W/008.png": "reviews/source-audit/native-original/clearance-W/008.png",
+    "initial-source:source-audit/native-original/clearance-W/009.png": "reviews/source-audit/native-original/clearance-W/009.png",
+    "initial-source:source-audit/native-original/clearance-W/010.png": "reviews/source-audit/native-original/clearance-W/010.png",
+    "initial-source:source-audit/native-original/clearance-W/011.png": "reviews/source-audit/native-original/clearance-W/011.png",
+    "initial-source:source-audit/native-original/highlighted-E/000.png": "reviews/source-audit/native-original/highlighted-E/000.png",
+    "initial-source:source-audit/native-original/highlighted-E/001.png": "reviews/source-audit/native-original/highlighted-E/001.png",
+    "initial-source:source-audit/native-original/highlighted-E/002.png": "reviews/source-audit/native-original/highlighted-E/002.png",
+    "initial-source:source-audit/native-original/highlighted-E/003.png": "reviews/source-audit/native-original/highlighted-E/003.png",
+    "initial-source:source-audit/native-original/highlighted-E/004.png": "reviews/source-audit/native-original/highlighted-E/004.png",
+    "initial-source:source-audit/native-original/highlighted-E/005.png": "reviews/source-audit/native-original/highlighted-E/005.png",
+    "initial-source:source-audit/native-original/highlighted-E/006.png": "reviews/source-audit/native-original/highlighted-E/006.png",
+    "initial-source:source-audit/native-original/highlighted-E/007.png": "reviews/source-audit/native-original/highlighted-E/007.png",
+    "initial-source:source-audit/native-original/highlighted-E/008.png": "reviews/source-audit/native-original/highlighted-E/008.png",
+    "initial-source:source-audit/native-original/highlighted-E/009.png": "reviews/source-audit/native-original/highlighted-E/009.png",
+    "initial-source:source-audit/native-original/highlighted-E/010.png": "reviews/source-audit/native-original/highlighted-E/010.png",
+    "initial-source:source-audit/native-original/highlighted-E/011.png": "reviews/source-audit/native-original/highlighted-E/011.png",
+    "initial-source:source-audit/native-original/highlighted-N/000.png": "reviews/source-audit/native-original/highlighted-N/000.png",
+    "initial-source:source-audit/native-original/highlighted-N/001.png": "reviews/source-audit/native-original/highlighted-N/001.png",
+    "initial-source:source-audit/native-original/highlighted-N/002.png": "reviews/source-audit/native-original/highlighted-N/002.png",
+    "initial-source:source-audit/native-original/highlighted-N/003.png": "reviews/source-audit/native-original/highlighted-N/003.png",
+    "initial-source:source-audit/native-original/highlighted-N/004.png": "reviews/source-audit/native-original/highlighted-N/004.png",
+    "initial-source:source-audit/native-original/highlighted-N/005.png": "reviews/source-audit/native-original/highlighted-N/005.png",
+    "initial-source:source-audit/native-original/highlighted-N/006.png": "reviews/source-audit/native-original/highlighted-N/006.png",
+    "initial-source:source-audit/native-original/highlighted-N/007.png": "reviews/source-audit/native-original/highlighted-N/007.png",
+    "initial-source:source-audit/native-original/highlighted-N/008.png": "reviews/source-audit/native-original/highlighted-N/008.png",
+    "initial-source:source-audit/native-original/highlighted-N/009.png": "reviews/source-audit/native-original/highlighted-N/009.png",
+    "initial-source:source-audit/native-original/highlighted-N/010.png": "reviews/source-audit/native-original/highlighted-N/010.png",
+    "initial-source:source-audit/native-original/highlighted-N/011.png": "reviews/source-audit/native-original/highlighted-N/011.png",
+    "initial-source:source-audit/native-original/highlighted-S/000.png": "reviews/source-audit/native-original/highlighted-S/000.png",
+    "initial-source:source-audit/native-original/highlighted-S/001.png": "reviews/source-audit/native-original/highlighted-S/001.png",
+    "initial-source:source-audit/native-original/highlighted-S/002.png": "reviews/source-audit/native-original/highlighted-S/002.png",
+    "initial-source:source-audit/native-original/highlighted-S/003.png": "reviews/source-audit/native-original/highlighted-S/003.png",
+    "initial-source:source-audit/native-original/highlighted-S/004.png": "reviews/source-audit/native-original/highlighted-S/004.png",
+    "initial-source:source-audit/native-original/highlighted-S/005.png": "reviews/source-audit/native-original/highlighted-S/005.png",
+    "initial-source:source-audit/native-original/highlighted-S/006.png": "reviews/source-audit/native-original/highlighted-S/006.png",
+    "initial-source:source-audit/native-original/highlighted-S/007.png": "reviews/source-audit/native-original/highlighted-S/007.png",
+    "initial-source:source-audit/native-original/highlighted-S/008.png": "reviews/source-audit/native-original/highlighted-S/008.png",
+    "initial-source:source-audit/native-original/highlighted-S/009.png": "reviews/source-audit/native-original/highlighted-S/009.png",
+    "initial-source:source-audit/native-original/highlighted-S/010.png": "reviews/source-audit/native-original/highlighted-S/010.png",
+    "initial-source:source-audit/native-original/highlighted-S/011.png": "reviews/source-audit/native-original/highlighted-S/011.png",
+    "initial-source:source-audit/native-original/highlighted-W/000.png": "reviews/source-audit/native-original/highlighted-W/000.png",
+    "initial-source:source-audit/native-original/highlighted-W/001.png": "reviews/source-audit/native-original/highlighted-W/001.png",
+    "initial-source:source-audit/native-original/highlighted-W/002.png": "reviews/source-audit/native-original/highlighted-W/002.png",
+    "initial-source:source-audit/native-original/highlighted-W/003.png": "reviews/source-audit/native-original/highlighted-W/003.png",
+    "initial-source:source-audit/native-original/highlighted-W/004.png": "reviews/source-audit/native-original/highlighted-W/004.png",
+    "initial-source:source-audit/native-original/highlighted-W/005.png": "reviews/source-audit/native-original/highlighted-W/005.png",
+    "initial-source:source-audit/native-original/highlighted-W/006.png": "reviews/source-audit/native-original/highlighted-W/006.png",
+    "initial-source:source-audit/native-original/highlighted-W/007.png": "reviews/source-audit/native-original/highlighted-W/007.png",
+    "initial-source:source-audit/native-original/highlighted-W/008.png": "reviews/source-audit/native-original/highlighted-W/008.png",
+    "initial-source:source-audit/native-original/highlighted-W/009.png": "reviews/source-audit/native-original/highlighted-W/009.png",
+    "initial-source:source-audit/native-original/highlighted-W/010.png": "reviews/source-audit/native-original/highlighted-W/010.png",
+    "initial-source:source-audit/native-original/highlighted-W/011.png": "reviews/source-audit/native-original/highlighted-W/011.png",
+    "initial-source:source-audit/native-original/idle-E/000.png": "reviews/source-audit/native-original/idle-E/000.png",
+    "initial-source:source-audit/native-original/idle-N/000.png": "reviews/source-audit/native-original/idle-N/000.png",
+    "initial-source:source-audit/native-original/idle-S/000.png": "reviews/source-audit/native-original/idle-S/000.png",
+    "initial-source:source-audit/native-original/idle-W/000.png": "reviews/source-audit/native-original/idle-W/000.png",
+    "initial-source:source-audit/native-original-atlases/clearance-E.png": "reviews/source-audit/native-original-atlases/clearance-E.png",
+    "initial-source:source-audit/native-original-atlases/clearance-N.png": "reviews/source-audit/native-original-atlases/clearance-N.png",
+    "initial-source:source-audit/native-original-atlases/clearance-S.png": "reviews/source-audit/native-original-atlases/clearance-S.png",
+    "initial-source:source-audit/native-original-atlases/clearance-W.png": "reviews/source-audit/native-original-atlases/clearance-W.png",
+    "initial-source:source-audit/native-original-atlases/highlighted-E.png": "reviews/source-audit/native-original-atlases/highlighted-E.png",
+    "initial-source:source-audit/native-original-atlases/highlighted-N.png": "reviews/source-audit/native-original-atlases/highlighted-N.png",
+    "initial-source:source-audit/native-original-atlases/highlighted-S.png": "reviews/source-audit/native-original-atlases/highlighted-S.png",
+    "initial-source:source-audit/native-original-atlases/highlighted-W.png": "reviews/source-audit/native-original-atlases/highlighted-W.png",
+    "initial-source:source-audit/native-original-atlases/idle-E.png": "reviews/source-audit/native-original-atlases/idle-E.png",
+    "initial-source:source-audit/native-original-atlases/idle-N.png": "reviews/source-audit/native-original-atlases/idle-N.png",
+    "initial-source:source-audit/native-original-atlases/idle-S.png": "reviews/source-audit/native-original-atlases/idle-S.png",
+    "initial-source:source-audit/native-original-atlases/idle-W.png": "reviews/source-audit/native-original-atlases/idle-W.png",
+    "initial-source:source-audit/native-phases.partial.json": "reviews/source-audit/native-phases.partial.json",
+    "initial-source:source-audit/native-summary.json": "reviews/source-audit/native-summary.json",
+    "initial-source:source-audit/original-native-playback.html": "reviews/source-audit/original-native-playback.html",
+    "initial-source:source-audit/playback-observation.json": "reviews/source-audit/playback-observation.json",
+    "initial-source:source-audit/published-clearance-E-all12.png": "reviews/source-audit/published-clearance-E-all12.png",
+    "initial-source:source-audit/published-clearance-N-all12.png": "reviews/source-audit/published-clearance-N-all12.png",
+    "initial-source:source-audit/published-clearance-S-all12.png": "reviews/source-audit/published-clearance-S-all12.png",
+    "initial-source:source-audit/published-clearance-W-all12.png": "reviews/source-audit/published-clearance-W-all12.png",
+    "initial-source:source-audit/published-highlighted-E-all12.png": "reviews/source-audit/published-highlighted-E-all12.png",
+    "initial-source:source-audit/published-highlighted-N-all12.png": "reviews/source-audit/published-highlighted-N-all12.png",
+    "initial-source:source-audit/published-highlighted-S-all12.png": "reviews/source-audit/published-highlighted-S-all12.png",
+    "initial-source:source-audit/published-highlighted-W-all12.png": "reviews/source-audit/published-highlighted-W-all12.png",
+    "initial-source:source-audit/published-idle-four-facing-backgrounds.png": "reviews/source-audit/published-idle-four-facing-backgrounds.png",
+    "initial-source:source-audit/published-idle-phone-backgrounds.png": "reviews/source-audit/published-idle-phone-backgrounds.png",
+    "initial-source:source-audit/published-raster-audit.json": "reviews/source-audit/published-raster-audit.json",
+    "initial-source:source-audit/resources/capture_runtime.py": "reviews/source-audit/resources/capture_runtime.py",
+    "initial-source:source-audit/resources/catalog_art_revision.py": "reviews/source-audit/resources/catalog_art_revision.py",
+    "initial-source:source-audit/resources/catalog_faceted.py": "reviews/source-audit/resources/catalog_faceted.py",
+    "initial-source:source-audit/resources/catalog_style.py": "reviews/source-audit/resources/catalog_style.py",
+    "initial-source:source-audit/resources/native_actions.py": "reviews/source-audit/resources/native_actions.py",
+    "initial-source:source-audit/resources/prop_builders.py": "reviews/source-audit/resources/prop_builders.py",
+    "initial-source:source-audit/source-integrity.json": "reviews/source-audit/source-integrity.json",
+    "initial-source:source-audit/survey_rasters.py": "reviews/source-audit/survey_rasters.py",
+    "initial-source:source-audit/write_preparation.py": "reviews/source-audit/write_preparation.py",
+    "initial-source:source-contract-proposal.json": "reviews/source-contract-proposal.json"
+  }
+}

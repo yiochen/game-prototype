@@ -1,0 +1,157 @@
+00:00.236  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-corner/reviews/preparation-v1/resources/source/original.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-corner/reviews/preparation-v1/scripts/native_audit_v2.py:23: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  return {'name':m.name,'diffuse':list(m.diffuse_color),'use_nodes':m.use_nodes,'nodes':[{'name':n.name,'type':n.bl_idname,'operation':getattr(n,'operation',None),'inputs':{s.name:val(s.default_value) for s in n.inputs if hasattr(s,'default_value')}} for n in m.node_tree.nodes] if m.use_nodes else [],'links':[(l.from_node.name,l.from_socket.name,l.to_node.name,l.to_socket.name) for l in m.node_tree.links] if m.use_nodes else []}
+BlenderMCP addon registered
+{
+  "blender": "5.2.2 LTS",
+  "collection": "S33_PROP_reef-corner.001",
+  "root": "reef-corner__root.001",
+  "rootProps": {
+    "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"reef-section-v1\", \"normal\": [-1, 0, 0]}, {\"direction\": \"N\", \"position\": [0, 0.5, 0], \"profile\": \"reef-section-v1\", \"normal\": [0, 1, 0]}]",
+    "nonblocking": false,
+    "depth_layer": "world",
+    "support_cells": "[[0, 0]]",
+    "asset_id": "reef-corner",
+    "family": "issue-33-world-props",
+    "footprint_cells": "[1, 1]",
+    "ground_root": "[0, 0, 0]",
+    "visual_height": 0.68,
+    "sockets": "{}",
+    "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+    "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+    "axis_convention": "X=x; depth=-Y; height=Z",
+    "source": "prop_builders.py",
+    "notes": "[\"Continuous native loft. Endpoint profile is exact; intermediate facets/detail never alter the seam. Match only identical profile IDs.\"]",
+    "artStyle": "faceted-approved-2026-10-19",
+    "production_id": "reef-corner",
+    "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"reef-corner\", \"clips\": {\"static\": []}}"
+  },
+  "meshCount": 8,
+  "bounds": [
+    [
+      -0.8944249749183655,
+      -0.8506399989128113,
+      -1.0
+    ],
+    [
+      0.8944249749183655,
+      0.8506399989128113,
+      1.0
+    ]
+  ],
+  "savedCamera": {
+    "name": "S33 Capture Camera.240",
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "ortho_scale": 1.5,
+    "shift": [
+      0.0,
+      0.4583320617675781
+    ],
+    "angle": 0.691111147403717
+  },
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "resolution": [
+      768,
+      1280,
+      100
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "filter": 1.5,
+    "film_transparent": true
+  },
+  "dependencies": {
+    "libraries": [],
+    "images": [
+      {
+        "name": "dish-cucumber.png",
+        "path": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-cucumber.png",
+        "packed": true
+      },
+      {
+        "name": "dish-salmon.png",
+        "path": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png",
+        "packed": true
+      }
+    ]
+  },
+  "objectAnimation": [
+    {
+      "name": "reef-corner__root.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_continuous_core.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_stem_0.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_tip_0.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_stem_1.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_tip_1.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_stem_2.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_coral_tip_2.001",
+      "animation": false,
+      "constraints": []
+    },
+    {
+      "name": "reef-corner__reef_polyp.001",
+      "animation": false,
+      "constraints": []
+    }
+  ]
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

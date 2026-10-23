@@ -16,6 +16,7 @@
   ],
   "cellSize": 128,
   "captureScale": 2,
+  "sourceCaptureScale": 2,
   "gutter": 0,
   "columns": 1,
   "rows": 1,
@@ -33,7 +34,7 @@
   "groundAnchorAlignment": "center",
   "projection": "top-down-oblique-square-grid",
   "camera": {
-    "type": "orthographic",
+    "type": "ORTHO",
     "worldMatrix": [
       [
         1.0,
@@ -59,39 +60,7 @@
         0.0,
         1.0
       ]
-    ],
-    "projectionMatrix": [
-      [
-        1.3333333730697632,
-        0.0,
-        0.0,
-        -0.0
-      ],
-      [
-        0.0,
-        0.8877494931221008,
-        0.0,
-        -0.4090892970561981
-      ],
-      [
-        0.0,
-        0.0,
-        -0.0020001998636871576,
-        -1.0001999139785767
-      ],
-      [
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ]
-    ],
-    "pixelAspect": [
-      1.2206555604934692,
-      1.0
-    ],
-    "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+    ]
   },
   "occupiedCells": [
     [
@@ -103,9 +72,8 @@
   "sourceCaptures": [
     {
       "path": "source-captures/000.png",
-      "sha256": "c5f797c4cb1a49a48bc96e37372583abf1cbf5572c21173cf1c3b60ac7aa72cd"
+      "sha256": "36c3f79421d844713d08b277d7ede93a38b0ca1e429d5b6b20782e82926084fd"
     }
   ],
-  "sourceCaptureScale": 4,
-  "processing": "Uniform whole-frame LANCZOS only; no subject fitting or clipping"
+  "processing": "Exact native scale2 RGBA frames; lossless atlas placement only"
 }

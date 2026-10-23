@@ -1,0 +1,475 @@
+00:00.256  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/chef-mateo/source/round02.blend"
+BlenderMCP addon registered
+{
+  "projectSHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "camera": {
+    "name": "Mateo registered 35 degree camera",
+    "matrixWorld": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762119293213,
+        -0.8191522359848022,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191522359848022,
+        0.5735762119293213,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
+    "resolution": [
+      384,
+      640
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "projectedRoot": [
+      192.0,
+      496.00000381469727
+    ]
+  },
+  "food": {
+    "name": "chef_mateo__ground_root.001__held_dish-salmon__image_plane",
+    "vertices": [
+      [
+        0,
+        [
+          -0.14000000059604645,
+          0.0,
+          0.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.14000000059604645,
+          0.0,
+          0.0
+        ]
+      ],
+      [
+        2,
+        [
+          0.14000000059604645,
+          0.25091788172721863,
+          0.0
+        ]
+      ],
+      [
+        3,
+        [
+          -0.14000000059604645,
+          0.25091788172721863,
+          0.0
+        ]
+      ]
+    ],
+    "loops": [
+      {
+        "vertexIndex": 0,
+        "uv": [
+          0.0,
+          0.04465709626674652
+        ]
+      },
+      {
+        "vertexIndex": 1,
+        "uv": [
+          0.9904305934906006,
+          0.04465709626674652
+        ]
+      },
+      {
+        "vertexIndex": 2,
+        "uv": [
+          0.9904305934906006,
+          0.9322168827056885
+        ]
+      },
+      {
+        "vertexIndex": 3,
+        "uv": [
+          0.0,
+          0.9322168827056885
+        ]
+      }
+    ],
+    "matrixLocal": [
+      [
+        0.800000011920929,
+        0.0,
+        0.0,
+        -2.9802322387695312e-08
+      ],
+      [
+        0.0,
+        0.800000011920929,
+        0.0,
+        0.026438234373927116
+      ],
+      [
+        0.0,
+        0.0,
+        0.800000011920929,
+        -0.18300004303455353
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "rotationEuler": [
+      0.9599310755729675,
+      0.0,
+      0.0
+    ],
+    "custom": {
+      "representation": "2D ImageGen sprite, not modeled sushi",
+      "fixed_alpha_rectangle": "[0, 56, 1242, 1169]",
+      "source_image": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png",
+      "source_sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+      "world_width_cells": 0.35,
+      "camera_ray_depth_bias_world_cells": 0.6
+    },
+    "drivers": [
+      {
+        "dataPath": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_mateo__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataPath": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_mateo__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataPath": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_mateo__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "propName": "chef_mateo__ground_root.001__held_dish-salmon",
+    "propCustom": {},
+    "propDrivers": [],
+    "material": {
+      "name": "chef-mateo approved chef_mateo__ground_root.001__held_dish-salmon__transparent_2D_material",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "image": null,
+          "extension": null,
+          "interpolation": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "image": "dish-salmon.png",
+          "extension": "CLIP",
+          "interpolation": "Linear"
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "image": null,
+          "extension": null,
+          "interpolation": null
+        },
+        {
+          "name": "Transparent BSDF",
+          "type": "BSDF_TRANSPARENT",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Weight": 0.0
+          },
+          "image": null,
+          "extension": null,
+          "interpolation": null
+        },
+        {
+          "name": "Mix Shader",
+          "type": "MIX_SHADER",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "image": null,
+          "extension": null,
+          "interpolation": null
+        }
+      ],
+      "links": [
+        [
+          "Image Texture",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Image Texture",
+          "Alpha",
+          "Mix Shader",
+          "Factor"
+        ],
+        [
+          "Transparent BSDF",
+          "BSDF",
+          "Mix Shader",
+          "Shader"
+        ],
+        [
+          "Emission",
+          "Emission",
+          "Mix Shader",
+          "Shader"
+        ],
+        [
+          "Mix Shader",
+          "Shader",
+          "Material Output",
+          "Surface"
+        ]
+      ]
+    },
+    "image": {
+      "name": "dish-salmon.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+      "fileFormat": "PNG",
+      "alphaMode": "STRAIGHT",
+      "colorSpace": "sRGB",
+      "filepath": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png",
+      "packed": true
+    },
+    "visibility": {
+      "visibleCamera": true,
+      "visibleDiffuse": true,
+      "visibleGlossy": true,
+      "visibleTransmission": true,
+      "visibleShadow": true
+    }
+  },
+  "firstHoldS": {
+    "clip": "hold",
+    "direction": "S",
+    "frame": 1,
+    "rootRotationDegrees": 0.0,
+    "visible": true,
+    "propRootWorld": [
+      -0.038355402648448944,
+      -0.15146547555923462,
+      0.33665820956230164
+    ],
+    "propRootProjected": [
+      182.18101501464844,
+      447.6422882080078
+    ],
+    "planeMatrixWorld": [
+      [
+        1.25,
+        0.0,
+        0.0,
+        -0.038355402648448944
+      ],
+      [
+        0.0,
+        0.7169705629348755,
+        -1.023940086364746,
+        -0.6429567337036133
+      ],
+      [
+        0.0,
+        1.023940086364746,
+        0.7169705629348755,
+        0.6808040738105774
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "cornersWorld": [
+      [
+        -0.2133553922176361,
+        -0.6429567337036133,
+        0.6808040738105774
+      ],
+      [
+        0.13664460182189941,
+        -0.6429567337036133,
+        0.6808040738105774
+      ],
+      [
+        0.13664460182189941,
+        -0.4630559980869293,
+        0.9377289414405823
+      ],
+      [
+        -0.2133553922176361,
+        -0.4630559980869293,
+        0.9377289414405823
+      ]
+    ],
+    "cornersProjected": [
+      [
+        137.38102340698242,
+        447.64225006103516
+      ],
+      [
+        226.98101806640625,
+        447.64225006103516
+      ],
+      [
+        226.98101806640625,
+        367.34851837158203
+      ],
+      [
+        137.38102340698242,
+        367.34851837158203
+      ]
+    ],
+    "bottomQuadWorld": [
+      -0.03835539519786835,
+      -0.6429567337036133,
+      0.6808040738105774
+    ],
+    "bottomQuadProjected": [
+      182.18101501464844,
+      447.64225006103516
+    ],
+    "bottomMinusPropRoot": [
+      7.450580596923828e-09,
+      -0.49149125814437866,
+      0.34414586424827576
+    ],
+    "biasAlongCameraToward": 0.6000000387430191,
+    "biasOrthogonalMagnitude": 1.4919776018337002e-07,
+    "palmsWorld": {
+      "L": [
+        -0.2562497854232788,
+        -0.06374999135732651,
+        0.22772763669490814
+      ],
+      "R": [
+        0.17953918874263763,
+        -0.23918098211288452,
+        0.4005887806415558
+      ]
+    },
+    "palmsProjected": {
+      "L": [
+        126.40005111694336,
+        457.6056098937988
+      ],
+      "R": [
+        237.9620361328125,
+        447.11559295654297
+      ]
+    },
+    "worldQuadWidth": 0.34999999276229304,
+    "worldQuadHeight": 0.31364735142861877
+  },
+  "samples": 192
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

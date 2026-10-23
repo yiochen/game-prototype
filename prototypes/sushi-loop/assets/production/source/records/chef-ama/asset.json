@@ -9,7 +9,7 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
   "clips": {
     "idle": {
       "frames": 12,
@@ -65,18 +65,270 @@
     ]
   },
   "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
+    "revision": "warm-soft-native-round01",
+    "goldenWrapIvoryCoatGreenTieApron": true,
+    "lightingSymmetry": 4,
+    "noGroundShadow": true,
+    "renderer": {
+      "engine": "CYCLES",
+      "device": "GPU",
+      "samples": 72,
+      "denoise": true,
+      "adaptiveThreshold": 0.019999999552965164,
+      "filter": "BOX1",
+      "viewTransform": "Standard",
+      "look": "None",
+      "exposure": 0.0,
+      "symmetricLightPositions": [
+        [
+          0,
+          0,
+          4.5
+        ],
+        [
+          3,
+          0,
+          2
+        ],
+        [
+          -3,
+          0,
+          2
+        ],
+        [
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          -3,
+          2
+        ]
+      ],
+      "lights": [
+        {
+          "name": "Ama01 symmetric area 0",
+          "type": "AREA",
+          "energy": 135.0,
+          "size": 3.5,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            0.0,
+            4.5
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              4.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 1",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            3.0,
+            0.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.6292068494294654e-07,
+              -0.3713906407356262,
+              0.9284766912460327,
+              3.0
+            ],
+            [
+              1.0,
+              -7.19804518212186e-08,
+              1.46678758028429e-07,
+              0.0
+            ],
+            [
+              1.2357048717603902e-08,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 2",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            -3.0,
+            0.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.6292068494294654e-07,
+              0.3713906407356262,
+              -0.9284766912460327,
+              -3.0
+            ],
+            [
+              -1.0,
+              -7.19804518212186e-08,
+              1.46678758028429e-07,
+              0.0
+            ],
+            [
+              -1.2357048717603902e-08,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 3",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            3.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.0,
+              1.862472061020526e-07,
+              -8.812857288376108e-08,
+              0.0
+            ],
+            [
+              -1.5099580252808664e-07,
+              -0.3713906407356262,
+              0.9284766912460327,
+              3.0
+            ],
+            [
+              1.4019606453530287e-07,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 4",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            -3.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3713906407356262,
+              -0.9284766912460327,
+              -3.0
+            ],
+            [
+              0.0,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      ],
+      "ambientWorld": {
+        "color": [
+          0.8199999928474426,
+          0.7699999809265137,
+          0.6700000166893005,
+          1.0
+        ],
+        "strength": 0.41999998688697815
+      },
+      "noGroundPlane": true
+    }
   },
   "directions": [
     "N",
@@ -88,5 +340,79 @@
     "walkCellsPerSecond": 0.225,
     "panicCellsPerSecond": 0.45,
     "worldTravelPerWalkCycle": 0.225
+  },
+  "captureScale": 2,
+  "source": {
+    "project": "source/round-02.blend",
+    "sha256": "c66726f151d7348a73b4814074a2df986a71bd13f272b95b5634c695e0296f68",
+    "approvedPhysicalSourceSHA256": "73cf8d7c6c1b4ef4170020424bfa3eebaae47ca4aabd124cb7753d4b1c1d7248",
+    "scene": "Ama warm soft round01",
+    "collection": "S33_CHARACTER_chef_ama.002",
+    "root": "chef_ama__ground_root.002",
+    "armature": "chef_ama__armature.001",
+    "recipe": "source/recipe-round02.json",
+    "recipeSHA256": "f186d62cec87043af738618bb90480a1aa4612bbcaf92c82fd29b667cd64871a",
+    "capture": "candidates/round-02/candidate-phases.json",
+    "captureSHA256": "7b53a08eaa85afa787ab7af4fd0b4b318998133f552275318ae1727fd75519c8",
+    "nativeRepresentation": "exact approved physical chef/knife/rig; canonical packed2D731x505 salmon on original native holder with one global semantic food quad/fullUV"
+  },
+  "originalRecord": {
+    "path": "inputs/source-assetRecord.json",
+    "sha256": "551e1d346120d1b8dd0fb67cc2be53bea86d8c2beecce5d535754cf60c3bec2c"
+  },
+  "actualEvaluatedContactEvidence": "candidates/round-01/evaluated-contacts.json",
+  "canonicalFood": {
+    "path": "source/dependencies-round02/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "size": [
+      731,
+      505
+    ],
+    "semanticFoodMapping": {
+      "localX": [
+        -0.1360522273927961,
+        0.14019473066075416
+      ],
+      "localY": [
+        0.032685965903529166,
+        0.2235268876778696
+      ],
+      "localZ": 0,
+      "width": 0.27624695805355026,
+      "height": 0.19084092177434045,
+      "fullUV": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "sourceOpaqueWidthLocal": 0.2754911524227608,
+      "sourceOpaqueWidthActiveWorld": 0.344363940528451,
+      "sourceNominalQuadWidthLocal": 0.28,
+      "sourceNominalQuadWidthActiveWorld": 0.35,
+      "sourceAlpha128SupportLocal": [
+        0.002827057264768479,
+        0.033252820126621264,
+        0
+      ],
+      "method": "One global source-specific mapping from actual source UV/alpha plate rim and occupied width, sensitivity alpha64/128/192. Preserve existing world/projected plate support and palm relationships in all96 active frames. No per-pose fitting, no literal-zero world palm gap assertion for this billboard, and no extra crop."
+    },
+    "representation": "exact approved2D artwork, unchanged all-ray source shader/holder law"
+  },
+  "priorApprovedRecord": {
+    "path": "candidates/round-01/native-records/asset.json",
+    "sha256": "44b7f565c974c405c2fda1948ccef7ca04ae75e465f13fd072978779ee52e620"
   }
 }

@@ -1,0 +1,28 @@
+{
+  "assetId": "coin-pop",
+  "fps": 12,
+  "groundRootObject": "coin-pop__ground_root",
+  "visualCounterrotation": {
+    "object": "coin-pop__camera_facing_visual",
+    "dataPath": "rotation_euler[2]",
+    "expression": "-host_z",
+    "target": "coin-pop__ground_root"
+  },
+  "semanticEmitter": "coin-pop__semantic_coin_emitter",
+  "clips": {
+    "pop": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false,
+      "firstFrame": 1,
+      "lastUniqueFrame": 12,
+      "closingKeyFrame": null,
+      "actions": [
+        "coin-pop__semantic_coin_emitterAction",
+        "coin-pop__spark_emitter_0Action",
+        "coin-pop__spark_emitter_1Action",
+        "coin-pop__spark_emitter_2Action"
+      ]
+    }
+  }
+}

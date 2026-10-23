@@ -1,0 +1,81 @@
+{
+  "pathBase": "object root",
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "runtimePolicy": "External installed Blender/Node/Python/browser runtimes pinned by evidence/runtime-probe.json plus metadata; mutable used code/modules frozen minimally. PYTHONDONTWRITEBYTECODE=1 for Python/Blender work.",
+  "steps": [
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/freeze_used.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "result": "38 frozen inputs,343 packet records verified"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/inspect_replay_v1_failed.py",
+      "runtime": "/opt/homebrew/bin/blender",
+      "args": [
+        "--background",
+        "reviews/round-01-independent/resources/candidate.blend",
+        "--python",
+        "reviews/round-01-independent/resources/drivers/inspect_replay_v1_failed.py"
+      ],
+      "log": "reviews/round-01-independent/evidence/inspect-replay.log",
+      "status": "Failed during visibility iteration before any renders; retained. Fixed by snapshotting object names before mutating visibility."
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/inspect_replay.py",
+      "runtime": "/opt/homebrew/bin/blender",
+      "args": [
+        "--background",
+        "reviews/round-01-independent/resources/candidate.blend",
+        "--python",
+        "reviews/round-01-independent/resources/drivers/inspect_replay.py"
+      ],
+      "log": "reviews/round-01-independent/evidence/inspect-replay-v2.log",
+      "status": "Completed actual graph evaluation, finite mesh/opacity audit,4 saved-source replay and4 native join renders without saving source."
+    },
+    {
+      "runtime": "/opt/homebrew/bin/blender",
+      "args": [
+        "--background",
+        "reviews/round-01-independent/resources/candidate.blend",
+        "--python-expr",
+        "import bpy; r=bpy.data.objects[\"rock-half-width__root.001\"]; print(\"ROOT\",type(r),r.type); c=r.users_collection[0]; print(\"COLL\",type(c),c.name); print(\"OBJS\",[(type(o).__name__,o.name,hasattr(o,\"hide_viewport\")) for o in c.all_objects])"
+      ],
+      "log": "reviews/round-01-independent/evidence/native-query.log"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/consumer.mjs",
+      "runtime": "/usr/local/bin/node",
+      "log": "reviews/round-01-independent/evidence/consumer.log",
+      "status": "8 runs, both exact browser modes and4 frozen cases, no page errors"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/analyze_evidence.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "log": "reviews/round-01-independent/evidence/analyze-evidence.log"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/probe_runtimes.mjs",
+      "runtime": "/usr/local/bin/node",
+      "log": "reviews/round-01-independent/evidence/runtime-probe.log"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/finalize_review.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+    },
+    {
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "args": [
+        "prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "rock-half-width",
+        "--round",
+        "round-01"
+      ],
+      "output": "reviews/round-01-independent/gate-result.json and gate.log; executed after review creation; expected rejection because blockers remain"
+    },
+    {
+      "driver": "reviews/round-01-independent/resources/drivers/seal_review.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "policy": "Post-review/gate acyclic seal and immutable hash verification; no supplemental manifest/review/gate reference cycle."
+    }
+  ]
+}

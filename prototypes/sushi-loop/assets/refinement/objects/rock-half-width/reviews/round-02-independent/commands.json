@@ -1,0 +1,76 @@
+{
+  "pathBase": "object root",
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "policy": "Only own new reviews written; source/candidate/target/brief/old reviews immutable. Background Blender5.2.2LTS and external runtime binaries pinned by runtime-probe.json. No bytecode/runtime application tree copies.",
+  "steps": [
+    {
+      "driver": "resources/drivers/setup_review.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "note": "Creates versioned current drivers from own previous sealed drivers; adds SQRT for the actual new graph. Initial freeze path assumed round02 helper directory; corrected actual freeze_used.py explicitly reads unchanged round01 helper resource paths after locating actual current source."
+    },
+    {
+      "driver": "resources/drivers/freeze_used.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "result": "38 exact used inputs frozen;358 packet records individually hashed."
+    },
+    {
+      "driver": "resources/drivers/inspect_replay.py",
+      "runtime": "/opt/homebrew/bin/blender",
+      "args": [
+        "--background",
+        "reviews/round-02-independent/resources/candidate.blend",
+        "--python",
+        "reviews/round-02-independent/resources/drivers/inspect_replay.py"
+      ],
+      "log": "evidence/inspect-replay.log",
+      "result": "Current actual linked graph, opaque geometry/fields,4 source replay and4 native joins; saved source never written."
+    },
+    {
+      "driver": "resources/drivers/consumer.mjs",
+      "runtime": "/usr/local/bin/node",
+      "log": "evidence/consumer.log",
+      "result": "Actual570/099 helpers matched current bytes;8 required mode/case runs, no page errors."
+    },
+    {
+      "driver": "resources/drivers/probe_runtimes.mjs",
+      "runtime": "/usr/local/bin/node",
+      "log": "evidence/runtime-probe.log"
+    },
+    {
+      "driver": "resources/drivers/analyze_evidence.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "log": "evidence/analyze-evidence.log",
+      "result": "4+4 native replay matches,4 wholeBOX matches,104 native canvas matches, exact guard comparisons and lossless desktop strips."
+    },
+    {
+      "driver": "resources/drivers/audit_collar_temporal.py",
+      "runtime": "/opt/homebrew/bin/blender",
+      "args": [
+        "--background",
+        "reviews/round-02-independent/resources/candidate.blend",
+        "--python",
+        "reviews/round-02-independent/resources/drivers/audit_collar_temporal.py"
+      ],
+      "log": "evidence/audit-collar-temporal.log"
+    },
+    {
+      "driver": "resources/drivers/make_collar_context.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "result": "Only explanatory lossless diagnostic crops; complete art retained."
+    },
+    {
+      "driver": "resources/drivers/audit_residuals.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "log": "evidence/audit-residuals.log"
+    },
+    {
+      "driver": "resources/drivers/finalize_review.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+    },
+    {
+      "driver": "resources/drivers/seal_review.py",
+      "runtime": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "result": "Runs unchanged live acceptance_contract.py rock-half-width --round round-02 after review, records expected revise rejection, then seals acyclic review/manifest/gate and verifies final hashes."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "activeBrief": "brief-v3-food-depth.json",
+  "baseline": "inputs/baseline-round01.blend",
+  "baselineSHA256": "9dffcad37fb5ba662000a919c355fe45e74416078371e82adf2aa012038be024",
+  "project": "source/round-02.blend",
+  "projectSHA256": "72d3b99d03b8de2a1dfcba0032bac3a7cc4291df32940c8f0785f50b5f49d527",
+  "scope": "Only two existing ray-driver coefficients, derived constant planeZ, and existing depth provenance property changed. No body/rig/material/camera/light/action edits.",
+  "depthWorldCells": 0.45,
+  "rootScale": 1.25,
+  "localHorizontalCoefficient": 0.29489473594403703,
+  "localPlaneZ": 0.20648751708637658,
+  "worldRay": [
+    0,
+    -0.8191520442889918,
+    0.573576436351046
+  ],
+  "prior": {
+    "location": [
+      0.0,
+      -0.39319297671318054,
+      0.27531668543815613
+    ],
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing"
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.39319298125871605"
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.39319298125871605"
+      }
+    ]
+  },
+  "current": {
+    "location": [
+      0.0,
+      -0.2948947250843048,
+      0.2064875215291977
+    ],
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing"
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.29489473594403703"
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.29489473594403703"
+      }
+    ]
+  },
+  "selection": "Representative N/E/S/W hold01/load06 tested at d0,.15,.30,.45. d0 buries front dish; d.45 retains coherent front/profile plate while removing rear crescent. All192 final evaluations/captures and unchanged projected corners required before submission.",
+  "reconstruction": "Requires exact baseline-round01.blend; this recipe does not rebuild from original library. Saved-source capture uses packed image and local action helper."
+}

@@ -9,7 +9,7 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
   "clips": {
     "static": {
       "frames": 1,
@@ -58,23 +58,153 @@
   "depth_layer": "world",
   "composition_context": {},
   "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
+    "revision": "native-fitted-slab-round-03",
+    "materials": [
+      "rock-shelf-middle canonical blue cyan stone v3",
+      "rock-shelf-middle canonical planar cut stone v3",
+      "rock-shelf-middle__embedded_stone_A private blue-lavender stone",
+      "rock-shelf-middle__embedded_stone_B private blue-lavender stone"
+    ],
     "contrast": 1.35,
     "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
+    "view": "Standard",
+    "lighting": [
+      {
+        "name": "shelf broad centered overhead",
+        "type": "AREA",
+        "energy": 850.0,
+        "size": 15.0,
+        "useShadow": false,
+        "position": [
+          0.0,
+          0.0,
+          18.0
+        ],
+        "rotation": [
+          0.0,
+          -0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "shelf symmetric cardinal (15, 0)",
+        "type": "AREA",
+        "energy": 1850.0,
+        "size": 12.0,
+        "useShadow": false,
+        "position": [
+          15.0,
+          0.0,
+          6.0
+        ],
+        "rotation": [
+          1.2018368244171143,
+          -0.0,
+          1.5707963705062866
+        ]
+      },
+      {
+        "name": "shelf symmetric cardinal (0, 15)",
+        "type": "AREA",
+        "energy": 1850.0,
+        "size": 12.0,
+        "useShadow": false,
+        "position": [
+          0.0,
+          15.0,
+          6.0
+        ],
+        "rotation": [
+          1.2018368244171143,
+          -1.4083425980970787e-07,
+          -3.141592502593994
+        ]
+      },
+      {
+        "name": "shelf symmetric cardinal (-15, 0)",
+        "type": "AREA",
+        "energy": 1850.0,
+        "size": 12.0,
+        "useShadow": false,
+        "position": [
+          -15.0,
+          0.0,
+          6.0
+        ],
+        "rotation": [
+          1.2018368244171143,
+          -0.0,
+          -1.5707963705062866
+        ]
+      },
+      {
+        "name": "shelf symmetric cardinal (0, -15)",
+        "type": "AREA",
+        "energy": 1850.0,
+        "size": 12.0,
+        "useShadow": false,
+        "position": [
+          0.0,
+          -15.0,
+          6.0
+        ],
+        "rotation": [
+          1.2018368244171143,
+          -0.0,
+          0.0
+        ]
+      }
+    ],
+    "roughness": 0.47,
+    "nativeFields": "Vertex-authored blue/cyan slab/body albedo; native proceduralY/Z planarcutface color/bump. No image textures."
   },
   "directions": [
     "N",
     "E",
     "S",
     "W"
-  ]
+  ],
+  "captureScale": 2,
+  "nativeCaptureScale": 4,
+  "publishedSourceScale": 2,
+  "groundRootObject": "rock-shelf-middle__root",
+  "publication": {
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "publishedFrame": [
+      384,
+      704
+    ],
+    "nativeCaptureScale": 4,
+    "publishedSourceScale": 2,
+    "reduction": "wholeRGBA BOX",
+    "sourceProjectSHA256": "3e6c7cbe865a918dbeec5faf1a48af540f6290e7afc41ef4c987162617199422",
+    "bounds": [
+      [
+        -0.5,
+        -0.44999998807907104,
+        0.0
+      ],
+      [
+        0.5,
+        0.44999998807907104,
+        0.4488849937915802
+      ]
+    ],
+    "finiteGroundSupport": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.45,
+        0.45
+      ],
+      "z": 0,
+      "intentionalNonPortMargins": 0.05,
+      "actualNativeBottomArea": 0.8999999687075615
+    }
+  }
 }

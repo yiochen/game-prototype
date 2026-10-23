@@ -1,0 +1,17 @@
+00:00.374  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-car/source/round-01.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-car/source/validate-round01.py:66: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mechanism={'carriers':[{'name':o.name,'type':o.type,'parent':o.parent.name if o.parent else None} for o in bpy.data.objects if o.name in mapping['carriers']], 'meshes':[{'name':o.name,'parent':o.parent.name,'vertices':len(o.data.vertices),'polygons':len(o.data.polygons),'materialSlots':[m.name for m in o.data.materials],'modifiers':[m.type for m in o.modifiers]} for o in meshes], 'noAlphaAnimation':all(not m.node_tree.animation_data for m in bpy.data.materials if m.use_nodes),'noImageTextures':all(n.type!='TEX_IMAGE' for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes),'noConstraints':not any(o.constraints for o in bpy.data.objects),'sourceActions':len(sourceActions),'actualMatchingActions':len([a for a in bpy.data.actions if a.name.startswith('S33_NATIVE__garbage-car__')])}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-car/source/validate-round01.py:68: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mechanism['materials']=[{'name':m.name,'principled':{k:list(v.default_value) if hasattr(v.default_value,'__len__') else v.default_value for k,v in m.node_tree.nodes.get('Principled BSDF').inputs.items() if k in ('Base Color','Metallic','Roughness','Alpha','Specular IOR Level','Coat Weight','Coat Roughness')}} for m in bpy.data.materials if m.use_nodes and m.users>0]
+BlenderMCP addon registered
+{
+  "status": "technical-checks-pass",
+  "errors": [],
+  "keyError": 0.0,
+  "carrierError": 1.1920928955078125e-07,
+  "cameraError": 0.0
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

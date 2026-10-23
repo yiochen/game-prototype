@@ -1,0 +1,245 @@
+{
+  "asset": "wreck-edge",
+  "round": "round-01",
+  "actualNativeSource": "source/round-01.blend",
+  "sourceSHA256": "a7f8357632d42d3f5113f7ee3b423634bdd834e0d3cbfb9a058ea513767a1498",
+  "reproduction": "/opt/homebrew/bin/blender --background --factory-startup --python source/reproduce-round01.py",
+  "recapture": "/opt/homebrew/bin/blender --background source/round-01.blend --python source/reproduce-round01.py -- --recapture --output OUTPUT",
+  "privateDependencyRule": "Main native recipe uses only sibling round01-resources and Blender standard API. No external textures, linked libraries or live Blender. Consumer source, exact570/099 helpers and compiled React bundle retained privately; external Node runtime and Playwright153 installation are tooling, not asset dependencies.",
+  "files": [
+    {
+      "path": "source/construction-acknowledgment-v1.json",
+      "pathBase": "object",
+      "sha256": "1919d638fdcfa90020ea1af22a31fa168852f183cf85db9f4524fc174ed7d445",
+      "bytes": 2035
+    },
+    {
+      "path": "source/consumer/bundle-metafile.json",
+      "pathBase": "object",
+      "sha256": "dece2bc927c78720c4f8850d52bf1d1616dbde8aa8a3a589d198e7320a166949",
+      "bytes": 2682
+    },
+    {
+      "path": "source/consumer/capture.mjs",
+      "pathBase": "object",
+      "sha256": "103aafa18792472eedc4a029234ea86aeb7bf2ae11fa598f1cb7d020fd06e713",
+      "bytes": 2964
+    },
+    {
+      "path": "source/consumer/fixture.bundle.js",
+      "pathBase": "object",
+      "sha256": "427c4d093335b032e632e268e46c47e00ec0af418b0ad8b6bf823b7381176cd8",
+      "bytes": 60866
+    },
+    {
+      "path": "source/consumer/fixture.html",
+      "pathBase": "object",
+      "sha256": "e871bdd2d417a95e4259c8a8a1550dfc265d915c42951dff602f8952a5108dc4",
+      "bytes": 373
+    },
+    {
+      "path": "source/consumer/fixture.mjs",
+      "pathBase": "object",
+      "sha256": "9e0f190c975d0ac417cabf00e7f30ef4087b9ba4c68402116477c22631f73a2e",
+      "bytes": 3534
+    },
+    {
+      "path": "source/consumer/sprite-layout.js",
+      "pathBase": "object",
+      "sha256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "bytes": 12907
+    },
+    {
+      "path": "source/consumer/world-sprite-raster.js",
+      "pathBase": "object",
+      "sha256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545",
+      "bytes": 5706
+    },
+    {
+      "path": "source/initial-observations.json",
+      "pathBase": "object",
+      "sha256": "b642a7765637c98b4330241dc7117ac98c6b0007f9e50fbbbfabc1796c7c0562",
+      "bytes": 7460
+    },
+    {
+      "path": "source/initial-source-probe.json",
+      "pathBase": "object",
+      "sha256": "4756ff8c5c4d5082ab7bce372d3c2ce6b564c726389b61dfe5584ac07601974b",
+      "bytes": 22668
+    },
+    {
+      "path": "source/initial-source-probe.log",
+      "pathBase": "object",
+      "sha256": "598f1625f201243a5738777e04d3dfe5a2fc04dc7f3c303ef9d2e603ef809a3e",
+      "bytes": 22746
+    },
+    {
+      "path": "source/initial-source-probe.py",
+      "pathBase": "object",
+      "sha256": "0a9dd01c8bfff05d03796f4ecf2104793c4430cfd350b50aeb4c9e04a36cf85a",
+      "bytes": 3660
+    },
+    {
+      "path": "source/package-round01.py",
+      "pathBase": "object",
+      "sha256": "1153822b8e396dc6b70ee8ab4246550fee67dc2a0df7459b8d151038a9410b29",
+      "bytes": 11725
+    },
+    {
+      "path": "source/preflight01-envelope-diagnostic.json",
+      "pathBase": "object",
+      "sha256": "7ee4c28129021b5588cac82d58fbd5967dbd19df67b589ed924f04f62d554401",
+      "bytes": 2703
+    },
+    {
+      "path": "source/reproduce-round01.py",
+      "pathBase": "object",
+      "sha256": "ac6a1bf8a4bd2a2ee900c45049f1a34c5db231f5de405cbf4a5aee195c217e40",
+      "bytes": 12469
+    },
+    {
+      "path": "source/round-01.blend",
+      "pathBase": "object",
+      "sha256": "a7f8357632d42d3f5113f7ee3b423634bdd834e0d3cbfb9a058ea513767a1498",
+      "bytes": 132536
+    },
+    {
+      "path": "source/round01-build.log",
+      "pathBase": "object",
+      "sha256": "02b131a284c4981c2c778f67d7240937a0196e72b6c6d18a8d55506ac464407b",
+      "bytes": 2254
+    },
+    {
+      "path": "source/round01-consumer.log",
+      "pathBase": "object",
+      "sha256": "68e11d9c0cd04084632c31aa293d642128ac479b96cff0bf234c05102ffb0d0e",
+      "bytes": 372
+    },
+    {
+      "path": "source/round01-inputs.json",
+      "pathBase": "object",
+      "sha256": "8f139e3f02d89943fc3b86c4475d3d46c656488a3c8b2620ae105a4a3b49731e",
+      "bytes": 3368
+    },
+    {
+      "path": "source/round01-replay.log",
+      "pathBase": "object",
+      "sha256": "871f7e61048fa8228b69947335ca8bfe2870521f45dbcc91bb6853433739c65f",
+      "bytes": 1117
+    },
+    {
+      "path": "source/round01-resources/approved-E.png",
+      "pathBase": "object",
+      "sha256": "f88849b3c6a7dde23e782bcd76a00b4a23b00ea9b0d257ffeea7f4eb4d90fe35",
+      "bytes": 26355
+    },
+    {
+      "path": "source/round01-resources/approved-N.png",
+      "pathBase": "object",
+      "sha256": "9ae7f476053c03c8469ca99136fdac1a93362380a3b1a12930ffca973e2e3e0d",
+      "bytes": 29196
+    },
+    {
+      "path": "source/round01-resources/approved-S.png",
+      "pathBase": "object",
+      "sha256": "f568944637b634abdc4d895542649bfbe9c1857a8a928fab40fbda7280f46cd9",
+      "bytes": 29943
+    },
+    {
+      "path": "source/round01-resources/approved-W.png",
+      "pathBase": "object",
+      "sha256": "ea1c748ef2719da7953ef0eafdd15c4b0bde43c7a15f1a4bd09ffafe65ecbd69",
+      "bytes": 26347
+    },
+    {
+      "path": "source/round01-resources/approved-binding.json",
+      "pathBase": "object",
+      "sha256": "4c953c897c202939f748501018bf6203d07aa65cc717a72482a74e058cc58c05",
+      "bytes": 2263
+    },
+    {
+      "path": "source/round01-resources/brief.json",
+      "pathBase": "object",
+      "sha256": "5263e57dd56796644f92669499e08db67f72abf2c08a32648412f711a910144b",
+      "bytes": 51252
+    },
+    {
+      "path": "source/round01-resources/canonical-endpoint-fields.json",
+      "pathBase": "object",
+      "sha256": "1c00c762297f4cd7a0cb9ad2e4092eafc9338028472ece2145e2bf0144a5d57d",
+      "bytes": 163935
+    },
+    {
+      "path": "source/round01-resources/canonical-middle02.blend",
+      "pathBase": "object",
+      "sha256": "d44748684c4e13a25bfd7e28fe5862232ccb8b0d11d530cd9702ea66f525d46c",
+      "bytes": 131070
+    },
+    {
+      "path": "source/round01-resources/catalog-object.json",
+      "pathBase": "object",
+      "sha256": "7eaff4c2a2acb78de082145db686214ac4c0eee85e97f41695c1cbf2d43d571c",
+      "bytes": 6224
+    },
+    {
+      "path": "source/round01-resources/fixed-target.png",
+      "pathBase": "object",
+      "sha256": "17c440b3b30d6a9e6716644935ae7ac16b5d2a54dec0d78f366a453ec16ac360",
+      "bytes": 1206412
+    },
+    {
+      "path": "source/round01-resources/original-library.blend",
+      "pathBase": "object",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "bytes": 8070464
+    },
+    {
+      "path": "source/round01-resources/original.png",
+      "pathBase": "object",
+      "sha256": "b9a2dbb7ee4e79a99db8936d1b272fc3d4301f29493b18298be54831bcaac40b",
+      "bytes": 52790
+    },
+    {
+      "path": "source/round01-resources/root-native-contract.json",
+      "pathBase": "object",
+      "sha256": "6219699bad1dd1c0926209c5c2316d0bfbc961e2b585d00141c1243325c6f0d3",
+      "bytes": 45232
+    },
+    {
+      "path": "source/round01-resources/source-assetRecord.json",
+      "pathBase": "object",
+      "sha256": "b2df687512f8c2d0283aa26422b6ed440726039ca56ee1e5aa7482b05976040c",
+      "bytes": 1425
+    },
+    {
+      "path": "source/round01-resources/source-rig.json",
+      "pathBase": "object",
+      "sha256": "8e6cb2235884d703de3869d5002f1a96608e2892ef14f853f66f982a3f9b3c5f",
+      "bytes": 2166
+    },
+    {
+      "path": "source/round01-resources/warm-soft-reference.png",
+      "pathBase": "object",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+      "bytes": 133376
+    },
+    {
+      "path": "source/round01-validation.log",
+      "pathBase": "object",
+      "sha256": "8d6b0591b16150bd4333cb0308d415b7e6559042b3bf0c982e6db6ad808042a8",
+      "bytes": 714
+    },
+    {
+      "path": "source/round01-visual-aliases.json",
+      "pathBase": "object",
+      "sha256": "1691105b181a92eefaca3226ed75424311fa81ff00d3a8703b496b2b662bfc83",
+      "bytes": 4091
+    },
+    {
+      "path": "source/validate-round01.py",
+      "pathBase": "object",
+      "sha256": "8e4df3a5839169f4d7a8e44af98d17924ace4ae00a9f4a57e55a95c42c3b3034",
+      "bytes": 12658
+    }
+  ]
+}

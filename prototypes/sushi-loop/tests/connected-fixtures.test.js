@@ -138,6 +138,14 @@ test('floors meet all cell edges and every dock view includes the native overlap
     const entry = scene.placements.find(p => p.object === 'dock-entry');
     assert.ok(matching([entry.x, entry.y, ...entry.offset], [1, 2.5, 0, 0]));
     const sub = scene.placements.find(p => p.object === 'submarine-yellow');
+    const deck = scene.placements.find(p => p.object === 'dock-floor');
+    const hut = scene.placements.find(p => p.object === 'workshop-hut');
+    assert.equal(sub.supportedBy, deck.id, 'The docked submarine must draw above its declared deck');
+    assert.equal(hut.supportedBy, deck.id, 'The hut must draw above its declared deck');
+    assert.equal(entry.supportedBy, undefined, 'External stairs retain their independent depth order');
+    const ordered = orderPlacements(scene.placements, data.objects);
+    assert.ok(ordered.findIndex(p => p.id === deck.id) < ordered.findIndex(p => p.object === hut.object));
+    assert.ok(ordered.findIndex(p => p.id === deck.id) < ordered.findIndex(p => p.object === sub.object));
     assert.ok(matching([sub.x, sub.y], [.3, .92]));
     assert.ok(matching(sub.offset, [0, -.23 * 128 * .70]), 'The .23-world-unit dock support follows the approved70% front projection');
   }

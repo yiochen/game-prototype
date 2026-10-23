@@ -1,0 +1,163 @@
+{
+  "asset": "bubble-preference",
+  "project": "source/round01/bubble-preference.png",
+  "publisher": "source/round01/publish.py",
+  "preparationRecipe": "source/round01/prepare_sources.py",
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "columns": 6,
+    "rows": 2,
+    "atlasSize": [
+      2304,
+      1280
+    ]
+  },
+  "crop": {
+    "raw": "source/round01/resources/fixed-target-raw.png",
+    "rawSHA256": "0f3e1aff5eb7b5e667e238e357c1f97b0f8ff5f5e51f3a9ffe4853ad438c8a8c",
+    "thresholdForBoundsOnly": ">8",
+    "box": [
+      50,
+      554,
+      923,
+      1136
+    ],
+    "canonical": "source/round01/bubble-preference.png",
+    "canonicalSHA256": "71b09b158959fb0d3ec6ad3ce7d0887efd4acb43b38543ad1be405db77659e4d",
+    "size": [
+      873,
+      582
+    ],
+    "retainedRGBAUnmodified": true
+  },
+  "food": {
+    "dish-salmon": {
+      "path": "source/round01/resources/foods/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "size": [
+        731,
+        505
+      ],
+      "pixelSHA256": "79c929a5231399a94fe9c52b47a26af2d67faeafe42c3f3fbe9117d386201df2",
+      "cropCountInThisPublisher": 0,
+      "approvedPacket": {
+        "path": "source/round01/resources/foods/receipts/dish-salmon-packet.json",
+        "sha256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6"
+      },
+      "approvedReview": {
+        "path": "source/round01/resources/foods/receipts/dish-salmon-review.json",
+        "sha256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67"
+      }
+    },
+    "dish-cucumber": {
+      "path": "source/round01/resources/foods/dish-cucumber.png",
+      "sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "size": [
+        635,
+        511
+      ],
+      "pixelSHA256": "84dab715bac53999bd6c87f22e2e605ea9ad41603b680f0fcd1e75a74925b6e0",
+      "cropCountInThisPublisher": 0,
+      "approvedPacket": {
+        "path": "source/round01/resources/foods/receipts/dish-cucumber-packet.json",
+        "sha256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f"
+      },
+      "approvedReview": {
+        "path": "source/round01/resources/foods/receipts/dish-cucumber-review.json",
+        "sha256": "a649ebe99484075ade796f38f0da76dba17f427b9ff277d202e72c8ebf43b854"
+      }
+    },
+    "dish-eel": {
+      "path": "source/round01/resources/foods/dish-eel.png",
+      "sha256": "1944c44bacb881e815693adc0e60fe029e139b347366b45e7e869d4dbb3b4492",
+      "size": [
+        760,
+        499
+      ],
+      "pixelSHA256": "9ab66b25ef6f6c4e5f50b03ca76fa96b6b9ce5a94ffbeab18a3338c071f51f35",
+      "cropCountInThisPublisher": 0,
+      "approvedPacket": {
+        "path": "source/round01/resources/foods/receipts/dish-eel-packet.json",
+        "sha256": "453ee8f9d04e9d0baca06d9ee44e675db56650bb0c198d767c421017ad5c4291"
+      },
+      "approvedReview": {
+        "path": "source/round01/resources/foods/receipts/dish-eel-review.json",
+        "sha256": "a30fbb2486da8ce7525ae10a6f16bae9d400dbf200504558df2fea686db30e8b"
+      }
+    }
+  },
+  "normalization": {
+    "blankPhysical": [
+      164,
+      109
+    ],
+    "blankLogicalWidth": 82,
+    "foodPhysical": {
+      "dish-salmon": [
+        80,
+        55
+      ],
+      "dish-cucumber": [
+        80,
+        64
+      ],
+      "dish-eel": [
+        80,
+        53
+      ]
+    },
+    "foodLogicalWidth": 40,
+    "foodCropCount": 0,
+    "resampling": "PillowLANCZOS; uniform aspect; original Pythonround"
+  },
+  "animation": {
+    "phase": "index/12*tau",
+    "center": "[96,248-52-3*sin(phase)]",
+    "foodCenter": "[centerX,centerY-5]",
+    "appearScale": ".5+.5*sin((index+1)/12*pi/2)",
+    "appearAlpha": "(index+1)/12",
+    "fadeAlpha": "1-index/12",
+    "idleAlpha": 1,
+    "jointScaleAndAlpha": true
+  },
+  "aliases": "S,N,E,W all share original S atlas/rects; native ArtBook direction_data falls back to S. No separate artwork or runtime extra variant.",
+  "context": {
+    "actualNativeHarness": "candidates/round01/native-context/project.godot",
+    "originalMethodsCalled": [
+      "sprite",
+      "_customer_at",
+      "_feedback_at",
+      "customer_pose_offset",
+      "customer_feedback",
+      "ArtBook.frame_data",
+      "ArtBook.registered_rect"
+    ],
+    "currentAttachment": [
+      0,
+      -172
+    ],
+    "historicalAttachment": [
+      0,
+      -90
+    ],
+    "timer": "Separate current native draw_circle/draw_arc; code-equivalent Pillow assembly separately labeled.",
+    "eel": "Preserved catalog clips; not selected by current customer_feedback.",
+    "postgenerationFamilyContext": "Approved heart/smile finish images were added after ImageGen call, never claimed as generation inputs."
+  },
+  "playback": "Nine clip APNGs have12 fullRGBA frames at exact1/12s. Recipe APNGs show appear+two idle cycles+fade. Inspection replays loop; original clip loop flags unchanged.",
+  "prohibitedOperationsApplied": []
+}

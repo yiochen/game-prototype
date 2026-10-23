@@ -1,0 +1,66 @@
+{
+  "absWorkingDir": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog",
+  "bundleInputs": {
+    "../../../dev/game-prototype/node_modules/react/cjs/react.development.js": {
+      "bytes": 49165,
+      "imports": [],
+      "format": "cjs"
+    },
+    "../../../dev/game-prototype/node_modules/react/index.js": {
+      "bytes": 186,
+      "imports": [
+        {
+          "path": "../../../dev/game-prototype/node_modules/react/cjs/react.development.js",
+          "kind": "require-call",
+          "original": "./cjs/react.development.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    "game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/candidates/round-01/consumer-fixture/world-sprite-raster.js": {
+      "bytes": 5706,
+      "imports": [
+        {
+          "path": "../../../dev/game-prototype/node_modules/react/index.js",
+          "kind": "import-statement",
+          "original": "react"
+        }
+      ],
+      "format": "esm"
+    },
+    "game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/candidates/round-01/consumer-fixture/sprite-layout.js": {
+      "bytes": 12907,
+      "imports": [],
+      "format": "esm"
+    },
+    "game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/candidates/round-01/consumer-fixture/fixture.js": {
+      "bytes": 3766,
+      "imports": [
+        {
+          "path": "game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/candidates/round-01/consumer-fixture/world-sprite-raster.js",
+          "kind": "import-statement",
+          "original": "./world-sprite-raster.js"
+        },
+        {
+          "path": "game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/candidates/round-01/consumer-fixture/sprite-layout.js",
+          "kind": "import-statement",
+          "original": "./sprite-layout.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "privateActualUsedModuleSnapshots": [
+    {
+      "actualImportedPath": "/Users/yiouchen/dev/game-prototype/node_modules/react/cjs/react.development.js",
+      "privateSnapshot": "source/round-01-resources/dependencies/react/cjs/react.development.js",
+      "sha256": "97bef56f30daa05320514ea220d7d03eb765635519ff2d5650c4887772aa5767"
+    },
+    {
+      "actualImportedPath": "/Users/yiouchen/dev/game-prototype/node_modules/react/index.js",
+      "privateSnapshot": "source/round-01-resources/dependencies/react/index.js",
+      "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+    }
+  ],
+  "prerequisites": "Node22/esbuild0.28.2/Playwright1.63.0 installed runtimes, not vendored application trees. Exact actual browser executable/options in source/browser-round01.log."
+}

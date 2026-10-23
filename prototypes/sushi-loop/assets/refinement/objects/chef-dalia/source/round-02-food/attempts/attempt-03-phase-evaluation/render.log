@@ -1,0 +1,36 @@
+00:00.364  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02.blend"
+00:03.800  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/000.png'
+BlenderMCP addon registered
+FRAME 1 idle N 0 corner 91.97675015185808 support 58.580395625534834 bodyExact True
+00:05.714  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/001.png'
+FRAME 2 idle N 1 corner 92.5893830952927 support 59.19302856896945 bodyExact True
+00:07.668  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/002.png'
+FRAME 3 idle N 2 corner 92.96711377825005 support 59.570759251926916 bodyExact True
+00:09.126  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/003.png'
+FRAME 4 idle N 3 corner 93.00875702695578 support 59.612402500632584 bodyExact True
+00:10.838  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/004.png'
+FRAME 5 idle N 4 corner 92.70311672437231 support 59.306762198049114 bodyExact True
+00:12.257  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/005.png'
+FRAME 6 idle N 5 corner 92.13214390495307 support 58.735789378629875 bodyExact True
+00:13.620  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/006.png'
+FRAME 7 idle N 6 corner 91.4488016651461 support 58.05244713882291 bodyExact True
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/render.py", line 32, in <module>
+    row['sourceComparison']={'errors':errs,'all95PhysicalWorldVertexHashesEqual':exact_pose,'sourceVisibilityEqual':visibility_equal,'ok':ok};frame=OUT/'frames'/f'{clip}-{direction}'/f'{index:03d}.png';frame.parent.mkdir(parents=True,exist_ok=True);sc.render.filepath=str(frame);bpy.ops.render.render(write_still=True);row['path']=str(frame.relative_to(BASE));row['sha256']=sha(frame);rows.append(row)
+                                                                                                                                                                                                                                                                                                                                                                                      ~~~^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/common.py", line 7, in sha
+    def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+                                     ~~~~~~~~~~~~~~~~~~^^
+  File "/Applications/Blender.app/Contents/Resources/5.2/python/lib/python3.13/pathlib/_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "/Applications/Blender.app/Contents/Resources/5.2/python/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/candidates/round-02/frames/idle-N/007.png'
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Sent an internal break event. Press ^C again to kill Blender
+
+Blender quit

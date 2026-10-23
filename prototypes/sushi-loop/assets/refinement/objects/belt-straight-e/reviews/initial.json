@@ -1,0 +1,95 @@
+{
+  "asset": "belt-straight-e",
+  "stage": "initial-independent-inspection",
+  "status": "criteria-proposed-awaiting-coordinator-freeze",
+  "scope": "Source and fixed target inspection only. No candidate approval and no editor proposals read.",
+  "inspectedFiles": [
+    "brief.json",
+    "prompts/judge.txt",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/source-assetRecord.json",
+    "inputs/source-camera.json",
+    "inputs/source-rig.json",
+    "inputs/catalog-object.json",
+    "inputs/family-settings.json",
+    "inputs/family-approval.json",
+    "inputs/approved-family-native-S.png",
+    "../../prompts/native-capture-notes.md",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "../../../production/source/blender/revisions/4fa9e22e555f8aad/native_actions.py",
+    "../../../production/source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+    "../../../production/sprites/belt-straight-e/running-N.png",
+    "../../../production/sprites/belt-straight-e/running-E.png",
+    "../../../production/sprites/belt-straight-e/running-S.png",
+    "../../../production/sprites/belt-straight-e/running-W.png",
+    "reviews/source-inspection/original-N-all24.png",
+    "reviews/source-inspection/original-E-all24.png",
+    "reviews/source-inspection/original-S-all24.png",
+    "reviews/source-inspection/original-W-all24.png",
+    "reviews/source-inspection/original-use-sizes.png",
+    "reviews/source-inspection/source-target-family-detail.png",
+    "reviews/source-inspection/native-source-inspection.json"
+  ],
+  "provenance": {
+    "sourceProjectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "fixedTargetSHA256": "00b7a19d24f19bacd2dc1d6c924784a2a6c8c52fdc627b2c61687eb02f074ab2",
+    "familySettingsSHA256": "599d7a731dcf8f22305f3d7b8a67a1fa45743535ed34937620dd9a834377ba15",
+    "targetReferences": "The existing E ImageGen target used the actual E source snapshot and plant style reference only. The approved N native image/settings were supplied afterward as the family continuity contract; they were not an input to that earlier generation.",
+    "familyApprovalScope": "Approved N native materials, section profiles, phase, capture and runtime consumer are continuity references. They do not approve E."
+  },
+  "scores": {
+    "context": "Comparative baseline observations for the original only; these are not approval thresholds.",
+    "shapeVolume": 3,
+    "color": 4,
+    "lightingHighlights": 3,
+    "materialDetail": 2,
+    "artifactFreeReadability": 5
+  },
+  "sourceObservations": [
+    "The original is immediately recognizable as a straight modular conveyor: a slate deck between coral rails, raised on wooden legs. The source silhouette and strong palette separation already support recognition at cell sizes 128, 55 and 32.",
+    "At full size, the broad coral rail faces read as flat rectangular strips, with abrupt dark lower bands. The wooden legs are almost black on a dark background and merge with the underside rather than communicating warm wood. The deck uses narrow hard phase bands with little material or rounded slat volume.",
+    "All 96 original samples were inspected in four verified 24-frame contact sheets. The deck bands move while rails and supports remain stationary; no geometry deformation is intended. N/S show the screen-horizontal flow axis and E/W the screen-vertical flow axis. The original 24 frames are unique for each facing.",
+    "The original support count, rail part count and blank surfaces are not design requirements. A native rebuild with clearer construction, proportions, softened forms and purposeful accents is welcome inside the functional envelope."
+  ],
+  "targetObservations": [
+    "The target calls for warm, softly lit cartoon construction: a peach-coral rail shoulder with a broad controlled highlight and rounded edge response; a cooler slate deck with soft slat shoulders; honey-colored supports with restrained grain and small gold fasteners.",
+    "Its useful contribution is crafted volume and material distinction, not a mandate for gloss, exact bolt counts, exact support proportions or pixel identity. The approved native N image establishes the actual family material and connector appearance that E must meet.",
+    "The target's enlarged gold end collars, isolated terminal treatment and altered framing cannot override straight-module join planes, source ports or registration. It also contains faint low-alpha stray pixels outside the visible object; those are ImageGen artifacts, not desired export content.",
+    "Only one source-facing target exists. Unseen facings must preserve coherent native construction and the same family style without inventing extra target views."
+  ],
+  "actualSourceContract": {
+    "inspection": "The exact original .blend was opened read-only in Blender 5.2.2 LTS. The E collection was linked into an isolated scene and its global viewport/render hiding was disabled in memory before evaluated measurements. No original file was saved.",
+    "collection": "S33_FB_belt-straight-e.001",
+    "root": "belt-straight-e__root.001",
+    "intrinsicGeometryOrientationRadians": 1.5707963705062866,
+    "publisherRootRotationsDegrees": { "N": 180, "E": 90, "S": 0, "W": -90 },
+    "portsWorldByPublisherFacing": {
+      "S": { "incoming": [-0.5, 0, 0.64], "outgoing": [0.5, 0, 0.64] },
+      "N": { "incoming": [0.5, 0, 0.64], "outgoing": [-0.5, 0, 0.64] },
+      "E": { "incoming": [0, -0.5, 0.64], "outgoing": [0, 0.5, 0.64] },
+      "W": { "incoming": [0, 0.5, 0.64], "outgoing": [0, -0.5, 0.64] }
+    },
+    "deckSocket": [0, 0, 0.64],
+    "boundsAtS": [[-0.5, -0.48, 0], [0.5, 0.48, 0.695]],
+    "boundsAtE": [[-0.48, -0.5, 0], [0.48, 0.5, 0.695]],
+    "deckSourceSection": "Deck is a plane at z=.64, width .70; native longitudinal endpoints are +/- .5. Rails occupy cross-width .35..48 on each side, z=.505..695. Preserve the compatible native family section/connection envelope, not the incidental source box topology.",
+    "motion": "Actual native action evaluated at frames 1..25 for all four facings: phase=-7*(frame-1)/24, 24 unique samples at 12fps, closing value -7 at frame25. Evaluated topology is static across every sample. UV.x is incoming0 to outgoing1; seven periods per cell.",
+    "registeredCapture": "55.00798-degree square top/front oblique camera, pixel aspect 1.22065556:1, 384x704 sourceScale2 frame, logical192x352, logical root96,248, 128 logical pixels/cell. Measured source-scale2 root192,496.00003; one world X/depth unit256 px, height unit179.20008 px upward.",
+    "atlases": "Every facing retains a 6x4 atlas of 2304x2816 pixels, with the original 24 384x704 rects in original order. Closure is evidence only, not an extra runtime frame."
+  },
+  "sourceCaveats": [
+    "The library starts with a presentation camera and hidden E collection. Those saved visibility/camera values are not the registered export contract. The recorded 55.00798-degree camera, not the incidental 35-degree presentation, governs review.",
+    "A hidden collection yields stale identity world matrices and a stale phase even after changing the root. Measurements were repeated after unhiding the collection; only the corrected evaluated report is used.",
+    "The camera/asset source records describe historical captureScale4, while the catalog and refinement outputs use sourceScale2. Preserve the logical frame/root and accurately recalibrate source-scale2 metadata.",
+    "N's intrinsic orientation is pi; E's is pi/2. Do not copy N's intrinsic orientation or port labels unchanged. Compatible same-flow N-reference facings are E:S with N:W, E:N with N:E, E:E with N:S, and E:W with N:N.",
+    "A source sprite's UV phase and a visually plausible standalone frame do not prove seamless assemblies. E needs new native-versus-independent RGB and alpha evidence through the approved Godot consumer, including mixed compatible joins and fractional contexts.",
+    "The source-size sheet in reviews is an analysis aid made with Pillow, not evidence of Godot filtering. Native and runtime checks remain required for the candidate."
+  ],
+  "rankedDesiredOutcomes": [
+    "Show the approved family's warm coral/slate/honey material vocabulary with softer rail and slat volume, legible structure and useful native craft detail inside the locked envelope.",
+    "Keep every facing and animation phase clean and readable at128,55,32: no black support dead spots, texture swimming, noisy pinpoints, broken cut edges or disappearing functional forms.",
+    "Prove the exact E orientation, all96 native frames plus closure, original atlas layout and seamless repeated/mixed compatible joins in both RGB and alpha through the approved Godot consumer."
+  ],
+  "nextStep": "Coordinator freezes criteria in brief.qualityCriteria; judge then reviews a hash-bound native candidate."
+}

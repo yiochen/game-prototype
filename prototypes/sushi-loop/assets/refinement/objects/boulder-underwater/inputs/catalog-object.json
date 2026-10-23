@@ -1,0 +1,266 @@
+{
+  "id": "boulder-underwater",
+  "name": "Underwater faceted boulder",
+  "family": "W11",
+  "status": "ready",
+  "kind": "terrain",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "height-dependent-35-square-footing",
+  "frameSize": [
+    192,
+    512
+  ],
+  "root": [
+    96,
+    416
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/boulder-underwater/static-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            1024
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              1024
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/boulder-underwater/static-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            1024
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              1024
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/boulder-underwater/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            1024
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              1024
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/boulder-underwater/static-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            1024
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              1024
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Joined terrain beside a ship-sized lane",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "boulder-underwater",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "boulder-underwater",
+          "x": 1,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        }
+      ],
+      "note": "Shared cell pitch and independent support masks. Only compatible declared port profiles form final obstacle joins."
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "floor-underwater"
+    ],
+    "notes": ""
+  },
+  "height": 2.3,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      512
+    ],
+    "anchor": [
+      96,
+      416
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "5f1f3a1db1057c56c8d3a83359faf1e05471533ddb14a59882af305c9ae66f43",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "conceptReference": "cobalt-crags",
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+    "camera": "source/records/boulder-underwater/camera.json",
+    "guide": "source/registered/boulder-underwater/static-N/guide.json",
+    "assetRecord": "source/records/boulder-underwater/asset.json",
+    "rig": "source/records/boulder-underwater/rig.json"
+  }
+}

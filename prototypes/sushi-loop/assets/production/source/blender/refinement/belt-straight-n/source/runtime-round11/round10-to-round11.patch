@@ -1,0 +1,22 @@
+--- a/prototypes/sushi-loop/godot/scripts/restaurant_view.gd
++++ b/prototypes/sushi-loop/godot/scripts/restaurant_view.gd
+@@ -377,8 +377,8 @@
+ 	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
+ 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
+ 		draw_circle(center, pitch * 0.10, PAPER)
+-		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4, true)
+-		draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4, true)
++		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4 * _native_screen_pixel_scale, true)
++		draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4 * _native_screen_pixel_scale, true)
+ 
+ func _seat_at(seat: Dictionary, base: Vector2, pitch: float) -> void:
+ 	sprite("stool-wood", base, "static", str(FACING.get(seat.get("facing", "south"), "S")), 0.0, pitch, activity_tint(seat))
+@@ -460,7 +460,7 @@
+ 	if float(feedback.timer) >= 0.0:
+ 		var center: Vector2 = bubble_base + Vector2(37, -84) * pitch / art.cell_size
+ 		var radius := pitch * 0.115
+-		var stroke := maxf(1.4, pitch * 0.032)
++		var stroke := maxf(1.4 * _native_screen_pixel_scale, pitch * 0.032)
+ 		draw_circle(center, radius + stroke, Color("fff5dc"))
+ 		draw_arc(center, radius, 0, TAU, 36, Color("c5ccbc"), stroke, true)
+ 		var progress := float(feedback.timer)

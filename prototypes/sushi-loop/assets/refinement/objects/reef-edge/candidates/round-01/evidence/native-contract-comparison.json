@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "entireWBandsExact": true,
+    "entireEBandsExact": true,
+    "sharedLightsExact": true,
+    "sharedWorldExact": true,
+    "sharedRenderExact": true,
+    "finiteGroundArea": true,
+    "envelope": true,
+    "noLinkedLibraries": true,
+    "noImageArtwork": true,
+    "noActions": true,
+    "privateMeshes": true,
+    "closedCore": true
+  },
+  "allChecksPassed": true,
+  "coverage": "Every evaluated triangle and corner-normal vector spanning full actual .08 endpoint bands, native active material fields, common rig/world/color; no normal override branch. Root native rotations preserve equality. Geometry and shader normals are identical for these flat bands.",
+  "fieldSources": [
+    "canonical-native-audit.json",
+    "candidate-native-audit.json"
+  ],
+  "scope": "Native technical measurements only, not visual approval."
+}

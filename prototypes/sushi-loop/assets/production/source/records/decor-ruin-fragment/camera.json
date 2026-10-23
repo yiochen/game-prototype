@@ -1,4 +1,6 @@
 {
+  "scene": "Ruin fragment warm native round 03",
+  "cameraObject": "Registered ruin camera 35deg",
   "projection": "character-orthographic",
   "frame": [
     192,
@@ -9,15 +11,9 @@
     384
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
-    "type": "orthographic",
     "worldMatrix": [
       [
         1.0,
@@ -55,7 +51,7 @@
         0.0,
         0.5333333611488342,
         0.0,
-        -0.5999990105628967
+        -0.6000000238418579
       ],
       [
         0.0,
@@ -71,52 +67,43 @@
       ]
     ],
     "pixelAspect": [
-      1.0,
-      1.0
+      1,
+      1
     ],
-    "worldUnitsPerCell": 1,
-    "elevationDegrees": 35
+    "elevationDegrees": 35,
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.75
+    ],
+    "sensorFit": "HORIZONTAL"
   },
   "calibration": {
     "root": [
-      384.0,
-      1536.0
+      192.0,
+      768.0004835128784
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.83552980422974
     ],
     "unitHeight": [
       0.0,
-      -419.4058837890625
+      -209.70295429229736
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  }
+  "nativeCaptureScale": 4,
+  "nativeResolution": [
+    768,
+    1920
+  ],
+  "publishedResolution": [
+    384,
+    960
+  ],
+  "publicationSampling": "whole-canvas uniform Lanczos2:1; no crop/fit"
 }

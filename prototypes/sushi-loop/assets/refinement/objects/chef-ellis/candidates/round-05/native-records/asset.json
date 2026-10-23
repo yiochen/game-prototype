@@ -1,0 +1,116 @@
+{
+  "id": "chef-ellis",
+  "projection": "character-orthographic",
+  "frame": [
+    192,
+    320
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "idle": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "work": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "hold": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "load": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 1.3968749344348907,
+  "sockets": {
+    "ground": [
+      0,
+      0,
+      0
+    ],
+    "seat_contact": [
+      0,
+      0,
+      0.4477801191577021
+    ],
+    "hand_left": [
+      -0.267,
+      -0.023,
+      0.211
+    ],
+    "hand_right": [
+      0.267,
+      -0.023,
+      0.211
+    ],
+    "mouth": [
+      0,
+      -0.255,
+      0.543
+    ]
+  },
+  "artStyle": {
+    "revision": "approved04-native-body-with-canonical05-food",
+    "bodyCameraRigActionsMaterialsLightingUnchanged": true
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "locomotion": {
+    "walkCellsPerSecond": 0.225,
+    "panicCellsPerSecond": 0.45,
+    "worldTravelPerWalkCycle": 0.225
+  },
+  "foodDependency": {
+    "asset": "dish-salmon",
+    "representation": "packed2D raster texture, not modeled3D food",
+    "artwork": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "packet": "../dish-salmon/candidates/round01/packet.json",
+    "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+    "review": "../dish-salmon/reviews/round01.json",
+    "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+    "canonicalSize": [
+      731,
+      505
+    ],
+    "canonicalAlphaRectangleTopOrigin": [
+      0,
+      0,
+      731,
+      505
+    ],
+    "policy": "Use exact canonicalsource, one fixed UV rectangle/no additional crop. Preserve .35worldcell displaywidth, platebottom palm attachment, yaw cancellation and camera-ray depthbias; exclude2Ddisplay from physicalbodybounds. Explicitly record source/UV/aspect revision from old packedfood."
+  },
+  "foodDisplay": {
+    "representation": "packed2D",
+    "worldWidth": 0.35,
+    "worldHeight": 0.2417920656634747,
+    "fullUV": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "lowerEdge": "Original approved04 attachment",
+    "depthBiasWorld": 0.6
+  }
+}

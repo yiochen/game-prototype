@@ -1,0 +1,537 @@
+{
+  "asset": "decor-background-wreck",
+  "version": 1,
+  "status": "root-frozen-before-construction",
+  "sourceProposal": {
+    "path": "reviews/source-contract-proposal.json",
+    "sha256": "ef20d418224c98546ea45c03d5448235132835dfbe081ad8189efb6e555b9225"
+  },
+  "preparationManifest": {
+    "path": "reviews/preparation-v1/manifest.json",
+    "sha256": "c1271bbd42143fcd571c29493551c0da0966f30b1c6474fe601d3bc59b497181",
+    "rootVerifiedFiles": 135
+  },
+  "nativeContract": {
+    "asset": "decor-background-wreck",
+    "stage": "preparation-only",
+    "status": "source-contract proposal for ROOT freeze; construction pending",
+    "evidence": {
+      "initial": "reviews/initial.json",
+      "nativeAudit": "reviews/preparation-v1/native-initial-audit.json",
+      "captureLedger": "reviews/preparation-v1/native-capture-ledger-v2.json",
+      "temporalResourceAudit": "reviews/preparation-v1/temporal-resource-audit.json",
+      "historicalReplay": "reviews/preparation-v1/source-pixel-comparison.json",
+      "consumerLedger": "reviews/preparation-v1/consumer-ledger.json",
+      "browserDifferenceLedger": "reviews/preparation-v1/browser-mode-comparison.json"
+    },
+    "actualSource": {
+      "blend": "reviews/preparation-v1/resources/source/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "collection": "S33_PROP_decor-background-wreck.001",
+      "root": "decor-background-wreck__root.001",
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "rootRestRotation": [
+        0,
+        0,
+        0
+      ],
+      "meshCount": 4,
+      "meshNames": [
+        "decor-background-wreck__distant_hull.001",
+        "decor-background-wreck__mast.001",
+        "decor-background-wreck__crossbar.001",
+        "decor-background-wreck__cabin.001"
+      ],
+      "sourceGeometryRole": "Thin extruded blue distant hull plus mast,crossbar,cabin; nonblocking background layer.",
+      "rawAuthoredSBounds": [
+        [
+          -0.49000000953674316,
+          0.49000000953674316
+        ],
+        [
+          -0.05999999865889549,
+          0.05999999865889549
+        ],
+        [
+          0.07000000029802322,
+          0.7460722327232361
+        ]
+      ],
+      "evaluatedSBounds": [
+        [
+          -0.49000000953674316,
+          0.49000000953674316
+        ],
+        [
+          -0.05999999865889549,
+          0.05999999865889549
+        ],
+        [
+          0.07000000029802322,
+          0.7458725571632385
+        ]
+      ],
+      "boundsExplanation": "Ancestry, owned objects and view-layer were enabled before depsgraph sampling. Authored bounds include raw transformed vertices; evaluated values include source bevel trim. Evaluated trim is not a new design size lock.",
+      "functionalSupport": "No actual finite mesh intersectsZ0; hull minimumZ=.07. Ground root is registration only. No feet, foundation or opaque cell-support plate is required. Owned mast and cabin visibly connect to hull, crossbar to mast; preserve coherent assembly rather than exact intersection depths.",
+      "ports": [],
+      "sockets": {},
+      "attachments": [],
+      "rig": [],
+      "UVs": "Hull has noUV layer; source three box meshes haveUVMap. No image textures reachable from owned materials; UV/topology can be rebuilt natively within modeling freedom.",
+      "normals": "Source flat polygon meshes and bevel modifiers; no required fixed custom-normal contract. Native smoothing/bevel/normal improvements allowed.",
+      "materials": "Three object-local materials, users1/2/1 all within owned4meshes. Existing node trees have no animation or image resources. No external linked libraries; unrelated packed dish images are not owned dependencies.",
+      "temporal": "Owned objects/data/materials/node trees have no actions,drivers,NLA,shape keys or armature. Source compositor/world/camera/scene have no actual temporal channel. Static mesh transforms equal at native frames1,2,12,25."
+    },
+    "registrationLocked": {
+      "projection": "top-down-oblique-square-grid; ART01 screenX128*x, screenDepth128*(-Y), screenHeight-89.6*Z logicalpx",
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "publishedSourceScale": 2,
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "nativeCaptureScale": 4,
+      "nativeFrame": [
+        768,
+        1408
+      ],
+      "nativeRoot": [
+        384,
+        992
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1
+      ],
+      "cameraElevationDegrees": 55.00797980144134,
+      "cameraType": "ORTHO",
+      "orthoScale": 1.5,
+      "registeredCameraRecord": "reviews/preparation-v1/resources/inputs/source-camera.json",
+      "measuredMaxProjectionMatrixDifference": 5.066394805908203e-07,
+      "facingConvention": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "nativeRootRotationAndMatricesMeasured": true,
+      "oneCellMetadata": {
+        "footprint": [
+          1,
+          1
+        ],
+        "rootCell": [
+          0.5,
+          0.5
+        ],
+        "directionFootprints": "1x1 all4",
+        "occupiedCells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "supportCells": [],
+        "overheadCells": [],
+        "height": 0.75,
+        "nonblocking": true,
+        "layer": 1,
+        "depthLayer": "background"
+      },
+      "frameClipping": "All native silhouette/detail must fit fixed complete canvas in all4 directions; no crop,fit,per-view scale,warp or recolor.",
+      "publication": "Wholecanvas native4x\u2192published2x LANCZOS only; retain each single-frame384x704 static atlas and rect[0,0,384,704]. Native4x is not published2x metadata."
+    },
+    "proposedModelingBudget": {
+      "requiresROOTReconciliation": true,
+      "basis": "Source thin .12 construction is not a functional connector/clearance. E/W at phone32cell collapse to about4px width. Structural remodeling can improve actual end-on volume and target feel while remaining a quiet isolated wreck.",
+      "recommendedRestEnvelope": {
+        "X": [
+          -0.5,
+          0.5
+        ],
+        "Y": [
+          -0.1,
+          0.1
+        ],
+        "Z": [
+          0.04,
+          0.75
+        ]
+      },
+      "interpretation": "A proposed maximum native design budget, not source truth or editor permission before ROOT freeze. Keep gross hull length near current .98, allow up to.20depth (2/3more than source yet only1/5cell), retain.75height ceiling, root identity and one-cell placement. Small native wear/decor within this envelope need not reproduce source exact hull/beam shapes or count. The .04 lower budget is for integrated worn hull/accretion; it does not requireZ0contact.",
+      "semanticLimits": [
+        "Preserve wreck silhouette grouping and original blue palette family",
+        "No added functional attachment or modular port is supported by source",
+        "No imposed ground plate/feet, expanded collision, support claims or animated channels",
+        "Narrow E/W is physically expected; broaden only to make a coherent end profile, not to mimic frontal target in all views",
+        "Muted background hierarchy at actual actor context takes priority over target golden brightness"
+      ],
+      "fallback": "If ROOT elects a different depth budget, freeze the chosen functional design limit explicitly while retaining these source baselines. No automated exact old hull/profile/part-count lock is warranted."
+    },
+    "sourceMetadataConflicts": [
+      {
+        "topic": "Saved active camera",
+        "observed": "Saved camera is35\u00b0 squarepixel768x1280 for another asset, while own registered record is55.00798\u00b0 non-square pixel768x1408.",
+        "resolution": "Use actual own registered record; source-only native recapture matches historical alpha bounds. No camera ambiguity remains."
+      },
+      {
+        "topic": "Capture scale",
+        "observed": "Source-camera/asset records say4x; catalog sourceScale says2x.",
+        "resolution": "These represent distinct native/published stages, not an unexplained mismatch. Record both truthfully."
+      },
+      {
+        "topic": "Original snapshot facing",
+        "observed": "inputs/original.png is byte-identical to historical static-S.png.",
+        "resolution": "Frozen single-view target is a S-like aesthetic guide; it is not evidence thatNshould face the same way."
+      },
+      {
+        "topic": "One-cell/height metadata versus physical support",
+        "observed": "Declared1x1/.75 assets actually authored .98\u00d7.12\u00d7.67607 aboveZ.07.",
+        "resolution": "Metadata is placement and ceiling; it does not prove filled1x1 support. Root should freeze justified native remodeling envelope rather than source weak thin construction."
+      },
+      {
+        "topic": "Historical raw capture locator",
+        "observed": "Catalog registered/source-captures locator is absent in this checkout.",
+        "resolution": "Preserved exact historical published four atlases plus untouched source/backup; performed own registered native4x source replay and honest wholecanvas2x comparison."
+      }
+    ],
+    "boundedConsumerPlan": {
+      "actualReadSources": [
+        "wireframe/object-review.jsx SpriteScene",
+        "wireframe/sprite-layout.js",
+        "wireframe/world-sprite-raster.js"
+      ],
+      "preparationExecuted": "15 bounded source-only cases in each actual Playwright mode: fullChromium channelchromium and bundledheadlessshell, Chromium153.0.8010.12, DPR1,1400x1000host. All4 on3backgrounds at128/32/47.3cell; fractional root(.37,.61),pan(.23,.47), repeated3x3 and actual6x4 declared submarine/eel context at0,.5,1,2seconds.",
+      "samplingLaw": "Exact current frozen spriteFrame/sceneBounds/orderPlacements/groundRoot and worldRasterPlan/paintWorldRaster functions; common authored native canvas, nearest sampling set AFTER resize; common fractional-phase layer, ordinary wholecanvas CSS filtering. No alpha/RGB repair.",
+      "observed": "All15native canvases match between browser modes. Screenshot pixels differ(max3\u201334levels bycase), visibly minor edge/filter changes. Both modes directly inspected through complete mapped contact sheets; no visible material disappearance or new gap. Source E/W is very thin; no family continuity claimed.",
+      "limits": "Bounded exact-helper fixture host reproduces actual SpriteScene SVG/foreignObject/worldcanvas and floor layering; it is not full production UI or Godot/device evidence. Source companion sprites are frozen for scale/hierarchy only.",
+      "futureCandidate": [
+        "Inspect exact candidate native4x all4, published2x atlas/frame, native recapture and actual measured matrices/source hashes",
+        "Inspect logical128cell,phone32cell,fractional47.3 all4 onlight/gray/dark; repeated3x3 and declared6x4 submarine/eel context in both headless modes",
+        "Use actual phone320x720 and landscape1280x720 review views for final context/layout; preserve exact renderer helper version and record viewport,DPR,errors",
+        "Static own hold0,1/12,11/12,2s with complete object/data/shader channel evidence; no animated motion workload or modular connection law invented",
+        "Candidate packet declares compact complete visual sets and every exact record path is directly inspected/mapped by original judge; preserve REVIEW-COVERAGE and PUBLISHER-HANDOFF without weakening validators"
+      ]
+    },
+    "handoffStatus": "Pending ROOT reconciliation and fresh editor. No model construction, candidate, art approval, production/main/family/device changes or further agents."
+  },
+  "hardConstraints": [
+    "Quiet background wreck: standalone nonblocking layer1 elongated blue hull/mast/crossbar/cabin silhouette. Actual S33_PROP_decor-background-wreck.001/root decor-background-wreck__root.001/root0/unit scale/proper S0 E+90 N180 W-90. Preserve identity, palette, one-cell placement and coherent owned assembly. Native forms/proportions/construction/details/counts/topology/UV/normal/material methods may improve freely within clarified budget; exact source4meshes/slabs/intersection depths are not locks.",
+    "Adopt proposed REST native remodeling envelope X[-.5,.5],Y[-.1,.1],Z[.04,.75], tolerance1e-6 and proper rotations/all4. This is a new preconstruction design budget allowing depth.20 versus old.12, not a claim about source truth. Keep recognizable elongated hull; coherent E/W end volume may improve without mimicking frontal target in allviews. Raw/evaluated bounds and bevel trim are baseline evidence, not tighter hull/perpart locks. Ground root is registration only: actual source lowestZ.07 and no mesh intersectsZ0. Do not invent ground plane/feet/foundation/fullsquare opacity/support sockets/ports/modular continuity/collision expansion. Lower.04 budget permits integrated native wear, not forced support.",
+    "Own registered55.0079798 ORTHO/ortho1.5/pixelAspect1.22065556 camera and measured actual matrices/root/world scale, not unrelated saved35 startup camera. Logical192352/root96248/cell128/native4x7681408/root384992/published2x384704/root192496. Uniform whole authored native canvas LANCZOS reduction, original one-frame atlas rect[0,0,384,704]; no crop/subject fit/warp/perview nudge/recolor/alphaRGB repair. Native and published capture scales are distinct. Record one consistent actual filter/color/render recipe across all4; no other family filter/rig recipe imported.",
+    "Exactly one actual static frame1/NESW/12fps/nonloop/frameOrder[0]. Effective own object/data/material/shader/world/compositor/capture ownership has no active temporal channels. Preserve true static hold0,1/12,11/12,2seconds with bounded source channel/frame probes; no invented sway/action/closure workload. No target image card/paint-over, linked unrelated visible scene assets, or source-original edits. Keep every used native dependency packed or exact portable private closure.",
+    "Freeze original three ranked visible outcomes and all additional outcomes: coherent soft worn elongated wreck, blue quiet actor hierarchy, broad soft symmetric native highlights, purposeful coarse readable detail, all4/use-size artifact-free owned joins/static holds. Muted warm wood/moss accent is optional; no mandatory golden target glare/whitebarnacle counts/foliage or exact target silhouette. One broad symmetric horizontal light recipe acrossall4/no preferred key or directional groundcast. Native geometry/normals/bevel/shader/light choices remain editor-owned. No clipped edge bands/black dead spots/float detached mast/cabin/zfight/accidental cracks/halos/clipping.",
+    "All4 native/published exactframes, full-frame fourview sheet, all4 neutral light/gray/dark128/32/fractional47.3 use, repeated3x3 density study with no modular seam claim. Adopt exact15 prepared consumer configs x2 documented Chromium153 modes, preserving root(.37,.61)/pan(.23,.47), current099/570 helper and frozen companion image/atlas/rect/root/order/version/executable/DPR/error provenance. Add only two bounded final actual viewport contexts320720 and1280720 per mode; no redundant whole Cartesian matrix at each viewport. Native commoncanvas nearest AFTER resize then ordinary wholecanvasCSS filtering; preserve actual source/native/CSS residuals honestly. Fixture reproduces exact SpriteScene methods, not full productionUI/Godot/device execution.",
+    "Every declared hero/preview independently inspected by original judge at complete resolution, with lossless tiles or explicit identical-hash aliases where needed; reduced sheets/hashes/source equality alone never certify quality. Required brief preview names four-view-sheet/phone/repeated should be exact aliases to declared actual media, not new art. Unchanged integrity/direction/acceptance gates. Minimal actual-used private closure/allfiles<100MB/no runtime application trees/frozen pycache. Originals/backup/target/preparation/initial/frozen criteria/brief immutable. Editor source/candidates only; judge reviews only. No sharedhelper/Git/index/production/deploy/liveBlender/device changes or extraagents."
+  ],
+  "reconciliation": {
+    "asset": "decor-background-wreck",
+    "stage": "ROOT reconciliation BEFORE construction",
+    "preparation": {
+      "path": "reviews/preparation-v1/manifest.json",
+      "sha256": "c1271bbd42143fcd571c29493551c0da0966f30b1c6474fe601d3bc59b497181",
+      "rootVerifiedFiles": 135
+    },
+    "freshEditorInitial": {
+      "path": "source/initial-observations.json",
+      "sha256": "a4cd52a65686d929d44ea22fb2c97b4d55969216041c97731f0a4ebe167d6cfb"
+    },
+    "designBudget": {
+      "decision": "Adopt original judge proposed .20 native depth and .04..75 height budget for useful remodeling, while retaining elongated quiet role and one-cell registration. Old .12 extrusion and evaluated trim are not tighter locks.",
+      "X": [
+        -0.5,
+        0.5
+      ],
+      "Y": [
+        -0.1,
+        0.1
+      ],
+      "Z": [
+        0.04,
+        0.75
+      ],
+      "tolerance": 1e-06
+    },
+    "support": "No source Z0 intersection/ground contact. Preserve coherent internal mast/crossbar/cabin-to-hull assembly without exact old intersection-depth/part-count locks; no ground plate or foreground wreck ports.",
+    "capture": "Adopt own verified55.00798 native4x registered camera and full-canvas LANCZOS2x. Saved35 startup camera is unrelated; raw historical path is absent and replay residual evidence remains honest.",
+    "style": "Original three ranked proposed visible outcomes plus all additional outcomes frozen unchanged. Native improved form/detail methods and small silhouette changes allowed; exact target glare/ground stones/counts/brightness not requirements.",
+    "evidence": "Same15 two-mode bounded configs plus only two true final viewport contexts per mode; record static holds/channel evidence without animated Cartesian workload. No React/Godot/device or family approval claimed.",
+    "scope": "Preparation reconciliation only; candidate approval and ROOT promotion/publication remain pending."
+  },
+  "requiredEvidence": {
+    "asset": "decor-background-wreck",
+    "scope": "Static isolated atmospheric wreck, no native ground/modular or animation law invented.",
+    "requiredFrames": [
+      "static/N/0",
+      "static/E/0",
+      "static/S/0",
+      "static/W/0"
+    ],
+    "preparedConsumerCasesPerMode": [
+      {
+        "kind": "facings",
+        "cell": 128,
+        "background": "#eef2ed",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 128,
+        "background": "#808080",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 128,
+        "background": "#102433",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 32,
+        "background": "#eef2ed",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 32,
+        "background": "#808080",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 47.3,
+        "background": "#eef2ed",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 47.3,
+        "background": "#808080",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "facings",
+        "cell": 47.3,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "repeat",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "context",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "context",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 0.5,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "context",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 1,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "context",
+        "cell": 32,
+        "background": "#102433",
+        "phase": [
+          0.37,
+          0.61
+        ],
+        "seconds": 2,
+        "pan": [
+          0.23,
+          0.47
+        ]
+      },
+      {
+        "kind": "context",
+        "cell": 128,
+        "background": "#102433",
+        "phase": [
+          0,
+          0
+        ],
+        "seconds": 0,
+        "pan": [
+          0,
+          0
+        ]
+      }
+    ],
+    "preparedHostViewport": [
+      1400,
+      1000
+    ],
+    "dpr": 1,
+    "browserModes": [
+      {
+        "headless": true,
+        "channel": "chromium"
+      },
+      {
+        "headless": true
+      }
+    ],
+    "finalContextViewports": [
+      [
+        320,
+        720
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "staticHoldSeconds": [
+      0,
+      0.08333333333333333,
+      0.9166666666666666,
+      2
+    ],
+    "requiredEvidence": [
+      "Inspect exact candidate native4x all4, published2x atlas/frame, native recapture and actual measured matrices/source hashes",
+      "Inspect logical128cell,phone32cell,fractional47.3 all4 onlight/gray/dark; repeated3x3 and declared6x4 submarine/eel context in both headless modes",
+      "Use actual phone320x720 and landscape1280x720 review views for final context/layout; preserve exact renderer helper version and record viewport,DPR,errors",
+      "Static own hold0,1/12,11/12,2s with complete object/data/shader channel evidence; no animated motion workload or modular connection law invented",
+      "Candidate packet declares compact complete visual sets and every exact record path is directly inspected/mapped by original judge; preserve REVIEW-COVERAGE and PUBLISHER-HANDOFF without weakening validators"
+    ],
+    "coverage": "Direct exact media coverage with original judge and acyclic manifests. Include supported actual nativeValidation views/captureRecords; rich geometry ledger separately bound if incompatible. nativeGeometryMeasurements is facing -> list of frame dictionaries when used."
+  }
+}

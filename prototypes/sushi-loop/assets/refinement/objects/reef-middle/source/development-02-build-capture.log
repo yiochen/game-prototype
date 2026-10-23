@@ -1,0 +1,23 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/source/reproduce.py:19: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;n.clear();l=m.node_tree.links
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/source/reproduce.py:112: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  SC.world=bpy.data.worlds.new('neutral soft environment');SC.world.use_nodes=True
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/source/reproduce.py:150: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  nodes=[{'type':n.bl_idname,'name':n.name,'inputs':{s.identifier:list(s.default_value) if hasattr(s.default_value,'__iter__') else s.default_value for s in n.inputs if hasattr(s,'default_value') and isinstance(s.default_value,(int,float,str,bool,tuple,list,bpy.types.bpy_prop_array))}} for n in m.node_tree.nodes] if m.use_nodes else []
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/source/reproduce.py:151: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mats.append({'name':m.name,'nodes':nodes,'links':[(l.from_node.name,l.from_socket.identifier,l.to_node.name,l.to_socket.identifier) for l in m.node_tree.links] if m.use_nodes else [],'animation':m.animation_data is not None or (m.node_tree.animation_data is not None if m.use_nodes else False)})
+00:01.022  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/static/N/000.png'
+00:01.721  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/static/E/000.png'
+00:02.424  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/static/S/000.png'
+00:03.105  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/static/W/000.png'
+00:04.418  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/three-joined-N.png'
+00:05.548  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/three-joined-E.png'
+00:07.335  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/three-joined-S.png'
+00:08.568  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/candidates/round-01/native/three-joined-W.png'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Info: Saved as "round-01.blend"
+NATIVE_REEF_CAPTURE_COMPLETE
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "asset": "stool-blue",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shapeVolume",
+        "priority": 1,
+        "desiredVisibleOutcome": "Seat reads as a padded rounded-square blue cushion with broad continuous surface variation and gently softened edge transitions; preserve seat size, native construction and usable attachment height. Legs and crossbar remain recognizable structural pieces.",
+        "failureExamples": [
+          "Large perfectly uniform flat top with hard stepped rim bands",
+          "Over-inflated seat that changes the native footprint, height or contact",
+          "Blobby legs or merged supports that obscure stool construction"
+        ]
+      },
+      {
+        "id": "color",
+        "priority": 2,
+        "desiredVisibleOutcome": "Retain a saturated blue cushion and warm honey wood legs/supports, with color variation that feels softly lit and friendly. Wood remains bright enough to read down to the feet; cushion blue remains distinct from wood.",
+        "failureExamples": [
+          "Nearly black lower-leg patches",
+          "Electric cyan flat panel separated by harsh royal-blue strips",
+          "Gray/brown muddy supports or palette change away from blue-and-honey-wood identity"
+        ]
+      },
+      {
+        "id": "lightingHighlights",
+        "priority": 1,
+        "desiredVisibleOutcome": "Broad low-contrast highlights and gentle occlusion describe the cushion, legs and support joints. Keep horizontal symmetry; each facing belongs to one scene and lighting scheme.",
+        "failureExamples": [
+          "Strong left/right key-light bias",
+          "Blown white/glassy spots or hard highlight stripes",
+          "Crushed dark joints, underside or feet",
+          "Any directional cast ground shadow"
+        ]
+      },
+      {
+        "id": "materialDetail",
+        "priority": 3,
+        "desiredVisibleOutcome": "Cushion and wood feel softly tactile with restrained roughness and optional subtle coherent grain or fabric variation. Prioritize clean large forms and readable edges over target microtexture.",
+        "failureExamples": [
+          "Noisy speckles or strong procedural bands visible at logical size",
+          "Heavy grain competing with shape",
+          "Cushion/wood polished plastic glare",
+          "Abrupt normal seams or coplanar flicker"
+        ]
+      },
+      {
+        "id": "artifactFreeReadability",
+        "priority": 1,
+        "desiredVisibleOutcome": "All four static facings remain clean and legible at 192x352 logical frame size as well as native enlargement. No material dead spots: opaque black patches, broken corners, clipped geometry, merged supports, exposed ends, seams or unwanted fringe. Clean transparency on light, neutral and dark backgrounds.",
+        "failureExamples": [
+          "Halo copied from imagegen target",
+          "Jagged bright/dark alpha border",
+          "Dark gap incorrectly filled by opaque background",
+          "Lost wood leg or support at use size"
+        ]
+      }
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "67755294b7abc89b58a3b4ffb7f64f5d93d6a208f8d1666544f9e222fe573452"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "backup": {
+      "path": "../../../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "a2c12904d5918144e3fccd60d494a9a31ee2585d876affe7c49f6d983bfdfa34"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "08038c8fcb657421c27d5f40f092f5a4ffecf5832a393704888d639b8f8c4372"
+    },
+    "candidateProject": {
+      "path": "../../source/round-03.blend",
+      "sha256": "767eaee87d171d19061e73aae029944035e25f9c32e1a0af9f315a0a3cefc8d2"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "76bb7c4cb08faafaa1d0d4324c3301ba178e7c72835092dba6eaa6a79b2b303e"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "5c208ed26ae832dec1e29d34dc3923066cf09379ad7409e91d62694963d9300a"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "388a59866d5d20c1b6e030d60d310d24ad4016481788f111e8cb7ce33b8bb938"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "2dfe6a337938f7ddfd5c2e860c5594810c7a9b0bcf9089e6fe53c930715bbc25"
+    },
+    "candidateResource:round:logical-four-view-sheet.png": {
+      "path": "logical-four-view-sheet.png",
+      "sha256": "c30e2e99e8610eb306752e9f2b0d650cf69a21b54ab7fd7ace0c3f77aeaa0b46"
+    },
+    "candidateResource:round:reopened-E.png": {
+      "path": "reopened-E.png",
+      "sha256": "4a4e9f90b5ea87c49897bb970e1c9adf5296c65fcdd55eb59cf6149059704ae6"
+    },
+    "candidateResource:round:reopened-S.png": {
+      "path": "reopened-S.png",
+      "sha256": "184ecd3c7f72e5375b58e9dbfd97e8c784dc6103136f036d9c2facf3941ceb51"
+    },
+    "candidateResource:round:backgrounds.png": {
+      "path": "backgrounds.png",
+      "sha256": "5ad24069dc712f76e48d75a49882b5324d370e8b0a9b123a631282629aaf934e"
+    },
+    "candidateResource:round:reopened-W.png": {
+      "path": "reopened-W.png",
+      "sha256": "e772413691969061fae932c901821e06514c62d14df1a85a0655d3774d2bb9a1"
+    },
+    "candidateResource:round:reopened-source.json": {
+      "path": "reopened-source.json",
+      "sha256": "4f436c3a91ccfeae4db74dc6ff7d594b66b746b82fbf31514711c30722856ad5"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "d0ef3e28d4e78e9465e8da042aae8003f484e9598a2eaf8c7d2d5f1310b1f962"
+    },
+    "candidateResource:round:static-N.png": {
+      "path": "static-N.png",
+      "sha256": "30bdd5cf5bc3489ebfb21fbc003a18fdfc13ff852e967540aaf7c684dabbf264"
+    },
+    "candidateResource:round:repeated.png": {
+      "path": "repeated.png",
+      "sha256": "a1c187794cda7a01e95983dce0f5d12d145773445d2de4e2583a6714b1f3a37b"
+    },
+    "candidateResource:round:static-S.png": {
+      "path": "static-S.png",
+      "sha256": "d267dfdae6796d2ae4330d72b7cfb61243a692ce781afa1b3dbefef3a380c4aa"
+    },
+    "candidateResource:round:static-E.png": {
+      "path": "static-E.png",
+      "sha256": "d6de2bd0c4f8e540cad153c66f9d656ec51c49b638f8a1a1db1f6249453360d1"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "76bb7c4cb08faafaa1d0d4324c3301ba178e7c72835092dba6eaa6a79b2b303e"
+    },
+    "candidateResource:round:static-W.png": {
+      "path": "static-W.png",
+      "sha256": "6c998425f5b28767036753691ffa35ae9838d3556bb6ccdf8b7c62b178aef2eb"
+    },
+    "candidateResource:round:direction-convention.json": {
+      "path": "direction-convention.json",
+      "sha256": "bdb29014abecdd2cd0cd7cb5d942f76ca9f35254fa48a230aa16417de2cf7a96"
+    },
+    "candidateResource:round:reopened-N.png": {
+      "path": "reopened-N.png",
+      "sha256": "1fccdd119430b4d3ca18d9491d892526b85dbdb3ab7eb7459d6c0d62f3e01d88"
+    },
+    "candidateResource:round:four-view-sheet.png": {
+      "path": "four-view-sheet.png",
+      "sha256": "de6b5a88a823a3b8f508ed466aece7639f49679dbfdb3159e079ae5461c01aff"
+    },
+    "candidateResource:round:atlases/static-N.png": {
+      "path": "atlases/static-N.png",
+      "sha256": "30bdd5cf5bc3489ebfb21fbc003a18fdfc13ff852e967540aaf7c684dabbf264"
+    },
+    "candidateResource:round:atlases/static-S.png": {
+      "path": "atlases/static-S.png",
+      "sha256": "d267dfdae6796d2ae4330d72b7cfb61243a692ce781afa1b3dbefef3a380c4aa"
+    },
+    "candidateResource:round:atlases/static-E.png": {
+      "path": "atlases/static-E.png",
+      "sha256": "d6de2bd0c4f8e540cad153c66f9d656ec51c49b638f8a1a1db1f6249453360d1"
+    },
+    "candidateResource:round:atlases/static-W.png": {
+      "path": "atlases/static-W.png",
+      "sha256": "6c998425f5b28767036753691ffa35ae9838d3556bb6ccdf8b7c62b178aef2eb"
+    },
+    "candidateResource:source:round-01-camera.json": {
+      "path": "../../source/round-01-camera.json",
+      "sha256": "f0eb23dabf61f9af5b2e2c681ace296c031c6cc71142eb0c8767417d6507b8af"
+    },
+    "candidateResource:source:round-03.py": {
+      "path": "../../source/round-03.py",
+      "sha256": "17e9c8756485f0dd15f62ccb062778338dd3f1f8dd59db8c549c5dade529c464"
+    },
+    "candidateResource:source:reopen-round-03.py": {
+      "path": "../../source/reopen-round-03.py",
+      "sha256": "08d6384c0d7a2f795438ad258ba3dcd2a05285e700abb5806f1e931c1bdd5e63"
+    },
+    "candidateResource:source:round-01-rig.json": {
+      "path": "../../source/round-01-rig.json",
+      "sha256": "3f4c4ecb33f3e4621d5f27e7828749d1c93867f06d9f5f314f900d2b77f421fe"
+    },
+    "candidateResource:source:reopen-round-02.py": {
+      "path": "../../source/reopen-round-02.py",
+      "sha256": "9440c761921425bec132026529a4638d7795fc88bebd389124ad16e582d5acc6"
+    },
+    "candidateResource:source:round-02.py": {
+      "path": "../../source/round-02.py",
+      "sha256": "2104fe127901582c1dbb7a6c2b72cdb714f78f877fb8b4e276a05833043857c5"
+    },
+    "candidateResource:source:replay-round-01.py": {
+      "path": "../../source/replay-round-01.py",
+      "sha256": "576fb85e0bc73c03bec4d2b00e354f6ed28feb37f1bdf655be82fec7bde311cf"
+    },
+    "candidateResource:source:round-01-assetRecord.json": {
+      "path": "../../source/round-01-assetRecord.json",
+      "sha256": "c217197482e14920616b2306a80d47e5a06a29b3c94a9720161d4b19a4409759"
+    },
+    "candidateResource:source:package-round-01.py": {
+      "path": "../../source/package-round-01.py",
+      "sha256": "39afd33b3f69d368912d0932a572b7013db465f3e01beab3779bd9a00fa8eaac"
+    },
+    "candidateResource:source:round-02-camera.json": {
+      "path": "../../source/round-02-camera.json",
+      "sha256": "3263114ac035dd3164b8b18097cffe5d5aff9cfb28bc3bc09f83c784e81f070f"
+    },
+    "candidateResource:source:package-round-02.py": {
+      "path": "../../source/package-round-02.py",
+      "sha256": "13d2ac163149aa36629107aeae29432bc27ea27e0730e19a6adeeece8dd76e05"
+    },
+    "candidateResource:source:replay-round-03.py": {
+      "path": "../../source/replay-round-03.py",
+      "sha256": "5953eecb9ed553ca705972b29e12941ddf23e45ebd5fd1aa7992ed220f2a1891"
+    },
+    "candidateResource:source:round-02-rig.json": {
+      "path": "../../source/round-02-rig.json",
+      "sha256": "606f97f02030fc0070c3f620af6d046f6623845b568deb1c131695f4e674ef87"
+    },
+    "candidateResource:source:round-03-rig.json": {
+      "path": "../../source/round-03-rig.json",
+      "sha256": "c5dd7fcaad1300489f3bce7c22fcd46c54b0397c0a69669f5a361142f3d72741"
+    },
+    "candidateResource:source:replay-round-02.py": {
+      "path": "../../source/replay-round-02.py",
+      "sha256": "d60fb577cd7af5e072d711abf80f2394d58966ee6cf800c491983b8846a0e30f"
+    },
+    "candidateResource:source:round-02.blend": {
+      "path": "../../source/round-02.blend",
+      "sha256": "9b0fcb2d648eaf52e8149620d564ef02607159dfeb639db87392574e980a5c49"
+    },
+    "candidateResource:source:original-inspection.json": {
+      "path": "../../source/original-inspection.json",
+      "sha256": "c4e805aff199808b9e011433a6a62e00cce6b332659c004e4b8130fce394a0a8"
+    },
+    "candidateResource:source:round-02-assetRecord.json": {
+      "path": "../../source/round-02-assetRecord.json",
+      "sha256": "76fcea4255715a809f15520b2fdd2bdba927edf24afe461dd908c060533096ae"
+    },
+    "candidateResource:source:package-round-03.py": {
+      "path": "../../source/package-round-03.py",
+      "sha256": "23543e1b77e5ffc37e64e6eccb87099579cc2b6c35aaf0e1b6aaf0f2e790b2ef"
+    },
+    "candidateResource:source:inspect_original.py": {
+      "path": "../../source/inspect_original.py",
+      "sha256": "8712985971b3efdb25cbac338cc8946ffcf8dd2cba09472f25bbe02c7e7bb2b2"
+    },
+    "candidateResource:source:round-03-camera.json": {
+      "path": "../../source/round-03-camera.json",
+      "sha256": "2fb71b0f9c5a6999463c0ddedd571c75bbde129c0978c0a4ef93a6f460af5cf1"
+    },
+    "candidateResource:source:reopen-round-01.py": {
+      "path": "../../source/reopen-round-01.py",
+      "sha256": "1c034ba4fe8975b03af067de535608beceedd471a354197f13fb64d127f118ec"
+    },
+    "candidateResource:source:round-01.py": {
+      "path": "../../source/round-01.py",
+      "sha256": "2bbd6eb812a6eec6b56e901141ec99e7ff6fb34cecabfcd98ad57d34f655bfa3"
+    },
+    "candidateResource:source:draft.py": {
+      "path": "../../source/draft.py",
+      "sha256": "8b9e665d7e5a06a9522fe69b5a91b32a011a76da86ef643b17171fab17548d44"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "697fff4cfda4dd21f337ea2866d374e6c93686fb7269362ae7324aa87e5e6662"
+    },
+    "candidateResource:source:round-03.blend": {
+      "path": "../../source/round-03.blend",
+      "sha256": "767eaee87d171d19061e73aae029944035e25f9c32e1a0af9f315a0a3cefc8d2"
+    },
+    "candidateResource:source:round-03-assetRecord.json": {
+      "path": "../../source/round-03-assetRecord.json",
+      "sha256": "84dc6ea4570840dba83ffd3a8f5d143722da74449db2bc3ba02ef57bf7b637c8"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "static-N.png",
+      "sha256": "30bdd5cf5bc3489ebfb21fbc003a18fdfc13ff852e967540aaf7c684dabbf264",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "E": {
+      "path": "static-E.png",
+      "sha256": "d6de2bd0c4f8e540cad153c66f9d656ec51c49b638f8a1a1db1f6249453360d1",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "S": {
+      "path": "static-S.png",
+      "sha256": "d267dfdae6796d2ae4330d72b7cfb61243a692ce781afa1b3dbefef3a380c4aa",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "W": {
+      "path": "static-W.png",
+      "sha256": "6c998425f5b28767036753691ffa35ae9838d3556bb6ccdf8b7c62b178aef2eb",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "de6b5a88a823a3b8f508ed466aece7639f49679dbfdb3159e079ae5461c01aff"
+    },
+    "logical-four-view-sheet": {
+      "path": "logical-four-view-sheet.png",
+      "sha256": "c30e2e99e8610eb306752e9f2b0d650cf69a21b54ab7fd7ace0c3f77aeaa0b46"
+    },
+    "repeated": {
+      "path": "repeated.png",
+      "sha256": "a1c187794cda7a01e95983dce0f5d12d145773445d2de4e2583a6714b1f3a37b"
+    },
+    "backgrounds": {
+      "path": "backgrounds.png",
+      "sha256": "5ad24069dc712f76e48d75a49882b5324d370e8b0a9b123a631282629aaf934e"
+    }
+  }
+}

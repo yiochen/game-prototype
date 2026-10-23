@@ -1,0 +1,62 @@
+{
+  "pathBase": "object-root; actual executions prefixed object path from worktree cwd",
+  "commands": [
+    {
+      "stage": "native-build",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-02-inputs/untouched-library.blend --python source/build-round-02.py",
+      "log": "source/round-02-build.log"
+    },
+    {
+      "stage": "native-capture",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-02.blend --python source/capture-round-02.py",
+      "log": "source/round-02-capture.log"
+    },
+    {
+      "stage": "wholecanvas-publication",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/publish-round-02.py",
+      "log": "source/round-02-publish.log"
+    },
+    {
+      "stage": "saved-source-inventory",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-02.blend --python source/inventory-round-02.py",
+      "log": "source/round-02-inventory.log"
+    },
+    {
+      "stage": "native-focus-review-crops",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/focus-round-02.py",
+      "log": "source/round-02-focus.log"
+    },
+    {
+      "stage": "actual-bothmode-consumer",
+      "command": "node source/capture-consumer-round-02.mjs",
+      "log": "source/round-02-consumer.log"
+    },
+    {
+      "stage": "first-video-audit-failed",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/inspect-consumer-round-02.py",
+      "log": "source/round-02-inspection.log",
+      "result": "Correctly rejected primary fullChromium recording missing Active/E index0; no pass invented.",
+      "executedScriptSnapshot": "source/inspect-consumer-round-02-attempt01.py"
+    },
+    {
+      "stage": "diagnostic-bothmode-coverage",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/scan-consumer-round-02.py",
+      "log": "source/round-02-scan.log"
+    },
+    {
+      "stage": "one-scoped-active-E-recorder-retry",
+      "command": "node source/capture-consumer-round-02-scoped-retry.mjs",
+      "log": "source/round-02-consumer-scoped-retry.log"
+    },
+    {
+      "stage": "actual-video-union-audit",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/inspect-consumer-round-02.py",
+      "log": "source/round-02-inspection-final.log"
+    },
+    {
+      "stage": "handoff-serialization",
+      "command": "python3 source/finalize-round-02.py"
+    }
+  ],
+  "reproduction": "Use a fresh object-shaped directory within a worktree with Node dependencies. Create source/ and candidates/round-02/. Copy ONLY source/round-02-inputs/, construction-acknowledgment-v2.json and source scripts to source/. Copy consumer/fixture.html to the matching candidate path. Do not copy generated write targets, so scripts protect immutable prior runs. Run build,capture,publish,inventory,focus,consumer,scan,inspection andfinalizer in order. If an actualvideo is missing a phase, collect a bounded sameclip retry and retain both sources. All native inputs are private copies and all paths are script-relative. Runtime dependencies: Blender5.2.2LTS, bundled Pillow12.3/NumPy2.3.5, Node22.18/Vite7.3.6/Playwright1.63/React19.3, bothChromium153 modes, ffmpeg8.1. No runtime application tree is copied."
+}

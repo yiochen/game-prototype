@@ -1,0 +1,35 @@
+import bpy,json,hashlib,pathlib,sys,math,struct
+sys.dont_write_bytecode=True
+from mathutils import Vector,Matrix
+B=pathlib.Path(__file__).resolve().parent.parent;sys.path.insert(0,str(B/'source'));import native_actions as N
+rig=json.loads((B/'inputs/source-rig.json').read_text());mapping=json.loads((B/'reviews/held-food-v2-mapping-evidence.json').read_text());fixed=mapping['proposedGlobalMapping']['exampleRestCoordinatesInOriginalFoodPlaneBasis']
+def plain(x):
+ if isinstance(x,(str,int,float,bool)) or x is None:return x
+ return [plain(v) for v in x]
+def sha(x):return hashlib.sha256(json.dumps(x,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+def vecHash(rows):
+ h=hashlib.sha256()
+ for v in rows:h.update(struct.pack('<'+('f'*len(v)),*v))
+ return h.hexdigest()
+def scan(path):
+ bpy.ops.wm.open_mainfile(filepath=str(path));sc=bpy.context.scene;root=bpy.data.objects[rig['groundRootObject']];col=next(c for c in bpy.data.collections if root.name in c.objects);asset={'collection':col,'root':root};objs=list(col.all_objects);food=next(o for o in objs if '__held_dish-salmon__image_plane' in o.name);arm=next(o for o in objs if o.type=='ARMATURE');m=food.data.materials[0];tex=next(n for n in m.node_tree.nodes if n.type=='TEX_IMAGE');definitions={}
+ for o in objs:
+  if o.type!='MESH' or o==food:continue
+  definitions[o.name]=sha({'coords':[plain(v.co) for v in o.data.vertices],'polys':[list(p.vertices) for p in o.data.polygons],'weights':[[(g.group,g.weight) for g in v.groups] for v in o.data.vertices],'groups':[g.name for g in o.vertex_groups],'uv':[[plain(d.uv) for d in uv.data] for uv in o.data.uv_layers],'normals':[plain(n.vector) for n in o.data.corner_normals],'materials':[m.name for m in o.data.materials]})
+ actions={t['action'] for c in rig['clips'].values() for t in c['actions']};actionHash=sha({a:[{'path':f.data_path,'index':f.array_index,'keys':[[plain(k.co),plain(k.handle_left),plain(k.handle_right),k.interpolation] for k in f.keyframe_points]} for f in N._fcurves(bpy.data.actions[a])] for a in sorted(actions)})
+ rests=sha({b.name:[plain(b.matrix_local),b.parent.name if b.parent else None,b.use_deform] for b in arm.data.bones});cam=sc.camera
+ settings={'cameraMatrix':plain(cam.matrix_world),'orthoScale':cam.data.ortho_scale,'shift':[cam.data.shift_x,cam.data.shift_y],'frame':[sc.render.resolution_x,sc.render.resolution_y],'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'filmTransparent':sc.render.film_transparent,'engine':sc.render.engine,'samples':sc.cycles.samples,'seed':sc.cycles.seed,'animatedSeed':sc.cycles.use_animated_seed,'denoise':sc.cycles.use_denoising,'device':sc.cycles.device,'view':sc.view_settings.view_transform,'look':sc.view_settings.look,'exposure':sc.view_settings.exposure,'gamma':sc.view_settings.gamma,'lights':{o.name:[plain(o.matrix_world),o.data.type,o.data.energy,plain(o.data.color),o.data.size] for o in sc.objects if o.type=='LIGHT'},'worldNodes':[(n.name,n.type,[(i.name,plain(i.default_value)) for i in n.inputs if hasattr(i,'default_value')]) for n in sc.world.node_tree.nodes]}
+ result={'path':str(path),'projectSHA256':hashlib.sha256(path.read_bytes()).hexdigest(),'bodyDefinitions':definitions,'actions':actionHash,'restBones':rests,'settings':settings,'food':{'rest':[plain(v.co) for v in food.data.vertices],'uv':[plain(u.uv) for u in food.data.uv_layers.active.data],'imageSize':list(tex.image.size),'imageSHA256':hashlib.sha256(tex.image.packed_file.data).hexdigest(),'imagePath':tex.image.filepath,'packedImages':[{'name':i.name,'sha256':hashlib.sha256(i.packed_file.data).hexdigest()} for i in bpy.data.images if i.packed_file],'libraries':[x.filepath for x in bpy.data.libraries],'graph':[(l.from_node.name,l.from_socket.name,l.to_node.name,l.to_socket.name) for l in m.node_tree.links],'emissionStrength':next(n for n in m.node_tree.nodes if n.type=='EMISSION').inputs['Strength'].default_value,'rayFlags':[food.visible_camera,food.visible_diffuse,food.visible_glossy,food.visible_transmission,food.visible_shadow]},'samples':[]}
+ for clip in rig['clips']:
+  for direction in ['S','E','N','W']:
+   for f in range(1,13):
+    N.apply_clip(asset,rig,clip,f,direction,sc);dep=bpy.context.evaluated_depsgraph_get();ep=food.evaluated_get(dep);mat=ep.matrix_world.copy();corners=[mat@v.co for v in food.data.vertices];body={}
+    for o in objs:
+     if o.type!='MESH' or o==food:continue
+     eo=o.evaluated_get(dep);em=eo.to_mesh();body[o.name]=[vecHash([plain(eo.matrix_world@v.co) for v in em.vertices]),vecHash([plain(n.vector) for n in em.corner_normals]),len(em.vertices),len(em.polygons)];eo.to_mesh_clear()
+    result['samples'].append({'clip':clip,'direction':direction,'frame':f,'body':body,'foodMatrix':plain(mat),'corners':plain(corners),'propRoot':plain(food.parent.evaluated_get(dep).matrix_world.translation),'visible':not food.hide_render and not food.parent.hide_render})
+ return result
+a=scan(B/'source/round02.blend');b=scan(B/'source/round03.blend');rows=[]
+for old,new in zip(a['samples'],b['samples']):
+ sm=Matrix(old['foodMatrix']);cm=Matrix(new['foodMatrix']);expected=[sm@Vector(v) for v in fixed];cs=[Vector(v) for v in new['corners']];os=[Vector(v) for v in old['corners']];srcSup=os[0]+(os[1]-os[0])*(627/1242)+(os[3]-os[0])*(147/1113);canSup=cs[0]+(cs[1]-cs[0])*.5+(cs[3]-cs[0])*(1/505);width=(cs[1]-cs[0]).length*(729/731);rows.append({'clip':new['clip'],'direction':new['direction'],'frame':new['frame'],'bodyEvaluatedExact':old['body']==new['body'],'matricesExact':old['foodMatrix']==new['foodMatrix'],'visibilityExact':old['visible']==new['visible'],'mappedCornerMaximumWorld':max((v-w).length for v,w in zip(cs,expected)),'semanticSupportWorld':(srcSup-canSup).length,'semanticWidthWorld':width,'visible':new['visible']})
+report={'approvedProjectSHA256':a['projectSHA256'],'candidateProjectSHA256':b['projectSHA256'],'bodyDefinitionsExact':a['bodyDefinitions']==b['bodyDefinitions'],'bodyMeshCount':len(a['bodyDefinitions']),'actionsExact':a['actions']==b['actions'],'restBonesExact':a['restBones']==b['restBones'],'actualSceneSettingsExact':a['settings']==b['settings'],'actualSceneSettings':b['settings'],'food':b['food'],'foodShaderGraphAndRayFlagsUnchanged':a['food']['graph']==b['food']['graph'] and a['food']['rayFlags']==b['food']['rayFlags'] and a['food']['emissionStrength']==b['food']['emissionStrength'],'all192BodyEvaluationsExact':all(r['bodyEvaluatedExact'] for r in rows),'all192SourceFoodMatricesAndVisibilityExact':all(r['matricesExact'] and r['visibilityExact'] for r in rows),'maximumMappedCornerWorldResidual':max(r['mappedCornerMaximumWorld'] for r in rows),'maximumSemanticSupportWorldResidual':max(r['semanticSupportWorld'] for r in rows),'visibleWidthRange':[min(r['semanticWidthWorld'] for r in rows if r['visible']),max(r['semanticWidthWorld'] for r in rows if r['visible'])],'samples':rows};(B/'reviews/round03-independent-native-evidence.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items() if k not in ['samples','food','actualSceneSettings']},indent=2))

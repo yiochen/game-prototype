@@ -1,0 +1,244 @@
+{
+  "pointConvention": "Top-origin image pixel-edge grid: occupied alpha>=threshold pixel box is [L,T,R,B), and bottom-rim support is midpoint of occupied pixel run on bottommost qualifying row at the outside bottom edge, ((rowL+rowR)/2,B). Coordinates are edges, not pixel centers. UV uses bottom-origin v=1-y/H. Use alpha>=128 primary; 64/192 sensitivity is descriptive, not three selectable mappings.",
+  "mapping": "One isotropic, global affine map per canonical food from full image edge coordinates to plane local XY. Match actual source occupied width and bottom-rim point using source actual UV rectangle, with full canonical UV[0,1] and aspect preserved. No alpha crop/re-encode/regrade; same map across all frames/facings. Local plane placement/depth/animation remains distinct from image mapping.",
+  "proposals": {
+    "cucumber": {
+      "sourceUVRect": [
+        0.0,
+        0.095693782,
+        0.984051049,
+        0.95773524
+      ],
+      "sourceQuadLocalRange": [
+        -0.140000001,
+        0.0,
+        0.140000001,
+        0.245283633
+      ],
+      "sourceWorldUnitsPerPixel": 0.00028363046849193177,
+      "thresholdSensitivity": {
+        "64": {
+          "sourceOccupiedWorldWidth": 0.3375202575053988,
+          "sourceBottomRimLocalXY": [
+            0.004197729181298099,
+            0.003857373877338065
+          ],
+          "canonicalWorldUnitsPerPixel": 0.0005332073578284342,
+          "newFullUVLocalVertices": [
+            [
+              -0.13315648619530654,
+              0.0034308079910753174,
+              0
+            ],
+            [
+              0.137712851581538,
+              0.0034308079910753174,
+              0
+            ],
+            [
+              0.137712851581538,
+              0.2214059758713392,
+              0
+            ],
+            [
+              -0.13315648619530654,
+              0.2214059758713392,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.3385866722210557,
+            0.2724689598503299
+          ]
+        },
+        "128": {
+          "sourceOccupiedWorldWidth": 0.3375202575053988,
+          "sourceBottomRimLocalXY": [
+            0.004538085743488435,
+            0.003857373877338065
+          ],
+          "canonicalWorldUnitsPerPixel": 0.0005332073578284342,
+          "newFullUVLocalVertices": [
+            [
+              -0.1330294125762476,
+              0.0034308079910753174,
+              0
+            ],
+            [
+              0.13783992520059699,
+              0.0034308079910753174,
+              0
+            ],
+            [
+              0.13783992520059699,
+              0.2214059758713392,
+              0
+            ],
+            [
+              -0.1330294125762476,
+              0.2214059758713392,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.3385866722210557,
+            0.2724689598503299
+          ]
+        },
+        "192": {
+          "sourceOccupiedWorldWidth": 0.33695299656841493,
+          "sourceBottomRimLocalXY": [
+            0.005218798867869051,
+            0.003857373877338065
+          ],
+          "canonicalWorldUnitsPerPixel": 0.0005323112110085544,
+          "newFullUVLocalVertices": [
+            [
+              -0.13169164460353114,
+              0.003005675939724378,
+              0
+            ],
+            [
+              0.1387224505888145,
+              0.003005675939724378,
+              0
+            ],
+            [
+              0.1387224505888145,
+              0.22061449900002142,
+              0
+            ],
+            [
+              -0.13169164460353114,
+              0.22061449900002142,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.33801761899043203,
+            0.2720110288253713
+          ]
+        }
+      }
+    },
+    "salmon": {
+      "sourceUVRect": [
+        0.0,
+        0.044657096,
+        0.990430593,
+        0.932216883
+      ],
+      "sourceQuadLocalRange": [
+        -0.140000001,
+        0.0,
+        0.140000001,
+        0.250917882
+      ],
+      "sourceWorldUnitsPerPixel": 0.00028180355293997556,
+      "thresholdSensitivity": {
+        "64": {
+          "sourceOccupiedWorldWidth": 0.3443639416926501,
+          "sourceBottomRimLocalXY": [
+            0.00315620389350757,
+            0.03314009879393195
+          ],
+          "canonicalWorldUnitsPerPixel": 0.00047173142697623304,
+          "newFullUVLocalVertices": [
+            [
+              -0.13534414306671447,
+              0.03314009879393195,
+              0
+            ],
+            [
+              0.14052439542898665,
+              0.03314009879393195,
+              0
+            ],
+            [
+              0.14052439542898665,
+              0.22371959529233013,
+              0
+            ],
+            [
+              -0.13534414306671447,
+              0.22371959529233013,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.3448356731196264,
+            0.2382243706229977
+          ]
+        },
+        "128": {
+          "sourceOccupiedWorldWidth": 0.3443639416926501,
+          "sourceBottomRimLocalXY": [
+            0.0028180396299796184,
+            0.03314009879393195
+          ],
+          "canonicalWorldUnitsPerPixel": 0.00047237852084039796,
+          "newFullUVLocalVertices": [
+            [
+              -0.1360612454970974,
+              0.03276219597725963,
+              0
+            ],
+            [
+              0.14018571349036735,
+              0.03276219597725963,
+              0
+            ],
+            [
+              0.14018571349036735,
+              0.2236031183967804,
+              0
+            ],
+            [
+              -0.1360612454970974,
+              0.2236031183967804,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.3453086987343309,
+            0.23855115302440097
+          ]
+        },
+        "192": {
+          "sourceOccupiedWorldWidth": 0.3443639416926501,
+          "sourceBottomRimLocalXY": [
+            0.0024798753664516393,
+            0.0333655416403919
+          ],
+          "canonicalWorldUnitsPerPixel": 0.00047302739243495893,
+          "newFullUVLocalVertices": [
+            [
+              -0.1362117560954783,
+              0.03298711972644393,
+              0
+            ],
+            [
+              0.14041466300048566,
+              0.03298711972644393,
+              0
+            ],
+            [
+              0.14041466300048566,
+              0.22409018627016736,
+              0
+            ],
+            [
+              -0.1362117560954783,
+              0.22409018627016736,
+              0
+            ]
+          ],
+          "newFullQuadWorldSize": [
+            0.34578302386995496,
+            0.23887883317965425
+          ]
+        }
+      }
+    }
+  }
+}

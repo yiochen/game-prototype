@@ -1,7 +1,11 @@
 {
   "version": 1,
   "kind": "rendered-3d-sheet",
-  "assetKind": "floor",
+  "assetKind": "object",
+  "size": [
+    1536,
+    512
+  ],
   "frame": [
     128,
     128
@@ -12,14 +16,10 @@
   ],
   "cellSize": 128,
   "captureScale": 2,
-  "sourceCaptureScale": 4,
+  "sourceCaptureScale": 2,
+  "gutter": 0,
   "columns": 6,
   "rows": 2,
-  "gutter": 0,
-  "size": [
-    1536,
-    512
-  ],
   "cells": [
     {
       "index": 0,
@@ -28,58 +28,52 @@
         0,
         256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 1,
       "rect": [
         256,
         0,
-        512,
+        256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 2,
       "rect": [
         512,
         0,
-        768,
+        256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 3,
       "rect": [
         768,
         0,
-        1024,
+        256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 4,
       "rect": [
         1024,
         0,
-        1280,
+        256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 5,
       "rect": [
         1280,
         0,
-        1536,
+        256,
         256
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 6,
@@ -87,111 +81,56 @@
         0,
         256,
         256,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256
+      ]
     },
     {
       "index": 7,
       "rect": [
         256,
         256,
-        512,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256,
+        256
+      ]
     },
     {
       "index": 8,
       "rect": [
         512,
         256,
-        768,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256,
+        256
+      ]
     },
     {
       "index": 9,
       "rect": [
         768,
         256,
-        1024,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256,
+        256
+      ]
     },
     {
       "index": 10,
       "rect": [
         1024,
         256,
-        1280,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256,
+        256
+      ]
     },
     {
       "index": 11,
       "rect": [
         1280,
         256,
-        1536,
-        512
-      ],
-      "durationMs": 83.33333333333333
+        256,
+        256
+      ]
     }
   ],
-  "sourceCaptures": [
-    {
-      "path": "source-captures/000.png",
-      "sha256": "e95105c6d02e03029364ab037bc1fb697d79f2ccab6ab470f527a5cf6d677fa2"
-    },
-    {
-      "path": "source-captures/001.png",
-      "sha256": "28f2799944aa4d8ce2ff67f602efda40c61f64037520eb1657e00e5756a62b1a"
-    },
-    {
-      "path": "source-captures/002.png",
-      "sha256": "916754514166342c3088259459a9cb1b0dc1304733bea751330fdca0551fc314"
-    },
-    {
-      "path": "source-captures/003.png",
-      "sha256": "0e2ab1a5116e2a2e9619b2d92d9e33ff8ece9d1532a1a6485b987ffda5408095"
-    },
-    {
-      "path": "source-captures/004.png",
-      "sha256": "73e5b278e52326dceebb6ad8106a71fe8d79cc36426ff08f1b732e25ab94ebc6"
-    },
-    {
-      "path": "source-captures/005.png",
-      "sha256": "74adba872271e5927a27c7b47d17ac41edf60649092bc4866e06577c1febc540"
-    },
-    {
-      "path": "source-captures/006.png",
-      "sha256": "1e58a1ad7e39c0d14ed1aa71739bf85b7b3d0ed8d6caf0f4a6d75bb923fc4ae3"
-    },
-    {
-      "path": "source-captures/007.png",
-      "sha256": "50186240077dc10afd7944ad52ededb33426bc3cbc9ebc3507884501972639fb"
-    },
-    {
-      "path": "source-captures/008.png",
-      "sha256": "26acf1261e40b389d56fe3b99e5a6efe93f0c252ed9803731124acdb4b13bb4f"
-    },
-    {
-      "path": "source-captures/009.png",
-      "sha256": "3f5f422835c72cb52ad985ef18b8679c8ff23b510d896a056398ce46c80619c4"
-    },
-    {
-      "path": "source-captures/010.png",
-      "sha256": "52ca6e35f3e394110be58d7adc1cb31be2e1d8d50ff4393c12f1d809c7ac4808"
-    },
-    {
-      "path": "source-captures/011.png",
-      "sha256": "4fc61fd15d76d884acd8d0d8cbe6005eeef0e6a9dadbfab501e22cb4c292c6d7"
-    }
-  ],
+  "groundAnchorAlignment": "center",
   "projection": "top-down-oblique-square-grid",
   "camera": {
     "type": "orthographic",
@@ -251,8 +190,70 @@
       1.2206555604934692,
       1.0
     ],
+    "orthoScale": 1.0,
+    "shift": [
+      0.0,
+      -1.9043711745325709e-06
+    ],
     "worldUnitsPerCell": 1,
     "elevationDegrees": 55.00797980144134
   },
-  "processing": "Uniform complete authored floor canvas only; opaque opposite edges retained; no alpha fitting"
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "elevationPx": 0,
+  "sourceCaptures": [
+    {
+      "path": "source-captures/000.png",
+      "sha256": "4656eec34b76663b2f52d27f22df8326efa6a7f25c860fcbdc9ad0d1c1b7f24d"
+    },
+    {
+      "path": "source-captures/001.png",
+      "sha256": "6e8648dcad2c6e1192a51742fbe6feea143687b849ec57854f8aebe07fc28b8a"
+    },
+    {
+      "path": "source-captures/002.png",
+      "sha256": "6a64471320821f3dce24eb75aebcd3ba2f62547b40181d3a1ea0fdceb3a6e4bc"
+    },
+    {
+      "path": "source-captures/003.png",
+      "sha256": "0f63974936a427772f0023c85e9a624188494cc82d1dceb2dfa5f8da204651a9"
+    },
+    {
+      "path": "source-captures/004.png",
+      "sha256": "9197c66ae1f78a6a5cc014eb13df852fcae3fc09d4efc491b3cba4da04379b51"
+    },
+    {
+      "path": "source-captures/005.png",
+      "sha256": "4b53fcea6fe01a633aaf56632a372c9734a3ca14ca47b8112d395321804c4538"
+    },
+    {
+      "path": "source-captures/006.png",
+      "sha256": "c9121491c5904170e4d428974e24a94115885fe3cffd39535be199c524d33825"
+    },
+    {
+      "path": "source-captures/007.png",
+      "sha256": "fd265847a65ff922d97ca89dbdf0b62e8acbb820631f40ca23e4e214eefa8f67"
+    },
+    {
+      "path": "source-captures/008.png",
+      "sha256": "bc816ab42fe4bc156e918ec659f5913dbffffcfc1c7e89c01dc47a9602926307"
+    },
+    {
+      "path": "source-captures/009.png",
+      "sha256": "4673fc1a7b8245f199dcacad13ac9d65492572050abcd20059a46a07d0de1ddc"
+    },
+    {
+      "path": "source-captures/010.png",
+      "sha256": "71650d330e28ebabbc23cb39268eb6a5f3abf8ecb0e4640d9319ac818ee9d3cf"
+    },
+    {
+      "path": "source-captures/011.png",
+      "sha256": "8c988ac716a6999c97a659129c4b0f3b7bf721a922c521fde35bf054d5e05ab9"
+    }
+  ],
+  "processing": "Exact native scale2 RGBA frames; lossless atlas placement only"
 }

@@ -1,0 +1,18 @@
+Run from task worktree /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype
+
+Initial noncontract inspection (wrong active scene, excluded diagnostic):
+/opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/scripts/inspect_source.py
+
+Correct actual-scene replay (44 renders,528 geometry frames+32closures):
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/resources/inputs/untouched.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/scripts/replay.py
+
+Media and residual generation:
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/scripts/prepare_media.py
+
+Two actual current-consumer browser runs:
+node prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/scripts/browser_capture.mjs
+
+Finalize (creates reports; seal separately):
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-fish/reviews/preparation-v1/scripts/finalize_preparation.py
+
+Do not rerun over signed bytes. Use a new version for any supplement. No full build/engine tests run because preparation introduced no behavior/product/source changes.

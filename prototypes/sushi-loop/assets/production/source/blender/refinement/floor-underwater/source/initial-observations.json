@@ -1,0 +1,14 @@
+{
+  "role": "fresh independent native editor",
+  "inspectionOrder": ["inputs/original.png", "inputs/target.png", "../../style/warm-soft-reference.png", "actual original Blender collection"],
+  "beforeReadingJudgeCriteria": true,
+  "originalImage": "An almost uniform saturated cyan square is divided by two broad dark sine ribbons and a dark complete border. The interior has little fine structure or sense of connected light on water.",
+  "fixedTarget": "A continuous aqua field contains broad rounded water cells, softly layered turquoise depth and connected pale creamy caustics. Highlights broaden at some intersections without becoming isolated white dots. No frame or corner vignette is visible. The target is a pattern/style reference and does not itself prove periodic boundaries.",
+  "styleReference": "The plant shows warm light, smooth bright turning planes and soft highlight transitions with a readable palette. The water can translate that softness into restrained creamy caustics and smooth aqua volume without adding thick tile construction.",
+  "nativeCollection": {
+    "inspection": "source/original-native-inspection.json",
+    "name": "S33_FB_floor-underwater.001",
+    "findings": ["One upward base quad extends to approximately ±0.501 rather than the nominal ±0.5.", "Two dark ribbon meshes have downward polygon normals and sit at z0.002.", "Four narrow dark border strips sit at z0.004.", "Root is at origin with unit scale and no source object animation data.", "No existing UV layer on the three large surfaces; replacement with a continuous periodic native material is feasible.", "Saved active presentation capture differs from the registered game camera and is not a valid capture contract."]
+  },
+  "implementationIntent": "Replace the ribbons and dark frame with one exact upward unit-square base at z0 and an editable procedural water material. Use integer-period local coordinates and periodic time to guarantee homogeneous same-facing joins. Keep all original backups read-only."
+}

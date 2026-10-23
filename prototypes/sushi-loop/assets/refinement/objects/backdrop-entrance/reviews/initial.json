@@ -1,0 +1,111 @@
+{
+  "asset": "backdrop-entrance",
+  "phase": "independent-initial-inspection",
+  "candidateVerdict": null,
+  "criteriaStatus": "proposed; awaiting coordinator freeze in brief.qualityCriteria",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/catalog-object.json",
+    "brief.json",
+    "prompts/judge.txt",
+    "../../../production/source/backdrop/restaurant-backdrop-35.blend",
+    "../../../production/source/backdrop/geometry-audit.json",
+    "../../../restaurant-backdrop/uniform35/source/build_backdrop.py",
+    "../../../restaurant-backdrop/uniform35/renders/assembled.png"
+  ],
+  "inputSHA256": {
+    "inputs/original.png": "bcf1c09158160d370e3eb9f476658a65bfad6cb43793d154d031dd5ccc1e3796",
+    "inputs/target.png": "300b2d1cad55e070401d903afcd0cb9795f390581d599e2d51e2ea8267a64f22",
+    "nativeSource": "927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05"
+  },
+  "inspectionMethod": [
+    "Viewed actual original and target pixels enlarged.",
+    "Viewed in-memory inspection composite at 576x448 logical framing on light gray and dark backgrounds; target shown aspect-preserving for aesthetic comparison only.",
+    "Read native source in Blender background mode without saving, queried the actual named collection and camera, and compared source build recipe and audit.",
+    "Viewed source native joined facade assembled.png to understand continuity and intentional blank areas."
+  ],
+  "nativeFindings": {
+    "scene": "Sushi Loop Uniform Wood Backdrop35 Study",
+    "collection": "S33_PROP_uniform35-gate",
+    "collectionTypeCounts": {
+      "EMPTY": 1,
+      "MESH": 114,
+      "CURVE": 2
+    },
+    "architecture": {
+      "roof": "64 flat closed slabs: 16 columns x 2 rows x 2 slopes; angular ridge and continuous blue fascia",
+      "noren": "3 red panels, 6 hanging loops, 1 rod",
+      "lanterns": "2 golden yellow paper bodies, each with 3 brass bands, 2 dark caps, 1 dark foot, hanger and bracket",
+      "fish": "1 cream fish emblem built from 2 curves and an eye mesh on the middle panel",
+      "facade": "2 plain ochre wall fields with wooden baseboard/cap; 2 inner jambs with feet and joinery; 1 dark doorway, 1 threshold with center joint"
+    },
+    "camera": {
+      "projection": "character-orthographic",
+      "elevationDegrees": 35,
+      "pixelAspect": [
+        1,
+        1
+      ],
+      "orthoScale": 4.5,
+      "shift": [
+        0,
+        0.2696022093296051
+      ]
+    },
+    "registration": {
+      "nativeFrame": [
+        1728,
+        1344
+      ],
+      "logicalFrame": [
+        576,
+        448
+      ],
+      "sourceScale": 3,
+      "logicalRoot": [
+        288,
+        416
+      ],
+      "cellSize": 128,
+      "widthTiles": 4,
+      "projectedHeightTiles": 3,
+      "openingWidthTiles": 2
+    },
+    "nativeBoundsEvidence": "Existing audit reports 4.0 width and 2.99999993687475 projected height; aperture x=-1..1. Native hash matches audit.",
+    "lighting": "Source uses uniform ambient emission with slight view-normal facet tone; no height ramp, ground cast shadow, or local wall lamp falloff.",
+    "importantDistinction": "Native root contains generic four-direction metadata inherited from builder, but catalog and brief require only static S. Do not invent N/E/W views or impose the 55-degree world-object camera."
+  },
+  "baselineObservations": [
+    "Identity and proportions are clear: royal blue pitched canopy, ochre wall fields and wood trim, balanced golden lanterns, three red curtain panels and cream fish.",
+    "Original surfaces read as flat blocks. Roof faces, jamb edges, fabric and lantern bodies have little soft local light or material volume at intended size.",
+    "Dark navy doorway below the cloth is an intentional recess, not a dead spot to brighten into a wall or fill with details. The muted brown-gray threshold is also intentional architecture.",
+    "The plain wall areas and continuous baseboard are intentional modular fields. More ornament, windows, signage, or busy grain would violate their role.",
+    "Source assembly demonstrates continuous roof, wall field and baseboard at module boundaries; this continuity must survive refinement."
+  ],
+  "targetObservations": [
+    "Useful treatment: broad soft edge highlights, gentle cloth folds, readable rounded lantern volume, warmer wood shading and subtle threshold edge separation.",
+    "Target retains the main palette families and recognizable architecture, but its intense cyan roof glints, glossy/plastic edge treatment, broad wall gradients and painterly mottling are not mandatory.",
+    "Target has noisy stray alpha pixels and colored perimeter halo, a different canvas (1422x1106), framing/padding drift and rounded silhouette changes. These are target defects or registration drift and cannot authorize source-contract changes."
+  ],
+  "rankedDesiredOutcomes": [
+    "Add gentle native light/material volume to roof slabs, wood, lanterns and cloth so the result visibly approaches warm soft cartoon art at 576x448.",
+    "Retain clear original color hierarchy and semantic counts; keep the doorway dark and calm, wall fields blank, fish cream and legible, and the gold lanterns luminous without clipping.",
+    "Keep protected join planes and shared facade settings continuous in native and independently assembled S previews, with clean alpha and no module shading gradient."
+  ],
+  "baselineComparativeScores": {
+    "shapeVolume": 7,
+    "color": 8,
+    "lightingHighlights": 3,
+    "materialDetail": 4,
+    "artifactFreeReadability": 7
+  },
+  "scoreContext": "Baseline style evidence only; not a candidate approval threshold. Shape is faithful but softly modeled volume is weak. Readability is good, yet color-block shading is visibly abrupt.",
+  "requirementsNeedingCoordinatorReconciliation": [
+    "brief.capture.previews lists generic four-view-sheet/repeated. This asset requires only S; use a single-view diagnostic sheet and joined facade evidence rather than forcing four invented facings.",
+    "A proposed matching wall may appear as labeled context in entrance join previews, but entrance review cannot approve/promote that sibling wall. Its own fresh editor/judge pair remains required."
+  ],
+  "nextStep": "Await frozen criteria and an immutable exact candidate packet with actual S capture, join previews and native technical validation."
+}

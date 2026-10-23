@@ -88,6 +88,30 @@ test('explicit background scenery stays first and foreground or overhead pieces 
   assert.deepEqual(orderPlacements([{ object: 'arch-front', x: 0, y: 0 }, { object: 'customer', x: 0, y: 5 }, { object: 'far-scenery', x: 0, y: 9 }], objects).map(value => value.object), ['far-scenery', 'customer', 'arch-front']);
 });
 
+test('on-deck people draw above their support while external stairs retain native depth ordering', () => {
+  const objects = [{ id: 'deck', kind: 'prop', footprint: [3, 3], layer: 0 }, { id: 'person', kind: 'character' }, { id: 'entry', kind: 'prop' }];
+  for (const [y, expected] of [[-2, ['entry', 'deck', 'person']], [3, ['deck', 'person', 'entry']]]) {
+    const placements = [{ object: 'deck', x: 0, y: 0 }, { object: 'person', x: 1, y: .1, offset: [0, -19.712], supportedBy: 'deck' }, { object: 'entry', x: 1, y }];
+    const original = JSON.stringify(placements);
+    assert.deepEqual(orderPlacements(placements, objects).map(value => value.object), expected);
+    assert.equal(JSON.stringify(placements), original, 'Sorting must not move supported artwork or mutate scene data');
+  }
+});
+
+test('explicit support instances and support chains preserve foreground passes', () => {
+  const objects = [{ id: 'deck', kind: 'prop', footprint: [3, 3] }, { id: 'stool', kind: 'prop' }, { id: 'person', kind: 'character' }, { id: 'front', renderPass: 'foreground' }];
+  const placements = [{ id: 'person', object: 'person', y: -3, supportedBy: 'seat' }, { id: 'seat', object: 'stool', y: -2, supportedBy: 'west' }, { id: 'east', object: 'deck', y: 5 }, { id: 'west', object: 'deck', y: 0 }, { id: 'front', object: 'front', y: -9 }];
+  assert.deepEqual(orderPlacements(placements, objects).map(value => value.id), ['west', 'seat', 'person', 'east', 'front']);
+});
+
+test('ambiguous, missing, cyclic or conflicting-pass support cannot silently choose a draw order', () => {
+  const objects = [{ id: 'deck', kind: 'prop' }, { id: 'person', kind: 'character' }, { id: 'overlay', renderPass: 'foreground' }];
+  assert.throws(() => orderPlacements([{ object: 'deck', y: 0 }, { object: 'deck', y: 2 }, { object: 'person', y: 1, supportedBy: 'deck' }], objects), /ambiguous/);
+  assert.throws(() => orderPlacements([{ object: 'person', y: 1, supportedBy: 'missing' }], objects), /Invalid/);
+  assert.throws(() => orderPlacements([{ id: 'a', object: 'deck', y: 0, supportedBy: 'b' }, { id: 'b', object: 'person', y: 1, supportedBy: 'a' }], objects), /Cyclic/);
+  assert.throws(() => orderPlacements([{ id: 'top', object: 'overlay', y: 0 }, { object: 'person', y: 1, supportedBy: 'top' }], objects), /render pass/);
+});
+
 test('a separate plate follows a belt presentation path at constant distance speed, and scrubs exactly', () => {
   const plate = { object: 'dish', x: 0, y: 0, motion: { path: [[0, 0], [2, 0], [2, 1]], duration: 3 } };
   assert.deepEqual([placementAtTime(plate, 1).x, placementAtTime(plate, 1).y], [1, 0]);

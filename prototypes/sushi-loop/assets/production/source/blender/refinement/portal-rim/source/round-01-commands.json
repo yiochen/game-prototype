@@ -1,0 +1,74 @@
+[
+  {
+    "step": "buildNativeEditableSource",
+    "cwd": "repository root",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/round-01-resources/native/original.blend",
+      "--python",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/build-round-01.py"
+    ]
+  },
+  {
+    "step": "captureSavedSource48NativeFrames",
+    "cwd": "repository root",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/round-01.blend",
+      "--python",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/capture-round-01.py"
+    ]
+  },
+  {
+    "step": "publishCommonCanvasAndAtlases",
+    "cwd": "repository root",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/publish-round-01.py"
+    ]
+  },
+  {
+    "step": "currentConsumerBothModes",
+    "cwd": "repository root",
+    "argv": [
+      "node",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/capture-consumer-round-01.mjs"
+    ]
+  },
+  {
+    "step": "verifyNativeCanvasMotionAndResiduals",
+    "cwd": "repository root",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/verify-round-01.py"
+    ]
+  },
+  {
+    "step": "auditExactSavedSourceDependenciesTopology",
+    "cwd": "repository root",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/round-01.blend",
+      "--python",
+      "prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/audit-source-round-01.py"
+    ]
+  }
+]

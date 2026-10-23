@@ -1,0 +1,74 @@
+{
+  "asset": "boulder-underwater",
+  "status": "proposed for coordinator freeze",
+  "version": 1,
+  "referenceTargetSHA256": "8db6db9feb54674ca60df318612226725a970e04f1f7dcca843d71583a36a26b",
+  "modelingPolicyVersion": 2,
+  "scope": "One native static boulder with four required cardinal frames. Reward useful native design improvements within locked capture, one-cell footprint and measured envelope. Original part count, exact original silhouette, blank planes and exact target paint are not aesthetic constraints.",
+  "hardConstraints": [
+    {
+      "id": "registration",
+      "outcome": "All views use one registered camera/projection and identical scale/frame/root. Preserve logical frame 192x512, root [96,416], cellSize 128; native scale 4 at 768x2048; published scale 2 at 384x1024 with root [192,832]. Square pixel aspect [1,1]. Native square-footing transition and 35-degree upper view match source metadata. No alpha fitting, per-view translation/scale/warping, recoloring, or camera changes."
+    },
+    {
+      "id": "native-envelope",
+      "outcome": "Canonical ground root stays at identity with the same source orientation; physical modeled envelope remains x,y in [-0.5,0.5] and z in [0,2.325000047683716], with a substantial one-cell ground mass and stable grounded contact. Preserve nominal catalog height 2.3, footprint/support cell [1,1]/[[0,0]], rootCell [0.5,0.5], and functional lane clearance. Minor floating-point tolerance is acceptable; image alpha is not measurement proof."
+    },
+    {
+      "id": "views-layout",
+      "outcome": "One real native static frame for each N,E,S,W; native frame 1, sprite frameOrder [0], 12fps, static=true, loop=false. Preserve canonical rotations S=0, E=+pi/2, N=pi, W=-pi/2 and per-facing 1x1 atlas layout/rect [0,0,384,1024]. No invented animation or target-facing raster card."
+    },
+    {
+      "id": "light-and-resources",
+      "outcome": "No directional ground shadow or preferred horizontal light direction. One coherent light/material treatment across actual rotations, with balanced horizontal illumination. All renders originate from editable native geometry/materials in the submitted .blend; pack or hash-bind required external resources and exact capture recipe/replay. No target raster standing in for modeled stone."
+    },
+    {
+      "id": "nonapplicable-contracts",
+      "outcome": "This boulder has no sockets, ports, armature, action cohort or declared modular connector profile. Preserve that isolated-prop role; no invented modular joins, seams, rig or animation tests are required."
+    }
+  ],
+  "visibleSuccessCriteria": [
+    {
+      "id": "shapeVolume",
+      "priority": 1,
+      "outcome": "Every facing reads immediately as a natural, substantial blue stone formation: one dominant broad crown with varied lower shoulder/boulder masses, a grounded one-cell base, and deliberate asymmetry. Native remodeling visibly improves the original long mechanically extruded columns. Large forms stay distinct and stable at logical/game scale; no wafer-thin fins, stacked toy bricks, excessive needle peaks or decorative additions that weaken stone identity."
+    },
+    {
+      "id": "wornEdges",
+      "priority": 1,
+      "outcome": "Crowns, exposed shoulders and selected silhouette corners have visibly rounded, worn edge volume and soft transitions into broad faces. They retain enough plane change to read as stone. The result should not be merely an unchanged polygon column with painted white lines, nor inflate into featureless smooth plastic."
+    },
+    {
+      "id": "materialDetail",
+      "priority": 2,
+      "outcome": "Purposeful facets, fracture boundaries and restrained stone tonal detail break up the largest blank planes and reinforce geology and mass. A few legible changes are preferable to uniform micro-noise or random crack scribbles. Fractures read as stone transitions rather than luminous seams or deep black painted stripes. Useful native subdivisions, construction and secondary forms are welcome without preserving old part counts or copying the target exactly."
+    },
+    {
+      "id": "color",
+      "priority": 2,
+      "outcome": "Retain the recognizable cobalt/blue palette family, with coherent cyan-blue crown/edge accents and readable blue midtones down the lower faces. Secondary masses separate through controlled tone and volume. Keep material color under highlights; avoid dead-black lower panels, neon saturation, unrelated warm recoloring, and a uniform cyan wash."
+    },
+    {
+      "id": "lightingHighlights",
+      "priority": 2,
+      "outcome": "Soft broad highlights model the top and worn edges while keeping crown and shoulder surface detail visible. Side faces have gentle local value changes with enough fill to read on dark backgrounds. All four facings share a balanced finish without a preferred left/right world light direction. Avoid clipped white/cyan bands, hard metallic/plastic glare, rim halos, or a directional cast shadow."
+    },
+    {
+      "id": "artifactFreeReadability",
+      "priority": 1,
+      "outcome": "At logical size and enlarged, all four actual native facings remain clean against light, mid-gray and dark backgrounds: no clipping, black dead spots, coplanar/overlap flicker, pinched broken corners, visible holes, unintentional floating shards, alpha halos or stray pixels. Adjacent rock masses retain readable intersections rather than muddy black wedges. Fine detail may simplify at game size, but the mass hierarchy and softened edges remain visible."
+    },
+    {
+      "id": "repeatedContext",
+      "priority": 3,
+      "outcome": "A modest repeated placement preview at the declared cell pitch demonstrates grounded scale, broad coverage, clear neighboring silhouettes and readable separation without conspicuous baking of a fixed directional ground shadow. Judge repetition as context for an isolated prop; do not require matching height, flush profile seams, continuous top surfaces or port geometry."
+    }
+  ],
+  "requiredEvidence": [
+    "Hash-bound immutable packet containing candidate .blend, all four static native render paths, all four original-layout published atlases, validation, exact capture recipe/replay and resource closure. Inspect supplied bytes and bind the eventual verdict to the packet SHA256.",
+    "Compact actual native measurements: ground-root matrix/orientation, named asset collection, physical and evaluated bounds, modeled contact/occupancy, scene camera world/projection matrices and pixel aspect, native/published resolutions/roots/scales, square-footing treatment, four canonical rotations and static clip/layout metadata. Do not substitute the unrelated full-library active camera or alpha-box measurements.",
+    "Inspect every N/E/S/W image directly or via verified contact sheets at logical/game size and enlarged, composited on light/gray/dark backgrounds; include the four-view sheet and a modest repeated preview. Preserve registration within comparison sheets. A massive GPU stress scene or seam grid is unnecessary for this four-frame static prop.",
+    "A proportional independent replay check or equivalent exact native render/source evidence establishes that the saved editable project produces the submitted art with declared dependencies. Four static frames require four-view evidence, not animation playback."
+  ],
+  "decisionRule": "Approve only after visible material improvement toward the selected warm, softly lit cartoon style and useful native modeling improvement, all frozen criteria satisfied, no material defects in any required facing, and a passing capture/asset contract. Missing evidence means needs_evidence, not approval. Comparative scores support observations and are not a numeric gate. No candidate approval at criteria stage."
+}

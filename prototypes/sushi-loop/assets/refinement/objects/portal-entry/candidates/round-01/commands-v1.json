@@ -1,0 +1,57 @@
+{
+  "consumer": {
+    "actualLaunchRecords": "candidates/round-01/consumer-report.json",
+    "analysis": "source/analyze-consumer-round-01.py",
+    "logs": [
+      "candidates/round-01/logs/consumer-capture.log",
+      "candidates/round-01/logs/consumer-analysis.log",
+      "candidates/round-01/logs/mode-object-residuals.log"
+    ],
+    "modeObjectRegions": "source/compare-mode-regions-round-01.py",
+    "nativeCanvasAnalysis": "source/compare-canvas-round-01.py",
+    "script": "source/capture-consumer-round-01.mjs",
+    "server": {
+      "bind": "127.0.0.1",
+      "directory": "candidates/round-01",
+      "log": "candidates/round-01/logs/consumer-http.log",
+      "port": 4217,
+      "stoppedBeforeHandoff": true
+    }
+  },
+  "environment": {
+    "blenderExecutable": "/opt/homebrew/bin/blender",
+    "blenderVersion": "5.2.2 LTS",
+    "ffprobe": "/opt/homebrew/bin/ffprobe",
+    "nodeVersion": "v22.18.0",
+    "pillowPython": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "pillowVersion": "12.3.0"
+  },
+  "forbiddenActionsPerformed": [],
+  "nativeBuild": {
+    "log": "candidates/round-01/logs/build.log",
+    "output": "source/round-01.blend",
+    "script": "source/build-round-01.py",
+    "source": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend"
+  },
+  "pathBase": "object-root",
+  "publication": {
+    "log": "candidates/round-01/logs/publication.log",
+    "previewTimingFinalizer": "source/finalize-preview-timing-round-01.py",
+    "script": "source/publish-round-01.py",
+    "timingLog": "candidates/round-01/logs/preview-timing.log"
+  },
+  "reproduction": "Capture script replays the standalone saved .blend and actual assigned native actions in an empty copy of this object directory; asserts protect existing source/captures. Build recipe reconstructs from the byte-identical authorized raw project, camera input and acknowledgment, then publication + exact preview timing + unchanged current-consumer fixture reproduce the handoff. No runtime application trees are frozen.",
+  "savedSourceReplay": {
+    "all48Frames": true,
+    "log": "candidates/round-01/logs/native-capture.log",
+    "script": "source/capture-round-01.py",
+    "source": "source/round-01.blend"
+  },
+  "sourceAudit": {
+    "log": "candidates/round-01/logs/source-audit.log",
+    "renderedAgain": false,
+    "script": "source/audit-source-round-01.py",
+    "source": "source/round-01.blend"
+  },
+  "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype"
+}

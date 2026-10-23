@@ -1,0 +1,150 @@
+{
+  "asset": "decor-light-shafts",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "snapshot": "inputs/original.png",
+    "snapshotRecord": "inputs/snapshot.json",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "sha256": "bb32403aea099d5edf0977fb14359915c9ea58f8a9befe71a1f26ada769af708",
+    "provenance": "imagegen-builtin",
+    "references": [
+      {
+        "role": "native-edit-source",
+        "path": "inputs/original.png",
+        "sha256": "803935b346134cecfde0fc0db81f963c42c9833301f9c4d63deed2ac0aac7773"
+      },
+      {
+        "role": "style-only",
+        "path": "../../style/warm-soft-reference.png",
+        "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+      }
+    ],
+    "interpretation": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints.",
+    "prompt": "inputs/imagegen-prompt.txt",
+    "generation": {
+      "tool": "built-in-imagegen",
+      "sourceOutput": "/Users/yiouchen/.codex/generated_images/01a15c72-360f-7ea0-ac4c-aa1b5c2b248e/exec-969e641a-ced2-4446-ab6d-3bfa29c449cd.png",
+      "transparentBackground": true,
+      "prompt": "inputs/imagegen-prompt.txt",
+      "inspection": "Raw output inspected: coherent warm soft cartoon material finish and relevant asset role; native editor must realize design within registered output and functional constraints. ImageGen is not proof of registration or continuity."
+    }
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      832
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "ambient-N",
+      "ambient-E",
+      "ambient-S",
+      "ambient-W"
+    ],
+    "logicalFrame": [
+      192,
+      416
+    ],
+    "logicalRoot": [
+      96,
+      320
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "constraints": {
+    "preserve": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "designFreedom": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ]
+  },
+  "qualityCriteria": {},
+  "delivery": {
+    "scope": "Deferred 2D effect: retain current exports. Do not generate, model, edit, dispatch Blender refinement, or promote new art during this pass. Historical source/target/modeling records remain provenance only.",
+    "requiredClips": [
+      {
+        "id": "ambient",
+        "sourceClipId": "ambient",
+        "name": "Ambient",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "modelingPolicy": {
+    "version": 2,
+    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
+    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "allowed": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "locked": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "briefVersion": "deferred-2d-effect-2026-10-21",
+  "refinementPolicy": {
+    "classification": "2d-effect",
+    "status": "deferred",
+    "blenderRefinement": false,
+    "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+  }
+}

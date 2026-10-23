@@ -1,0 +1,3915 @@
+{
+  "floor-cream": {
+    "id": "floor-cream",
+    "name": "Cream floor",
+    "family": "W01",
+    "status": "ready",
+    "kind": "floor",
+    "footprint": [
+      1,
+      1
+    ],
+    "projection": "top-down-oblique-square-grid",
+    "frameSize": [
+      128,
+      128
+    ],
+    "root": [
+      64,
+      64
+    ],
+    "sourceScale": 2,
+    "clips": [
+      {
+        "id": "static",
+        "sourceClipId": "static",
+        "name": "Static",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false,
+        "frameOrder": [
+          0
+        ],
+        "directions": {
+          "N": {
+            "image": "sprites/floor-cream/static-N.png",
+            "columns": 1,
+            "rows": 1,
+            "atlasSize": [
+              256,
+              256
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                256,
+                256
+              ]
+            ]
+          },
+          "E": {
+            "image": "sprites/floor-cream/static-E.png",
+            "columns": 1,
+            "rows": 1,
+            "atlasSize": [
+              256,
+              256
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                256,
+                256
+              ]
+            ]
+          },
+          "S": {
+            "image": "sprites/floor-cream/static-S.png",
+            "columns": 1,
+            "rows": 1,
+            "atlasSize": [
+              256,
+              256
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                256,
+                256
+              ]
+            ]
+          },
+          "W": {
+            "image": "sprites/floor-cream/static-W.png",
+            "columns": 1,
+            "rows": 1,
+            "atlasSize": [
+              256,
+              256
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                256,
+                256
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "name": "Connected 3 \u00d7 3 floor patch",
+        "gridSize": [
+          3,
+          3
+        ],
+        "placements": [
+          {
+            "object": "floor-cream",
+            "x": 0,
+            "y": 0,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 1,
+            "y": 0,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 2,
+            "y": 0,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 0,
+            "y": 1,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 1,
+            "y": 1,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 2,
+            "y": 1,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 0,
+            "y": 2,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 1,
+            "y": 2,
+            "direction": "S"
+          },
+          {
+            "object": "floor-cream",
+            "x": 2,
+            "y": 2,
+            "direction": "S"
+          }
+        ],
+        "note": "Complete authored floor edges touch at one shared tile pitch; no gap or silhouette fitting is applied.",
+        "connectionReview": {
+          "kind": "floor-patch",
+          "object": "floor-cream"
+        }
+      }
+    ],
+    "requirements": {
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "animated": false,
+      "fps": 12,
+      "minimumUniqueFrames": 1,
+      "targetLoopFrames": 1,
+      "interactionObjectIds": [
+        "chef-lena",
+        "belt-straight-e"
+      ],
+      "notes": "Static tile; shared-scale square floor. No extra texture-only object variants required."
+    },
+    "height": 0.004,
+    "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+    "layer": 0,
+    "sockets": {
+      "N": {},
+      "E": {},
+      "S": {},
+      "W": {}
+    },
+    "source": {
+      "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "modelScript": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "camera": "source/records/floor-cream/camera.json",
+      "guide": "source/registered/floor-cream/static-N/guide.json",
+      "guides": [
+        "source/registered/floor-cream/static-N/guide.json",
+        "source/registered/floor-cream/static-E/guide.json",
+        "source/registered/floor-cream/static-S/guide.json",
+        "source/registered/floor-cream/static-W/guide.json"
+      ],
+      "assetRecord": "source/records/floor-cream/asset.json",
+      "rawFrames": [
+        {
+          "image": "source/registered/floor-cream/static-N/source-captures/000.png",
+          "sha256": "389f50fc50173b297d4fa25f299e43a1076883970928b09445615491d7cc73b0",
+          "clip": "static",
+          "direction": "N",
+          "index": 0
+        },
+        {
+          "image": "source/registered/floor-cream/static-E/source-captures/000.png",
+          "sha256": "60f94061e29e0e5af5eed3196f85e961c626d641433940f1912522a104d05d3b",
+          "clip": "static",
+          "direction": "E",
+          "index": 0
+        },
+        {
+          "image": "source/registered/floor-cream/static-S/source-captures/000.png",
+          "sha256": "156819b2fbe42a85866c3ab4922a1a3217b3f4f82b00927c1e3f7f19f2f095ab",
+          "clip": "static",
+          "direction": "S",
+          "index": 0
+        },
+        {
+          "image": "source/registered/floor-cream/static-W/source-captures/000.png",
+          "sha256": "0d6defc5090d5af340cfff93ea224550a198446c0e4ec532092494c4fb1e2b61",
+          "clip": "static",
+          "direction": "W",
+          "index": 0
+        }
+      ],
+      "nativeScripts": {
+        "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+        "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+        "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+        "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+        "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+        "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+        "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+        "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+        "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+        "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+        "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+        "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+        "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+        "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+        "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+        "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+        "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+        "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+        "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+        "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+        "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+        "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+        "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+        "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+        "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+        "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+        "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+        "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+        "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+        "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+        "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+        "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+        "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+        "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+        "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+        "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+        "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+        "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+        "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+        "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+        "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+      },
+      "hashes": {
+        "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+        "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+        "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+        "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+        "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+        "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+        "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+        "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+        "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+        "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+        "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+        "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+        "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+        "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+        "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+        "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+        "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+        "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+        "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+        "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+        "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+        "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+        "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+        "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+        "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+        "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+        "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+        "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+        "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+        "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+        "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+        "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+        "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+        "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+        "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+        "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+        "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+        "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+        "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+        "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+        "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+        "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+      },
+      "rig": "source/records/floor-cream/rig.json"
+    },
+    "directionFootprints": {
+      "N": [
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1
+      ],
+      "W": [
+        1,
+        1
+      ]
+    },
+    "directionRootCells": {
+      "N": [
+        0.5,
+        0.5
+      ],
+      "E": [
+        0.5,
+        0.5
+      ],
+      "S": [
+        0.5,
+        0.5
+      ],
+      "W": [
+        0.5,
+        0.5
+      ]
+    },
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "overheadCells": [],
+    "registration": {
+      "method": "authored-3d-projection",
+      "groundAnchorAlignment": "center",
+      "completeFrame": [
+        128,
+        128
+      ],
+      "anchor": [
+        64,
+        64
+      ],
+      "cellSize": 128,
+      "poseFitting": false,
+      "sourceCaptureScale": 4
+    },
+    "sockets3D": {},
+    "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+    "validation": {
+      "rigEvidence": "exported; native and complete capture audits passed"
+    },
+    "captureFingerprint": "d34c54af6ce7c9a51f747cceb5c8b36d604a3156e0cfe7caf646a78a301f00e1",
+    "portProfiles": {},
+    "artStyle": {
+      "revision": "faceted-approved-2026-10-19",
+      "contrast": 1.35,
+      "contrastSpace": "sRGB",
+      "environmentHeightRatio": 0.7,
+      "lowerTone": "native world-height material ramp",
+      "worldLighting": true,
+      "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+      "roughness": 0.85,
+      "specularIORLevel": 0.03,
+      "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+      "beltRailColor": "#966B60",
+      "floorAlbedoCalibration": 0.42
+    }
+  },
+  "chef-lena": {
+    "id": "chef-lena",
+    "name": "Lena Brooks",
+    "family": "W05",
+    "status": "ready",
+    "kind": "character",
+    "footprint": [
+      1,
+      1
+    ],
+    "projection": "character-orthographic",
+    "frameSize": [
+      192,
+      320
+    ],
+    "root": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "clips": [
+      {
+        "id": "idle",
+        "sourceClipId": "idle",
+        "name": "Idle",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "directions": {
+          "N": {
+            "image": "sprites/chef-lena/idle-N.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "E": {
+            "image": "sprites/chef-lena/idle-E.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "S": {
+            "image": "sprites/chef-lena/idle-S.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "W": {
+            "image": "sprites/chef-lena/idle-W.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "work",
+        "sourceClipId": "work",
+        "name": "Work",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "directions": {
+          "N": {
+            "image": "sprites/chef-lena/work-N.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "E": {
+            "image": "sprites/chef-lena/work-E.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "S": {
+            "image": "sprites/chef-lena/work-S.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "W": {
+            "image": "sprites/chef-lena/work-W.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "hold",
+        "sourceClipId": "hold",
+        "name": "Hold",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "directions": {
+          "N": {
+            "image": "sprites/chef-lena/hold-N.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "E": {
+            "image": "sprites/chef-lena/hold-E.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "S": {
+            "image": "sprites/chef-lena/hold-S.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "W": {
+            "image": "sprites/chef-lena/hold-W.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          }
+        }
+      },
+      {
+        "id": "load",
+        "sourceClipId": "load",
+        "name": "Load",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "directions": {
+          "N": {
+            "image": "sprites/chef-lena/load-N.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "E": {
+            "image": "sprites/chef-lena/load-E.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "S": {
+            "image": "sprites/chef-lena/load-S.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          },
+          "W": {
+            "image": "sprites/chef-lena/load-W.png",
+            "columns": 6,
+            "rows": 2,
+            "atlasSize": [
+              2304,
+              1280
+            ],
+            "rects": [
+              [
+                0,
+                0,
+                384,
+                640
+              ],
+              [
+                384,
+                0,
+                384,
+                640
+              ],
+              [
+                768,
+                0,
+                384,
+                640
+              ],
+              [
+                1152,
+                0,
+                384,
+                640
+              ],
+              [
+                1536,
+                0,
+                384,
+                640
+              ],
+              [
+                1920,
+                0,
+                384,
+                640
+              ],
+              [
+                0,
+                640,
+                384,
+                640
+              ],
+              [
+                384,
+                640,
+                384,
+                640
+              ],
+              [
+                768,
+                640,
+                384,
+                640
+              ],
+              [
+                1152,
+                640,
+                384,
+                640
+              ],
+              [
+                1536,
+                640,
+                384,
+                640
+              ],
+              [
+                1920,
+                640,
+                384,
+                640
+              ]
+            ]
+          }
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "name": "Chef faces the neighboring serving belt",
+        "gridSize": [
+          5,
+          4
+        ],
+        "placements": [
+          {
+            "object": "chef-lena",
+            "x": 1,
+            "y": 0,
+            "direction": "S",
+            "clip": "work"
+          },
+          {
+            "object": "belt-straight-e",
+            "x": 1,
+            "y": 1,
+            "direction": "S",
+            "clip": "running"
+          },
+          {
+            "object": "dish-salmon",
+            "x": 1,
+            "y": 1,
+            "direction": "S",
+            "offset": [
+              0.0,
+              -57.3440234375
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Completed dish and customer scale",
+        "gridSize": [
+          5,
+          4
+        ],
+        "placements": [
+          {
+            "object": "chef-lena",
+            "x": 0,
+            "y": 1,
+            "direction": "S",
+            "clip": "hold"
+          },
+          {
+            "object": "stool-wood",
+            "x": 2,
+            "y": 1,
+            "direction": "S"
+          },
+          {
+            "object": "customer-rosa",
+            "x": 2,
+            "y": 1,
+            "direction": "S",
+            "clip": "seated-wait"
+          }
+        ]
+      }
+    ],
+    "requirements": {
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "animated": true,
+      "fps": 12,
+      "minimumUniqueFrames": 6,
+      "targetLoopFrames": 12,
+      "interactionObjectIds": [
+        "belt-straight-e",
+        "chef-blackboard",
+        "dish-salmon"
+      ],
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    "height": 1.5999999642372131,
+    "productionStage": "Native Blender \u00b7 warm soft cartoon \u00b7 independent judge approved",
+    "layer": 2,
+    "directionFootprints": {
+      "N": [
+        1,
+        1
+      ],
+      "E": [
+        1,
+        1
+      ],
+      "S": [
+        1,
+        1
+      ],
+      "W": [
+        1,
+        1
+      ]
+    },
+    "directionRootCells": {
+      "N": [
+        0.5,
+        0.5
+      ],
+      "E": [
+        0.5,
+        0.5
+      ],
+      "S": [
+        0.5,
+        0.5
+      ],
+      "W": [
+        0.5,
+        0.5
+      ]
+    },
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "overheadCells": [],
+    "registration": {
+      "method": "authored-3d-projection",
+      "groundAnchorAlignment": "center",
+      "completeFrame": [
+        192,
+        320
+      ],
+      "anchor": [
+        96,
+        248
+      ],
+      "cellSize": 128,
+      "poseFitting": false,
+      "sourceCaptureScale": 2
+    },
+    "sockets3D": {
+      "ground": [
+        0,
+        0,
+        0
+      ],
+      "seat_contact": [
+        0,
+        0,
+        0.4477801191577021
+      ],
+      "hand_left": [
+        -0.267,
+        -0.023,
+        0.211
+      ],
+      "hand_right": [
+        0.267,
+        -0.023,
+        0.211
+      ],
+      "mouth": [
+        0,
+        -0.255,
+        0.543
+      ]
+    },
+    "sockets": {
+      "N": {
+        "ground": [
+          0.0,
+          -0.0
+        ],
+        "seat_contact": [
+          0.0,
+          -46.950410987209324
+        ],
+        "hand_left": [
+          34.176,
+          -23.812271957397456
+        ],
+        "hand_right": [
+          -34.176,
+          -23.812271957397463
+        ],
+        "mouth": [
+          3.997247152416961e-15,
+          -75.65588456726074
+        ]
+      },
+      "E": {
+        "ground": [
+          0.0,
+          0.0
+        ],
+        "seat_contact": [
+          0.0,
+          -46.950410987209324
+        ],
+        "hand_left": [
+          2.9439999999999977,
+          -2.5211229705810503
+        ],
+        "hand_right": [
+          2.944000000000002,
+          -41.72620420837403
+        ],
+        "mouth": [
+          32.64,
+          -56.9343570098877
+        ]
+      },
+      "S": {
+        "ground": [
+          0.0,
+          0.0
+        ],
+        "seat_contact": [
+          0.0,
+          -46.950410987209324
+        ],
+        "hand_left": [
+          -34.176,
+          -20.435055221557615
+        ],
+        "hand_right": [
+          34.176,
+          -20.435055221557615
+        ],
+        "mouth": [
+          0.0,
+          -38.212829452514654
+        ]
+      },
+      "W": {
+        "ground": [
+          0.0,
+          0.0
+        ],
+        "seat_contact": [
+          0.0,
+          -46.950410987209324
+        ],
+        "hand_left": [
+          -2.944000000000002,
+          -41.72620420837403
+        ],
+        "hand_right": [
+          -2.9439999999999977,
+          -2.5211229705810503
+        ],
+        "mouth": [
+          -32.64,
+          -56.9343570098877
+        ]
+      }
+    },
+    "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+    "validation": {
+      "rigEvidence": "exported; native and complete capture audits passed"
+    },
+    "source": {
+      "blend": "source/blender/refinement/chef-lena/source/round-03.blend",
+      "modelScript": "source/blender/refinement/chef-lena/source/replay_shipping_round04.py",
+      "camera": "source/records/chef-lena/camera.json",
+      "guide": "source/registered/chef-lena/idle-N/guide.json",
+      "guides": [
+        "source/registered/chef-lena/idle-N/guide.json",
+        "source/registered/chef-lena/idle-E/guide.json",
+        "source/registered/chef-lena/idle-S/guide.json",
+        "source/registered/chef-lena/idle-W/guide.json",
+        "source/registered/chef-lena/work-N/guide.json",
+        "source/registered/chef-lena/work-E/guide.json",
+        "source/registered/chef-lena/work-S/guide.json",
+        "source/registered/chef-lena/work-W/guide.json",
+        "source/registered/chef-lena/hold-N/guide.json",
+        "source/registered/chef-lena/hold-E/guide.json",
+        "source/registered/chef-lena/hold-S/guide.json",
+        "source/registered/chef-lena/hold-W/guide.json",
+        "source/registered/chef-lena/load-N/guide.json",
+        "source/registered/chef-lena/load-E/guide.json",
+        "source/registered/chef-lena/load-S/guide.json",
+        "source/registered/chef-lena/load-W/guide.json"
+      ],
+      "assetRecord": "source/records/chef-lena/asset.json",
+      "rawFrames": [
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/000.png",
+          "sha256": "d75e9ae4d75c295a8ef11ca0ed57a142ca80510df2f9957884d8f39ecf2b0ee6",
+          "clip": "idle",
+          "direction": "N",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/001.png",
+          "sha256": "996586b5864d9e2a2a98d629b4e2827200797cfc624a5600a43f30e8c851a325",
+          "clip": "idle",
+          "direction": "N",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/002.png",
+          "sha256": "06667098b75f5939c6e3f9c6f0b09bdc309a4d3a824c92ab76a32a8edfc223ff",
+          "clip": "idle",
+          "direction": "N",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/003.png",
+          "sha256": "bef3c876df4642f3089029a9e184dfdab89134e107b62cdd02ea48b5d4269102",
+          "clip": "idle",
+          "direction": "N",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/004.png",
+          "sha256": "bc936fcbf8832d5a71c0c635a3debdfb6afb9df5c425e1886dd78f63155d0518",
+          "clip": "idle",
+          "direction": "N",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/005.png",
+          "sha256": "dd27504413e391434f5548cdc30bb1e12cda08e051a309075873064b627986a9",
+          "clip": "idle",
+          "direction": "N",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/006.png",
+          "sha256": "12782a80bc0242a9072e669067d4bde19cf76541c8a06327f01f9a8e546cd2d1",
+          "clip": "idle",
+          "direction": "N",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/007.png",
+          "sha256": "723633b21609269288944e2c00d149773780988a14b755df6bebe1ebe91597a8",
+          "clip": "idle",
+          "direction": "N",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/008.png",
+          "sha256": "d70f2a3921ae8f2ffbc2d948b27d7f2af7ac679c2082ded08cc47ea7ece91c17",
+          "clip": "idle",
+          "direction": "N",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/009.png",
+          "sha256": "70bc0632e380bbe60e8d2cd8d36ee877f84e0b6805c8ad3a281fbc5213d3b9ff",
+          "clip": "idle",
+          "direction": "N",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/010.png",
+          "sha256": "6ec0f753452f37c329b97281a8ba875af2ee8e417338e5fc19c38c9b440cf7f3",
+          "clip": "idle",
+          "direction": "N",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/idle-N/source-captures/011.png",
+          "sha256": "db1454a7a8740d7cd1c8f007c580824e31eb9c4fd4bd386f1ae3caf2ab47a1dc",
+          "clip": "idle",
+          "direction": "N",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/000.png",
+          "sha256": "b0faffeef9893590f67f3f5d178f93ce1d82705596916411d24ff192c061fb68",
+          "clip": "idle",
+          "direction": "E",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/001.png",
+          "sha256": "91103c4c22c9c6d56c6c128f18a83edecf2f88aeb69f4fde3070772c266188b4",
+          "clip": "idle",
+          "direction": "E",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/002.png",
+          "sha256": "448b633bbd242c8e9577cd9484714a1fa1aeea065f97946b1b2c14104242016f",
+          "clip": "idle",
+          "direction": "E",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/003.png",
+          "sha256": "28ef18dfea0105e77fc8fd0694a6cbdc2fc9c660f64c8f53ce940781db8037a0",
+          "clip": "idle",
+          "direction": "E",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/004.png",
+          "sha256": "2fca168d9f35a8ba510ad02deb32283ba4d6ebd1693ef0036b4d6e5a08d85409",
+          "clip": "idle",
+          "direction": "E",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/005.png",
+          "sha256": "352f485ec329f97136b14c0e3c0d1bb006eb0e52108fc2efedda39dc3cd316a4",
+          "clip": "idle",
+          "direction": "E",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/006.png",
+          "sha256": "0368226ea6a838b72ee88e55786ae564a9708cc4f1ef8d31f1cd28590cd09a6c",
+          "clip": "idle",
+          "direction": "E",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/007.png",
+          "sha256": "e9fab0b0851f2a6ef3ca676cb64a701b561b5886258b50e089e121e2dbff60ae",
+          "clip": "idle",
+          "direction": "E",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/008.png",
+          "sha256": "09d47eb08fd2262d5a6710b964d44c5fb6b9e27ffb8d401c11c43234cf7ae592",
+          "clip": "idle",
+          "direction": "E",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/009.png",
+          "sha256": "6e9082d4c056178d9256df9c7a93dcadeeacd50597bc45116a2424f58c6c8858",
+          "clip": "idle",
+          "direction": "E",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/010.png",
+          "sha256": "79fb140b0440da0a54723b7233dcc5298b71ea40807827553c02d00e8b7437fe",
+          "clip": "idle",
+          "direction": "E",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/idle-E/source-captures/011.png",
+          "sha256": "d6bac2e9c4d76de3378684e4e19678631a83892fc3180c579b40a9f6b249f1a4",
+          "clip": "idle",
+          "direction": "E",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/000.png",
+          "sha256": "a3aa59a9441d948a5b08ba258d0c8a13e9a933b760388767d4d0fcf599068b52",
+          "clip": "idle",
+          "direction": "S",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/001.png",
+          "sha256": "5d7ae1a28cedff2eb6c2966912cffa98fe0157b30421d54f37ce7be8b36b3ed7",
+          "clip": "idle",
+          "direction": "S",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/002.png",
+          "sha256": "997f46d40e661256e09d0610536831efc5144205ddcd216d8db729fb1002cda4",
+          "clip": "idle",
+          "direction": "S",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/003.png",
+          "sha256": "3acb85f62498ab90fa30dddd4b47591ed2b473f10cbb64425e15082e856956d6",
+          "clip": "idle",
+          "direction": "S",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/004.png",
+          "sha256": "34c75ed50ce40c7a7fd5a0ff23bfe2302ac85851babdcfaf3f97ec6ed8dec8ae",
+          "clip": "idle",
+          "direction": "S",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/005.png",
+          "sha256": "aa76251fdb5b15961f6935272a645af06fa5e2a304515d599d15122c701c33a6",
+          "clip": "idle",
+          "direction": "S",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/006.png",
+          "sha256": "aaf8202b99ec9201076ce7a3e9cfd4966d83e6da9012a4320e1b92e320df197f",
+          "clip": "idle",
+          "direction": "S",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/007.png",
+          "sha256": "a2d4c96450fe52ac458d5b4206f25d51b1c9a315687c932ecb26d121df910643",
+          "clip": "idle",
+          "direction": "S",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/008.png",
+          "sha256": "3929fa63f7b805d0853ad253f2599ca5abe42987a43a1bf59b21f39eb8b5152c",
+          "clip": "idle",
+          "direction": "S",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/009.png",
+          "sha256": "bb789580b90960d82192451410d3e2a7ff81e7af3e69044ce587e336852bc60a",
+          "clip": "idle",
+          "direction": "S",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/010.png",
+          "sha256": "6a3704fdfa5f4cdea0110a7c92dd652e67508dd01d36d4883924a09afc55fc59",
+          "clip": "idle",
+          "direction": "S",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/idle-S/source-captures/011.png",
+          "sha256": "35ebda46db31b7f100fdf51c5335411afaadf89c5fa8a843fd0de6a0c3ca51e2",
+          "clip": "idle",
+          "direction": "S",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/000.png",
+          "sha256": "e31cc631f2af477ecd80a925888220ea05145dcf32f77b84eb04e360d20bb086",
+          "clip": "idle",
+          "direction": "W",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/001.png",
+          "sha256": "bd67606882a93f12ef1b895a8b7534978b18891525192c16b6101033925079ad",
+          "clip": "idle",
+          "direction": "W",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/002.png",
+          "sha256": "e2b0532215e22a1b46f2998c0c8a420fe5aee022686f8bef3233d488445a19ce",
+          "clip": "idle",
+          "direction": "W",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/003.png",
+          "sha256": "b6353270ee75848525d1c9cb1593367522be2a5546635efe1356a8f77938843f",
+          "clip": "idle",
+          "direction": "W",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/004.png",
+          "sha256": "fadc39f237d7fac1a9656937e9f6defadf6446259864d041591b5d898d86b534",
+          "clip": "idle",
+          "direction": "W",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/005.png",
+          "sha256": "56749a8e4eaa4770763d19e33b25cdb21ed230ae7c88fd4ded93d0957f63e77f",
+          "clip": "idle",
+          "direction": "W",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/006.png",
+          "sha256": "bde79eebe8ecf97daff337d976c34ec51447586925de5b822baebc60bb681cc7",
+          "clip": "idle",
+          "direction": "W",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/007.png",
+          "sha256": "f8a2cc92c3b0d9d8867db3affda1af861f9a2477ed938499e52603ef90690636",
+          "clip": "idle",
+          "direction": "W",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/008.png",
+          "sha256": "eb89f58b1642fd1b9686bbc5d5c5c95ac3ddc277bd7a2c2f5ca3b5f84a773b29",
+          "clip": "idle",
+          "direction": "W",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/009.png",
+          "sha256": "1e4111f244efa583bf73b3b855d15a8c87be8a8b0fc9dc229adb4134bfef0683",
+          "clip": "idle",
+          "direction": "W",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/010.png",
+          "sha256": "879db72fac9562c504c49d19351be0016dfd0148f659c35ad0ebd9b14c1821c9",
+          "clip": "idle",
+          "direction": "W",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/idle-W/source-captures/011.png",
+          "sha256": "ff929f27c8fc980ff172e297007d86835a334d24cf12c53f7a03ffa5541e2c0b",
+          "clip": "idle",
+          "direction": "W",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/000.png",
+          "sha256": "75d37ba1e6f6f132719f44ba4261280c90b1cec44782a03f714cdc77d21825c9",
+          "clip": "work",
+          "direction": "N",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/001.png",
+          "sha256": "23331dd82fbdc0856df73df258cb3577202eb646788cc6dbf7eeaa4957b31fdf",
+          "clip": "work",
+          "direction": "N",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/002.png",
+          "sha256": "7185ac326d1b1aa1abd7012cb676b85613e94e2e0f72d331bbe65efd948cb911",
+          "clip": "work",
+          "direction": "N",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/003.png",
+          "sha256": "2dbdfcde2babfe8b8f4ab0bd6eaca096f129d045f8f9ecc7ff52d6094c37a921",
+          "clip": "work",
+          "direction": "N",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/004.png",
+          "sha256": "758be8aa185236d123323b0e30c72c1025bff892ac5ea6c180c50cb21f8357dc",
+          "clip": "work",
+          "direction": "N",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/005.png",
+          "sha256": "d1225f76367987c3f42658869dadfef00d88e1ba628ff3e62e3a1095c3c39e0b",
+          "clip": "work",
+          "direction": "N",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/006.png",
+          "sha256": "817f3da3cecca12dabe18f2832c7e16319fb1148cb4d7ba9b283c167765f05f7",
+          "clip": "work",
+          "direction": "N",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/007.png",
+          "sha256": "30ae97cf34f5845db577ee5dc925fb91468814f5981f6160f6d9066501fd66a2",
+          "clip": "work",
+          "direction": "N",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/008.png",
+          "sha256": "5df921978c2cfff897345f382884d58dcd27f66beca9f7185057120b87a3d969",
+          "clip": "work",
+          "direction": "N",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/009.png",
+          "sha256": "189e9b80c2d3b67c9e6c5f7c647d86a9a3020cb8b314d780ed9f33915b675d9b",
+          "clip": "work",
+          "direction": "N",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/010.png",
+          "sha256": "8075bf765050f4c8ab7cedad39399ccb11b534dd3d20aa184b26d748f0c854bc",
+          "clip": "work",
+          "direction": "N",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/work-N/source-captures/011.png",
+          "sha256": "f535ef55adce2899e7d4045b793a942bccd016fd0b753c10df299204f3bf6402",
+          "clip": "work",
+          "direction": "N",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/000.png",
+          "sha256": "80c0e8978fd17a1e0dd0cb1e31014811ab5723e627ff5290baea84f7823e1f9b",
+          "clip": "work",
+          "direction": "E",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/001.png",
+          "sha256": "65c06e8c56f9a3ac596f94916986f20de9297773f5099143e42531343bb990c8",
+          "clip": "work",
+          "direction": "E",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/002.png",
+          "sha256": "558b633cc141da98460e468fb62e66e0035181a9925f1731518f3f8a097841f5",
+          "clip": "work",
+          "direction": "E",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/003.png",
+          "sha256": "6e6a950800d85b3a2026bbed0cb5ba7dac152f2fe967ae4d1655589e104049cf",
+          "clip": "work",
+          "direction": "E",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/004.png",
+          "sha256": "e2067ae37611bbca77c4c6f0aae60828fc6bd0dd3e9798b1b9f0e28c7358b06f",
+          "clip": "work",
+          "direction": "E",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/005.png",
+          "sha256": "935801362a39eeca4761f690cd4552f9bb45732356bafb1116c58db8f507a7df",
+          "clip": "work",
+          "direction": "E",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/006.png",
+          "sha256": "2a138dc079f36b991841d1bc5c534932a9c373bc21767812670e7a897a363af4",
+          "clip": "work",
+          "direction": "E",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/007.png",
+          "sha256": "292e510e441d68940c5f6994763cf9541e04a312f7041fb993cc953d632eb1ba",
+          "clip": "work",
+          "direction": "E",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/008.png",
+          "sha256": "2e02341cb2d4238a74466413a123bfc190d088e9f10feaafd4edce0db6c2087f",
+          "clip": "work",
+          "direction": "E",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/009.png",
+          "sha256": "d46bca430641fa50bbb7e059dfa061e6770dc8a2dfdc051ac8585d0237816737",
+          "clip": "work",
+          "direction": "E",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/010.png",
+          "sha256": "eb635a0940f367a6128ca547efe42e19c4e019bd9337bd594371d09442850c10",
+          "clip": "work",
+          "direction": "E",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/work-E/source-captures/011.png",
+          "sha256": "217474c959f2d9e40fa55901cd86bc7818ebebb9ddc15fc631d0306235e7479f",
+          "clip": "work",
+          "direction": "E",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/000.png",
+          "sha256": "d52d389a1f8f00c2b116da965f9c62e8be383bf67a59307eb8b4077a7155f175",
+          "clip": "work",
+          "direction": "S",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/001.png",
+          "sha256": "c5b12ecb77c4cac96d54e36dbd89eb57b289c7acea3a5ef02fe352456d30169a",
+          "clip": "work",
+          "direction": "S",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/002.png",
+          "sha256": "6c0060efa38705044e86dc1b53bbc7c1f2504e64eb9f637bc5f15eb3821401fd",
+          "clip": "work",
+          "direction": "S",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/003.png",
+          "sha256": "5faf82fb8cb0851a6658c9442f6625185137a47bb8d1f032a0f469b4946bf62e",
+          "clip": "work",
+          "direction": "S",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/004.png",
+          "sha256": "f45705d2074e3e75c0485fd60194edc065914df8659d45385578db548e0a04b6",
+          "clip": "work",
+          "direction": "S",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/005.png",
+          "sha256": "69a31d58487f63fa896bd55c55930da28fe9362c547850f82607fad0eee209f3",
+          "clip": "work",
+          "direction": "S",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/006.png",
+          "sha256": "264c9c51486c9e6deba41dd8941e55d035dda6ca8821fde52ef4b0983e3f6275",
+          "clip": "work",
+          "direction": "S",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/007.png",
+          "sha256": "bf12e5f1529637bfadd31d093fdd2ef8a6b59050ea1760fffc4755a949f0a557",
+          "clip": "work",
+          "direction": "S",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/008.png",
+          "sha256": "3bb13681e9d4bd2d61c5dffa4ff59fada050df9ed7449908392cac2d88589a41",
+          "clip": "work",
+          "direction": "S",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/009.png",
+          "sha256": "9513d823d3e36fd8314ad4341177ee1284b505c52fcb6a512523be0ce0427bc3",
+          "clip": "work",
+          "direction": "S",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/010.png",
+          "sha256": "8b8e003216a6f6794447291e1c501002b8c510136e78c190bebd5b283e503b4d",
+          "clip": "work",
+          "direction": "S",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/work-S/source-captures/011.png",
+          "sha256": "4d60eeeefb30121d49efb4d12490bd7fa61c460b08eadffd310d0c1a599ca123",
+          "clip": "work",
+          "direction": "S",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/000.png",
+          "sha256": "7cd2e3518d4d7329d927958b1f0d2584b3457a6420d816b45941bf2d6f015682",
+          "clip": "work",
+          "direction": "W",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/001.png",
+          "sha256": "bcf5d8bebd03f9b420ebc7153b4c9450ecd8a390fd9bfc823d5367d8b031144e",
+          "clip": "work",
+          "direction": "W",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/002.png",
+          "sha256": "3f4d07916a43f6aec4c93d257744fd8f772cc0ef4ce3f38ea81e6c6bc573aeed",
+          "clip": "work",
+          "direction": "W",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/003.png",
+          "sha256": "8de7ca6959bd6149f024baf37af476ae770ee236a7185a14c6ce09397197de17",
+          "clip": "work",
+          "direction": "W",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/004.png",
+          "sha256": "27e1fc8a2c419fa3d9b32fe6b9c7faceb6683c09ee96b2c2910ef404c9e00b71",
+          "clip": "work",
+          "direction": "W",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/005.png",
+          "sha256": "7fdbbde5003da8107588f14865e244c837970c84d6bd50e1260d7ccfba4bf967",
+          "clip": "work",
+          "direction": "W",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/006.png",
+          "sha256": "3f2dbfdaec6d071ccb71ca9a431dcf3591771355fe54652b39152fd8eae99cb0",
+          "clip": "work",
+          "direction": "W",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/007.png",
+          "sha256": "29f588175b01bbb3f5e1348c0070799c7fcbc85fc8a63beb8b31d4db631d69cc",
+          "clip": "work",
+          "direction": "W",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/008.png",
+          "sha256": "1294c49bece6c4bdfeafce2f7ccd4923dd20469271eaed944649ffce67057329",
+          "clip": "work",
+          "direction": "W",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/009.png",
+          "sha256": "1bbcc5e45b45e1fc654dbbbc0364fa51ebb3a3820dca2cc4ae4da4191b9c2958",
+          "clip": "work",
+          "direction": "W",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/010.png",
+          "sha256": "cf61dd8c325dad96b5a069bc62be5f1cd7ce7f917659c31db4316a3531e60598",
+          "clip": "work",
+          "direction": "W",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/work-W/source-captures/011.png",
+          "sha256": "6d050ff81ab2b043357a30b68757a043cac1d15f986824422b365a9d61a469e1",
+          "clip": "work",
+          "direction": "W",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/000.png",
+          "sha256": "b98be853478567d12a6fae0f3167c94c729e3e9b6c04b2600ef059f82c8c4334",
+          "clip": "hold",
+          "direction": "N",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/001.png",
+          "sha256": "e623a388f3b23e66564077f456284435f0614261f28a7abd55ea60a95ad82a5a",
+          "clip": "hold",
+          "direction": "N",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/002.png",
+          "sha256": "642eccd4da81fea7713e8c5972da044886b511d8b82452f36525c4bc931c4fb8",
+          "clip": "hold",
+          "direction": "N",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/003.png",
+          "sha256": "cee730249f6e908cc64a7e55a7e02c06c4f4923d44f30aa18c71262f79cc9f2f",
+          "clip": "hold",
+          "direction": "N",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/004.png",
+          "sha256": "0e0036c8f6cd7241b6939a3b8de246f8ee9ad27c21ca20facc844f8e73856a6e",
+          "clip": "hold",
+          "direction": "N",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/005.png",
+          "sha256": "68d3019ddf21a7830223e940875f99239d24d35538e585f35b7734e41898c91f",
+          "clip": "hold",
+          "direction": "N",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/006.png",
+          "sha256": "0fda49b42b94cc8c9a5c2b5dd6ee47a67e5d0aa645c52fbd32972f868e2ff510",
+          "clip": "hold",
+          "direction": "N",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/007.png",
+          "sha256": "0e25fb6ad3f80bda4ce5b21dab7cf30fb2d60dcc6b4ea934bfe7168ccba3390a",
+          "clip": "hold",
+          "direction": "N",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/008.png",
+          "sha256": "7761b15d4379341c2e1bf87e476696f82b9f40e102c594d2be9a54c161e0eca1",
+          "clip": "hold",
+          "direction": "N",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/009.png",
+          "sha256": "64d1bba7fbd3b365f875af3bf405196d7a19ed619e79af8e102ca0c0a8f8d082",
+          "clip": "hold",
+          "direction": "N",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/010.png",
+          "sha256": "ba6ae9166a980b95dad46df8fe519ed7ca93fc4ce428434fd1fab7cc8312aece",
+          "clip": "hold",
+          "direction": "N",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/hold-N/source-captures/011.png",
+          "sha256": "babce81d2bc63dda6d107b365986e8ddd30f729924780efd8401bea16e2da339",
+          "clip": "hold",
+          "direction": "N",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/000.png",
+          "sha256": "d6e451eb8377ba4378575a68964eacdcb3648ae4c07bb7c92a4480468d2d5c43",
+          "clip": "hold",
+          "direction": "E",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/001.png",
+          "sha256": "a2c97b020dd5e4dde81a46ba23656cb6d11600963bd44ca8ee4ec9eefdc4b69a",
+          "clip": "hold",
+          "direction": "E",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/002.png",
+          "sha256": "207e0a56fd39999c0422c712b48e0943d51b0ceb9f0bcbd12461ea7cdc6d761d",
+          "clip": "hold",
+          "direction": "E",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/003.png",
+          "sha256": "0c223db90334cee89bb4b9dae2c786a0d352b6e2b2222a3c50d8d8979a20e2f7",
+          "clip": "hold",
+          "direction": "E",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/004.png",
+          "sha256": "74cefcdd882fb4fa6be7bf9735ac88c968006bd8d1a96521b1c60f7681f09db3",
+          "clip": "hold",
+          "direction": "E",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/005.png",
+          "sha256": "cc8573b2af4936bbfaa8a3c889ef6d3984df0db7943de15ae662fec56b9b0dae",
+          "clip": "hold",
+          "direction": "E",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/006.png",
+          "sha256": "de0a0bdcf77f81ebad42ba265a7ef5720389b12713c520d2062462b7445a71db",
+          "clip": "hold",
+          "direction": "E",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/007.png",
+          "sha256": "b1cd0c6ce8fd60a82b2b6a5c90bff2742901708582c62b0bccfd60506ee177c8",
+          "clip": "hold",
+          "direction": "E",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/008.png",
+          "sha256": "7cd4400b550cbebf7d41d056c17b93af649fd72eb8c417385878c8be6c58bacc",
+          "clip": "hold",
+          "direction": "E",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/009.png",
+          "sha256": "90c4e443615df43655b79ce2f461513979aeb3e7e7f92a0ee7a6b04dfa855502",
+          "clip": "hold",
+          "direction": "E",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/010.png",
+          "sha256": "6c0f5dfe14eef927b0d5d735db519215491e70fac85c26210188a98b208f1777",
+          "clip": "hold",
+          "direction": "E",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/hold-E/source-captures/011.png",
+          "sha256": "dcebf8dcdd524f35960bf60ca36cd6bd0496100cad73d1d8c9a0dfd2840ae2ba",
+          "clip": "hold",
+          "direction": "E",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/000.png",
+          "sha256": "6215f68bbd7f12f21c97172fc1cf9ed611fda78f5ecc538bf2c58bbee89dea23",
+          "clip": "hold",
+          "direction": "S",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/001.png",
+          "sha256": "846e43f19984d96845e6661ad32059fef9a7fee0c54044b7cb294920dd1bb790",
+          "clip": "hold",
+          "direction": "S",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/002.png",
+          "sha256": "9d3ac7e2a43a962f2f9017efdcdabc12b3e6fe4b5f2380360e6fdab562be56d9",
+          "clip": "hold",
+          "direction": "S",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/003.png",
+          "sha256": "4bbd952d8c021babda77b2a9ff7d1abe7c2fd09d76cec706c904aa6c82efab96",
+          "clip": "hold",
+          "direction": "S",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/004.png",
+          "sha256": "9a09f8b5176d30e10d40d066d2afedfa252e770aed26681c7df9e27493df6717",
+          "clip": "hold",
+          "direction": "S",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/005.png",
+          "sha256": "80b4813f0d2ae18037a0d91f61f089ad6783572037adf94d23967332791460a4",
+          "clip": "hold",
+          "direction": "S",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/006.png",
+          "sha256": "44f2dc680dc9bf3819bfbcf4ae14a7c327143e92af9230738e48ea95ff11625c",
+          "clip": "hold",
+          "direction": "S",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/007.png",
+          "sha256": "e494637c94c16101a53cd218e28cf9f4dd67c78512d53a74413edebe61ea9eb9",
+          "clip": "hold",
+          "direction": "S",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/008.png",
+          "sha256": "0e2b96a831092010026c400ff0456787a8899598335f28d09da68c1e7ff1a3bb",
+          "clip": "hold",
+          "direction": "S",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/009.png",
+          "sha256": "7b92b2ecca039cab1d2e0ac48fd02093b402584556643d90493da3bb31502976",
+          "clip": "hold",
+          "direction": "S",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/010.png",
+          "sha256": "37ef745742a05165e5a59f56932575bbee4e54f5b2a0665cbaad5f7414b42f5b",
+          "clip": "hold",
+          "direction": "S",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/hold-S/source-captures/011.png",
+          "sha256": "fde6ac300514631796d17ce036ac96ab2be665e4a0be94144003b7ff71b8618d",
+          "clip": "hold",
+          "direction": "S",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/000.png",
+          "sha256": "935c4d336642442e9e15ff07745c1ff9c2b1f11943ec1973481b57e9048906a0",
+          "clip": "hold",
+          "direction": "W",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/001.png",
+          "sha256": "216b116ec530173afaee72ce0c4c53338ed7b75ae83daab5e01970952800d4d9",
+          "clip": "hold",
+          "direction": "W",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/002.png",
+          "sha256": "f510c39c5b6eb29bdac414401f65f5eab7512d5b9029b25cb9e5314d79f7f529",
+          "clip": "hold",
+          "direction": "W",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/003.png",
+          "sha256": "6d162c5277c42214d5a4f6a1fb911f82dfcd9781ca889daab384cd744c113c30",
+          "clip": "hold",
+          "direction": "W",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/004.png",
+          "sha256": "0aa155a4ef88428377a9c70f9bccac16e265d246c60d0d80cd455484aed8e0c9",
+          "clip": "hold",
+          "direction": "W",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/005.png",
+          "sha256": "27f43fa2cbe14066023d18877334c08d738cc18c6e7b2adbbf29e275b019995f",
+          "clip": "hold",
+          "direction": "W",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/006.png",
+          "sha256": "a55cb346805711d85d02a9f90f78b19ec4d4a3ca53aba99db892defd8c894d9c",
+          "clip": "hold",
+          "direction": "W",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/007.png",
+          "sha256": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+          "clip": "hold",
+          "direction": "W",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/008.png",
+          "sha256": "9cdc6f8edebf2fa110ab62730a218a302c48bdbe28da6b4caf0f052b237d530f",
+          "clip": "hold",
+          "direction": "W",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/009.png",
+          "sha256": "c5ad3c13dab29914ea1b7360219eecd5f296b41a6041f88007cd9cd3a3f20ff9",
+          "clip": "hold",
+          "direction": "W",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/010.png",
+          "sha256": "7cb4f956c909f8f3e1dab6f5dda0569d861f3cf9496694bbbf3e70e58f169d6f",
+          "clip": "hold",
+          "direction": "W",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/hold-W/source-captures/011.png",
+          "sha256": "2d29b97292c726f81bb278567dd20f9258f12bb75b222d20a6c5a3cbd62aad79",
+          "clip": "hold",
+          "direction": "W",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/000.png",
+          "sha256": "a4b54f203abf19f2be4e0db43215f5c482d3423ab5c240e850ab3a6501a9d0b2",
+          "clip": "load",
+          "direction": "N",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/001.png",
+          "sha256": "26a338645df270e7d7e15e776295c3b8e3636ed0d29c28710fb098d073af1008",
+          "clip": "load",
+          "direction": "N",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/002.png",
+          "sha256": "d1fece9d2782f1255b8a44a63955db34a96d0f56e4e5b9631e4a54e6d2f1e2ba",
+          "clip": "load",
+          "direction": "N",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/003.png",
+          "sha256": "b8989828c80c236377879518f63eb8f491a85e225449e959fa57b020ddb5ecc5",
+          "clip": "load",
+          "direction": "N",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/004.png",
+          "sha256": "65d8a3791a08ab4612cbf49c60c308b4de1eee7fc566c86fa5d79a08df9d9b08",
+          "clip": "load",
+          "direction": "N",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/005.png",
+          "sha256": "66c1f805a8b3ee4268bda7598c6cd091a80996de2dd843bea5621cf09dd4e841",
+          "clip": "load",
+          "direction": "N",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/006.png",
+          "sha256": "ee614c884486402f9f6d13360c86a84e91bdb19605492d2607d6a5c844c4f188",
+          "clip": "load",
+          "direction": "N",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/007.png",
+          "sha256": "e67823eb55c6721a7b1c3b40b624c7e2c9455ef7b5c14ece00055d4aca281be1",
+          "clip": "load",
+          "direction": "N",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/008.png",
+          "sha256": "27a1c8aa3745fe899c5d5a0c5394ce05519caee0baaacb8a05223559e28cfba5",
+          "clip": "load",
+          "direction": "N",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/009.png",
+          "sha256": "ef5903695f12c4a36031aae2e9ae42769c49c5f18b30a599f894aa291297fe28",
+          "clip": "load",
+          "direction": "N",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/010.png",
+          "sha256": "524b11884cca978edaad4387c04aa3bc6895000768e179f06695ac7270a46c88",
+          "clip": "load",
+          "direction": "N",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/load-N/source-captures/011.png",
+          "sha256": "dfe3bb547422de9d7542bde0f4d7fd0c12ac6dc7cc813fcd518d527765a86516",
+          "clip": "load",
+          "direction": "N",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/000.png",
+          "sha256": "7ea145f1052c45feae683ee14fd4e65364793ea1349a000b37987f1d004baa6c",
+          "clip": "load",
+          "direction": "E",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/001.png",
+          "sha256": "ad11ea13dd06b6e27fae4a5d9a86c37cfdcf0211cdc6c168d127fd1767cb7134",
+          "clip": "load",
+          "direction": "E",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/002.png",
+          "sha256": "8b8186e7702e1f24f9f38938296810ff2ca1df2e79c33848be9bfc6337cb84e2",
+          "clip": "load",
+          "direction": "E",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/003.png",
+          "sha256": "98f19c65addb792f758b064468d23e5fca3881f856e9dfb3749b2c726f33f792",
+          "clip": "load",
+          "direction": "E",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/004.png",
+          "sha256": "b2b4a455c68af55997e340896c675c65f43a911b48a656d365aebfb1e213abeb",
+          "clip": "load",
+          "direction": "E",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/005.png",
+          "sha256": "b782592c1fa49d0d392e9839eabb43a6b2aecf87cd72e18e1fb70c0eb2e1a7d6",
+          "clip": "load",
+          "direction": "E",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/006.png",
+          "sha256": "9e5a084db5ae98036494452038d5fa4f6c2522247f4f85c2c1c9a08e171ce290",
+          "clip": "load",
+          "direction": "E",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/007.png",
+          "sha256": "0e8c7b96199bed5013b1295ba33e3cd460669fab7ebfcc3bfed6933381f3ed7f",
+          "clip": "load",
+          "direction": "E",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/008.png",
+          "sha256": "5f9e62617695ecda62fd15be691afe5c33888407a84f7b0a83c826895f5edf23",
+          "clip": "load",
+          "direction": "E",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/009.png",
+          "sha256": "dfae962e995bae17cc1720037f8f35bcbb805a8ec275e2cf8866ebfc2e6dbc5d",
+          "clip": "load",
+          "direction": "E",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/010.png",
+          "sha256": "ac79d4156cccc16ae14fb642f0658d5f61e01e1ab6c10c5d4bce08e465623e70",
+          "clip": "load",
+          "direction": "E",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/load-E/source-captures/011.png",
+          "sha256": "e2f3504751915a54e4f808c14a4f267fd6e9dffc598293b11e0aa5bf53cfc8a6",
+          "clip": "load",
+          "direction": "E",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/000.png",
+          "sha256": "abf64ad459d178dc61bb21ed3cabc5f7cfb2231140df4785bdc39997318b23b7",
+          "clip": "load",
+          "direction": "S",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/001.png",
+          "sha256": "9453d2b7d5372bbe55daaff522fbb989d5020bea2fc9b2f99fa3bf2cd3f0d6b5",
+          "clip": "load",
+          "direction": "S",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/002.png",
+          "sha256": "bc4ab365d1f0e32d6d52f6d667e4660b44c2c27cef38c21a08c52f29573d833f",
+          "clip": "load",
+          "direction": "S",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/003.png",
+          "sha256": "91c93afbea3e7251c3cd2eaacc47142bbee1c951a1125ef51fc37ed5f51d505b",
+          "clip": "load",
+          "direction": "S",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/004.png",
+          "sha256": "9b3f7fcf8672558df47dcdc01e03ded21206e97297567e58fb0f08433313eb0e",
+          "clip": "load",
+          "direction": "S",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/005.png",
+          "sha256": "2e2bc7696294d8f9c1dd7c1c3f5ad8ba0b6d9024c0c0f9368cf19c2b7a4aa43f",
+          "clip": "load",
+          "direction": "S",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/006.png",
+          "sha256": "7d08244010950e4fdac0fff354cc68e11e058fb728f77fb7e46e4824794d2756",
+          "clip": "load",
+          "direction": "S",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/007.png",
+          "sha256": "7d2b8e3688ec630e3f4958e558ecee2eaaa3d93c113836bb151572e2bf7e1685",
+          "clip": "load",
+          "direction": "S",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/008.png",
+          "sha256": "544cc4ead3dd25257f3bfda098f6c84acf79f168da1d492f0db9bfaa226c562a",
+          "clip": "load",
+          "direction": "S",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/009.png",
+          "sha256": "f1797c6d7e0ebb41901f18e21a77d2a99b8456b94f2c6bfb1a1b484aa3426204",
+          "clip": "load",
+          "direction": "S",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/010.png",
+          "sha256": "4a53ad6fa4d17530b441c7ecaa38bc4bedf2c4b63e6f0f1c7d4c6bdecaf904c8",
+          "clip": "load",
+          "direction": "S",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/load-S/source-captures/011.png",
+          "sha256": "241d5a3e29f7a13ba5d204d9984290f26e000ac383408410f5d663d2661b5b2a",
+          "clip": "load",
+          "direction": "S",
+          "index": 11
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/000.png",
+          "sha256": "be3bc20049ab36fac95edbed2d3770c344f426faf9669373377baedb3e4b621e",
+          "clip": "load",
+          "direction": "W",
+          "index": 0
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/001.png",
+          "sha256": "a501068fd6cc318802a616471042f5984626c3b089fc534392f95e6c11fae0c8",
+          "clip": "load",
+          "direction": "W",
+          "index": 1
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/002.png",
+          "sha256": "09eb98448c44294f7b119f491db9c51e32c4f34c43434baf921f005dd86b796c",
+          "clip": "load",
+          "direction": "W",
+          "index": 2
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/003.png",
+          "sha256": "98d6dfa5135c7f66fbce68b36925f3f1ec6343c5392d5042e307544e713f6140",
+          "clip": "load",
+          "direction": "W",
+          "index": 3
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/004.png",
+          "sha256": "e1d81a2edb470de35677085d1e1f31f24e3bbdec4320c868b0f33bfa688a4dc1",
+          "clip": "load",
+          "direction": "W",
+          "index": 4
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/005.png",
+          "sha256": "ab029961929df117922ce7d221bfc38f587ff1a38f22e37b7337d5bf7f599f80",
+          "clip": "load",
+          "direction": "W",
+          "index": 5
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/006.png",
+          "sha256": "89399d43f4ea11594032dcb0fb6995bc41f215f50ea751a0a1909b8f801bf362",
+          "clip": "load",
+          "direction": "W",
+          "index": 6
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/007.png",
+          "sha256": "fdcb261364fdaa9b133ddfa33accfa5c5bac4999c998162bbc7953c51ef9dd74",
+          "clip": "load",
+          "direction": "W",
+          "index": 7
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/008.png",
+          "sha256": "996d6a78c9b27bdffc86a5b0ffc99dd00b16bf2463667f6ce8a88d435396674b",
+          "clip": "load",
+          "direction": "W",
+          "index": 8
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/009.png",
+          "sha256": "b68fcc480d76225b478f0036672eae7529f3611e70644a7ed2530dfcd2197a97",
+          "clip": "load",
+          "direction": "W",
+          "index": 9
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/010.png",
+          "sha256": "8736eb084b2e470362d176d8013bcf6f03500b56f8f60d6682f4ad259dc1fb10",
+          "clip": "load",
+          "direction": "W",
+          "index": 10
+        },
+        {
+          "image": "source/registered/chef-lena/load-W/source-captures/011.png",
+          "sha256": "472401bf7bde3dd12427707a3810e2f9c29daae667c0b48929d4dbddb3164078",
+          "clip": "load",
+          "direction": "W",
+          "index": 11
+        }
+      ],
+      "nativeScripts": {
+        "replay_shipping_round04.py": "source/blender/refinement/chef-lena/source/replay_shipping_round04.py"
+      },
+      "hashes": {
+        "source/blender/refinement/chef-lena/source/round-03.blend": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+        "source/blender/refinement/chef-lena/source/replay_shipping_round04.py": "3f7780d959f67dca7c2e7f9c72edbf83cefec6a646f7c93e4892a91e8939f19c",
+        "source/blender/refinement/chef-lena/source/audit_common_round01.py": "a056a68b01358feedc1cca10c029787eed08183d67e7b62308031f07713c2820",
+        "source/blender/refinement/chef-lena/source/round-01-library.blend": "68d008814b6cb6a0bb6e760bcb43af6ccb174e29785ded3e257c7ee4616ec6fa",
+        "source/blender/refinement/chef-lena/source/source-contacts-round02.json": "18b9845d4519b9c6163e0a4f1f4cfb2d138594db770be4f5282371164dca9505",
+        "source/blender/refinement/chef-lena/source/package_round02.py": "37426f0f74e9210950fdb7844750bfa37f105aba437565af0d10e46241f65463",
+        "source/blender/refinement/chef-lena/source/render_round01.py": "bd3386be2e13a76c96d1453a7512375664a7690cdb36eb380b0edc269f6cc199",
+        "source/blender/refinement/chef-lena/source/deliver_round04_v4.py": "0b9b1d65749594c3dcaf7339f0a9d2b7524a9b6a0f65c8f088b1996983d3b182",
+        "source/blender/refinement/chef-lena/source/alpha_diagnostic_round04.py": "ed8a9612fe5c09c8aa506e7c3161d114a471549f9968a22fa147864a91a54206",
+        "source/blender/refinement/chef-lena/source/closure_round02.py": "2fbcd2850838584af19c580b34b99917e75c303c8e1aa5d5cadf17032a5d9598",
+        "source/blender/refinement/chef-lena/source/round-01.blend1": "68d008814b6cb6a0bb6e760bcb43af6ccb174e29785ded3e257c7ee4616ec6fa",
+        "source/blender/refinement/chef-lena/source/qualify_round04_v4.py": "ee26ab5dc65fa0e0c50d4729571d8b00cbbb4a7d66f0d53f7f2e845b2cf78c99",
+        "source/blender/refinement/chef-lena/source/native_actions_round01.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+        "source/blender/refinement/chef-lena/source/closure_round03.py": "ff327cbf2a77abfd5d7e6b51819b446d5a57824a6826737a4bd1826bea0c7166",
+        "source/blender/refinement/chef-lena/source/source-motion-round01.json": "bca6bd3e8272cee6b7422b264a5a99eb440cfc1d2d800ae17be3aecb777efa54",
+        "source/blender/refinement/chef-lena/source/package_round03.py": "eebadb53b7b5a21dbf03de0788ba6db4d2d384e67d4ed526aae0ddd5c57da337",
+        "source/blender/refinement/chef-lena/source/source-contacts-round03.json": "e042a142fdc5159c3cff66aad62001a38dc956b37c7803a40e185a8036f96901",
+        "source/blender/refinement/chef-lena/source/source-inspection.json": "29f8399ea3189be48c6cd2005201bb3a7fd718cb082005c7c6eeba0af82a89bf",
+        "source/blender/refinement/chef-lena/source/inspect_source.py": "e9157aeeb3f00042cc1b20fd658ae0fdde50b291630ad83dfa8d2b1afb98fd34",
+        "source/blender/refinement/chef-lena/source/rig-round02.json": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20",
+        "source/blender/refinement/chef-lena/source/reproduce_round02.py": "6837f369a27ad8bad00fb0cd1d798d949db7a2183b29c4bb97c4a8100f43ce67",
+        "source/blender/refinement/chef-lena/source/source-rest-round01.json": "e4c35f8a8217d1cc206fabc8da915b3e1b3a40a352910eac7a1feb96f589a05c",
+        "source/blender/refinement/chef-lena/source/finalization-round01.json": "d900babeb536f2e50f095570052e65724024c67e2c99723dbcdbc62bcbb0a0cc",
+        "source/blender/refinement/chef-lena/source/fingerprint_round01.py": "a53c0a6b7524b4dbdbeec031134ad3161f9f2c4ecc6e26b30c2d8616f0acf48e",
+        "source/blender/refinement/chef-lena/source/build_round01.py": "99377b4d6d5de0e7f9d582ea22934af8e4117d91f29a468efd434e0a73403dac",
+        "source/blender/refinement/chef-lena/source/finalize_evidence_round03.py": "6ea5632a684bd8e287d41a42998187bfa0dc543cd6d6c8dbefa1924f4d315d25",
+        "source/blender/refinement/chef-lena/source/original-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+        "source/blender/refinement/chef-lena/source/alpha_repeats_round04.py": "0e7f838bb2051d4d771fb5147e4c64e7d74301ea104d59aa772306a74187cafc",
+        "source/blender/refinement/chef-lena/source/recipe-round01.json": "261c5e816565f358bdfd21a2c5009b3ebbe7994e4d3312cc46ef33610129b72c",
+        "source/blender/refinement/chef-lena/source/rig-round03.json": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20",
+        "source/blender/refinement/chef-lena/source/profile_audit_round02.py": "20d461ad21f81c6e3588a9508063a9032a55de539a7072389abee8362d1b4f0a",
+        "source/blender/refinement/chef-lena/source/generate_controls_round04.py": "45399e2faf495f57c00ce2de24db93caf9b9a6c2a0ca81545db01e7df3ddc620",
+        "source/blender/refinement/chef-lena/source/summarize_alpha_cause_round04.py": "3ce8c4e95e06e47c470da1589669342e57036e005395a5cf0301231bfdd79879",
+        "source/blender/refinement/chef-lena/source/measure_guard_round04_v4.py": "155350dde3b1d1d1b445a24018f62a0006966d2ee69504fb02114f5f75b28660",
+        "source/blender/refinement/chef-lena/source/reproduce_round03.py": "a5f31839ad881a3dc257c3105efe0f818c875d94d977099f0619e8fbfa89ce8d",
+        "source/blender/refinement/chef-lena/source/correct_smile_normals_round02.py": "c8b8d462fa51105fe38af5c35fa5e22ae1e8e4675b7d52a73652ef2b88871895",
+        "source/blender/refinement/chef-lena/source/fingerprint-round02.json": "faaca686e5bfc410a3a14fb20459071554551aec27a14895d77bae7def3726de",
+        "source/blender/refinement/chef-lena/source/fingerprint_round02.py": "eb3a2f77aaf1c7076f247216d6966949e7f7ba290b796eb40ae307b36368fcc8",
+        "source/blender/refinement/chef-lena/source/recipe-round02.json": "90a37d92fe1e31a27e42746ab9ed5c3b576f823f9280cc174d0d566f07ba753d",
+        "source/blender/refinement/chef-lena/source/held_playback_index_round03.py": "9765d0e3193773ff4505e0ab0fe2f22d8622621862fd0457bffdc7ce5f2aeb8c",
+        "source/blender/refinement/chef-lena/source/build_round02.py": "d69e0a1e747d3482e73efd9fc9491e32d26b7eecb4399d05112caca44f959bff",
+        "source/blender/refinement/chef-lena/source/food_static_records_round03.py": "12050140f5e42cb85dc3124c1432a579e616586453b3869b156feb6a31e91162",
+        "source/blender/refinement/chef-lena/source/control_audit_common_round04.py": "d11d927ebb265fb31ecf59a0f4f04441da58b408cb48dc62862a1fb62bbe24a8",
+        "source/blender/refinement/chef-lena/source/fingerprint-final.json": "1d6bf1db771c17a3200b3cfe0862e2a9eaf8382423fd57adcf719e7ef2cedb77",
+        "source/blender/refinement/chef-lena/source/deliver_round02.py": "44e2bf4dcfa5df02f792e98c745e2ae44e7ba18e732cd6446c0c068aff763be2",
+        "source/blender/refinement/chef-lena/source/source-rest-round03.json": "e4c35f8a8217d1cc206fabc8da915b3e1b3a40a352910eac7a1feb96f589a05c",
+        "source/blender/refinement/chef-lena/source/recipe-round04-v4.json": "0d29ae0eb661edeb53663db4d284f973bddb13dfdf926aef0a08f4d3da05709b",
+        "source/blender/refinement/chef-lena/source/pixel_audit_round03.py": "cddd5745fb0564427f6cc48d41180e442d86a10f51c9d72235e31232d48533ab",
+        "source/blender/refinement/chef-lena/source/source-rest-round02.json": "e4c35f8a8217d1cc206fabc8da915b3e1b3a40a352910eac7a1feb96f589a05c",
+        "source/blender/refinement/chef-lena/source/visible_pixel_audit_round03.py": "61bbb78425f2b5367a1d1045c7833ae5cbbd948836cc2e39279622504b0ecc2d",
+        "source/blender/refinement/chef-lena/source/round-02.blend": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+        "source/blender/refinement/chef-lena/source/deliver_round03.py": "791dfbf1b789153709457be237b49b73be1bee095e401a173db094ff91c1c9f2",
+        "source/blender/refinement/chef-lena/source/reproduce_round01.py": "2f45d271db24562757acbcfd810c799c1d42423afa358859df1a0551b62e6ef0",
+        "source/blender/refinement/chef-lena/source/fingerprint-library.json": "a9599c3d1be4f8b6d410e5883333acfbe720ba2e53b28b3df0e7b31c7b5d3ce2",
+        "source/blender/refinement/chef-lena/source/round-02.blend1": "68fbeb7ab3485ab1cd8dc4418bbccbe50a8eb6b0160621247f2f4d421446aa59",
+        "source/blender/refinement/chef-lena/source/build_round03.py": "3795c1216c4fa438a4f3722024c30902044be76e9c6925e6e52e43e4552d5e0b",
+        "source/blender/refinement/chef-lena/source/validate_smile_round02.py": "5ae17479c6dc41a2cadd64dd9a42aa41194b7f8ba6a8dac2cea1f7a7ea2bbf69",
+        "source/blender/refinement/chef-lena/source/fingerprint-round02-baseline.json": "d2cc37b35dce88fe5334b4edb12c0ae20f6f26c594cdfdc0266a19af46115dc3",
+        "source/blender/refinement/chef-lena/source/rig-round01.json": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20",
+        "source/blender/refinement/chef-lena/source/recipe-round03.json": "100040348634d6f89cfa72af4b05f0a104964cc51f60b25901c35f6a239322c6",
+        "source/blender/refinement/chef-lena/source/finalize_round04.py": "a3b1a83b94930069caebeffa665c39209f86509a416477a4a2b5f4f146ab4839",
+        "source/blender/refinement/chef-lena/source/inspect_round03_basis.py": "6df7152cf5f69c54d4037e2828ecaf0e54e433e4c4e9baef6642192f6ca877be",
+        "source/blender/refinement/chef-lena/source/native_actions_round02.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+        "source/blender/refinement/chef-lena/source/audit_common_round03.py": "a056a68b01358feedc1cca10c029787eed08183d67e7b62308031f07713c2820",
+        "source/blender/refinement/chef-lena/source/semantic_audit_round03.py": "dc04346ca882361b23d71a544470ba7902fc789897d843ba5b6e811815a71250",
+        "source/blender/refinement/chef-lena/source/complete_recipe_round03.py": "17bfe4ef3781b780b119494bb6c7a274420e632ca55edc8359e83d5ba5f451a1",
+        "source/blender/refinement/chef-lena/source/render_round03.py": "97a26d3251ed6f9d097b7cc5a08cd1f24d37cc84c83f441ddbfbbd988240f58c",
+        "source/blender/refinement/chef-lena/source/audit_common_round02.py": "a056a68b01358feedc1cca10c029787eed08183d67e7b62308031f07713c2820",
+        "source/blender/refinement/chef-lena/source/audit_original_round01.py": "9ef11356e7d708d199c47e4709ce60366adfc4d980bc5aac8b26de423d9db9ad",
+        "source/blender/refinement/chef-lena/source/finalize_round01.py": "181652a40e492764c36c00fbd21c1d0d215edf27d48eae47251c5dddafe18c34",
+        "source/blender/refinement/chef-lena/source/reproduce_native_round04_v4.py": "1315f5a0b430dabb2bd305cb5210d5499d14fbd203093e8336797e719ebe54ad",
+        "source/blender/refinement/chef-lena/source/package_round01.py": "f33f7ca331e6f8629d058329e7fa96d2aca368b20143d36b27f7025a6c4fd63d",
+        "source/blender/refinement/chef-lena/source/round-01.blend": "52cb3c68c5679100bc1c24135262e38fb83e801592f95c5965d74c734e3dbd3f",
+        "source/blender/refinement/chef-lena/source/render_round02.py": "0a180ccd0a110fad03f465880539a9c40797ed72943965b4851520fc672e1ab7",
+        "source/blender/refinement/chef-lena/source/source-contacts-round01.json": "18b9845d4519b9c6163e0a4f1f4cfb2d138594db770be4f5282371164dca9505",
+        "source/blender/refinement/chef-lena/source/indirect_diagnostic_round03.py": "f04391e72e4c52ebe1231abec97d54c6bf1b967857228b6ed017fa4e9461e7d4",
+        "source/blender/refinement/chef-lena/source/native_actions_round03.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+        "source/blender/refinement/chef-lena/source/compare_controls_round04.py": "79cfc71e79227a0ba40376d46cae663871ab0c74a2ee6bd2729813cf4807cf9f",
+        "source/blender/refinement/chef-lena/source/closure_round01.py": "39d8daf4d84f9ea8372b69484615b0d4cc9bc251a5952ee3469854c3607bc953",
+        "source/blender/refinement/chef-lena/source/dependencies/dish-salmon.png": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-work-W.png": "f0a839037047a91e36a524c7987e3d9fdaa43d36dc72bd75d2f80c753ecdd323",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-work-E.png": "c8c738ee214df64ab1f6f29f1dcaf014cb7390dba619c0655e766dceeb9fa247",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-work-S.png": "60206cdc3eb0d51396809bb3de76d96c35122fff4116142d9cf8ed00ae309f76",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-load-N.png": "6bbe89127922ec1c38cbc3152c5dff11daa568ca1dff67fb6b63103b4e2b47c8",
+        "source/blender/refinement/chef-lena/source/dependencies/context/belt-straight-e-running-S.png": "e486bc6d3cb044072b6d323fee5934dbf55965f02eb1de53eba33153e807ea6e",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-load-W.png": "f857c90811e998f22e8b889b52951bf81f41a129f355b4510654af730fa1580d",
+        "source/blender/refinement/chef-lena/source/dependencies/context/dish-salmon-2d-static-S.png": "05e16b1f0515d32914077e4cf332096b349aa0e04e93cf003bdd9dd35a12e4da",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-load-E.png": "f36253cdcce097c1aed20c45000c260262336e49e71ac8b0271d41fbd0b7759a",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-load-S.png": "67adc2189b73a671263e481d849781162f2f0272b28228382a5c50255a8aecb7",
+        "source/blender/refinement/chef-lena/source/dependencies/context/original-work-N.png": "c79eed6f81f9b8ac575542cee8f78af8bec66327aea447a01a4953f717b7f24e",
+        "source/blender/refinement/chef-lena/inputs/source-rig.json": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20",
+        "source/blender/refinement/chef-lena/inputs/imagegen-prompt.txt": "343ac129f2781db14ea667b35ced1ed0fe7920dc14bc736fbdc18b7b20a3357c",
+        "source/blender/refinement/chef-lena/inputs/original.png": "00af6c1d2702a711e826c620a01c09884ffb226109686b129dd224adafdb04af",
+        "source/blender/refinement/chef-lena/inputs/catalog-object.json": "cfa12f263b4a0a3f7dc22dd3c758c67cccb17e24c54a8adc9ade010ec037b91e",
+        "source/blender/refinement/chef-lena/inputs/source-assetRecord.json": "f578a67566dd4d2eb1f5c3b3d41c6992eda6623f8800d4b112a7583a29cca86c",
+        "source/blender/refinement/chef-lena/inputs/source-camera.json": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3",
+        "source/blender/refinement/chef-lena/inputs/target.png": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1",
+        "source/blender/refinement/chef-lena/brief.json": "2060f5caad378986e4a1c01f1ba71803dbfda9c98ac73b0a8daa1d56723cd0d7",
+        "source/blender/refinement/chef-lena/brief-v4-held-food-native-repeatability.json": "2060f5caad378986e4a1c01f1ba71803dbfda9c98ac73b0a8daa1d56723cd0d7",
+        "source/blender/refinement/chef-lena/reviews/proposedcriteria-held-food-v4-alpha-repeatability.json": "55c37e8d27918dd35589ba8c37c30be7a0b7e90f1509ce8fd619ed2aaac03e10",
+        "source/records/chef-lena/camera.json": "2c3835f6f2e7a98888d094fef080113fbead9fc92c6a5431f7efa86fdc8f00ed",
+        "source/records/chef-lena/asset.json": "acc3fe6f17b61dc2977e8d1cb6c514cc9fda66e6669b760e59ccdfb17f052ac4",
+        "source/records/chef-lena/rig.json": "edc19ef375fb1370ec6e0f52a5047f7e41c1fa28752f414b45af8c4a25ba813b",
+        "sprites/chef-lena/idle-N.png": "86e94254a4140d47c0aea114be69bb7ca9dcc10c309ccb2b5b459cc2d6928f20",
+        "source/registered/chef-lena/idle-N/source-captures/000.png": "d75e9ae4d75c295a8ef11ca0ed57a142ca80510df2f9957884d8f39ecf2b0ee6",
+        "source/registered/chef-lena/idle-N/source-captures/001.png": "996586b5864d9e2a2a98d629b4e2827200797cfc624a5600a43f30e8c851a325",
+        "source/registered/chef-lena/idle-N/source-captures/002.png": "06667098b75f5939c6e3f9c6f0b09bdc309a4d3a824c92ab76a32a8edfc223ff",
+        "source/registered/chef-lena/idle-N/source-captures/003.png": "bef3c876df4642f3089029a9e184dfdab89134e107b62cdd02ea48b5d4269102",
+        "source/registered/chef-lena/idle-N/source-captures/004.png": "bc936fcbf8832d5a71c0c635a3debdfb6afb9df5c425e1886dd78f63155d0518",
+        "source/registered/chef-lena/idle-N/source-captures/005.png": "dd27504413e391434f5548cdc30bb1e12cda08e051a309075873064b627986a9",
+        "source/registered/chef-lena/idle-N/source-captures/006.png": "12782a80bc0242a9072e669067d4bde19cf76541c8a06327f01f9a8e546cd2d1",
+        "source/registered/chef-lena/idle-N/source-captures/007.png": "723633b21609269288944e2c00d149773780988a14b755df6bebe1ebe91597a8",
+        "source/registered/chef-lena/idle-N/source-captures/008.png": "d70f2a3921ae8f2ffbc2d948b27d7f2af7ac679c2082ded08cc47ea7ece91c17",
+        "source/registered/chef-lena/idle-N/source-captures/009.png": "70bc0632e380bbe60e8d2cd8d36ee877f84e0b6805c8ad3a281fbc5213d3b9ff",
+        "source/registered/chef-lena/idle-N/source-captures/010.png": "6ec0f753452f37c329b97281a8ba875af2ee8e417338e5fc19c38c9b440cf7f3",
+        "source/registered/chef-lena/idle-N/source-captures/011.png": "db1454a7a8740d7cd1c8f007c580824e31eb9c4fd4bd386f1ae3caf2ab47a1dc",
+        "sprites/chef-lena/idle-E.png": "6522e1cbe8d58fb326b8586d8b87161f6319aef776c82a7b941a125519be5c2f",
+        "source/registered/chef-lena/idle-E/source-captures/000.png": "b0faffeef9893590f67f3f5d178f93ce1d82705596916411d24ff192c061fb68",
+        "source/registered/chef-lena/idle-E/source-captures/001.png": "91103c4c22c9c6d56c6c128f18a83edecf2f88aeb69f4fde3070772c266188b4",
+        "source/registered/chef-lena/idle-E/source-captures/002.png": "448b633bbd242c8e9577cd9484714a1fa1aeea065f97946b1b2c14104242016f",
+        "source/registered/chef-lena/idle-E/source-captures/003.png": "28ef18dfea0105e77fc8fd0694a6cbdc2fc9c660f64c8f53ce940781db8037a0",
+        "source/registered/chef-lena/idle-E/source-captures/004.png": "2fca168d9f35a8ba510ad02deb32283ba4d6ebd1693ef0036b4d6e5a08d85409",
+        "source/registered/chef-lena/idle-E/source-captures/005.png": "352f485ec329f97136b14c0e3c0d1bb006eb0e52108fc2efedda39dc3cd316a4",
+        "source/registered/chef-lena/idle-E/source-captures/006.png": "0368226ea6a838b72ee88e55786ae564a9708cc4f1ef8d31f1cd28590cd09a6c",
+        "source/registered/chef-lena/idle-E/source-captures/007.png": "e9fab0b0851f2a6ef3ca676cb64a701b561b5886258b50e089e121e2dbff60ae",
+        "source/registered/chef-lena/idle-E/source-captures/008.png": "09d47eb08fd2262d5a6710b964d44c5fb6b9e27ffb8d401c11c43234cf7ae592",
+        "source/registered/chef-lena/idle-E/source-captures/009.png": "6e9082d4c056178d9256df9c7a93dcadeeacd50597bc45116a2424f58c6c8858",
+        "source/registered/chef-lena/idle-E/source-captures/010.png": "79fb140b0440da0a54723b7233dcc5298b71ea40807827553c02d00e8b7437fe",
+        "source/registered/chef-lena/idle-E/source-captures/011.png": "d6bac2e9c4d76de3378684e4e19678631a83892fc3180c579b40a9f6b249f1a4",
+        "sprites/chef-lena/idle-S.png": "856a6e7891c2d60e2d8e9174b5ac2def7df0e3d6d3830e2e647fd0af1e214c9d",
+        "source/registered/chef-lena/idle-S/source-captures/000.png": "a3aa59a9441d948a5b08ba258d0c8a13e9a933b760388767d4d0fcf599068b52",
+        "source/registered/chef-lena/idle-S/source-captures/001.png": "5d7ae1a28cedff2eb6c2966912cffa98fe0157b30421d54f37ce7be8b36b3ed7",
+        "source/registered/chef-lena/idle-S/source-captures/002.png": "997f46d40e661256e09d0610536831efc5144205ddcd216d8db729fb1002cda4",
+        "source/registered/chef-lena/idle-S/source-captures/003.png": "3acb85f62498ab90fa30dddd4b47591ed2b473f10cbb64425e15082e856956d6",
+        "source/registered/chef-lena/idle-S/source-captures/004.png": "34c75ed50ce40c7a7fd5a0ff23bfe2302ac85851babdcfaf3f97ec6ed8dec8ae",
+        "source/registered/chef-lena/idle-S/source-captures/005.png": "aa76251fdb5b15961f6935272a645af06fa5e2a304515d599d15122c701c33a6",
+        "source/registered/chef-lena/idle-S/source-captures/006.png": "aaf8202b99ec9201076ce7a3e9cfd4966d83e6da9012a4320e1b92e320df197f",
+        "source/registered/chef-lena/idle-S/source-captures/007.png": "a2d4c96450fe52ac458d5b4206f25d51b1c9a315687c932ecb26d121df910643",
+        "source/registered/chef-lena/idle-S/source-captures/008.png": "3929fa63f7b805d0853ad253f2599ca5abe42987a43a1bf59b21f39eb8b5152c",
+        "source/registered/chef-lena/idle-S/source-captures/009.png": "bb789580b90960d82192451410d3e2a7ff81e7af3e69044ce587e336852bc60a",
+        "source/registered/chef-lena/idle-S/source-captures/010.png": "6a3704fdfa5f4cdea0110a7c92dd652e67508dd01d36d4883924a09afc55fc59",
+        "source/registered/chef-lena/idle-S/source-captures/011.png": "35ebda46db31b7f100fdf51c5335411afaadf89c5fa8a843fd0de6a0c3ca51e2",
+        "sprites/chef-lena/idle-W.png": "ce80a9dcc51a7358e7427357a8cb50313669514227c4f6577f6ba240482c2898",
+        "source/registered/chef-lena/idle-W/source-captures/000.png": "e31cc631f2af477ecd80a925888220ea05145dcf32f77b84eb04e360d20bb086",
+        "source/registered/chef-lena/idle-W/source-captures/001.png": "bd67606882a93f12ef1b895a8b7534978b18891525192c16b6101033925079ad",
+        "source/registered/chef-lena/idle-W/source-captures/002.png": "e2b0532215e22a1b46f2998c0c8a420fe5aee022686f8bef3233d488445a19ce",
+        "source/registered/chef-lena/idle-W/source-captures/003.png": "b6353270ee75848525d1c9cb1593367522be2a5546635efe1356a8f77938843f",
+        "source/registered/chef-lena/idle-W/source-captures/004.png": "fadc39f237d7fac1a9656937e9f6defadf6446259864d041591b5d898d86b534",
+        "source/registered/chef-lena/idle-W/source-captures/005.png": "56749a8e4eaa4770763d19e33b25cdb21ed230ae7c88fd4ded93d0957f63e77f",
+        "source/registered/chef-lena/idle-W/source-captures/006.png": "bde79eebe8ecf97daff337d976c34ec51447586925de5b822baebc60bb681cc7",
+        "source/registered/chef-lena/idle-W/source-captures/007.png": "f8a2cc92c3b0d9d8867db3affda1af861f9a2477ed938499e52603ef90690636",
+        "source/registered/chef-lena/idle-W/source-captures/008.png": "eb89f58b1642fd1b9686bbc5d5c5c95ac3ddc277bd7a2c2f5ca3b5f84a773b29",
+        "source/registered/chef-lena/idle-W/source-captures/009.png": "1e4111f244efa583bf73b3b855d15a8c87be8a8b0fc9dc229adb4134bfef0683",
+        "source/registered/chef-lena/idle-W/source-captures/010.png": "879db72fac9562c504c49d19351be0016dfd0148f659c35ad0ebd9b14c1821c9",
+        "source/registered/chef-lena/idle-W/source-captures/011.png": "ff929f27c8fc980ff172e297007d86835a334d24cf12c53f7a03ffa5541e2c0b",
+        "sprites/chef-lena/work-N.png": "57e4d2106cc8fb1fea8a3b3ba02332945e163ddc809c60dc02e5b486a109e558",
+        "source/registered/chef-lena/work-N/source-captures/000.png": "75d37ba1e6f6f132719f44ba4261280c90b1cec44782a03f714cdc77d21825c9",
+        "source/registered/chef-lena/work-N/source-captures/001.png": "23331dd82fbdc0856df73df258cb3577202eb646788cc6dbf7eeaa4957b31fdf",
+        "source/registered/chef-lena/work-N/source-captures/002.png": "7185ac326d1b1aa1abd7012cb676b85613e94e2e0f72d331bbe65efd948cb911",
+        "source/registered/chef-lena/work-N/source-captures/003.png": "2dbdfcde2babfe8b8f4ab0bd6eaca096f129d045f8f9ecc7ff52d6094c37a921",
+        "source/registered/chef-lena/work-N/source-captures/004.png": "758be8aa185236d123323b0e30c72c1025bff892ac5ea6c180c50cb21f8357dc",
+        "source/registered/chef-lena/work-N/source-captures/005.png": "d1225f76367987c3f42658869dadfef00d88e1ba628ff3e62e3a1095c3c39e0b",
+        "source/registered/chef-lena/work-N/source-captures/006.png": "817f3da3cecca12dabe18f2832c7e16319fb1148cb4d7ba9b283c167765f05f7",
+        "source/registered/chef-lena/work-N/source-captures/007.png": "30ae97cf34f5845db577ee5dc925fb91468814f5981f6160f6d9066501fd66a2",
+        "source/registered/chef-lena/work-N/source-captures/008.png": "5df921978c2cfff897345f382884d58dcd27f66beca9f7185057120b87a3d969",
+        "source/registered/chef-lena/work-N/source-captures/009.png": "189e9b80c2d3b67c9e6c5f7c647d86a9a3020cb8b314d780ed9f33915b675d9b",
+        "source/registered/chef-lena/work-N/source-captures/010.png": "8075bf765050f4c8ab7cedad39399ccb11b534dd3d20aa184b26d748f0c854bc",
+        "source/registered/chef-lena/work-N/source-captures/011.png": "f535ef55adce2899e7d4045b793a942bccd016fd0b753c10df299204f3bf6402",
+        "sprites/chef-lena/work-E.png": "821e1e7d7c15242b6c357abb9a82db8cb159b05494be3b23074a78a4bb51815d",
+        "source/registered/chef-lena/work-E/source-captures/000.png": "80c0e8978fd17a1e0dd0cb1e31014811ab5723e627ff5290baea84f7823e1f9b",
+        "source/registered/chef-lena/work-E/source-captures/001.png": "65c06e8c56f9a3ac596f94916986f20de9297773f5099143e42531343bb990c8",
+        "source/registered/chef-lena/work-E/source-captures/002.png": "558b633cc141da98460e468fb62e66e0035181a9925f1731518f3f8a097841f5",
+        "source/registered/chef-lena/work-E/source-captures/003.png": "6e6a950800d85b3a2026bbed0cb5ba7dac152f2fe967ae4d1655589e104049cf",
+        "source/registered/chef-lena/work-E/source-captures/004.png": "e2067ae37611bbca77c4c6f0aae60828fc6bd0dd3e9798b1b9f0e28c7358b06f",
+        "source/registered/chef-lena/work-E/source-captures/005.png": "935801362a39eeca4761f690cd4552f9bb45732356bafb1116c58db8f507a7df",
+        "source/registered/chef-lena/work-E/source-captures/006.png": "2a138dc079f36b991841d1bc5c534932a9c373bc21767812670e7a897a363af4",
+        "source/registered/chef-lena/work-E/source-captures/007.png": "292e510e441d68940c5f6994763cf9541e04a312f7041fb993cc953d632eb1ba",
+        "source/registered/chef-lena/work-E/source-captures/008.png": "2e02341cb2d4238a74466413a123bfc190d088e9f10feaafd4edce0db6c2087f",
+        "source/registered/chef-lena/work-E/source-captures/009.png": "d46bca430641fa50bbb7e059dfa061e6770dc8a2dfdc051ac8585d0237816737",
+        "source/registered/chef-lena/work-E/source-captures/010.png": "eb635a0940f367a6128ca547efe42e19c4e019bd9337bd594371d09442850c10",
+        "source/registered/chef-lena/work-E/source-captures/011.png": "217474c959f2d9e40fa55901cd86bc7818ebebb9ddc15fc631d0306235e7479f",
+        "sprites/chef-lena/work-S.png": "cef13bce922559a34a5c2875f203d467fad1c6615866b57882d959a85e347184",
+        "source/registered/chef-lena/work-S/source-captures/000.png": "d52d389a1f8f00c2b116da965f9c62e8be383bf67a59307eb8b4077a7155f175",
+        "source/registered/chef-lena/work-S/source-captures/001.png": "c5b12ecb77c4cac96d54e36dbd89eb57b289c7acea3a5ef02fe352456d30169a",
+        "source/registered/chef-lena/work-S/source-captures/002.png": "6c0060efa38705044e86dc1b53bbc7c1f2504e64eb9f637bc5f15eb3821401fd",
+        "source/registered/chef-lena/work-S/source-captures/003.png": "5faf82fb8cb0851a6658c9442f6625185137a47bb8d1f032a0f469b4946bf62e",
+        "source/registered/chef-lena/work-S/source-captures/004.png": "f45705d2074e3e75c0485fd60194edc065914df8659d45385578db548e0a04b6",
+        "source/registered/chef-lena/work-S/source-captures/005.png": "69a31d58487f63fa896bd55c55930da28fe9362c547850f82607fad0eee209f3",
+        "source/registered/chef-lena/work-S/source-captures/006.png": "264c9c51486c9e6deba41dd8941e55d035dda6ca8821fde52ef4b0983e3f6275",
+        "source/registered/chef-lena/work-S/source-captures/007.png": "bf12e5f1529637bfadd31d093fdd2ef8a6b59050ea1760fffc4755a949f0a557",
+        "source/registered/chef-lena/work-S/source-captures/008.png": "3bb13681e9d4bd2d61c5dffa4ff59fada050df9ed7449908392cac2d88589a41",
+        "source/registered/chef-lena/work-S/source-captures/009.png": "9513d823d3e36fd8314ad4341177ee1284b505c52fcb6a512523be0ce0427bc3",
+        "source/registered/chef-lena/work-S/source-captures/010.png": "8b8e003216a6f6794447291e1c501002b8c510136e78c190bebd5b283e503b4d",
+        "source/registered/chef-lena/work-S/source-captures/011.png": "4d60eeeefb30121d49efb4d12490bd7fa61c460b08eadffd310d0c1a599ca123",
+        "sprites/chef-lena/work-W.png": "d00a5568ffad543763e49c977b69f0128e23e9dd548d392d6ef9284787ce13f1",
+        "source/registered/chef-lena/work-W/source-captures/000.png": "7cd2e3518d4d7329d927958b1f0d2584b3457a6420d816b45941bf2d6f015682",
+        "source/registered/chef-lena/work-W/source-captures/001.png": "bcf5d8bebd03f9b420ebc7153b4c9450ecd8a390fd9bfc823d5367d8b031144e",
+        "source/registered/chef-lena/work-W/source-captures/002.png": "3f4d07916a43f6aec4c93d257744fd8f772cc0ef4ce3f38ea81e6c6bc573aeed",
+        "source/registered/chef-lena/work-W/source-captures/003.png": "8de7ca6959bd6149f024baf37af476ae770ee236a7185a14c6ce09397197de17",
+        "source/registered/chef-lena/work-W/source-captures/004.png": "27e1fc8a2c419fa3d9b32fe6b9c7faceb6683c09ee96b2c2910ef404c9e00b71",
+        "source/registered/chef-lena/work-W/source-captures/005.png": "7fdbbde5003da8107588f14865e244c837970c84d6bd50e1260d7ccfba4bf967",
+        "source/registered/chef-lena/work-W/source-captures/006.png": "3f2dbfdaec6d071ccb71ca9a431dcf3591771355fe54652b39152fd8eae99cb0",
+        "source/registered/chef-lena/work-W/source-captures/007.png": "29f588175b01bbb3f5e1348c0070799c7fcbc85fc8a63beb8b31d4db631d69cc",
+        "source/registered/chef-lena/work-W/source-captures/008.png": "1294c49bece6c4bdfeafce2f7ccd4923dd20469271eaed944649ffce67057329",
+        "source/registered/chef-lena/work-W/source-captures/009.png": "1bbcc5e45b45e1fc654dbbbc0364fa51ebb3a3820dca2cc4ae4da4191b9c2958",
+        "source/registered/chef-lena/work-W/source-captures/010.png": "cf61dd8c325dad96b5a069bc62be5f1cd7ce7f917659c31db4316a3531e60598",
+        "source/registered/chef-lena/work-W/source-captures/011.png": "6d050ff81ab2b043357a30b68757a043cac1d15f986824422b365a9d61a469e1",
+        "sprites/chef-lena/hold-N.png": "5f7b629bd8a594bd9210b029b7440a2b36ce74f2b755c922e6d913f172ae67e7",
+        "source/registered/chef-lena/hold-N/source-captures/000.png": "b98be853478567d12a6fae0f3167c94c729e3e9b6c04b2600ef059f82c8c4334",
+        "source/registered/chef-lena/hold-N/source-captures/001.png": "e623a388f3b23e66564077f456284435f0614261f28a7abd55ea60a95ad82a5a",
+        "source/registered/chef-lena/hold-N/source-captures/002.png": "642eccd4da81fea7713e8c5972da044886b511d8b82452f36525c4bc931c4fb8",
+        "source/registered/chef-lena/hold-N/source-captures/003.png": "cee730249f6e908cc64a7e55a7e02c06c4f4923d44f30aa18c71262f79cc9f2f",
+        "source/registered/chef-lena/hold-N/source-captures/004.png": "0e0036c8f6cd7241b6939a3b8de246f8ee9ad27c21ca20facc844f8e73856a6e",
+        "source/registered/chef-lena/hold-N/source-captures/005.png": "68d3019ddf21a7830223e940875f99239d24d35538e585f35b7734e41898c91f",
+        "source/registered/chef-lena/hold-N/source-captures/006.png": "0fda49b42b94cc8c9a5c2b5dd6ee47a67e5d0aa645c52fbd32972f868e2ff510",
+        "source/registered/chef-lena/hold-N/source-captures/007.png": "0e25fb6ad3f80bda4ce5b21dab7cf30fb2d60dcc6b4ea934bfe7168ccba3390a",
+        "source/registered/chef-lena/hold-N/source-captures/008.png": "7761b15d4379341c2e1bf87e476696f82b9f40e102c594d2be9a54c161e0eca1",
+        "source/registered/chef-lena/hold-N/source-captures/009.png": "64d1bba7fbd3b365f875af3bf405196d7a19ed619e79af8e102ca0c0a8f8d082",
+        "source/registered/chef-lena/hold-N/source-captures/010.png": "ba6ae9166a980b95dad46df8fe519ed7ca93fc4ce428434fd1fab7cc8312aece",
+        "source/registered/chef-lena/hold-N/source-captures/011.png": "babce81d2bc63dda6d107b365986e8ddd30f729924780efd8401bea16e2da339",
+        "sprites/chef-lena/hold-E.png": "8e358dbef6160711eb737df35b9ac9bd8942ce15f8f7a3ca698b52226f518eb2",
+        "source/registered/chef-lena/hold-E/source-captures/000.png": "d6e451eb8377ba4378575a68964eacdcb3648ae4c07bb7c92a4480468d2d5c43",
+        "source/registered/chef-lena/hold-E/source-captures/001.png": "a2c97b020dd5e4dde81a46ba23656cb6d11600963bd44ca8ee4ec9eefdc4b69a",
+        "source/registered/chef-lena/hold-E/source-captures/002.png": "207e0a56fd39999c0422c712b48e0943d51b0ceb9f0bcbd12461ea7cdc6d761d",
+        "source/registered/chef-lena/hold-E/source-captures/003.png": "0c223db90334cee89bb4b9dae2c786a0d352b6e2b2222a3c50d8d8979a20e2f7",
+        "source/registered/chef-lena/hold-E/source-captures/004.png": "74cefcdd882fb4fa6be7bf9735ac88c968006bd8d1a96521b1c60f7681f09db3",
+        "source/registered/chef-lena/hold-E/source-captures/005.png": "cc8573b2af4936bbfaa8a3c889ef6d3984df0db7943de15ae662fec56b9b0dae",
+        "source/registered/chef-lena/hold-E/source-captures/006.png": "de0a0bdcf77f81ebad42ba265a7ef5720389b12713c520d2062462b7445a71db",
+        "source/registered/chef-lena/hold-E/source-captures/007.png": "b1cd0c6ce8fd60a82b2b6a5c90bff2742901708582c62b0bccfd60506ee177c8",
+        "source/registered/chef-lena/hold-E/source-captures/008.png": "7cd4400b550cbebf7d41d056c17b93af649fd72eb8c417385878c8be6c58bacc",
+        "source/registered/chef-lena/hold-E/source-captures/009.png": "90c4e443615df43655b79ce2f461513979aeb3e7e7f92a0ee7a6b04dfa855502",
+        "source/registered/chef-lena/hold-E/source-captures/010.png": "6c0f5dfe14eef927b0d5d735db519215491e70fac85c26210188a98b208f1777",
+        "source/registered/chef-lena/hold-E/source-captures/011.png": "dcebf8dcdd524f35960bf60ca36cd6bd0496100cad73d1d8c9a0dfd2840ae2ba",
+        "sprites/chef-lena/hold-S.png": "7f74ffa80738150c4affedcb9adf04ed27ca8681623d4345ba0b8c9f23c743a2",
+        "source/registered/chef-lena/hold-S/source-captures/000.png": "6215f68bbd7f12f21c97172fc1cf9ed611fda78f5ecc538bf2c58bbee89dea23",
+        "source/registered/chef-lena/hold-S/source-captures/001.png": "846e43f19984d96845e6661ad32059fef9a7fee0c54044b7cb294920dd1bb790",
+        "source/registered/chef-lena/hold-S/source-captures/002.png": "9d3ac7e2a43a962f2f9017efdcdabc12b3e6fe4b5f2380360e6fdab562be56d9",
+        "source/registered/chef-lena/hold-S/source-captures/003.png": "4bbd952d8c021babda77b2a9ff7d1abe7c2fd09d76cec706c904aa6c82efab96",
+        "source/registered/chef-lena/hold-S/source-captures/004.png": "9a09f8b5176d30e10d40d066d2afedfa252e770aed26681c7df9e27493df6717",
+        "source/registered/chef-lena/hold-S/source-captures/005.png": "80b4813f0d2ae18037a0d91f61f089ad6783572037adf94d23967332791460a4",
+        "source/registered/chef-lena/hold-S/source-captures/006.png": "44f2dc680dc9bf3819bfbcf4ae14a7c327143e92af9230738e48ea95ff11625c",
+        "source/registered/chef-lena/hold-S/source-captures/007.png": "e494637c94c16101a53cd218e28cf9f4dd67c78512d53a74413edebe61ea9eb9",
+        "source/registered/chef-lena/hold-S/source-captures/008.png": "0e2b96a831092010026c400ff0456787a8899598335f28d09da68c1e7ff1a3bb",
+        "source/registered/chef-lena/hold-S/source-captures/009.png": "7b92b2ecca039cab1d2e0ac48fd02093b402584556643d90493da3bb31502976",
+        "source/registered/chef-lena/hold-S/source-captures/010.png": "37ef745742a05165e5a59f56932575bbee4e54f5b2a0665cbaad5f7414b42f5b",
+        "source/registered/chef-lena/hold-S/source-captures/011.png": "fde6ac300514631796d17ce036ac96ab2be665e4a0be94144003b7ff71b8618d",
+        "sprites/chef-lena/hold-W.png": "8afb3e11540eab31e2853d3db32ddc97515b9d34aa1d99ed22187d27d5308449",
+        "source/registered/chef-lena/hold-W/source-captures/000.png": "935c4d336642442e9e15ff07745c1ff9c2b1f11943ec1973481b57e9048906a0",
+        "source/registered/chef-lena/hold-W/source-captures/001.png": "216b116ec530173afaee72ce0c4c53338ed7b75ae83daab5e01970952800d4d9",
+        "source/registered/chef-lena/hold-W/source-captures/002.png": "f510c39c5b6eb29bdac414401f65f5eab7512d5b9029b25cb9e5314d79f7f529",
+        "source/registered/chef-lena/hold-W/source-captures/003.png": "6d162c5277c42214d5a4f6a1fb911f82dfcd9781ca889daab384cd744c113c30",
+        "source/registered/chef-lena/hold-W/source-captures/004.png": "0aa155a4ef88428377a9c70f9bccac16e265d246c60d0d80cd455484aed8e0c9",
+        "source/registered/chef-lena/hold-W/source-captures/005.png": "27f43fa2cbe14066023d18877334c08d738cc18c6e7b2adbbf29e275b019995f",
+        "source/registered/chef-lena/hold-W/source-captures/006.png": "a55cb346805711d85d02a9f90f78b19ec4d4a3ca53aba99db892defd8c894d9c",
+        "source/registered/chef-lena/hold-W/source-captures/007.png": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+        "source/registered/chef-lena/hold-W/source-captures/008.png": "9cdc6f8edebf2fa110ab62730a218a302c48bdbe28da6b4caf0f052b237d530f",
+        "source/registered/chef-lena/hold-W/source-captures/009.png": "c5ad3c13dab29914ea1b7360219eecd5f296b41a6041f88007cd9cd3a3f20ff9",
+        "source/registered/chef-lena/hold-W/source-captures/010.png": "7cb4f956c909f8f3e1dab6f5dda0569d861f3cf9496694bbbf3e70e58f169d6f",
+        "source/registered/chef-lena/hold-W/source-captures/011.png": "2d29b97292c726f81bb278567dd20f9258f12bb75b222d20a6c5a3cbd62aad79",
+        "sprites/chef-lena/load-N.png": "0bc3d601637c805c7d96830bad0ec037dc7d9f04441b44ad3819e5657b36078f",
+        "source/registered/chef-lena/load-N/source-captures/000.png": "a4b54f203abf19f2be4e0db43215f5c482d3423ab5c240e850ab3a6501a9d0b2",
+        "source/registered/chef-lena/load-N/source-captures/001.png": "26a338645df270e7d7e15e776295c3b8e3636ed0d29c28710fb098d073af1008",
+        "source/registered/chef-lena/load-N/source-captures/002.png": "d1fece9d2782f1255b8a44a63955db34a96d0f56e4e5b9631e4a54e6d2f1e2ba",
+        "source/registered/chef-lena/load-N/source-captures/003.png": "b8989828c80c236377879518f63eb8f491a85e225449e959fa57b020ddb5ecc5",
+        "source/registered/chef-lena/load-N/source-captures/004.png": "65d8a3791a08ab4612cbf49c60c308b4de1eee7fc566c86fa5d79a08df9d9b08",
+        "source/registered/chef-lena/load-N/source-captures/005.png": "66c1f805a8b3ee4268bda7598c6cd091a80996de2dd843bea5621cf09dd4e841",
+        "source/registered/chef-lena/load-N/source-captures/006.png": "ee614c884486402f9f6d13360c86a84e91bdb19605492d2607d6a5c844c4f188",
+        "source/registered/chef-lena/load-N/source-captures/007.png": "e67823eb55c6721a7b1c3b40b624c7e2c9455ef7b5c14ece00055d4aca281be1",
+        "source/registered/chef-lena/load-N/source-captures/008.png": "27a1c8aa3745fe899c5d5a0c5394ce05519caee0baaacb8a05223559e28cfba5",
+        "source/registered/chef-lena/load-N/source-captures/009.png": "ef5903695f12c4a36031aae2e9ae42769c49c5f18b30a599f894aa291297fe28",
+        "source/registered/chef-lena/load-N/source-captures/010.png": "524b11884cca978edaad4387c04aa3bc6895000768e179f06695ac7270a46c88",
+        "source/registered/chef-lena/load-N/source-captures/011.png": "dfe3bb547422de9d7542bde0f4d7fd0c12ac6dc7cc813fcd518d527765a86516",
+        "sprites/chef-lena/load-E.png": "8d220623985d982f60323db3f3bdc5eae7643891b55c1ad15724aba3d4ab8355",
+        "source/registered/chef-lena/load-E/source-captures/000.png": "7ea145f1052c45feae683ee14fd4e65364793ea1349a000b37987f1d004baa6c",
+        "source/registered/chef-lena/load-E/source-captures/001.png": "ad11ea13dd06b6e27fae4a5d9a86c37cfdcf0211cdc6c168d127fd1767cb7134",
+        "source/registered/chef-lena/load-E/source-captures/002.png": "8b8186e7702e1f24f9f38938296810ff2ca1df2e79c33848be9bfc6337cb84e2",
+        "source/registered/chef-lena/load-E/source-captures/003.png": "98f19c65addb792f758b064468d23e5fca3881f856e9dfb3749b2c726f33f792",
+        "source/registered/chef-lena/load-E/source-captures/004.png": "b2b4a455c68af55997e340896c675c65f43a911b48a656d365aebfb1e213abeb",
+        "source/registered/chef-lena/load-E/source-captures/005.png": "b782592c1fa49d0d392e9839eabb43a6b2aecf87cd72e18e1fb70c0eb2e1a7d6",
+        "source/registered/chef-lena/load-E/source-captures/006.png": "9e5a084db5ae98036494452038d5fa4f6c2522247f4f85c2c1c9a08e171ce290",
+        "source/registered/chef-lena/load-E/source-captures/007.png": "0e8c7b96199bed5013b1295ba33e3cd460669fab7ebfcc3bfed6933381f3ed7f",
+        "source/registered/chef-lena/load-E/source-captures/008.png": "5f9e62617695ecda62fd15be691afe5c33888407a84f7b0a83c826895f5edf23",
+        "source/registered/chef-lena/load-E/source-captures/009.png": "dfae962e995bae17cc1720037f8f35bcbb805a8ec275e2cf8866ebfc2e6dbc5d",
+        "source/registered/chef-lena/load-E/source-captures/010.png": "ac79d4156cccc16ae14fb642f0658d5f61e01e1ab6c10c5d4bce08e465623e70",
+        "source/registered/chef-lena/load-E/source-captures/011.png": "e2f3504751915a54e4f808c14a4f267fd6e9dffc598293b11e0aa5bf53cfc8a6",
+        "sprites/chef-lena/load-S.png": "211236716527e1fa6c0f8f442527fe30b2bc0dd71a7e1665b5772a957daa563b",
+        "source/registered/chef-lena/load-S/source-captures/000.png": "abf64ad459d178dc61bb21ed3cabc5f7cfb2231140df4785bdc39997318b23b7",
+        "source/registered/chef-lena/load-S/source-captures/001.png": "9453d2b7d5372bbe55daaff522fbb989d5020bea2fc9b2f99fa3bf2cd3f0d6b5",
+        "source/registered/chef-lena/load-S/source-captures/002.png": "bc4ab365d1f0e32d6d52f6d667e4660b44c2c27cef38c21a08c52f29573d833f",
+        "source/registered/chef-lena/load-S/source-captures/003.png": "91c93afbea3e7251c3cd2eaacc47142bbee1c951a1125ef51fc37ed5f51d505b",
+        "source/registered/chef-lena/load-S/source-captures/004.png": "9b3f7fcf8672558df47dcdc01e03ded21206e97297567e58fb0f08433313eb0e",
+        "source/registered/chef-lena/load-S/source-captures/005.png": "2e2bc7696294d8f9c1dd7c1c3f5ad8ba0b6d9024c0c0f9368cf19c2b7a4aa43f",
+        "source/registered/chef-lena/load-S/source-captures/006.png": "7d08244010950e4fdac0fff354cc68e11e058fb728f77fb7e46e4824794d2756",
+        "source/registered/chef-lena/load-S/source-captures/007.png": "7d2b8e3688ec630e3f4958e558ecee2eaaa3d93c113836bb151572e2bf7e1685",
+        "source/registered/chef-lena/load-S/source-captures/008.png": "544cc4ead3dd25257f3bfda098f6c84acf79f168da1d492f0db9bfaa226c562a",
+        "source/registered/chef-lena/load-S/source-captures/009.png": "f1797c6d7e0ebb41901f18e21a77d2a99b8456b94f2c6bfb1a1b484aa3426204",
+        "source/registered/chef-lena/load-S/source-captures/010.png": "4a53ad6fa4d17530b441c7ecaa38bc4bedf2c4b63e6f0f1c7d4c6bdecaf904c8",
+        "source/registered/chef-lena/load-S/source-captures/011.png": "241d5a3e29f7a13ba5d204d9984290f26e000ac383408410f5d663d2661b5b2a",
+        "sprites/chef-lena/load-W.png": "5dcaf3efdc393190e6b9c6e76f61ac5ffc9f48fa614e24ceb399459098bf342e",
+        "source/registered/chef-lena/load-W/source-captures/000.png": "be3bc20049ab36fac95edbed2d3770c344f426faf9669373377baedb3e4b621e",
+        "source/registered/chef-lena/load-W/source-captures/001.png": "a501068fd6cc318802a616471042f5984626c3b089fc534392f95e6c11fae0c8",
+        "source/registered/chef-lena/load-W/source-captures/002.png": "09eb98448c44294f7b119f491db9c51e32c4f34c43434baf921f005dd86b796c",
+        "source/registered/chef-lena/load-W/source-captures/003.png": "98d6dfa5135c7f66fbce68b36925f3f1ec6343c5392d5042e307544e713f6140",
+        "source/registered/chef-lena/load-W/source-captures/004.png": "e1d81a2edb470de35677085d1e1f31f24e3bbdec4320c868b0f33bfa688a4dc1",
+        "source/registered/chef-lena/load-W/source-captures/005.png": "ab029961929df117922ce7d221bfc38f587ff1a38f22e37b7337d5bf7f599f80",
+        "source/registered/chef-lena/load-W/source-captures/006.png": "89399d43f4ea11594032dcb0fb6995bc41f215f50ea751a0a1909b8f801bf362",
+        "source/registered/chef-lena/load-W/source-captures/007.png": "fdcb261364fdaa9b133ddfa33accfa5c5bac4999c998162bbc7953c51ef9dd74",
+        "source/registered/chef-lena/load-W/source-captures/008.png": "996d6a78c9b27bdffc86a5b0ffc99dd00b16bf2463667f6ce8a88d435396674b",
+        "source/registered/chef-lena/load-W/source-captures/009.png": "b68fcc480d76225b478f0036672eae7529f3611e70644a7ed2530dfcd2197a97",
+        "source/registered/chef-lena/load-W/source-captures/010.png": "8736eb084b2e470362d176d8013bcf6f03500b56f8f60d6682f4ad259dc1fb10",
+        "source/registered/chef-lena/load-W/source-captures/011.png": "472401bf7bde3dd12427707a3810e2f9c29daae667c0b48929d4dbddb3164078",
+        "source/records/chef-lena/warm-refinement-validation.json": "4f14bf97608c33b6d9e96ecb40ff691a30aea0853a0e59e1c2724ccc5d8a9597",
+        "source/registered/chef-lena/idle-N/guide.json": "85ec4c7e602de438117262f198dadfaec5002c3adfc212348234ac74cf09e821",
+        "source/registered/chef-lena/idle-E/guide.json": "eba5fc6df600b3c7c478b44b91205dc1b38bc72ec1310bb2bbed0382e5b509ac",
+        "source/registered/chef-lena/idle-S/guide.json": "fd61ced7c02125d8902e5784805536f5a1762ea8eb8ab0c6b18b50e6dead5187",
+        "source/registered/chef-lena/idle-W/guide.json": "ac0c46b89388724363c60c4090e0471228128b7065341e562c4ed31d77b75f16",
+        "source/registered/chef-lena/work-N/guide.json": "2d3caf65fc0e821c31973940692c2b7caad7061bed1ac9edba5a6d9ab9e65d44",
+        "source/registered/chef-lena/work-E/guide.json": "f110b0fdefebcd7ce3592a1be7fe185a29560191c5cb91e06e5de83a8bd9f182",
+        "source/registered/chef-lena/work-S/guide.json": "a2157bb1495998583827e76617258884fcb69073c8e47af5f7725e6213c92e3f",
+        "source/registered/chef-lena/work-W/guide.json": "36d5183d8e5d6e4a2e2269eca9b1e2cf322f8004b9ed97b812905a841d2cc49c",
+        "source/registered/chef-lena/hold-N/guide.json": "1f16e2b080af9ac6a019f1f56d546e4785f8704565c078847b8f4addb09c4478",
+        "source/registered/chef-lena/hold-E/guide.json": "168b9f63d3592ee74026c5cec9ac95fb636713c92d7b42339bebe232af730def",
+        "source/registered/chef-lena/hold-S/guide.json": "2e149f1475c2b1eaf2c793f0d34f2db0c33e9714c7502e88e1c3dd1eed323cd8",
+        "source/registered/chef-lena/hold-W/guide.json": "5b3a4d78f5d8b1c664217da03e0a92190b4d82e8487cb45a7763bb9426510fed",
+        "source/registered/chef-lena/load-N/guide.json": "779dfface3519e2cb9d94be9b361ec97bf9b189a1369d27c960de6d9fcda416a",
+        "source/registered/chef-lena/load-E/guide.json": "e6074d031937712801ebcecbdb8ed37e920557821d16c3f92b09a38ed657b539",
+        "source/registered/chef-lena/load-S/guide.json": "85b9891fd51459488f7c4ae0b01c259bbd5b4ea463d544db9de217c3446b0876",
+        "source/registered/chef-lena/load-W/guide.json": "6a7ab91388e30eeb95a3d944463061603a52f3356ba3ae153dc23e9875129346"
+      },
+      "rig": "source/records/chef-lena/rig.json",
+      "refinedBlend": "source/blender/refinement/chef-lena/source/round-03.blend",
+      "captureScale": 2,
+      "refinement": {
+        "packet": "../refinement/objects/chef-lena/candidates/round-04/packet.json",
+        "review": "../refinement/objects/chef-lena/reviews/round-04.json",
+        "validation": "source/records/chef-lena/warm-refinement-validation.json"
+      }
+    },
+    "captureFingerprint": "36d3c9ff29f09d4fd3f1826bf250c22fe107e8ddcd21e7d304866e868d4093d0",
+    "portProfiles": {},
+    "artStyle": {
+      "revision": "warm-soft-chef-lena-round-04",
+      "style": "Warm softly lit cartoon",
+      "nativeEditable": true,
+      "lighting": "Warm soft: centered200W area plus four equal35W cardinal areas, warm ambient0.25; no ground plane"
+    },
+    "locomotion": {
+      "walkCellsPerSecond": 0.225,
+      "panicCellsPerSecond": 0.45,
+      "worldTravelPerWalkCycle": 0.225,
+      "projectedWalkTravelPerCycle": {
+        "N": 0.1290546476840973,
+        "E": 0.225,
+        "S": 0.1290546476840973,
+        "W": 0.225
+      },
+      "projectedPanicCellsPerSecond": {
+        "N": 0.2581092953681946,
+        "E": 0.45,
+        "S": 0.2581092953681946,
+        "W": 0.45
+      },
+      "projectedUnits": "logical square-floor cells; derived from recorded native camera calibration"
+    },
+    "refinement": {
+      "status": "approved",
+      "round": "round-04",
+      "packetSHA256": "36d3c9ff29f09d4fd3f1826bf250c22fe107e8ddcd21e7d304866e868d4093d0",
+      "reviewSHA256": "4f76484c2e1e0e102e8099afae5dc2f411509f128b6d80a659f21fdb6bb6b0eb",
+      "editor": "catalog_chef_lena_editor_v1",
+      "judge": "catalog_chef_lena_judge_v1"
+    }
+  }
+}

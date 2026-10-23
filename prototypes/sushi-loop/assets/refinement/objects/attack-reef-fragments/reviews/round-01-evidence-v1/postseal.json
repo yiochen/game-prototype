@@ -1,0 +1,46 @@
+{
+  "asset": "attack-reef-fragments",
+  "round": "round-01",
+  "verdict": "revise",
+  "candidatePacketSHA256": "9bcec6845486acec2478ab74966f8b7de84ef0dbf604c47c0b6c022b8aaca1f3",
+  "candidateSourceSHA256": "05a7a42875fb481551261dbf2046704718bc67b68db5e4c085a9d7bef7de2cf7",
+  "supplement": {
+    "path": "reviews/round-01-evidence-v1/supplemental-manifest.json",
+    "sha256": "30aa480cfd4a5c64590265acf03907f2c7c0621c8511815ffa9cd506691f914a",
+    "verifiedFiles": 940
+  },
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "ec212236fa1b6c92c28f6df561e79437b8f6b849c7fc4a2b344a09e4759683e2"
+  },
+  "gates": {
+    "path": "reviews/round-01-evidence-v1/gates/gates.json",
+    "sha256": "4884b6177d39b1bc221d5ddb86466c40bd93873f9c859ce3018d74c01e09a348",
+    "files": [
+      {
+        "path": "reviews/round-01-evidence-v1/gates/acceptance.log",
+        "sha256": "c013fc9a96d026c017bf2857bb14c3232391e7bac68da154416c355aa7e9b68d"
+      },
+      {
+        "path": "reviews/round-01-evidence-v1/gates/directions.log",
+        "sha256": "3592d75d3a8e895be7c4093f1173c6b93b88da912e9944acd123a342fd6b249f"
+      },
+      {
+        "path": "reviews/round-01-evidence-v1/gates/gates.json",
+        "sha256": "4884b6177d39b1bc221d5ddb86466c40bd93873f9c859ce3018d74c01e09a348"
+      },
+      {
+        "path": "reviews/round-01-evidence-v1/gates/packet-integrity.log",
+        "sha256": "a1d9a9240e942b251965d9cc05299c3ebba26a9a0ca337725cc44efef1f473a5"
+      },
+      {
+        "path": "reviews/round-01-evidence-v1/gates/packet-with-review.log",
+        "sha256": "227e0d3c307bad380e21e398bf95a7808b21a9509152f18fe296b76700f94222"
+      }
+    ]
+  },
+  "allBoundFilesBelow100MB": true,
+  "hashGraph": "supplement -> review -> gates -> postseal; no backedge/selfbinding",
+  "scope": "Same original independent judge. One visual blocker; no candidate/family/production/Godot approval. Original sealed inputs/candidate unchanged.",
+  "immutablePolicy": "Preserve exact signed evidence; further changes require a new round/version."
+}

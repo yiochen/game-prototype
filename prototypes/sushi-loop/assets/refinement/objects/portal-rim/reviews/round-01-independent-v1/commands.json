@@ -1,0 +1,72 @@
+[
+  {
+    "task": "independent native saved-source replay",
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/round-01.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1/replay_native.py"
+    ],
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "exitCode": 0,
+    "log": "logs/native.log"
+  },
+  {
+    "task": "independent all-phase consumer and actual playback replay",
+    "argv": [
+      "node",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1/replay_consumer.mjs"
+    ],
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "exitCode": 0,
+    "log": "logs/consumer.log"
+  },
+  {
+    "task": "independent exact packet/member, pixel, geometry and native-canvas verification",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1/verify_pixels_native.py"
+    ],
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "exitCode": null,
+    "exitCodeNote": "The original shell tool returned a running session whose identifier was not retained in the orchestration output; final complete output and artifacts were independently read and validated. This does not substitute for later explicit gate exit codes.",
+    "log": "logs/pixel-native.log"
+  },
+  {
+    "task": "native action/control read-only audit",
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/source/round-01.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1/audit_controls.py"
+    ],
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "exitCode": 0,
+    "log": "logs/controls.log"
+  },
+  {
+    "task": "independent publication, source ledger and bound video readback",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01-independent-v1/verify_remaining.py"
+    ],
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "exitCode": 0,
+    "log": "logs/remaining.log",
+    "ffprobeCommands": "remaining-verification.json/videoReadback"
+  }
+]

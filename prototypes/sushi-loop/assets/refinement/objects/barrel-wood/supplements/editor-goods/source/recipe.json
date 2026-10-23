@@ -1,0 +1,22 @@
+{
+  "nativeBuild": [
+    "blender --background --python source/build_goods.py"
+  ],
+  "nativeReplay": [
+    "blender --background source/round-01.blend --python source/reopen_goods.py -- --output-dir /new/empty/output"
+  ],
+  "consumer": [
+    "python3 source/prepare_consumer.py",
+    "godot --headless --editor --path source/consumer --import",
+    "GOODS_OUTPUT=/new/empty/output godot --path source/consumer --script res://bench.gd --resolution 64x64"
+  ],
+  "resourceClosureReplay": [
+    "python3 source/verify_resources.py"
+  ],
+  "package": [
+    "python3 source/package_goods.py"
+  ],
+  "workingDirectory": "supplement root",
+  "inputs": "Pinned inputs and source/resources/current-consumer only for replay. UI snapshot provenance in snapshot-manifest.json. No production writes.",
+  "nativePipeline": "Actual approved scene.use_nodes true and render.use_compositing true preserved exactly."
+}

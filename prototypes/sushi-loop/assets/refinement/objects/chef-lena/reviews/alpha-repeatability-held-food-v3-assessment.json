@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "asset": "chef-lena",
+  "scope": "Independent preseal exact-alpha repeatability assessment only; no candidate approval",
+  "currentV3Decision": "Exact-alpha requirement remains unmet. Original complete192 ledger retains all192Pass=false and one alpha failure. Round03 revise and all old criteria remain unchanged.",
+  "frozenV3Brief": {
+    "path": "brief-v3-held-food-controlled-reference.json",
+    "sha256": "f51203cb80b6d1ea794c4e67aa30ee5ac18d5a1edc57f46fcd98f6082e0016e3"
+  },
+  "frozenV3Criteria": {
+    "path": "reviews/proposedcriteria-held-food-v3-controlled-reference.json",
+    "sha256": "d6256f7277d89cca9d163e870161fe860d10a1e64421a7ea5db8ba5733f6bdba"
+  },
+  "preservedFailedLedger": {
+    "path": "candidates/round-04/controlled-comparison.json",
+    "sha256": "08a73bbf37e190021cef2c2fed0b6a486f777436125befdcf0b8f5cfbed9c067",
+    "rowsIndependentlyDecoded": 192,
+    "RGBMaximum": [
+      1,
+      1,
+      1
+    ],
+    "rawFailureCount": 1,
+    "onlyFailure": [
+      "hold",
+      "W",
+      7,
+      109,
+      388
+    ],
+    "shippingRGBA": [
+      139,
+      106,
+      32,
+      59
+    ],
+    "originalControlRGBA": [
+      139,
+      106,
+      32,
+      60
+    ],
+    "notOverwrittenOrReplaced": true
+  },
+  "editorCausalEvidence": {
+    "path": "candidates/round-04/alpha-causal-evidence.json",
+    "sha256": "5457734a6057730b08a6fd33c44b015cfc9679440efb1335cea13d09b3805dd6",
+    "repeatMetadataAndImageHashesChecked": 42,
+    "actualNativeRenders": 36,
+    "fullFrameArraysIndependentlyDecoded": 36
+  },
+  "independentReruns": {
+    "nativeRenders": 24,
+    "freshProcesses": 2,
+    "perProcessRenders": 12,
+    "basis": "Exact unchanged03 and independently approved02+only permitted canonical resource/fullUV/top2Y patch. Read-only source openings; no source, renderer, shader, geometry, ray-flag, timing, or raster repair. All outputs retained.",
+    "counts": {
+      "editor-control": {
+        "renders": 18,
+        "pointAlphaCounts": {
+          "59": 15,
+          "60": 3
+        },
+        "maxRGBAAgainstShipping": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "onlyAlphaDifferenceIsNamedPoint": true
+      },
+      "editor-shipping": {
+        "renders": 18,
+        "pointAlphaCounts": {
+          "59": 16,
+          "60": 2
+        },
+        "maxRGBAAgainstShipping": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "onlyAlphaDifferenceIsNamedPoint": true
+      },
+      "judge-control": {
+        "renders": 12,
+        "pointAlphaCounts": {
+          "59": 11,
+          "60": 1
+        },
+        "maxRGBAAgainstShipping": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "onlyAlphaDifferenceIsNamedPoint": true
+      },
+      "judge-shipping": {
+        "renders": 12,
+        "pointAlphaCounts": {
+          "59": 9,
+          "60": 3
+        },
+        "maxRGBAAgainstShipping": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "onlyAlphaDifferenceIsNamedPoint": true
+      }
+    },
+    "all60NativeSnapshotsExactlyEqual": true,
+    "nativeSnapshotSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7",
+    "nativeHashesRecomputed": true,
+    "allArrayFloat32HashesAndLosslessHexScalarsRecomputed": true,
+    "snapshotScope": "Food evaluated vertices/matrices/UV/normals, native drivers/parents/root, material node values/links excluding only identical image binding, texture settings, ray flags, world/lights/camera/render/Cycles/view/seed and phase. Output filepath excluded. Earlier independently recomputed full16320 body/knife/pose hashes are retained, with exact same bound source files.",
+    "fullPrecisionSharedSnapshot": "reviews/alpha-repeatability-independent-evidence/shared-native-snapshot.json",
+    "sharedSnapshotFileSHA256": "d35806174f95ed50841ccf3bace06307c7328f28645589a602e1efd439211b98",
+    "script": "reviews/alpha-repeatability-independent-evidence/repeat-native.py",
+    "scriptSHA256": "77ab0900c3d2acf4bdc56783a7bcdf31c94c676e33f5eccb303fb5b3627c959a",
+    "portableCommands": [
+      "blender --factory-startup -b --disable-autoexec source/round-03.blend --python reviews/alpha-repeatability-independent-evidence/repeat-native.py -- shipping-new minimal 12",
+      "blender --factory-startup -b --disable-autoexec source/round-02.blend --python reviews/alpha-repeatability-independent-evidence/repeat-native.py -- control-new minimal 12"
+    ],
+    "pixelMetrics": "reviews/alpha-repeatability-independent-evidence/assessment-data.json"
+  },
+  "repeatabilityFinding": {
+    "observedNativeRGBAValues": [
+      [
+        139,
+        106,
+        32,
+        59
+      ],
+      [
+        139,
+        106,
+        32,
+        60
+      ]
+    ],
+    "affectedSample": {
+      "clip": "hold",
+      "facing": "W",
+      "index": 7,
+      "blenderFrame": 8,
+      "nativeXY": [
+        109,
+        388
+      ]
+    },
+    "allOtherAlphaSamplesExactInOriginal192AndAll60Repeats": true,
+    "sameSourceCanFailItsOwnExactAlphaReference": true,
+    "impossibilityStatement": "Matching exact alpha is possible on some runs, so it is not mathematically impossible for a favorable rerun to pass. Exact equality to a single recorded byte is not a repeatability invariant of this unchanged native scene/runtime, and cannot be guaranteed without changing the locked render process or choosing favorable output. Neither is authorized.",
+    "causeStatement": "Observed same-scene native PNG variability at this sample, with identical measured inputs/state and fixed seed. The internal Cycles/Metal arithmetic or8bit conversion stage was not observed directly; no specific low-level cause is claimed.",
+    "remainingLimit": "Sixty native renders bound the observed output set to59/60 in this runtime; finite repeats do not prove a universal error bound for every future device/version, other frames, or larger differences. Any new value/sample remains a failure requiring separate analysis."
+  },
+  "visibleImportance": {
+    "location": "One antialiased left plate-edge pixel; 1/255 coverage difference, with identical native vertices and no other alpha displacement.",
+    "inspection": "Original shipping59 and original failed control60 viewed at192x320 use size, enlarged native plate context and highly enlarged16x16 edge crops on light/gray/dark. No meaningful silhouette, food identity, false-face, contact, halo or black-deadspot change observed.",
+    "compositeMetrics": {
+      "light": {
+        "nativePointRGB": [
+          [
+            216,
+            205,
+            180
+          ],
+          [
+            215,
+            205,
+            180
+          ]
+        ],
+        "nativePointAbsoluteDifference": [
+          1,
+          0,
+          0
+        ],
+        "entireFrameCompositeMaximum": [
+          1,
+          0,
+          1
+        ],
+        "logical192x320EntireFrameMaximum": [
+          1,
+          0,
+          0
+        ]
+      },
+      "gray": {
+        "nativePointRGB": [
+          [
+            127,
+            120,
+            103
+          ],
+          [
+            128,
+            120,
+            102
+          ]
+        ],
+        "nativePointAbsoluteDifference": [
+          1,
+          0,
+          1
+        ],
+        "entireFrameCompositeMaximum": [
+          1,
+          0,
+          1
+        ],
+        "logical192x320EntireFrameMaximum": [
+          1,
+          0,
+          1
+        ]
+      },
+      "dark": {
+        "nativePointRGB": [
+          [
+            51,
+            47,
+            35
+          ],
+          [
+            52,
+            47,
+            35
+          ]
+        ],
+        "nativePointAbsoluteDifference": [
+          1,
+          0,
+          0
+        ],
+        "entireFrameCompositeMaximum": [
+          1,
+          0,
+          1
+        ],
+        "logical192x320EntireFrameMaximum": [
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "impactPreview": "reviews/alpha-repeatability-independent-evidence/alpha-visible-impact.png",
+    "note": "The visible finding does not retroactively satisfy frozenV3 exact alpha or permit raster correction."
+  },
+  "recommendedNewVerification": "A separately versioned acceptance set for precisely the named alpha sample, retaining exact alpha everywhere else, existing full-frame RGB<=1, exact native/body/scene locks and unchanged visible quality bar. No blanket alpha tolerance or spatial mask.",
+  "whyThisIsNotMaskingUnexplainedDeltas": "Every sample is still compared and reported. At the one named sample both control and unchanged shipping scene independently reproduce exactly59 and60 under equal recorded native state; the proposal tests membership in that finite observed value set and requires the state proof. It neither ignores the pixel nor exempts an area. Any other coordinate, phase, channel, value, source hash or state difference fails.",
+  "integrity": {
+    "approved02SHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+    "shipping03SHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+    "shippingSpecialFrameSHA256": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+    "all1102Sealed03ReferencesRehashedUnchanged": true,
+    "oldCriteriaBriefsReviewsUnmodified": true,
+    "candidateAndProductionEdited": false
+  }
+}

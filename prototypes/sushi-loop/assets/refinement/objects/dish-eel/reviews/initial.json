@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "assetId": "dish-eel",
+  "stage": "independent-initial-inspection",
+  "status": "initial-only; no candidate verdict",
+  "representation": "Existing native 2D ImageGen raster plus deterministic publishing recipe. No Blender dish model, geometry, normal, camera or rig evidence is claimed.",
+  "independence": {
+    "ownPromptReadFirst": true,
+    "sourceTargetStyleAndPublisherInspectedBeforeEditorProposals": true,
+    "editorProposalsRead": false,
+    "otherCritiquesRead": false,
+    "writesConfinedTo": "reviews/"
+  },
+  "inspectedFiles": [
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/prompts/judge.txt",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/brief.json",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/catalog-object.json",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/imagegen-prompt.txt",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/prompts/imagegen-target.txt",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/original-2d-pipeline/README.md",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/original-2d-pipeline/publish_2d.py",
+    "prototypes/sushi-loop/assets/production/source/2d/prompts.json",
+    "prototypes/sushi-loop/assets/production/source/blender/character_composition.py",
+    "prototypes/sushi-loop/assets/production/library.json",
+    "prototypes/sushi-loop/wireframe/sprite-layout.js",
+    "prototypes/sushi-loop/wireframe/object-review-data.js",
+    "prototypes/sushi-loop/godot/scripts/restaurant_view.gd",
+    "prototypes/sushi-loop/assets/production/source/2d/generated/dish-eel.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/original.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/target.png",
+    "prototypes/sushi-loop/assets/refinement/style/warm-soft-reference.png",
+    "prototypes/sushi-loop/assets/production/sprites/dish-eel/2d-static-S.png",
+    "prototypes/sushi-loop/assets/production/sprites/bubble-preference/2d-eel-idle-S.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/reviews/initial-contact-sheet.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/reviews/initial-cell32-contexts.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/reviews/initial-alpha-bounds.png",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/reviews/initial-measurements.json",
+    "prototypes/sushi-loop/assets/refinement/objects/dish-eel/reviews/initial-packing-check.json"
+  ],
+  "fixedInputHashes": {
+    "original_raw": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689",
+    "original_snapshot": "a33356cce857bad3dea5addcc712544a13a3a1876fc7bb406a0ee1a874399a4e",
+    "fixed_target": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb",
+    "style_reference": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+    "original_static_atlas": "fdc9a6e778a0daa0156b4405bfc27ebd778788a0ddfc26d1058f06adcb4c8339",
+    "original_bubble_idle_atlas": "376709ae7a9ca0a70af1909e40f759a3e0e7959840edfbd1cbf5313976a8eaed"
+  },
+  "sourceObservations": [
+    {
+      "area": "shape / structure",
+      "observation": "One broad arched eel fillet sits over compact rice on a complete elliptical ivory saucer, held by a continuous wide central nori strip. The role is eel nigiri even though the catalog display name is Eel Roll. The food and plate read as a single serving. The fillet sides and tip become thin and dark, while irregular plate shading competes with the food."
+    },
+    {
+      "area": "color / light / material",
+      "observation": "Orange-caramel eel, ivory rice/plate and charcoal-olive nori provide useful large color blocks. Sharp broken white glare over the eel, near-black lower nori, and cool gray-blue plate patches make the original more hard, wet and mottled than the requested softly lit cartoon finish."
+    },
+    {
+      "area": "edible detail",
+      "observation": "Rice grain clusters are readable at enlarged view, but numerous tiny specular marks and nori flecks turn into texture chatter. The front underside of the nori is the broadest dark/dead zone; narrow dark eel seams can remain as coherent contact or toasted edges if they do not expand into blank masses."
+    }
+  ],
+  "fixedTargetObservations": [
+    {
+      "area": "useful design direction",
+      "observation": "The fixed target strengthens the plump rounded fillet arch, gives the caramel ridges a more ordered flow, and uses fuller rounded rice clusters. Its broad continuous pale ceramic rim and cleaner shallow bowl/rim construction are a useful structural improvement. The original recipe and brown/ivory/green palette remain clear."
+    },
+    {
+      "area": "style limits to judge honestly",
+      "observation": "The target still contains bright small white glints and dense mottled nori texture. These are not mandatory details to imitate. The intended outcome is the target's fuller forms and warmer smooth plate, with controlled soft light and legible olive nori. The target remains fixed; no replacement target is requested."
+    },
+    {
+      "area": "dark regions",
+      "observation": "Target eel undersides and tail have narrow deep-brown creases that explain fillet thickness, and the lower nori remains darkest. Preserve useful contact separation while keeping local brown/olive midtones visible; do not flatten them to black or brighten all seams indiscriminately."
+    }
+  ],
+  "intendedSizeObservations": {
+    "method": "The diagnostic sheets use the actual once alpha>8 crop, uniform publisher resize, complete-frame placement and LANCZOS reductions; they are assessment images, not a candidate export. Light, gray and dark backgrounds were inspected. Target diagnostic is visibly identified as target.",
+    "66pxStandalone": "Both recipes read, and the target's smoother plate and fuller food remain visible. Aim for a warm brown fillet over pale rice, a distinct olive band, and a coherent rim; avoid letting tiny glare marks become the leading feature.",
+    "40pxPreferenceFood": "Recipe identity depends on the caramel top / pale rice / dark green central band arrangement. Target grain details simplify well. Individual grains or glaze microtexture need not remain separately readable.",
+    "CELL32": "At 32px per 128px logical cell, the registered native132px dish becomes about16.5px wide; bubble food becomes10px wide. The target retains the same orange / pale / dark-band grouping and complete plate. Fine edible detail cannot be judged at this size. No enlarged thumbnail may stand in for the true-size view.",
+    "contextLimit": "CELL32 diagnostics show a matching target-normalized dish on the actual production belt and matching target-normalized food in the original blank balloon, separately, using the original support offset. They do not claim that production bubble atlases or native held-character captures have been updated or approved."
+  },
+  "technicalFindings": {
+    "baselineReproduction": {
+      "snapshotEqualsOriginalAtlasPixels": true,
+      "repackedOriginalEqualsAtlasPixels": true,
+      "originalPackedSize": [
+        384,
+        640
+      ],
+      "originalPackedAlphaBounds": [
+        126,
+        452,
+        258,
+        540
+      ],
+      "targetDiagnosticPackedSize": [
+        384,
+        640
+      ],
+      "targetDiagnosticPackedAlphaBounds": [
+        126,
+        452,
+        258,
+        539
+      ],
+      "originalDirectionEntries": {
+        "S": {
+          "image": "sprites/dish-eel/2d-static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            640
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              640
+            ]
+          ],
+          "uniqueFrames": 1
+        },
+        "N": {
+          "image": "sprites/dish-eel/2d-static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            640
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              640
+            ]
+          ],
+          "uniqueFrames": 1
+        },
+        "E": {
+          "image": "sprites/dish-eel/2d-static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            640
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              640
+            ]
+          ],
+          "uniqueFrames": 1
+        },
+        "W": {
+          "image": "sprites/dish-eel/2d-static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            640
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              640
+            ]
+          ],
+          "uniqueFrames": 1
+        }
+      },
+      "contextBeltImage": "sprites/belt-straight-e/running-S.png",
+      "note": "Target diagnostic uses once alpha>8 rectangle crop and normal packing only. This is not an editor candidate or approval; held/bubble final recapture remains pending.",
+      "originalBubbleIdleFirstFrameEqualsReproductionPixels": true
+    },
+    "frameContract": "Native384x640, logical192x320, logical root96,248, sourceScale2, fixed center192,496, source alpha>8 crop once, uniform dish width132native. Static one-frame12fps metadata; all N/E/S/W entries alias identical S artwork and atlas rect0,0,384,640.",
+    "alphaMeasurements": {
+      "original_raw": {
+        "path": "prototypes/sushi-loop/assets/production/source/2d/generated/dish-eel.png",
+        "sha256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_gt0_bbox": [
+          0,
+          38,
+          1254,
+          1150
+        ],
+        "alpha_gt8_bbox": [
+          13,
+          247,
+          1241,
+          1063
+        ],
+        "alpha_gt0_pixels": 750860,
+        "alpha_1_to8_pixels": 9768,
+        "alpha_gt8_pixels": 741092
+      },
+      "original_snapshot": {
+        "path": "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/original.png",
+        "sha256": "a33356cce857bad3dea5addcc712544a13a3a1876fc7bb406a0ee1a874399a4e",
+        "size": [
+          384,
+          640
+        ],
+        "alpha_gt0_bbox": [
+          126,
+          452,
+          258,
+          540
+        ],
+        "alpha_gt8_bbox": [
+          126,
+          452,
+          258,
+          540
+        ],
+        "alpha_gt0_pixels": 8994,
+        "alpha_1_to8_pixels": 260,
+        "alpha_gt8_pixels": 8734
+      },
+      "fixed_target": {
+        "path": "prototypes/sushi-loop/assets/refinement/objects/dish-eel/inputs/target.png",
+        "sha256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb",
+        "size": [
+          971,
+          1620
+        ],
+        "alpha_gt0_bbox": [
+          0,
+          101,
+          898,
+          1556
+        ],
+        "alpha_gt8_bbox": [
+          109,
+          877,
+          869,
+          1376
+        ],
+        "alpha_gt0_pixels": 284609,
+        "alpha_1_to8_pixels": 4473,
+        "alpha_gt8_pixels": 280136
+      },
+      "style_reference": {
+        "path": "prototypes/sushi-loop/assets/refinement/style/warm-soft-reference.png",
+        "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+        "size": [
+          384,
+          768
+        ],
+        "alpha_gt0_bbox": [
+          1,
+          73,
+          384,
+          720
+        ],
+        "alpha_gt8_bbox": [
+          67,
+          240,
+          325,
+          638
+        ],
+        "alpha_gt0_pixels": 87915,
+        "alpha_1_to8_pixels": 11061,
+        "alpha_gt8_pixels": 76854
+      },
+      "original_static_atlas": {
+        "path": "prototypes/sushi-loop/assets/production/sprites/dish-eel/2d-static-S.png",
+        "sha256": "fdc9a6e778a0daa0156b4405bfc27ebd778788a0ddfc26d1058f06adcb4c8339",
+        "size": [
+          384,
+          640
+        ],
+        "alpha_gt0_bbox": [
+          126,
+          452,
+          258,
+          540
+        ],
+        "alpha_gt8_bbox": [
+          126,
+          452,
+          258,
+          540
+        ],
+        "alpha_gt0_pixels": 8994,
+        "alpha_1_to8_pixels": 260,
+        "alpha_gt8_pixels": 8734
+      },
+      "original_bubble_idle_atlas": {
+        "path": "prototypes/sushi-loop/assets/production/sprites/bubble-preference/2d-eel-idle-S.png",
+        "sha256": "376709ae7a9ca0a70af1909e40f759a3e0e7959840edfbd1cbf5313976a8eaed",
+        "size": [
+          2304,
+          1280
+        ],
+        "alpha_gt0_bbox": [
+          110,
+          329,
+          2194,
+          1095
+        ],
+        "alpha_gt8_bbox": [
+          110,
+          329,
+          2194,
+          1095
+        ],
+        "alpha_gt0_pixels": 168408,
+        "alpha_1_to8_pixels": 4152,
+        "alpha_gt8_pixels": 164256
+      }
+    },
+    "alphaDependencyRisk": "Original raw alpha>0 bounds0,38,1254,1150 differ from alpha>8 bounds13,247,1241,1063. Target raw alpha>0 bounds0,101,898,1556 differ much more from alpha>8 bounds109,877,869,1376. The existing held-plane _alpha_rectangle uses alpha>0, so raw low-alpha outliers can change UV rectangle/aspect/bottom attachment even when standalone packing looks correct.",
+    "allowedCanonicalization": "A single lossless rectangle crop using the declared alpha>8 bounds may supply a canonical effective source while preserving the full raw image and provenance. Every RGBA value inside that rectangle must be unchanged. Record raw hash, crop rectangle, canonical hash and pixel equality. Do not threshold/remove alpha, paint, warp, fit per use, or crop the canonical image again.",
+    "dependencyScope": "After standalone approval, preference-bubble outputs and chef/customer held art require matching new source dependencies and new immutable rounds with their corresponding independent object review pairs. Their recapture approvals remain pending before final Godot cutover. Source/packet/preview must disclose any current old dependent art."
+  },
+  "prioritizedDesiredOutcomes": [
+    "Retain the target's appetizing thicker fillet, rounded rice clusters and smooth coherent ivory rim; soften the original hard glare and mottling without losing caramel/olive/ivory separation.",
+    "Keep nori a readable wrapped olive material with softened edges and sufficient midtone information, and preserve bounded brown contact seams instead of broad black dead zones.",
+    "Deliver honest once-cropped fixed packing and matching true-size use-context evidence; prove alpha/provenance and explicitly retain bubble/held recapture dependencies as pending."
+  ],
+  "nextStep": "Coordinator reconciles and freezes proposed criteria in brief.qualityCriteria before any candidate submission. No candidate is approved or rejected by this initial inspection."
+}

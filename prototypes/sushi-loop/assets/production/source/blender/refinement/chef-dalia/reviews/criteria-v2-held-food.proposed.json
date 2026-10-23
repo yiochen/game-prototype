@@ -1,0 +1,83 @@
+{
+  "asset": "chef-dalia",
+  "version": "v2-held-food-visible-criteria-proposal-1",
+  "status": "proposed-unfrozen-awaiting-coordinator",
+  "nativeContract": "reviews/native-contract-v2-held-food.proposed.json",
+  "sourceAndCanonicalBinding": {
+    "approvedBodySHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+    "canonicalFoodSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "priorApprovalReviewSHA256": "286130ca3c10c814b3522034f969912ef280c77a78a2a7ce17e72a94706fd3cc"
+  },
+  "scope": "Dependency followup, not a new body style pass. Original Dalia body approval remains authoritative. Existing target is unchanged; exact approved canonical salmon is the food source. No candidate verdict in preparation.",
+  "visibleOutcomes": [
+    {
+      "id": "exact-canonical-food",
+      "priority": 1,
+      "outcome": "Held food visibly uses the complete approved salmon/rice/plate artwork with intact silhouette, plate rim and canonical proportions. It remains an honestly identified 2D display. At logical size it reads as salmon nigiri on a plate, without stretch, unintended crop, new halo/background card or extra grade.",
+      "nativeProof": "Full731x505 RGBA packed bytes exact4389d1e6..., UV 0..1, fixed0.35-world-cell display width and731:505 aspect. Source display shader/alpha/color-management treatment preserved."
+    },
+    {
+      "id": "semantic-support-and-motion",
+      "priority": 1,
+      "outcome": "The alpha 128 plate support follows the actual approved source plate path throughout hold/load and all facings. No floating drift, snapping, new two-hand/mouth/belt contact invention, or per-view fit. Preserve planted feet, source hand/knife behavior, reach-and-return load and nonloop endpoint.",
+      "interpretation": "Source semantic point is measured from the visible plate artwork, not its old ghost-margin quad bottom. Source point offset relative to actual palm mean is preserved. Natural raster occlusion can differ with exact new alpha/shape; source clip visibility/yaw are unchanged and a single global permitted ray depth must remain coherent."
+    },
+    {
+      "id": "approved-body-preserved",
+      "priority": 1,
+      "outcome": "Dalia retains the exact approved short ivory cap, dark brown face/chocolate curls, ivory coat/cuffs, teal apron, red tie, dark shoes and already-approved garment forms/lighting. No body/knife/rig/material/camera/style redesign is introduced during dependency work.",
+      "proof": "Strict native geometry/weight/rest/action/pose/material/light/camera baseline equality, not a blanket identical-PNG assertion across rerenders."
+    },
+    {
+      "id": "coherent-all-facing-display",
+      "priority": 2,
+      "outcome": "All required hold/load views and their12 fps temporal playback show stable ordering and readable canonical food wherever naturally exposed. Retain the source N occlusion caveat and face/chest hold relationship; do not add facing-specific hiding/recoloring or move body/camera to stage a hero view. Examine native source/candidate contexts at phone/logical size.",
+      "depthPolicy": "One D in [0,0.6] world cells is allowed for the whole composition only if all canonical corners, semantic support projection and original palm path remain invariant. Original cropped-source top-corner equality is impossible under the changed aspect and is not required."
+    },
+    {
+      "id": "clean-frames-and-native-evidence",
+      "priority": 2,
+      "outcome": "All 192 native registered frames and16 whole-canvas atlases remain complete, clean and stable on light/gray/dark and in motion. No new clipping, jagged alpha artifact, missing rice/plate edge, body seam, flicker or unintended native change. Playback timing and loops match the approved body.",
+      "evidence": "All-frame logical/enlarged sheets,16 actual 12 fps clips, source/candidate contact/serving/phone contexts, hash-bound full source/resource closure and all-frame native map/phase/pose evidence."
+    }
+  ],
+  "sourceCaveatsAndAcceptedDifferences": [
+    "Source packed image is square 1254 with UV crop and low-alpha specks/margins; the new exact 731x505 full-UV quad has a different top/corner rectangle. The measured alpha 128 support and display width, rather than the old quad rectangle, are the source anchors.",
+    "Canonical alpha occupied width/height and radiance naturally differ from old food under the unchanged native shader. This permits no extra crop, pixel processing, grade or body material/light edit.",
+    "Source hold/load 2D plate is high near face/chest and N can be hidden. Actual source motion extends and returns retaining the dish. No native 3D food or new belt release is required or claimed.",
+    "A source control pair showed 10 pixels with 1-level RGB differences and identical alpha under the same recorded settings; do not mistake small repeat-render variability for unauthorized body data edits, or use it to excuse native changes or substantial visible defects."
+  ],
+  "reviewRules": {
+    "noApprovalNow": true,
+    "futureVerdicts": [
+      "approve",
+      "revise",
+      "needs_evidence"
+    ],
+    "missingEvidence": "needs_evidence, not approval",
+    "visibleBlockers": "At most3 ranked blockers with location, effect and desired outcome after actual sealed candidate inspection.",
+    "frozenBar": "Coordinator freezes/reconciles this proposal first; the judge does not lower constraints based on editor convenience or force old/new top-corner equality contrary to canonical aspect."
+  },
+  "evidence": [
+    {
+      "path": "reviews/v2-held-food-source-audit.json",
+      "sha256": "50da0bd8745bc445591861f37688b73411404748a7f389aa38d1075d552d67ef"
+    },
+    {
+      "path": "reviews/v2-held-food-alpha-measurements.json",
+      "sha256": "6b30ab93e93c9c15b1ceb054d2e89827e77bc59f403f6fd50c89cc393a659118"
+    },
+    {
+      "path": "reviews/v2-held-food-projected-canonical-map.json",
+      "sha256": "93aa129286c0049b135bfd4e487319c72e9af84fe32cca0e22e2a820d8533705"
+    },
+    {
+      "path": "reviews/v2-held-food-native-preservation-baseline.json",
+      "sha256": "6a2ffbd15d155b302b29d486b1f076aeb796496cf76ed2150c2008420b502484"
+    },
+    {
+      "path": "reviews/v2-held-food-source-control-render-record.json",
+      "sha256": "0a3094198e3bebd357f3394a7bd55e0b12e79e747bd7eb2c746844145d7b87e6"
+    }
+  ]
+}

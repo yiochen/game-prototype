@@ -1,0 +1,21 @@
+00:00.315  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/inputs/shared-world-pose-v1/resources/source/round-04.blend"
+BlenderMCP addon registered
+APPROVED_HUT_COLLECTIONS ['WarmSoft_workshop-hut']
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/human-reference-round07/capture_and_measure_entry.py:25: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  st={'diffuseColor':list(mat.diffuse_color),'roughness':mat.roughness,'metallic':mat.metallic,'useNodes':mat.use_nodes}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/human-reference-round07/capture_and_measure_entry.py:26: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  if mat.use_nodes:
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/human-reference-round07/capture_and_measure_entry.py:34: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  key=cp.name;state=hashlib.sha256(json.dumps(after,sort_keys=True).encode()).hexdigest();materialBaseline[key]=state;snapshotBaseline[key]=[list(cp.matrix_world@v.co)for v in cp.data.vertices];materialAudit.append({'sourceObject':src.name,'snapshotObject':key,'nativeFrame':group['nativeFrame'],'clip':group['nativeClip'],'sourceAndSnapshotChannelStatesExact':True,'materialStateSHA256':state,'sourceStates':before,'snapshotStates':after,'allCopiedAnimationsDetached':all(not m.animation_data and(not m.use_nodes or not m.node_tree.animation_data)for m in cp.data.materials if m)})
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/human-reference-round07/capture_and_measure_entry.py", line 54, in <module>
+    pose(x,y,z,d,clip,frame);residual=solve(projected(geometry(hc,True)),walking_support())['solvedRootZ'];assert residual<1e-5;parity=snapshot_parity(d);human=geometry(hc);blocks=[q for q in geometry(ec)if'continuous_loadbearing'not in q['name']]
+                                                                                                                                       ~~~~~~~~~~~~~~~^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/human-reference-round07/capture_and_measure_entry.py", line 39, in snapshot_parity
+    cp=bpy.data.objects[name];actual=[cp.matrix_world@v.co for v in cp.data.vertices];expected=[rot@Vector(v)for v in vs];err=max((x-y).length for x,y in zip(actual,expected));state=hashlib.sha256(json.dumps([material_state(m)for m in cp.data.materials if m],sort_keys=True).encode()).hexdigest();assert state==materialBaseline[name];assert err<1e-5,(name,err,[list(row)for row in cp.matrix_world],vs[0],list(actual[0]),list(expected[0]))
+                                                                                                                                                                                                                                                                                                                                                     ^^^^^^^^
+AssertionError: ('V4_workshop-hut__workshop-hut__body.001', 2.8185989796175335, [[1.0, 0.0, 0.0, 0.7799999713897705], [0.0, 1.0, 0.0, 0.3499999940395355], [0.0, 0.0, 1.0, 0.8700000047683716], [0.0, 0.0, 0.0, 1.0]], [0.39499998092651367, -0.05500000715255737, 0.26999998092651367], [0.39499998092651367, -0.05500000715255737, 0.26999998092651367], [-0.39499998092651367, 0.05500004068017006, 0.26999998092651367])
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

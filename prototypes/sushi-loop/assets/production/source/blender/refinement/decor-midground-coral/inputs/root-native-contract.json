@@ -1,0 +1,245 @@
+{
+  "asset": "decor-midground-coral",
+  "version": 1,
+  "status": "root-frozen-before-construction",
+  "sourceProposal": {
+    "path": "reviews/source-contract-proposal.json",
+    "sha256": "bbf4171df910b758572d0e971ee242076bfba4f5c231c9846579721f1b5c7434"
+  },
+  "preparationManifest": {
+    "path": "reviews/preparation-v1/preparation-manifest.json",
+    "sha256": "21810c3c452d7c82f7ecd8b82d35998c61b30ad1fd3918bd3f5cca3e0e1bb6e8",
+    "rootVerifiedFiles": 195
+  },
+  "nativeContract": {
+    "asset": "decor-midground-coral",
+    "status": "preparation proposal; root must reconcile and freeze before a fresh editor constructs a candidate",
+    "sourceDiscovery": {
+      "editableLibrary": "reviews/preparation-v1/resources/native/original-library.blend",
+      "collection": "S33 production concept pink-coral.001",
+      "root": "S33 production concept pink-coral root.001",
+      "rootProof": "production_id=decor-midground-coral and seven action owner names match frozen input/source-rig.json; distinct pink-coral without .001 belongs to another collection",
+      "rootTransform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "canonicalSRotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "nativeGeometry": "Seven hollow native tube meshes and three native finite rubble meshes, eleven objects including the empty root. All meshes closed with no nonmanifold edges, flat face normals, no UV layers/custom normals/modifiers/constraints/shape keys/armature. No linked library or owned image textures. The existing seven materials belong to this asset; their graphs have no active temporal channel.",
+      "actualFiniteInterfaces": "No sockets, attachment ports, modular profiles or rig. Three finite octagonal ground-contact polygons are recorded in functional-inspection.json. Actual bottom tube rings remain inside finite rubble surfaces: all twelve tested bottom-ring vertices of every tube are supported for all13 sampled native frames in every facing.",
+      "groundMeaning": "Planted coral on a stable reef, root at native ground origin. It is a nonblocking scenery prop with supportCells=[] and no gameplay stand-on/deck socket. Ground root is registration; it does not imply an opaque square floor or modular edge profile.",
+      "role": "Midground W12 underwater scenery, kind=prop, blocking=false, world layer2, occupiedCells=[[0,0]], no special background render pass in the catalog. Preserve pink/violet/cobalt identity and quieter actor-relative contrast."
+    },
+    "registeredCapture": {
+      "projection": "top-down-oblique-square-grid / native square-top-front-oblique",
+      "logicalFrame": [
+        192,
+        384
+      ],
+      "logicalRoot": [
+        96,
+        288
+      ],
+      "nativeCaptureFrame": [
+        768,
+        1536
+      ],
+      "nativeCaptureScale": 4,
+      "publishedFrame": [
+        384,
+        768
+      ],
+      "publishedSourceScale": 2,
+      "cellSizeLogical": 128,
+      "nativeRootPixels": [
+        384,
+        1152
+      ],
+      "worldScale": "one native world unit per grid cell; root and native object scales remain1",
+      "axes": {
+        "x": "X",
+        "depth": "-Y",
+        "height": "Z"
+      },
+      "camera": "Orthographic, horizontal sensor fit, orthoScale1.5, elevation55.00797980144134 degrees, camera location[0,-5.734623432159424,8.1923189163208], pixel aspect[1.2206555604934692,1]. Exact world/projection matrices are in source-replay.json and frozen input/source-camera.json; independently reconstructed maximum world-matrix difference is0.",
+      "calibrationNativePixels": {
+        "root": [
+          384,
+          1152
+        ],
+        "unitX": [
+          512,
+          0
+        ],
+        "unitDepth": [
+          0,
+          512
+        ],
+        "unitHeight": [
+          0,
+          -358.400146484375
+        ]
+      },
+      "facings": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "atlas": {
+        "framesPerFacing": 12,
+        "columns": 6,
+        "rows": 2,
+        "size": [
+          2304,
+          1536
+        ],
+        "cell": [
+          384,
+          768
+        ],
+        "gutter": 0,
+        "order": "zero-based published0..11 from native1..12"
+      },
+      "wholeFrameSampling": "Native4x to published2x uses uniform full-canvas LANCZOS. No fitting, crop, warp, alpha/RGB correction or facing-specific processing. Retain raw4x captures separately and truthfully label native/published camera scales."
+    },
+    "functionalEnvelopeProposal": {
+      "preserve": "Declared1x1 occupied grid scale, native root, ground baseline and declared height/clearance1.45. Preserve compact finite rock support and all-facing canvas clearance.",
+      "measuredSourceSweptBoundsRoot": [
+        [
+          -0.5,
+          0.5132749080657959
+        ],
+        [
+          -0.5,
+          0.5
+        ],
+        [
+          0,
+          1.3385885953903198
+        ]
+      ],
+      "interpretation": "The source sway slightly exceeds the static half-cell on X, while remaining nonblocking and well inside the registered frame. The declared1.45 height is a functional upper envelope, not a requirement to preserve weak original maximum mesh height1.33859. Root should allow an equivalent small source-sized sway excursion while keeping the occupied1x1 scale; do not invent full opaque1x1 floor coverage or lock all old surface vertices.",
+      "allowedModelingFreedom": "Useful forms/proportion/construction/detail, topology, normals, materials and animation implementation may be rebuilt. Preserve ecological identity, rooted support, scene role and actual technical interfaces. No old tube/rock count or per-name pivot formula is a functional interface."
+    },
+    "temporalLaw": {
+      "clip": "idle",
+      "uniqueFrames": 12,
+      "fps": 12,
+      "loop": true,
+      "publishedNativeFrames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "nativeClosureFrame": 13,
+      "originalChannels": "Seven native Object action owners. Each has rotation_euler X/Y/Z channels keyed on1..13 with LINEAR interpolation: X=Z=0, Y is phase-shifted gentle +/-~0.025rad sway. No root, rock, rig, material, shader, visibility, shape-key, NLA or driver motion belongs to this asset.",
+      "originalFormulaProvenance": "catalog_concept_decor.py callback rotates vegetation Y by0.025*sin(t*tau+len(obj.name)*0.23); baked source action values are the actual replay authority, not the callback name calculation.",
+      "observedClosure": "All source native frame13 images equal frame1 decoded for each facing; native root remains fixed at the appropriate facing. See temporalKeys and captureRecords in source-replay.json.",
+      "lockedSemantics": "Twelve unique samples,12fps, one-second seamless idle loop, native living coral motion on static supported reef, stable registered root. A new native implementation may improve pivots/phase/amplitude while retaining the gentle rooted behavior and functional envelope."
+    },
+    "sourceMetadataReconciliation": [
+      {
+        "finding": "Saved active scene camera is a35 degree unrelated camera and frame4 with768x1280 output; this is not this object's capture contract.",
+        "resolution": "Use recorded55.00798 degree object camera; clean source replay measures exact matrix match. No camera conflict remains once reconstructed."
+      },
+      {
+        "finding": "Saved objects have no active action bindings despite the seven embedded idle actions and source-rig record.",
+        "resolution": "Explicitly bind the complete native idle cohort before evaluated sampling/rendering, with target collection enabled in the active view layer. Source replay does this and records actual owners/keys."
+      },
+      {
+        "finding": "Native action replay and historical published atlases are close but not decoded-identical; none of48 full frames are byte/pixel equality claims.",
+        "resolution": "Both are retained. Per-frame mean absolute RGBA differences, alpha bounds and decoded comparison are in raster-comparison.json; largest channel mean difference is0.23158094618055555 on a0..255 scale. Do not label these as exact historical replays. Camera matrices match; no material capture/sampling conflict was seen."
+      },
+      {
+        "finding": "Dynamic native X extends to0.5132749; actual maximum height1.3385886 differs from nominal1.45.",
+        "resolution": "Treat1x1 as occupied grid scale and1.45 as declared functional height envelope; request root to freeze this explicit interpretation before construction."
+      }
+    ],
+    "boundedEvidencePlan": {
+      "native": "Every12 required native frames in N/E/S/W, with measured root/facing/camera and sampled finite support. Keep frame13 separately as closure evidence, not a thirteenth published atlas frame. Bind complete action/driver/shader/shape/visibility ownership and validate closure against actual evaluated native geometry. Include all4 playback previews and labeled all-phase sheets.",
+      "visual": "Four logical-facing views on dark/gray/light backgrounds plus a native enlarged view for form/material/defect diagnosis. Keep fixed target and original visible in review. Every exact declared candidate render/preview path must later be truthfully covered under REVIEW-COVERAGE.txt.",
+      "consumer": "Small representative set only: four-view comparison, repeated3x3 density and the actual catalog Layered scenery beside the submarine and creature interaction. Wide1200 and phone390 viewport, DPR1, representative native frame4 (t=3/12), both Full Chromium channel=chromium and bundled headless shell. Actual source baseline captures already retain browser versions, launch options, helper hashes and fixture bounds. Final candidate needs the same controls, with temporal motion checked by native full-phase coverage.",
+      "sampling": "Run frozen sprite-layout.js and world-sprite-raster.js methods: correct registered roots, shared native canvas composition, nearest filtering after resize, then ordinary whole-canvas browser CSS filtering. Never substitute per-tile fitting or another family's profile/sampling recipe.",
+      "connection": "No modular port proof required. Finite base support, density and scene hierarchy are the concrete risks; no connector/end-profile/opaque-floor checks apply.",
+      "seal": "Freeze actual used native/consumer/helpers/instructions/source/inputs under reviews/preparation-v1/resources, minimal exact dependencies with object-relative path+SHA records and every file below100MB. Runtime/app trees are not duplicated. Candidate must later satisfy the unchanged delivery/coverage/acceptance contract."
+    },
+    "preparationLimits": "Source-only evidence and proposals; no native candidate construction, editor grading, candidate/family/main approval, production changes, publishing, Git or live Blender/device operation. Stop for root reconciliation/freeze and a fresh original editor. Original judge later reviews exact sealed candidate bytes."
+  },
+  "reconciliation": {
+    "asset": "decor-midground-coral",
+    "stage": "root reconciliation before any candidate construction",
+    "sealedPreparationUnchanged": {
+      "path": "reviews/preparation-v1/preparation-manifest.json",
+      "sha256": "21810c3c452d7c82f7ecd8b82d35998c61b30ad1fd3918bd3f5cca3e0e1bb6e8",
+      "rootVerifiedFiles": 195
+    },
+    "freshEditorInitial": {
+      "path": "source/initial-observations.json",
+      "sha256": "fc0a00b9fa97e58dd230c4bf0e289a6f4d11c760493dc1821d424469fd2d4a70"
+    },
+    "occupiedScaleAndSway": {
+      "sourceCanonicalSweptBounds": [
+        [
+          -0.5,
+          0.5132749080657959
+        ],
+        [
+          -0.5,
+          0.5
+        ],
+        [
+          0,
+          1.3385885953903198
+        ]
+      ],
+      "sourceFinding": "Actual living sway reaches X=.513274908 on a nominal nonblocking1x1 occupied cell. This is already present in native source; occupiedCells is not an opaque square floor or exact animated AABB law.",
+      "rootDecision": "Keep static finite reef ground support and neutral colony within horizontal half-cell +/- .5. Permit moving upper coral a source-sized .013275 horizontal excursion beyond the nominal cell on either horizontal axis, invariant under the required proper facing rotations. This reconciles the existing small source excursion before construction and permits equivalent improved rooted sway. Maximum swept XY +/- .513275, numerical tolerance1e-5; no new large overhang, full-floor coverage or gameplay support claim."
+    },
+    "heightEnvelope": {
+      "declaredMaximum": 1.45,
+      "originalMeasuredMaximum": 1.3385885953903198,
+      "rootDecision": "Declared1.45 is the existing functional upper height/clearance budget, not a requirement to preserve the weak old mesh maximum. Keep every evaluated phase within Z[0,1.45]."
+    },
+    "sourceReplay": "Recorded55.00798 object camera supersedes unrelated saved35 camera; exact camera matrices are proven. All7 source actions were explicitly rebound. Historical atlas replay is close, not decoded-identical; preserve that honest evidence. No historical pixel equality requirement.",
+    "temporalOwnership": "Keep fixed registered root/static reef, 12 unique frames at12fps/1second loop with native13 closure. Gentle rooted native living motion is the semantic law. Old7 owner names/count/pivot formula/phase/amplitude are not functional locks; any new complete ownership and native implementation must be disclosed and closed.",
+    "methods": "Native geometry, normals, shader, materials, symmetric broad lighting and uniform whole-frame compositing can improve target style. Old Faceted140W+4x100/world0/contrast1.35/black height ramp are source observations, not aesthetic locks. No per-facing fitting or recolor/pixel repair."
+  },
+  "hardConstraints": [
+    "Registered55.00797980144134 orthographic square-top/front capture and actual recorded world/projection matrices; ortho1.5/pixelaspect1.2206555604934692, one world unit per128 logical cell, fixed root at0/scale1/proper S0 E90 N180 W-90. No reflection or camera/root/perview scale fitting.",
+    "Logical192384/root96288; native4x7681536/root3841152; uniform whole-frame LANCZOS reduction to published2x384768/root192576. Keep raw native captures and correctly distinguish native vs published camera scale. One native AA/filter/sample setting recorded and held across every facing/frame; same whole-frame publication method, no selective correction.",
+    "Nonblocking midground prop/layer2/occupied1x1/supportCells[]/no sockets or modular ports. Static compact finite reef support grounded Z0 inside XY+/-.5, neutral colony inside nominal cell; moving upper coral swept XY+/-.513275 and Z[0,1.45], tolerance1e-5. Stable root/static reef; actual finite coral bases remain planted in new reef surfaces throughout allphases, no floating gaps/under-ground geometry. Original3octagon support/7tube/mesh counts and cavity layout are not locks. No full opaque square floor law or stand-on support claim.",
+    "One idle clip: native1..12 published0..11, 12frames/12fps/loop, atlas6x2 cells384768/size23041536/gutter0, every N/E/S/W. Native13 closure pose equals1; frame13 is evidence only. Complete actual action/driver/shape/shader/material/visibility ownership disclosed, gentle rooted sway on fixed reef/no pop or clipping. New motion implementation/pivots/phase/amplitude free within semantics and envelope.",
+    "Fixed selected warm-soft target and pink-dominant/violet/cobalt identity; fuller native hollow coral and clean cavities, soft broad horizontally symmetric colored highlights, controlled midground actor-relative emphasis, no preferred horizontal world key/directional groundcast shadow. Methods free, not literal source graphs/counts/lightpowers. Native model/animation only, no target card or painted export.",
+    "Required native fullphase coverage/all4 with all4 actual playbacks/phase sheets plus fourview/intendedsize/phone/repeateddensity/style comparisons. Bounded actual570/099 consumer: fourview,3x3density, actualcatalog submarine/eel interaction at1200/390/DPR1/frame4, both prescribed153 headless modes. Separate nativecanvas nearest-after-resize from ordinary CSS filtering; no broad Cartesian expansion without concrete issue. No modular join test or unrelated actor clearance path law.",
+    "No material deadspots/black cavities/intersecting interior walls/overlapping flakes/reversed normals/smeared shading/cut canvas/halos/loop popping. Honest historical sampling and exterior residual evidence stays distinct from visible approval. No fit/crop/warp/perview recolor/RGBalpha repair/overlap/sharedhelper changes. Every declared image/playback must be directly and truthfully covered by original judge before exact approval."
+  ],
+  "requiredEvidence": {
+    "native": "Every12 required native frames in N/E/S/W, with measured root/facing/camera and sampled finite support. Keep frame13 separately as closure evidence, not a thirteenth published atlas frame. Bind complete action/driver/shader/shape/visibility ownership and validate closure against actual evaluated native geometry. Include all4 playback previews and labeled all-phase sheets.",
+    "visual": "Four logical-facing views on dark/gray/light backgrounds plus a native enlarged view for form/material/defect diagnosis. Keep fixed target and original visible in review. Every exact declared candidate render/preview path must later be truthfully covered under REVIEW-COVERAGE.txt.",
+    "consumer": "Small representative set only: four-view comparison, repeated3x3 density and the actual catalog Layered scenery beside the submarine and creature interaction. Wide1200 and phone390 viewport, DPR1, representative native frame4 (t=3/12), both Full Chromium channel=chromium and bundled headless shell. Actual source baseline captures already retain browser versions, launch options, helper hashes and fixture bounds. Final candidate needs the same controls, with temporal motion checked by native full-phase coverage.",
+    "sampling": "Run frozen sprite-layout.js and world-sprite-raster.js methods: correct registered roots, shared native canvas composition, nearest filtering after resize, then ordinary whole-canvas browser CSS filtering. Never substitute per-tile fitting or another family's profile/sampling recipe.",
+    "connection": "No modular port proof required. Finite base support, density and scene hierarchy are the concrete risks; no connector/end-profile/opaque-floor checks apply.",
+    "seal": "Freeze actual used native/consumer/helpers/instructions/source/inputs under reviews/preparation-v1/resources, minimal exact dependencies with object-relative path+SHA records and every file below100MB. Runtime/app trees are not duplicated. Candidate must later satisfy the unchanged delivery/coverage/acceptance contract."
+  }
+}

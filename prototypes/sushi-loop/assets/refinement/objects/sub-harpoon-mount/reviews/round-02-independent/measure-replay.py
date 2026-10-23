@@ -1,0 +1,11 @@
+from pathlib import Path
+from PIL import Image,ImageChops,ImageStat,ImageDraw
+import json
+R=Path(__file__).parent;E=R.parents[1];C=E/'candidates/round-02';s=json.loads((R/'standalone-measurements.json').read_text());recs=s['renders'];out=[]
+def comparison(a,b):
+ aa=Image.open(a).convert('RGBA');bb=Image.open(b).convert('RGBA');diff=ImageChops.difference(aa,bb);ds=list(diff.getdata());return {'rgbaRms':ImageStat.Stat(diff).rms,'maxChannelDelta':[max(v[i] for v in ds) for i in range(4)],'changedPixels':sum(v!=(0,0,0,0) for v in ds),'rgbChangedPixels':sum(any(v[i] for i in range(3)) for v in ds),'alphaExact':aa.getchannel('A').tobytes()==bb.getchannel('A').tobytes(),'alphaBoundsA':aa.getchannel('A').getbbox(),'alphaBoundsB':bb.getchannel('A').getbbox()}
+for rec in [x for x in recs if x['repeat']==1]:
+ two=next(x for x in recs if x['repeat']==2 and x['clip']==rec['clip'] and x['direction']==rec['direction'] and x['frame']==rec['frame']);out.append({'clip':rec['clip'],'direction':rec['direction'],'frame':rec['frame'],'originalVsReplay1':comparison(E/rec['original'],R/rec['path']),'originalVsReplay2':comparison(E/rec['original'],R/two['path']),'empiricalReplay1VsReplay2':comparison(R/rec['path'],R/two['path'])})
+mounted=[{'direction':d,'deliveredVsIndependent':comparison(C/'mounted'/f'idle-{d}'/'000.png',R/'native-replay'/f'mounted-neutral-{d}.png')} for d in 'NESW']
+summary={k:{'maxRGBChannelDelta':max(max(x[k]['maxChannelDelta'][:3]) for x in out),'maxChangedPixels':max(x[k]['changedPixels'] for x in out),'maxRGBRms':max(max(x[k]['rgbaRms'][:3]) for x in out),'allAlphaExact':all(x[k]['alphaExact'] for x in out),'allAlphaBoundsEqual':all(x[k]['alphaBoundsA']==x[k]['alphaBoundsB'] for x in out)} for k in ['originalVsReplay1','originalVsReplay2','empiricalReplay1VsReplay2']}
+(R/'replay-measurements.json').write_text(json.dumps({'method':'Two independent reopen render-only repeats of16 representative clip/view/phases; decoded RGBA comparison against delivered bytes and against empirical same-source repeatability. No art correction or fitting.','summary':summary,'representatives':out,'mounted':mounted,'qualification':'These are observed residuals on this native environment, not a universal renderer bitidentity promise or automated acceptance tolerance. Visual inspections determine materiality.'},indent=2)+'\n');print(summary)

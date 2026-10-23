@@ -1,0 +1,371 @@
+{
+  "round": 4,
+  "asset": "column-broken",
+  "metadataOnly": true,
+  "reason": "Round03 native metadata correctly described a scale4 768x1280 Blender capture, but catalog promotion consumes scale2 384x640 source frames. Round04 points published metadata/rawFrames to already approved published2 bytes, halves pixel-valued calibration, retains exact world/projection matrices, logical frame/root and native records, and separates actual mesh height from existing catalog maximum. No model or image was rendered, modified or re-encoded for this round.",
+  "priorArtReference": {
+    "round": 3,
+    "packet": "candidates/round-03/packet.json",
+    "packetSHA256": "0b658d666e19de42fbdba60f06ec9087a91d1ceca44c9b765a43fefac5259ea5",
+    "review": "reviews/round-03.json",
+    "reviewSHA256": "15fd219045af721e647bd90525947282cd4887d4d9779e90c13a95a0f1b38778",
+    "scope": "Prior approval identifies unchanged art only. Round04 metadata adaptation awaits independent review."
+  },
+  "checks": {
+    "allRound03FilesUnchanged": true,
+    "exactApprovedBlend": true,
+    "worldMatrixUnchanged": true,
+    "projectionMatrixUnchanged": true,
+    "logicalFrameUnchanged": true,
+    "logicalRootUnchanged": true,
+    "pixelCalibrationUniformHalf": true,
+    "publishedCameraScale2": true,
+    "publishedAssetScale2": true,
+    "nativeScale4Explicit": true,
+    "publishedRawFrames384x640": true,
+    "nativeRawFrames768x1280Separate": true,
+    "nativeHeightSeparateFromCatalogMaximum": true,
+    "clipsFacingsFootprintSocketsPortsUnchanged": true,
+    "rigExactUnchanged": true,
+    "allPublishedSamplingExact": true,
+    "heroesAndAtlasesExactUnchanged": true,
+    "allFourRootMatricesUnchanged": true,
+    "priorNativePortableReplayAllFourExactRGBA": true
+  },
+  "allRound03FilesBefore": {
+    "candidates/round-03/atlases/static-E.png": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+    "candidates/round-03/atlases/static-N.png": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+    "candidates/round-03/atlases/static-S.png": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+    "candidates/round-03/atlases/static-W.png": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+    "candidates/round-03/backgrounds.png": "0e7402602dc1250ca7260df3855d413df72934096ed09a29e428229b71a3d799",
+    "candidates/round-03/consumer/desktop-four-facings.png": "e50405a8c9b9d501b8365bcb3b5f3a1c30f564fa774f23dddd642126ccfc6103",
+    "candidates/round-03/consumer/desktop-interaction.png": "75bcce15d78671a3ac8b98f0ff11d51ff4fa446d6bea364689e643534dbc6dab",
+    "candidates/round-03/consumer/desktop-repeated.png": "5847a11c6ae278226cfecaa8b1a3adfd0120caa6879407cfc7af05bd381a5ec9",
+    "candidates/round-03/consumer/evidence.json": "d06563f342fb5a5fd458d9aea38ef64d101e133dee4cba0c630b61be1f2d2e4d",
+    "candidates/round-03/consumer/landscape-four-facings.png": "774251eb604c2f921fd2ce5605eab315f91f2e19eda806a3d401797bc10f9f7c",
+    "candidates/round-03/consumer/phone-four-facings.png": "8b8158d8dbcceede28b6aa474c383ac57ca8e4f6543f7985b3d48a1af5a0e3ea",
+    "candidates/round-03/delivery.json": "890548dbc156363c4e77c82dd5ef4228e3d0ad9f0eda38b5303f7faa94e471ab",
+    "candidates/round-03/delivery.snapshot.json": "890548dbc156363c4e77c82dd5ef4228e3d0ad9f0eda38b5303f7faa94e471ab",
+    "candidates/round-03/enlarged-backgrounds.png": "06f2300e203bbfa2b8a083d823264207fdad0d407afc34f7b1ccc302e292b21d",
+    "candidates/round-03/four-view-sheet.png": "5fc0670e8346e2d2ee33d7982b8339f89a2a162e716edd234bcfa0a163023972",
+    "candidates/round-03/logical-four-view-sheet.png": "6cf39f0dfa7ecdd10028da9acff61b823db4baf1d014ffb51fe16bee5f5a89d6",
+    "candidates/round-03/native-capture.json": "4a20474cfe32428bce29794d9c666e8e644498b6ec57f17bb0a9364ab709ab4b",
+    "candidates/round-03/native-static-E.png": "5283119d7dbd6be5997b87ddf22f87222bf4dd245640dc35f5c6dcf72b850733",
+    "candidates/round-03/native-static-N.png": "2c61e46941e0e09c2f2ef152c05569e247bc4b1b2d5c0ce0a8c972a67fc8fb14",
+    "candidates/round-03/native-static-S.png": "75f884ef32a5fe78bad642faf419923c8bd2da527cea31a5e98cf19176e39d89",
+    "candidates/round-03/native-static-W.png": "bf2b612744421476ed930b71474602a5ef1dc8c1176ce2e2454201f47b5d81fa",
+    "candidates/round-03/packet.json": "0b658d666e19de42fbdba60f06ec9087a91d1ceca44c9b765a43fefac5259ea5",
+    "candidates/round-03/portable-replay.json": "3dc44ac6e07113affb3c75bf0708fc752afc175d0b034ca46571f05890eb87ee",
+    "candidates/round-03/portable-replay.log": "e7bfdd52837ec4d31aced9f2f465454d000c3129873b35130bcb52bfa29b0c10",
+    "candidates/round-03/repeated.png": "7b7d4de88a0cceb281a9332e33f37440b61edd7877a5bfdd91cfc28ff90017e9",
+    "candidates/round-03/source-audit.json": "5a4524c66cc158c84f6ce5cdd771db89964af965f6fdf0fae9af66bebc18521c",
+    "candidates/round-03/static-E.png": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+    "candidates/round-03/static-N.png": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+    "candidates/round-03/static-S.png": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+    "candidates/round-03/static-W.png": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+    "candidates/round-03/validation.json": "ba8aa7c5ca674b2310be7b15d9b59b51581e89f021cda42dca72adb00f212996",
+    "source/audit-round-03.py": "f1505f7a61e5289615499f53d516d82b9911066a390cc894e67e74e917db2eea",
+    "source/consumer-round-03.mjs": "5ede311bb8b977ac7a81d6cc6b1c894bbf26d7c9d2e69413e915a6448ab2097b",
+    "source/package-round-03.py": "5c32b826f08a0abde2ff623670b31451781bf50290e248adc16c28d63c194832",
+    "source/replay-round-03.py": "a82da8c5bae074fe3e9a29c4dccd34b0e5e2136eb633f2eff6e43f25edb33438",
+    "source/round-03-assetRecord.json": "2920181afca9ac242f80b330ddb9a00bcbc93b0efda2b759e4f0a7d161dd7e8b",
+    "source/round-03-build.log": "eba16e11a070b6bf1211d2a4114ca4de03270f028f2059abcca8efa9cf9a4533",
+    "source/round-03-camera.json": "ce7b015bcbf11428a62659dfac936476258d1cd5f238fa631f81724b7ce7e211",
+    "source/round-03-recipe.py": "9c7f9ee3fbed7fae435b5143235df07764f1c833026098fcdbc84ed91cd46979",
+    "source/round-03-rig.json": "fe9740570571bf6d4e7dab9c183870d755aafe39df4a21c3c54aba2784359b45",
+    "source/round-03.blend": "33653eace2509deaf25a9fbe3d67a0649038c529a84b04a0790f645aea57295f"
+  },
+  "allRound03FilesAfter": {
+    "candidates/round-03/atlases/static-E.png": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+    "candidates/round-03/atlases/static-N.png": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+    "candidates/round-03/atlases/static-S.png": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+    "candidates/round-03/atlases/static-W.png": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+    "candidates/round-03/backgrounds.png": "0e7402602dc1250ca7260df3855d413df72934096ed09a29e428229b71a3d799",
+    "candidates/round-03/consumer/desktop-four-facings.png": "e50405a8c9b9d501b8365bcb3b5f3a1c30f564fa774f23dddd642126ccfc6103",
+    "candidates/round-03/consumer/desktop-interaction.png": "75bcce15d78671a3ac8b98f0ff11d51ff4fa446d6bea364689e643534dbc6dab",
+    "candidates/round-03/consumer/desktop-repeated.png": "5847a11c6ae278226cfecaa8b1a3adfd0120caa6879407cfc7af05bd381a5ec9",
+    "candidates/round-03/consumer/evidence.json": "d06563f342fb5a5fd458d9aea38ef64d101e133dee4cba0c630b61be1f2d2e4d",
+    "candidates/round-03/consumer/landscape-four-facings.png": "774251eb604c2f921fd2ce5605eab315f91f2e19eda806a3d401797bc10f9f7c",
+    "candidates/round-03/consumer/phone-four-facings.png": "8b8158d8dbcceede28b6aa474c383ac57ca8e4f6543f7985b3d48a1af5a0e3ea",
+    "candidates/round-03/delivery.json": "890548dbc156363c4e77c82dd5ef4228e3d0ad9f0eda38b5303f7faa94e471ab",
+    "candidates/round-03/delivery.snapshot.json": "890548dbc156363c4e77c82dd5ef4228e3d0ad9f0eda38b5303f7faa94e471ab",
+    "candidates/round-03/enlarged-backgrounds.png": "06f2300e203bbfa2b8a083d823264207fdad0d407afc34f7b1ccc302e292b21d",
+    "candidates/round-03/four-view-sheet.png": "5fc0670e8346e2d2ee33d7982b8339f89a2a162e716edd234bcfa0a163023972",
+    "candidates/round-03/logical-four-view-sheet.png": "6cf39f0dfa7ecdd10028da9acff61b823db4baf1d014ffb51fe16bee5f5a89d6",
+    "candidates/round-03/native-capture.json": "4a20474cfe32428bce29794d9c666e8e644498b6ec57f17bb0a9364ab709ab4b",
+    "candidates/round-03/native-static-E.png": "5283119d7dbd6be5997b87ddf22f87222bf4dd245640dc35f5c6dcf72b850733",
+    "candidates/round-03/native-static-N.png": "2c61e46941e0e09c2f2ef152c05569e247bc4b1b2d5c0ce0a8c972a67fc8fb14",
+    "candidates/round-03/native-static-S.png": "75f884ef32a5fe78bad642faf419923c8bd2da527cea31a5e98cf19176e39d89",
+    "candidates/round-03/native-static-W.png": "bf2b612744421476ed930b71474602a5ef1dc8c1176ce2e2454201f47b5d81fa",
+    "candidates/round-03/packet.json": "0b658d666e19de42fbdba60f06ec9087a91d1ceca44c9b765a43fefac5259ea5",
+    "candidates/round-03/portable-replay.json": "3dc44ac6e07113affb3c75bf0708fc752afc175d0b034ca46571f05890eb87ee",
+    "candidates/round-03/portable-replay.log": "e7bfdd52837ec4d31aced9f2f465454d000c3129873b35130bcb52bfa29b0c10",
+    "candidates/round-03/repeated.png": "7b7d4de88a0cceb281a9332e33f37440b61edd7877a5bfdd91cfc28ff90017e9",
+    "candidates/round-03/source-audit.json": "5a4524c66cc158c84f6ce5cdd771db89964af965f6fdf0fae9af66bebc18521c",
+    "candidates/round-03/static-E.png": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+    "candidates/round-03/static-N.png": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+    "candidates/round-03/static-S.png": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+    "candidates/round-03/static-W.png": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+    "candidates/round-03/validation.json": "ba8aa7c5ca674b2310be7b15d9b59b51581e89f021cda42dca72adb00f212996",
+    "source/audit-round-03.py": "f1505f7a61e5289615499f53d516d82b9911066a390cc894e67e74e917db2eea",
+    "source/consumer-round-03.mjs": "5ede311bb8b977ac7a81d6cc6b1c894bbf26d7c9d2e69413e915a6448ab2097b",
+    "source/package-round-03.py": "5c32b826f08a0abde2ff623670b31451781bf50290e248adc16c28d63c194832",
+    "source/replay-round-03.py": "a82da8c5bae074fe3e9a29c4dccd34b0e5e2136eb633f2eff6e43f25edb33438",
+    "source/round-03-assetRecord.json": "2920181afca9ac242f80b330ddb9a00bcbc93b0efda2b759e4f0a7d161dd7e8b",
+    "source/round-03-build.log": "eba16e11a070b6bf1211d2a4114ca4de03270f028f2059abcca8efa9cf9a4533",
+    "source/round-03-camera.json": "ce7b015bcbf11428a62659dfac936476258d1cd5f238fa631f81724b7ce7e211",
+    "source/round-03-recipe.py": "9c7f9ee3fbed7fae435b5143235df07764f1c833026098fcdbc84ed91cd46979",
+    "source/round-03-rig.json": "fe9740570571bf6d4e7dab9c183870d755aafe39df4a21c3c54aba2784359b45",
+    "source/round-03.blend": "33653eace2509deaf25a9fbe3d67a0649038c529a84b04a0790f645aea57295f"
+  },
+  "publishedMetadata": {
+    "camera": {
+      "path": "source/round-04-published-camera.json",
+      "sha256": "55a65784ae33d8394e8642d4f221819fe2d271e0d8f974d1b32b4afa7323e02a"
+    },
+    "assetRecord": {
+      "path": "source/round-04-published-assetRecord.json",
+      "sha256": "9dc49059ace5efa31f8d4e8876c94d03209963341ce00db39dc14de6ba4bd57d"
+    },
+    "rig": {
+      "path": "source/round-03-rig.json",
+      "sha256": "fe9740570571bf6d4e7dab9c183870d755aafe39df4a21c3c54aba2784359b45"
+    }
+  },
+  "fourRootMatrices": {
+    "N": [
+      [
+        -1.0,
+        8.742277657347586e-08,
+        0.0,
+        0.0
+      ],
+      [
+        -8.742277657347586e-08,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "E": [
+      [
+        -4.371138828673793e-08,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        -4.371138828673793e-08,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "S": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "W": [
+      [
+        -4.371138828673793e-08,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        -4.371138828673793e-08,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "calibration": {
+    "nativeScale4": {
+      "root": [
+        384.0,
+        992.00048828125
+      ],
+      "unitX": [
+        512.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        293.6710205078125
+      ],
+      "unitHeight": [
+        0.0,
+        -419.40594482421875
+      ]
+    },
+    "publishedScale2": {
+      "root": [
+        192.0,
+        496.000244140625
+      ],
+      "unitX": [
+        256.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        146.83551025390625
+      ],
+      "unitHeight": [
+        0.0,
+        -209.70297241210938
+      ]
+    },
+    "uniformPixelScale": 0.5
+  },
+  "height": {
+    "nativeGeometryMeasured": 1.8424701690673828,
+    "catalogNominalMaximum": 1.88,
+    "functionalMaximum": 1.88
+  },
+  "sampling": {
+    "N": {
+      "nativePath": "candidates/round-03/native-static-N.png",
+      "nativeSHA256": "2c61e46941e0e09c2f2ef152c05569e247bc4b1b2d5c0ce0a8c972a67fc8fb14",
+      "publishedPath": "candidates/round-03/static-N.png",
+      "publishedSHA256": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+      "atlasPath": "candidates/round-03/atlases/static-N.png",
+      "atlasSHA256": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+      "nativeResolution": [
+        768,
+        1280
+      ],
+      "publishedResolution": [
+        384,
+        640
+      ],
+      "uniformWholeCanvasScale": 0.5,
+      "filter": "Pillow LANCZOS",
+      "exactApprovedRGBA": true,
+      "exactApprovedPNG": true,
+      "publishedAtlasExactSameBytes": true
+    },
+    "E": {
+      "nativePath": "candidates/round-03/native-static-E.png",
+      "nativeSHA256": "5283119d7dbd6be5997b87ddf22f87222bf4dd245640dc35f5c6dcf72b850733",
+      "publishedPath": "candidates/round-03/static-E.png",
+      "publishedSHA256": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+      "atlasPath": "candidates/round-03/atlases/static-E.png",
+      "atlasSHA256": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+      "nativeResolution": [
+        768,
+        1280
+      ],
+      "publishedResolution": [
+        384,
+        640
+      ],
+      "uniformWholeCanvasScale": 0.5,
+      "filter": "Pillow LANCZOS",
+      "exactApprovedRGBA": true,
+      "exactApprovedPNG": true,
+      "publishedAtlasExactSameBytes": true
+    },
+    "S": {
+      "nativePath": "candidates/round-03/native-static-S.png",
+      "nativeSHA256": "75f884ef32a5fe78bad642faf419923c8bd2da527cea31a5e98cf19176e39d89",
+      "publishedPath": "candidates/round-03/static-S.png",
+      "publishedSHA256": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+      "atlasPath": "candidates/round-03/atlases/static-S.png",
+      "atlasSHA256": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+      "nativeResolution": [
+        768,
+        1280
+      ],
+      "publishedResolution": [
+        384,
+        640
+      ],
+      "uniformWholeCanvasScale": 0.5,
+      "filter": "Pillow LANCZOS",
+      "exactApprovedRGBA": true,
+      "exactApprovedPNG": true,
+      "publishedAtlasExactSameBytes": true
+    },
+    "W": {
+      "nativePath": "candidates/round-03/native-static-W.png",
+      "nativeSHA256": "bf2b612744421476ed930b71474602a5ef1dc8c1176ce2e2454201f47b5d81fa",
+      "publishedPath": "candidates/round-03/static-W.png",
+      "publishedSHA256": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+      "atlasPath": "candidates/round-03/atlases/static-W.png",
+      "atlasSHA256": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+      "nativeResolution": [
+        768,
+        1280
+      ],
+      "publishedResolution": [
+        384,
+        640
+      ],
+      "uniformWholeCanvasScale": 0.5,
+      "filter": "Pillow LANCZOS",
+      "exactApprovedRGBA": true,
+      "exactApprovedPNG": true,
+      "publishedAtlasExactSameBytes": true
+    }
+  }
+}

@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "asset": "backdrop-entrance",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "qualityCriteria": {
+    "asset": "backdrop-entrance",
+    "status": "proposed",
+    "styleIntent": "Warm, softly lit cartoon refinement of the actual native entrance. Preserve original palette family and architecture, with controlled soft volume and sparse material detail.",
+    "approvalRule": "Require visible improvement from the original toward the fixed target treatment, clean intended-size readability, all hard capture/architecture constraints and complete hash-bound native/join evidence. Scores compare outcomes; no numeric pass threshold.",
+    "hardConstraints": [
+      {
+        "id": "C1-capture",
+        "requirement": "Static S only. Preserve original 35-degree character-orthographic camera/matrix convention, square pixels, native 1728x1344, logical 576x448, root [288,416], sourceScale 3, 128px cell pitch, registration and transparent gutters. Preserve 4x3 projected envelope, 2-tile clear opening, original depth/roof proportions and threshold socket. No 55-degree/world-scale2 substitution, camera fit, image warp or recolor per view.",
+        "evidence": "Native camera, render, world-to-pixel calibration, bounds/root/socket and original-layout atlas validation."
+      },
+      {
+        "id": "C2-identity-counts",
+        "requirement": "Retain original blue flat-slab pitched roof with angular ridge/continuous fascia, 3 red noren panels/6 loops, cream fish body-tail-eye emblem on middle panel, 2 gold lanterns with 3 bands and dark fittings each, paired ochre wall fields/wood jambs/feet/joinery, dark doorway and existing threshold. Native baseline is 114 meshes + 2 curves + 1 root; 64 roof slabs (16 columns x2 rows x2 slopes). Refinement may change topology but may not delete/add semantic architecture or substitute rounded barrel roof tiles.",
+        "evidence": "Named-part native audit and actual S pixels; source architecture is authoritative when imagegen drifts."
+      },
+      {
+        "id": "C3-modular-continuity",
+        "requirement": "Preserve entrance outer join planes x=\u00b12 and wall module edges x=\u00b10.5, with source roof/wall/baseboard cross sections and slab cadence. Both facade objects must share compatible native material, lighting and camera settings. No global horizontal shading gradient, edge bevel gaps, doubled roof/baseboard strips, exposed caps or alternating value bands at joins.",
+        "evidence": "Labeled native joined facade plus independently assembled exported-sprite preview using registered roots and tile pitch; inspect both entrance boundaries and repeated wall-to-wall joins. Include original wall context or explicitly label a proposed matching wall as context-only pending its own fresh-pair approval."
+      },
+      {
+        "id": "C4-scope-and-native-output",
+        "requirement": "Actual editable 3D scene render, with complete packed or hash-bound dependencies; no target card/paintover or raster fitting. Preserve blank wall fields. No added windows, signs, props, floor tiles or floor-tile edits. No directional ground cast shadow or preferred horizontal lighting direction. Do not add local wall illumination that creates a nonrepeatable entrance-to-wall boundary.",
+        "evidence": "Native source/resources, material/light audit and render provenance; floor assets remain outside this change."
+      }
+    ],
+    "visualCriteria": [
+      {
+        "id": "Q1-shape-volume",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "success": "Roof slabs, fascia, jambs, joinery, lantern bodies and cloth read as distinct softly modeled forms. Add small controlled edge transitions and broad local tonal variation without inflating the canopy, rounding off protected boundary planes or changing part placement/proportions. Preserve clean rectangular backdrop envelope and two-tile entrance opening.",
+        "inspectAt": "S at 576x448 and native detail; joined facade"
+      },
+      {
+        "id": "Q2-color",
+        "priority": 1,
+        "dimension": "color",
+        "success": "Retain a clearly blue canopy with darker blue fascia, honey/ochre walls and warm brown wood, red cloth, cream emblem, golden yellow lantern paper with brass bands and dark fittings. Warmth comes through light/material treatment without turning the roof cyan or purple, bleaching lantern centers, making wood orange-plastic, or muddying the red panels. Both sides remain balanced in brightness/color.",
+        "inspectAt": "Intended size on light and dark backgrounds, plus native"
+      },
+      {
+        "id": "Q3-soft-light",
+        "priority": 1,
+        "dimension": "lightingHighlights",
+        "success": "Use broad gentle highlights and restrained contact/shape shading to make the original flat blocks feel soft and tangible. Edge light stays subordinate to base color; no razor white/cyan tracing, blown spots, harsh black faceting, or shiny plastic glare. Lanterns retain readable golden paper body and narrow bands. Large wall fields remain even across horizontal joins; local shading cannot impose a preferred left/right light direction or repeated-module gradient.",
+        "inspectAt": "S native/intended size and repeated joins"
+      },
+      {
+        "id": "Q4-material-detail",
+        "priority": 2,
+        "dimension": "materialDetail",
+        "success": "Cloth gains a few soft folds or edge turns that retain three separate panels; fish outline and eye remain cream, continuous and readable. Roof slab separation, wood edges and lantern rings remain crisp enough to identify. Any grain/paper/threshold variation is broad, sparse and quiet at intended size. Blank wall areas remain blank and calm; no speckle, dense texture, busy ornament or copied imagegen mottling.",
+        "inspectAt": "576x448 first, native details second"
+      },
+      {
+        "id": "Q5-dark-regions-and-defects",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "success": "The dark navy doorway stays an intentional coherent recessed opening; threshold stays a distinct muted brown-gray structural step. No unintended black smears, crushed patches on wood/cloth/lanterns, coplanar seams, split normals, glowing cracks, clipped emblem, merged cloth edges, disconnected bands/hangers, small exposed geometry, alpha fringe/noise or crop clipping. Intentional dark fittings, doorway and threshold seam are not defects merely for being dark.",
+        "inspectAt": "Every required S capture and join preview enlarged and intended-size on light/gray/dark backgrounds"
+      }
+    ],
+    "targetExceptions": [
+      "Do not copy target framing, padding, silhouette drift or smaller canvas.",
+      "Do not require target gloss, cyan highlights, painterly noise, halo or stray alpha pixels.",
+      "Do not require brightened doorway, decorated blank areas, ground shadow or horizontal/global wall light gradient.",
+      "Single S target does not authorize changes to source architecture/counts or invent unseen views."
+    ],
+    "requiredReviewEvidence": {
+      "renders": [
+        "Native static S at 1728x1344 with original registration",
+        "Original-layout static-S atlas"
+      ],
+      "previews": [
+        "S intended-size/background diagnostic sheet",
+        "Native connected facade with entrance and repeated walls",
+        "Independent assembly of exported entrance/wall sprites using exact roots and tile pitch, with sibling context status labeled"
+      ],
+      "technical": [
+        "Immutable candidate packet binding exact source, renders, previews, validation and dependencies",
+        "Native capture camera/frame/pixel aspect/root/socket/footprint/height/opening evidence",
+        "Protected join profile and shared material/light/camera evidence",
+        "No floor-tile mutation or directional ground-shadow evidence"
+      ]
+    }
+  },
+  "capture": {
+    "frame": [
+      1728,
+      1344
+    ],
+    "views": [
+      "S"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      576,
+      448
+    ],
+    "logicalRoot": [
+      288.0,
+      416
+    ],
+    "sourceScale": 3,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "character-orthographic"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "92f12b3559b291a9b750b3c446320175c9e2c4969af8b43bb980088aecdd97a7"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/backdrop/restaurant-backdrop-35.blend",
+      "sha256": "927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05"
+    },
+    "backup": {
+      "path": "../../../../backups/927a8a59e8d0f1e9-restaurant-backdrop-35.blend",
+      "sha256": "927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "bcf1c09158160d370e3eb9f476658a65bfad6cb43793d154d031dd5ccc1e3796"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "300b2d1cad55e070401d903afcd0cb9795f390581d599e2d51e2ea8267a64f22"
+    },
+    "candidateProject": {
+      "path": "../../source/round-05.blend",
+      "sha256": "21de5f388133312bfb861fb62c8a2ab874d3db3aa67721dc6d2736187f79a1e8"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "c95e5554313f3046adbb6d4d1f2d3c4fd6a799d83c1fbcd50b60ea9dc141bc62"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "4f2320695f203c17f38773644aaaa0396ac621d6defb1010418669f5641a7f02"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "388a59866d5d20c1b6e030d60d310d24ad4016481788f111e8cb7ce33b8bb938"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "2dfe6a337938f7ddfd5c2e860c5594810c7a9b0bcf9089e6fe53c930715bbc25"
+    },
+    "candidateResource:round:editor-handoff-hashes.json": {
+      "path": "editor-handoff-hashes.json",
+      "sha256": "03fa616cef8e5648da84da5be775b4be6f6d20f7ebf9f675b71cac3f710522d1"
+    },
+    "candidateResource:round:native-joined-raw.png": {
+      "path": "native-joined-raw.png",
+      "sha256": "670bbc7285e15851b31bb7ac77fd1605bef835d0928b8e434d48cced35fedaae"
+    },
+    "candidateResource:round:independent-assembled.png": {
+      "path": "independent-assembled.png",
+      "sha256": "717e1dab90fe0d5e2e6617809af54eb5c9622f3d203ade624d122304c836b129"
+    },
+    "candidateResource:round:reopened-S.png": {
+      "path": "reopened-S.png",
+      "sha256": "3b7f13f7118681fcaf9eae7108e583f31afa7e913e728eee0ae9ec0e9efc355d"
+    },
+    "candidateResource:round:static-S-000.png": {
+      "path": "static-S-000.png",
+      "sha256": "c74664f18a20c8ea5bfd224a81fefb55e30d09e42594f82b94cae45dec710f03"
+    },
+    "candidateResource:round:family-settings.json": {
+      "path": "family-settings.json",
+      "sha256": "bf37ea2ec796e0c626f62ed92305db7959f336f2bbfdf3fe6909aa9eab9e2873"
+    },
+    "candidateResource:round:repeated.png": {
+      "path": "repeated.png",
+      "sha256": "fae7ec7115386377f635a167fc2e54808d461309eecdec508742a36dd0b57369"
+    },
+    "candidateResource:round:wall-context-S.png": {
+      "path": "wall-context-S.png",
+      "sha256": "67f086789a2017e79692212d1b4df49e2d376eaf60b3148c84c0433e06037a6b"
+    },
+    "candidateResource:round:entrance-join-strips.png": {
+      "path": "entrance-join-strips.png",
+      "sha256": "1142efc9032a4f95d7a4216fe2d7a8ba24b2a63f3d78a21bb463f5920fa9a944"
+    },
+    "candidateResource:round:independent-assembled-raw.png": {
+      "path": "independent-assembled-raw.png",
+      "sha256": "74d129c2be2116cb770c39555fd2cced66b2586522b543f5ef000e90e980a542"
+    },
+    "candidateResource:round:static-S.png": {
+      "path": "static-S.png",
+      "sha256": "c74664f18a20c8ea5bfd224a81fefb55e30d09e42594f82b94cae45dec710f03"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "c95e5554313f3046adbb6d4d1f2d3c4fd6a799d83c1fbcd50b60ea9dc141bc62"
+    },
+    "candidateResource:round:native-joined.png": {
+      "path": "native-joined.png",
+      "sha256": "57727d852241ac49a436a5a0d853995090985470be359fd11cee40b773af44ee"
+    },
+    "candidateResource:round:background-sheet.png": {
+      "path": "background-sheet.png",
+      "sha256": "d1cf512b967b873312af980aaaf1e57258ae1981d93da373727276eece658eb4"
+    },
+    "candidateResource:round:four-view-sheet.png": {
+      "path": "four-view-sheet.png",
+      "sha256": "d1cf512b967b873312af980aaaf1e57258ae1981d93da373727276eece658eb4"
+    },
+    "candidateResource:round:native-records/asset-record.json": {
+      "path": "native-records/asset-record.json",
+      "sha256": "86b0f9a0cf2c35c9124c7ea9379e0bc407aeec875ab78d46dc645812a102abd5"
+    },
+    "candidateResource:round:native-records/rig.json": {
+      "path": "native-records/rig.json",
+      "sha256": "89ce8e2ba33368cb429f11fb4350ab407184049964e055c52935bd702623661b"
+    },
+    "candidateResource:round:native-records/camera.json": {
+      "path": "native-records/camera.json",
+      "sha256": "fc6656b0c27cdafaa831e22a9a063791e869651811a73a22e0fde69fce1832fb"
+    },
+    "candidateResource:source:assemble_delivery_round04.py": {
+      "path": "../../source/assemble_delivery_round04.py",
+      "sha256": "8659d87c2d97c07cbbd37bc07d52a5fe9d9f6afce64efa4d0a575160eeaf75fa"
+    },
+    "candidateResource:source:round-02-recipe.json": {
+      "path": "../../source/round-02-recipe.json",
+      "sha256": "73390ba4149ce55000f8c135d3869b420abf30725c7c9ad04214bf17fc9bea2b"
+    },
+    "candidateResource:source:round-04-family-context.blend": {
+      "path": "../../source/round-04-family-context.blend",
+      "sha256": "6a1bfcc6b7090d3b3448db13ebe04220eacc5d2cbd0ccac4076ec2a71a830c72"
+    },
+    "candidateResource:source:capture_validate_round05.py": {
+      "path": "../../source/capture_validate_round05.py",
+      "sha256": "bcb850bb7a0939ed9e712e9ccd7de4a226e7255c99d0d7723fccc9ca6b71d1fa"
+    },
+    "candidateResource:source:capture_validate_round04.py": {
+      "path": "../../source/capture_validate_round04.py",
+      "sha256": "7db00521125ed01c7b724c2328db582d10c9c046ed2793361a2c676ebf4db405"
+    },
+    "candidateResource:source:round-05-join-context.blend": {
+      "path": "../../source/round-05-join-context.blend",
+      "sha256": "1e7d8034bbee85a2c360ba44691c4dac9b23a148e2f1d74d54d697b36548f3eb"
+    },
+    "candidateResource:source:assemble_delivery_round05.py": {
+      "path": "../../source/assemble_delivery_round05.py",
+      "sha256": "782c40a84f36b935b5fc2f0ef53a5a2b7d7ceaf3549076df6756f5f6d7095819"
+    },
+    "candidateResource:source:family-context.json": {
+      "path": "../../source/family-context.json",
+      "sha256": "abb43c993e152ac044cda5bd9536a1c18d61b64f1649bc2ed8b8e8630996d621"
+    },
+    "candidateResource:source:round-05-workflow.json": {
+      "path": "../../source/round-05-workflow.json",
+      "sha256": "74b59fec978ca8fa3a5b6445eb3dc2c8ed4f201fca51e1448ec90e95dcbf415f"
+    },
+    "candidateResource:source:build_round04.py": {
+      "path": "../../source/build_round04.py",
+      "sha256": "cbec3587898df39d767fd4c9830abf63542e8289a94804e5b1061d5939d85c7b"
+    },
+    "candidateResource:source:source-inspection.json": {
+      "path": "../../source/source-inspection.json",
+      "sha256": "01d715360c98b7c49f285f59fdcb93756a644488a985161a7321f380a038620e"
+    },
+    "candidateResource:source:inspect_source.py": {
+      "path": "../../source/inspect_source.py",
+      "sha256": "027128282e32147d194dd15f8f1a007d03c056b614b7b6f74c60ab859a1c8eda"
+    },
+    "candidateResource:source:round-04-recipe.json": {
+      "path": "../../source/round-04-recipe.json",
+      "sha256": "587c16ebf4adf74cfb1d139bee15f054467cae84ed47038b69bc4862c67e2097"
+    },
+    "candidateResource:source:render_wall_context_round05.py": {
+      "path": "../../source/render_wall_context_round05.py",
+      "sha256": "1a3c926981a157fe640a94f200e7ec248cf152310e494f3e03a64d6926d65275"
+    },
+    "candidateResource:source:round-05-family-context.blend": {
+      "path": "../../source/round-05-family-context.blend",
+      "sha256": "21de5f388133312bfb861fb62c8a2ab874d3db3aa67721dc6d2736187f79a1e8"
+    },
+    "candidateResource:source:audit_baseline.py": {
+      "path": "../../source/audit_baseline.py",
+      "sha256": "7799e51bf213d4fe47f7db62ebd9079d84ab104e2deb438dcda5dd3b3985e703"
+    },
+    "candidateResource:source:build_round01.py": {
+      "path": "../../source/build_round01.py",
+      "sha256": "d1e37802dc27e393d975562218a2285ea8937d2b51bf6ae7c538871ee899b6ac"
+    },
+    "candidateResource:source:build_round05.py": {
+      "path": "../../source/build_round05.py",
+      "sha256": "948ad3045cd4e65cb29a344f19d9473c43acdc43f439dc6f901f1fe8a27a5d18"
+    },
+    "candidateResource:source:render_wall_context_round04.py": {
+      "path": "../../source/render_wall_context_round04.py",
+      "sha256": "b7d2a2013cafbf01f0a60088199102f6672570d47dce70faaa972f891ea65485"
+    },
+    "candidateResource:source:round-01-recipe.json": {
+      "path": "../../source/round-01-recipe.json",
+      "sha256": "e6b436957ec6a920202d69b8847fc663378c7257bf396efb491b035ff3306b93"
+    },
+    "candidateResource:source:export_family_settings_round05.py": {
+      "path": "../../source/export_family_settings_round05.py",
+      "sha256": "64484905dafd8bad136105f2059690ab4459935bd84bd5d41dfce03c3c59c9a9"
+    },
+    "candidateResource:source:round-04.blend": {
+      "path": "../../source/round-04.blend",
+      "sha256": "6a1bfcc6b7090d3b3448db13ebe04220eacc5d2cbd0ccac4076ec2a71a830c72"
+    },
+    "candidateResource:source:build_round02.py": {
+      "path": "../../source/build_round02.py",
+      "sha256": "1d08b4e5265435e51593524bd1efc15a76a66eda26d56d6e63a6d3d10184e705"
+    },
+    "candidateResource:source:audit_reopened_round04.py": {
+      "path": "../../source/audit_reopened_round04.py",
+      "sha256": "f0871551a56d42e275ce7967d56944788f2122e0cea7d7360b95d2c48d777ba8"
+    },
+    "candidateResource:source:round-02.blend": {
+      "path": "../../source/round-02.blend",
+      "sha256": "1fecd89ba663db4ac0757a9324c1feb7d64d570fb37c6cb03a468caf77da8f2f"
+    },
+    "candidateResource:source:check_projection.py": {
+      "path": "../../source/check_projection.py",
+      "sha256": "55e445940ef741004ef7b7a1f58ed2c419b275c07d17892502f55458626b64ec"
+    },
+    "candidateResource:source:audit_reopened_round05.py": {
+      "path": "../../source/audit_reopened_round05.py",
+      "sha256": "338a003a38658db27613ecb00d5202192780e2c5e28aaaf8f185746add0efb42"
+    },
+    "candidateResource:source:source-geometry.json": {
+      "path": "../../source/source-geometry.json",
+      "sha256": "5426d958f5c7716c74086f5c7cfb17b17c083cfb5217a15325dc8637e66ea51a"
+    },
+    "candidateResource:source:build_round03.py": {
+      "path": "../../source/build_round03.py",
+      "sha256": "a76509b46e8980c82d8755628bfd68f478022d7a8ea4c02f45f0aab3efc0bb03"
+    },
+    "candidateResource:source:inspect_geometry.py": {
+      "path": "../../source/inspect_geometry.py",
+      "sha256": "672f229b8fa6bd40627fb4224f175e9dbbfad3f5da3b29ce2c769a3108ac41ea"
+    },
+    "candidateResource:source:round-05-family-context.json": {
+      "path": "../../source/round-05-family-context.json",
+      "sha256": "f185459be71e98cff8b0ab589d4bdb26e55689b4bc2638d6792b8752497dc0a4"
+    },
+    "candidateResource:source:round-03-recipe.json": {
+      "path": "../../source/round-03-recipe.json",
+      "sha256": "b90da01f1a7641bc489b96e390bb5f15409c77035fdf74643760db6fd852e688"
+    },
+    "candidateResource:source:round-04-family-context.json": {
+      "path": "../../source/round-04-family-context.json",
+      "sha256": "621b8d21bc0a0852444d60ab1e4477d17aee5762eaa215fd4cea57cfa4f41bf6"
+    },
+    "candidateResource:source:round-04-join-context.blend": {
+      "path": "../../source/round-04-join-context.blend",
+      "sha256": "b986f01156a16c252651c81b5387598cc19a64b2f45347903ec6d9464da05a18"
+    },
+    "candidateResource:source:round-05.blend": {
+      "path": "../../source/round-05.blend",
+      "sha256": "21de5f388133312bfb861fb62c8a2ab874d3db3aa67721dc6d2736187f79a1e8"
+    },
+    "candidateResource:source:native-baseline.json": {
+      "path": "../../source/native-baseline.json",
+      "sha256": "5c755752f422731f8afb5140d1fa749a691469a66c26e4b27b7d836c5688e90a"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "c77eea42cd67d2c43e9bb46c9f86dcb4c6ef334fae462a41d73aea7b98956121"
+    },
+    "candidateResource:source:round-03.blend": {
+      "path": "../../source/round-03.blend",
+      "sha256": "61837ef2cb4ed06dc96b2a25ba71f048dedf3b54a99217db198ce4e18296286b"
+    },
+    "candidateResource:source:round-05-recipe.json": {
+      "path": "../../source/round-05-recipe.json",
+      "sha256": "76a794a4d088cfa3906c5cd0edb62ab026e41f1a226a8fef4e2ba3c7afe37a10"
+    },
+    "candidateResource:source:finalize_handoff_round05.py": {
+      "path": "../../source/finalize_handoff_round05.py",
+      "sha256": "695b118250c0298f5fa6a89a4e7b56cbab02616e9a9ab1915c553cb631390261"
+    }
+  },
+  "candidateRenders": {
+    "S": {
+      "path": "static-S-000.png",
+      "sha256": "c74664f18a20c8ea5bfd224a81fefb55e30d09e42594f82b94cae45dec710f03",
+      "frame": [
+        1728,
+        1344
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "d1cf512b967b873312af980aaaf1e57258ae1981d93da373727276eece658eb4"
+    },
+    "repeated": {
+      "path": "repeated.png",
+      "sha256": "fae7ec7115386377f635a167fc2e54808d461309eecdec508742a36dd0b57369"
+    },
+    "background-sheet": {
+      "path": "background-sheet.png",
+      "sha256": "d1cf512b967b873312af980aaaf1e57258ae1981d93da373727276eece658eb4"
+    },
+    "native-joined": {
+      "path": "native-joined.png",
+      "sha256": "57727d852241ac49a436a5a0d853995090985470be359fd11cee40b773af44ee"
+    },
+    "independent-assembled": {
+      "path": "independent-assembled.png",
+      "sha256": "717e1dab90fe0d5e2e6617809af54eb5c9622f3d203ade624d122304c836b129"
+    },
+    "entrance-join-strips": {
+      "path": "entrance-join-strips.png",
+      "sha256": "1142efc9032a4f95d7a4216fe2d7a8ba24b2a63f3d78a21bb463f5920fa9a944"
+    }
+  }
+}

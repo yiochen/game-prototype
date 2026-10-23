@@ -1,0 +1,1113 @@
+{
+  "baselineSHA256": "87647d3167633d4f3a7c4cd4bf5a4af4e221a6a944d57cd06400df8df9d1ea94",
+  "newSourceSHA256": "c8462a4072c8ce12f2afcc6907a02d705dcd7df6858f7d790bb2a1dcc5d7fb0e",
+  "checks": {
+    "objects": true,
+    "meshes": true,
+    "actions": true,
+    "scene": true,
+    "images": true,
+    "libraries": true,
+    "onlyGlassSlot": true,
+    "oneNewMaterial": true,
+    "originalMaterialsIdentical": true,
+    "nativeStaticShader": true,
+    "opaqueUnchanged": true,
+    "noGeometryDisplacement": true,
+    "noImageOrPlaneShader": true
+  },
+  "allPass": true,
+  "changedSlots": [
+    "body__convex_blue_glass"
+  ],
+  "addedMaterials": [
+    "Sub Native depth glass v6"
+  ],
+  "originalMaterialEquality": {
+    "Sub Coral red pod": true,
+    "Sub Cyan status": true,
+    "Sub Honey gold trim": true,
+    "Sub Soft silver fasteners": true,
+    "Sub Sunflower raised trim": true,
+    "Sub Vivid blue convex glass": true,
+    "Sub Warm lamp lens": true,
+    "Sub Warm red seams": true,
+    "Sub Warm slate fittings": true,
+    "Sub Warm yellow enamel": true
+  },
+  "hashes": {
+    "objects": {
+      "v5": "e30082670b1a0c54afa71e20160a57dd18fa31cef8b78f9b7d5611e975faeed9",
+      "v6": "e30082670b1a0c54afa71e20160a57dd18fa31cef8b78f9b7d5611e975faeed9"
+    },
+    "meshes": {
+      "v5": "d80f577fb9844767d716df675bcd1df5f8a7b770cbc46e833b1d95e2d019d513",
+      "v6": "d80f577fb9844767d716df675bcd1df5f8a7b770cbc46e833b1d95e2d019d513"
+    },
+    "actions": {
+      "v5": "5b1bfb6def57ad109b2974a75fa3dae4344267d0a0d2401653ac01db446993e3",
+      "v6": "5b1bfb6def57ad109b2974a75fa3dae4344267d0a0d2401653ac01db446993e3"
+    },
+    "scene": {
+      "v5": "beb5a4c24f748bfcccf2c36d68c9f12180bda87e862dd5b9b7ff828141033c95",
+      "v6": "beb5a4c24f748bfcccf2c36d68c9f12180bda87e862dd5b9b7ff828141033c95"
+    },
+    "images": {
+      "v5": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "v6": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "libraries": {
+      "v5": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "v6": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "glassGraph": {
+    "nodes": [
+      {
+        "name": "Angle-dependent blue optical depth",
+        "type": "ShaderNodeLayerWeight",
+        "settings": {
+          "type": "LAYER_WEIGHT",
+          "location": [
+            -850.0,
+            370.0
+          ],
+          "location_absolute": [
+            -850.0,
+            370.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Angle-dependent blue optical depth",
+          "label": "Angle-dependent blue optical depth",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "INPUT",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeLayerWeight",
+          "bl_label": "Layer Weight",
+          "bl_description": "Produce a blending factor depending on the angle between the surface normal and the view direction.\nTypically used for layering shaders with the Mix Shader node",
+          "bl_icon": "NONE",
+          "bl_static_type": "LAYER_WEIGHT",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38
+        },
+        "inputs": [
+          [
+            "Blend",
+            0.3199999928474426
+          ],
+          [
+            "Normal",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "Blue core to cyan edge value",
+        "type": "ShaderNodeValToRGB",
+        "settings": {
+          "type": "VALTORGB",
+          "location": [
+            -610.0,
+            370.0
+          ],
+          "location_absolute": [
+            -610.0,
+            370.0
+          ],
+          "width": 240.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Blue core to cyan edge value",
+          "label": "Blue core to cyan edge value",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "CONVERTER",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeValToRGB",
+          "bl_label": "Color Ramp",
+          "bl_description": "Map values to colors with the use of a gradient",
+          "bl_icon": "NONE",
+          "bl_static_type": "VALTORGB",
+          "bl_width_default": 240.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38
+        },
+        "inputs": [
+          [
+            "Fac",
+            0.5
+          ]
+        ],
+        "ramp": {
+          "properties": {
+            "interpolation": "EASE",
+            "hue_interpolation": "NEAR",
+            "color_mode": "RGB"
+          },
+          "elements": [
+            [
+              0.0,
+              [
+                0.003000000026077032,
+                0.10999999940395355,
+                0.4300000071525574,
+                1.0
+              ]
+            ],
+            [
+              0.3499999940395355,
+              [
+                0.0020000000949949026,
+                0.1899999976158142,
+                0.6100000143051147,
+                1.0
+              ]
+            ],
+            [
+              0.7200000286102295,
+              [
+                0.009999999776482582,
+                0.3700000047683716,
+                0.8500000238418579,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.05999999865889549,
+                0.6399999856948853,
+                0.949999988079071,
+                1.0
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "name": "Blue tinted broad reflection",
+        "type": "ShaderNodeMixRGB",
+        "settings": {
+          "type": "MIX_RGB",
+          "location": [
+            125.0,
+            290.0
+          ],
+          "location_absolute": [
+            125.0,
+            290.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Blue tinted broad reflection",
+          "label": "Blue tinted broad reflection",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "COLOR",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeMixRGB",
+          "bl_label": "Mix (Legacy)",
+          "bl_description": "Mix two input colors",
+          "bl_icon": "NONE",
+          "bl_static_type": "MIX_RGB",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "blend_type": "MIX",
+          "use_alpha": false,
+          "use_clamp": false
+        },
+        "inputs": [
+          [
+            "Fac",
+            0.5
+          ],
+          [
+            "Color1",
+            [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          ],
+          [
+            "Color2",
+            [
+              0.2800000011920929,
+              0.7200000286102295,
+              0.9399999976158142,
+              1.0
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "Centered overhead reflection envelope",
+        "type": "ShaderNodeValToRGB",
+        "settings": {
+          "type": "VALTORGB",
+          "location": [
+            -190.0,
+            0.0
+          ],
+          "location_absolute": [
+            -190.0,
+            0.0
+          ],
+          "width": 240.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Centered overhead reflection envelope",
+          "label": "Centered overhead reflection envelope",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "CONVERTER",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeValToRGB",
+          "bl_label": "Color Ramp",
+          "bl_description": "Map values to colors with the use of a gradient",
+          "bl_icon": "NONE",
+          "bl_static_type": "VALTORGB",
+          "bl_width_default": 240.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38
+        },
+        "inputs": [
+          [
+            "Fac",
+            0.5
+          ]
+        ],
+        "ramp": {
+          "properties": {
+            "interpolation": "EASE",
+            "hue_interpolation": "NEAR",
+            "color_mode": "RGB"
+          },
+          "elements": [
+            [
+              0.5,
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            [
+              0.7799999713897705,
+              [
+                0.10000000149011612,
+                0.10000000149011612,
+                0.10000000149011612,
+                1.0
+              ]
+            ],
+            [
+              0.9399999976158142,
+              [
+                0.5799999833106995,
+                0.5799999833106995,
+                0.5799999833106995,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.41999998688697815,
+                0.41999998688697815,
+                0.41999998688697815,
+                1.0
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "name": "Incoming ray toward environment",
+        "type": "ShaderNodeVectorMath",
+        "settings": {
+          "type": "VECT_MATH",
+          "location": [
+            -850.0,
+            0.0
+          ],
+          "location_absolute": [
+            -850.0,
+            0.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Incoming ray toward environment",
+          "label": "Incoming ray toward environment",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "VECTOR",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeVectorMath",
+          "bl_label": "Vector Math",
+          "bl_description": "Perform vector math operation",
+          "bl_icon": "NONE",
+          "bl_static_type": "VECT_MATH",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "operation": "SCALE"
+        },
+        "inputs": [
+          [
+            "Vector",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Vector_001",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Vector_002",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Scale",
+            -1.0
+          ]
+        ]
+      },
+      {
+        "name": "Native opaque glass output",
+        "type": "ShaderNodeOutputMaterial",
+        "settings": {
+          "type": "OUTPUT_MATERIAL",
+          "location": [
+            840.0,
+            180.0
+          ],
+          "location_absolute": [
+            840.0,
+            180.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Native opaque glass output",
+          "label": "Native opaque glass output",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "OUTPUT",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeOutputMaterial",
+          "bl_label": "Material Output",
+          "bl_description": "Output surface material information for use in rendering",
+          "bl_icon": "NONE",
+          "bl_static_type": "OUTPUT_MATERIAL",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "is_active_output": true,
+          "target": "ALL"
+        },
+        "inputs": [
+          [
+            "Displacement",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Thickness",
+            0.0
+          ]
+        ]
+      },
+      {
+        "name": "Native reflected viewing ray",
+        "type": "ShaderNodeVectorMath",
+        "settings": {
+          "type": "VECT_MATH",
+          "location": [
+            -620.0,
+            0.0
+          ],
+          "location_absolute": [
+            -620.0,
+            0.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Native reflected viewing ray",
+          "label": "Native reflected viewing ray",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "VECTOR",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeVectorMath",
+          "bl_label": "Vector Math",
+          "bl_description": "Perform vector math operation",
+          "bl_icon": "NONE",
+          "bl_static_type": "VECT_MATH",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "operation": "REFLECT"
+        },
+        "inputs": [
+          [
+            "Vector",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Vector_001",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Vector_002",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Scale",
+            1.0
+          ]
+        ]
+      },
+      {
+        "name": "Polished blue optical surface",
+        "type": "ShaderNodeBsdfPrincipled",
+        "settings": {
+          "type": "BSDF_PRINCIPLED",
+          "location": [
+            590.0,
+            180.0
+          ],
+          "location_absolute": [
+            590.0,
+            180.0
+          ],
+          "width": 240.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Polished blue optical surface",
+          "label": "Polished blue optical surface",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "SHADER",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "bl_label": "Principled BSDF",
+          "bl_description": "Physically-based, easy-to-use shader for rendering surface materials, based on the OpenPBR model",
+          "bl_icon": "NONE",
+          "bl_static_type": "BSDF_PRINCIPLED",
+          "bl_width_default": 240.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "distribution": "MULTI_GGX",
+          "subsurface_method": "RANDOM_WALK"
+        },
+        "inputs": [
+          [
+            "Base Color",
+            [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ]
+          ],
+          [
+            "Metallic",
+            0.0
+          ],
+          [
+            "Roughness",
+            0.0949999988079071
+          ],
+          [
+            "IOR",
+            1.4600000381469727
+          ],
+          [
+            "Alpha",
+            1.0
+          ],
+          [
+            "Thin Wall",
+            false
+          ],
+          [
+            "Normal",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Weight",
+            0.0
+          ],
+          [
+            "Diffuse Roughness",
+            0.0
+          ],
+          [
+            "Subsurface Weight",
+            0.0
+          ],
+          [
+            "Subsurface Radius",
+            [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ]
+          ],
+          [
+            "Subsurface Scale",
+            0.004999999888241291
+          ],
+          [
+            "Subsurface IOR",
+            1.399999976158142
+          ],
+          [
+            "Subsurface Anisotropy",
+            0.0
+          ],
+          [
+            "Specular IOR Level",
+            0.3799999952316284
+          ],
+          [
+            "Specular Tint",
+            [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          ],
+          [
+            "Anisotropic",
+            0.0
+          ],
+          [
+            "Anisotropic Rotation",
+            0.0
+          ],
+          [
+            "Tangent",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Transmission Weight",
+            0.0
+          ],
+          [
+            "Coat Weight",
+            0.699999988079071
+          ],
+          [
+            "Coat Roughness",
+            0.06499999761581421
+          ],
+          [
+            "Coat IOR",
+            1.4600000381469727
+          ],
+          [
+            "Coat Tint",
+            [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          ],
+          [
+            "Coat Normal",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          [
+            "Sheen Weight",
+            0.0
+          ],
+          [
+            "Sheen Roughness",
+            0.5
+          ],
+          [
+            "Sheen Tint",
+            [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          ],
+          [
+            "Emission Color",
+            [
+              0.14000000059604645,
+              0.47999998927116394,
+              0.699999988079071,
+              1.0
+            ]
+          ],
+          [
+            "Emission Strength",
+            0.0
+          ],
+          [
+            "Thin Film Thickness",
+            0.0
+          ],
+          [
+            "Thin Film IOR",
+            1.3300000429153442
+          ]
+        ]
+      },
+      {
+        "name": "Reflection elevation only",
+        "type": "ShaderNodeSeparateXYZ",
+        "settings": {
+          "type": "SEPXYZ",
+          "location": [
+            -410.0,
+            0.0
+          ],
+          "location_absolute": [
+            -410.0,
+            0.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Reflection elevation only",
+          "label": "Reflection elevation only",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "CONVERTER",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeSeparateXYZ",
+          "bl_label": "Separate XYZ",
+          "bl_description": "Split a vector into its X, Y, and Z components",
+          "bl_icon": "NONE",
+          "bl_static_type": "SEPXYZ",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38
+        },
+        "inputs": [
+          [
+            "Vector",
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      {
+        "name": "Restrained reflected radiance",
+        "type": "ShaderNodeMath",
+        "settings": {
+          "type": "MATH",
+          "location": [
+            130.0,
+            -90.0
+          ],
+          "location_absolute": [
+            130.0,
+            -90.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "Restrained reflected radiance",
+          "label": "Restrained reflected radiance",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "CONVERTER",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeMath",
+          "bl_label": "Math",
+          "bl_description": "Perform math operations",
+          "bl_icon": "NONE",
+          "bl_static_type": "MATH",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38,
+          "operation": "MULTIPLY",
+          "use_clamp": false
+        },
+        "inputs": [
+          [
+            "Value",
+            0.5
+          ],
+          [
+            "Value_001",
+            0.2199999988079071
+          ],
+          [
+            "Value_002",
+            0.5
+          ]
+        ]
+      },
+      {
+        "name": "World shading vectors",
+        "type": "ShaderNodeNewGeometry",
+        "settings": {
+          "type": "NEW_GEOMETRY",
+          "location": [
+            -1100.0,
+            0.0
+          ],
+          "location_absolute": [
+            -1100.0,
+            0.0
+          ],
+          "width": 140.0,
+          "height": 100.0,
+          "dimensions": [
+            0.0,
+            0.0
+          ],
+          "name": "World shading vectors",
+          "label": "World shading vectors",
+          "warning_propagation": "ALL",
+          "use_custom_color": false,
+          "color": [
+            0.6079999804496765,
+            0.6079999804496765,
+            0.6079999804496765
+          ],
+          "color_tag": "INPUT",
+          "select": true,
+          "show_options": true,
+          "show_preview": false,
+          "hide": false,
+          "mute": false,
+          "show_texture": false,
+          "bl_idname": "ShaderNodeNewGeometry",
+          "bl_label": "Geometry",
+          "bl_description": "Retrieve geometric information about the current shading point",
+          "bl_icon": "NONE",
+          "bl_static_type": "NEW_GEOMETRY",
+          "bl_width_default": 140.0,
+          "bl_width_min": 100.0,
+          "bl_width_max": 700.0,
+          "bl_height_default": 100.0,
+          "bl_height_min": 30.0,
+          "bl_height_max": 3.4028234663852886e+38
+        },
+        "inputs": []
+      }
+    ],
+    "links": [
+      [
+        "Angle-dependent blue optical depth",
+        "Facing",
+        "Blue core to cyan edge value",
+        "Fac"
+      ],
+      [
+        "Blue core to cyan edge value",
+        "Color",
+        "Blue tinted broad reflection",
+        "Color1"
+      ],
+      [
+        "Blue tinted broad reflection",
+        "Color",
+        "Polished blue optical surface",
+        "Base Color"
+      ],
+      [
+        "Centered overhead reflection envelope",
+        "Color",
+        "Blue tinted broad reflection",
+        "Fac"
+      ],
+      [
+        "Centered overhead reflection envelope",
+        "Color",
+        "Restrained reflected radiance",
+        "Value"
+      ],
+      [
+        "Incoming ray toward environment",
+        "Vector",
+        "Native reflected viewing ray",
+        "Vector"
+      ],
+      [
+        "Native reflected viewing ray",
+        "Vector",
+        "Reflection elevation only",
+        "Vector"
+      ],
+      [
+        "Polished blue optical surface",
+        "BSDF",
+        "Native opaque glass output",
+        "Surface"
+      ],
+      [
+        "Reflection elevation only",
+        "Z",
+        "Centered overhead reflection envelope",
+        "Fac"
+      ],
+      [
+        "Restrained reflected radiance",
+        "Value",
+        "Polished blue optical surface",
+        "Emission Strength"
+      ],
+      [
+        "World shading vectors",
+        "Incoming",
+        "Incoming ray toward environment",
+        "Vector"
+      ],
+      [
+        "World shading vectors",
+        "Normal",
+        "Native reflected viewing ray",
+        "Vector_001"
+      ]
+    ],
+    "animation": false
+  },
+  "glassGraphInputs": {
+    "geometryOutputsUsed": [
+      [
+        "Incoming",
+        "VECT_MATH"
+      ],
+      [
+        "Normal",
+        "VECT_MATH"
+      ]
+    ],
+    "separatedComponentsUsed": [
+      [
+        "SEPXYZ",
+        "Z",
+        "Centered overhead reflection envelope"
+      ]
+    ]
+  },
+  "identityNormalization": "Only Blender runtime session_uid and datablock users excluded from settings comparison. Actual material assignments are independently compared and explain the old shared blue user-count change 2\u21921. Raw differences retained in identity-metadata-diagnostics.json.",
+  "technicalReuse": "All independent native identity groups pass only if unchanged. Reuse exact v5 1200-phase, hover, finite seat and reservation/projection evidence; no new geometry/motion/opacity/displacement channels. Native static glass graph uses view angle and reflected incoming-ray elevation (world Z), with no horizontal X/Y azimuth branch."
+}

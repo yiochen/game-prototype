@@ -1,0 +1,113 @@
+{
+  "asset": "dock-floor",
+  "stage": "initial source audit",
+  "status": "preparation-complete; coordinator reconciliation and criteria freeze required",
+  "candidateSupplied": false,
+  "artApprovalIssued": false,
+  "reviewer": "fresh independent judge; no editor proposal read",
+  "evidenceManifest": {
+    "path": "raw-evidence-manifest.json",
+    "sha256": "ad545d4972c63d3da7cc69e7a0e9cd329219070283ca1dc2764af3a4507ed7ba"
+  },
+  "verifiedInputHashes": {
+    "original": "356cffd576dfe567259d1d7e9a5b62009090aa74a9d340efa9e6f4fd017259f9",
+    "fixedTarget": "2a2450d166d5e5d08a6b19936bed5d7c2b400a34d381d93dbd4c5218205dba34",
+    "styleReference": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+    "sourceBlend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "untouchedBackup": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+  },
+  "inputConsistency": {
+    "snapshotMatchesPublishedS": true,
+    "sourceMatchesBackup": true,
+    "targetMatchesFrozenSHA": true
+  },
+  "directlyInspectedImages": [
+    "../inputs/original.png",
+    "../inputs/target.png",
+    "../../../style/warm-soft-reference.png",
+    "source-facings-logical.png",
+    "source-entry-joins-logical.png",
+    "native-full-context-S.png",
+    "source-context-backgrounds-phone.png",
+    "native-entry-join-S-detail.png",
+    "published-entry-join-S-detail.png"
+  ],
+  "visualInitial": {
+    "source": "Flat elongated plank strips with regular dark/golden alternation; small nail dots; thin front thickness and two joist tips. N/S read as vertical boards, E/W horizontal. The registered platform is clear but has almost no wood character and weak edge volume. Dark grooves are real plank gaps, not broad black material dead spots.",
+    "target": "Rounded hand-crafted warm honey/amber boards, broad soft edge highlights, more legible dark metal fasteners and low-contrast organic grain/knots. Plank fronts and under-supports have useful rounded volume. The target has1299pxheight/1211pxwidth versus960x896source and visible colored alpha fringes; it is one aesthetic design view, not a camera/registration/endprofile proof.",
+    "style": "Plant reference uses simplified strong volumes, softly rounded transitions and warm luminous material edges. Apply that readable native volume to wood; no demand to copy its saturated green palette or target halos.",
+    "rankedVisibleOutcomes": [
+      "Give deck edges/front thickness/supports rounded but weight-bearing native volume, without a swollen rim or entry obstruction. Improve structural coherence without preserving12planks/2joists/8nails as locks.",
+      "Create warm honey/amber wood with gentle long grain/knot variation and dark readable metal fixing cues; leave quiet broad walking regions so people/ship/hut remain focal.",
+      "Keep all facings softly lit and coherent, with clean underside/grooves, no broad dead black patches, interference, alpha halos or unexplained functional join gaps."
+    ]
+  },
+  "baselineSourceDiscrepancies": [
+    {
+      "id": "walking-height-vs-envelope",
+      "severity": "reconcile-before-freeze",
+      "evidence": "Native evaluated plank interior top0.219999999; beveled end at y=-1.5 top0.211999997; nails max0.228000000; joist floor0. Catalog nominalheight0.25.",
+      "effect": "The nominal height is not the deck surface. Locking all surfaces to0.25 would silently move the support interface.",
+      "proposal": "Preserve root/placement, treat0.25 as maximum envelope; freeze an explicit walking/contact profile around measured0.22, with independently permitted relief."
+    },
+    {
+      "id": "entry-overlap-and-visibility",
+      "severity": "real-baseline-defect",
+      "evidence": "Entry root(0,-1.5,0). Step2 spans world y[-1.495,-1.255] with flat top0.18 and is embedded in dock slab0.04..0.22. Step3 y[-1.245,-1.005] top0.225 sits0.005 above deck. Native depth-tested joins hide most of step2; independent published whole-sprite composition paints it over deck in N/E/S/W. Direct sheets inspected.",
+      "effect": "Source native and published joins are materially different; an unbroken seamless source join has not been established.",
+      "proposal": "Keep authored overlap and clearance. Do not require a new reciprocal socket, move entry to a butt joint or call existing baseline seamless. Coordinator must choose acceptance/repair boundary for the pre-existing submerged-step visibility discrepancy before editor construction."
+    },
+    {
+      "id": "entry-exterior-transfer",
+      "severity": "real-baseline-profile-defect",
+      "evidence": "Source external step1 top0.135 ends y=-1.505; dock begins y=-1.5. The5e-3world run gap is0.64logicalpx. Nominal flat-run rise to deck0.22 is0.085world, versus0.045 step increment. The beveled end values are in contract-measurements.json.",
+      "effect": "Authored overlap produces a narrow coverage discontinuity and a larger transfer rise than the stair recipe suggests.",
+      "proposal": "Declare baseline explicitly. Preserve global entry/dock roots, but allow a native contact-edge repair within dock envelope if coordinator freezes that repair; require both native and independent visible coverage evidence."
+    },
+    {
+      "id": "supported-neighbor-gaps",
+      "severity": "reconcile-scope",
+      "evidence": "Composition roots stay workshop(.78,.35,.23), submarine(-.70,-.42,.23). Hut lowest trim/door-frame localz0.025 gives world0.255, gap0.035 over0.22deck. Dock-ready submarine visible skids minworldz0.274999946, gap0.055. Deck receives source context shadows but this is not physical contact proof.",
+      "effect": "Strict zero-gap contact cannot be obtained solely by changing dock below nominalmax0.25 while retaining current neighbors/root placements.",
+      "proposal": "Retain authored placements and clear landing/support regions. Report these as pre-existing neighbor/source gaps; do not impose an impossible zero-gap criterion or edit adjacent assets implicitly. Coordinator must explicitly record accepted baseline or authorized later family repair."
+    },
+    {
+      "id": "generic-guide-vs-catalog",
+      "severity": "metadata-discrepancy",
+      "evidence": "Per-facing guide says occupiedCells[[0,0]] despite native/catalog3x3 and all9support cells. guide/camera/asset scale4 describes historical source1792x1920; published runtime/sourceScale2 is896x960. Four declared4x source-capture paths are absent. Snapshot bytes equal publishedS.",
+      "effect": "Generic guide cannot override the asset-specific3x3support/layout or prove present raw capture closure.",
+      "proposal": "Freeze448x480logical/root224,256/2xnative896x960,1cell128logicalpx; retain historical4x provenance as history only. Candidate must provide actual closed capture resources and exact metadata."
+    },
+    {
+      "id": "saved-active-camera",
+      "severity": "source-capture-trap",
+      "evidence": "Saved library active S33 Capture Camera.240 is character35degree, ortho1.5, aspect1,768x1280. Correct dock source camera is55.00798degree square-top/front, ortho3.5, aspect1.22065556, registered root224,256; reconstructed and measured independently.",
+      "effect": "Using active saved camera would rescale and distort dock.",
+      "proposal": "Require asset-specific registered camera/calibration; camera object name need not be locked."
+    },
+    {
+      "id": "alpha-edge-source-fringes",
+      "severity": "real-raster-defect-at-magnification",
+      "evidence": "Enlarged published entry detail visibly shows red/yellow low-alpha fringe. Dock sourceS has549red and284yellow low-alpha indicator pixels; current source has no RGB data at alpha0 but ringing remains in partialalpha. All-facing black/gray/light inspection performed.",
+      "effect": "Transparent RGB=0 alone does not certify clean filtering. At phone size these are subdued, but should not be copied into a new candidate.",
+      "proposal": "Require antialiased native alpha with clean light/gray/dark composites and consumer filtering/phase checks. No target/source halo should be reproduced."
+    },
+    {
+      "id": "mixed-neighbor-projection",
+      "severity": "declared-context-limitation",
+      "evidence": "Dock/entry/hut use square-topfront55.008degree environment camera; submarine published source declares characterorthographic65degree. Native joined context at dock camera and independent published composition therefore legitimately differ in submarine presentation.",
+      "effect": "Full-context pixel parity is neither expected nor proof of support.",
+      "proposal": "Freeze each neighboring published reference and root; use native context for geometry/contact and independently composed sprites for consumer appearance. Do not refit dock to match differently projected submarine pixels."
+    }
+  ],
+  "limits": [
+    "Initial source audit only; no candidate scored or approved.",
+    "Native full-contextS is an exploratory geometry context. Native entry joins and published independent joins inspect all4facings. Later candidate coverage is broader and specified in proposedcriteria.json.",
+    "No furniture/character new placement contract or reciprocal dock-floor port is inferred from pixels."
+  ],
+  "minimumInterfaceCorrectionSummary": {
+    "reference": "interface-correction-options.json",
+    "floorOnlySufficient": false,
+    "recommendation": "Option A plus the native entry-side run closure is the smallest complete correction while retaining broad deck height and placements. It requires coordinated dock-entry work/capture authorization from the coordinator. If the user instead wants a redesigned staircase, freeze Option B\u2019s bounded local profile before editing."
+  }
+}

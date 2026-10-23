@@ -1,0 +1,2968 @@
+{
+  "version": 1,
+  "baseLibrarySha256": "1fda086612350e35b579242fd8af84b4ad5edfc5ba0bde0e1d82f8ec2630f65e",
+  "provenance": "Game-specific native meal variants; approved issue33 base catalog remains unchanged.",
+  "sourceFiles": {
+    "assets/production/source/variants/starter-meals/starter-meals.blend": "60f6b6eb57b334946a9fefff69193556ec5cff912f68cde8ca458f6ed5989ee0",
+    "assets/production/source/variants/starter-meals/authorship.json": "2c5402f2d865b4ecda75053e523702f94ec1226ce1e371ee0edf92f73a6fa419",
+    "assets/production/source/variants/starter-meals/author_meals.py": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1",
+    "assets/production/source/variants/starter-meals/pack_meals.py": "b83d83523146b486b7605d494ba6ea54f306439a91406dd87c8076eab5cb6144",
+    "assets/production/source/variants/starter-meals/publication.json": "a3e68a5413ae30fab59708bb7a72ac07a8e7c273d2377724e5a9e6bd32717bab",
+    "assets/production/source/variants/starter-meals/native-audit.json": "c30de02419dc353f82d8c0b494f03eb4fb0896f1cd54a33e698e684eae85be92",
+    "assets/production/source/variants/starter-meals/audit_native_meals.py": "25ee907046d2705e0a9b7fc55b56b7dbb3a029d0422e81a4305fa0444063a53d",
+    "assets/production/source/variants/starter-meals/starter-meals-project.blend": "0c67e49c0382acebc57c22aebf2626c5922c3fe993bfaf45b64009855d77e4c5",
+    "assets/production/source/variants/starter-meals/finalize_meals.py": "8dbca0b9c2a6e571e83cf681328d5f0fd7ad1c22a0beeadb261c5855f91f38fc",
+    "assets/production/source/variants/starter-meals/finalized-project.json": "7a1b008e0e8244063fb77f1210296543cb485802a52854c4b2379ccde0b3c9d4",
+    "assets/production/source/variants/starter-meals/export/source/customer-ellis/asset.json": "cdc0d5276b459896db8bffd3c861608e2ea36c9051570a095659ed7de10a6338",
+    "assets/production/source/variants/starter-meals/export/source/customer-ellis/rig.json": "20ca403b902cad6c2b52015b04690b910e86e72639ee8ebe670e148391ec07c4",
+    "assets/production/source/variants/starter-meals/export/source/customer-june/asset.json": "65296fd48d76142b3351401c44391bc63d50729ecef6be63cc29778ede82cc90",
+    "assets/production/source/variants/starter-meals/export/source/customer-june/rig.json": "d14716ce02d8e653613bccfd33de11a7a307ba733a4895f53f9859f94d6b9f36",
+    "assets/production/source/variants/starter-meals/export/source/customer-rosa/asset.json": "af7a9164c8c8cfd35d951db0b4a16a6a013ee50289cf25d30c1e6babe15d4137",
+    "assets/production/source/variants/starter-meals/export/source/customer-rosa/rig.json": "1e5d935943b4f77aa1220ab43defc26729af6fe40518e446c4b1fc25c2aa2479",
+    "assets/production/source/variants/starter-meals/export/source/customer-samir/asset.json": "12c7620d91feba9e8af76a81da406e3f291c3e0a9fe25fa075aa92e33b7704d8",
+    "assets/production/source/variants/starter-meals/export/source/customer-samir/rig.json": "4953e55d815ae0024280e953c75975890f010c1945667d16e7cb4359de6d3d8a",
+    "assets/production/source/variants/starter-meals/export/source/native-actions/library-actions.json": "978fd2845d1388a055d00f4dae763e01ff5aecbcc470bd03fae91c0887b5d3ad",
+    "assets/production/source/variants/starter-meals/export/capture-workers/camera/starter-meals-a/customer-ellis.json": "49ac0ac3d11f776f89c49fee162be1f88e9d6dda8963207a355d09f5e1049bae",
+    "assets/production/source/variants/starter-meals/export/capture-workers/camera/starter-meals-a/customer-rosa.json": "889dfa356bd97f0cfd3ee384a359b6efb5ea27b0868a3462518da2e0a0bb6f7c",
+    "assets/production/source/variants/starter-meals/export/capture-workers/camera/starter-meals-b/customer-june.json": "0f77f3644997983ecf6039d3a5f18c58bc4ec59d48a89c97ad0a9f9f5154d492",
+    "assets/production/source/variants/starter-meals/export/capture-workers/camera/starter-meals-b/customer-samir.json": "b14e3ca152a07b8d63da94ff0f0db80a4210e5c54e77d87e53b3cf4b8c91ea7b",
+    "assets/production/source/variants/starter-meals/export/capture-workers/starter-meals-a.status.json": "02444495afc4898a568fa0149347e700e6fd71700bc49d5c11fff6e9f404a96c",
+    "assets/production/source/variants/starter-meals/export/capture-workers/starter-meals-b.status.json": "7a4f2cfe0fa45eb842876fab39fd3828f30a01fd7d62343b6781bd3e58df533f",
+    "assets/production/source/blender/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+    "assets/production/source/blender/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+    "assets/production/source/blender/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+    "assets/production/source/blender/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+    "assets/production/source/blender/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+    "assets/production/source/blender/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+    "assets/production/source/2d/generated/dish-salmon.png": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+  },
+  "objects": {
+    "customer-rosa": {
+      "frameSize": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "projection": "character-orthographic",
+      "clips": {
+        "eat-salmon": {
+          "id": "eat-salmon",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-rosa/eat-salmon-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "0ec493284ebd41d77e6ddcc3520d47af96d8b1714b282950d84da77deeaa3175"
+            },
+            "E": {
+              "image": "sprites/customer-rosa/eat-salmon-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "577f74995362c1932884ced3f2aed59db185bb7bae640e2b0f192620c75f5cb8"
+            },
+            "S": {
+              "image": "sprites/customer-rosa/eat-salmon-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "ebc20bcdfecb48eb2f9a92ae9161273909f12504a45a64cb141b0cfc435e0d4e"
+            },
+            "W": {
+              "image": "sprites/customer-rosa/eat-salmon-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "f83c0d427e8093e83f5affb8d512258ed874a931debf0410017ec2028f91b1d6"
+            }
+          }
+        },
+        "seated-wait-empty": {
+          "id": "seated-wait-empty",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-rosa/seated-wait-empty-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "a2332117cb5f3485f9220bfd04b167146718e9d45be10f1d8809810f0e7070f7"
+            },
+            "E": {
+              "image": "sprites/customer-rosa/seated-wait-empty-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "ccaf9753ed4e5b09512d18b7ec4b961a3bf68e2acb63fff6018253628e41f323"
+            },
+            "S": {
+              "image": "sprites/customer-rosa/seated-wait-empty-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "c7e5ae0ff91492ca7112df67bfb990be76984f8c0d8ed1a7160a8b85103c987a"
+            },
+            "W": {
+              "image": "sprites/customer-rosa/seated-wait-empty-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "8e4a9bba4be155a8f96989e05e7c6694436cc99e981a9a22519ce74be0a323f9"
+            }
+          }
+        }
+      }
+    },
+    "customer-ellis": {
+      "frameSize": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "projection": "character-orthographic",
+      "clips": {
+        "eat-salmon": {
+          "id": "eat-salmon",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-ellis/eat-salmon-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "c1b4e08e715ae4ebe4423ae7eed4abbdb415497ac9fc0caa6643b36fcaf1d13e"
+            },
+            "E": {
+              "image": "sprites/customer-ellis/eat-salmon-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "542b211c06df0360341efd99a228db245cd000ac457cc92e008557cec49483d9"
+            },
+            "S": {
+              "image": "sprites/customer-ellis/eat-salmon-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "6d517cab01c4c0932c13361fdfcc41e1a4fa5b96b175875efc23f7fbd292149f"
+            },
+            "W": {
+              "image": "sprites/customer-ellis/eat-salmon-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "47f2be76ed636d027cb4f55b3b3fcc30f692a883f0f48bf538d1ecb85be4eb42"
+            }
+          }
+        },
+        "seated-wait-empty": {
+          "id": "seated-wait-empty",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-ellis/seated-wait-empty-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "a647b9ef576b60318631e5a352a656a0c03c3e1eae0fd65623d62f581c51123e"
+            },
+            "E": {
+              "image": "sprites/customer-ellis/seated-wait-empty-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "f5afdc8be9eacc5949a55ce133a67bf03af669a4c933d3d73c8bda3d6ba6d604"
+            },
+            "S": {
+              "image": "sprites/customer-ellis/seated-wait-empty-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "658aea811c31daf866f55826107c48aadd903542834ab9b20de96223c4bfad0d"
+            },
+            "W": {
+              "image": "sprites/customer-ellis/seated-wait-empty-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "93d796cc8238eda0d6e577e1b4680f1692f7b628118813ad55dec058a55fde3f"
+            }
+          }
+        }
+      }
+    },
+    "customer-samir": {
+      "frameSize": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "projection": "character-orthographic",
+      "clips": {
+        "eat-salmon": {
+          "id": "eat-salmon",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-samir/eat-salmon-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "04900bcee73052a8580c85249a2eddb2cae133fc8b0163b01c235d4e1e66c62c"
+            },
+            "E": {
+              "image": "sprites/customer-samir/eat-salmon-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "49f6e6d76aae3947472a581f6098437ed5047d04a640f9e30ccb2f56167453da"
+            },
+            "S": {
+              "image": "sprites/customer-samir/eat-salmon-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "1ae284ce2524d89d6d7d8866910b1f34a959e7ee3c6d4307c350a53fffd8e9f5"
+            },
+            "W": {
+              "image": "sprites/customer-samir/eat-salmon-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "95cf537f0840191278fe0fd784ed11b4182745efcdca16da8b72a892cc90024a"
+            }
+          }
+        },
+        "seated-wait-empty": {
+          "id": "seated-wait-empty",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-samir/seated-wait-empty-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "b8353e53c0dc4c7c1a06b86d285034461ab2c72c2ab6bfc3715d92b781ca0766"
+            },
+            "E": {
+              "image": "sprites/customer-samir/seated-wait-empty-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "675d77c67a3c28b1594f01805e52f0bb0a35331900fce8b6dc11b4b89541237d"
+            },
+            "S": {
+              "image": "sprites/customer-samir/seated-wait-empty-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "9f418bd208034b80dd54345f6eff8f77003f5c26216e165253caa24b518c7469"
+            },
+            "W": {
+              "image": "sprites/customer-samir/seated-wait-empty-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "cc6fef239684a030d15a2c4f37e769ad34667380075ec48a576e4c6a2992cc56"
+            }
+          }
+        }
+      }
+    },
+    "customer-june": {
+      "frameSize": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "projection": "character-orthographic",
+      "clips": {
+        "eat-salmon": {
+          "id": "eat-salmon",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-june/eat-salmon-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "9cca18bae24df92af90f8ba477a531207bda200956db992c2e4d68e6beb60c42"
+            },
+            "E": {
+              "image": "sprites/customer-june/eat-salmon-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "2876b9de7fb19000473981d69031cce70431a7007b3b70ae0bf0d5907a45f7ea"
+            },
+            "S": {
+              "image": "sprites/customer-june/eat-salmon-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "f9df6ead28c657cb3ed4df90f9ea71e5fdd0291d76b58061defbd90aa3fbe6a8"
+            },
+            "W": {
+              "image": "sprites/customer-june/eat-salmon-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "d27170e835c6a0b579223d57953edb45d7dccde5bfb89288e06ac6dd49ef0169"
+            }
+          }
+        },
+        "seated-wait-empty": {
+          "id": "seated-wait-empty",
+          "frames": 12,
+          "fps": 12,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/customer-june/seated-wait-empty-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "3ef1f7079b81e89010c0a402aa2fdb7f28e6e66ebca8bc92b457b72b8c0d8725"
+            },
+            "E": {
+              "image": "sprites/customer-june/seated-wait-empty-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "57277b4d2c857a371d621661c7a70ddc72ef3a85611e54a368b359150e3aa379"
+            },
+            "S": {
+              "image": "sprites/customer-june/seated-wait-empty-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "a0b34033d862038f49ee78841e3688a03d16e3c35829ffc5f8ce6ebc9c0449ec"
+            },
+            "W": {
+              "image": "sprites/customer-june/seated-wait-empty-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                2304,
+                1280
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  0,
+                  384,
+                  640
+                ],
+                [
+                  0,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  384,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  768,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1152,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1536,
+                  640,
+                  384,
+                  640
+                ],
+                [
+                  1920,
+                  640,
+                  384,
+                  640
+                ]
+              ],
+              "sha256": "42276a8574deaf47afa7308f91559acde244bff99869d0b5b4e061bed83f4beb"
+            }
+          }
+        }
+      }
+    }
+  },
+  "capturedFromLibrarySha256": "9ee71ded8b241821c3c0e42d9452fcabe9ec41f350c4412b325a92fa7cf7cb75",
+  "baseObjectSha256": {
+    "customer-rosa": "1ffa1b4b5e883169545fc9dfd141622e7ba0c59846dde6a4fd5dbcf2599b296e",
+    "customer-ellis": "35d937f109861c5b0108c4265f63eaa0930cc59f30ed1731284eb033f041a30f",
+    "customer-samir": "0e0dd2d81c751897407895118e48fdfcbde929ad71446e5cd1f3d4d5bf9ac71a",
+    "customer-june": "5010b7c553f5484ccf12f1adf743b4444b13e66623a54fab9d7bfb8293bf149e"
+  }
+}

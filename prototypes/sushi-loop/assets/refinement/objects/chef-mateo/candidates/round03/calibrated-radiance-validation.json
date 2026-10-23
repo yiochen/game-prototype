@@ -1,0 +1,554 @@
+{
+  "scope": "18representative fresh calibrated pairs: two hidden-state poses and two hold/load poses in each facing. Actual native body/material/light/render settings remain frozen in all192samples.",
+  "method": "A exact approved source old food; B unsaved candidate restored old image/restquad/UV; C actual canonical candidate native frame. A/B calibrates identical-input render repeatability. C/B reports observed canonical-food RGB change including any calibrated renderer noise; no exact bodyRGB-invariance claim and no global regrade.",
+  "mask": "Intersection of alpha>=128 in A/B/C, excluding union of entire projected old/canonical food quads dilated4native pixels for visible states. This conservative opaque nonfood screen mask is not a semantic per-material mask.",
+  "identicalSettings": {
+    "hash": "0a22120858a90b4b20ff470cecbde02461092f3b2ef0215b3885fc0339efd59f",
+    "seed": 0,
+    "animatedSeed": false,
+    "samples": 32,
+    "denoise": true,
+    "device": [
+      {
+        "name": "Apple M4",
+        "type": "CPU",
+        "enabled": false
+      },
+      {
+        "name": "Apple M4 (GPU - 10 cores)",
+        "type": "METAL",
+        "enabled": true
+      }
+    ],
+    "view": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "sameInputCalibration": {
+    "measuredPixels": 798734,
+    "weightedMeanAbsChannelDelta8bit": 4.2150035764931335e-05,
+    "maxChannelDelta8bit": 1,
+    "pixelsAnyDelta": 101,
+    "pixelsOver2": 0,
+    "pixelsOver8": 0
+  },
+  "canonicalActualRGBDelta": {
+    "measuredPixels": 798734,
+    "weightedMeanAbsChannelDelta8bit": 0.21043551420122344,
+    "maxChannelDelta8bit": 13,
+    "pixelsAnyDelta": 201693,
+    "pixelsOver2": 20616,
+    "pixelsOver8": 27
+  },
+  "sameInputAlphaMaximumDelta8bit": 0,
+  "foodRayBehavior": "Original emissive source material participates in noncamera rays and is unchanged. Food texture radiance legitimately changes, and observed local bodyRGB is assessed separately from immutable native data.",
+  "sourceControlIndex": "candidates/round03/controls/approved-source-old/index.json",
+  "restoredControlIndex": "candidates/round03/controls/candidate-restored-old/index.json",
+  "rows": [
+    {
+      "clip": "idle",
+      "direction": "S",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/idle-S-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/idle-S-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/idle-S/000.png",
+      "sourceOldSHA256": "bfd6e161817bac13a5acb6d69f92d8cedb459003ce51010494e1eb108c8390aa",
+      "restoredOldSHA256": "caafc4b4bd5add0ad01986fd640b632253e762765dbbb87ff5f87af1afbc31f1",
+      "canonicalSHA256": "da3101281fdbcdb00cc5fe10ba626221ebb1b94278416238f67fc327c277a1f1",
+      "sameInputCalibration": {
+        "pixels": 54951,
+        "meanAbsChannelDelta8bit": 6.066010324349572e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 10,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 54951,
+        "meanAbsChannelDelta8bit": 6.066010324349572e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 10,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "work",
+      "direction": "S",
+      "index": 3,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/work-S-003.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/work-S-003.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/work-S/003.png",
+      "sourceOldSHA256": "a591bcb6d3b22d418b74c42487aeded6d84f98758023f83f9361d9a22b52c1a7",
+      "restoredOldSHA256": "bcb1fc20aaea33027988cae83577a01430b49dba10897e9f825a42db1eeacd64",
+      "canonicalSHA256": "6103264a0fcc81c3731b8cbf6d0468e6f6bd3cb45e6ee90fbc61a7b76e738645",
+      "sameInputCalibration": {
+        "pixels": 50185,
+        "meanAbsChannelDelta8bit": 5.977881837202351e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 9,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 50185,
+        "meanAbsChannelDelta8bit": 3.321045465112417e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 5,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "N",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-N-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-N-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-N/000.png",
+      "sourceOldSHA256": "a62aa151b7bcd063930773cd22a586cf0899571b53fc848fa62ce7e81231db38",
+      "restoredOldSHA256": "03fef781f0080ceb3cf999d56c3c38df2f0264db0a75f18488b065e3b6a3036b",
+      "canonicalSHA256": "d42150d46754e603caf2650189d05c8dd1c4f7ac6eaef2c5cc00384561a29003",
+      "sameInputCalibration": {
+        "pixels": 45352,
+        "meanAbsChannelDelta8bit": 5.144940318692303e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 7,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 45352,
+        "meanAbsChannelDelta8bit": 0.10486858352443111,
+        "maxChannelDelta8bit": 6,
+        "pixelsAnyDelta": 9468,
+        "pixelsOver2": 82,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "N",
+      "index": 6,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-N-006.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-N-006.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-N/006.png",
+      "sourceOldSHA256": "f4cc9d355c9201d8e2e7c611371a6cbf5376096bea7a1d9b60397e3f31f1d19b",
+      "restoredOldSHA256": "cc28b66748a58edb017667ccfc4a09c1b9a8d649ff41e295142adf143a81d2ba",
+      "canonicalSHA256": "42f98ca451c8753fe2009204c0ed6bb92dc66444e7b186765af2bc4b191020d6",
+      "sameInputCalibration": {
+        "pixels": 45459,
+        "meanAbsChannelDelta8bit": 4.399568842253459e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 6,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 45459,
+        "meanAbsChannelDelta8bit": 0.10666021396569803,
+        "maxChannelDelta8bit": 6,
+        "pixelsAnyDelta": 9539,
+        "pixelsOver2": 80,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "E",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-E-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-E-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-E/000.png",
+      "sourceOldSHA256": "c40335506605dce39340e3da867317219a1ff962c5c6bfabaa81a3778f06c06a",
+      "restoredOldSHA256": "1b4021bc13c724825a96978f1994f11c881de184958bce2c88b96129246a2995",
+      "canonicalSHA256": "7594750b0201e1a36e0ebfa32862dd005e8fcb91749c1469c240205fa85ab55b",
+      "sameInputCalibration": {
+        "pixels": 42322,
+        "meanAbsChannelDelta8bit": 3.150449726698486e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 4,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42322,
+        "meanAbsChannelDelta8bit": 0.21165508876392106,
+        "maxChannelDelta8bit": 6,
+        "pixelsAnyDelta": 11125,
+        "pixelsOver2": 984,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "E",
+      "index": 6,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-E-006.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-E-006.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-E/006.png",
+      "sourceOldSHA256": "ca7e212a5d735beff4838d545b58aec0dd98581fde61cca9b6eef42458b0a2d7",
+      "restoredOldSHA256": "443588afb1375650a02ff8f43dc0c359b3d0181cad1d6c42ddd3013a1c22e784",
+      "canonicalSHA256": "ae7e59f57e41db10e35c08f549d0ab63efa3b020747801d2a150e83b75b61d4f",
+      "sameInputCalibration": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 2.357934449422306e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 3,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 0.21466635227540673,
+        "maxChannelDelta8bit": 7,
+        "pixelsAnyDelta": 11244,
+        "pixelsOver2": 1029,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "S",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-S-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-S-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-S/000.png",
+      "sourceOldSHA256": "a472b70d157383d7cdce98277c37adc10ada1b1d1014d5f88a0ea2b71d84bab2",
+      "restoredOldSHA256": "cb914c47d93de1b4c9e2110a4538a66b9f9e3bbd2098c7e00ee1a12bf51238bd",
+      "canonicalSHA256": "6d5cfb166498243a044f73db26e1143b79675dd328f6c2a20d4e0ba54a940694",
+      "sameInputCalibration": {
+        "pixels": 43622,
+        "meanAbsChannelDelta8bit": 5.348982929103052e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 7,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 43622,
+        "meanAbsChannelDelta8bit": 0.4159751195879755,
+        "maxChannelDelta8bit": 11,
+        "pixelsAnyDelta": 18535,
+        "pixelsOver2": 2435,
+        "pixelsOver8": 7
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "S",
+      "index": 6,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-S-006.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-S-006.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-S/006.png",
+      "sourceOldSHA256": "a80346007bd606ce1af8d9d4704f104bf64f2cf8d0a8842cb9e775a363174422",
+      "restoredOldSHA256": "5cb0db812c3487a7c012d5a43b4520a142a57b9e05d383be76510307464cf537",
+      "canonicalSHA256": "94ef6d4033683bba11bc0a6ebf52125c1ea92883c33414d976c36b6b65a0a0f4",
+      "sameInputCalibration": {
+        "pixels": 43622,
+        "meanAbsChannelDelta8bit": 3.820702092216466e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 5,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 43622,
+        "meanAbsChannelDelta8bit": 0.4157611602708114,
+        "maxChannelDelta8bit": 12,
+        "pixelsAnyDelta": 18540,
+        "pixelsOver2": 2432,
+        "pixelsOver8": 6
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "W",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-W-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-W-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-W/000.png",
+      "sourceOldSHA256": "e3526924801adde64bc995eca85506266eb6c08e47c9a5642ff86642ddba073e",
+      "restoredOldSHA256": "f27ed8f179ac43e5a143dc387789c90f3106629d0fe5f6d9395e0cfdfa081009",
+      "canonicalSHA256": "93cf5c01cf8b708281d9bd874e4bf628a7ebc87632ba3046502efdb4e7cdc96b",
+      "sameInputCalibration": {
+        "pixels": 42014,
+        "meanAbsChannelDelta8bit": 7.140476983862522e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 9,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42014,
+        "meanAbsChannelDelta8bit": 0.24113390774503737,
+        "maxChannelDelta8bit": 8,
+        "pixelsAnyDelta": 11208,
+        "pixelsOver2": 1670,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "hold",
+      "direction": "W",
+      "index": 6,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/hold-W-006.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/hold-W-006.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/hold-W/006.png",
+      "sourceOldSHA256": "8f1d4f02fb9e53c07d4ff9d90999970af8366ad3c66368eaed176885cb193b84",
+      "restoredOldSHA256": "22125cb993e789bf5f1cc027a179cd419f835d0d83e7dc057a2e66bdff078381",
+      "canonicalSHA256": "311396f84674956fb2e3287f61866acf909f24228806f4bf3c799ea92db6f902",
+      "sameInputCalibration": {
+        "pixels": 41925,
+        "meanAbsChannelDelta8bit": 4.770423375074538e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 6,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 41925,
+        "meanAbsChannelDelta8bit": 0.2401987676406281,
+        "maxChannelDelta8bit": 8,
+        "pixelsAnyDelta": 11140,
+        "pixelsOver2": 1692,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "N",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-N-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-N-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-N/000.png",
+      "sourceOldSHA256": "bd1361078be6e1bf176ecb20434181044fd38cdce57402f0a8e9122a6fee7fbb",
+      "restoredOldSHA256": "0fedf356be78c829bd5ad14f53a3661defb4e15a13f9ca50791d0c6181485770",
+      "canonicalSHA256": "2c2127320417acc742180a8835fd9d51dcee75baff8f93c3033e6ba9c636fb35",
+      "sameInputCalibration": {
+        "pixels": 45451,
+        "meanAbsChannelDelta8bit": 2.9335621511811254e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 4,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 45451,
+        "meanAbsChannelDelta8bit": 0.10876915066041817,
+        "maxChannelDelta8bit": 6,
+        "pixelsAnyDelta": 9629,
+        "pixelsOver2": 83,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "N",
+      "index": 11,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-N-011.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-N-011.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-N/011.png",
+      "sourceOldSHA256": "ad2cf2131482652c7a6dc6bf4010a8c88f4082888f1a30b85f95c7e4298a7c18",
+      "restoredOldSHA256": "544cbc3386f96f690067a4b1cc78b6a3d0d8d903e12ebd02b43b0edb6a3f5111",
+      "canonicalSHA256": "dfcbe09589532af5b7eed63a38ce93778697f1f4dd6fb05437ba60e07bab45f5",
+      "sameInputCalibration": {
+        "pixels": 45451,
+        "meanAbsChannelDelta8bit": 3.666952688976407e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 5,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 45451,
+        "meanAbsChannelDelta8bit": 0.10876915066041817,
+        "maxChannelDelta8bit": 6,
+        "pixelsAnyDelta": 9630,
+        "pixelsOver2": 83,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "E",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-E-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-E-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-E/000.png",
+      "sourceOldSHA256": "6ba791e183cd5658e733dbe6de13805ad72c9e197baffc70cee9c43e13c8bd01",
+      "restoredOldSHA256": "ac6a4c82ee4ec6faf9748a7620a84c8f48699dcb2b3ddb459b0ae7ab8511e19a",
+      "canonicalSHA256": "0fba3af312a52fd9a3f2cf3d16bef1a589a07d052e400d142bbeeadfc77b4af4",
+      "sameInputCalibration": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 3.929890749037177e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 5,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 0.21444627839346067,
+        "maxChannelDelta8bit": 7,
+        "pixelsAnyDelta": 11264,
+        "pixelsOver2": 1009,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "E",
+      "index": 11,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-E-011.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-E-011.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-E/011.png",
+      "sourceOldSHA256": "319eff26a45f8e17f0be7182f8b119222485a020e61c2e4dbe1c56cce23294f0",
+      "restoredOldSHA256": "8fb8f6f83d701b565c0c2408e8346f24168e7534ba0c95162c4198d97e18c02a",
+      "canonicalSHA256": "bf44caf8f596d5f1846173950ed90b77c7a23874664fd40153a2804bdf0cf1f0",
+      "sameInputCalibration": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 7.073803348266918e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 9,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42410,
+        "meanAbsChannelDelta8bit": 0.2144934370824491,
+        "maxChannelDelta8bit": 7,
+        "pixelsAnyDelta": 11266,
+        "pixelsOver2": 1009,
+        "pixelsOver8": 0
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "S",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-S-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-S-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-S/000.png",
+      "sourceOldSHA256": "3a43f5a1a6ba13122aed2916ef8ba43cea275abef6cb72a082a933d22fda80fb",
+      "restoredOldSHA256": "444b6222f97b88404096424493a71b4b209a24fafe13d8d1e76e52088d9d24d8",
+      "canonicalSHA256": "8d7ce55eb3c5645978626aa1ef9eedb41d70269bf1500f4c6dade4e04cfd750a",
+      "sameInputCalibration": {
+        "pixels": 43524,
+        "meanAbsChannelDelta8bit": 7.658609809147443e-06,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 1,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 43524,
+        "meanAbsChannelDelta8bit": 0.40928376681064854,
+        "maxChannelDelta8bit": 11,
+        "pixelsAnyDelta": 18310,
+        "pixelsOver2": 2328,
+        "pixelsOver8": 6
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "S",
+      "index": 11,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-S-011.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-S-011.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-S/011.png",
+      "sourceOldSHA256": "07a8b0f215465a89283e65af0f483145208dff316cf9cfeb6b36887a752aa611",
+      "restoredOldSHA256": "c22b325f33e8cd06f3f564ecaf9867de64a7f4ee2c94586348977822aca9c496",
+      "canonicalSHA256": "dcf4e76d14bdc26562550e7d8bb41c70231cf2c306449ea85f6147f2ff7c5220",
+      "sameInputCalibration": {
+        "pixels": 43524,
+        "meanAbsChannelDelta8bit": 1.5317219618294886e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 2,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 43524,
+        "meanAbsChannelDelta8bit": 0.4092531323714119,
+        "maxChannelDelta8bit": 11,
+        "pixelsAnyDelta": 18308,
+        "pixelsOver2": 2328,
+        "pixelsOver8": 6
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "W",
+      "index": 0,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-W-000.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-W-000.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-W/000.png",
+      "sourceOldSHA256": "908eb1fc4332a2352ac93573063ea2d72c6912efc7a40cd1921ed86649a2d275",
+      "restoredOldSHA256": "20aee6b2939daa4876e704663062708b9b45db6c366560f64588e453fa2bd31c",
+      "canonicalSHA256": "5815736acdf8867d1b2b62d4e65bd779c480f43d9b2646d23ce9e8cca68db7fb",
+      "sameInputCalibration": {
+        "pixels": 42051,
+        "meanAbsChannelDelta8bit": 3.963441218203293e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 5,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42051,
+        "meanAbsChannelDelta8bit": 0.24046990559083017,
+        "maxChannelDelta8bit": 13,
+        "pixelsAnyDelta": 11237,
+        "pixelsOver2": 1686,
+        "pixelsOver8": 1
+      }
+    },
+    {
+      "clip": "load",
+      "direction": "W",
+      "index": 11,
+      "sourceOldPath": "candidates/round03/controls/approved-source-old/load-W-011.png",
+      "restoredCandidateOldPath": "candidates/round03/controls/candidate-restored-old/load-W-011.png",
+      "canonicalCandidatePath": "candidates/round03/raw-frames/load-W/011.png",
+      "sourceOldSHA256": "52a178e47cc8f8e2074e155e56308015c0dbb5b3737f04e7773dfa9234e96fa5",
+      "restoredOldSHA256": "4a0b217564a2334deb3bff9691f83fd9a9350f0df6da6b6d0ca95dc2307d0629",
+      "canonicalSHA256": "60f2e089f19755d172c825a0eb6b81660cf2c98acf2d6905e5bd9e891c1c8ebc",
+      "sameInputCalibration": {
+        "pixels": 42051,
+        "meanAbsChannelDelta8bit": 3.170752974562634e-05,
+        "maxChannelDelta8bit": 1,
+        "pixelsAnyDelta": 4,
+        "pixelsOver2": 0,
+        "pixelsOver8": 0
+      },
+      "sameInputAlphaMaxDelta": 0,
+      "canonicalActualRGBDelta": {
+        "pixels": 42051,
+        "meanAbsChannelDelta8bit": 0.24043819806108455,
+        "maxChannelDelta8bit": 13,
+        "pixelsAnyDelta": 11235,
+        "pixelsOver2": 1686,
+        "pixelsOver8": 1
+      }
+    }
+  ]
+}

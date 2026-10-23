@@ -1,0 +1,133 @@
+{
+  "asset": "chef-blackboard",
+  "phase": "independent-initial-assessment",
+  "readBeforeEditorProposals": true,
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "reviews/initial-use-size.png"
+  ],
+  "inputHashes": {
+    "original.png": "930d2242b56b3471dfb8d4b95c6cf7c428ece804b3721084185ab05227409dd4",
+    "target.png": "9480077fc72de0404eb3be389aa4739fe3be400016f8d2e3cdbb8946542bf8e5",
+    "catalog-object.json": "ddc7522f44c78dfcdd90ad5fe90e00a10dc99082c87e9411473c1b0f9d3346c2",
+    "source-camera.json": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181",
+    "source-assetRecord.json": "551caf5478bdf8335e068c5107ad360d07cbd1186aaed635c25ffd54f3f49ac2",
+    "source-rig.json": "d28e5ee7cd0aebf22633a91d6693d8510f49d75cef14293e2b75d0338f1801ae"
+  },
+  "observations": [
+    "Original reads clearly as a small blank blue-slate board inside yellow-orange wood, with two short feet; this identity and palette family are appropriate.",
+    "Original top rail is a very bright broad strip, side rails have abrupt planar changes, and lower feet become deep brown with weak readable volume. At logical scale the construction reads as stacked slabs.",
+    "Fixed target expresses warm honey-orange wood, rounded rail volumes, legible end caps, framed inset slate and small crafted joint accents. These are useful native design opportunities rather than exact topology requirements.",
+    "Target retains a calm dark blue writing face. Its painted grain and glints convey warmth, but their exact painted strokes, exaggerated white highlights, alpha speckles and outer glow are not requirements.",
+    "At comparable visible-art height the target keeps recognizable framing, support separation and a quiet usable face. Initial QA sheet shows the original at exact 192x352 logical frame and target solid-art bbox uniformly height-fit only; the target fit is aesthetic evidence, never registration proof."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "location": "wood frame, caps and lower supports",
+      "effect": "Current slab construction feels rigid and generic compared with the crafted target.",
+      "desiredOutcome": "Useful rounded native construction with readable coherent joints/supports and purposeful restrained detail, while preserving the functional display and envelope."
+    },
+    {
+      "rank": 2,
+      "location": "top rail highlight and dark lower feet",
+      "effect": "Bright upper strip and dark foot blocks interrupt softly lit volume.",
+      "desiredOutcome": "Soft coherent edge highlights and warm midtone-to-shade transitions; feet and joints remain readable without black dead spots or blown strips."
+    },
+    {
+      "rank": 3,
+      "location": "wood/slate material distinction at game scale",
+      "effect": "Large flat regions provide little tactile character beyond basic color.",
+      "desiredOutcome": "Wood and inset slate have restrained, stable material character that survives logical scale without noisy texture or intrusive display decoration."
+    }
+  ],
+  "contractDiscovery": {
+    "facingPolicy": "single-player-facing",
+    "requiredViews": [
+      "S"
+    ],
+    "notRequired": "No unseen N/E/W renders are inferred from the generic four-view-sheet preview alias.",
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "atlasFrame": [
+      384,
+      704
+    ],
+    "nativeCaptureFrame": [
+      768,
+      1408
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "footprint": [
+      1,
+      1
+    ],
+    "height": 1.0,
+    "groundBandY": [
+      -0.5,
+      -0.27
+    ],
+    "sockets3D": {
+      "recipe_face": [
+        0,
+        -0.434,
+        0.61
+      ],
+      "display_face": [
+        0,
+        -0.434,
+        0.61
+      ]
+    },
+    "clips": {
+      "idle": {
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "static": true
+      },
+      "selected": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "nativeFrames": [
+          1,
+          12
+        ],
+        "closingKeyFrame": 13
+      },
+      "recipe-change": {
+        "sourceClipId": "recipe_change",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "nativeFrames": [
+          1,
+          12
+        ]
+      }
+    },
+    "discoverySources": [
+      "inputs/catalog-object.json",
+      "inputs/source-camera.json",
+      "inputs/source-assetRecord.json",
+      "inputs/source-rig.json",
+      "../../../production/source/registered/chef-blackboard/idle-S/guide.json"
+    ]
+  },
+  "limits": [
+    "This is a criteria proposal, not a candidate verdict. No editor proposal or candidate has been read.",
+    "Initial exact camera/socket/envelope discovery uses authored source records; candidate approval will require actual native scene measurements and hash-bound rendered evidence."
+  ]
+}

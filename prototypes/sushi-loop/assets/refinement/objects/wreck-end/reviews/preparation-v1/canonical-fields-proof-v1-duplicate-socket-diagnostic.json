@@ -1,0 +1,4760 @@
+{
+  "scope": "Independent actual approved middle02 finite canonical technical fields; no end approval",
+  "collars": {
+    "W": [
+      -0.5,
+      -0.42
+    ],
+    "E": [
+      0.42,
+      0.5
+    ]
+  },
+  "nativeRoot": "wreck-middle__root",
+  "materials": {
+    "Slate iron - canonical soft edge - explicit canonical normal": {
+      "actualActiveNormalPath": [
+        "CanonicalNormal CORNER FLOAT_VECTOR",
+        "OBJECT to WORLD NORMAL transform",
+        "NORMALIZE",
+        "Principled Normal",
+        "Material Output"
+      ],
+      "baseColor": {
+        "heightSpace": "world Position Z",
+        "mapRange": {
+          "Value": 1.0,
+          "From Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "From Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "To Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "To Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "Steps": [
+            4.0,
+            4.0,
+            4.0
+          ],
+          "Vector": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "interpolation": "LINEAR",
+        "clamp": true,
+        "blendType": "MULTIPLY",
+        "factor": 1.0,
+        "linearBaseColor": [
+          0.03433980792760849,
+          0.07618538290262222,
+          0.14126329123973846,
+          1.0
+        ],
+        "longitudinalDerivative": 0,
+        "proof": "actual albedo depends solely on unchanged world Z on every collar point; no X/Y or object Generated dependence"
+      },
+      "surface": {
+        "Roughness": 0.5299999713897705,
+        "Metallic": 0.1599999964237213,
+        "Specular IOR Level": 0.18000000715255737,
+        "Alpha": 1.0,
+        "IOR": 1.5,
+        "Emission Strength": 0.0
+      },
+      "alphaLinked": false,
+      "tangentRequired": false,
+      "allNodeTypes": [
+        "ShaderNodeOutputMaterial",
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeNewGeometry",
+        "ShaderNodeSeparateXYZ",
+        "ShaderNodeMapRange",
+        "ShaderNodeMixRGB",
+        "ShaderNodeAttribute",
+        "ShaderNodeVectorTransform",
+        "ShaderNodeVectorMath"
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Attribute",
+          "Vector",
+          "Vector Transform",
+          "Vector"
+        ],
+        [
+          "Vector Transform",
+          "Vector",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Vector",
+          "Principled BSDF",
+          "Normal"
+        ]
+      ]
+    },
+    "Blue painted timber - lower layered hue - explicit canonical normal": {
+      "actualActiveNormalPath": [
+        "CanonicalNormal CORNER FLOAT_VECTOR",
+        "OBJECT to WORLD NORMAL transform",
+        "NORMALIZE",
+        "Principled Normal",
+        "Material Output"
+      ],
+      "baseColor": {
+        "heightSpace": "world Position Z",
+        "mapRange": {
+          "Value": 1.0,
+          "From Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "From Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "To Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "To Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "Steps": [
+            4.0,
+            4.0,
+            4.0
+          ],
+          "Vector": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "interpolation": "LINEAR",
+        "clamp": true,
+        "blendType": "MULTIPLY",
+        "factor": 1.0,
+        "linearBaseColor": [
+          0.006512090563774109,
+          0.18782077729701996,
+          0.5972017645835876,
+          1.0
+        ],
+        "longitudinalDerivative": 0,
+        "proof": "actual albedo depends solely on unchanged world Z on every collar point; no X/Y or object Generated dependence"
+      },
+      "surface": {
+        "Roughness": 0.6800000071525574,
+        "Metallic": 0.019999999552965164,
+        "Specular IOR Level": 0.18000000715255737,
+        "Alpha": 1.0,
+        "IOR": 1.5,
+        "Emission Strength": 0.0
+      },
+      "alphaLinked": false,
+      "tangentRequired": false,
+      "allNodeTypes": [
+        "ShaderNodeOutputMaterial",
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeNewGeometry",
+        "ShaderNodeSeparateXYZ",
+        "ShaderNodeMapRange",
+        "ShaderNodeMixRGB",
+        "ShaderNodeAttribute",
+        "ShaderNodeVectorTransform",
+        "ShaderNodeVectorMath"
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Attribute",
+          "Vector",
+          "Vector Transform",
+          "Vector"
+        ],
+        [
+          "Vector Transform",
+          "Vector",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Vector",
+          "Principled BSDF",
+          "Normal"
+        ]
+      ]
+    },
+    "Blue painted timber - canonical height albedo - explicit canonical normal": {
+      "actualActiveNormalPath": [
+        "CanonicalNormal CORNER FLOAT_VECTOR",
+        "OBJECT to WORLD NORMAL transform",
+        "NORMALIZE",
+        "Principled Normal",
+        "Material Output"
+      ],
+      "baseColor": {
+        "heightSpace": "world Position Z",
+        "mapRange": {
+          "Value": 1.0,
+          "From Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "From Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "To Min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "To Max": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "Steps": [
+            4.0,
+            4.0,
+            4.0
+          ],
+          "Vector": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "interpolation": "LINEAR",
+        "clamp": true,
+        "blendType": "MULTIPLY",
+        "factor": 1.0,
+        "linearBaseColor": [
+          0.00802319310605526,
+          0.2746773064136505,
+          0.7529422044754028,
+          1.0
+        ],
+        "longitudinalDerivative": 0,
+        "proof": "actual albedo depends solely on unchanged world Z on every collar point; no X/Y or object Generated dependence"
+      },
+      "surface": {
+        "Roughness": 0.6200000047683716,
+        "Metallic": 0.02500000037252903,
+        "Specular IOR Level": 0.18000000715255737,
+        "Alpha": 1.0,
+        "IOR": 1.5,
+        "Emission Strength": 0.0
+      },
+      "alphaLinked": false,
+      "tangentRequired": false,
+      "allNodeTypes": [
+        "ShaderNodeOutputMaterial",
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeNewGeometry",
+        "ShaderNodeSeparateXYZ",
+        "ShaderNodeMapRange",
+        "ShaderNodeMixRGB",
+        "ShaderNodeAttribute",
+        "ShaderNodeVectorTransform",
+        "ShaderNodeVectorMath"
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Attribute",
+          "Vector",
+          "Vector Transform",
+          "Vector"
+        ],
+        [
+          "Vector Transform",
+          "Vector",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Vector",
+          "Principled BSDF",
+          "Normal"
+        ]
+      ]
+    }
+  },
+  "rails": [
+    {
+      "object": "wreck-middle__rear_canonical_rail",
+      "attributes": [
+        {
+          "name": ".select_vert",
+          "domain": "POINT",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "position",
+          "domain": "POINT",
+          "dataType": "FLOAT_VECTOR"
+        },
+        {
+          "name": ".corner_vert",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".corner_edge",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".select_poly",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "sharp_face",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": ".edge_verts",
+          "domain": "EDGE",
+          "dataType": "INT32_2D"
+        },
+        {
+          "name": ".select_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "material_index",
+          "domain": "FACE",
+          "dataType": "INT"
+        },
+        {
+          "name": "custom_normal",
+          "domain": "CORNER",
+          "dataType": "INT16_2D"
+        },
+        {
+          "name": "sharp_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "CanonicalNormal",
+          "domain": "CORNER",
+          "dataType": "FLOAT_VECTOR"
+        }
+      ],
+      "sides": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.22999998927116394,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.2549999952316284
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.25999999046325684,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.41999998688697815,
+                0.22999998927116394,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                -0.41999998688697815,
+                0.20000000298023224,
+                0.2549999952316284
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                0.41999998688697815,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                0.41999998688697815,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                0.41999998688697815,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ]
+      },
+      "cap": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                -0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                -0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ]
+            ],
+            "normals": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Slate iron - canonical soft edge - explicit canonical normal"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.5,
+                0.20000000298023224,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.1599999964237213
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.2549999952316284
+              ],
+              [
+                0.5,
+                0.25999999046325684,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.22999998927116394,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.3499999940395355
+              ],
+              [
+                0.5,
+                0.20000000298023224,
+                0.2549999952316284
+              ]
+            ],
+            "normals": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Slate iron - canonical soft edge - explicit canonical normal"
+          }
+        ]
+      },
+      "WtoEWholeFiniteFieldProof": [
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        }
+      ]
+    },
+    {
+      "object": "wreck-middle__lower_canonical_rail",
+      "attributes": [
+        {
+          "name": ".select_vert",
+          "domain": "POINT",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "position",
+          "domain": "POINT",
+          "dataType": "FLOAT_VECTOR"
+        },
+        {
+          "name": ".corner_vert",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".corner_edge",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".select_poly",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "sharp_face",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": ".edge_verts",
+          "domain": "EDGE",
+          "dataType": "INT32_2D"
+        },
+        {
+          "name": ".select_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "material_index",
+          "domain": "FACE",
+          "dataType": "INT"
+        },
+        {
+          "name": "custom_normal",
+          "domain": "CORNER",
+          "dataType": "INT16_2D"
+        },
+        {
+          "name": "sharp_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "CanonicalNormal",
+          "domain": "CORNER",
+          "dataType": "FLOAT_VECTOR"
+        }
+      ],
+      "sides": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.12000000476837158
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                0.18000000715255737,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.41999998688697815,
+                -0.18000000715255737,
+                0.12000000476837158
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.41999998688697815,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.0,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.41999998688697815,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.0,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.41999998688697815,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ]
+      },
+      "cap": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                -0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                -0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ]
+            ],
+            "normals": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.5,
+                -0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.0,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.03999999910593033
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.12000000476837158
+              ],
+              [
+                0.5,
+                0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                0.0,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.20000000298023224
+              ],
+              [
+                0.5,
+                -0.18000000715255737,
+                0.12000000476837158
+              ]
+            ],
+            "normals": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Blue painted timber - lower layered hue - explicit canonical normal"
+          }
+        ]
+      },
+      "WtoEWholeFiniteFieldProof": [
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "Ematerial": "Blue painted timber - lower layered hue - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        }
+      ]
+    },
+    {
+      "object": "wreck-middle__upper_canonical_rail",
+      "attributes": [
+        {
+          "name": ".select_vert",
+          "domain": "POINT",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "position",
+          "domain": "POINT",
+          "dataType": "FLOAT_VECTOR"
+        },
+        {
+          "name": ".corner_vert",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".corner_edge",
+          "domain": "CORNER",
+          "dataType": "INT"
+        },
+        {
+          "name": ".select_poly",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "sharp_face",
+          "domain": "FACE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": ".edge_verts",
+          "domain": "EDGE",
+          "dataType": "INT32_2D"
+        },
+        {
+          "name": ".select_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "material_index",
+          "domain": "FACE",
+          "dataType": "INT"
+        },
+        {
+          "name": "custom_normal",
+          "domain": "CORNER",
+          "dataType": "INT16_2D"
+        },
+        {
+          "name": "sharp_edge",
+          "domain": "EDGE",
+          "dataType": "BOOLEAN"
+        },
+        {
+          "name": "CanonicalNormal",
+          "domain": "CORNER",
+          "dataType": "FLOAT_VECTOR"
+        }
+      ],
+      "sides": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.6700000166893005
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                0.09000000357627869,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.41999998688697815,
+                0.0,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.41999998688697815,
+                -0.09000000357627869,
+                0.6700000166893005
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.41999998688697815,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.0,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ],
+              [
+                0.0,
+                0.0,
+                -1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.41999998688697815,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.0,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          },
+          {
+            "points": [
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.41999998688697815,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ]
+            ],
+            "normalAttribute": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalizedShaderNormal": [
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ],
+              [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            ],
+            "normalConstantOnWholeFace": true,
+            "material": "Slate iron - canonical soft edge - explicit canonical normal",
+            "triangulationIndependentProof": "constant corner field interpolates constantly; object/world transform and normalize preserve constant normal for every barycentric point; no tangent-space nodes active"
+          }
+        ]
+      },
+      "cap": {
+        "W": [
+          {
+            "points": [
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                -0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                -0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ]
+            ],
+            "normals": [
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal"
+          }
+        ],
+        "E": [
+          {
+            "points": [
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.0,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6000000238418579
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.6700000166893005
+              ],
+              [
+                0.5,
+                0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                0.0,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.7400000095367432
+              ],
+              [
+                0.5,
+                -0.09000000357627869,
+                0.6700000166893005
+              ]
+            ],
+            "normals": [
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ],
+              [
+                1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "material": "Blue painted timber - canonical height albedo - explicit canonical normal"
+          }
+        ]
+      },
+      "WtoEWholeFiniteFieldProof": [
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "Ematerial": "Blue painted timber - canonical height albedo - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        },
+        {
+          "Wmaterial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "Ematerial": "Slate iron - canonical soft edge - explicit canonical normal",
+          "materialsEqual": true,
+          "maxNormalizedNormalDelta": 0.0,
+          "constantWholeFace": true
+        }
+      ]
+    }
+  ],
+  "all4ProperRotations": {
+    "N": {
+      "degrees": 180,
+      "determinant": 1.0,
+      "effect": "same proper rotation on shape/normal fields; world Z and height albedo unchanged; reflected rear lip forbidden"
+    },
+    "E": {
+      "degrees": 90,
+      "determinant": 1.0,
+      "effect": "same proper rotation on shape/normal fields; world Z and height albedo unchanged; reflected rear lip forbidden"
+    },
+    "S": {
+      "degrees": 0,
+      "determinant": 1.0,
+      "effect": "same proper rotation on shape/normal fields; world Z and height albedo unchanged; reflected rear lip forbidden"
+    },
+    "W": {
+      "degrees": -90,
+      "determinant": 1.0,
+      "effect": "same proper rotation on shape/normal fields; world Z and height albedo unchanged; reflected rear lip forbidden"
+    }
+  },
+  "interpretation": "All finite canonical side faces are constant normalized shader normal and identical material under W/E translation; alpha1; tangents unused; albedoZ-only; longitudinal derivatives zero throughout full .08. Corresponding outward caps retain -X/+X rather than reusing side normals. End candidate must independently prove matching full W field and clean interior transition; IDs alone do not establish this."
+}

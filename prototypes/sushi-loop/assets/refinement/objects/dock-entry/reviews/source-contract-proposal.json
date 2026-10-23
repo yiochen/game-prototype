@@ -1,0 +1,231 @@
+{
+  "asset": "dock-entry",
+  "status": "proposed; coordinator accepted preferred structural direction, shared floor reconciliation/brief freeze still required",
+  "approvalAtThisStage": false,
+  "initialIndependentObservation": {
+    "path": "initial.json",
+    "sha256": "a787a9a4dbe62115f8fdfa9fadea22bd667eb92621e633e3db0b4b921b84160e",
+    "independence": "Written before floor technical proposals; no other-object aesthetic criteria or editor proposals read."
+  },
+  "sourceIdentity": {
+    "project": "prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "scene": "S33 Native Asset Library Export",
+    "collection": "S33_PROP_dock-entry.001",
+    "root": "dock-entry__root.001",
+    "savedActiveCamera": "S33 Capture Camera.240 is unrelated35degree character capture; do not reuse its settings",
+    "ownResourceSemantics": "Three native wood materials; no entry image nodes, armatures, actions/drivers/NLA. Native beveled editable geometry, no target card."
+  },
+  "capture": {
+    "nativeFrame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "logicalCellSize": 128,
+    "worldUnitsPerCell": 1,
+    "facings": {
+      "N": "rootZrotation pi",
+      "E": "rootZrotation +pi/2",
+      "S": "rootZrotation0",
+      "W": "rootZrotation -pi/2"
+    },
+    "static": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false
+    },
+    "projection": "oblique square top/front; asset guide/source-camera/calibration, not active scene",
+    "historicalSourceScale4": "Historical4x source captures are not the published2x atlas. Later packet must bind actual raw captures and exact downsample recipe; no claim that2x independent reproduction is byte-identical to old4x."
+  },
+  "placementAndContacts": {
+    "footprint": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "sourceHeightNominalEnvelope": 0.49,
+    "sourceMeasuredEnvelope": [
+      [
+        -0.51,
+        -0.495,
+        -0.01
+      ],
+      [
+        0.51,
+        0.495,
+        0.4825
+      ]
+    ],
+    "sourceTreadProfileLaw": "Centers(0,-.375+.25*i,.04+.045*i); dimensions(.96,.24,.10); bevel .012; flat tops .09+.045*i; localY interboard gaps .01. Full evaluated vertices/faces and BVH profiles saved.",
+    "sourceDeclaredSockets": {
+      "entry": [
+        0,
+        -0.5,
+        0
+      ],
+      "dock": [
+        0,
+        0.5,
+        0.23
+      ]
+    },
+    "interpretation": "Entry marker is ground approach. Dock marker lies halfcell inside the floor at world(0,-1,.23), not the transfer boundary or measured mesh top. Markers remain exact; do not falsely make nominal .49 a tread height or .23 a broad walking surface.",
+    "relativeRootToFloor": [
+      0,
+      -1.5,
+      0
+    ],
+    "actualTransferPlane": {
+      "entryLocalY": 0,
+      "floorLocalY": -1.5,
+      "commonTangent": "X",
+      "travelTowardDeck": "+entryY",
+      "commonHeight": 0.22
+    },
+    "sharedNeighborPolicy": "Preserve workshop(.78,.35,.23), submarine(-.70,-.42,.23), cover(0,0,.23) placement/clearance. Existing .035/.055 hut/sub support gaps are scoped to later native family support repair; no false zero-gap claim or neighbor edit here."
+  },
+  "preferredCoordinatedCorrection": {
+    "id": "exterior-half-native-flight",
+    "acceptedByCoordinator": true,
+    "problemFixed": [
+      "Submerged inboard entry geometry and whole-sprite/native visibility disagreement",
+      "Genuine .005world exterior run gap and ambiguous nominal-vs-actual contact law"
+    ],
+    "entryConstructionOutcome": "Rebuild a coherent native stair unit entirely in entry-local y[-.5,0], including capped posts/side structure. Usable centered flight rises monotonically to .22 at y0. The dock supplies walking surface for entry-local y[0,.5]. Keep original onecell occupancy, root/camera/frame, marker coordinates, recognizable warm timber entry role, support and clearance. Step count, construction and purposeful details remain editor-owned.",
+    "floorConstructionOutcome": "Fill/flatten only bounded central edge transfer strip X[-.50,.50],Y[-1.50,-1.48] to common .22 surface overX[-.48,.48]. This may close native plank gaps at the contact and remove old endbevel dip; no notch, altered broad walkingheight, footprint expansion or root shift.",
+    "minimumDependencies": [
+      "Root reconciles/freezes identical plane,height,width,repairstrip and envelope terms in both briefs before either editor construction.",
+      "Both editors receive each other\u2019s immutable candidate geometry or agreed evaluated boundary profile to demonstrate a matching contact; final coupled hashes bound in evidence.",
+      "Exact four native standalone entry atlases remain ordinary registered384x704 assets. No new clip or gameplay behavior required by this proposal.",
+      "All4 native connected joins plus independently assembled actual candidate sprites at unchanged roots must validate current orderPlacements. Source physical rotation yields N floor-last, S/E/W entry-last; no adapter presumed passing before proof.",
+      "If native geometry still cannot pass current consumer ordering/filtering, stop for shared reconciliation rather than quietly adding masks/painted patches or changing the frozen structure."
+    ],
+    "whySufficientInPrinciple": "All native entry solids are exterior to deck interior, removing the source overlap rather than trimming a guessed buried tread. In S entry is foreground; N deck is foreground; E/W exterior entry and deck occupy disjoint projected X halfplanes at the contact. Current consumer sorting is therefore consistent in principle, while actual proof remains mandatory.",
+    "prohibitedWorkarounds": [
+      "Preserving/painting over source submerged tread",
+      "Blanket deletion justified only by AABB (source grooves expose slivers)",
+      "Floor-only notch/recess that invents a stair channel",
+      "Per-facing roots/camera fit, colored alpha patch, target image card",
+      "Unrequested Godot or gameplay rollout; dock/entry are outside existing Godot34selection"
+    ]
+  },
+  "fallbackNotCurrentContract": {
+    "description": "If the exterior-half structural plan fails an actual role/visibility constraint, a native connected-entry contribution variant against exact candidate deck depth plus explicit connected-group floor-first selection is a possible later reconciled alternative.",
+    "requiresNewSharedReconciliation": true,
+    "mustNotBeAddedSilently": true,
+    "note": "No adapter implemented or required under current preferred plan."
+  },
+  "tolerances": [
+    {
+      "quantity": "ground roots, relative assembly roots, semantic sockets, facing rotations",
+      "law": "Exact authored values within1e-5 world units/radians; unit scale within1e-6. No sprite shift, subject fitting or per-view transform.",
+      "reason": "A1e-5-world discrepancy projects .00128 logical ground pixels."
+    },
+    {
+      "quantity": "asset frame/atlas/order/timing/footprint",
+      "law": "Exact logical192x352, native384x704, root96,248, sourceScale2, cell128; N/E/S/W; one static frame at12fps, loopfalse; occupied/support onecell unchanged.",
+      "reason": "Consumer registration/packing is integer contract."
+    },
+    {
+      "quantity": "registered camera/calibration",
+      "law": "Asset-specific55.0079798-degree orthographic square top/front, aspect1.2206555605:1; one shared rig, logical basis X(128,0), depth(0,128), height(0,-89.6), root(96,248), each within .02logicalpx. Record matrices/ortho/shift per canvas.",
+      "reason": "Saved character camera is unrelated; subpixel meaningful check rather than binary float equality."
+    },
+    {
+      "quantity": "entry solid envelope after structural rebuild",
+      "law": "Native solid geometry entry-local Y[-.5,0] within1e-5 numerical noise, X[-.51,.51] at most baseline cap envelope, Z[0,.49]. No hidden or isolated inboard helper solids/card, negative ground penetration, ground shadow or post/cap intrusion past planeY0. Nominal onecell footprint/root remain unchanged.",
+      "reason": "Actual source caps exceed halfwidth by .01; this is a maximum visual envelope, not an instruction to expand. Exterior-only geometry eliminates overlap instead of preserving buried arrangement."
+    },
+    {
+      "quantity": "terminal support/contact profile",
+      "law": "Usable stair flight rises monotonically from ground approach to horizontal terminal contact topZ.22 at localY0. Contact must cover the editor-declared centered terminal width W, .76<=W<=.96. At the shared boundary, entry/deck topsZ.22 and paired profile mismatch must match within1e-5 world; broad decorative walking top away from the boundary may vary\u00b1.002. No uncovered run gap or projecting obstacle. Boundary planeY0 matched within1e-5 world.",
+      "reason": "Exact shared contact is natively attainable and projects .000896logical vertical px at1e-5world. Broad .002 decorative relief is .1792logicalpx; no finite run-gap allowance. Sound construction/step count is editor-owned."
+    },
+    {
+      "quantity": "central clearance",
+      "law": "Continuous centered unobstructed clear walking width>=.76 world (innerpostX\u00b1.38), within1e-5. No raised trim, grain/fasteners or rail crossing that corridor; walking relief\u2264.002 and no hole/separate unsupported sliver.",
+      "reason": "Measured source post inneredges establish actual minimum passage."
+    },
+    {
+      "quantity": "floor transfer correction bounds",
+      "law": "Only functional edge-profile correction is in floor-local X[-.50,.50],Y[-1.50,-1.48]; never beyond3x3footprint. Within that strip provide continuous Z.22 support across X[-.48,.48], closing throughgaps and the endbevel only as necessary; join boundary top .22 within1e-5 world. Preserve global broad .22 walkingheight and max .25 envelope. No notch, recess/channel, global height/root change or lip.",
+      "reason": "Source endbevel is .008world; .02-deep inward strip comfortably contains repair while staying0.02/3 of deck run. .02 lateral buffer on .96-width source treads avoids forcing contact onto a plank throughgap."
+    },
+    {
+      "quantity": "native and consumer connected visibility/coverage",
+      "law": "At original roots current consumer order must reproduce native visibility for all4facings, including posts/undersides. Inspect premultipliedRGB+alpha, ordinary viewer filtering and quarter-logical-pixel phases. No accidental sustained visible seam>=.5logicalpx, black crack, alpha hole, ghost tread, occluded cap or detached detail. Registered projected boundaries should agree within .25logicalpx; larger localized differences require explanation/repair, not global numeric color matching.",
+      "reason": "Quarterlogicalpx is halfnativepixel at2x. Native raw depth/contact and filtering each need their own evidence; opacity alone does not prove physical support."
+    },
+    {
+      "quantity": "light symmetry and clean alpha",
+      "law": "One horizontally symmetric lighting/material recipe for allfacings; symmetric native cardinal light energy/colors within .5% if used. No preferred horizontal key, directional groundshadow, target halo or partial-alpha bright/red fringe visible at logical/phone size on light/gray/dark.",
+      "reason": "Outcome-based softness; source wattages, roughness and contrast are not aesthetic locks."
+    }
+  ],
+  "verifiedBaselineDefects": "own-interface-measurements.json::verifiedFindings",
+  "technicalEvidence": [
+    {
+      "path": "own-native-inspection.json",
+      "sha256": "3be3f01987e6a4d61bc888b05703a7276e8b6352e3428c138a2c6256a2dd13e3"
+    },
+    {
+      "path": "own-saved-source-semantics.json",
+      "sha256": "d8930f00d4db98fc5b46e58e39a88472e37db3639e60949ec1cd60c9d8549798"
+    },
+    {
+      "path": "own-native-geometry-and-captures.json",
+      "sha256": "9750546e64bc9bb89feab9c7bc8162b6c2a05c129ac31e5e30dbed5ab2f246ca"
+    },
+    {
+      "path": "own-interface-measurements.json",
+      "sha256": "554c8187f43f00a25944ab7009fe150eead9df3669fd9179e28cde741981f4e4"
+    },
+    {
+      "path": "own-consumer-order.json",
+      "sha256": "c190c69096bfd145eb980f8ac4a3e7a03edc7c25115334262d63c78b19bbc488"
+    },
+    {
+      "path": "own-published-assembly-evidence.json",
+      "sha256": "8ae648a7d46d5b4d946008ab6412626d16641bdc56a37365951d15a7c1c64fed"
+    },
+    {
+      "path": "own-joins-comparison.png",
+      "sha256": "9d413cee62bbd2310e4fccd7a9e2c494d6ccbdebaeeaf8e96382484c3955954d"
+    }
+  ],
+  "floorTechnicalProposalsReadAfterInitial": [
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-floor/reviews/source-contract-proposal.json",
+      "sha256": "0e9540c0ca0153b0d628eba008eb069806cb0d0855964edae29263a74c6e8211"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-floor/reviews/interface-correction-options.json",
+      "sha256": "e7a4c67a7de1bb78e78f9eefe8a8002c8de17b02574f7858e425c410be0e0c00"
+    }
+  ],
+  "remainingActions": "Root/floor judge reconcile exact strip/profile before freezing brief; editors pending; later all-facing capture/consumer/context proof; no candidate approval."
+}

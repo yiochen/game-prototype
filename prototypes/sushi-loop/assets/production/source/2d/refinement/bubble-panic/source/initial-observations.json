@@ -1,0 +1,47 @@
+{
+  "asset": "bubble-panic",
+  "role": "fresh native 2D editor",
+  "inspectionBeforeCriteria": true,
+  "inspected": [
+    "brief excluding qualityCriteria",
+    "prompts/editor.txt",
+    "actual original registered snapshot",
+    "original raw artwork",
+    "fixed target",
+    "family heart and smile references",
+    "original publish_2d.py and catalog-object.json"
+  ],
+  "visualObservations": [
+    "Original is a camera-facing cream speech balloon with warm brown edge, a red exclamation mark, blue sweat drop and small yellow emphasis rays. Its emotional identity is panic, not confusion.",
+    "Fixed target keeps these parts and adds rounded cream volume, a deeper warm brown rim, broad painted highlights on the exclamation and blue drop.",
+    "Approved family references use a rounded cream balloon and warm brown rim with soft inner shading. Panic must retain its own downward-right tail and red/blue/yellow symbols.",
+    "At the registered original384\u00d7640 frame, full artwork is small and low in canvas; fitting the visible artwork per frame is not needed or permitted."
+  ],
+  "technicalObservations": {
+    "format": "existing generated 2D raster; no Blender geometry",
+    "frameNative": [
+      384,
+      640
+    ],
+    "frameLogical": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "onceOnlyNormalization": "alpha threshold >8 bounds, lossless crop then uniform resize to164nativepx/82logicalpx width",
+    "motion": "exact original publisher:12samples at12fps; appear half-to-full sine scale and opacity(index+1)/12; all clips vertical bob3logicalpx; fade opacity1-index/12; idle loop",
+    "atlasLayout": [
+      2304,
+      1280,
+      6,
+      2
+    ],
+    "aliases": "N/E/S/W identical camera-facing artwork;36rendered samples,144direction/frame slots",
+    "contextNote": "catalog legacy -90 attachment is not evidence of current Godot runtime; inspect current methods before building runtime context"
+  },
+  "next": "Read full frozen brief and criteria; build portable deterministic source closure and isolated actual-method Godot context."
+}

@@ -1,0 +1,159 @@
+{
+  "asset": "dock-post-rope",
+  "stage": "independent-reference-inspection",
+  "candidateVerdict": null,
+  "style": "Warm, softly lit cartoon wood and cream rope, retaining original palette family and modular construction.",
+  "inspectedFiles": [
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/original.png",
+      "sha256": "82a518bddd8b186226bfc60223a0cc297b58746460f2340443232eaaa368e949"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/target.png",
+      "sha256": "c99b56685c029253673449f37ebde3b14414d6dd7724d0eed8bc447fcd7f5771"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/catalog-object.json",
+      "sha256": "254feeb7aa5414557c5cb6e7bbdfc3a2cd60b87bc7f250af1f201448ca65d92a"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/source-assetRecord.json",
+      "sha256": "92b352af39b66497e0c552f74405dc13d874760ee93e33d1a02738760b527888"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/source-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/dock-post-rope/inputs/source-rig.json",
+      "sha256": "0e62bc441107893243158918b8a3fb960fe1c041370351723775f813352f18cd"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "sha256": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-post-rope/static-N.png",
+      "sha256": "366060277fdd0db6adee0b2a19bf71b8ac7f6ac7d482f9202f65a7e993cc845c"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-post-rope/static-E.png",
+      "sha256": "19f1d6388a456bd139ffcac25a6efd1cf888d105c2ef3b51d0f138d292e0bd4c"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-post-rope/static-S.png",
+      "sha256": "82a518bddd8b186226bfc60223a0cc297b58746460f2340443232eaaa368e949"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-post-rope/static-W.png",
+      "sha256": "203f27c0d0dc138dde5ae7ffbbc12a3361b1030a956255cde87086db16e3b92f"
+    }
+  ],
+  "inspectionMethods": [
+    "Direct inspection of original and fixed target RGBA pixels.",
+    "Direct inspection of all four source native facings, enlarged and at logical 192 x 352 size over light, middle gray, and dark backgrounds.",
+    "Read authored half-post/rope construction and source camera, rig, catalog and port records.",
+    "Read-only background Blender inspection of the declared source .blend collection, its mesh members, root, transforms, and orthographic camera; no scene save or edit."
+  ],
+  "sourceObservations": [
+    "N and S show two deliberately partial golden wood posts, two cream bindings per post, broad light caps, and a sagging cream span. At use size the bright rope is readable, but each span segment reads as a flat bright block and the cap reads as a nearly uniform yellow plate.",
+    "E and W are true end-on views: the near half-post presents a broad planar join face and overlaps the span in depth. Those authored faces are intentional modular boundaries, not image clipping or missing full-post geometry.",
+    "The body already has some vertical wood value change, but the lower near end-on face is a broad unmodulated gradient and the side-to-cap transition is a sharp graphic stripe. Softer local volume would make the material more consistent with the requested warm cartoon treatment.",
+    "Baseline light-gray/dark-background views show no large background cast shadow; the partial silhouettes and full frame padding are established by native registration, not by the target canvas."
+  ],
+  "targetObservations": [
+    "The target suggests warm amber body volume, gently highlighted cap edges, creamy rope with readable top/front/underside form, and restrained wood variation.",
+    "The target also exaggerates pillowy rope blocks, gloss, outline glow, grain, and its canvas/occupied size. These are not authorities for topology, silhouette, scale, port profile, registration, or required detail.",
+    "The target is one broadside view only; it supplies no unseen end-on reference. Required E/W facings must be judged for native coherent construction, controlled lighting, and material readability."
+  ],
+  "nativeContract": {
+    "collection": "S33_PROP_dock-post-rope.001",
+    "groundRootObject": "dock-post-rope__root.001",
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "nativeFrame": [
+      384,
+      704
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "projection": "top-down-oblique-square-grid; retain recorded orthographic camera and pixel aspect",
+    "footprint": [
+      1,
+      1
+    ],
+    "metadataHeight": 0.78,
+    "sourcePostTop": 0.777,
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "clip": "static, one frame, 12 fps, non-looping",
+    "sockets": {},
+    "ports": [
+      {
+        "name": "W",
+        "position": [
+          -0.5,
+          0,
+          0.575
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "profile": "dock-rope-v2"
+      },
+      {
+        "name": "E",
+        "position": [
+          0.5,
+          0,
+          0.575
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ],
+        "profile": "dock-rope-v2"
+      }
+    ],
+    "construction": "Source script creates half-posts inside x=-0.5 and x=+0.5 planes, .153 radius body, .164 bindings, .175 cap; saws rope ends flush at the same planes. Adjacent cells reconstruct full posts. Preserve the cross-section/handedness and plane contact.",
+    "lighting": "No preferred horizontal direction; no directional ground cast shadow.",
+    "evidenceLimits": "Reference inspection establishes intent and baseline. No candidate or native joined preview was supplied yet; profile continuity and all candidate technical assertions remain to be checked against an immutable candidate packet."
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Read soft wood and rope volume at logical size while retaining the actual half-post boundaries, sag, cap/binding construction and native join profile."
+    },
+    {
+      "rank": 2,
+      "outcome": "Use warm amber wood and cream rope with broad controlled highlights and mild material variation; eliminate the near-uniform yellow cap and flat white-block impression without adding gloss or texture noise."
+    },
+    {
+      "rank": 3,
+      "outcome": "Keep all four native facings and repeated joins clean: continuous posts/bindings at ports, rope contact, no cracks, dark wedges, broken normals, halos or directional shadow."
+    }
+  ],
+  "status": "Criteria proposed; waiting for coordinator-frozen brief.qualityCriteria and exact candidate packet."
+}

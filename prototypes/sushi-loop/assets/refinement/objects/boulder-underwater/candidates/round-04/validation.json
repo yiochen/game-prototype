@@ -1,0 +1,842 @@
+{
+  "asset": "boulder-underwater",
+  "candidate": "round-04",
+  "validationKind": "Technical capture/editability evidence; independent aesthetic verdict pending",
+  "checks": {
+    "sourceBackupSHA256": true,
+    "physicalBounds": true,
+    "canonicalRootIdentity": true,
+    "sourceCameraWorldMatrix": true,
+    "sourceCameraProjectionMatrix": true,
+    "squarePixelAspect": true,
+    "publishedScale2": true,
+    "nativeScale4": true,
+    "all4ActualDirections": true,
+    "closedMeshes": true,
+    "noRasterSurfaceOrLinks": true,
+    "noRigOrAnimation": true,
+    "unclippedAll4": true,
+    "noOpaqueBlackWhitePixels": true,
+    "relocatedExactRGBAAll4": true
+  },
+  "allTechnicalChecksPassed": true,
+  "cameraSourceMaximumAbsoluteDelta": {
+    "worldMatrix": 5.960464477539063e-08,
+    "projectionMatrix": 4.76837158203125e-07
+  },
+  "measuredCanonicalPhysicalBounds": {
+    "min": [
+      -0.5,
+      -0.5,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.5,
+      2.325000047683716
+    ]
+  },
+  "groundRootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "actualMeasurements": "candidates/round-04/native-audit.json",
+  "audit_directions": {
+    "N": {
+      "direction": "N",
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rootEuler": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "physicalBounds": {
+        "min": [
+          -0.5,
+          -0.4999999701976776,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "evaluatedPhysicalBounds": {
+        "min": [
+          -0.5,
+          -0.4999999701976776,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "camera": {
+        "projection": "height-dependent-35-square-footing",
+        "frame": [
+          192,
+          512
+        ],
+        "anchor": [
+          96,
+          416
+        ],
+        "cellSize": 128,
+        "captureScale": 4,
+        "fps": 12,
+        "axes": {
+          "x": "X",
+          "depth": "-Y",
+          "height": "Z"
+        },
+        "camera": {
+          "type": "orthographic",
+          "worldMatrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.5735762119293213,
+              -0.8191522359848022,
+              -8.191520690917969
+            ],
+            [
+              0.0,
+              0.8191522359848022,
+              0.5735762119293213,
+              5.735764503479004
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "projectionMatrix": [
+            [
+              1.3333333730697632,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.5,
+              0.0,
+              -0.6249985694885254
+            ],
+            [
+              0.0,
+              0.0,
+              -0.0020001998636871576,
+              -1.0001999139785767
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "pixelAspect": [
+            1,
+            1
+          ],
+          "worldUnitsPerCell": 1,
+          "elevationDegrees": 35,
+          "orthoScale": 1.5,
+          "shift": [
+            0.0,
+            0.8333314061164856
+          ]
+        },
+        "calibration": {
+          "root": [
+            384.0,
+            1664.0
+          ]
+        },
+        "squareFooting": {
+          "transitionHeight": 0.42,
+          "formula": "world.y *= 1 + (1/sin(35deg)-1)*max(0,1-max(0,world.z)/.42)^2",
+          "appliedAfterFacingRotation": true
+        },
+        "nativeCaptureScale": 4,
+        "nativeResolution": [
+          768,
+          2048
+        ],
+        "publishedResolution": [
+          384,
+          1024
+        ]
+      },
+      "captureDeformedBounds": {
+        "min": [
+          -0.5,
+          -0.8105780482292175,
+          0.0
+        ],
+        "max": [
+          0.4999999701976776,
+          0.8085850477218628,
+          2.325000047683716
+        ]
+      }
+    },
+    "E": {
+      "direction": "E",
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -4.371138828673793e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rootEuler": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "physicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "evaluatedPhysicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "camera": {
+        "projection": "height-dependent-35-square-footing",
+        "frame": [
+          192,
+          512
+        ],
+        "anchor": [
+          96,
+          416
+        ],
+        "cellSize": 128,
+        "captureScale": 4,
+        "fps": 12,
+        "axes": {
+          "x": "X",
+          "depth": "-Y",
+          "height": "Z"
+        },
+        "camera": {
+          "type": "orthographic",
+          "worldMatrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.5735762119293213,
+              -0.8191522359848022,
+              -8.191520690917969
+            ],
+            [
+              0.0,
+              0.8191522359848022,
+              0.5735762119293213,
+              5.735764503479004
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "projectionMatrix": [
+            [
+              1.3333333730697632,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.5,
+              0.0,
+              -0.6249985694885254
+            ],
+            [
+              0.0,
+              0.0,
+              -0.0020001998636871576,
+              -1.0001999139785767
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "pixelAspect": [
+            1,
+            1
+          ],
+          "worldUnitsPerCell": 1,
+          "elevationDegrees": 35,
+          "orthoScale": 1.5,
+          "shift": [
+            0.0,
+            0.8333314061164856
+          ]
+        },
+        "calibration": {
+          "root": [
+            384.0,
+            1664.0
+          ]
+        },
+        "squareFooting": {
+          "transitionHeight": 0.42,
+          "formula": "world.y *= 1 + (1/sin(35deg)-1)*max(0,1-max(0,world.z)/.42)^2",
+          "appliedAfterFacingRotation": true
+        },
+        "nativeCaptureScale": 4,
+        "nativeResolution": [
+          768,
+          2048
+        ],
+        "publishedResolution": [
+          384,
+          1024
+        ]
+      },
+      "captureDeformedBounds": {
+        "min": [
+          -0.5,
+          -0.7944647073745728,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.7921344637870789,
+          2.325000047683716
+        ]
+      }
+    },
+    "S": {
+      "direction": "S",
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rootEuler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "physicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "evaluatedPhysicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "camera": {
+        "projection": "height-dependent-35-square-footing",
+        "frame": [
+          192,
+          512
+        ],
+        "anchor": [
+          96,
+          416
+        ],
+        "cellSize": 128,
+        "captureScale": 4,
+        "fps": 12,
+        "axes": {
+          "x": "X",
+          "depth": "-Y",
+          "height": "Z"
+        },
+        "camera": {
+          "type": "orthographic",
+          "worldMatrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.5735762119293213,
+              -0.8191522359848022,
+              -8.191520690917969
+            ],
+            [
+              0.0,
+              0.8191522359848022,
+              0.5735762119293213,
+              5.735764503479004
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "projectionMatrix": [
+            [
+              1.3333333730697632,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.5,
+              0.0,
+              -0.6249985694885254
+            ],
+            [
+              0.0,
+              0.0,
+              -0.0020001998636871576,
+              -1.0001999139785767
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "pixelAspect": [
+            1,
+            1
+          ],
+          "worldUnitsPerCell": 1,
+          "elevationDegrees": 35,
+          "orthoScale": 1.5,
+          "shift": [
+            0.0,
+            0.8333314061164856
+          ]
+        },
+        "calibration": {
+          "root": [
+            384.0,
+            1664.0
+          ]
+        },
+        "squareFooting": {
+          "transitionHeight": 0.42,
+          "formula": "world.y *= 1 + (1/sin(35deg)-1)*max(0,1-max(0,world.z)/.42)^2",
+          "appliedAfterFacingRotation": true
+        },
+        "nativeCaptureScale": 4,
+        "nativeResolution": [
+          768,
+          2048
+        ],
+        "publishedResolution": [
+          384,
+          1024
+        ]
+      },
+      "captureDeformedBounds": {
+        "min": [
+          -0.5,
+          -0.808584988117218,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.8105779886245728,
+          2.325000047683716
+        ]
+      }
+    },
+    "W": {
+      "direction": "W",
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rootEuler": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "physicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "evaluatedPhysicalBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          2.325000047683716
+        ]
+      },
+      "camera": {
+        "projection": "height-dependent-35-square-footing",
+        "frame": [
+          192,
+          512
+        ],
+        "anchor": [
+          96,
+          416
+        ],
+        "cellSize": 128,
+        "captureScale": 4,
+        "fps": 12,
+        "axes": {
+          "x": "X",
+          "depth": "-Y",
+          "height": "Z"
+        },
+        "camera": {
+          "type": "orthographic",
+          "worldMatrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.5735762119293213,
+              -0.8191522359848022,
+              -8.191520690917969
+            ],
+            [
+              0.0,
+              0.8191522359848022,
+              0.5735762119293213,
+              5.735764503479004
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "projectionMatrix": [
+            [
+              1.3333333730697632,
+              0.0,
+              0.0,
+              -0.0
+            ],
+            [
+              0.0,
+              0.5,
+              0.0,
+              -0.6249985694885254
+            ],
+            [
+              0.0,
+              0.0,
+              -0.0020001998636871576,
+              -1.0001999139785767
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "pixelAspect": [
+            1,
+            1
+          ],
+          "worldUnitsPerCell": 1,
+          "elevationDegrees": 35,
+          "orthoScale": 1.5,
+          "shift": [
+            0.0,
+            0.8333314061164856
+          ]
+        },
+        "calibration": {
+          "root": [
+            384.0,
+            1664.0
+          ]
+        },
+        "squareFooting": {
+          "transitionHeight": 0.42,
+          "formula": "world.y *= 1 + (1/sin(35deg)-1)*max(0,1-max(0,world.z)/.42)^2",
+          "appliedAfterFacingRotation": true
+        },
+        "nativeCaptureScale": 4,
+        "nativeResolution": [
+          768,
+          2048
+        ],
+        "publishedResolution": [
+          384,
+          1024
+        ]
+      },
+      "captureDeformedBounds": {
+        "min": [
+          -0.5,
+          -0.7921344637870789,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.7944647073745728,
+          2.325000047683716
+        ]
+      }
+    }
+  },
+  "nativeStructure": "candidates/round-04/native-structural.json",
+  "imageValidation": "candidates/round-04/image-validation.json",
+  "relocatedReplay": "candidates/round-04/replay-validation.json",
+  "declaredFrameContract": {
+    "logical": [
+      192,
+      512
+    ],
+    "logicalRoot": [
+      96,
+      416
+    ],
+    "native": [
+      768,
+      2048
+    ],
+    "nativeScale": 4,
+    "nativeRoot": [
+      384,
+      1664
+    ],
+    "published": [
+      384,
+      1024
+    ],
+    "publishedScale": 2,
+    "publishedRoot": [
+      192,
+      832
+    ],
+    "cellSize": 128,
+    "pixelAspect": [
+      1,
+      1
+    ]
+  },
+  "boundsInterpretation": "Measured undeformed modeled geometry retains source envelope; source-native height-dependent square-footing is a capture-only world-y deformation applied after each canonical rotation, then restored. No alpha fitting.",
+  "contacts": {
+    "groundZ": 0,
+    "physicalFootprint": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "nominalHeight": 2.3,
+    "overlappingMasses": "Closed stone volumes overlap deliberately into one substantial cluster; no coplanar surface cards."
+  },
+  "nonapplicable": [
+    "sockets",
+    "ports",
+    "armature",
+    "animation playback",
+    "modular seam grid"
+  ],
+  "limitations": "Four-frame static native prop evidence; coordinator seals packet and independent judge decides appearance."
+}

@@ -1,0 +1,5626 @@
+{
+  "schemaVersion": 1,
+  "assetFamily": "restaurant-facade",
+  "candidate": "backdrop-entrance round-05; approval selection belongs to coordinator/judge",
+  "nativeProject": "source/round-05-family-context.blend",
+  "nativeProjectSha256": "21de5f388133312bfb861fb62c8a2ab874d3db3aa67721dc6d2736187f79a1e8",
+  "equivalentSelectedProject": "source/round-05.blend",
+  "recipe": "source/round-05-recipe.json",
+  "worldName": "Warm Soft Facade Family World",
+  "world": {
+    "nodes": [
+      {
+        "name": "World Output",
+        "type": "ShaderNodeOutputWorld",
+        "inputs": {}
+      },
+      {
+        "name": "Background",
+        "type": "ShaderNodeBackground",
+        "inputs": {
+          "0:Color": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1.0
+          ],
+          "1:Strength": 0.6499999761581421,
+          "2:Weight": 0.0
+        }
+      },
+      {
+        "name": "Texture Coordinate",
+        "type": "ShaderNodeTexCoord",
+        "inputs": {}
+      },
+      {
+        "name": "Separate XYZ",
+        "type": "ShaderNodeSeparateXYZ",
+        "inputs": {
+          "0:Vector": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "name": "Color Ramp",
+        "type": "ShaderNodeValToRGB",
+        "inputs": {
+          "0:Factor": 0.5
+        },
+        "colorRamp": {
+          "interpolation": "LINEAR",
+          "elements": [
+            {
+              "position": 0.0,
+              "color": [
+                0.5,
+                0.5299999713897705,
+                0.5799999833106995,
+                1.0
+              ]
+            },
+            {
+              "position": 1.0,
+              "color": [
+                1.0,
+                0.9399999976158142,
+                0.8399999737739563,
+                1.0
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "links": [
+      {
+        "fromNode": "Texture Coordinate",
+        "fromSocket": "Normal",
+        "toNode": "Separate XYZ",
+        "toSocket": "Vector"
+      },
+      {
+        "fromNode": "Separate XYZ",
+        "fromSocket": "Z",
+        "toNode": "Color Ramp",
+        "toSocket": "Factor"
+      },
+      {
+        "fromNode": "Color Ramp",
+        "fromSocket": "Color",
+        "toNode": "Background",
+        "toSocket": "Color"
+      },
+      {
+        "fromNode": "Background",
+        "fromSocket": "Background",
+        "toNode": "World Output",
+        "toSocket": "Surface"
+      }
+    ]
+  },
+  "materials": {
+    "left_backdrop35_paper.006": {
+      "diffuseColor": [
+        1.0,
+        0.7681511640548706,
+        0.2462013214826584,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                1.0,
+                0.7681511640548706,
+                0.2462013214826584,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.6200000047683716,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.05000000074505806,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                0.7681511640548706,
+                0.2462013214826584,
+                1.0
+              ],
+              "29:Emission Strength": 0.2199999988079071,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Light Path",
+            "type": "ShaderNodeLightPath",
+            "inputs": {}
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.2199999988079071,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Light Path",
+            "fromSocket": "Is Camera Ray",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Principled BSDF",
+            "toSocket": "Emission Strength"
+          },
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "right_backdrop35_paper.006": {
+      "diffuseColor": [
+        1.0,
+        0.7681511640548706,
+        0.2462013214826584,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                1.0,
+                0.7681511640548706,
+                0.2462013214826584,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.6200000047683716,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.05000000074505806,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                0.7681511640548706,
+                0.2462013214826584,
+                1.0
+              ],
+              "29:Emission Strength": 0.2199999988079071,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Light Path",
+            "type": "ShaderNodeLightPath",
+            "inputs": {}
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.2199999988079071,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Light Path",
+            "fromSocket": "Is Camera Ray",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Principled BSDF",
+            "toSocket": "Emission Strength"
+          },
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_blue": {
+      "diffuseColor": [
+        0.01850022003054619,
+        0.13563333451747894,
+        0.533276379108429,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.01850022003054619,
+                0.13563333451747894,
+                0.533276379108429,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.3100000023841858,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.2199999988079071,
+              "21:Coat Roughness": 0.2800000011920929,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_blue__protected_profile": {
+      "diffuseColor": [
+        0.01850022003054619,
+        0.13563333451747894,
+        0.533276379108429,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.01850022003054619,
+                0.13563333451747894,
+                0.533276379108429,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.3100000023841858,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.2199999988079071,
+              "21:Coat Roughness": 0.2800000011920929,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          },
+          {
+            "name": "Texture Coordinate",
+            "type": "ShaderNodeTexCoord",
+            "inputs": {}
+          },
+          {
+            "name": "Separate XYZ",
+            "type": "ShaderNodeSeparateXYZ",
+            "inputs": {
+              "0:Vector": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.03999999910593033,
+              "2:Value": 0.5
+            },
+            "operation": "LESS_THAN"
+          },
+          {
+            "name": "Math.001",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.9599999785423279,
+              "2:Value": 0.5
+            },
+            "operation": "GREATER_THAN"
+          },
+          {
+            "name": "Math.002",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "MAXIMUM"
+          },
+          {
+            "name": "Math.003",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 1.0,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Math.004",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.012000000104308128,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          },
+          {
+            "fromNode": "Texture Coordinate",
+            "fromSocket": "Generated",
+            "toNode": "Separate XYZ",
+            "toSocket": "Vector"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math.001",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.001",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.002",
+            "fromSocket": "Value",
+            "toNode": "Math.003",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.003",
+            "fromSocket": "Value",
+            "toNode": "Math.004",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.004",
+            "fromSocket": "Value",
+            "toNode": "Bevel",
+            "toSocket": "Radius"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_blue_dark": {
+      "diffuseColor": [
+        0.007499032188206911,
+        0.04373503103852272,
+        0.18782077729701996,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.007499032188206911,
+                0.04373503103852272,
+                0.18782077729701996,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4000000059604645,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.03999999910593033,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.2800000011920929,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_blue_dark__protected_profile": {
+      "diffuseColor": [
+        0.007499032188206911,
+        0.04373503103852272,
+        0.18782077729701996,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.007499032188206911,
+                0.04373503103852272,
+                0.18782077729701996,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4000000059604645,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.03999999910593033,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.2800000011920929,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          },
+          {
+            "name": "Texture Coordinate",
+            "type": "ShaderNodeTexCoord",
+            "inputs": {}
+          },
+          {
+            "name": "Separate XYZ",
+            "type": "ShaderNodeSeparateXYZ",
+            "inputs": {
+              "0:Vector": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.03999999910593033,
+              "2:Value": 0.5
+            },
+            "operation": "LESS_THAN"
+          },
+          {
+            "name": "Math.001",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.9599999785423279,
+              "2:Value": 0.5
+            },
+            "operation": "GREATER_THAN"
+          },
+          {
+            "name": "Math.002",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "MAXIMUM"
+          },
+          {
+            "name": "Math.003",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 1.0,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Math.004",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.012000000104308128,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          },
+          {
+            "fromNode": "Texture Coordinate",
+            "fromSocket": "Generated",
+            "toNode": "Separate XYZ",
+            "toSocket": "Vector"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math.001",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.001",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.002",
+            "fromSocket": "Value",
+            "toNode": "Math.003",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.003",
+            "fromSocket": "Value",
+            "toNode": "Math.004",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.004",
+            "fromSocket": "Value",
+            "toNode": "Bevel",
+            "toSocket": "Radius"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_blue_light": {
+      "diffuseColor": [
+        0.04373503103852272,
+        0.2581828534603119,
+        0.7379103899002075,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.04373503103852272,
+                0.2581828534603119,
+                0.7379103899002075,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.3100000023841858,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.2199999988079071,
+              "21:Coat Roughness": 0.2800000011920929,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_brass": {
+      "diffuseColor": [
+        0.2746773064136505,
+        0.11697066575288773,
+        0.016807375475764275,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.2746773064136505,
+                0.11697066575288773,
+                0.016807375475764275,
+                1.0
+              ],
+              "1:Metallic": 0.18000000715255737,
+              "2:Roughness": 0.38999998569488525,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_chalk": {
+      "diffuseColor": [
+        1.0,
+        0.8796223998069763,
+        0.6307571530342102,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                1.0,
+                0.8796223998069763,
+                0.6307571530342102,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_door": {
+      "diffuseColor": [
+        0.012983032502233982,
+        0.020288562402129173,
+        0.039546236395835876,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.012983032502233982,
+                0.020288562402129173,
+                0.039546236395835876,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.8500000238418579,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.11999999731779099,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_goldwood": {
+      "diffuseColor": [
+        0.5457244515419006,
+        0.2581828534603119,
+        0.06301001459360123,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.5457244515419006,
+                0.2581828534603119,
+                0.06301001459360123,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_goldwood__protected_profile": {
+      "diffuseColor": [
+        0.5457244515419006,
+        0.2581828534603119,
+        0.06301001459360123,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.5457244515419006,
+                0.2581828534603119,
+                0.06301001459360123,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          },
+          {
+            "name": "Texture Coordinate",
+            "type": "ShaderNodeTexCoord",
+            "inputs": {}
+          },
+          {
+            "name": "Separate XYZ",
+            "type": "ShaderNodeSeparateXYZ",
+            "inputs": {
+              "0:Vector": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.03999999910593033,
+              "2:Value": 0.5
+            },
+            "operation": "LESS_THAN"
+          },
+          {
+            "name": "Math.001",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.9599999785423279,
+              "2:Value": 0.5
+            },
+            "operation": "GREATER_THAN"
+          },
+          {
+            "name": "Math.002",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "MAXIMUM"
+          },
+          {
+            "name": "Math.003",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 1.0,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Math.004",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.012000000104308128,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          },
+          {
+            "fromNode": "Texture Coordinate",
+            "fromSocket": "Generated",
+            "toNode": "Separate XYZ",
+            "toSocket": "Vector"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math.001",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.001",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.002",
+            "fromSocket": "Value",
+            "toNode": "Math.003",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.003",
+            "fromSocket": "Value",
+            "toNode": "Math.004",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.004",
+            "fromSocket": "Value",
+            "toNode": "Bevel",
+            "toSocket": "Radius"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_metal": {
+      "diffuseColor": [
+        0.040915198624134064,
+        0.03310476616024971,
+        0.026241222396492958,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.040915198624134064,
+                0.03310476616024971,
+                0.026241222396492958,
+                1.0
+              ],
+              "1:Metallic": 0.15000000596046448,
+              "2:Roughness": 0.3799999952316284,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_red": {
+      "diffuseColor": [
+        0.715693473815918,
+        0.06847816705703735,
+        0.05448027700185776,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.715693473815918,
+                0.06847816705703735,
+                0.05448027700185776,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.6600000262260437,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.20000000298023224,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_red_dark": {
+      "diffuseColor": [
+        0.4793201684951782,
+        0.03071344457566738,
+        0.02518685907125473,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.4793201684951782,
+                0.03071344457566738,
+                0.02518685907125473,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.6600000262260437,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.20000000298023224,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_red_light": {
+      "diffuseColor": [
+        0.8549926280975342,
+        0.09758734703063965,
+        0.06847816705703735,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.8549926280975342,
+                0.09758734703063965,
+                0.06847816705703735,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.6600000262260437,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.0,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.20000000298023224,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_sill": {
+      "diffuseColor": [
+        0.23074005544185638,
+        0.177888423204422,
+        0.14126329123973846,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.23074005544185638,
+                0.177888423204422,
+                0.14126329123973846,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wall_wood": {
+      "diffuseColor": [
+        0.5647115111351013,
+        0.3613067865371704,
+        0.13563333451747894,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.5647115111351013,
+                0.3613067865371704,
+                0.13563333451747894,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wall_wood__protected_profile": {
+      "diffuseColor": [
+        0.5647115111351013,
+        0.3613067865371704,
+        0.13563333451747894,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.5647115111351013,
+                0.3613067865371704,
+                0.13563333451747894,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          },
+          {
+            "name": "Texture Coordinate",
+            "type": "ShaderNodeTexCoord",
+            "inputs": {}
+          },
+          {
+            "name": "Separate XYZ",
+            "type": "ShaderNodeSeparateXYZ",
+            "inputs": {
+              "0:Vector": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.03999999910593033,
+              "2:Value": 0.5
+            },
+            "operation": "LESS_THAN"
+          },
+          {
+            "name": "Math.001",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.9599999785423279,
+              "2:Value": 0.5
+            },
+            "operation": "GREATER_THAN"
+          },
+          {
+            "name": "Math.002",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "MAXIMUM"
+          },
+          {
+            "name": "Math.003",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 1.0,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Math.004",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.012000000104308128,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          },
+          {
+            "fromNode": "Texture Coordinate",
+            "fromSocket": "Generated",
+            "toNode": "Separate XYZ",
+            "toSocket": "Vector"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math.001",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.001",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.002",
+            "fromSocket": "Value",
+            "toNode": "Math.003",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.003",
+            "fromSocket": "Value",
+            "toNode": "Math.004",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.004",
+            "fromSocket": "Value",
+            "toNode": "Bevel",
+            "toSocket": "Radius"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wood": {
+      "diffuseColor": [
+        0.47353148460388184,
+        0.19806931912899017,
+        0.045186202973127365,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.47353148460388184,
+                0.19806931912899017,
+                0.045186202973127365,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wood__protected_profile": {
+      "diffuseColor": [
+        0.47353148460388184,
+        0.19806931912899017,
+        0.045186202973127365,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.47353148460388184,
+                0.19806931912899017,
+                0.045186202973127365,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          },
+          {
+            "name": "Texture Coordinate",
+            "type": "ShaderNodeTexCoord",
+            "inputs": {}
+          },
+          {
+            "name": "Separate XYZ",
+            "type": "ShaderNodeSeparateXYZ",
+            "inputs": {
+              "0:Vector": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "name": "Math",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.03999999910593033,
+              "2:Value": 0.5
+            },
+            "operation": "LESS_THAN"
+          },
+          {
+            "name": "Math.001",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.9599999785423279,
+              "2:Value": 0.5
+            },
+            "operation": "GREATER_THAN"
+          },
+          {
+            "name": "Math.002",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "MAXIMUM"
+          },
+          {
+            "name": "Math.003",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 1.0,
+              "1:Value": 0.5,
+              "2:Value": 0.5
+            },
+            "operation": "SUBTRACT"
+          },
+          {
+            "name": "Math.004",
+            "type": "ShaderNodeMath",
+            "inputs": {
+              "0:Value": 0.5,
+              "1:Value": 0.012000000104308128,
+              "2:Value": 0.5
+            },
+            "operation": "MULTIPLY"
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          },
+          {
+            "fromNode": "Texture Coordinate",
+            "fromSocket": "Generated",
+            "toNode": "Separate XYZ",
+            "toSocket": "Vector"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Separate XYZ",
+            "fromSocket": "X",
+            "toNode": "Math.001",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.001",
+            "fromSocket": "Value",
+            "toNode": "Math.002",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.002",
+            "fromSocket": "Value",
+            "toNode": "Math.003",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.003",
+            "fromSocket": "Value",
+            "toNode": "Math.004",
+            "toSocket": "Value"
+          },
+          {
+            "fromNode": "Math.004",
+            "fromSocket": "Value",
+            "toNode": "Bevel",
+            "toSocket": "Radius"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wood_dark": {
+      "diffuseColor": [
+        0.16202937066555023,
+        0.06301001459360123,
+        0.020288562402129173,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.16202937066555023,
+                0.06301001459360123,
+                0.020288562402129173,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    },
+    "S33_uniform35_wood_light": {
+      "diffuseColor": [
+        0.6938717365264893,
+        0.34670406579971313,
+        0.09084171056747437,
+        1.0
+      ],
+      "shader": {
+        "nodes": [
+          {
+            "name": "Material Output",
+            "type": "ShaderNodeOutputMaterial",
+            "inputs": {
+              "2:Displacement": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "3:Thickness": 0.0
+            }
+          },
+          {
+            "name": "Principled BSDF",
+            "type": "ShaderNodeBsdfPrincipled",
+            "inputs": {
+              "0:Base Color": [
+                0.6938717365264893,
+                0.34670406579971313,
+                0.09084171056747437,
+                1.0
+              ],
+              "1:Metallic": 0.0,
+              "2:Roughness": 0.4699999988079071,
+              "3:IOR": 1.5,
+              "4:Alpha": 1.0,
+              "5:Thin Wall": false,
+              "6:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "7:Weight": 0.0,
+              "8:Diffuse Roughness": 0.0,
+              "9:Subsurface Weight": 0.0,
+              "10:Subsurface Radius": [
+                1.0,
+                0.20000000298023224,
+                0.10000000149011612
+              ],
+              "11:Subsurface Scale": 0.004999999888241291,
+              "12:Subsurface IOR": 1.399999976158142,
+              "13:Subsurface Anisotropy": 0.0,
+              "14:Specular IOR Level": 0.25999999046325684,
+              "15:Specular Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "16:Anisotropic": 0.0,
+              "17:Anisotropic Rotation": 0.0,
+              "18:Tangent": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "19:Transmission Weight": 0.0,
+              "20:Coat Weight": 0.07999999821186066,
+              "21:Coat Roughness": 0.029999999329447746,
+              "22:Coat IOR": 1.5,
+              "23:Coat Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "24:Coat Normal": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "25:Sheen Weight": 0.0,
+              "26:Sheen Roughness": 0.5,
+              "27:Sheen Tint": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "28:Emission Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "29:Emission Strength": 0.0,
+              "30:Thin Film Thickness": 0.0,
+              "31:Thin Film IOR": 1.3300000429153442
+            },
+            "distribution": "MULTI_GGX"
+          },
+          {
+            "name": "Bevel",
+            "type": "ShaderNodeBevel",
+            "inputs": {
+              "0:Radius": 0.012000000104308128,
+              "1:Normal": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "samples": 4
+          }
+        ],
+        "links": [
+          {
+            "fromNode": "Bevel",
+            "fromSocket": "Normal",
+            "toNode": "Principled BSDF",
+            "toSocket": "Normal"
+          },
+          {
+            "fromNode": "Principled BSDF",
+            "fromSocket": "BSDF",
+            "toNode": "Material Output",
+            "toSocket": "Surface"
+          }
+        ]
+      }
+    }
+  },
+  "materialRoleMap": {
+    "canopyBlue": "S33_uniform35_blue",
+    "canopyBlueLight": "S33_uniform35_blue_light",
+    "canopyBlueDark": "S33_uniform35_blue_dark",
+    "ochreWall": "S33_uniform35_wall_wood",
+    "timber": "S33_uniform35_wood",
+    "goldTimber": "S33_uniform35_goldwood",
+    "timberHighlight": "S33_uniform35_wood_light",
+    "darkTimber": "S33_uniform35_wood_dark",
+    "clothRed": "S33_uniform35_red",
+    "cream": "S33_uniform35_chalk",
+    "threshold": "S33_uniform35_sill",
+    "doorway": "S33_uniform35_door",
+    "metal": "S33_uniform35_metal",
+    "brass": "S33_uniform35_brass"
+  },
+  "protectedProfileMaterialRule": "Use the corresponding __protected_profile variant on shared facade meshes reaching a join plane. Its actual native nodes suppress ray-bevel radius in the outer 4 percent of local Generated X, preventing exposed captured end-cap shading. This is shading only; original profile geometry is unchanged.",
+  "lights": {
+    "Facade infinite soft overhead": {
+      "type": "SUN",
+      "energy": 2.5,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8799999952316284
+      ],
+      "angleRadians": 0.6108652353286743,
+      "useShadow": false,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8762158751487732,
+          -0.4819187819957733,
+          0.0
+        ],
+        [
+          0.0,
+          0.4819187819957733,
+          0.8762158751487732,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rotationEuler": [
+        0.5028432607650757,
+        -0.0,
+        0.0
+      ]
+    }
+  },
+  "rendering": {
+    "engine": "CYCLES",
+    "device": "GPU",
+    "samples": 96,
+    "denoising": true,
+    "pixelFilter": "BOX",
+    "filterWidth": 1.0,
+    "joinAntialiasing": "Exact source join planes align with integer pixels; box reconstruction avoids double-softened independent-alpha gaps",
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0,
+    "filmTransparent": true,
+    "imageFormat": "PNG RGBA8",
+    "resolutionPercentage": 100,
+    "pixelAspect": [
+      1,
+      1
+    ],
+    "gamma": 1.0,
+    "transparentMaxBounces": 8,
+    "nativePixelFilter": "BOX",
+    "nativeFilterWidth": 1.0,
+    "denoiser": "OPENIMAGEDENOISE",
+    "useDenoising": true
+  },
+  "capture": {
+    "gate": {
+      "nativeFrame": [
+        1728,
+        1344
+      ],
+      "logicalFrame": [
+        576,
+        448
+      ],
+      "sourceScale": 3,
+      "cellSizeLogical": 128,
+      "cameraType": "ORTHO",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762119293213,
+          -0.8191522359848022,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191522359848022,
+          0.5735762119293213,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "orthoScale": 4.5,
+      "shift": [
+        0,
+        0.2696022093296051
+      ],
+      "pixelAspect": [
+        1,
+        1
+      ],
+      "sensorFit": "HORIZONTAL",
+      "elevationDegrees": 35,
+      "registeredFrontContactPoint": [
+        0,
+        -0.5,
+        0
+      ],
+      "registeredNativeContact": [
+        864.0,
+        1248.0003662109375
+      ],
+      "registeredLogicalContact": [
+        288.0,
+        416.0001220703125
+      ],
+      "nativeRootOriginProjection": [
+        864.0,
+        1137.8737335205078
+      ],
+      "unitX": [
+        383.9999771118164,
+        0.0
+      ],
+      "unitZ": [
+        0.0,
+        -314.55443572998047
+      ]
+    },
+    "wall": {
+      "nativeFrame": [
+        576,
+        1344
+      ],
+      "logicalFrame": [
+        192,
+        448
+      ],
+      "sourceScale": 3,
+      "cellSizeLogical": 128,
+      "cameraType": "ORTHO",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762119293213,
+          -0.8191522359848022,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191522359848022,
+          0.5735762119293213,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "orthoScale": 1.5,
+      "shift": [
+        0,
+        0.8088066577911377
+      ],
+      "pixelAspect": [
+        1,
+        1
+      ],
+      "sensorFit": "HORIZONTAL",
+      "elevationDegrees": 35,
+      "registeredFrontContactPoint": [
+        0,
+        -0.5,
+        0
+      ],
+      "registeredNativeContact": [
+        288.0,
+        1248.0003662109375
+      ],
+      "registeredLogicalContact": [
+        96.0,
+        416.0001220703125
+      ],
+      "nativeRootOriginProjection": [
+        288.0,
+        1137.8737335205078
+      ],
+      "unitX": [
+        383.9999771118164,
+        0.0
+      ],
+      "unitZ": [
+        0.0,
+        -314.55443572998047
+      ]
+    }
+  },
+  "rootContract": {
+    "nativeObjectOrigin": [
+      0,
+      0,
+      0
+    ],
+    "registeredFrontContactPoint": [
+      0,
+      -0.5,
+      0
+    ],
+    "phase": "S rootRotationZ = 0 radians",
+    "rootMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "joinProfiles": {
+    "S33_PROP_uniform35-gate": {
+      "-2": [
+        {
+          "sourcePart": "uniform35-gate__side_-1_plain_wood_field",
+          "materials": [
+            "S33_uniform35_wall_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__side_-1_baseboard_face",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__side_-1_baseboard_cap",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__roof_structure",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__blue_fascia",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__fascia_highlight",
+          "materials": [
+            "S33_uniform35_blue__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__full_lintel",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.39999998,
+              2.36091852
+            ],
+            [
+              -0.39999998,
+              2.59149647
+            ],
+            [
+              0.23999999,
+              2.36091852
+            ],
+            [
+              0.23999999,
+              2.59149647
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.38800001,
+              2.37294865
+            ],
+            [
+              -0.38800001,
+              2.57946634
+            ],
+            [
+              0.228,
+              2.37294865
+            ],
+            [
+              0.228,
+              2.57946634
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__lintel_face",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.44999999,
+              2.39600635
+            ],
+            [
+              -0.44999999,
+              2.51630807
+            ],
+            [
+              -0.38,
+              2.39600635
+            ],
+            [
+              -0.38,
+              2.51630807
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.44499999,
+              2.4010191
+            ],
+            [
+              -0.44499999,
+              2.51129532
+            ],
+            [
+              -0.38499999,
+              2.4010191
+            ],
+            [
+              -0.38499999,
+              2.51129532
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__angular_ridge_cap",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        }
+      ],
+      "2": [
+        {
+          "sourcePart": "uniform35-gate__side_1_plain_wood_field",
+          "materials": [
+            "S33_uniform35_wall_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__side_1_baseboard_face",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__side_1_baseboard_cap",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__roof_structure",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__blue_fascia",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__fascia_highlight",
+          "materials": [
+            "S33_uniform35_blue__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__full_lintel",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.39999998,
+              2.36091852
+            ],
+            [
+              -0.39999998,
+              2.59149647
+            ],
+            [
+              0.23999999,
+              2.36091852
+            ],
+            [
+              0.23999999,
+              2.59149647
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.38800001,
+              2.37294865
+            ],
+            [
+              -0.38800001,
+              2.57946634
+            ],
+            [
+              0.228,
+              2.37294865
+            ],
+            [
+              0.228,
+              2.57946634
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__lintel_face",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.44999999,
+              2.39600635
+            ],
+            [
+              -0.44999999,
+              2.51630807
+            ],
+            [
+              -0.38,
+              2.39600635
+            ],
+            [
+              -0.38,
+              2.51630807
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.44499999,
+              2.4010191
+            ],
+            [
+              -0.44499999,
+              2.51129532
+            ],
+            [
+              -0.38499999,
+              2.4010191
+            ],
+            [
+              -0.38499999,
+              2.51129532
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-gate__angular_ridge_cap",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        }
+      ]
+    },
+    "S33_PROP_uniform35-wall-plain": {
+      "-0.5": [
+        {
+          "sourcePart": "uniform35-wall-plain__plain_wood_field",
+          "materials": [
+            "S33_uniform35_wall_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__baseboard_face",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__baseboard_cap",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__roof_structure",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__blue_fascia",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__fascia_highlight",
+          "materials": [
+            "S33_uniform35_blue__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__full_lintel",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.39999998,
+              2.36091852
+            ],
+            [
+              -0.39999998,
+              2.59149647
+            ],
+            [
+              0.23999999,
+              2.36091852
+            ],
+            [
+              0.23999999,
+              2.59149647
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.38800001,
+              2.37294865
+            ],
+            [
+              -0.38800001,
+              2.57946634
+            ],
+            [
+              0.228,
+              2.37294865
+            ],
+            [
+              0.228,
+              2.57946634
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__lintel_face",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.44999999,
+              2.39600635
+            ],
+            [
+              -0.44999999,
+              2.51630807
+            ],
+            [
+              -0.38,
+              2.39600635
+            ],
+            [
+              -0.38,
+              2.51630807
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.44499999,
+              2.4010191
+            ],
+            [
+              -0.44499999,
+              2.51129532
+            ],
+            [
+              -0.38499999,
+              2.4010191
+            ],
+            [
+              -0.38499999,
+              2.51129532
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__angular_ridge_cap",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        }
+      ],
+      "0.5": [
+        {
+          "sourcePart": "uniform35-wall-plain__plain_wood_field",
+          "materials": [
+            "S33_uniform35_wall_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.34085453
+            ],
+            [
+              -0.5,
+              2.60653448
+            ],
+            [
+              0.0,
+              0.34085453
+            ],
+            [
+              0.0,
+              2.60653448
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__baseboard_face",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.5,
+              0.0
+            ],
+            [
+              -0.5,
+              0.3408545
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3408545
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__baseboard_cap",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.54000002,
+              0.31077906
+            ],
+            [
+              -0.54000002,
+              0.38095501
+            ],
+            [
+              0.0,
+              0.31077906
+            ],
+            [
+              0.0,
+              0.38095501
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__roof_structure",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.69999999,
+              2.65666008
+            ],
+            [
+              -0.69999999,
+              2.77696157
+            ],
+            [
+              0.0,
+              3.00753951
+            ],
+            [
+              0.0,
+              3.14789152
+            ],
+            [
+              0.69999999,
+              2.65666008
+            ],
+            [
+              0.69999999,
+              2.77696157
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__blue_fascia",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.76499999,
+              2.57144642
+            ],
+            [
+              -0.76499999,
+              2.76192379
+            ],
+            [
+              -0.64499998,
+              2.57144642
+            ],
+            [
+              -0.64499998,
+              2.76192379
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__fascia_highlight",
+          "materials": [
+            "S33_uniform35_blue__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.7845,
+              2.72934198
+            ],
+            [
+              -0.7845,
+              2.76443005
+            ],
+            [
+              -0.75950003,
+              2.72934198
+            ],
+            [
+              -0.75950003,
+              2.76443005
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__full_lintel",
+          "materials": [
+            "S33_uniform35_wood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.39999998,
+              2.36091852
+            ],
+            [
+              -0.39999998,
+              2.59149647
+            ],
+            [
+              0.23999999,
+              2.36091852
+            ],
+            [
+              0.23999999,
+              2.59149647
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.38800001,
+              2.37294865
+            ],
+            [
+              -0.38800001,
+              2.57946634
+            ],
+            [
+              0.228,
+              2.37294865
+            ],
+            [
+              0.228,
+              2.57946634
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__lintel_face",
+          "materials": [
+            "S33_uniform35_goldwood__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.44999999,
+              2.39600635
+            ],
+            [
+              -0.44999999,
+              2.51630807
+            ],
+            [
+              -0.38,
+              2.39600635
+            ],
+            [
+              -0.38,
+              2.51630807
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.44499999,
+              2.4010191
+            ],
+            [
+              -0.44499999,
+              2.51129532
+            ],
+            [
+              -0.38499999,
+              2.4010191
+            ],
+            [
+              -0.38499999,
+              2.51129532
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        },
+        {
+          "sourcePart": "uniform35-wall-plain__angular_ridge_cap",
+          "materials": [
+            "S33_uniform35_blue_dark__protected_profile"
+          ],
+          "rawJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "evaluatedJoinYZ": [
+            [
+              -0.1,
+              3.13786626
+            ],
+            [
+              0.0,
+              3.22809243
+            ],
+            [
+              0.1,
+              3.13786626
+            ]
+          ],
+          "profileGeometryUnchangedFromOriginal": true
+        }
+      ]
+    }
+  },
+  "horizontalLightContract": {
+    "worldDirectionDependency": "Z only, no X/Y position ramp",
+    "sunXDirection": 0,
+    "infiniteLightNoDistanceFalloff": true,
+    "localWallLights": false,
+    "paperEmission": "camera ray only, no diffuse/glossy illumination emission",
+    "groundObject": null,
+    "groundCastShadow": false
+  },
+  "scopeForFollowOnWall": "Shared palette, native material behavior, lighting, rendering, camera/contact calibration and protected join cross sections are the cohesive family contract. Interior wall geometry and new decorative/architectural parts may change under the user's follow-on modeling freedom policy v2; this file imposes no old interior part count.",
+  "usage": "Append the named materials, world and infinite sun from the self-contained native project. The wall collection is context-only and source-hidden in the saved library; explicitly unhide collection and objects if rendering it. Use the wall camera numeric configuration above. Wall production remains subject to its own fresh editor/judge review."
+}

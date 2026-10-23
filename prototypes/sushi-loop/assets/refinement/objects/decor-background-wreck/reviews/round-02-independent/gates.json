@@ -1,0 +1,123 @@
+{
+  "asset": "decor-background-wreck",
+  "round": "round-02",
+  "candidatePacketSHA256": "778463b2f5fc0c9f47375b66e0524ec164d7c1b0abbc4237643b94d55fd43f2f",
+  "review": {
+    "path": "reviews/round-02.json",
+    "sha256": "4082fb1d5cb3f6f5e95b6daa222424393210cd08dddbbdc85555021cfa304358"
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-02-independent/supplemental-evidence.json",
+    "sha256": "a28a31bb636db83ec5a6f25beba1830f7154cef4902e8e93a512568db97e859d"
+  },
+  "helperHashesBefore": {
+    "candidate_packet": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+    "audit_directions": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "acceptance_contract": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "helperHashesAfter": {
+    "candidate_packet": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+    "audit_directions": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "acceptance_contract": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "allHelpersUnchanged": true,
+  "frozenHelperCopiesMatch": true,
+  "results": [
+    {
+      "name": "artifact-integrity",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/candidates/round-02/packet.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-02-independent/artifact-integrity.stdout.txt",
+        "sha256": "a1d9a9240e942b251965d9cc05299c3ebba26a9a0ca337725cc44efef1f473a5"
+      },
+      "stderr": {
+        "path": "reviews/round-02-independent/artifact-integrity.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "Artifact integrity verified.\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    },
+    {
+      "name": "exact-review-binding-approval",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/candidates/round-02/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/reviews/round-02.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-02-independent/exact-review-binding-approval.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+      },
+      "stderr": {
+        "path": "reviews/round-02-independent/exact-review-binding-approval.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "Artifact integrity verified; exact independent approval binding verified.\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    },
+    {
+      "name": "directions",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "decor-background-wreck",
+        "--round",
+        "round-02"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-02-independent/directions.stdout.txt",
+        "sha256": "8634c92fc71ef44a7908bcddee69aaba064813ceeff27b0e062308ed08b37e5d"
+      },
+      "stderr": {
+        "path": "reviews/round-02-independent/directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "{\"asset\": \"decor-background-wreck\", \"round\": \"round-02\", \"status\": \"passed\", \"sourceConvention\": \"native_actions.apply_clip: S0/E+90/N180/W-90 degrees\", \"sampleCounts\": {\"N\": 1, \"E\": 1, \"S\": 1, \"W\": 1}}\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    },
+    {
+      "name": "acceptance",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "decor-background-wreck",
+        "--round",
+        "round-02"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-02-independent/acceptance.stdout.txt",
+        "sha256": "f7873e05f8a80cc985a3cc0c7d4b7ec3ff1991be85aeba015b0342f01bcec35a"
+      },
+      "stderr": {
+        "path": "reviews/round-02-independent/acceptance.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "{\"asset\": \"decor-background-wreck\", \"method\": \"independent-review\", \"sha256\": \"4082fb1d5cb3f6f5e95b6daa222424393210cd08dddbbdc85555021cfa304358\"}\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    }
+  ],
+  "independentVerdict": "approve",
+  "approvalGateResult": "Exact candidate independent approval; no broader scope."
+}

@@ -1,0 +1,14 @@
+{
+  "phase": "before immutable handoff",
+  "issues": [
+    {
+      "failure": "Isolated Pillow copy initially omitted @loader_path shared libraries, preventing measurement import.",
+      "resolution": "Retained only the transitive _imaging/_imagingft Mach-O dylib load closure; measurement rerun passed without image changes."
+    },
+    {
+      "failure": "ImageFilter initially absent from private Python module closure for residual-mask erosion.",
+      "resolution": "Copied exact used ImageFilter.py and reran the diagnostic."
+    }
+  ],
+  "scope": "Native source and captured atlas bytes were unchanged. These were tooling import failures, not hidden render retries."
+}

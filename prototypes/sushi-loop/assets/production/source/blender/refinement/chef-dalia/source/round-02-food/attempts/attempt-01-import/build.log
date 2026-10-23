@@ -1,0 +1,13 @@
+00:00.506  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/dependencies/approved-body.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/build.py", line 13, in <module>
+    original=baseline();frozen=json.loads((P/'dependencies/frozen-native-baseline.json').read_text());presentation_source=presentation()
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/common.py", line 38, in baseline
+    result={'sourceSHA256':hashlib.sha256(pathlib.Path(bpy.data.filepath).read_bytes()).hexdigest(),'hashConvention':'SHA256 of JSON sort_keys=True,separators=(comma,colon),ensure_ascii=False; geometry/weights serialized by this saved script. Baseline describes native source data, not deterministic PNG bytes.','bodyAndKnifeMeshes':meshes,'bodyAndKnifeMeshCount':len(meshes),'boneRestSHA256':h(bones),'boneRest':bones,'actions':actions,'materials':materials,'sourceObjectTransforms':transforms,'excludedFromPhysicalGeometryLock':'Only held image plane local vertices/UV and permitted orthoray display-offset amplitude may change by frozen mapping; texture packed bytes replace with exact canonical artwork. All other native data locked.'}
+                                          ^^^^^^^
+NameError: name 'pathlib' is not defined. Did you mean: 'hashlib'? Or did you forget to import 'pathlib'?
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

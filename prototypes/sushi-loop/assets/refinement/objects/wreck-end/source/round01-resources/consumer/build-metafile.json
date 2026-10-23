@@ -1,0 +1,77 @@
+{
+  "inputs": {
+    "source/round01-resources/consumer/build-inputs/react/cjs/react.development.js": {
+      "bytes": 49165,
+      "imports": [],
+      "format": "cjs"
+    },
+    "source/round01-resources/consumer/build-inputs/react/index.js": {
+      "bytes": 186,
+      "imports": [
+        {
+          "path": "source/round01-resources/consumer/build-inputs/react/cjs/react.development.js",
+          "kind": "require-call",
+          "original": "./cjs/react.development.js"
+        }
+      ],
+      "format": "cjs"
+    },
+    "source/round01-resources/consumer/world-sprite-raster.js": {
+      "bytes": 5706,
+      "imports": [
+        {
+          "path": "source/round01-resources/consumer/build-inputs/react/index.js",
+          "kind": "import-statement",
+          "original": "react"
+        }
+      ],
+      "format": "esm"
+    },
+    "source/round01-resources/consumer/sprite-layout.js": {
+      "bytes": 12907,
+      "imports": [],
+      "format": "esm"
+    },
+    "source/round01-resources/consumer/fixture.mjs": {
+      "bytes": 4233,
+      "imports": [
+        {
+          "path": "source/round01-resources/consumer/world-sprite-raster.js",
+          "kind": "import-statement",
+          "original": "./world-sprite-raster.js"
+        },
+        {
+          "path": "source/round01-resources/consumer/sprite-layout.js",
+          "kind": "import-statement",
+          "original": "./sprite-layout.js"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "source/round01-resources/consumer/fixture.bundle.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "source/round01-resources/consumer/fixture.mjs",
+      "inputs": {
+        "source/round01-resources/consumer/build-inputs/react/cjs/react.development.js": {
+          "bytesInOutput": 46895
+        },
+        "source/round01-resources/consumer/build-inputs/react/index.js": {
+          "bytesInOutput": 261
+        },
+        "source/round01-resources/consumer/world-sprite-raster.js": {
+          "bytesInOutput": 3408
+        },
+        "source/round01-resources/consumer/sprite-layout.js": {
+          "bytesInOutput": 4240
+        },
+        "source/round01-resources/consumer/fixture.mjs": {
+          "bytesInOutput": 4712
+        }
+      },
+      "bytes": 61438
+    }
+  }
+}

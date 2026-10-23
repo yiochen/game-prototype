@@ -1,0 +1,112 @@
+{
+  "asset": "dock-entry",
+  "sourceEvidence": {
+    "standalone": "candidates/round-05/native-validation.json",
+    "paired": "candidates/round-05/paired-native-validation-v2.json",
+    "dense": "candidates/round-05/dense-native-audit.json"
+  },
+  "certifiedSharedW": 0.78,
+  "certifiedSharedX": [
+    -0.39,
+    0.39
+  ],
+  "actualExposedStraightTopBoundary": [
+    -0.40700000524520874,
+    0.40700000524520874
+  ],
+  "actualExposedStraightWidth": 0.8140000104904175,
+  "floorContinuousBoundary": [
+    -0.5,
+    0.5
+  ],
+  "entryBoundarySegments": [
+    {
+      "object": "dock-entry__continuous_loadbearing_stair_and_stringers",
+      "polygon": 111,
+      "endpoints": [
+        [
+          0.40700000524520874,
+          0.0,
+          0.2199999988079071
+        ],
+        [
+          -0.40700000524520874,
+          0.0,
+          0.2199999988079071
+        ]
+      ],
+      "xInterval": [
+        -0.40700000524520874,
+        0.40700000524520874
+      ],
+      "normal": [
+        -8.51511661181803e-09,
+        0.0,
+        1.0
+      ],
+      "maxZNominalError": 1.1920928966180355e-09
+    }
+  ],
+  "floorBoundarySegments": [
+    {
+      "object": "dock-floor__crafted_deck",
+      "polygon": 2337,
+      "endpoints": [
+        [
+          -0.5,
+          -1.5,
+          0.2199999988079071
+        ],
+        [
+          0.5,
+          -1.5,
+          0.2199999988079071
+        ]
+      ],
+      "xInterval": [
+        -0.5,
+        0.5
+      ],
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "maxZNominalError": 1.1920928966180355e-09
+    }
+  ],
+  "entryMergedIntervals": [
+    [
+      -0.40700000524520874,
+      0.40700000524520874
+    ]
+  ],
+  "floorMergedIntervals": [
+    [
+      -0.5,
+      0.5
+    ]
+  ],
+  "entryBoundaryZError": 1.1920928966180355e-09,
+  "floorBoundaryZError": 1.1920928966180355e-09,
+  "mutualCenteredProfileRayMismatch": 1.1920928955078125e-07,
+  "sharedSampleCount": 157,
+  "flightRaySamples": 5005,
+  "flightMissing": 0,
+  "flightMonotonicNumericalDeltaMinimum": -2.384185791015625e-07,
+  "clearanceProbes": 1010,
+  "clearanceBlocked": 0,
+  "sharedEndNormals": {
+    "entry": [
+      0,
+      1,
+      0
+    ],
+    "floor": [
+      0,
+      -1,
+      0
+    ]
+  },
+  "method": "Boundary edges extracted from actual evaluated polygon vertices/normals; merge collinear X intervals in double precision. Dense native BVH rays supply interior support/normal diagnostics. Certified centered W=.78 is inside actual exposed horizontal terminal boundary and floor repair strip; no outer rounded-edge endpoint is used as unsupported evidence."
+}

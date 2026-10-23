@@ -1,0 +1,59 @@
+{
+  "candidatePacketSHA256": "5226d4858879f87f0883cadab87959bc4269f21c6ed7aa2374cd590ef1bec24f",
+  "reviewSHA256": "71c3a35881e55d6b2e1999aca6b5e24219afc27e4bea60473e4eb584facde682",
+  "supplementalManifestSHA256": "c414b226c353a19cb0bf23e38ef824f7c03ca5140e641ff6e000deccfaf15d33",
+  "exitCode": 0,
+  "postVerdictGates": [
+    {
+      "name": "packet-with-review",
+      "source": "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+      "sourceSHA256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-half-width/candidates/round-05/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-half-width/reviews/round-05.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": "Artifact integrity verified; exact independent approval binding verified.\n",
+      "stderr": ""
+    },
+    {
+      "name": "directions",
+      "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+      "sourceSHA256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "rock-half-width",
+        "--round",
+        "round-05"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": "{\"asset\": \"rock-half-width\", \"round\": \"round-05\", \"status\": \"passed\", \"sourceConvention\": \"native_actions.apply_clip: S0/E+90/N180/W-90 degrees\", \"sampleCounts\": {\"N\": 2, \"E\": 2, \"S\": 3, \"W\": 2}}\n",
+      "stderr": ""
+    },
+    {
+      "name": "acceptance",
+      "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+      "sourceSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "rock-half-width",
+        "--round",
+        "round-05"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": "{\"asset\": \"rock-half-width\", \"method\": \"independent-review\", \"sha256\": \"71c3a35881e55d6b2e1999aca6b5e24219afc27e4bea60473e4eb584facde682\"}\n",
+      "stderr": ""
+    }
+  ],
+  "expectedResult": "All three unchanged exact-review/integrity, measured-directions and acceptance gates must pass for approve. For revise/needs_evidence, retain actual independent-approval rejection and direction result."
+}

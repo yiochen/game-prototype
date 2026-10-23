@@ -1,0 +1,161 @@
+{
+  "asset": "customer-rosa",
+  "role": "fresh independent visual judge",
+  "status": "initial_inspection_only_no_candidate_approval",
+  "editorProposalConsulted": false,
+  "inspectedInputs": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "e6ad73fdf561b7ae0137725fb34e5dcdf1347d5928412ae74a8dd77415a8fcf5"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "c94fa5fc168e76fe334ba992baccd65148cfc69d448a8a012dda1e02b705b04d"
+    },
+    {
+      "path": "inputs/family-concept.png",
+      "sha256": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1"
+    },
+    {
+      "path": "brief.json",
+      "sha256": "616861fd896c97ad3a994aaef3a3d00b26c9e6f01805d209ca17f50f8547f0a4"
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "5c095236398660a8c43de07cdd9efe286ea0eb17f172c3239040e85ca7a31ba5"
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "sha256": "9b525036703e77827b73af18bcdfb1a977401b2b3795062bc8068f13e96c5a87"
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "sha256": "9261c3c9056bd65968c0068ea802c5701db23e9c203356c01b1cab2aa9760d2e"
+    },
+    {
+      "path": "inputs/runtime-variants/original-runtime-manifest.json",
+      "sha256": "136de25903c9258f00fe7a944b6846da31b47cf8dba3bd5de179079910a2719a"
+    },
+    {
+      "path": "inputs/runtime-variants/original-object.json",
+      "sha256": "9eb651bf7c55c222da2e53e6151b6b494feef757c498ce0e6e9aba4468388a1b"
+    },
+    {
+      "path": "inputs/runtime-variants/export/source/customer-rosa/rig.json",
+      "sha256": "1e5d935943b4f77aa1220ab43defc26729af6fe40518e446c4b1fc25c2aa2479"
+    }
+  ],
+  "styleReference": {
+    "path": "../../style/warm-soft-reference.png",
+    "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+  },
+  "nativeInspection": {
+    "sourceMain": {
+      "path": "source-contract-main.json",
+      "sha256": "510f555103d8737a974fc0905cce0631336754d86fbf1706c6d0966c44db684d",
+      "samples": 480
+    },
+    "sourceRuntime": {
+      "path": "source-contract-runtime.json",
+      "sha256": "10b4a92316d78fbcb19745e9c98219768ef3b5ae3a43ddfc541d7131ad4ef7be",
+      "samples": 96
+    },
+    "script": "inspect-source.py",
+    "allOriginalMainClips": [
+      "stand",
+      "walk",
+      "seated_wait",
+      "eat",
+      "sit_down",
+      "stand_up",
+      "happy",
+      "restless",
+      "puzzled",
+      "panic"
+    ],
+    "supplementalClips": [
+      "eat-salmon",
+      "seated-wait-empty"
+    ],
+    "captures": "Rosa-specific35degree orthographic192x320 logical frame, root96,248; actual native collection/root/armature and source-camera checked. Saved named cameras .240(main)/.260(runtime) agree with35degree source geometry; captureScale4 legacy inputs normalized to current2 without changing logical registration."
+  },
+  "directlyInspectedVisuals": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/family-concept.png",
+    "../../style/warm-soft-reference.png",
+    "reviews/original-stand-all48.jpg",
+    "reviews/original-walk-all48.jpg",
+    "reviews/original-seated-wait-all48.jpg",
+    "reviews/original-eat-all48.jpg",
+    "reviews/original-sit-down-all48.jpg",
+    "reviews/original-stand-up-all48.jpg",
+    "reviews/original-happy-all48.jpg",
+    "reviews/original-restless-all48.jpg",
+    "reviews/original-puzzled-all48.jpg",
+    "reviews/original-panic-all48.jpg",
+    "reviews/original-eat-salmon-all48.jpg",
+    "reviews/original-seated-wait-empty-all48.jpg",
+    "reviews/source-runtime-eat-salmon-N.png",
+    "reviews/source-runtime-eat-salmon-E.png",
+    "reviews/source-runtime-eat-salmon-S.png",
+    "reviews/source-runtime-eat-salmon-W.png",
+    "reviews/dish-cucumber-canonical-gray.jpg",
+    "reviews/dish-salmon-canonical-gray.jpg",
+    "reviews/semantic-plate-bounds.jpg"
+  ],
+  "sourceScores": {
+    "shapeVolume": 3,
+    "color": 5,
+    "lightingHighlights": 3,
+    "materialDetail": 3,
+    "artifactFreeReadability": 4
+  },
+  "observations": [
+    "Rosa identity is already clear: warmtan square-rounded face, chocolate bob/fringe, coral shirt and navy lower garment. Small eye glints, cheeks and smile carry a friendly expression.",
+    "The current crown is a large dark flat cap with abrupt fringe transitions; sides/back expose conspicuous triangular skin gaps between separated hair lobes. The fixed target offers connected layered/swept crown forms and soft readable fringe volumes. This is the strongest modeling opportunity across all views.",
+    "Source collar pieces look like red tabs on a broad flat torso, arms/hands have abrupt block/ring transitions and footwear merges into the navy lower block. The target uses rounded face/hand volumes, a constructed polo collar/placket/sleeves/hem and distinct dark shoes. Useful native modeling, proportion and clothing refinements are authorized and should be rewarded.",
+    "Source highlights are hard planar bands and lower navy/side hair are very dark. Target broad warm light carries clearer material separation and rounded volume. Do not copy target edge halos or reframe/enlarge the actor to claim progress.",
+    "All480 main frames and96 historical runtime frames were inspected via source contact sheets. All576 poses were independently sampled from native original actions. Actual temporal playback and phone/stool context remain candidate-stage checks; the initial sheets are not playback proof.",
+    "Main food is cucumber, not salmon: native visibility is48/48 for seated_wait/eat and0 for other main states. Runtime salmon visible48/48; runtime empty wait0/48. Native body actions correspond to the main eat/seated_wait actions. Existing historical bodyGeometryUnchanged audit is provenance, not a newbody-immutability requirement.",
+    "Fresh native runtime renders establish correct Nback/Eright/Sfront/Wleft while hash-matched historical runtime atlas labels are onecardinal rotated. Root reconciled new candidate to declared/native cardinal labels and verified no Godot remap compensation.",
+    "Packed source food UVs contain unequal semitransparent padding. Opaque128 salmon plate bottom is10.60483 capturepx above oldquadbottom; cucumber1.23436px. Exact old/new allcorner equality conflicts with canonical aspect. Proposed semantic128 fullUV maps preserve actual occupiedwidth/visiblebottom relationship, subject to root exact freeze."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "id": "coherent-native-shape-and-hair",
+      "outcome": "Rosa has a continuous, appealing chocolate-brown bob: a fuller flowing crown/sweep, rounded readable fringe and side/nape volumes that work in all four views. Replace the source cap-like flat crown, abrupt lumpy joins and visible skin wedges between hair pieces with deliberate construction. Face, torso, arms, hands, trousers and shoes gain useful volume/proportion refinement within actual rig/contact and functional envelope."
+    },
+    {
+      "rank": 2,
+      "id": "crafted-garment-and-face",
+      "outcome": "Warm tan face retains Rosa\u2019s friendly small dark eyes/glints, nose, cheeks and smile with clearer softly rounded forms. Coral shirt reads as a constructed polo with a readable collar/opening, sleeve finish and hem; navy trousers and dark shoes remain separately readable. Purposeful broad details carry the target\u2019s crafted feel without noisy microdetail."
+    },
+    {
+      "rank": 3,
+      "id": "warm-soft-light-and-palette",
+      "outcome": "Keep tan skin, chocolate-brown bob, coral red shirt, navy lower garment and dark shoes, with broad gentle highlights and readable warm midtones. The head and shirt should no longer read as large flat dark caps/red slabs; lower tones retain useful form separation rather than nearly black blocks."
+    },
+    {
+      "rank": 4,
+      "id": "motion-and-meal-readability",
+      "outcome": "Walk, sit/stand, eat, gestures and waiting preserve their functional meaning and cadence. Hands, feet, seat and mouth relationships remain stable; meal sprites read as carried/consumed food with correct natural occlusion rather than pasted-over body parts. Food-free states remain empty."
+    }
+  ],
+  "technicalLimits": [
+    "This is an initial proposal, not an approval. No immutable candidate or editor rationale was read.",
+    "Native geometry may be improved; no exact oldbody mesh or RGB lock is implied.",
+    "Quantitative functional envelope and exact semantic food mappings await root freeze.",
+    "No repeatability claim is made from one render. Same-input GPU repeats must be measured if later pixel precision evidence needs tolerance."
+  ],
+  "proposal": {
+    "path": "proposedcriteria.json",
+    "sha256": "5b843ef45e66207b3bbcf4ad29d5e6275a042f6b1a5bfe0357bbef90ac8ef255"
+  },
+  "ownership": "Only reviews/ written; no source, production, brief or Git mutations."
+}

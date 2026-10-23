@@ -1,0 +1,43 @@
+{
+  "candidatePacketSHA256": "270d330ded27fa71bc0b1484698e5e75ef671ce5d45bde767d66af559a4ad453",
+  "primaryHardFixtureOnly": true,
+  "cases": 32,
+  "reports": [
+    {
+      "backend": "full-chromium",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true,
+        "channel": "chromium"
+      },
+      "cases": 16,
+      "errors": [],
+      "maximumMetrics": {
+        "maxAlphaDelta": 255,
+        "maxOpaqueRGBDelta": 182,
+        "nativeInteriorAlphaLoss": 0,
+        "independentInteriorAlphaLoss": 0,
+        "trueInteriorPixels": 44172,
+        "localJoinMaxRGBDelta": 182
+      }
+    },
+    {
+      "backend": "headless-shell",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true
+      },
+      "cases": 16,
+      "errors": [],
+      "maximumMetrics": {
+        "maxAlphaDelta": 3,
+        "maxOpaqueRGBDelta": 47,
+        "nativeInteriorAlphaLoss": 0,
+        "independentInteriorAlphaLoss": 0,
+        "trueInteriorPixels": 15436,
+        "localJoinMaxRGBDelta": 24
+      }
+    }
+  ],
+  "limits": "Bounded independent replay at baseline and root.25/pan.75. Complete packet matrix remains independently hash-verified and directly inspected via all declared sheets. No new source-extent control or policy study run; actual raw unequal-extent outputs and finite native light RGB residuals retained. No whole-frame equality claim."
+}

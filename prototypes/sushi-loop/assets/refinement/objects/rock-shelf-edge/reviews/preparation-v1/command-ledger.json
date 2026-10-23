@@ -1,0 +1,60 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "bytecodePolicy": "PYTHONDONTWRITEBYTECODE=1 ",
+  "executables": {
+    "blender": "/opt/homebrew/bin/blender",
+    "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+  },
+  "nativeCommands": [
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/inspect-original.py > prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/logs/inspect-original.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/resources/source/source.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/measure-native.py -- original > prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/logs/measure-original.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/resources/canonical/round-03.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/measure-native.py -- canonical > prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/logs/measure-canonical.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/resources/source/source.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/replay-original.py -- historical > prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/logs/replay-historical.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/resources/source/source.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/replay-original.py -- canonical-sampling > prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/logs/replay-canonical-sampling.log 2>&1"
+  ],
+  "pythonCommands": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/compare-replay.py historical",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/compare-replay.py canonical-sampling",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/derive-preparation.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/retain-inputs.py"
+  ],
+  "readOnlyInspection": {
+    "tools": [
+      "exec_command cat/rg/find/sed/tail",
+      "view_image"
+    ],
+    "files": [
+      "resources/instructions/judge-dispatch.txt",
+      "resources/instructions/refine-3d-model-SKILL.md",
+      "resources/instructions/AGENTS.md",
+      "resources/instructions/sushi-loop-AGENTS.md",
+      "resources/instructions/judge.txt",
+      "resources/metadata/brief.json",
+      "resources/metadata/source-camera.json",
+      "resources/metadata/source-rig.json",
+      "resources/metadata/source-assetRecord.json",
+      "resources/metadata/catalog-object.json",
+      "resources/metadata/snapshot.json",
+      "resources/native/world_components.py",
+      "resources/native/catalog_style.py",
+      "resources/native/catalog_faceted.py",
+      "resources/native/capture_runtime.py",
+      "resources/canonical/root-native-contract.json",
+      "resources/canonical/build-round-03.py",
+      "resources/canonical/packet.json",
+      "resources/consumer/world-sprite-raster.js",
+      "resources/consumer/sprite-layout.js"
+    ],
+    "directImages": [
+      "resources/references/original.png",
+      "resources/references/target.png",
+      "resources/references/family-concept.png",
+      "resources/references/warm-soft-reference.png",
+      "captures/historical/all4-source-sheet.png",
+      "captures/canonical-sampling/all4-source-sheet.png"
+    ],
+    "retention": "All read source bytes are retained in resources except executable/standard-library installations, whose runtime identity is saved in environment.json. Exact read commands appear in the chat tool transcript; relevant native/process stdout/stderr retained in logs."
+  },
+  "failedAttempt": "The original native measurement command was first executed with a stale hidden-layer graph; its output was rejected and the command rerun after explicit layer enable. The final log is the corrected rerun; initial numerical output and cause are recorded in measurement-notes.json. No source bytes changed.",
+  "noMutations": "All authored files are new under this asset's reviews/. No Git or live/native app calls. Blender operations are background memory-only reads plus evidence renders; no .blend write or rebuild."
+}

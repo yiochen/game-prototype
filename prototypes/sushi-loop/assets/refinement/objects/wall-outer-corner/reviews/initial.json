@@ -1,0 +1,258 @@
+{
+  "asset": "wall-outer-corner",
+  "stage": "initial-assessment-only",
+  "independentReview": true,
+  "editorProposalsRead": false,
+  "candidateVerdict": null,
+  "style": "Warm, softly lit cartoon; honey-orange wood and a blue coping, consistent with the selected plant reference and wall family.",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/family-concept.png",
+    "../../style/warm-soft-reference.png",
+    "inputs/source-camera.json",
+    "inputs/source-rig.json",
+    "inputs/source-assetRecord.json",
+    "inputs/catalog-object.json",
+    "../../../production/sprites/wall-outer-corner/static-N.png",
+    "../../../production/sprites/wall-outer-corner/static-E.png",
+    "../../../production/sprites/wall-outer-corner/static-S.png",
+    "../../../production/sprites/wall-outer-corner/static-W.png",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "../../../production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "../../../production/source/blender/revisions/4fa9e22e555f8aad/native_actions.py"
+  ],
+  "inspectionMethod": {
+    "images": "Viewed actual source, target, family concept and selected style reference directly. Viewed all four source sprite facings at native resolution and a temporary contact sheet at logical 192x352 on light cream, gray and dark backgrounds. Also viewed source/target/family on all three backgrounds.",
+    "native": "Opened the exact source .blend in Blender 5.2.2 LTS, linked the asset collection into an isolated temporary scene, updated the dependency graph and measured evaluated world-space geometry and terminal cross-sections. Also inspected source wall-middle terminal cross-sections. No model or candidate was saved.",
+    "sourceCollection": "S33_PROP_wall-outer-corner.001",
+    "sourceRoot": "wall-outer-corner__root.001",
+    "sourceRootMatrix": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "sourceMeshCount": 7,
+    "sourceMeshCountIsConstraint": false
+  },
+  "observations": {
+    "original": [
+      "The W02 asset is an outward/convex L bend: a blue coping follows the W-to-center-to-S path above orange-brown wood. All four facings keep this handed construction when the native root rotates.",
+      "The broad blue top is nearly uniform at logical size. Its turn contains a faint diagonal/triangular tonal wedge, while edges are abrupt and provide little soft volume.",
+      "Wood courses remain legible at logical size, but the surfaces are largely blank and the lower panel becomes dark brown. The cap, trim and panels read as stacked simple extrusions rather than a crafted soft cartoon wall.",
+      "The source's narrow front-facing leg and rear-facing silhouette differ by native rotation; those differences are perspective/occlusion evidence, not grounds to fit the images independently."
+    ],
+    "selectedTarget": [
+      "The target offers a more coherent, cushioned coping: broad blue surfaces, controlled light-to-dark face separation and softened edges make the bend read as a solid formed object.",
+      "Honey-orange wood has broad, sparse flowing grain and shallow rounded edge relief. The wood and blue remain distinctly separate without a muddy junction.",
+      "The family concept supports the same blue cap, warm wood and softly crafted surfaces. It supplies style context rather than a final approved straight-wall connection profile.",
+      "The selected plant reference supports saturated warm colors, soft luminous edge transitions and readable volume; it does not require white contour lines on every wall edge."
+    ],
+    "targetLimitations": [
+      "The target is 926x1699 rather than the registered 384x704 source frame, and its visible shape/placement is not proof of registration.",
+      "The target and family concept close and round module ends like standalone objects. W/S open join geometry and material bands must follow the native source contract instead.",
+      "The target shows a different interior board breakdown. Source part counts are flexible away from locked contacts, but the source terminal band heights and cross-sections remain fixed.",
+      "ImageGen edge specks/halos and its stronger local rim glints are not desired sprite artifacts. Its single shown view does not define unseen native facings."
+    ]
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Build a coherent soft-cartoon convex bend with convincing cap and wood volume, without a pinched turn, diagonal shading scar or incoherent stacked pieces."
+    },
+    {
+      "rank": 2,
+      "outcome": "Make honey wood and blue coping visibly richer and more crafted through broad soft light, restrained grain/detail and clear material separation at logical size."
+    },
+    {
+      "rank": 3,
+      "outcome": "Integrate both ports seamlessly with the approved wall-middle in geometry, material bands, RGB and alpha under the same capture settings in all four native facings."
+    }
+  ],
+  "nativeContract": {
+    "role": "One-cell W02 outward/convex wall bend; preserve identity, source L path, footprint and functional clearance.",
+    "functionalHeight": 1.02,
+    "footprint": [
+      1,
+      1
+    ],
+    "sourceMeasuredGeometryBounds": [
+      [
+        -0.5,
+        -0.5,
+        0.07
+      ],
+      [
+        0.18,
+        0.18,
+        1.01
+      ]
+    ],
+    "measuredBoundsNote": "Baseline evidence, not a lock on every nonfunctional interior contour. The declared footprint/clearance, height and terminal sections remain locked.",
+    "sourcePathCenters": [
+      [
+        -0.5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        -0.5,
+        0
+      ]
+    ],
+    "registeredFrame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      256
+    ],
+    "sourceScale": 2,
+    "cellSizeLogicalPixels": 128,
+    "projection": "top-down-oblique-square-grid; source orthographic camera and pixel aspect retained; no per-view fit",
+    "sourceRawCaptureScale": 4,
+    "captureScaleNote": "The historical source camera record describes raw scale4. Export scale2 must preserve logical calibration and record its actual recalibrated frame/root.",
+    "rotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "animation": {
+      "clip": "static",
+      "frames": 1,
+      "fps": 12,
+      "loop": false
+    },
+    "ports": {
+      "W": {
+        "plane": "x=-0.5",
+        "position": [
+          -0.5,
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "sectionCoordinates": "[transverse y,z]"
+      },
+      "S": {
+        "plane": "y=-0.5",
+        "position": [
+          0,
+          -0.5,
+          0
+        ],
+        "normal": [
+          0,
+          -1,
+          0
+        ],
+        "sectionCoordinates": "[transverse x,z]"
+      }
+    },
+    "profile": "restaurant-wall-wood-blue-v2",
+    "measuredSharedTerminalSections": [
+      {
+        "role": "wood_light panel",
+        "transverseHalfWidth": 0.105,
+        "z": [
+          0.07,
+          0.89
+        ]
+      },
+      {
+        "role": "wood horizontal bands",
+        "transverseHalfWidth": 0.115,
+        "zIntervals": [
+          [
+            0.12,
+            0.145
+          ],
+          [
+            0.34,
+            0.365
+          ],
+          [
+            0.56,
+            0.585
+          ],
+          [
+            0.78,
+            0.805
+          ]
+        ]
+      },
+      {
+        "role": "wood_dark cap",
+        "transverseHalfWidth": 0.15,
+        "z": [
+          0.86,
+          0.935
+        ]
+      },
+      {
+        "role": "blue coping",
+        "rings": [
+          {
+            "transverseHalfWidth": 0.18,
+            "z": 0.93
+          },
+          {
+            "transverseHalfWidth": 0.18,
+            "z": 0.97
+          },
+          {
+            "transverseHalfWidth": 0.12,
+            "z": 1.01
+          }
+        ]
+      }
+    ],
+    "terminalComparison": "The actual evaluated source corner W and S sections match source wall-middle W and E sections in coordinates and material-role bands. Preserve these at the join planes; avoid rounding back an open port.",
+    "materials": "Preserve material-role bands at the join. Refined colors/shaders and capture settings must match the approved wall-middle family-settings once supplied; original source RGB values are not the selected aesthetic target.",
+    "modelingFreedom": "Useful native changes to forms, construction, decoration and nonfunctional topology/part counts are welcome. Do not preserve weak geometry for fidelity.",
+    "lighting": "No preferred horizontal light direction, no directional ground shadows; one shared material/light configuration across actual model rotations."
+  },
+  "pendingEvidence": [
+    "inputs/family-settings.json is not present at this initial review. Require the approved wall-middle family settings and hash-bound native/render dependencies before final candidate review.",
+    "No candidate has been supplied or judged. Proposed criteria need coordinator reconciliation and freezing in brief.qualityCriteria.",
+    "Candidate review must include native corner-to-approved-straight context and independent exported sprite assemblies for both ports in every facing, with RGB and alpha continuity evidence."
+  ],
+  "proposedCriteria": "reviews/criteria.json"
+}

@@ -3057,13 +3057,14 @@
     ]
   },
   "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
+    "Original25-bone rest and all24 native action cohorts retained exactly; keyframe/slot identities audited.",
+    "Native body and native knife; exact approved canonical731x505 salmon remains explicitly packed2D raster, not modeled sushi.",
+    "Runtime frames exclude duplicate loop closure13; load retains original nonlooping out-and-back12 frames.",
+    "Original controlsByFrame are preserved source local attachment records; final all192 world-space evaluated contacts are in the bound native audit."
   ],
   "actionCount": 24,
   "createdAtUnix": 1792393617.8765981,
-  "status": "native-actions-baked-needs-visual-review",
+  "status": "native-actions-preserved-audited-pending-independent-visual-review",
   "sourceFiles": {
     "native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
     "character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
@@ -3077,5 +3078,100 @@
     "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
     "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
     "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
+  },
+  "nativeRefinement": {
+    "activeBrief": "brief-v4-food-occlusion.json",
+    "project": "source/round-03.blend",
+    "projectSHA256": "070c94e7c64aef5f43beacd37867445538edeeaf0a65f39b59dca4201476f0e2",
+    "originalRig": "inputs/source-rig.json",
+    "originalRigSHA256": "052db050876179874826eece9f75ac9cc66bbc0fe8cebd37aa4bfa13518d843f",
+    "nativeAudit": "candidates/round-03/native-audit.json",
+    "nativeAuditSHA256": "0665912c228d8f6596f4e7392e27c0130b4c4c6f58a4ce79aa9c0d2b6ba01317",
+    "foodNativeAudit": "candidates/round-03/food-native-audit.json",
+    "foodNativeAuditSHA256": "f634beb5c60500901d5ec71e4f94d3da5f6aa3c61e5a981aa20fd956bf1d8e46",
+    "foodDependency": {
+      "asset": "dish-salmon",
+      "representation": "packed2D raster texture, not modeled3D food",
+      "artwork": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "packet": "../dish-salmon/candidates/round01/packet.json",
+      "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+      "review": "../dish-salmon/reviews/round01.json",
+      "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+      "canonicalSize": [
+        731,
+        505
+      ],
+      "canonicalAlphaRectangleTopOrigin": [
+        0,
+        0,
+        731,
+        505
+      ],
+      "policy": "Use exact canonical source/fullUV/aspect/width and native plane mesh/material. Preserve original food-root, plate-bottom palm anchor, yaw cancellation and all action/visibility paths. Only the continuous native camera-ray display-occlusion law fixed in foodOcclusionPolicy may change; no other food/display change.",
+      "inspectionEvidence": {
+        "canonicalImageDirectlyViewed": true,
+        "size": [
+          731,
+          505
+        ],
+        "fullSourceAlphaRectangleTopOrigin": [
+          0,
+          0,
+          731,
+          505
+        ],
+        "worldDisplayWidth": 0.35,
+        "worldDisplayHeightAtCanonicalAspect": 0.2417920656634747,
+        "receipts": {
+          "artwork": {
+            "path": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+            "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+            "hashVerified": true
+          },
+          "packet": {
+            "path": "../dish-salmon/candidates/round01/packet.json",
+            "sha256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+            "hashVerified": true
+          },
+          "review": {
+            "path": "../dish-salmon/reviews/round01.json",
+            "sha256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+            "hashVerified": true
+          }
+        },
+        "independence": "Canonical artwork/source binding was independently inspected for criteria-v2; packet/review bytes were verified without reading the other judge aesthetic critique. This historical dependency receipt is retained. Rowan rounds01/02 have since been independently reviewed and remain revise."
+      }
+    },
+    "foodOcclusionPolicy": {
+      "representation": "One native editable camera-facing packed2D billboard; body and knife remain native3D. The food stays in its original declared state visibility schedule.",
+      "orientationDefinition": {
+        "forward": "F = normalize(horizontal(groundRootWorldRotation * nativeForward)); nativeForward is the fixed source character-forward axis (0,-1,0) in the existing ground-root frame. Retain intrinsic child orientation. Use the ground root, not animated head/hand normals or a state-dependent vector.",
+        "towardCamera": "H = normalize(horizontal(camera.matrix_world.to_3x3() * (0,0,1))), the orthographic toward-camera axis. Do not use camera location minus character location. The fixed registered capture has H=(0,-1,0).",
+        "f": "f = clamp(dot(F,H),-1,1). At the unchanged publisher orientations S0/E+90/N180/W-90, f is respectively +1/0/-1/0. In this exact source/camera contract the algebraically equivalent f=cos(rootYaw) is allowed; it must remain the same continuous law at all angles."
+      },
+      "law": "d(f) = 0.60 - 0.15 * max(0,-f)^2 world cells; no tunable coefficients or alternative piecewise per-view constants in this version.",
+      "rangeWorldCells": [
+        0.45,
+        0.6
+      ],
+      "requiredCardinalValuesWorldCells": {
+        "S": 0.6,
+        "E": 0.6,
+        "N": 0.45,
+        "W": 0.6
+      },
+      "continuity": "C1 on [-1,1]: for f<0, d=0.60-0.15*f^2 and derivative=-0.30*f; for f>=0, d=0.60 and derivative=0. Both derivatives meet at zero. Composed with the continuous native root/camera orientation, the displacement has no orientation threshold jump. Natural geometry occlusion boundaries still require visual evaluation.",
+      "worldOffset": "Let A be the unchanged evaluated food-root/plate-bottom attachment origin, and R=normalize(camera.matrix_world.to_3x3()*(0,0,1)). The billboard origin is A+d(f)*R, using the same original ray sign. In the registered camera R=(0,-cos(35deg),sin(35deg)). Derive the native plane local XYZ location through its unchanged parent transform, all from the same d. Preserve the plane rotation, yaw cancellation, mesh and fullUV. Do not independently tune Z or an XY coefficient.",
+      "permittedNativeImplementation": "Native Blender driver expressions/variables or an equivalent fully saved native editable dependency graph implementing this fixed law. It must reopen and evaluate without an external driver namespace, startup handler or undeclared script. A source-expression audit and numerical evaluation must demonstrate the same law between the four output facings.",
+      "forbiddenInputsAndMethods": [
+        "No state name, frame index, atlas cell, publisher-facing label, discrete orientation lookup, custom angle mask, hysteresis or per-pose fitted parameter.",
+        "No object visibility/holdout/shadow/material/alpha policy changes, per-view hiding or pixel masks.",
+        "No screen-space relocation, target fit, source crop/repaint/regrade/warp, altered plane shape/aspect/width, body patch or new occluder."
+      ],
+      "physicalScope": "Only the billboard display offset changes along the exact orthographic ray. Original food-root, plate-bottom palm contact, rig, actions, authored bob, body/knife envelopes and functional clearance remain exact; the offset billboard is excluded from the native physical body footprint."
+    },
+    "depthOnlyAudit": "candidates/round-03/occlusion-native-audit.json",
+    "representation": "Native body/knife plus declared packed2D salmon"
   }
 }

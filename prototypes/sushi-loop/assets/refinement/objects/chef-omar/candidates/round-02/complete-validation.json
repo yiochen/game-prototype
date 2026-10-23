@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "asset": "chef-omar",
+  "round": "round-02",
+  "catalogNativeFrames": 192,
+  "runtimeNativeFrames": 96,
+  "totalNativeFrames": 288,
+  "catalogPublishedFrames": 192,
+  "runtimePublishedFrames": 96,
+  "catalogAtlases": 16,
+  "runtimeAtlases": 8,
+  "shippingPlaybacks": 24,
+  "nativeCaptureScale": 2,
+  "publishedScale": 2,
+  "mainValidation": "candidates/round-02/validation.json",
+  "runtimeValidation": "candidates/round-02/runtimeVariants/validation.json",
+  "bodyFrozen": true,
+  "shippingMaximum": {
+    "position": 0.0,
+    "vertexNormal": 0.0,
+    "cornerNormal": 0.0,
+    "pose": 0.0,
+    "control": 0.0,
+    "quadNativePx": 3.814697265625e-05,
+    "bottomNativePx": 3.814697265625e-05,
+    "perpendicularWorld": 1.1434645750860067e-07,
+    "analyticDepthWorld": 6.421182296989514e-08,
+    "frontSideDepthDeltaWorld": 0,
+    "oldShippingOffRayWorld": 2.1923480324336929e-07
+  },
+  "continuousLaw": {
+    "dMinWorld": 0.4,
+    "law": "d(f)=d0-(d0-dMin)*max(0,-f)^2",
+    "cameraRayOnly": true
+  },
+  "pendingEvidence": [],
+  "freshPortableReplay": "candidates/round-02/fresh-replay-validation.json",
+  "foodDependentRGBDiagnostics": "candidates/round-02/food-dependent-rgb-diagnostics.json",
+  "foodDependentRGBSummary": {
+    "canonicalV2DepthToV3Depth": {
+      "maxRGBChannelDelta255": 15,
+      "maxCaseMeanAbsoluteRGBChannelDelta255": 0.29144343720841137,
+      "totalPixelsAnyRGBDifference": 146603
+    },
+    "approvedOldFoodToV3CanonicalFood": {
+      "maxRGBChannelDelta255": 15,
+      "maxCaseMeanAbsoluteRGBChannelDelta255": 0.29530892648265505,
+      "totalPixelsAnyRGBDifference": 422083
+    }
+  },
+  "freshReplayRGBAIdentical": false,
+  "foodShaderImageSettingsParity": {
+    "salmon": {
+      "interpolation": true,
+      "extension": true,
+      "colorspace": true,
+      "alphaMode": true
+    },
+    "cucumber": {
+      "interpolation": true,
+      "extension": true,
+      "colorspace": true,
+      "alphaMode": true
+    }
+  },
+  "shippingMaxPerpendicularResidualInFloat32ULPsAtUnitWorld": 0.9592076082283076,
+  "maxActualSemanticDotVsExpressionDifference": 1.6317698969814387e-08,
+  "browserPlaybackQA": "candidates/round-02/browser-playback-qa.json",
+  "renderManifest": "native-frames.json",
+  "supplementalRuntimeRenderManifest": "runtimeVariants/native-frames.json",
+  "hiddenRigidKnifeProof": {
+    "main": {
+      "path": "candidates/round-02/hidden-mesh-evaluation-validation.json",
+      "frames": 192,
+      "allSourceCandidatePositionNormalDeltasZero": true,
+      "maxReconstructionVsVisibleEvaluatedDelta": 2.9802322387695312e-08,
+      "method": "Two isolated fresh Blender processes. Fixed rigid knife meshes have no modifiers, constraints or shape keys. Their world vertices/normals are reconstructed using the actual evaluated non-culled utensil parent, native parent inverse and local basis; this is explicitly not a claim that viewport-culled evaluated_get returned actual geometry. Reconstruction is cross-checked against actual evaluated visible knife geometry on all work poses. No visibility/controller/project/render mutation. Temporary binary comparison arrays are deleted after comparison."
+    },
+    "runtime": {
+      "path": "candidates/round-02/runtimeVariants/hidden-mesh-evaluation-validation.json",
+      "frames": 96,
+      "allSourceCandidatePositionNormalDeltasZero": true,
+      "maxReconstructionVsVisibleEvaluatedDelta": null,
+      "method": "Two isolated fresh Blender processes. Fixed rigid knife meshes have no modifiers, constraints or shape keys. Their world vertices/normals are reconstructed using the actual evaluated non-culled utensil parent, native parent inverse and local basis; this is explicitly not a claim that viewport-culled evaluated_get returned actual geometry. Reconstruction is cross-checked against actual evaluated visible knife geometry on all work poses. No visibility/controller/project/render mutation. Temporary binary comparison arrays are deleted after comparison."
+    }
+  }
+}

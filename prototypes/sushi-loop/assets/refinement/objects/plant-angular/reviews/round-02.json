@@ -1,0 +1,39 @@
+{
+  "round": 2,
+  "asset": "plant-angular",
+  "verdict": "approve",
+  "candidatePacketSHA256": "dbc501cad47d9788e499191c07351dbeb99024e3dc9cfc8b5d74a333427c9cc9",
+  "inspectedFiles": ["N.png", "E.png", "S.png", "W.png", "idle-S.gif", "idle-E.gif", "idle-N.gif", "idle-W.gif", "motion-sheet.png"],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 9,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "All four native heroes show a coherent tall fan of substantial folded leaves with pointed tips, broad lime planes, readable darker green faces and softly treated edges. This is a clear volumetric improvement over the original thin planar foliage and exposed upright stems.",
+    "The square tapered orange-brown pot and rounded golden rim preserve the original identity while visibly moving toward the target's warm soft cartoon treatment. The opening is dark warm brown, rather than a black defect; its edge and the foliage crown remain separable at logical size.",
+    "The four heroes were inspected at native 384x768 resolution and at 192x384 logical size on light, midgray and dark backgrounds. No clipped tips, unwanted ground shadow, fringe halo, exposed geometry ends or material dead patch is visible.",
+    "Every frame of each packet-bound idle GIF was decoded and inspected in temporal order through independently generated logical-size contact sheets, together with the supplied full motion sheet. Foliage moves subtly without detached leaves, overlap popping or a conspicuous closing-frame discontinuity; the pot silhouette stays fixed. Timing is a repeated 80/80/90ms sequence totaling exactly one second for 12 unique frames.",
+    "Static captures retain the same geometry/material style as the idle. Across S/E/N/W, the fan has plausible changes of overlap while its lighting treatment remains consistent; no facing has a visibly broken or unreadable side."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The native fan has narrower central upright leaves and a cleaner, more regular arrangement than the single-view painted target. The fixed criteria allow this coherent native variation.",
+    "Lime planes are somewhat yellower, the rim less orange, and the pot opening darker than in the target. They retain readable green/gold/brown separation and the requested warm soft treatment at intended size, so these differences are non-blocking.",
+    "Target glow/halos and painterly distortions are intentionally absent."
+  ],
+  "technicalEvidence": {
+    "integrity": "The skill candidate_packet.py verify command passes for the exact packet SHA-256 recorded above. All supplied packet resources, native project, brief, target, render and preview hashes are bound by that verification.",
+    "completeNativeContract": "Independently counted 52 raw RGBA PNGs at 384x768 with clear transparent borders: 12 idle plus one static for each S/E/N/W. Independently unpacked all eight atlases and established byte-equivalent RGBA pixels for every raw frame; idle atlases are 2304x1536 and static atlases 384x768. Catalog clip atlas sizes and rectangles agree with those bytes.",
+    "capture": "Read validation.json, native-validation.json and authoritative camera/asset/rig records. Native and original capture evidence agree on camera matrix, ortho scale 1.5, pixel aspect 1.2206555604934692:1, 384x768 frame, root [192,576], logical frame/root [192,384]/[96,288], cell size 128 and source scale 2. All eight registered guide files report captureScale 2 and sourceCaptureScale 2.",
+    "geometry": "Per-frame native evaluated bounds are within the frozen envelope for all 52 frames: combined XY extrema +/-0.47702449560165405, Z 0.014999999664723873 to 1.450146198272705. Footprint is [1,1]. All leaf and pot meshes report closed nondegenerate topology; the recessed soil is an intentional open planar surface. Actual model root rotations, editable leaf shape-key actions and 12 geometry poses establish four native facings and motion rather than mirrored image captures.",
+    "motion": "Native validation reports fixedPotMaxDelta 0, frame1To13MaxDelta 0, 12 unique evaluated leaf poses, and loop-boundary step no greater than the maximum ordinary step. Independent GIF decoding confirms 12 unique frames and 1000ms total duration in every facing. Independently checked lower-pot alpha is exactly fixed; RGB sampling variation is low (0.28-0.36 levels RMS on an 8-bit scale), with no visible flicker at logical size.",
+    "lighting": "Native evidence specifies an azimuth-invariant world normal-Z shader and an overhead unrotated SUN; no ground plane or receiver mesh. Actual pixels show broad soft shading without a preferred horizontal lighting direction or a ground cast shadow.",
+    "metadataPromotionNote": "records/catalog-object.json retains the known legacy registration.sourceCaptureScale value 4. As scoped by the coordinator, this proposal field is not authoritative for the approved native capture: authoritative camera/asset/guide bytes and actual PNG dimensions use scale 2. The coordinator will construct promoted metadata with registration.sourceCaptureScale 2; this review does not authorize publishing that stale proposal field.",
+    "reviewMethodAndLimits": "Judge inspected actual packet heroes, decoded every GIF frame, the full motion sheet, independently composited background checks and technical records. Motion was assessed by ordered decoded frames, timing and native seam evidence rather than claiming a separate real-time playback session. No editor rationale or self-rating was read. The supplied prompts/judge-prompt.txt path was absent; the judge used packet-bound prompts/judge.txt declared in brief.json.",
+    "independentAudit": "reviews/round-02-audit.json",
+    "derivedVisualEvidence": ["reviews/round-02-gif-S-sheet.png", "reviews/round-02-gif-E-sheet.png", "reviews/round-02-gif-N-sheet.png", "reviews/round-02-gif-W-sheet.png", "reviews/round-02-backgrounds.png"]
+  }
+}

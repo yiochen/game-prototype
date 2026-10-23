@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/preparation-v1/compare-replay.py", line 8, in <module>
+    known=PROD/f'sprites/rock-shelf-corner/static-{d}.png';old=Image.open(known).convert('RGBA');diff=ImageChops.difference(old,replay);vals=list(diff.getdata());records[d]={'historicalPath':str(known),'historicalSHA256':hashlib.sha256(known.read_bytes()).hexdigest(),'replaySHA256':hashlib.sha256(out.read_bytes()).hexdigest(),'equalRGBA':old.tobytes()==replay.tobytes(),'equalPNGBytes':known.read_bytes()==out.read_bytes(),'differentPixels':sum(any(p) for p in vals),'maxRGBA':[max(p[k] for p in vals) for k in range(4)]}
+                                                               ^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/PIL/Image.py", line 3639, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/prototypes/sushi-loop/assets/production/sprites/rock-shelf-corner/static-N.png'

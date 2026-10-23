@@ -1,0 +1,16 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-ruin-fragment/source/round-01/build.py:18: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;t=m.node_tree;n=t.nodes;l=t.links;n.clear()
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-ruin-fragment/source/round-01/build.py:136: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Balanced neutral ambient');world.use_nodes=True;sc.world=world
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-ruin-fragment/source/round-01/build.py:145: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  sc.use_nodes=True;nt=sc.node_tree;nt.nodes.clear();rl=nt.nodes.new('CompositorNodeRLayers');rl.scene=sc;out=nt.nodes.new('CompositorNodeComposite');nt.links.new(rl.outputs['Image'],out.inputs['Image'])
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-ruin-fragment/source/round-01/build.py", line 145, in <module>
+    sc.use_nodes=True;nt=sc.node_tree;nt.nodes.clear();rl=nt.nodes.new('CompositorNodeRLayers');rl.scene=sc;out=nt.nodes.new('CompositorNodeComposite');nt.links.new(rl.outputs['Image'],out.inputs['Image'])
+                         ^^^^^^^^^^^^
+AttributeError: 'Scene' object has no attribute 'node_tree'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

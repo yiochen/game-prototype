@@ -1,0 +1,23 @@
+00:00.340  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/source/round-01.blend"
+BlenderMCP addon registered
+FISH_PREFLIGHT normal N bone 0.204103 relativevertex 0.197071
+FISH_PREFLIGHT normal E bone 0.204103 relativevertex 0.197071
+FISH_PREFLIGHT normal S bone 0.204103 relativevertex 0.197071
+FISH_PREFLIGHT normal W bone 0.204103 relativevertex 0.197071
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/source/capture_round01.py", line 17, in <module>
+    row,verts=rt.measure(clip,i+1,d,True)
+              ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/source/fish_round01.py", line 35, in measure
+    arm,root=apply(clip,frame,direction);s=bpy.context.scene;dg=bpy.context.evaluated_depsgraph_get()
+             ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-fish/source/fish_round01.py", line 14, in apply
+    action=bpy.data.actions[f'S33_NATIVE__creature-fish__{clip}__creature-fish__armature.001']
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'bpy_prop_collection[key]: key "S33_NATIVE__creature-fish__swim__creature-fish__armature.001" not found'
+
+Error: script failed, file: 'prototypes/sushi-loop/assets/refinement/objects/creature-fish/source/capture_round01.py', exiting.
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

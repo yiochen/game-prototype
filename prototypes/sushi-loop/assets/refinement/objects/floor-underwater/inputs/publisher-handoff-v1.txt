@@ -1,0 +1,85 @@
+Native catalog delivery interface
+
+This is technical handoff guidance, not aesthetic criteria or approval. Read the
+current tools/seal_object.py, tools/promote_object.py and tools/audit_directions.py
+before authoring the final delivery. Freeze used helpers and mutable inputs in
+the object's dependency closure. Do not change a shared validator to fit a handoff.
+
+Keep each reviewed source, frame, preview and manifest immutable. A correction
+uses a new versioned supplement/round; retain the original signed evidence.
+
+The root sealer takes an object-root JSON delivery filename. A nested editor
+delivery can be copied byte-for-byte to a versioned alias by the coordinator.
+Its schema is:
+
+{
+  "asset": "actual-object-id",
+  "round": "round-01",
+  "project": "source/round-01.blend",
+  "recipeScript": "source/reproduce.py",
+  "validation": "candidates/round-01/validation.json",
+  "nativeRecords": {
+    "camera": "candidates/round-01/published-camera.json",
+    "assetRecord": "candidates/round-01/assetRecord.json",
+    "rig": "candidates/round-01/rig.json"
+  },
+  "heroes": {"N": "candidates/round-01/frames/static/N/000.png"},
+  "previews": {"four-view-sheet": "candidates/round-01/four-view-sheet.png"},
+  "rawFrames": [
+    {"clip": "static", "direction": "N", "index": 0,
+     "path": "candidates/round-01/frames/static/N/000.png"}
+  ],
+  "nativeRawFrames": [
+    {"clip": "static", "direction": "N", "index": 0,
+     "path": "candidates/round-01/native/static/N/000.png"}
+  ],
+  "atlases": [
+    {"clip": "static", "direction": "N", "path": "candidates/round-01/atlases/static-N.png",
+     "columns": 1, "rows": 1, "size": [384,704], "rects": [[0,0,384,704]]}
+  ],
+  "resources": [
+    {"path": "source/reproduce.py", "sha256": "ACTUAL_SHA256"}
+  ]
+}
+
+The example has one facing/frame only to show the schema; deliver EVERY required
+clip/facing/frame and exact original atlas layout from the actual frozen brief.
+Example dimensions are not universal. `rawFrames` are the published full frames
+that exactly fill the atlas rectangles; actual higher-scale captures belong in
+`nativeRawFrames`. Record the approved whole-frame reduction without fitting,
+alpha/RGB repairs, per-view adjustments or other unapproved pixel processing.
+
+Camera metadata must truthfully distinguish native capture and published scale.
+A published camera record has logical `frame`, logical `anchor`, `captureScale`
+equal to the catalog's published sourceScale, `fps`, camera.type/worldMatrix,
+pixelAspect/orthoScale/projection and calibration. Retain the actual measured raw
+camera/scale/frame/root separately and bind the normalization/reduction proof.
+Do not relabel a native4x render as native2x. The special normalize_measured path
+supports a different measurement schema; inspect its actual conditions instead
+of inventing an allChecksPassed claim. Asset/rig records describe the actual
+candidate and registration, not a stale unrelated collection.
+
+Native facing evidence must be measured while rendering or in a clean saved-source
+recapture whose decoded pixels are compared honestly to the submitted captures.
+Filenames and requested angles do not establish the pose. A compatible validation
+contains `views` or `captureRecords`, with each actual direction and measured
+`rootRotationZ`, `rootRotationDegrees`, `rootMatrix` or `actualRootMatrix`.
+Expected convention is S0/E+90/N180/W-90. A wrapper may reference a packet-bound
+object-relative nativeValidation ledger; that ledger must contain real records.
+Include native frame, source hash, camera/root/filter and honest replay/control
+differences. Do not fabricate a successful audit or weaken the direction checker.
+
+Keep the complete meaningful native/consumer/connection/motion evidence as bound
+resources. Declare a compact useful visual set; every candidate render and every
+declared preview path must be visibly covered by the original judge under
+REVIEW-COVERAGE.txt. Resource counts and hashes do not establish visual quality.
+An APPROVE review must also pass the unchanged acceptance_contract.py.
+
+Resource manifest records need actual path+sha256 and an explicit path base.
+Files must remain below100MB, with a minimal exact dependency closure. Avoid
+pycache writes in frozen directories and avoid copying application/runtime trees.
+Judge supplemental evidence should use a path+sha256 manifest descriptor with
+explicit relativeTo/pathBase, so the coordinator can verify actual staged blobs.
+
+No editor self-approval, production writes or main/family approval is implied by
+this handoff. Stop after the immutable delivery and let root seal the packet.

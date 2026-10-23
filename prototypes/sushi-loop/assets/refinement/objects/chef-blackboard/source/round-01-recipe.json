@@ -1,0 +1,59 @@
+{
+  "asset": "chef-blackboard",
+  "round": 1,
+  "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "project": "source/round-01.blend",
+  "buildScript": "source/round-01-recipe.py",
+  "captureScript": "source/capture-round-01.py",
+  "modeling": [
+    "Rebuilt original owner meshes with broad multi-segment edge radii and stable normals",
+    "Rounded cap blocks and four native brass join pegs, parented to original animated structural owners",
+    "Restrained procedural local-space longitudinal grain; quiet unmarked blue slate"
+  ],
+  "locked": {
+    "root": [
+      0,
+      0,
+      0
+    ],
+    "footprint": [
+      1,
+      1
+    ],
+    "height": 1.0,
+    "bandY": [
+      -0.5,
+      -0.27
+    ],
+    "socket": [
+      0,
+      -0.434,
+      0.61
+    ],
+    "blankFaceFrontY": -0.4275,
+    "blankFaceDimensions": [
+      0.62,
+      0.57
+    ],
+    "originalActionCount": 30
+  },
+  "render": {
+    "engine": "CYCLES",
+    "samples": 40,
+    "seed": 17,
+    "denoise": true,
+    "frame": [
+      768,
+      1408
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "viewTransform": "Standard",
+    "lighting": "Centered overhead plus four identical cardinal area lights; neutral world .24; no ground plane"
+  },
+  "replay": "Open closed round-01.blend and run capture-round-01.py. Capture script uses bound resources only; no rebuild or source library is required.",
+  "portableBuildSource": "source/original-library.blend",
+  "embeddedTexts": "Saved project includes build/capture texts as authoring provenance; external delivered scripts are the authoritative portable replay. Capture does not execute embedded build text."
+}

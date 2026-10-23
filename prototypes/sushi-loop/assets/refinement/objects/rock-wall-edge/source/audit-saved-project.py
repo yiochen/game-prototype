@@ -1,0 +1,24 @@
+import bpy,json,hashlib,struct
+from pathlib import Path
+from mathutils import Vector
+B=Path(__file__).resolve().parents[1];bpy.ops.wm.open_mainfile(filepath=str(B/'source/round-01.blend'));sc=bpy.context.scene;bpy.context.view_layer.update();root=bpy.data.objects['rock-wall-edge__root'];side=bpy.data.objects['rock-wall-edge__continuous_carved_stone']
+savedClosure={'fileImages':[i.filepath for i in bpy.data.images if i.source=='FILE'],'linkedLibraries':[l.filepath for l in bpy.data.libraries],'imageTextureNodes':[n.name for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes if n.type=='TEX_IMAGE']}
+with bpy.data.libraries.load(str(B/'inputs/approved-middle/project.blend'),link=False) as (a,b):b.meshes=['rock-wall-middle__continuous_carved_stone']
+ref=b.meshes[0];s=side.data;checks={};NQ=279;NX=128
+for label,ix in [('W',0),('E',NX)]:
+ ids=set(range(ix*NQ,(ix+1)*NQ));loops=[l for l in s.loops if l.vertex_index in ids]
+ checks[label]={'positionMax':max((s.vertices[i].co-ref.vertices[i].co).length for i in ids),'albedoMax':max(abs(s.color_attributes['stone_albedo'].data[i].color[c]-ref.color_attributes['stone_albedo'].data[i].color[c]) for i in ids for c in range(4)),'actualCornerNormalMax':max((s.corner_normals[l.index].vector-ref.corner_normals[l.index].vector).length for l in loops),'exactRawNormalEncoding':all(tuple(s.attributes['custom_normal'].data[l.index].value)==tuple(ref.attributes['custom_normal'].data[l.index].value) for l in loops),'sampledVertices':len(ids),'sampledLoops':len(loops)}
+cross={}
+for label,ix,rx in [('edge-E-to-middle-W',NX,0),('edge-W-to-middle-E',0,NX)]:
+ ids=range(ix*NQ,(ix+1)*NQ);offset=(rx-ix)*NQ
+ sl={};rl={}
+ for l in s.loops:sl.setdefault(l.vertex_index,s.corner_normals[l.index].vector.copy())
+ for l in ref.loops:rl.setdefault(l.vertex_index,ref.corner_normals[l.index].vector.copy())
+ cross[label]={'alignedPositionMax':max((s.vertices[n].co-Vector((s.vertices[n].co.x,ref.vertices[n+offset].co.y,ref.vertices[n+offset].co.z))).length for n in ids),'albedoMax':max(abs(s.color_attributes['stone_albedo'].data[n].color[c]-ref.color_attributes['stone_albedo'].data[n+offset].color[c]) for n in ids for c in range(4)),'actualTangentNormalMax':max((sl[n]-rl[n+offset]).length for n in ids),'approvedMiddleOppositeCutBaselineNormalMax':max((rl[n]-rl[n+offset]).length for n in ids)}
+meshes=[];coords=[];groundArea=0;groundVertices=[]
+for ob in root.children:
+ if ob.type!='MESH':continue
+ ev=ob.evaluated_get(bpy.context.evaluated_depsgraph_get());me=ev.to_mesh();vs=[ob.matrix_world@v.co for v in me.vertices];coords+=vs;groundVertices += [v for v in vs if abs(v.z)<1e-8];groundArea += sum(f.area for f in me.polygons if all(abs(vs[i].z)<1e-8 for i in f.vertices));meshes.append({'object':ob.name,'evaluatedVertices':len(vs),'evaluatedPolygons':len(me.polygons),'modifiers':[m.type for m in ob.modifiers],'coordinateSHA256':hashlib.sha256(b''.join(struct.pack('fff',*v.co) for v in ob.data.vertices)).hexdigest()});ev.to_mesh_clear()
+mat=s.materials[0];p=next(n for n in mat.node_tree.nodes if n.type=='BSDF_PRINCIPLED')
+result={'projectSHA256':hashlib.sha256((B/'source/round-01.blend').read_bytes()).hexdigest(),'actualScene':sc.name,'actualRootMatrix':[list(v) for v in root.matrix_world],'actualConnectorComparison':checks,'actualCrossFamilyJoins':cross,'evaluatedBounds':{'min':[min(v[i] for v in coords) for i in range(3)],'max':[max(v[i] for v in coords) for i in range(3)]},'nativeGroundContact':{'planarBottomFaceArea':groundArea,'groundBounds':{'min':[min(v[i] for v in groundVertices) for i in range(3)],'max':[max(v[i] for v in groundVertices) for i in range(3)]}},'meshes':meshes,'material':{'name':mat.name,'roughness':p.inputs['Roughness'].default_value,'specularIORLevel':p.inputs['Specular IOR Level'].default_value,'emissionStrength':p.inputs['Emission Strength'].default_value,'nodes':[n.bl_idname for n in mat.node_tree.nodes],'attribute':'stone_albedo'},'lights':[{'name':ob.name,'type':ob.data.type,'energy':ob.data.energy,'shadow':ob.data.use_shadow,'rotation':[float(v) for v in ob.rotation_euler]} for ob in sc.objects if ob.type=='LIGHT'],'render':{'engine':sc.render.engine,'samples':sc.cycles.samples,'denoising':sc.cycles.use_denoising,'seed':sc.cycles.seed,'pixelFilter':sc.cycles.pixel_filter_type,'transparent':sc.render.film_transparent,'size':[sc.render.resolution_x,sc.render.resolution_y],'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'viewTransform':sc.view_settings.view_transform,'compositor':sc.use_nodes},'resourceClosure':savedClosure,'comparisonDependency':{'path':'inputs/approved-middle/project.blend','method':'Append comparison mesh only after saved-source resource closure inspection; no saved project mutation.'}}
+(B/'candidates/round-01/saved-project-audit.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))

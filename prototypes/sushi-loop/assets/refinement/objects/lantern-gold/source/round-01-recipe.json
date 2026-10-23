@@ -1,0 +1,49 @@
+{
+  "project": "source/round-01.blend",
+  "recipe": "source/round-01.py",
+  "buildCommand": "/opt/homebrew/bin/blender -b --python source/round-01.py",
+  "reloadCommand": "/opt/homebrew/bin/blender -b --python source/validate-round-01.py",
+  "packageCommand": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/package-round-01.py",
+  "sourceSha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "projectSha256": "367a30958f3c0bef7d2aa49efb28c9f991e81ff310a170c0b708084c8c124752",
+  "settings": {
+    "engine": "CYCLES",
+    "cyclesDevice": "GPU",
+    "computeDeviceType": "METAL",
+    "devices": [
+      {
+        "name": "Apple M4",
+        "type": "CPU",
+        "enabled": false
+      },
+      {
+        "name": "Apple M4 (GPU - 10 cores)",
+        "type": "METAL",
+        "enabled": true
+      }
+    ],
+    "samples": 48,
+    "denoising": true,
+    "viewTransform": "Standard",
+    "filmTransparent": true,
+    "colorMode": "RGBA",
+    "resolution": [
+      384,
+      768
+    ],
+    "fps": 12,
+    "frameRange": [
+      1,
+      12
+    ],
+    "closureKeyExcluded": 13,
+    "fixedSeed": 41,
+    "compositor": false
+  },
+  "notes": [
+    "Original 13-object construction, source UV layers and parent/action transforms preserved.",
+    "Real inward bevels and weighted normals; paper/gold/wood/bronze Principled shaders; no raster resources.",
+    "One camera, one neutral symmetric light/material setup, no ground plane, no compositor.",
+    "Native frames 1\u201312 at 12fps; duplicate closure key 13 excluded from runtime."
+  ]
+}

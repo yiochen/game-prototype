@@ -1,0 +1,8 @@
+import bpy,json,hashlib
+from pathlib import Path
+B=Path(__file__).resolve().parents[1];p=B/'candidates/round-03/native-audit.json';a=json.loads(p.read_text());sc=bpy.context.scene
+m=bpy.data.materials['Rock family soft cobalt native'];nodes=m.node_tree.nodes;pr=next(n for n in nodes if n.type=='BSDF_PRINCIPLED')
+a['actualMaterial']={'name':m.name,'nodes':[{'type':n.type,'name':n.name} for n in nodes],'roughness':pr.inputs['Roughness'].default_value,'specularIORLevel':pr.inputs['Specular IOR Level'].default_value,'emissionStrength':pr.inputs['Emission Strength'].default_value,'imageTextureNodes':[n.name for n in nodes if n.type=='TEX_IMAGE'],'attribute':'stone_albedo','links':[{'from':l.from_node.type+'.'+l.from_socket.name,'to':l.to_node.type+'.'+l.to_socket.name} for l in m.node_tree.links]}
+a['actualLights']=[{'name':o.name,'type':o.data.type,'energy':o.data.energy,'color':list(o.data.color),'angle':o.data.angle,'castShadow':o.data.use_shadow,'matrix':[list(r) for r in o.matrix_world]} for o in sc.objects if o.type=='LIGHT']
+a['actualRender']={'engine':sc.render.engine,'samples':sc.cycles.samples,'denoising':sc.cycles.use_denoising,'pixelFilter':sc.cycles.pixel_filter_type,'viewTransform':sc.view_settings.view_transform,'look':sc.view_settings.look,'exposure':sc.view_settings.exposure,'gamma':sc.view_settings.gamma,'seed':sc.cycles.seed,'worldStrength':sc.world.node_tree.nodes.get('Background').inputs['Strength'].default_value,'transparent':sc.render.film_transparent,'nativeSize':[sc.render.resolution_x,sc.render.resolution_y],'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y]}
+p.write_text(json.dumps(a,indent=2))

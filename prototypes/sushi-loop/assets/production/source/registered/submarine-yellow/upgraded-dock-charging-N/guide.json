@@ -1,7 +1,7 @@
 {
   "version": 1,
   "kind": "rendered-3d-sheet",
-  "assetKind": "animation",
+  "assetKind": "object",
   "size": [
     3840,
     1536
@@ -16,6 +16,7 @@
   ],
   "cellSize": 128,
   "captureScale": 2,
+  "sourceCaptureScale": 2,
   "gutter": 0,
   "columns": 6,
   "rows": 2,
@@ -27,58 +28,52 @@
         0,
         640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 1,
       "rect": [
         640,
         0,
-        1280,
+        640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 2,
       "rect": [
         1280,
         0,
-        1920,
+        640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 3,
       "rect": [
         1920,
         0,
-        2560,
+        640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 4,
       "rect": [
         2560,
         0,
-        3200,
+        640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 5,
       "rect": [
         3200,
         0,
-        3840,
+        640,
         768
-      ],
-      "durationMs": 83.33333333333333
+      ]
     },
     {
       "index": 6,
@@ -86,59 +81,53 @@
         0,
         768,
         640,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        768
+      ]
     },
     {
       "index": 7,
       "rect": [
         640,
         768,
-        1280,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        640,
+        768
+      ]
     },
     {
       "index": 8,
       "rect": [
         1280,
         768,
-        1920,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        640,
+        768
+      ]
     },
     {
       "index": 9,
       "rect": [
         1920,
         768,
-        2560,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        640,
+        768
+      ]
     },
     {
       "index": 10,
       "rect": [
         2560,
         768,
-        3200,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        640,
+        768
+      ]
     },
     {
       "index": 11,
       "rect": [
         3200,
         768,
-        3840,
-        1536
-      ],
-      "durationMs": 83.33333333333333
+        640,
+        768
+      ]
     }
   ],
   "groundAnchorAlignment": "center",
@@ -155,12 +144,12 @@
       [
         0.0,
         0.9063078165054321,
-        -0.42261821031570435,
+        -0.42261818051338196,
         -4.226182460784912
       ],
       [
         0.0,
-        0.42261821031570435,
+        0.42261818051338196,
         0.9063078165054321,
         9.063077926635742
       ],
@@ -171,96 +160,78 @@
         1.0
       ]
     ],
-    "projectionMatrix": [
-      [
-        0.800000011920929,
-        0.0,
-        0.0,
-        -0.0
-      ],
-      [
-        0.0,
-        0.6666666865348816,
-        0.0,
-        -0.5000001788139343
-      ],
-      [
-        0.0,
-        0.0,
-        -0.0020001998636871576,
-        -1.0001999139785767
-      ],
-      [
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ]
-    ],
+    "projection": "character-orthographic",
     "pixelAspect": [
       1.0,
       1.0
     ],
-    "worldUnitsPerCell": 1,
+    "orthoScale": 3.0,
+    "shift": [
+      0.0,
+      0.25
+    ],
     "elevationDegrees": 65
   },
   "occupiedCells": [
     [
       0,
       0
+    ],
+    [
+      0,
+      1
     ]
   ],
   "elevationPx": 0,
   "sourceCaptures": [
     {
       "path": "source-captures/000.png",
-      "sha256": "3f6e0d187a8ec66ad1008da3b165f166303a538b6f3a384666d4bafdc0aefa2d"
+      "sha256": "cb0456d1727b4bc9a055d36df1ed739acd8259353b1211c22468f9b64464df32"
     },
     {
       "path": "source-captures/001.png",
-      "sha256": "3658598ff3d6f556dfbdbbf232f63c6b8dbba88fbe19be02ca7393c40a583f75"
+      "sha256": "3db83d8ef2abd58c50d611ebac1da287eb14557d1a36afaa124fdb83981a22e0"
     },
     {
       "path": "source-captures/002.png",
-      "sha256": "4f1c80e164613a3649192eb913d41247463015a7e28b3fdbeb5611cb41bb3fa8"
+      "sha256": "81fa33516813130af7c99544eb0c10687172c91a8a6cb829dbb393268d6b3580"
     },
     {
       "path": "source-captures/003.png",
-      "sha256": "4c3af5cc78d2addef6cf797a4cc25e695e5f0bb98c3f95ec814892bd23c71ea0"
+      "sha256": "a731bcd0848d9e417bc3c7433015cfdb572c4f1a21c415124825684876b44ef1"
     },
     {
       "path": "source-captures/004.png",
-      "sha256": "731eac76d7ae1623837c2caaf768e39279b5a498159cde9fc627821995516873"
+      "sha256": "dbd4f66ffaa6321ea6049b0a2e8b51201ac8b7d230e3baa914d6e1de4a9c7bf2"
     },
     {
       "path": "source-captures/005.png",
-      "sha256": "71d792a3c8a5a6565b2b425f309f93b59801d4332e292d4de72e8a9002199dba"
+      "sha256": "1a79681b042042cf4ee32ba3366fd2a18a2fee13b4a61f0ae49e494bef43dd31"
     },
     {
       "path": "source-captures/006.png",
-      "sha256": "365c8fcdbba73feb297a3d107f5cc7c0216a39471e7011e688a95f331f41ab19"
+      "sha256": "6963b2068e30eb887e3ebf68efec5e917760a88e1278ca73cf47ee4483db6269"
     },
     {
       "path": "source-captures/007.png",
-      "sha256": "eb12738abfac4bb5bbfcf678f88fc6548403cb289eb2312fe3c3773dc15da76c"
+      "sha256": "2befb9716ff1b6244a4492e4964504836f2707fa206872c611637967027b2230"
     },
     {
       "path": "source-captures/008.png",
-      "sha256": "899fc8581942c7aa6c7415bd3b741cb672b2bd8500b3ade61b4852ebe74ebe37"
+      "sha256": "7b5ecd280449f30886d19f8ee9517c76ec8b2f4960fe693b7332660b48d99a61"
     },
     {
       "path": "source-captures/009.png",
-      "sha256": "f5380af48d1d5dda7fb9f8091935950f0f56fb00360345c5c4c0e4c35f96b8dd"
+      "sha256": "2c6d1124340791dbe9809c8d1cb271299abdaa5678c8469196ca63e9a252303f"
     },
     {
       "path": "source-captures/010.png",
-      "sha256": "24aaf26163759f1076f3bc5e6baee025fb4218f0b68c67a68a64acbaa46387fe"
+      "sha256": "bb03d90d639d5ffc6ea4f0e19c9007b97cab2f21fd2c74d377532c88e4d8e220"
     },
     {
       "path": "source-captures/011.png",
-      "sha256": "2b37e3934333ef5c28b11e6b82b22d61fd19342fa0f6dffc0ef38eb31c27019a"
+      "sha256": "6b7825141b5c7654c2fb29f9162e3c53517072be33fce01ca32ea3f2a4795b7b"
     }
   ],
-  "sourceCaptureScale": 4,
-  "processing": "Uniform whole-frame LANCZOS only; no subject fitting or clipping"
+  "processing": "Exact native scale2 RGBA frames; lossless atlas placement only"
 }

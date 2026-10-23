@@ -1,0 +1,236 @@
+{
+  "asset": "reef-middle",
+  "status": "SEALED SUPPLEMENTAL PREPARATION; root freeze pending, no approval",
+  "pathBases": {
+    "experiment": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle",
+    "preparationV2": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v2",
+    "inheritedPreparationV1": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v1"
+  },
+  "inheritsExact": {
+    "initial": {
+      "path": "reviews/initial.json",
+      "sha256": "28b6970536d3fae1ef8025bf00a4b20234bae360b739e0fdfc882920640f18b2",
+      "relativeTo": "experiment"
+    },
+    "proposedCriteria": {
+      "path": "reviews/proposedcriteria.json",
+      "sha256": "07d9858b059c968a580442ffc280cad1f6b1e215f9655bc3c3ca91a64a5ab575",
+      "relativeTo": "experiment"
+    },
+    "sourceContractProposalV1": {
+      "path": "reviews/source-contract-proposal.json",
+      "sha256": "17fb79033e6cf213c0d29f32ccb96f270c8c512b0aa3bff4f1c0e42f74891bd5",
+      "relativeTo": "experiment"
+    },
+    "v1Manifest": {
+      "path": "reviews/preparation-v1/manifest.json",
+      "sha256": "f2722821135d4ba8b80210caeada02bf17388afed199424c180c16c43a97f2e9",
+      "relativeTo": "experiment"
+    },
+    "v1Seal": {
+      "path": "reviews/preparation-v1/seal.json",
+      "sha256": "c30ca9d50c7caa601a2f623cbc96464197442311feb509b2e9661f3e223b779a",
+      "relativeTo": "experiment"
+    }
+  },
+  "sourceContractUnchanged": "Finite source-specific eight-point W/E port polygon, side normals/material-field continuity, root/pitch, finite ground rectangle, conservative actual-envelope proposal, logical camera/frame/root, palette, static rig and allowed modeling freedom remain proposed as v1. No native construction performed.",
+  "samplingOptionsAllUnadopted": [
+    {
+      "id": "historical",
+      "nativeScale": 4,
+      "nativePixelFilter": 1.5,
+      "publishScale": 2,
+      "publishSampling": "whole-frame LANCZOS",
+      "evidence": "v1 historical retained exactly",
+      "finding": "True port-interior alpha minimum233;30/64cases deficient perbackend. Source profile equality does not prevent sprite seams."
+    },
+    {
+      "id": "filter001-box",
+      "nativeScale": 4,
+      "nativePixelFilter": 0.01,
+      "publishScale": 2,
+      "publishSampling": "whole-frame BOX",
+      "finding": "True port-interior alpha255 in all64cases/backend; E/W cut-profile RGB lines persist. v1proposal remains unadopted."
+    },
+    {
+      "id": "filter05-box",
+      "nativeScale": 4,
+      "nativePixelFilter": 0.5,
+      "publishScale": 2,
+      "publishSampling": "whole-frame BOX",
+      "nativeLedger": {
+        "path": "reviews/preparation-v2/evidence/study-filter05/capture-measurements.json",
+        "sha256": "3a34adbec12b8e93fe7778fad48d6cff889fd0d72856bc47af66c13b9bbe7c48",
+        "relativeTo": "experiment"
+      },
+      "finding": "Same tested interior-alpha result as .01+BOX while changing native filter less; E/W thin RGB lines persist. Least-filter-change control is technical evidence only, not adopted recipe."
+    },
+    {
+      "id": "direct2x-filter001",
+      "nativeScale": 2,
+      "nativePixels": [
+        384,
+        704
+      ],
+      "nativeRootPixels": [
+        192,
+        496
+      ],
+      "nativeJoinedPixels": [
+        896,
+        1216
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "nativePixelFilter": 0.01,
+      "publishScale": 2,
+      "publishSampling": "NONE; exact native2x PNG copied byte-for-byte to published-control sheet",
+      "nativeLedger": {
+        "path": "reviews/preparation-v2/evidence/study-direct2x-filter001/capture-measurements.json",
+        "sha256": "eba7dfe402f3b182d8d75112aed962b1a4c4204bc0337a1bce676bbabb50e14b",
+        "relativeTo": "experiment"
+      },
+      "finding": "Useful gain: E/W dotted cut-profile lines no longer apparent in inspected use-size strips. Corrected port-interior alpha255 in all64cases/backend. Shell entire-alpha identity across all64cases, maxAlphaDelta0. Actual native scale2 is explicit, not mislabeled4x. FullChrome residuals still prohibit any runtime/seam-pass claim."
+    }
+  ],
+  "boundedConsumerProof": {
+    "renderer": {
+      "path": "reviews/preparation-v1/resources/consumer/world-sprite-raster.js",
+      "sha256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545",
+      "relativeTo": "experiment"
+    },
+    "rendererSHA256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545",
+    "usedFunctions": "Exact frozen worldRasterPlan/paintWorldRaster with exact frozen spriteFrame/groundRoot/orderPlacements",
+    "rootPanCases": [
+      {
+        "rootLogical": 0,
+        "panOutput": 0
+      },
+      {
+        "rootLogical": 0.25,
+        "panOutput": 0
+      },
+      {
+        "rootLogical": 0.5,
+        "panOutput": 0
+      },
+      {
+        "rootLogical": 0.75,
+        "panOutput": 0
+      },
+      {
+        "rootLogical": 0,
+        "panOutput": 0.25
+      },
+      {
+        "rootLogical": 0,
+        "panOutput": 0.5
+      },
+      {
+        "rootLogical": 0,
+        "panOutput": 0.75
+      },
+      {
+        "rootLogical": 0.25,
+        "panOutput": 0.75
+      }
+    ],
+    "actualRoots": "Fractional placement coordinates feed actual groundRoot; common X/Y root phase is applied before native-grid composition. Pan is translation of completed canvas after nearest composition and ordinary wholecanvas browser filtering.",
+    "casesPerPolicyPerBackend": 64,
+    "policies": 4,
+    "backends": [
+      "fullChrome155.0.8059.85",
+      "headless-shell153.0.8010.12"
+    ],
+    "totalCases": 512,
+    "rawRGBAImages": 1024,
+    "summary": {
+      "path": "reviews/preparation-v2/evidence/summary.json",
+      "sha256": "d9ece230f75d568a95eae70483586db128fa6a12a101d28734b32cca7ddf01df",
+      "relativeTo": "experiment"
+    },
+    "directSummary": {
+      "path": "reviews/preparation-v2/evidence/direct2x-summary.json",
+      "sha256": "5b41012bb736a26d9bdf73d2d8628533ca68fa87f63b09c2688b1d57b3c6bcc0",
+      "relativeTo": "experiment"
+    },
+    "reports": {
+      "full-chrome": {
+        "path": "reviews/preparation-v2/evidence/full-chrome-report.json",
+        "sha256": "f200ccbaf4a0fc230516b9033943513c6fbc6dda91d418e54eee942670fb93ac",
+        "relativeTo": "experiment"
+      },
+      "headless-shell": {
+        "path": "reviews/preparation-v2/evidence/headless-shell-report.json",
+        "sha256": "a1a30f55fa4c02ef06f2eb18705612e6fd9dcb97ef72a6e274bb27eb9916e5a6",
+        "relativeTo": "experiment"
+      }
+    },
+    "directReports": {
+      "full-chrome": {
+        "path": "reviews/preparation-v2/evidence/direct2x-full-chrome-report.json",
+        "sha256": "d20d895960b5442d6fb4ee5eb831b5394d4dccdaa41450d058484b18bf2b2efe",
+        "relativeTo": "experiment"
+      },
+      "headless-shell": {
+        "path": "reviews/preparation-v2/evidence/direct2x-headless-shell-report.json",
+        "sha256": "348765b40c824423a23aa49a015bf9af3f7b822497c9ba76c1784d3ee3404401",
+        "relativeTo": "experiment"
+      }
+    },
+    "correctedInterior": {
+      "full-chrome": {
+        "path": "reviews/preparation-v2/evidence/full-chrome-corrected-interior.json",
+        "sha256": "7c1f6db68ba0cc2e29b1f5fbf499c64dcc28fa9477e2b76408f97feeb54f451e",
+        "relativeTo": "experiment"
+      },
+      "headless-shell": {
+        "path": "reviews/preparation-v2/evidence/headless-shell-corrected-interior.json",
+        "sha256": "c654b5b51211304cba2bc20ce1dac71aad926a6b94a76a85cfcdb308721baa14",
+        "relativeTo": "experiment"
+      }
+    },
+    "directCorrectedInterior": {
+      "full-chrome": {
+        "path": "reviews/preparation-v2/evidence/direct2x-full-chrome-corrected-interior.json",
+        "sha256": "bb1ef6928288ddd811875d296f5b96da873bbc25aa2f0bd19ed169e8ef9d0126",
+        "relativeTo": "experiment"
+      },
+      "headless-shell": {
+        "path": "reviews/preparation-v2/evidence/direct2x-headless-shell-corrected-interior.json",
+        "sha256": "17e3c4ba32197b9a4030ff9a8b3a14f5e16d93838cf9377bd940ca81e270afb7",
+        "relativeTo": "experiment"
+      }
+    }
+  },
+  "residualClassification": {
+    "truePortInterior": "Conservative actual finite-profile interior boxes with known outer top/bottom/side boundaries excluded, then every sample with a native nonopaque neighbor excluded. No alpha changes are made; this is diagnostic sampling only.",
+    "legitimateOuterAA": "Original raw port bands include native silhouette pixels; root/pan source alignment and filtering differ near those boundaries. Those are not interior crack metrics. Raw maps remain intact.",
+    "opaqueRGBConcern": "FullChrome direct2x E/zoom1/root.25/pan.75 has lit-blue versus dark-side boundary RGB delta140 at alpha255. Retained explicit coordinate/pixel examples and magnified three-background diagnostic. It is not all benign outer AA; exact cause unisolated.",
+    "rawWholeFrameResiduals": "Historical fullChrome maxAlphaDelta206; BOX/direct controls up to255. Shell historical55/.01BOX64/.5BOX59/direct2x0. Broad finite-light mean RGB residual and outer filter/staging residual are retained in every raw record, never forced to equality.",
+    "exampleEvidence": {
+      "path": "reviews/preparation-v2/evidence/full-chrome-hard-boundary-residual-examples.json",
+      "sha256": "4f13903b74fcd15d6b7a6d461be0a8891825ef3ced574c76eea0c06ab15f0c86",
+      "relativeTo": "experiment"
+    }
+  },
+  "freezeDecisionsForRoot": [
+    "Reconcile/choose a source-specific capture-sampling policy explicitly; no control is adopted by this judge",
+    "If choosing direct2x, record truthful nativeScale2/nativeRoot192,496 and no reduction while retaining registered logical frame/root and published2x atlas; preserve all original4x baseline bytes",
+    "Preserve native ordered port coordinate/normal/material-field proof and visible no-line/no-band/no-step criterion for fresh editor",
+    "Require future candidate exact fullChrome and shell fractional root/pan evidence; neither local alpha nor direct2x visible improvement waives unresolved consumer/capture RGB and outer-residual concerns",
+    "Keep user-authorized meaningful native rebuilding/material/decoration freedom inside root-frozen actual source contract"
+  ],
+  "futureEditor": "Root freezes final contract/criteria then dispatches fresh independent editor. No model, candidate, family or production approval is inferred.",
+  "visualReview": {
+    "path": "reviews/preparation-v2/visual-review.json",
+    "sha256": "21cb4a88d20291ae6e4ad7b00760fa45655548b4abb56c26d00cd693b7ddd8cd",
+    "relativeTo": "experiment"
+  }
+}

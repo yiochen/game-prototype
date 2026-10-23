@@ -1,0 +1,13 @@
+import bpy,json,pathlib,hashlib
+P=pathlib.Path(__file__).resolve().parents[1];O=P/'candidates/round-01';asset=P.name
+bpy.ops.wm.open_mainfile(filepath=str(P/'source/round-01.blend'));c=bpy.data.collections['S33_FB_'+asset+'.001'];deck=next(o for o in c.all_objects if 'connected_' in o.name);ori=next(o for o in c.all_objects if '__orientation.' in o.name);m=deck.data.materials[0];a=m.node_tree.animation_data.action
+saved={'vertices':[list(v.co) for v in deck.data.vertices],'UV':[list(x.uv) for x in deck.data.uv_layers.active.data],'intrinsic':float(ori.rotation_euler.z)};curves=[]
+for layer in a.layers:
+ for strip in layer.strips:
+  for bag in strip.channelbags:
+   for f in bag.fcurves:curves.append({'dataPath':f.data_path,'keys':[[float(k.co.x),float(k.co.y),k.interpolation] for k in f.keyframe_points]})
+owner={'material':m.name,'nodeTree':m.node_tree.name,'slot':m.node_tree.animation_data.action_slot.identifier,'action':a.name};deps={'images':[{'name':i.name,'source':i.source,'packed':bool(i.packed_file),'path':i.filepath} for i in bpy.data.images],'libraries':[l.filepath for l in bpy.data.libraries]}
+bpy.ops.wm.open_mainfile(filepath=str(P/'source/resources/original-library.blend'));oc=bpy.data.collections['S33_FB_'+asset+'.001'];od=next(o for o in oc.all_objects if 'connected_' in o.name);oi=next(o for o in oc.all_objects if '__orientation.' in o.name);original={'vertices':[list(v.co) for v in od.data.vertices],'UV':[list(x.uv) for x in od.data.uv_layers.active.data],'intrinsic':float(oi.rotation_euler.z)}
+sourcePhase=next(x for x in json.loads((P/'source/resources/native-equivalence.json').read_text())['authoredPhaseCurves']);assert curves[0]['keys']==sourcePhase['keys'];assert saved==original
+report={'asset':asset,'method':'recipe-reuse','independentReview':False,'sourceProjectSHA256':hashlib.sha256((P/'source/resources/original-library.blend').read_bytes()).hexdigest(),'candidateProjectSHA256':hashlib.sha256((P/'source/round-01.blend').read_bytes()).hexdigest(),'deckVerticesExactlyPreserved':saved['vertices']==original['vertices'],'deckUVExactlyPreserved':saved['UV']==original['UV'],'intrinsicRotationExactlyPreserved':saved['intrinsic']==original['intrinsic'],'intrinsicRotationRadians':saved['intrinsic'],'actualActionOwner':owner,'phaseCurves':curves,'originalStoredPhaseExactlyPreserved':True,'originalActionState':'Stored authored action unbound in source; explicitly restored to exact approved family deck material in candidate.','dependencyClosure':deps,'savedSourceCapture':'capture-round01.py opens saved round-01.blend before every actual required native capture, with no authoring callbacks or raster repair.'}
+(O/'source-contract.json').write_text(json.dumps(report,indent=2));print(asset,'SOURCE_CONTRACT_READY')

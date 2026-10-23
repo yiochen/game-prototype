@@ -1,0 +1,59 @@
+{
+  "asset": "belt-straight-e",
+  "experiment": "editor-goods-supplement",
+  "stage": "initial-independent-inspection",
+  "status": "criteria-proposed-awaiting-coordinator-freeze",
+  "scope": "Same object supplemental UI view only. No editor proposal or supplement candidate read. No render or model change made; a read-only source/camera measurement was written under these reviews.",
+  "authority": {
+    "approvedWorldProjectSHA256": "7a5ce40be2c25adff55b48ddd67370b1ad8598c040ee34768fc55bb48d9b5cf9",
+    "worldPacketSHA256": "5b06b818a62bcfd2532cb8a4b87c5e5207485f985f8515869ede140edee803d6",
+    "worldReviewSHA256": "d2859e522ead76266cb7324956c8dc3d251a261b6b45e7977a7e80beca0028f0",
+    "cameraSHA256": "2eaa4ec2899c60a29d9f15b4fd9e44e74d10095ad1a55fd140abc3af3ff7d613",
+    "originalGoodsRenderSHA256": "d7992eea06b306129025fce52cf8241712a144b6a0985a9d4899d20aaa6efe0c",
+    "fixedTargetSHA256": "00b7a19d24f19bacd2dc1d6c924784a2a6c8c52fdc627b2c61687eb02f074ab2"
+  },
+  "inspectedFiles": [
+    "brief.json",
+    "prompts/judge.txt",
+    "inputs/camera-contract.json",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/approved-world-model.blend",
+    "inputs/world-approval.json",
+    "../../brief.json",
+    "../../reviews/round-01.json",
+    "../../reviews/round-01-inspection/native-candidate-inspection.json",
+    "../../../../../ui/editor/v4/raw/b-indigo-ceramic.png",
+    "../../../../../../design/art-directions/restaurant-item-catalog.png",
+    "../../../../../../design/art-directions/restaurant-concept.png",
+    "prototypes/sushi-loop/godot/assets/ui/editor-goods/manifest.json",
+    "prototypes/sushi-loop/assets/ui/editor/goods-v1/README.md",
+    "prototypes/sushi-loop/assets/ui/editor/goods-v1/source/capture_goods.py",
+    "prototypes/sushi-loop/assets/ui/editor/goods-v1/records/contact-sheet.png",
+    "prototypes/sushi-loop/godot/scripts/editor_presentation.gd",
+    "prototypes/sushi-loop/assets/refinement/diagnostics/native-round11-editor/portrait/02-edit-layout.png",
+    "prototypes/sushi-loop/assets/refinement/diagnostics/native-round11-editor/landscape/02-edit-layout.png",
+    "reviews/source-camera-inspection.json"
+  ],
+  "observations": [
+    "The accepted old goods render clearly shows the deck top and two vertical sides in an ordinary orthographic three-quarter view. Coral rails surround the slate slats and wooden supports establish depth; dark legs and hard unmodulated slabs are the main visible weaknesses of that older model.",
+    "The approved refined world source already provides the desired warm coral shoulders, softened slate slat treatment, honey-colored beveled supports, restrained wood grain and brass joinery. This supplement must expose that same approved construction from the accepted merchandise camera rather than redesign it.",
+    "The Indigo/ceramic UI reference uses cream cards, warm framing and dark indigo labels. Current actual Godot cards have much smaller illustrations, with a Belt label and stock text below; the illustrated silhouette must stay distinct on cream without intruding into label space. The concept image is style context, not permission to change the current card layout or substitute another model.",
+    "The current goods manifest camera exactly equals inputs/camera-contract.json: 384x384, square pixels, orthographic scale 1.6704699993133545, 35-degree elevation and 35-degree azimuth. The live goods branch fits the entire atlas region into the preview rectangle, unlike its separate world-sprite fallback that crops occupied pixels. The supplement must preserve this full-canvas framing.",
+    "Read-only evaluation of the approved model at root S0 and frame1 with the fixed UI camera gives projected geometry bounds approximately (34.5599,48.6827)..(349.4399,336.3714), inside the 384 canvas. These measurements describe the approved geometry and camera; they are not a new fitting target."
+  ],
+  "sourceCaveats": [
+    "The original goods snapshot uses the older accepted world model. It is a camera/composition baseline, not geometry or material authority over the newer approved world blend.",
+    "The fixed ImageGen target is reused unchanged and remains a style reference. It was generated from the actual E source plus plant style only; it neither supplies unseen three-quarter geometry nor authorizes terminal collars, cap additions or a new target.",
+    "E retains its intrinsic +pi/2 geometry orientation with publisher root S0; do not rotate the model to compensate for the new camera. Use the approved static representative pose/frame1 and preserve native UVs and material graphs.",
+    "The approved modular rails intentionally have open ends. The goods camera does not authorize adding caps, closing holes, changing sections or creating a presentation-only model. Judge unintended pixel artifacts separately from these locked functional openings.",
+    "The historical goods recipe applied the old Faceted lighting and 1.35 sRGB compositor grade. Applying it on top of the refined native materials would not preserve the approved appearance. Preserve the approved world material/render pipeline, with only the recorded UI camera exception, and prove the absence of an added color/contrast grade.",
+    "This source inspection changed camera settings only in memory and saved no blend. The original world source, sealed world packet/review and approved backup remain immutable. Floor-cream is excluded and its accepted render/atlas crop must remain exact."
+  ],
+  "desiredOutcomes": [
+    "Show the unchanged refined conveyor as a readable real three-quarter object with a clear deck, rails and load-bearing supports.",
+    "Retain the approved warm material/volume treatment and clean native transparency at 384, 96 and 66 pixel full-canvas use.",
+    "Prove exact camera, geometry/material parity and actual current cream-card readability without world, UI or Godot production changes."
+  ],
+  "nextStep": "Coordinator freezes supplement criteria; editor then submits a separate hash-bound native view and evidence packet."
+}

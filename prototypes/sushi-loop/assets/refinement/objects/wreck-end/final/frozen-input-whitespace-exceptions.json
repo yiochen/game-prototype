@@ -1,0 +1,31 @@
+{
+  "asset": "wreck-end",
+  "round": "round-01",
+  "policy": "Only these two exact frozen input path+SHA pairs; every other staged path must pass unchanged whitespace check. No new code, directory or general text exemption.",
+  "exceptions": [
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/blender/refinement/wreck-end/inputs/imagegen-prompt.txt",
+      "sha256": "eb09330474ed46e35ac9113635bcac8ff740257618f3fe4683074a8c3218b01d",
+      "reason": "Exact immutable original ImageGen prompt copy; line16 trailing space predates refinement construction. Preserve frozen prompt bytes rather than altering provenance.",
+      "preconstructionBinding": {
+        "path": "prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/preparation-v1/manifest.json",
+        "sha256": "c4df843ec24c036478282827c036be521610935be4b92e5c40f77959c55ae93d",
+        "member": "reviews/preparation-v1/resources/object/inputs/imagegen-prompt.txt",
+        "memberSHA256": "eb09330474ed46e35ac9113635bcac8ff740257618f3fe4683074a8c3218b01d"
+      },
+      "originalAlreadyTrackedBeforeCandidate": "prototypes/sushi-loop/assets/refinement/objects/wreck-end/inputs/imagegen-prompt.txt"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/preparation-v1/resources/object/inputs/imagegen-prompt.txt",
+      "sha256": "eb09330474ed46e35ac9113635bcac8ff740257618f3fe4683074a8c3218b01d",
+      "reason": "Exact immutable original ImageGen prompt copy; line16 trailing space predates refinement construction. Preserve frozen prompt bytes rather than altering provenance.",
+      "preconstructionBinding": {
+        "path": "prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/preparation-v1/manifest.json",
+        "sha256": "c4df843ec24c036478282827c036be521610935be4b92e5c40f77959c55ae93d",
+        "member": "reviews/preparation-v1/resources/object/inputs/imagegen-prompt.txt",
+        "memberSHA256": "eb09330474ed46e35ac9113635bcac8ff740257618f3fe4683074a8c3218b01d"
+      },
+      "originalAlreadyTrackedBeforeCandidate": "prototypes/sushi-loop/assets/refinement/objects/wreck-end/inputs/imagegen-prompt.txt"
+    }
+  ]
+}

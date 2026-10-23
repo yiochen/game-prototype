@@ -1,0 +1,11 @@
+00:00.313  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/source/round-02.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/reviews/round-02-verification/audit_body_payloads.py:16: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  material=[graph(m.node_tree) if m.use_nodes else list(m.diffuse_color) for m in data.materials]
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-june/reviews/round-02-verification/audit_body_payloads.py:19: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  sc=bpy.context.scene;lights=[{'position':list(o.matrix_world.translation),'rotation':list(o.rotation_euler),'energy':o.data.energy,'color':list(o.data.color),'type':o.data.type,'size':getattr(o.data,'size',None),'hideRender':o.hide_render,'hideViewport':o.hide_viewport} for o in sc.objects if o.type=='LIGHT'];out={'body':rows,'lights':lights,'compositor':graph(sc.compositing_node_group) if getattr(sc,'compositing_node_group',None) else None,'world':graph(sc.world.node_tree) if sc.world and sc.world.use_nodes else None};(P/(mode+'-body-payload-signatures.json')).write_text(json.dumps(out,indent=2)+'\n');print(mode,len(rows),'bodymeshes')
+BlenderMCP addon registered
+main 61 bodymeshes
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

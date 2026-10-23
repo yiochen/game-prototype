@@ -1,0 +1,17 @@
+00:00.239  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/working-v1.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/capture-round-01.py:99: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  write('native-scene-record.json',{'sourceProject':str(PROJECT.relative_to(BASE)),'sourceSHA256':PROJECTSHA,'scene':SC.name,'root':ROOT.name,'rootMetadata':{k:ROOT[k] for k in ROOT.keys()},'collection':COL.name,'objectOwnership':[{'name':o.name,'type':o.type,'parent':o.parent.name if o.parent else None,'collections':[c.name for c in o.users_collection],'modifiers':[{'name':m.name,'type':m.type,'width':getattr(m,'width',None),'segments':getattr(m,'segments',None),'levels':getattr(m,'levels',None),'renderLevels':getattr(m,'render_levels',None)} for m in o.modifiers]} for o in OBJECTS],'materials':materials,'actions':actions,'lights':[{'name':o.name,'matrixWorld':mat(o.matrix_world),'type':o.data.type,'energy':o.data.energy,'size':o.data.size,'shape':o.data.shape,'color':list(o.data.color)} for o in SC.objects if o.type=='LIGHT'],'world':{'color':list(SC.world.node_tree.nodes.get('Background').inputs['Color'].default_value),'strength':SC.world.node_tree.nodes.get('Background').inputs['Strength'].default_value},'render':{'engine':SC.render.engine,'resolution':[SC.render.resolution_x,SC.render.resolution_y],'pixelAspect':[SC.render.pixel_aspect_x,SC.render.pixel_aspect_y],'viewTransform':SC.view_settings.view_transform,'look':SC.view_settings.look,'exposure':SC.view_settings.exposure,'gamma':SC.view_settings.gamma,'dither':SC.render.dither_intensity,'filmTransparent':SC.render.film_transparent,'fps':SC.render.fps,'compositor':getattr(getattr(SC,'compositing_node_group',None),'name',None)},'externalResources':{'libraries':[l.filepath for l in bpy.data.libraries],'usedImageTextures':[n.image.filepath for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes if n.type=='TEX_IMAGE' and n.image]}})
+00:01.771  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/draft-v1/native/ambient/N/000.png'
+BlenderMCP addon registered
+CAPTURE N 0
+00:02.460  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/draft-v1/native/ambient/E/000.png'
+CAPTURE E 0
+00:03.090  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/draft-v1/native/ambient/S/000.png'
+CAPTURE S 0
+00:03.841  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/draft-v1/native/ambient/W/000.png'
+CAPTURE W 0
+CAPTURE_COMPLETE /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/draft-v1
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

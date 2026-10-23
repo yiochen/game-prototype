@@ -1,0 +1,111 @@
+{
+  "asset": "wreck-end",
+  "round": "round-01",
+  "source": {
+    "path": "source/round-01.blend",
+    "sha256": "c5603d311f1d8c96a0a759789dd628adcbccd594fca9a58aeb92f8876f2808ff",
+    "bytes": 164423,
+    "role": "actual standalone editable native candidate"
+  },
+  "recipeScript": {
+    "path": "source/reproduce-round01.py",
+    "sha256": "49c2072efc104d5214788b0f3df374a52c4b9386666a63446cbec6e144c4180c",
+    "bytes": 18664,
+    "role": "exact native construction and capture script"
+  },
+  "modeling": "Canonical full finite W collar recreated with the exact normalized normal attribute/material function and C0 interior normal transition. Interior blue timbers and iron straps/plates are native thick rounded geometry. Terminal has exact .012 native bevel support, a taller rounded crown below .78, real shallow boolean fastener recesses and pale native fasteners. No target card, painting, warped pixels or sprite repair.",
+  "sourceIdentity": {
+    "collection": "S33_PROP_wreck-end.001",
+    "root": "wreck-end__root.001",
+    "rootLocation": [
+      0,
+      0,
+      0
+    ],
+    "rootScale": [
+      1,
+      1,
+      1
+    ],
+    "facingDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "footprint": [
+      1,
+      1
+    ],
+    "fps": 12,
+    "frames": 1,
+    "loop": false
+  },
+  "nativeCapture": {
+    "publication": "direct native2 PNG identity; no reduction/fit/crop/nudge/warp/RGB-alpha repair",
+    "nativeFrame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "nativeRoot": [
+      192,
+      496
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "filter": 0.01,
+    "cameraAndRig": "Exact approved middle02 native world/light/camera retained from bound resource; all full actual light graphs and matrices independently measured against canonical file.",
+    "actualNativeRecords": {
+      "camera": "candidates/round-01/records/camera.json",
+      "rig": "candidates/round-01/records/rig.json"
+    },
+    "fullFieldEvidence": "candidates/round-01/native-measurements.json"
+  },
+  "assembly": "Actual native ownend0 + exact middle02(-1,0) + exact edge02(-2,0), proper-rotated all4, unit scale/pitch. Extended canvas from registered integer cell geometry, proportional orthographic width and exact native world basis. Actual 570/099 consumers use these same roots/order/rects; no overlap or nudge.",
+  "toolchain": {
+    "blenderExecutable": "/opt/homebrew/bin/blender",
+    "blenderResolvedExecutable": "/opt/homebrew/Caskroom/blender/5.2.2/.homebrew-command-wrappers/blender",
+    "blenderExecutableSHA256": "a12b9bc15c1a0f62c50fac2efef8f3b89040e5bcd11c00c58d7b374e66e0b106",
+    "blenderVersion": "5.2.2 LTS",
+    "blenderBuildHash": "d13f752e3b9c",
+    "nodeVersion": "v22.18.0",
+    "nodeExecutable": "/usr/local/bin/node",
+    "packages": {
+      "playwright": {
+        "version": "1.63.0",
+        "packageJSONSHA256": "8bc2ddebe8d9b051b9ecb87d62c6c63877e59d08617f32c3215681ca8bb70998"
+      },
+      "@playwright/test": {
+        "version": "1.63.0",
+        "packageJSONSHA256": "5587f932b8979b6889654b60e3c28aeb7ca0abbac00eec8c176c939a16149536"
+      },
+      "esbuild": {
+        "version": "0.28.2",
+        "packageJSONSHA256": "9d0bc453f4e791553c4cc2298ba023b409241fd9801e494741666eb0f6051490"
+      }
+    },
+    "analysisPythonExecutable": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "analysisPythonVersion": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "Pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "runtimeLibraries": "External toolchain requirements only; no copied runtime application trees. Private portable actual JS build inputs are included."
+  },
+  "commands": [
+    "/opt/homebrew/bin/blender --factory-startup --background --python source/reproduce-round01.py",
+    "/opt/homebrew/bin/blender --factory-startup --background source/round-01.blend --python source/measure-round01.py",
+    "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/validate-round01.py",
+    "node source/round01-resources/consumer/build.mjs",
+    "python3 -m http.server 8908 --bind 127.0.0.1",
+    "node source/round01-resources/consumer/capture.mjs",
+    "/opt/homebrew/bin/blender --factory-startup --background source/round-01.blend --python source/reproduce-round01.py -- --recapture --output candidates/round-01/replay",
+    "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/analyze-round01.py"
+  ],
+  "ownership": "Own source/candidates only. Frozen original/initial/preparation/targets/contracts/criteria/shared helpers/production/Git untouched. No live Blender/device/deploy/extraagent action. ROOT owns packet sealing and original judge owns visual verdict."
+}

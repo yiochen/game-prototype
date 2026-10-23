@@ -1,0 +1,130 @@
+{
+  "asset": "chef-mateo",
+  "phase": "independent initial assessment; no candidate verdict",
+  "reviewer": "catalog_chef_mateo_judge_v1",
+  "editorProposalsRead": false,
+  "inspectedFiles": [
+    "prompts/judge.txt",
+    "brief.json",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/source-camera.json",
+    "inputs/source-rig.json",
+    "inputs/catalog-object.json",
+    "inputs/source-assetRecord.json",
+    "../../style/warm-soft-reference.png",
+    "../../prompts/native-capture-notes.md",
+    "../../../production/source/blender/revisions/5451da64c233cba1/character_builders.py",
+    "../../../production/source/blender/native_actions.py",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "reviews/source-native-inspection.json",
+    "reviews/source-states-cardinal-sheet.png",
+    "reviews/source-sheet-manifest.json"
+  ],
+  "fixedInputs": {
+    "sourceProjectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "originalSHA256": "8fe3cf6c644df2f16e0388b5cef5ccf39aa8a93dd45fe4b3166b780da47ddfef",
+    "targetSHA256": "1c678e9afda4d64fb56384fe54d16149b088861189aa2b0c39e69e3af4543059"
+  },
+  "actualSourceEvidence": {
+    "nativeLibraryOpened": true,
+    "blenderVersion": "5.2.2 LTS",
+    "isolatedCollection": "S33_CHARACTER_chef_mateo.001",
+    "root": "chef_mateo__ground_root.001",
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "objects": 60,
+    "meshObjects": 56,
+    "armature": "chef_mateo__armature.001",
+    "bones": [
+      "ground",
+      "pelvis",
+      "spine",
+      "neck",
+      "head",
+      "upper_arm_L",
+      "forearm_L",
+      "hand_L",
+      "upper_arm_R",
+      "forearm_R",
+      "hand_R",
+      "thigh_L",
+      "shin_L",
+      "foot_L",
+      "thigh_R",
+      "shin_R",
+      "foot_R",
+      "foot_goal_L",
+      "knee_pole_L",
+      "hand_goal_L",
+      "elbow_pole_L",
+      "foot_goal_R",
+      "knee_pole_R",
+      "hand_goal_R",
+      "elbow_pole_R"
+    ],
+    "samplesEvaluated": 192,
+    "sampling": "All 4 source action cohorts x 4 native facings x frames1..12, using native_actions.apply_clip in an isolated scene. No geometry, action, source or production edits.",
+    "facings": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "childTransforms": "Source local matrices and armature retained, not replaced with newly assumed facing offsets.",
+    "nominalFunctionalHeight": 1.3279640674591064,
+    "sourceIdleSFrame1BodyBounds": [
+      [
+        -0.4025000035762787,
+        0.434999942779541
+      ],
+      [
+        -0.369281142950058,
+        0.39511537551879883
+      ],
+      [
+        1.1109793085495312e-08,
+        1.327963948249817
+      ]
+    ],
+    "animationEnvelopeCaution": "The original sampled head bob reaches about1.33017 in hold. Preserve the nominal contract and original per-action clearance, rather than freezing each vertex to an idle pose or treating native bob as a new size target.",
+    "bodyAndPropSeparation": "The one-cell character body is distinct from the original functional reaches of work knife and held/load 2D dish. For S, original visible dish plane extends in depth to about-0.70160 during load because it includes intentional camera-ray bias. Do not clamp original props to body bounds.",
+    "contactEvidence": "In work S frame1, actual evaluated right-palm centroid is [0.145122588,-0.242353559,0.389901906], matching the knife-handle centroid. Evaluated hand bones differ from palm centroids, and stored hand_sockets_current/custom sockets are not authoritative evaluated positions.",
+    "footEvidence": "Original evaluated left/right shoe geometry has minimumZ approximately0 throughout the sampled clips; dark foot extents and ground attachment were inspected independently of stale foot custom data.",
+    "heldFood": "Native source has one packed dish-salmon image on a four-vertex plane, explicitly labeled2D ImageGen sprite, not modeled sushi. Its original attachment, yaw cancellation, visibility and camera-ray bias are part of the source composition. It is not a 3D modeling opportunity.",
+    "topology": "All56 evaluated mesh vertex/polygon count pairs remained stable across all192 samples. Native rig/actions are editable and present.",
+    "sourceLight": "Actual library has an overhead140W area and four equal100W cardinal fills; transparent Eevee capture. These old powers/material implementation are baseline observations, not proposed requirements for soft style.",
+    "visualBaseline": "Directly viewed original snapshot and a verified contact sheet cropped from all16 original state/facing atlases at logical192x320. Sheet first frames show front, rear and both profiles; source manifest binds the16 atlas bytes."
+  },
+  "visualObservations": [
+    {
+      "area": "shape and garment construction",
+      "observation": "The source reads immediately as a compact chef, but its low apron is a stiff rectangular wrap, bib/pocket/tie use small box shapes, hands are squared, and the headband appears as thin rectangular strips with a flat angular tie. These are authorized design opportunities, not constraints."
+    },
+    {
+      "area": "head and four-view coherence",
+      "observation": "The existing warm-brown fringe remains recognizable. Side and rear snapshots show stacked hair lobes and a broad plain back crown; the top headband strip reads like a vertical slab in profile. The target suggests more intentional lock flow and folded fabric, which must become coherent native volumes around the head."
+    },
+    {
+      "area": "target direction",
+      "observation": "The target conveys rounded cheek/head volume, large clean eye catchlights, broad soft hair highlights, folded red headband and tie, a tailored ivory collar/cuffs, and a blue apron with clear straps/waist/pocket layering. Useful garment hierarchy and finished edges matter more than reproducing each button or stitch."
+    },
+    {
+      "area": "palette and light",
+      "observation": "Keep source tan/light-amber skin, warm dark-brown fringe, red folded headband with side tie, ivory coat, blue apron, red necktie and dark footwear. Warm soft light should create broad form gradients and separation without flattening coat or apron into blocks or muddying hair."
+    },
+    {
+      "area": "target limitations",
+      "observation": "The fixed target is much more tightly framed than the registered source and includes visible edge halo/noisy red remnants. Its hue/scale/framing are not evidence of allowed identity or registration changes. Its single frontal view supplies no canonical rear/side design."
+    }
+  ],
+  "rankedDesiredOutcomes": [
+    "A visibly improved native silhouette and constructed garments/headband, with coherent rounded forms from front, both profiles and rear, within the functional body envelope.",
+    "Warm softly lit volume and clear source identity/palette at actual logical use size, with large readable detail hierarchy.",
+    "Stable clean native deformations and projected hand/prop contacts across every original state/facing, with the original 2D food representation honestly retained."
+  ],
+  "limits": "No candidate has been supplied or graded. The source all-frame numeric inspection and16-state/facing first-frame visual sheet establish the baseline; complete candidate pixels, all-frame sheets,16 actual playbacks and hash-bound technical evidence are still required for review."
+}

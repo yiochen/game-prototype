@@ -1,0 +1,49 @@
+{
+  "runtime": {
+    "blender": "/opt/homebrew/bin/blender",
+    "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "environment": "PYTHONDONTWRITEBYTECODE=1; scripts also set sys.dont_write_bytecode=True before private imported modules"
+  },
+  "nativeCommands": [
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/preparation-v1/inspect-original.py > .../inspect-original.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/preparation-v1/replay-original.py > .../replay-original.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/refinement/objects/rock-shelf-middle/source/round-03.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/preparation-v1/inspect-canonical-middle.py > .../inspect-canonical-middle.log 2>&1",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-corner/reviews/preparation-v1/inspect-original-ports.py > .../inspect-original-ports.log 2>&1"
+  ],
+  "analysisDrivers": [
+    "compare-replay.py (first run path error; corrected next run; logs retained)",
+    "analyze-ground.py",
+    "propose-contract.py",
+    "finish-evidence.py",
+    "seal-preparation.py"
+  ],
+  "commandNotation": "... in log redirection means the same preparation-v1 absolute parent as each driver. Exact invoked driver source is retained and hash-bound. All commands run with cwd=/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "readOnlyInspections": [
+    "Saved judge-dispatch.txt, applicable root and sushi-loop AGENTS.md, refine-3d-model/SKILL.md, own prompts/judge.txt and brief.json",
+    "Direct view_image inspection: own original.png, target.png, family-concept.png and warm-soft-reference.png; later historical-replay-all4.png and finite-ground-ports.png",
+    "rg --files for own experiment/source Blender and consumer module inventory; cat/sed of own metadata and approved middle technical source/build/packet/root contract",
+    "Original Blender native extraction; printed only own corner detailed collection before initial criteria were recorded",
+    "Read production capture_runtime.py, catalog_style.py, catalog_faceted.py and capture_worker.py to reconstruct exact historical capture; only first3 imported",
+    "SHA256 verified approved middle source/packet, consumer modules and source/reference inputs"
+  ],
+  "retainedLogs": [
+    "finish-evidence.log",
+    "inspect-canonical-middle.log",
+    "inspect-original-ports.log",
+    "analyze-ground.log",
+    "compare-replay-v2.log",
+    "replay-original.log",
+    "compare-replay.log",
+    "inspect-original.log",
+    "propose-contract.log"
+  ],
+  "nonMutatingFailedLookups": [
+    "rg in absent scripts/prototypes/sushi-loop/scripts locations; shell glob no matches. Correct capture/runtime files found and used from production source/blender.",
+    "ls nonexistent scene_comparison.py and catalog_lighting.py; not imported or used."
+  ],
+  "outsideObjectWrites": false,
+  "newModelBuilds": false,
+  "blenderSaves": false,
+  "gitOperations": false,
+  "candidateApproval": false
+}

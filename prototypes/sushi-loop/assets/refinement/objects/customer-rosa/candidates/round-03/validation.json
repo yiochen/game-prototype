@@ -1,0 +1,1227 @@
+{
+  "savedReopenedSource": "source/round-03.blend",
+  "projectSHA256": "4703b82dec4802c1602dfb28368e35e74eca98bd6eb5450648838678096c027a",
+  "blender": "5.2.2 LTS",
+  "frozenBriefSHA256": "8aa72436b75855edcb65969145c71d3758c4eeb520ede8bf9de6347e11358893",
+  "sampleCount": 480,
+  "checks": {
+    "contactTrajectory": true,
+    "foodRootTrajectory": true,
+    "semanticQuadProjection": false,
+    "visibility": true,
+    "restSkeleton": true,
+    "actions": true,
+    "loopClosure": true,
+    "bodyEnvelope": false,
+    "foodBytes": true,
+    "fullUV": true,
+    "rootScale": true,
+    "registeredCamera": true,
+    "frameSize": true
+  },
+  "allChecksPassed": false,
+  "maximumErrors": {
+    "contactWorld": 0,
+    "foodRootWorld": 0,
+    "semanticFoodProjectionPx": 55.182604917183966
+  },
+  "camera": {
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
+    "rootPx": [
+      192.0,
+      495.999755859375
+    ],
+    "nativeFrame": [
+      384,
+      640
+    ],
+    "fps": 12,
+    "cardinals": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    }
+  },
+  "rig": {
+    "root": "customer_rosa__ground_root.001",
+    "armature": "customer_rosa__armature.001",
+    "scale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "rest": [
+      {
+        "name": "ground",
+        "parent": null,
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.1
+        ],
+        "deform": false
+      },
+      {
+        "name": "pelvis",
+        "parent": "ground",
+        "head": [
+          0.0,
+          0.0,
+          0.15000001
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.205
+        ],
+        "deform": true
+      },
+      {
+        "name": "spine",
+        "parent": "pelvis",
+        "head": [
+          0.0,
+          0.0,
+          0.205
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.38499999
+        ],
+        "deform": true
+      },
+      {
+        "name": "neck",
+        "parent": "spine",
+        "head": [
+          0.0,
+          0.005,
+          0.38499999
+        ],
+        "tail": [
+          0.0,
+          0.005,
+          0.43000001
+        ],
+        "deform": true
+      },
+      {
+        "name": "head",
+        "parent": "neck",
+        "head": [
+          0.0,
+          0.005,
+          0.43000001
+        ],
+        "tail": [
+          0.0,
+          0.005,
+          0.91000003
+        ],
+        "deform": true
+      },
+      {
+        "name": "upper_arm_L",
+        "parent": "spine",
+        "head": [
+          -0.198,
+          0.004,
+          0.352
+        ],
+        "tail": [
+          -0.24900001,
+          -0.002,
+          0.24699998
+        ],
+        "deform": true
+      },
+      {
+        "name": "forearm_L",
+        "parent": "upper_arm_L",
+        "head": [
+          -0.249,
+          -0.002,
+          0.24699999
+        ],
+        "tail": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "deform": true
+      },
+      {
+        "name": "hand_L",
+        "parent": "forearm_L",
+        "head": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          -0.26699999,
+          -0.025,
+          0.125
+        ],
+        "deform": true
+      },
+      {
+        "name": "upper_arm_R",
+        "parent": "spine",
+        "head": [
+          0.198,
+          0.004,
+          0.352
+        ],
+        "tail": [
+          0.24900001,
+          -0.002,
+          0.24699998
+        ],
+        "deform": true
+      },
+      {
+        "name": "forearm_R",
+        "parent": "upper_arm_R",
+        "head": [
+          0.249,
+          -0.002,
+          0.24699999
+        ],
+        "tail": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "deform": true
+      },
+      {
+        "name": "hand_R",
+        "parent": "forearm_R",
+        "head": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          0.26699999,
+          -0.025,
+          0.125
+        ],
+        "deform": true
+      },
+      {
+        "name": "thigh_L",
+        "parent": "pelvis",
+        "head": [
+          -0.115,
+          0.005,
+          0.15000001
+        ],
+        "tail": [
+          -0.115,
+          -0.013,
+          0.08500001
+        ],
+        "deform": true
+      },
+      {
+        "name": "shin_L",
+        "parent": "thigh_L",
+        "head": [
+          -0.115,
+          -0.013,
+          0.085
+        ],
+        "tail": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_L",
+        "parent": "shin_L",
+        "head": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          -0.115,
+          -0.12,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "thigh_R",
+        "parent": "pelvis",
+        "head": [
+          0.115,
+          0.005,
+          0.15000001
+        ],
+        "tail": [
+          0.115,
+          -0.013,
+          0.08500001
+        ],
+        "deform": true
+      },
+      {
+        "name": "shin_R",
+        "parent": "thigh_R",
+        "head": [
+          0.115,
+          -0.013,
+          0.085
+        ],
+        "tail": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_R",
+        "parent": "shin_R",
+        "head": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          0.115,
+          -0.12,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_goal_L",
+        "parent": "ground",
+        "head": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          -0.115,
+          0.0,
+          0.11
+        ],
+        "deform": false
+      },
+      {
+        "name": "knee_pole_L",
+        "parent": "ground",
+        "head": [
+          -0.115,
+          -0.2,
+          0.085
+        ],
+        "tail": [
+          -0.115,
+          -0.2,
+          0.16
+        ],
+        "deform": false
+      },
+      {
+        "name": "hand_goal_L",
+        "parent": "ground",
+        "head": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          -0.26699999,
+          -0.023,
+          0.31099999
+        ],
+        "deform": false
+      },
+      {
+        "name": "elbow_pole_L",
+        "parent": "ground",
+        "head": [
+          -0.47999999,
+          -0.06,
+          0.27000001
+        ],
+        "tail": [
+          -0.47999999,
+          -0.06,
+          0.34999999
+        ],
+        "deform": false
+      },
+      {
+        "name": "foot_goal_R",
+        "parent": "ground",
+        "head": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          0.115,
+          0.0,
+          0.11
+        ],
+        "deform": false
+      },
+      {
+        "name": "knee_pole_R",
+        "parent": "ground",
+        "head": [
+          0.115,
+          -0.2,
+          0.085
+        ],
+        "tail": [
+          0.115,
+          -0.2,
+          0.16
+        ],
+        "deform": false
+      },
+      {
+        "name": "hand_goal_R",
+        "parent": "ground",
+        "head": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          0.26699999,
+          -0.023,
+          0.31099999
+        ],
+        "deform": false
+      },
+      {
+        "name": "elbow_pole_R",
+        "parent": "ground",
+        "head": [
+          0.47999999,
+          -0.06,
+          0.27000001
+        ],
+        "tail": [
+          0.47999999,
+          -0.06,
+          0.34999999
+        ],
+        "deform": false
+      }
+    ],
+    "actions": [
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__armature.003",
+        "sha256": "d00cb8a3a9a4171a89e47285edcce36e4c9be98d2247345b16ba616675045d39",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "a89ff31a8090e18cbb878f758e5cffdc4be249718f5a3fb5f9c3e28f02e9c796",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "3e748e0badb4f35ac00b9876d3f48756ef95bd970004b3ebd8e8dc34fe8b45e8",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__stand__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__armature.003",
+        "sha256": "3b177090de473055cdea33074cf1c8c1a5de16e5054532d9f0401a849a5ccbaf",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "083de1645838b0c84ef4bafbf420aa8c851007e942939313242fb57efe510a0d",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "655a5f6b48cdd3e92f244bc3e9b6e83c9edc1f6dd4793b465fa69e81818bbf99",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "walk",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__walk__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__armature.003",
+        "sha256": "e4cdbe21bdf053881092d67c98a4e559cd69456ebaa60a7ad44e7eba610aae2e",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "f5bdb55662c1b11f122900ed6e890d5b541eb960cfaaf95a2663844d7f676545",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "d471cf687e3d5510998000d36b092e7e6e4fe3f5b0340486ac47269fd9e9f3e7",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "57b7fbe1805b45377c3aab028343d4376ab8b099a20ea4ac1bbd11bd387ed3d7",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__armature.003",
+        "sha256": "5bea916fa0c89dc1facb8904575b3785186c3b0a031f9808cf6f86c0d293e7f4",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "c0b951d34aec022a53a90e5da6da11d87c95e3bbb015eb0792833ba8c4a4fe61",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "d471cf687e3d5510998000d36b092e7e6e4fe3f5b0340486ac47269fd9e9f3e7",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "af0588ee1d1d9466acd921de294a4c07d9ee6e2303e9384b9919b1f02bdab1d1",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__armature.003",
+        "sha256": "e93ed52c0d52a08777ad8df67d3991c9fb720d8e684c507c29dd96d4764cbc4e",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "827494956d76fa7f528a0df075d2559d4fe242203dad96ee4b620053ad80c832",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "a9b67fb91d514e92f24d9b55128c4458650d1f3d9c429f587fa74889e7d8406c",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "sit-down",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__sit_down__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__armature.003",
+        "sha256": "83a45af96f93deee4d1250704c3c4f48af9813879f8dded63139e3f4c382f1ab",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "0759f8553a01e247747c6cc303ac53da5e890242e94cd2551ad1052727c96c08",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "fd74be30cdeab140b437bf7f6089e52124bc781cee28ef36ade9b973d2f45abd",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "stand-up",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__stand_up__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__armature.003",
+        "sha256": "a7c49e5e60d76583783f8fbca4854dd995a2585ff5c20e9feb3bae7cf7c11c6f",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "a62573ef2f14b83c6dceba5efb25d5310210f3493f29014a9b8a6c2268a6b1d8",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "5c7d58c0a45ae968e1b099013559b481653277c626588f897078601cca190210",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "happy",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__happy__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "1b1f08c1b0e9e1ad4c8746ffd59bfb9a70e0b5df7dda8e0bf046da21d0b333f6",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__armature.003",
+        "sha256": "3186a24305e2e77779640e4227c6728d8596981c5b0b3fe1971a124f206f5732",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "8d7a75292c19433fdb0c6e0a5ed2b53b581e8e09444259fa67a55ef3bbdb2d5f",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "4e188f2ec8faefdf41ee44c90ba36d8053dea7a28e7a2aad2c30744a7cf11b42",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "restless",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__restless__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__armature.003",
+        "sha256": "158d60eadfdf799b0cd1076501b7d7c040cd4b7d3121e1b6972a80cabfe66edc",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "0d05d03a0044360024e5edef10c22de185cf48fd9f92404c7fad7aa08ada9a25",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "b569d9189e39126bd932e952f33a16795a1ca8d842058cb1876a44989c88bb93",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "puzzled",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__puzzled__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__armature.001",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__armature.003",
+        "sha256": "6f6210f3aa458a4d847d1f02dc3699fab5113a11b9ef825aff3c2764d531f225",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "74dc73d2c26542366cbe80ca36c2d06e0333051a862868232a3d74add521ec10",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__ground_root.001__utensil",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "4150848db1181716b5a700d6cb18f67e99e8dd06089452036b14a3b8cc5daea8",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__ground_root.001__knife_handle",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "panic",
+        "owner": "customer_rosa__ground_root.001__knife_blade",
+        "action": "S33_NATIVE__customer-rosa__panic__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      }
+    ],
+    "loopClosure": [
+      {
+        "clip": "stand",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "walk",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "seated-wait",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "eat",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "sit-down",
+        "loop": false,
+        "endpoint": 12,
+        "maximumMatrixDifference": 1.239526391029358
+      },
+      {
+        "clip": "stand-up",
+        "loop": false,
+        "endpoint": 12,
+        "maximumMatrixDifference": 1.239526391029358
+      },
+      {
+        "clip": "happy",
+        "loop": false,
+        "endpoint": 12,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "restless",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "puzzled",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "panic",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      }
+    ]
+  },
+  "envelope": [
+    {
+      "clip": "stand",
+      "bounds": [
+        [
+          -0.43924814762468517,
+          -0.4392481595277786,
+          -2.0853205828785804e-08
+        ],
+        [
+          0.4392481714308721,
+          0.4392481833339656,
+          1.2640099227428436
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        -4e-08,
+        1.27610564
+      ]
+    },
+    {
+      "clip": "walk",
+      "bounds": [
+        [
+          -0.45557020918448443,
+          -0.4555702209472656,
+          -2.7400335333993553e-08
+        ],
+        [
+          0.4555702327100468,
+          0.455570244472828,
+          1.2530076503753662
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        -4e-08,
+        1.26505995
+      ]
+    },
+    {
+      "clip": "seated-wait",
+      "bounds": [
+        [
+          -0.4542526484927506,
+          -0.4542526602745056,
+          0.5127836018800735
+        ],
+        [
+          0.45425267205626063,
+          0.45425268383801565,
+          1.7365922033786774
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0.50419796,
+        1.74697614
+      ]
+    },
+    {
+      "clip": "eat",
+      "bounds": [
+        [
+          -0.4438843453057785,
+          -0.44388435781002045,
+          0.5127836018800735
+        ],
+        [
+          0.44388437031426237,
+          0.4438843828185043,
+          1.7367187142372131
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0.50419796,
+        1.74697757
+      ]
+    },
+    {
+      "clip": "sit-down",
+      "bounds": [
+        [
+          -0.4439446956330185,
+          -0.44394470751285553,
+          9.461382788344963e-09
+        ],
+        [
+          0.44394471939269253,
+          0.44394473127252954,
+          1.7347249388694763
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0,
+        1.74684358
+      ]
+    },
+    {
+      "clip": "stand-up",
+      "bounds": [
+        [
+          -0.4439446956330185,
+          -0.44394470751285553,
+          9.461382788344963e-09
+        ],
+        [
+          0.44394471939269253,
+          0.44394473127252954,
+          1.7347249388694763
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0,
+        1.74684358
+      ]
+    },
+    {
+      "clip": "happy",
+      "bounds": [
+        [
+          -0.4445700238396173,
+          -0.44457003474235535,
+          9.461382788344963e-09
+        ],
+        [
+          0.4445700456450934,
+          0.4445700565478314,
+          1.3283650577068329
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0,
+        1.33424735
+      ]
+    },
+    {
+      "clip": "restless",
+      "bounds": [
+        [
+          -0.4734213181373137,
+          -0.4734213277697563,
+          9.461382788344963e-09
+        ],
+        [
+          0.47342133740219894,
+          0.4734213470346415,
+          1.262499839067459
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0,
+        1.27461851
+      ]
+    },
+    {
+      "clip": "puzzled",
+      "bounds": [
+        [
+          -0.4686911660675977,
+          -0.46869118346548205,
+          3.798961145662361e-09
+        ],
+        [
+          0.4686911776661873,
+          0.4686911718668925,
+          1.2785226106643677
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": false,
+      "sourceZEnvelope": [
+        0,
+        1.27461851
+      ]
+    },
+    {
+      "clip": "panic",
+      "bounds": [
+        [
+          -0.5337044497302659,
+          -0.5337044596672058,
+          -1.1232605956479347e-08
+        ],
+        [
+          0.5337044696041457,
+          0.5337044795410858,
+          1.253601610660553
+        ]
+      ],
+      "xyPassed": false,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        -4e-08,
+        1.2641418
+      ]
+    }
+  ],
+  "food": {
+    "id": "dish-cucumber",
+    "textures": [
+      {
+        "name": "Rosa refined canonical dish-cucumber",
+        "size": [
+          635,
+          511
+        ],
+        "packed": true,
+        "sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930"
+      }
+    ],
+    "uv": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "singleFixedMapping": {
+      "alphaThreshold": 128,
+      "sourceAlphaBounds": [
+        32,
+        164,
+        1222,
+        1117
+      ],
+      "canonicalAlphaBounds": [
+        1,
+        2,
+        634,
+        510
+      ],
+      "sourceOccupiedWorldWidth": 0.33752025931928686,
+      "canonicalOccupiedWorldWidthAtNominal035": 0.34889763779527555,
+      "sourceSupportAboveQuadBottomWorld": 0.004821717990275526,
+      "canonicalSupportAboveNominalQuadBottomWorld": 0.0005511811023622047,
+      "sourceAlphaBoundsCenterXWorld": 0.002836304700162074,
+      "canonicalAlphaBoundsCenterXWorldAtNominal035": 0.0,
+      "proposedFullUVQuadWorld": [
+        0.33858667404067483,
+        0.2724689613146218
+      ],
+      "proposedFullUVBottomOffsetWorld": 0.00428851062958155,
+      "proposedFullUVCenterOffsetXWorld": 0.002836304700162074,
+      "sourceSupportAboveBottomPx": 1.2343598055105347,
+      "canonicalSupportAboveNominalBottomPx": 0.1411023622047244
+    },
+    "depthWorld": 0.6,
+    "depthChanged": false,
+    "representation": "Canonical 2D raster bound to original animated food root, full UV; native body is 3D"
+  },
+  "measurements": {
+    "path": "candidates/round-03/measurements.json.gz",
+    "sha256": "c6c4a83638da6e341d88e4df385eb8a448963b16a96dd08f78046bb83c15a574"
+  },
+  "physicalBoundsPolicy": "Visible native body excludes canonical camera-ray food display card and hidden utensils; body coordinates/topology freely refined inside functional envelope."
+}

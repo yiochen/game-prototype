@@ -1,0 +1,104 @@
+{
+  "id": "salvage-metal",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    192,
+    352
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "shimmer": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "attract": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "collect": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "b-shimmer": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "b-attract": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "b-collect": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "c-shimmer": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "c-attract": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "c-collect": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 0.62,
+  "sockets": {},
+  "artStyle": {
+    "revision": "salvage-metal-round01",
+    "lighting": "Symmetric broad overhead110W plus four equal55W cardinal fills, neutral world.24; no ground plane or cast shadow.",
+    "material": "Native rounded steel/wood geometry, principled matte/soft sheen, no external textures.",
+    "colorManagement": "Standard/None/exposure0/gamma1",
+    "nativeFilter": "EEVEE32 samples,filter1.5,dither0"
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "variants": {
+    "plate": {
+      "clips": [
+        "shimmer",
+        "attract",
+        "collect"
+      ]
+    },
+    "bent": {
+      "clips": [
+        "b-shimmer",
+        "b-attract",
+        "b-collect"
+      ]
+    },
+    "mixed": {
+      "clips": [
+        "c-shimmer",
+        "c-attract",
+        "c-collect"
+      ]
+    }
+  },
+  "measuredNativeBoundsManifest": "candidates/round-01/native-validation.json",
+  "nominalFunctionalHeightUnchanged": 0.62
+}

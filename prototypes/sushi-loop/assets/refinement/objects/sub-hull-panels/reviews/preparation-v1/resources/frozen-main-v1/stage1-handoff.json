@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "asset": "submarine-yellow",
+  "stage": "Stage1v6 focused main-porthole material revision; preliminary, awaiting original judge",
+  "approval": null,
+  "source": {
+    "path": "source/stage1-v6/submarine-stage1.blend",
+    "sha256": "c8462a4072c8ce12f2afcc6907a02d705dcd7df6858f7d790bb2a1dcc5d7fb0e",
+    "geometryNormalsUVModifiersSHA256": "f8ada6c90a797da7af13a90baaf9a469e299d0ae2d57f9f857ab6981e5be3b21",
+    "bodyOnlyGeometryNormalsUVModifiersSHA256": "6218355ff0b49d4470a7e94b1699ee6f586d1f88fbb0ceb06637f421e4d919dd",
+    "hierarchyTransformsVisibilityPropertiesSHA256": "98300e3d6711b889501f980353d5709632c3d244e6196050a681d7043d9cfff0",
+    "nativeActionsSHA256": "01909fc672788b314123d60b16c28d9f9453d6d9638abd7044da5613f39b3e7f",
+    "allMaterialsSHA256": "a154d45ff8b30a0bec1fb8638428374de450026949845144359624dde5012ce1",
+    "newGlassNodesSHA256": "d4191a333564125b64982ab2ea588b65d8a7f8e444399071f5abb240d9e3f1fa"
+  },
+  "feedbackBinding": {
+    "path": "reviews/stage1-v5/stage1-feedback.json",
+    "sha256": "58ce8f83967aaa93df584a4362d3650a341d92f0afbf58a8d220665d668c5c81",
+    "manifestSHA256": "8434df752a43818eccf5db7665c4ad3cc216790f0215f385554e030b94c9e039",
+    "blocker": "Main blue porthole needs native glass depth, controlled reflection and edge separation in all4 at logical and half-logical sizes."
+  },
+  "change": {
+    "onlyAssignedObject": "body__convex_blue_glass",
+    "onlyAddedMaterial": "Sub Native depth glass v6",
+    "method": "Native angle-dependent blue depth ramp, reflected incoming-ray worldZ overhead highlight, polished Principled surface/coat and restrained blue reflected radiance. One static recipe in every direction; no preferred horizontal direction, textures, glint cards, per-view grades or new objects.",
+    "renderMaterial": {
+      "roughness": 0.095,
+      "coatWeight": 0.7,
+      "coatRoughness": 0.065,
+      "specularIORLevel": 0.38,
+      "IOR": 1.46,
+      "alpha": 1,
+      "transmission": 0
+    },
+    "unrelatedBodyPodPeriscopeArt": "All original material nodes and all other material assignments exact; old shared blue material stays unchanged for periscope optic. Geometry/normals/UVs/modifiers, root, camera, lights/world, all native actions and proposed physical interfaces exact.",
+    "shaderMotion": "No material/node animation, Position/UV/time texture, Normal input connection or Displacement connection. Existing lens/body motion is translation under a static facing; all4 new view sets cover the changed view-dependent material. No new motion/opacity channel."
+  },
+  "identityAndReusedTechnicalGates": {
+    "proof": "candidates/stage1-v6/native-identity-proof.json",
+    "allIdentityChecksPass": true,
+    "immutableV5BaselineSHA256": "87647d3167633d4f3a7c4cd4bf5a4af4e221a6a944d57cd06400df8df9d1ea94",
+    "v5SealAll68FilesStillExact": true,
+    "reusedEvidence": {
+      "saved-source-audit.json": {
+        "path": "source/stage1-v6/resources/v5-technical/saved-source-audit.json",
+        "sha256": "72c118e4a0149f2fee37f4c1440c5911be6ad99a42b80e9d50fc4c10e2e7be36"
+      },
+      "saved-action-phases.json": {
+        "path": "source/stage1-v6/resources/v5-technical/saved-action-phases.json",
+        "sha256": "aebd73f941b8bdeb6ce2e80b564e812872011771ada06b0f5e5b0a89b5fe419f"
+      },
+      "saved-native-actions.json": {
+        "path": "source/stage1-v6/resources/v5-technical/saved-native-actions.json",
+        "sha256": "352ca7333efbc2bc472cd7123e74733fe557471d042cf81930fdb4653eab2493"
+      },
+      "proposed-mounts.json": {
+        "path": "source/stage1-v6/resources/v5-technical/proposed-mounts.json",
+        "sha256": "0453d2b60f1223de8eb79b8464d2922c3ed44c8c7a4e1603bd6e9ce4c7ecb5f6"
+      },
+      "mount-clearances.json": {
+        "path": "source/stage1-v6/resources/v5-technical/mount-clearances.json",
+        "sha256": "88e35486122ac5c7b60d00128b8bce901f1ca14156de06a2120ca06b1a3c9883"
+      },
+      "derived-native-tips.json": {
+        "path": "source/stage1-v6/resources/v5-technical/derived-native-tips.json",
+        "sha256": "749ee0a724e540a1042d53112b1c006e85b02bdaa1048cda30d74e69e71f8f5b"
+      },
+      "component-projection-feasibility.json": {
+        "path": "source/stage1-v6/resources/v5-technical/component-projection-feasibility.json",
+        "sha256": "12e26bc1cacf9b6eba9f9263bd07b4155c031da24f1931520fb6c798619eb6d2"
+      }
+    },
+    "scope": "Exact native identity binds v5 576runtime+576half+48endpoint geometry/visibility/action/loop, full paired-floor hover/envelope and mount/projection/clearance evidence. This v6 does not pretend to rerun that unchanged broad batch. Only main glass material nodes/assignment differ.",
+    "v5HoverMinMax": [
+      0.03700000047683716,
+      0.07300001382827759
+    ],
+    "v5EnvelopeViolations": 0,
+    "proposedMountsSHA256": "0453d2b60f1223de8eb79b8464d2922c3ed44c8c7a4e1603bd6e9ce4c7ecb5f6",
+    "legacyReferences": {
+      "sub_harpoon": [
+        0.24,
+        -0.4,
+        0.37
+      ],
+      "sub_collector": [
+        0,
+        -0.53,
+        0.21
+      ]
+    },
+    "finiteContactSeats": "Original judge Stage1v5 finite-face evidence remains applicable through exact body/evaluated geometry and hierarchy identity; broad AABBs do not replace finite faces.",
+    "noInterfaceFreezeClaim": "Original judge Stage1v6 recheck precedes root interface freeze."
+  },
+  "actualSavedSourceEvidence": {
+    "settings": "candidates/stage1-v6/reopened-source-settings.json",
+    "geometry": "candidates/stage1-v6/exact-native-geometry.json",
+    "materialLightWorldNodes": "candidates/stage1-v6/actual-material-light-nodes.json",
+    "nativeFrame": [
+      640,
+      768
+    ],
+    "logicalFrame": [
+      320,
+      384
+    ],
+    "logicalRoot": [
+      160,
+      288
+    ],
+    "engine": "BLENDER_EEVEE",
+    "samples": 64,
+    "filterSize": 0.5,
+    "nativeCaptureManifest": "candidates/stage1-v6/representative-captures.json"
+  },
+  "portableReproduction": {
+    "recipe": "source/stage1-v6/build_glass.py",
+    "invocation": "blender -b --python source/stage1-v6/build_glass.py",
+    "baselineResource": "source/stage1-v6/resources/baseline-v5.blend",
+    "capture": "source/stage1-v6/capture_stage1.py",
+    "identityAudit": "source/stage1-v6/prove_native_identity.py",
+    "resourceManifest": "source/stage1-v6/resources/resource-manifest.json",
+    "cleanRebuildIdentityExact": true,
+    "report": "candidates/stage1-v6/portable-rebuild-validation.json",
+    "sameOrderReplayMaxRGBAChannelDifference": 1,
+    "sameOrderReplayMaxDifferentPixels": 5,
+    "exactAllReplayRGBAClaimed": false,
+    "authority": "Exact selected primary native captures and primary saved .blend are authoritative. Tiny measured EEVEE replay deltas retained, not synthetically corrected."
+  },
+  "previews": {
+    "v5V6Comparison": "candidates/stage1-v6/v5-v6-glass-logical-comparison.png",
+    "baselineLogicalLightGrayDark": "candidates/stage1-v6/dock-ready-logical-backgrounds.png",
+    "provisionalLogicalLightGrayDark": "candidates/stage1-v6/upgraded-dock-ready-logical-backgrounds.png",
+    "halfLogicalLightGrayDark": "candidates/stage1-v6/representatives-half-logical-backgrounds.png",
+    "nativeFamilyAll4": "candidates/stage1-v6/stage1-family-four-view.png",
+    "sampling": "Preview-only whole registered canvas NEAREST resize to320x384logical or160x192half-logical, then ordinary alpha composite on declared backgrounds. Primary native PNGs unedited."
+  },
+  "scopeLimits": {
+    "primaryRepresentativeNativeImages": 12,
+    "full576BatchRendered": false,
+    "atlasesProduced": false,
+    "canonicalComponentConstruction": false,
+    "finalApprovalClaimed": false,
+    "provisionalEquipmentRemainsProvisional": true,
+    "coverOrFutureCompanionApprovalClaimed": false
+  },
+  "internalStudies": "glass-study-01 and02 files are retained internal material calibration evidence, never primary candidate/approval. Main immutable source and selected12 captures are explicit above.",
+  "remaining": [
+    "Original judge focused Stage1v6 glass recheck",
+    "Root freezes accepted exact body/material/interfaces",
+    "3 separate component pairs and exact approved neutral adoption",
+    "Final576 native frames/48atlases/full original judge review and consumer contexts"
+  ],
+  "stopAfterImmutableHandoff": true
+}

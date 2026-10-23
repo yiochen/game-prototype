@@ -1,0 +1,78 @@
+{
+  "environment": {
+    "bytecodeWrites": false,
+    "blenderExecutable": "/opt/homebrew/bin/blender",
+    "blenderVersion": "5.2.2 LTS",
+    "pythonExecutable": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "pythonVersion": "3.12.14",
+    "pillowVersion": "12.3.0"
+  },
+  "commands": [
+    {
+      "step": "bounded-original-replay",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "resources/native/original-library.blend",
+        "--python",
+        "drivers/inspect_original-replay-v1.py"
+      ],
+      "atInvocationDriverName": "drivers/inspect_original.py before correction; exact original used bytes retained as inspect_original-replay-v1.py",
+      "log": "logs/original-replay.log",
+      "note": "First audit portion invalid due hidden collection; renders enabled correct collection and exactly match all4 known pixels."
+    },
+    {
+      "step": "corrected-native-measurement",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "resources/native/original-library.blend",
+        "--python",
+        "drivers/inspect_original.py",
+        "--",
+        "--measure-only"
+      ],
+      "log": "logs/original-measurement-corrected.log"
+    },
+    {
+      "step": "wholeframe-original-publication-and-comparison",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "drivers/replay_analysis.py"
+      ],
+      "log": "logs/replay-analysis.log"
+    },
+    {
+      "step": "canonical-readonly-measurement",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "resources/canonical-middle/round-03.blend",
+        "--python",
+        "drivers/inspect_canonical.py"
+      ],
+      "log": "logs/canonical-middle-inspection.log"
+    },
+    {
+      "step": "contract-and-evidence-plan",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "drivers/prepare_contract.py"
+      ],
+      "log": "logs/prepare-contract.log"
+    },
+    {
+      "step": "hash-seal-and-local-verification",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "drivers/seal_preparation.py"
+      ],
+      "output": [
+        "hash-manifest.json",
+        "seal.json"
+      ],
+      "note": "Seal manifest excludes only itself and seal.json to avoid circular hashes; includes its driver, all actual preparation inputs/outputs/logs and initial/criteria."
+    }
+  ],
+  "importClosure": "Original replay imports copied capture_runtime.py -> copied catalog_style.py + catalog_faceted.py. Those execute only bpy/math/stdlib. Canonical measurement imports bpy, mathutils, bpy_extras and stdlib only; canonical build is read-only, never executed. Native source files have no linked libraries; shelf material has no image dependency. Consumer source is retained and hashed for later exact use, not altered."
+}

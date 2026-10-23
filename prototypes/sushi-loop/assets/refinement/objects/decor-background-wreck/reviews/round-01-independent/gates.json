@@ -1,0 +1,123 @@
+{
+  "asset": "decor-background-wreck",
+  "round": "round-01",
+  "candidatePacketSHA256": "f9524d3dffbb1bf59c29cfa9d634e2e438ed46f40731651e322a8081844a254c",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "9382b2a20f8cafa9eaa4b0a8646a58bcd0616e97a636e7d184d20cfc523326fc"
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-independent/supplemental-evidence.json",
+    "sha256": "2ee30258591cfcdac4e1cbe93e1c7250193dc31403dad7c73342f871f4dd8fef"
+  },
+  "helperHashesBefore": {
+    "candidate_packet": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+    "audit_directions": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "acceptance_contract": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "helperHashesAfter": {
+    "candidate_packet": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+    "audit_directions": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "acceptance_contract": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "allHelpersUnchanged": true,
+  "frozenHelperCopiesMatch": true,
+  "results": [
+    {
+      "name": "artifact-integrity",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/candidates/round-01/packet.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/artifact-integrity.stdout.txt",
+        "sha256": "a1d9a9240e942b251965d9cc05299c3ebba26a9a0ca337725cc44efef1f473a5"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/artifact-integrity.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "Artifact integrity verified.\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    },
+    {
+      "name": "exact-review-binding-approval",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-wreck/reviews/round-01.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 1,
+      "stdout": {
+        "path": "reviews/round-01-independent/exact-review-binding-approval.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/exact-review-binding-approval.stderr.txt",
+        "sha256": "227e0d3c307bad380e21e398bf95a7808b21a9509152f18fe296b76700f94222"
+      },
+      "stdoutText": "",
+      "stderrText": "Packet check failed: Independent review has not approved this candidate\n",
+      "interpretation": "Approval deliberately withheld by independent revise verdict/one blocker; unchanged gate rejection retained."
+    },
+    {
+      "name": "directions",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "decor-background-wreck",
+        "--round",
+        "round-01"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/directions.stdout.txt",
+        "sha256": "624d0d5f27826feff28cce502e57e5398520f8cad9464f7886d77544188328d8"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdoutText": "{\"asset\": \"decor-background-wreck\", \"round\": \"round-01\", \"status\": \"passed\", \"sourceConvention\": \"native_actions.apply_clip: S0/E+90/N180/W-90 degrees\", \"sampleCounts\": {\"N\": 1, \"E\": 1, \"S\": 1, \"W\": 1}}\n",
+      "stderrText": "",
+      "interpretation": "Actual unchanged gate result."
+    },
+    {
+      "name": "acceptance",
+      "command": [
+        "python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "decor-background-wreck",
+        "--round",
+        "round-01"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 1,
+      "stdout": {
+        "path": "reviews/round-01-independent/acceptance.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/acceptance.stderr.txt",
+        "sha256": "cbaa0baa97a533d1f45f041a6edce5f6880548f75c018f1aaaf81b3d16fcd926"
+      },
+      "stdoutText": "",
+      "stderrText": "Traceback (most recent call last):\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 105, in <module>\n    result = acceptance(Path(__file__).resolve().parents[1] / 'objects' / args.asset, args.round)\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 40, in acceptance\n    require(packet.get('asset') == folder.name\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            and receipt.get('asset', packet['asset']) == folder.name\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            and receipt.get('candidatePacketSHA256') == sha(packet_path)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n            and receipt.get('blockers') == [], 'Acceptance binds wrong or blocked candidate')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py\", line 23, in require\n    raise ValueError(message)\nValueError: Acceptance binds wrong or blocked candidate\n",
+      "interpretation": "Approval deliberately withheld by independent revise verdict/one blocker; unchanged gate rejection retained."
+    }
+  ],
+  "independentVerdict": "revise",
+  "approvalGateResult": "Not approved; source authenticity/directions pass does not waive the artistic blocker."
+}

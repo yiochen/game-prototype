@@ -1,0 +1,92 @@
+{
+  "status": "Independent code/report audit of readonly root diagnostics; no new run of root scripts (their output destination is outside object reviews)",
+  "method": "Read exact frozen copies of bothJS drivers and full reports. Asserted all cases/zeros, source dimensions, exact offset and0discarded source visible pixels.",
+  "observations": [
+    {
+      "control": "type",
+      "backend": "full-chrome-playwright",
+      "version": "153.0.8010.12",
+      "caseCount": 48,
+      "nonzeroDifferences": []
+    },
+    {
+      "control": "type",
+      "backend": "headless-shell",
+      "version": "153.0.8010.12",
+      "caseCount": 48,
+      "nonzeroDifferences": []
+    },
+    {
+      "control": "type",
+      "backend": "full-chrome-installed",
+      "version": "155.0.8059.85",
+      "caseCount": 48,
+      "nonzeroDifferences": []
+    },
+    {
+      "control": "padding",
+      "backend": "full-chrome-playwright",
+      "version": "153.0.8010.12",
+      "caseCount": 16,
+      "nonzeroDifferences": [
+        {
+          "phase": 0.5,
+          "method": "narrow-png",
+          "differingPixels": 72834,
+          "opaqueRGBDifferences": 72624,
+          "maxRGB": 145,
+          "maxAlpha": 255,
+          "discardedNontransparent": 0
+        },
+        {
+          "phase": 0.5,
+          "method": "narrow-canvas",
+          "differingPixels": 72834,
+          "opaqueRGBDifferences": 72624,
+          "maxRGB": 145,
+          "maxAlpha": 255,
+          "discardedNontransparent": 0
+        }
+      ]
+    },
+    {
+      "control": "padding",
+      "backend": "headless-shell",
+      "version": "153.0.8010.12",
+      "caseCount": 16,
+      "nonzeroDifferences": []
+    },
+    {
+      "control": "padding",
+      "backend": "full-chrome-installed",
+      "version": "155.0.8059.85",
+      "caseCount": 16,
+      "nonzeroDifferences": [
+        {
+          "phase": 0.5,
+          "method": "narrow-png",
+          "differingPixels": 72834,
+          "opaqueRGBDifferences": 72624,
+          "maxRGB": 145,
+          "maxAlpha": 255,
+          "discardedNontransparent": 0
+        },
+        {
+          "phase": 0.5,
+          "method": "narrow-canvas",
+          "differingPixels": 72834,
+          "opaqueRGBDifferences": 72624,
+          "maxRGB": 145,
+          "maxAlpha": 255,
+          "discardedNontransparent": 0
+        }
+      ]
+    }
+  ],
+  "conclusion": "The reported controls exclude PNG-versus-Canvas source kind and drawImage overload at equal extent for these actual pixels. The padding-only control changes source texture extent while preserving visible pixel data and world offsets; fullChrome153/155 differ only at nativephase.5 whereas shell is identical. This supports extent-dependent nearest-tie behavior as the cause of those diagnostic residuals, without diagnosing model/port position changes. GPU implementation details are inferred from backend behavior, not instrumented hardware internals.",
+  "limits": [
+    "These root diagnostics test actualE source only and do not prove all candidate/game runtime conditions.",
+    "No production helper or art was changed. Original opaque140/alpha255 observations remain valid raw observations.",
+    "The new equal-extents calibration is comparison-only and cannot replace actual consumer cases or native RGB/albedo/normal/visible-line requirements."
+  ]
+}

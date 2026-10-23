@@ -1,6 +1,8 @@
 {
   "id": "decor-kelp",
-  "projection": "character-orthographic",
+  "scene": "S33 Native Asset Library Export",
+  "collection": "S33 production concept kelp-fan",
+  "root": "S33 production concept kelp-fan root",
   "frame": [
     192,
     480
@@ -9,41 +11,126 @@
     96,
     384
   ],
-  "scale": 4,
-  "clips": {
-    "idle": {
-      "frames": 12,
-      "fps": 12,
-      "loop": true
-    }
-  },
+  "scale": 2,
+  "projection": "height-dependent-35-square-footing",
   "footprint": [
     1,
     1
   ],
-  "height": 2.12,
-  "sockets": {},
-  "camera_elevation_degrees": 35,
-  "squareFooting": true,
-  "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
-  },
-  "directions": [
-    "N",
-    "E",
-    "S",
-    "W"
-  ],
-  "conceptReference": "kelp-fan"
+  "heightBudget": 2.12,
+  "role": "nonblocking layer2 scenery",
+  "artStyle": "Warm softly lit cartoon",
+  "sourceSHA256": "2abc7040fdb7d88a6fdbae048bea32e4b7126a1412a0fc62325bf39006c236c7",
+  "construction": {
+    "construction": [
+      {
+        "primary": "Kelp flowing primary 0",
+        "anchor": [
+          -0.235,
+          0.225,
+          0.075
+        ],
+        "height": 1.78,
+        "angleDegrees": 12,
+        "phase": 0.2,
+        "children": [
+          "Kelp attached fork 0"
+        ]
+      },
+      {
+        "primary": "Kelp flowing primary 1",
+        "anchor": [
+          0.225,
+          0.225,
+          0.075
+        ],
+        "height": 1.99,
+        "angleDegrees": 65,
+        "phase": 1.6,
+        "children": [
+          "Kelp attached fork 1"
+        ]
+      },
+      {
+        "primary": "Kelp flowing primary 2",
+        "anchor": [
+          0.25,
+          -0.035,
+          0.075
+        ],
+        "height": 1.6,
+        "angleDegrees": 110,
+        "phase": 2.9,
+        "children": [
+          "Kelp attached fork 2"
+        ]
+      },
+      {
+        "primary": "Kelp flowing primary 3",
+        "anchor": [
+          -0.23,
+          -0.045,
+          0.075
+        ],
+        "height": 1.55,
+        "angleDegrees": -33,
+        "phase": 4.1,
+        "children": [
+          "Kelp attached fork 3"
+        ]
+      },
+      {
+        "primary": "Kelp flowing primary 4",
+        "anchor": [
+          -0.22,
+          -0.285,
+          0.075
+        ],
+        "height": 1.27,
+        "angleDegrees": 30,
+        "phase": 5.0,
+        "children": []
+      },
+      {
+        "primary": "Kelp flowing primary 5",
+        "anchor": [
+          0.22,
+          -0.285,
+          0.075
+        ],
+        "height": 1.45,
+        "angleDegrees": -48,
+        "phase": 2.0,
+        "children": [
+          "Kelp attached fork 5"
+        ]
+      },
+      {
+        "primary": "Kelp flowing primary 6",
+        "anchor": [
+          0,
+          0.01,
+          0.075
+        ],
+        "height": 1.8,
+        "angleDegrees": 88,
+        "phase": 3.2,
+        "children": []
+      }
+    ],
+    "crossSection": "closed rounded lens16 sides,48 axial segments",
+    "stones": [
+      "Kelp cobalt foundation 0",
+      "Kelp cobalt foundation 1",
+      "Kelp cobalt foundation 2",
+      "Kelp cobalt foundation 3",
+      "Kelp cobalt foundation 4",
+      "Kelp cobalt small rubble 0",
+      "Kelp cobalt small rubble 1",
+      "Kelp cobalt small rubble 2",
+      "Kelp cobalt small rubble 3"
+    ],
+    "motionMethodCorrection": "The prebuild acknowledgment considered shape keys. Native object rotations were selected before construction to preserve the historical mesh-data adapter evaluation order without shape-key bypass.",
+    "nativeOriginalSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+  }
 }

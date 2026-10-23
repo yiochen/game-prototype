@@ -1,0 +1,111 @@
+{
+  "asset": "chef-mateo",
+  "round": "round02",
+  "blenderVersion": "5.2.2 LTS",
+  "sourceProject": "source/round01.blend",
+  "sourceSHA256": "91c87dd06f9fc1378e57e51752cbe797a5034c577baf3e39e886e8e8c398c169",
+  "originalProject": "source/original-library.blend",
+  "originalSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "candidateProject": "source/round02.blend",
+  "candidateSHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "frozenTarget": "inputs/target.png",
+  "qualityCriteria": "brief.json qualityCriteria version1 unchanged",
+  "nativePlaybackModule": "source/native_actions.py",
+  "orderedReproductionSteps": [
+    {
+      "tool": "Blender background",
+      "open": "source/round01.blend",
+      "script": "source/build_round02.py",
+      "notes": "Use the exact sealed accepted-art predecessor; change headwear shell/knot/tails only. The candidate itself is self-contained."
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round02.blend",
+      "script": "source/clean_native_topology_round02.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round02.blend",
+      "script": "source/capture_round02.py",
+      "arguments": [
+        "--audit-only"
+      ],
+      "notes": "All192 native poses/clearance/contact/topology before final pixels."
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round02.blend",
+      "script": "source/capture_round02.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round02.blend",
+      "script": "source/supplemental_native_checks_round02.py"
+    },
+    {
+      "tool": "Blender background",
+      "open": "source/round02.blend",
+      "script": "source/context_round02.py"
+    },
+    {
+      "tool": "Python with Pillow and ffmpeg/ffprobe",
+      "script": "source/package_round02.py"
+    },
+    {
+      "tool": "Python with Pillow",
+      "script": "source/create_headwear_comparison_round02.py",
+      "notes": "Fixed same-camera raw frame crops on a labeled gray review sheet. No native frame edits."
+    },
+    {
+      "tool": "Python with Pillow and ffprobe",
+      "script": "source/verify_delivery_round02.py"
+    },
+    {
+      "tool": "Python with Pillow",
+      "script": "source/verify_headband_round02.py",
+      "notes": "Read-only integrity of all279round01bound files, plus registered headwear alpha-slot measurements in all192 native frames. This is evidence, not visual approval."
+    }
+  ],
+  "nativeCapture": {
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "frame": [
+      384,
+      640
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "captureScale": 2,
+    "projection": "orthographic35degrees",
+    "facingsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "fps": 12,
+    "framesPerClip": 12,
+    "clips": [
+      "idle",
+      "work",
+      "hold",
+      "load"
+    ],
+    "atlases": {
+      "count": 16,
+      "size": [
+        2304,
+        1280
+      ],
+      "columns": 6,
+      "rows": 2
+    }
+  },
+  "modeling": "Replace loose headband hoop/piping with a closed taut fitted folded-fabric shell over measured head/hair, plus surface-attached side knot and two tied leaves. Keep all accepted nonheadwear mesh/material hashes unchanged; original source bones/actions/props/camera/lights retained.",
+  "dependencyDisclosure": "Self-contained packed native project. Rebuilding the revision uses exact sealed source/round01.blend as its immutable predecessor. Both project bytes remain packet-bound. Original packed salmon remains explicitly2D and unchanged.",
+  "approval": "No editor approval. Coordinator seals exact bytes; same independent judge decides."
+}

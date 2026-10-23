@@ -1,0 +1,25 @@
+{
+  "sourceProjectSHA256": "aea9e932ba845ede5c32ed4074eb5ff69acfef0f2c169398d147a7e6be0ad3a3",
+  "cameraSHA256": "0be5470817161dd581e0dfc203bc0cfa6deb3ee046afa07322902e5b1de05084",
+  "stationaryCohortAudit": {
+    "path": "candidates/round-02/support-depth/depth-order-audit.json",
+    "sha256": "55cad5efadd6d6d631c9e54e1d5fb43eed35aa29601ccada47f164136b0f3628"
+  },
+  "actualHumanCohortRecords": {
+    "path": "candidates/round-02/support-depth/records.json",
+    "sha256": "0e3215c0952118bcb0ab6c9352f256f4f76200c29b6c50219b2533f3980c3158"
+  },
+  "actualNativeClothRecords": {
+    "path": "candidates/round-02/native-phase-audit.json",
+    "sha256": "0926128b8b97b84c38c64be921cc35212f7e0da448537491484a470d7ed6ca9c"
+  },
+  "measuredMovingClothMinimumWorldZ": 2.1584812211990356,
+  "allNineExactHumanPosesMaximumWorldZ": 1.4717122316360474,
+  "positiveWorldHeightDifference": 0.6867689895629883,
+  "cameraScreenYHeightToDepthRatio": 0.7000002861022949,
+  "cameraDepthDeltaPerDeltaZAtSameProjectedXY": 1.220655725642263,
+  "minimumClothFrontDepthSeparationOnAnyProjectedOverlap": 0.8383084993036132,
+  "derivation": "Actual common55 orthographic screenY=-Y-.7Z. Equal screen coordinates imply deltaY=-.7deltaZ; camera-near depth=-cos(elevation)Y+sin(elevation)Z. Therefore equal projected XY depth difference=(.7cos(elevation)+sin(elevation))*deltaZ. All evaluated attached cloth/hems/stitches are above every vertex of all nine unchanged humans, so any common55 projected overlap places moving cloth in front for every sampled phase and direction. Stationary native frame/support/braces are separately tested with cloth hidden for all nine poses and four directions. Published human35/Main65 remain independent: no whole-scene mixed-projection RGB identity is claimed.",
+  "sampledPhaseCount": 208,
+  "scope": "Native physical depth proof for all nine exact source stances and all sampled phases; actual atlas consumer remains independently inspected."
+}

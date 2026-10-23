@@ -1,0 +1,3535 @@
+{
+  "asset": "sub-collector-inlet",
+  "round": "round-02",
+  "source": "source/round-02.blend",
+  "sourceSHA256": "555e02e6af079a09d94a2f50c450619db1b2b2218c1f9b061d5de745bbc56e8c",
+  "method": "Evaluate all runtime keys, closing13 and every quarterframe. BVH checks actual evaluated moving cage/bars against every nonhinge native mesh. Exact finite triangle distances against mouth surround, cyan shell and dark mouth at every half-frame. Separately, analytic extrema of every moving native vertex over full angle interval establish continuous bounds and positive separating planes from every nonhinge mesh; fixed/pulsing pieces have unchanged X/Y and native linear scaleZ, whose extrema occur at source keys.",
+  "guardAngleRangeRadians": [
+    0.310034841299057,
+    0.5099651217460632
+  ],
+  "unchangedFixedHingePivot": [
+    0.0,
+    -0.24899999797344208,
+    0.11900000274181366
+  ],
+  "movingParts": [
+    "collector__guard_cage",
+    "collector__guard_bar_-0.15",
+    "collector__guard_bar_0",
+    "collector__guard_bar_0.15"
+  ],
+  "designedHinge": {
+    "object": "collector__lower_guard_shaft",
+    "qualification": "Unchanged cross-shaft is the intentional rotational hinge inside the connected cage bottom rail. Its designed contact is listed separately, never used to waive a housing collision."
+  },
+  "continuousGuardBounds": [
+    [
+      -0.2329999953508377,
+      -0.36276793479919434,
+      0.11120442301034927
+    ],
+    [
+      0.2329999953508377,
+      -0.2372855544090271,
+      0.32487717270851135
+    ]
+  ],
+  "continuousNonhingeSeparation": [
+    {
+      "obstacle": "collector__protective_shoe",
+      "evaluatedActiveBounds": [
+        [
+          -0.38999998569488525,
+          -0.2670000195503235,
+          0.01499999687075615
+        ],
+        [
+          0.38999998569488525,
+          0.13300000131130219,
+          0.10099999606609344
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Z",
+        "guardBeforeObstacle": false,
+        "distance": 0.010204426944255829
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__undersole",
+      "evaluatedActiveBounds": [
+        [
+          -0.37400001287460327,
+          -0.25,
+          0.010999999940395355
+        ],
+        [
+          0.37400001287460327,
+          0.12599998712539673,
+          0.039000000804662704
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Z",
+        "guardBeforeObstacle": false,
+        "distance": 0.07220442220568657
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__front_inset",
+      "evaluatedActiveBounds": [
+        [
+          -0.18000000715255737,
+          -0.27000001072883606,
+          0.04100000113248825
+        ],
+        [
+          0.18000000715255737,
+          -0.257999986410141,
+          0.07899999618530273
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Z",
+        "guardBeforeObstacle": false,
+        "distance": 0.03220442682504654
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__lip_bolt_-0.305",
+      "evaluatedActiveBounds": [
+        [
+          -0.32899999618530273,
+          -0.19099999964237213,
+          0.09800000488758087
+        ],
+        [
+          -0.281000018119812,
+          -0.14299999177455902,
+          0.10999999940395355
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": false,
+        "distance": 0.048000022768974304
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__lip_bolt_0.305",
+      "evaluatedActiveBounds": [
+        [
+          0.281000018119812,
+          -0.19099999964237213,
+          0.09800000488758087
+        ],
+        [
+          0.32899999618530273,
+          -0.14299999177455902,
+          0.10999999940395355
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": true,
+        "distance": 0.048000022768974304
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__lower_collar",
+      "evaluatedActiveBounds": [
+        [
+          -0.3199999928474426,
+          -0.18700000643730164,
+          0.08950000256299973
+        ],
+        [
+          0.3199999928474426,
+          0.11100000143051147,
+          0.15450000762939453
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.050285547971725464
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__hollow_enamel_shell",
+      "evaluatedActiveBounds": [
+        [
+          -0.3499999940395355,
+          -0.20250000059604645,
+          0.13300000131130219
+        ],
+        [
+          0.3499999940395355,
+          0.12250000238418579,
+          0.3997496962547302
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.03478555381298065
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__inner_floor",
+      "evaluatedActiveBounds": [
+        [
+          -0.2150000035762787,
+          -0.11249999701976776,
+          0.17080187797546387
+        ],
+        [
+          0.2150000035762787,
+          0.02250000089406967,
+          0.18159812688827515
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.12478555738925934
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__inner_throat",
+      "evaluatedActiveBounds": [
+        [
+          -0.18000000715255737,
+          -0.11550000309944153,
+          0.1699618399143219
+        ],
+        [
+          0.18000000715255737,
+          -0.0004999972879886627,
+          0.20427723228931427
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.12178555130958557
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__side_shoulder_-0.334",
+      "evaluatedActiveBounds": [
+        [
+          -0.3529999852180481,
+          -0.15600000321865082,
+          0.09200000762939453
+        ],
+        [
+          -0.3149999976158142,
+          0.085999995470047,
+          0.164000004529953
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": false,
+        "distance": 0.0820000022649765
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__side_pivot_-0.334",
+      "evaluatedActiveBounds": [
+        [
+          -0.3610000014305115,
+          -0.19300000369548798,
+          0.1939999908208847
+        ],
+        [
+          -0.34299999475479126,
+          -0.1469999998807907,
+          0.23999999463558197
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": false,
+        "distance": 0.10999999940395355
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__side_shoulder_0.334",
+      "evaluatedActiveBounds": [
+        [
+          0.3149999976158142,
+          -0.15600000321865082,
+          0.09200000762939453
+        ],
+        [
+          0.3529999852180481,
+          0.085999995470047,
+          0.164000004529953
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": true,
+        "distance": 0.0820000022649765
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__side_pivot_0.334",
+      "evaluatedActiveBounds": [
+        [
+          0.34299999475479126,
+          -0.19300000369548798,
+          0.1939999908208847
+        ],
+        [
+          0.3610000014305115,
+          -0.1469999998807907,
+          0.23999999463558197
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": true,
+        "distance": 0.10999999940395355
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__rear_rib_-0.215",
+      "evaluatedActiveBounds": [
+        [
+          -0.23650000989437103,
+          0.10049999505281448,
+          0.19900000095367432
+        ],
+        [
+          -0.19349999725818634,
+          0.12549999356269836,
+          0.3190000057220459
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.3377855494618416
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__rear_rib_0.215",
+      "evaluatedActiveBounds": [
+        [
+          0.19349999725818634,
+          0.10049999505281448,
+          0.19900000095367432
+        ],
+        [
+          0.23650000989437103,
+          0.12549999356269836,
+          0.3190000057220459
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.3377855494618416
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__mouth_surround",
+      "evaluatedActiveBounds": [
+        [
+          -0.27399998903274536,
+          -0.23649999499320984,
+          0.09310492128133774
+        ],
+        [
+          0.27399998903274536,
+          -0.20350000262260437,
+          0.34089505672454834
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.0007855594158172607
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__dark_mouth",
+      "evaluatedActiveBounds": [
+        [
+          -0.22750000655651093,
+          -0.2150000035762787,
+          0.1382531225681305
+        ],
+        [
+          0.22750000655651093,
+          -0.19699999690055847,
+          0.2957468628883362
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.022285550832748413
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__bearing_-0.27",
+      "evaluatedActiveBounds": [
+        [
+          -0.2905000150203705,
+          -0.2615000009536743,
+          0.09550000727176666
+        ],
+        [
+          -0.24950000643730164,
+          -0.20649999380111694,
+          0.15049999952316284
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": false,
+        "distance": 0.016500011086463928
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__bearing_0.27",
+      "evaluatedActiveBounds": [
+        [
+          0.24950000643730164,
+          -0.2615000009536743,
+          0.09550000727176666
+        ],
+        [
+          0.2905000150203705,
+          -0.20649999380111694,
+          0.15049999952316284
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "X",
+        "guardBeforeObstacle": true,
+        "distance": 0.016500011086463928
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__rear_seat_tongue",
+      "evaluatedActiveBounds": [
+        [
+          -0.25,
+          0.09800000488758087,
+          0.20999999344348907
+        ],
+        [
+          0.25,
+          0.2280000001192093,
+          0.36000001430511475
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.33528555929660797
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__rear_seat_gasket",
+      "evaluatedActiveBounds": [
+        [
+          -0.2750000059604645,
+          0.09399999678134918,
+          0.19999998807907104
+        ],
+        [
+          0.2750000059604645,
+          0.11800000071525574,
+          0.3700000047683716
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.3312855511903763
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__rear_service_inset",
+      "evaluatedActiveBounds": [
+        [
+          -0.10000000149011612,
+          0.22599999606609344,
+          0.24549999833106995
+        ],
+        [
+          0.10000000149011612,
+          0.23799999058246613,
+          0.320499986410141
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.46328555047512054
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__seat_bolt_-0.191",
+      "evaluatedActiveBounds": [
+        [
+          -0.20899999141693115,
+          0.22449998557567596,
+          0.2669999897480011
+        ],
+        [
+          -0.1730000078678131,
+          0.2395000010728836,
+          0.30300000309944153
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.46178553998470306
+      },
+      "positiveSeparation": true
+    },
+    {
+      "obstacle": "collector__seat_bolt_0.191",
+      "evaluatedActiveBounds": [
+        [
+          0.1730000078678131,
+          0.22449998557567596,
+          0.2669999897480011
+        ],
+        [
+          0.20899999141693115,
+          0.2395000010728836,
+          0.30300000309944153
+        ]
+      ],
+      "continuousSeparatingPlaneLowerBound": {
+        "axis": "Y",
+        "guardBeforeObstacle": true,
+        "distance": 0.46178553998470306
+      },
+      "positiveSeparation": true
+    }
+  ],
+  "allContinuousSeparatingPlanesPositive": true,
+  "phaseRecords": [
+    {
+      "nativeFrame": 1.0,
+      "guardRotationX": 0.4622687101364136,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3540637195110321,
+          0.11163362860679626
+        ],
+        [
+          0.2329999953508377,
+          -0.23759205639362335,
+          0.3143254220485687
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 1.25,
+      "guardRotationX": 0.47117459774017334,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35570773482322693,
+          0.1115521788597107
+        ],
+        [
+          0.2329999953508377,
+          -0.23761825263500214,
+          0.31356534361839294
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 1.5,
+      "guardRotationX": 0.4800804853439331,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35734325647354126,
+          0.11147132515907288
+        ],
+        [
+          0.2329999953508377,
+          -0.23764535784721375,
+          0.31278982758522034
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 1.75,
+      "guardRotationX": 0.48898637294769287,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35897019505500793,
+          0.11139106750488281
+        ],
+        [
+          0.2329999953508377,
+          -0.23767335712909698,
+          0.3119989335536957
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 2.0,
+      "guardRotationX": 0.49789226055145264,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3605884313583374,
+          0.1113114133477211
+        ],
+        [
+          0.2329999953508377,
+          -0.23770226538181305,
+          0.31119272112846375
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 2.25,
+      "guardRotationX": 0.5009104609489441,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3611348569393158,
+          0.11128456145524979
+        ],
+        [
+          0.2329999953508377,
+          -0.23771226406097412,
+          0.31091606616973877
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 2.5,
+      "guardRotationX": 0.5039286613464355,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3616802394390106,
+          0.11125776916742325
+        ],
+        [
+          0.2329999953508377,
+          -0.23772236704826355,
+          0.31063762307167053
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 2.75,
+      "guardRotationX": 0.5069469213485718,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.36222460865974426,
+          0.11123105883598328
+        ],
+        [
+          0.2329999953508377,
+          -0.23773255944252014,
+          0.3103574216365814
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 3.0,
+      "guardRotationX": 0.5099651217460632,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3627679646015167,
+          0.11120440810918808
+        ],
+        [
+          0.2329999953508377,
+          -0.23774287104606628,
+          0.3100755214691162
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 3.25,
+      "guardRotationX": 0.5062869787216187,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.36210566759109497,
+          0.11123689264059067
+        ],
+        [
+          0.2329999953508377,
+          -0.23773032426834106,
+          0.31041884422302246
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 3.5,
+      "guardRotationX": 0.5026087760925293,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.36144185066223145,
+          0.11126947402954102
+        ],
+        [
+          0.2329999953508377,
+          -0.23771792650222778,
+          0.31075960397720337
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 3.75,
+      "guardRotationX": 0.4989306330680847,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.36077654361724854,
+          0.11130216717720032
+        ],
+        [
+          0.2329999953508377,
+          -0.23770569264888763,
+          0.31109774112701416
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 4.0,
+      "guardRotationX": 0.49525246024131775,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.36010968685150146,
+          0.11133496463298798
+        ],
+        [
+          0.2329999953508377,
+          -0.23769360780715942,
+          0.3114332854747772
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 4.25,
+      "guardRotationX": 0.48586344718933105,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35840070247650146,
+          0.11141914129257202
+        ],
+        [
+          0.2329999953508377,
+          -0.23766343295574188,
+          0.31227800250053406
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 174,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 4.5,
+      "guardRotationX": 0.47647446393966675,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35668206214904785,
+          0.11150399595499039
+        ],
+        [
+          0.2329999953508377,
+          -0.23763427138328552,
+          0.31310567259788513
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 4.75,
+      "guardRotationX": 0.46708545088768005,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35495391488075256,
+          0.11158950626850128
+        ],
+        [
+          0.2329999953508377,
+          -0.23760610818862915,
+          0.31391623616218567
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 5.0,
+      "guardRotationX": 0.45769643783569336,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3532164394855499,
+          0.11167566478252411
+        ],
+        [
+          0.2329999953508377,
+          -0.23757895827293396,
+          0.3147096335887909
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 5.25,
+      "guardRotationX": 0.4451123774051666,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35087332129478455,
+          0.11179216206073761
+        ],
+        [
+          0.2329999953508377,
+          -0.23754413425922394,
+          0.31574591994285583
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 5.5,
+      "guardRotationX": 0.4325283169746399,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3485140800476074,
+          0.11190980672836304
+        ],
+        [
+          0.2329999953508377,
+          -0.23751112818717957,
+          0.31675106287002563
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 5.75,
+      "guardRotationX": 0.41994425654411316,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3461390733718872,
+          0.1120285615324974
+        ],
+        [
+          0.2329999953508377,
+          -0.23747994005680084,
+          0.31772491335868835
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 6.0,
+      "guardRotationX": 0.4073601961135864,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.34374865889549255,
+          0.11214842647314072
+        ],
+        [
+          0.2329999953508377,
+          -0.23745056986808777,
+          0.3186672627925873
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 6.25,
+      "guardRotationX": 0.3949529528617859,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3413771688938141,
+          0.11226767301559448
+        ],
+        [
+          0.2329999953508377,
+          -0.23742341995239258,
+          0.31956541538238525
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 6.5,
+      "guardRotationX": 0.38254573941230774,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3389914631843567,
+          0.11238794773817062
+        ],
+        [
+          0.2329999953508377,
+          -0.23739804327487946,
+          0.32043272256851196
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 6.75,
+      "guardRotationX": 0.3701385259628296,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.336591899394989,
+          0.11250924319028854
+        ],
+        [
+          0.2329999953508377,
+          -0.2373744547367096,
+          0.3212690055370331
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 7.0,
+      "guardRotationX": 0.35773128271102905,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3341788649559021,
+          0.11263154447078705
+        ],
+        [
+          0.2329999953508377,
+          -0.2373526394367218,
+          0.32207411527633667
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 7.25,
+      "guardRotationX": 0.3488253951072693,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3324386775493622,
+          0.11271993070840836
+        ],
+        [
+          0.2329999953508377,
+          -0.2373380959033966,
+          0.3226327896118164
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 7.5,
+      "guardRotationX": 0.3399195075035095,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3306918740272522,
+          0.11280882358551025
+        ],
+        [
+          0.2329999953508377,
+          -0.23732447624206543,
+          0.323175311088562
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 7.75,
+      "guardRotationX": 0.33101361989974976,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3289385735988617,
+          0.11289820075035095
+        ],
+        [
+          0.2329999953508377,
+          -0.23731179535388947,
+          0.3237016201019287
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 8.0,
+      "guardRotationX": 0.32210773229599,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.327178955078125,
+          0.11298806220293045
+        ],
+        [
+          0.2329999953508377,
+          -0.23730002343654633,
+          0.3242117166519165
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 8.25,
+      "guardRotationX": 0.31908950209617615,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.326581209897995,
+          0.11301862448453903
+        ],
+        [
+          0.2329999953508377,
+          -0.23729625344276428,
+          0.32438087463378906
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 8.5,
+      "guardRotationX": 0.3160712718963623,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3259827494621277,
+          0.11304923892021179
+        ],
+        [
+          0.2329999953508377,
+          -0.2372925728559494,
+          0.32454821467399597
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 8.75,
+      "guardRotationX": 0.31305307149887085,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.32538357377052307,
+          0.11307991296052933
+        ],
+        [
+          0.2329999953508377,
+          -0.23728901147842407,
+          0.3247136175632477
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 9.0,
+      "guardRotationX": 0.310034841299057,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3247837424278259,
+          0.11311063915491104
+        ],
+        [
+          0.2329999953508377,
+          -0.2372855544090271,
+          0.32487720251083374
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 9.25,
+      "guardRotationX": 0.313713014125824,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.32551464438438416,
+          0.1130731999874115
+        ],
+        [
+          0.2329999953508377,
+          -0.23728978633880615,
+          0.32467761635780334
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 9.5,
+      "guardRotationX": 0.31739121675491333,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3262445628643036,
+          0.11303584277629852
+        ],
+        [
+          0.2329999953508377,
+          -0.23729416728019714,
+          0.3244752585887909
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 9.75,
+      "guardRotationX": 0.3210693895816803,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.32697340846061707,
+          0.11299856752157211
+        ],
+        [
+          0.2329999953508377,
+          -0.23729871213436127,
+          0.3242701292037964
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 10.0,
+      "guardRotationX": 0.32474756240844727,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.327701210975647,
+          0.11296137422323227
+        ],
+        [
+          0.2329999953508377,
+          -0.23730342090129852,
+          0.32406219840049744
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 10.25,
+      "guardRotationX": 0.33413657546043396,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.32955411076545715,
+          0.11286680400371552
+        ],
+        [
+          0.2329999953508377,
+          -0.23731613159179688,
+          0.32351890206336975
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 10.5,
+      "guardRotationX": 0.34352558851242065,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.33139994740486145,
+          0.11277277022600174
+        ],
+        [
+          0.2329999953508377,
+          -0.2373298853635788,
+          0.3229575753211975
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 10.75,
+      "guardRotationX": 0.35291457176208496,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.33323851227760315,
+          0.11267928779125214
+        ],
+        [
+          0.2329999953508377,
+          -0.2373446673154831,
+          0.3223782777786255
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 11.0,
+      "guardRotationX": 0.36230358481407166,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3350696563720703,
+          0.1125863566994667
+        ],
+        [
+          0.2329999953508377,
+          -0.23736047744750977,
+          0.3217810392379761
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 11.25,
+      "guardRotationX": 0.3748876452445984,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3375120162963867,
+          0.11246269941329956
+        ],
+        [
+          0.2329999953508377,
+          -0.23738326132297516,
+          0.32095256447792053
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 11.5,
+      "guardRotationX": 0.3874717056751251,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3399403393268585,
+          0.11234007030725479
+        ],
+        [
+          0.2329999953508377,
+          -0.23740790784358978,
+          0.3200920820236206
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 164,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 11.75,
+      "guardRotationX": 0.40005576610565186,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.34235426783561707,
+          0.11221849918365479
+        ],
+        [
+          0.2329999953508377,
+          -0.23743437230587006,
+          0.31919974088668823
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 12.0,
+      "guardRotationX": 0.4126398265361786,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3447534143924713,
+          0.11209800839424133
+        ],
+        [
+          0.2329999953508377,
+          -0.23746266961097717,
+          0.31827571988105774
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 12.25,
+      "guardRotationX": 0.42504703998565674,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3471039831638336,
+          0.11198027431964874
+        ],
+        [
+          0.2329999953508377,
+          -0.2374923676252365,
+          0.31733378767967224
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 12.5,
+      "guardRotationX": 0.4374542832374573,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.34943947196006775,
+          0.1118636205792427
+        ],
+        [
+          0.2329999953508377,
+          -0.23752382397651672,
+          0.31636133790016174
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 162,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 12.75,
+      "guardRotationX": 0.4498614966869354,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.35175952315330505,
+          0.11174806207418442
+        ],
+        [
+          0.2329999953508377,
+          -0.2375570684671402,
+          0.3153584897518158
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "nativeFrame": 13.0,
+      "guardRotationX": 0.4622687101364136,
+      "guardBounds": [
+        [
+          -0.2329999953508377,
+          -0.3540637195110321,
+          0.11163362860679626
+        ],
+        [
+          0.2329999953508377,
+          -0.23759205639362335,
+          0.3143254220485687
+        ]
+      ],
+      "housingSurfaceIntersections": [],
+      "designedLowerShaftContactSurfacePairs": 168,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "exactFiniteDistanceRecords": [
+    {
+      "minimumFiniteSurfaceDistance": 0.0010920614085465578,
+      "testedTrianglePairs": 159,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059635851205827074,
+      "testedTrianglePairs": 1317,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.02954855809788683,
+      "testedTrianglePairs": 1589,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0011453628540281393,
+      "testedTrianglePairs": 129,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05965082360312578,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.029235646843522044,
+      "testedTrianglePairs": 1405,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 1.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0012022704070719847,
+      "testedTrianglePairs": 156,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059670251917840915,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.029016658554562643,
+      "testedTrianglePairs": 1284,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0012223720318932606,
+      "testedTrianglePairs": 107,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059677845005156174,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.028964000319536956,
+      "testedTrianglePairs": 1259,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 2.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.001242876029988751,
+      "testedTrianglePairs": 128,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05968594053136992,
+      "testedTrianglePairs": 1324,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.028922302988508376,
+      "testedTrianglePairs": 1174,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0012179315290951505,
+      "testedTrianglePairs": 135,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05967613169157915,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.028974567672209624,
+      "testedTrianglePairs": 1265,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 3.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0011936127986953437,
+      "testedTrianglePairs": 121,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05966709295769898,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.02904313418709057,
+      "testedTrianglePairs": 1286,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0011342763838114013,
+      "testedTrianglePairs": 104,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05964742922465485,
+      "testedTrianglePairs": 1322,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.029291465254848444,
+      "testedTrianglePairs": 1411,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 4.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0010789632731387,
+      "testedTrianglePairs": 139,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05963272775929088,
+      "testedTrianglePairs": 1315,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.02964384113046762,
+      "testedTrianglePairs": 1591,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0010111331658884072,
+      "testedTrianglePairs": 158,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05962079383282549,
+      "testedTrianglePairs": 1314,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.030211245630258093,
+      "testedTrianglePairs": 1765,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 5.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0009505748749947246,
+      "testedTrianglePairs": 175,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05961777614141968,
+      "testedTrianglePairs": 1368,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.030673284988853432,
+      "testedTrianglePairs": 1912,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008980482904779839,
+      "testedTrianglePairs": 181,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05962355644804511,
+      "testedTrianglePairs": 1431,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0310059307127605,
+      "testedTrianglePairs": 1957,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 6.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008526444414611652,
+      "testedTrianglePairs": 141,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059637984816197975,
+      "testedTrianglePairs": 1478,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03121538778620298,
+      "testedTrianglePairs": 2045,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008244812658223927,
+      "testedTrianglePairs": 155,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059653687709383584,
+      "testedTrianglePairs": 1568,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03128914911692574,
+      "testedTrianglePairs": 2131,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 7.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008000284553056531,
+      "testedTrianglePairs": 204,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05939943033067055,
+      "testedTrianglePairs": 1627,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03129857042451274,
+      "testedTrianglePairs": 2093,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008657864013438863,
+      "testedTrianglePairs": 193,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05930084114659121,
+      "testedTrianglePairs": 1633,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03128707549505265,
+      "testedTrianglePairs": 2086,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 8.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0011408500909257614,
+      "testedTrianglePairs": 206,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05920263087643377,
+      "testedTrianglePairs": 1633,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03126816773274958,
+      "testedTrianglePairs": 2105,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008100311838487504,
+      "testedTrianglePairs": 210,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059322373306363474,
+      "testedTrianglePairs": 1633,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03129022866211851,
+      "testedTrianglePairs": 2083,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 9.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008034258986920284,
+      "testedTrianglePairs": 172,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05944262510230267,
+      "testedTrianglePairs": 1615,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0313012301093147,
+      "testedTrianglePairs": 2091,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008298903820077722,
+      "testedTrianglePairs": 199,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05965015572083106,
+      "testedTrianglePairs": 1563,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03127938873301049,
+      "testedTrianglePairs": 2144,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 10.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0008604824455585968,
+      "testedTrianglePairs": 138,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059634685300935596,
+      "testedTrianglePairs": 1472,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.031186099490026622,
+      "testedTrianglePairs": 2058,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0009079128502882316,
+      "testedTrianglePairs": 124,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05962172094259165,
+      "testedTrianglePairs": 1413,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.030949673329147137,
+      "testedTrianglePairs": 1977,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 11.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0009626746159221032,
+      "testedTrianglePairs": 122,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05961766910923954,
+      "testedTrianglePairs": 1338,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.03058672700243011,
+      "testedTrianglePairs": 1891,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.0,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0010238290093591926,
+      "testedTrianglePairs": 173,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.5,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.05962241959088002,
+      "testedTrianglePairs": 1314,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.5,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.030106238760841772,
+      "testedTrianglePairs": 1742,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 12.5,
+      "obstacle": "collector__dark_mouth"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.0010920614085465578,
+      "testedTrianglePairs": 159,
+      "triangleCounts": [
+        1364,
+        224
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 13.0,
+      "obstacle": "collector__mouth_surround"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.059635851205827074,
+      "testedTrianglePairs": 1317,
+      "triangleCounts": [
+        1364,
+        280
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 13.0,
+      "obstacle": "collector__hollow_enamel_shell"
+    },
+    {
+      "minimumFiniteSurfaceDistance": 0.02954855809788683,
+      "testedTrianglePairs": 1589,
+      "triangleCounts": [
+        1364,
+        300
+      ],
+      "method": "Exact minimum over finite evaluated triangle pairs: vertex-triangle and all edge-edge distances, with safe box-distance pruning. Native triangle intersection separately tested by BVH.",
+      "nativeFrame": 13.0,
+      "obstacle": "collector__dark_mouth"
+    }
+  ],
+  "maximumNonhingeSurfaceIntersections": 0,
+  "minimumMeasuredHousingFiniteDistance": 0.0008000284553056531,
+  "neutralReservationAndMainSeat": "Neutral source geometry/transforms unchanged; verified independently in neutral round01/round02 identity and native assembly audit. No active-main mapping.",
+  "approval": false,
+  "facingCoverage": "Finite sweep is measured in canonicalS. All standalone facings apply the same rigid common-root yaw to all native surfaces, preserving the measured distances/intersections; all four native key/half-frame view exports are provided. No per-view movement or fitting."
+}

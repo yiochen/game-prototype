@@ -1,0 +1,9055 @@
+{
+  "source": {
+    "path": "source/round-01.blend",
+    "sha256": "8311f792f6965a7f57eece3908eec24c798060996982bfccfd7e0036586f1c62"
+  },
+  "blender": {
+    "version": "5.2.2 LTS",
+    "binary": "/Applications/Blender.app/Contents/MacOS/Blender"
+  },
+  "scene": "Salvage metal round01 native",
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "resolution_x": 768,
+    "resolution_y": 1408,
+    "resolution_percentage": 100,
+    "pixel_aspect_x": 1.2206555604934692,
+    "pixel_aspect_y": 1.0,
+    "film_transparent": true,
+    "fps": 12,
+    "filter_size": 1.5,
+    "dither_intensity": 0.0
+  },
+  "samples": 32,
+  "viewSettings": {
+    "view_transform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "lights": [
+    {
+      "name": "overhead",
+      "type": "AREA",
+      "energy": 110.0,
+      "shape": "DISK",
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8999999761581421
+      ],
+      "matrixWorld": [
+        [
+          -1.0,
+          -1.5099580252808664e-07,
+          0.0,
+          0.0
+        ],
+        [
+          1.5099580252808664e-07,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          4.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal0",
+      "type": "AREA",
+      "energy": 55.0,
+      "shape": "DISK",
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8999999761581421
+      ],
+      "matrixWorld": [
+        [
+          -4.371138828673793e-08,
+          -0.6823182106018066,
+          0.7310553193092346,
+          3.0
+        ],
+        [
+          1.0,
+          -8.634277293140258e-08,
+          -2.079439731517141e-08,
+          0.0
+        ],
+        [
+          7.730973550224007e-08,
+          0.7310553193092346,
+          0.6823182106018066,
+          2.799999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal1",
+      "type": "AREA",
+      "energy": 55.0,
+      "shape": "DISK",
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8999999761581421
+      ],
+      "matrixWorld": [
+        [
+          -4.371138828673793e-08,
+          0.6823182106018066,
+          -0.7310553193092346,
+          -3.0
+        ],
+        [
+          -1.0,
+          -8.634277293140258e-08,
+          -2.079439731517141e-08,
+          0.0
+        ],
+        [
+          -7.730973550224007e-08,
+          0.7310553193092346,
+          0.6823182106018066,
+          2.799999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal2",
+      "type": "AREA",
+      "energy": 55.0,
+      "shape": "DISK",
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8999999761581421
+      ],
+      "matrixWorld": [
+        [
+          -1.0,
+          -1.8372563204138714e-07,
+          3.5067738934912995e-08,
+          0.0
+        ],
+        [
+          1.5099580252808664e-07,
+          -0.6823181509971619,
+          0.7310553193092346,
+          3.0
+        ],
+        [
+          -1.1038625302717264e-07,
+          0.7310553193092346,
+          0.6823181509971619,
+          2.799999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal3",
+      "type": "AREA",
+      "energy": 55.0,
+      "shape": "DISK",
+      "size": 4.0,
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8999999761581421
+      ],
+      "matrixWorld": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.6823182702064514,
+          -0.7310552597045898,
+          -3.0
+        ],
+        [
+          0.0,
+          0.7310552597045898,
+          0.6823182702064514,
+          2.799999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "Deep slate seams",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.054999999701976776,
+              0.0949999988079071,
+              0.12999999523162842,
+              1.0
+            ],
+            "Metallic": 0.1599999964237213,
+            "Roughness": 0.5799999833106995,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pale worn steel",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.3199999928474426,
+              0.4399999976158142,
+              0.5199999809265137,
+              1.0
+            ],
+            "Metallic": 0.20000000298023224,
+            "Roughness": 0.47999998927116394,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Restrained ochre wear",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.3799999952316284,
+              0.20499999821186066,
+              0.07500000298023224,
+              1.0
+            ],
+            "Metallic": 0.05000000074505806,
+            "Roughness": 0.7300000190734863,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soft blue-gray steel",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.17000000178813934,
+              0.27000001072883606,
+              0.3499999940395355,
+              1.0
+            ],
+            "Metallic": 0.2199999988079071,
+            "Roughness": 0.5,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Warm cut wood",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.41999998688697815,
+              0.1899999976158142,
+              0.061000000685453415,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.75,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wood join lines",
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.2199999988079071,
+              0.07800000160932541,
+              0.01899999938905239,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "bent__continuous_fold",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 16,
+      "polygons": 10,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.02199999988079071,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__forged_body",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.03500000014901161,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__rolled_rim",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.03500000014901161,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__broad_top",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.032999999821186066,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_-1_-0.19__seat",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_-1_-0.19__head",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_-1_0.19__seat",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_-1_0.19__head",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_1_-0.19__seat",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_1_-0.19__head",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_1_0.19__seat",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__fastener_1_0.19__head",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__worn_score_-0.17",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.0020000000949949026,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "plate__worn_score_0.17",
+      "parent": "salvage_a__assembly",
+      "variantIndex": 0,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.0020000000949949026,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__lower_bolt__seat",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__lower_bolt__head",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__upper_bolt__seat",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__upper_bolt__head",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__fold_seam",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.007000000216066837,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__cut_wear_-0.21",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.004999999888241291,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "bent__cut_wear_0.21",
+      "parent": "salvage_b__assembly",
+      "variantIndex": 1,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.004999999888241291,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__wood_block",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.02800000086426735,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__plank_seam_-1_0.112",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__plank_seam_-1_0.245",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__plank_seam_1_0.112",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__plank_seam_1_0.245",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__leaning_steel",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.029999999329447746,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__steel_cap",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.012000000104308128,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__retaining_strap_-1",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.01600000075995922,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_-1_-0.23__seat",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_-1_-0.23__head",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_-1_0.22__seat",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_-1_0.22__head",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__retaining_strap_1",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 8,
+      "polygons": 6,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.01600000075995922,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_1_-0.23__seat",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_1_-0.23__head",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_1_0.22__seat",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 48,
+      "polygons": 26,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.003000000026077032,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    },
+    {
+      "name": "mixed__strap_bolt_1_0.22__head",
+      "parent": "salvage_c__assembly",
+      "variantIndex": 2,
+      "vertices": 12,
+      "polygons": 8,
+      "nonManifoldBaseEdges": 0,
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "width": 0.006000000052154064,
+          "segments": 4
+        },
+        {
+          "type": "WEIGHTED_NORMAL",
+          "width": null,
+          "segments": null
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "name": "SALVAGE_ROUND01__attract",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              5.143516582334358e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__b-attract",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              5.143516582334358e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__b-collect",
+      "frameRange": [
+        1.0,
+        24.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.022126220166683197,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08279488980770111,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.17344102263450623,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.285499632358551,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.410405695438385,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.539594292640686,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.66450035572052,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.7765589952468872,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.8672050833702087,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.9278737902641296,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.949999988079071,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__b-shimmer",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              2.694223001241114e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__c-attract",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              5.143516582334358e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.041999999433755875,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.036373067647218704,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.020999999716877937,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__c-collect",
+      "frameRange": [
+        1.0,
+        24.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.022126220166683197,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08279488980770111,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.17344102263450623,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.285499632358551,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.410405695438385,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.539594292640686,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.66450035572052,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.7765589952468872,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.8672050833702087,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.9278737902641296,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.949999988079071,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__c-shimmer",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              2.694223001241114e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__collect",
+      "frameRange": [
+        1.0,
+        24.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.022126220166683197,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08279488980770111,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.17344102263450623,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.285499632358551,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.410405695438385,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.539594292640686,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.66450035572052,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.7765589952468872,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.8672050833702087,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.9278737902641296,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.949999988079071,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.949999988079071,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.9782231450080872,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.9185124039649963,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.8292975425720215,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.7190082669258118,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.5960744023323059,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.4689256250858307,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.34599173069000244,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.2357024848461151,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.14648760855197906,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.08677686005830765,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.06499999761581421,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.06499999761581421,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.1583714336156845,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.14554111659526825,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.12091993540525436,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.08650252968072891,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.045077208429574966,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              14.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              15.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              16.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              17.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              18.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              19.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              20.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              21.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              22.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              23.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ],
+            [
+              24.0,
+              1.959434864874595e-17,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SALVAGE_ROUND01__shimmer",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "path": "location",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "location",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "scale",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              1.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              1.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 0,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 1,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        },
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "extrapolation": "CONSTANT",
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "LINEAR"
+            ],
+            [
+              2.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              3.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              4.0,
+              0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              5.0,
+              0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              6.0,
+              0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              7.0,
+              2.694223001241114e-18,
+              "LINEAR"
+            ],
+            [
+              8.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              9.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              10.0,
+              -0.02199999988079071,
+              "LINEAR"
+            ],
+            [
+              11.0,
+              -0.01905255950987339,
+              "LINEAR"
+            ],
+            [
+              12.0,
+              -0.010999999940395355,
+              "LINEAR"
+            ],
+            [
+              13.0,
+              0.0,
+              "LINEAR"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "externalImages": [],
+  "linkedLibraries": [],
+  "world": [
+    {
+      "type": "BACKGROUND",
+      "inputs": {
+        "Color": [
+          0.8199999928474426,
+          0.8600000143051147,
+          0.9200000166893005,
+          1.0
+        ],
+        "Strength": 0.23999999463558197,
+        "Weight": 0.0
+      }
+    },
+    {
+      "type": "OUTPUT_WORLD",
+      "inputs": {}
+    }
+  ]
+}

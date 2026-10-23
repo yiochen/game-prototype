@@ -1,0 +1,72 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "environment": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "blender": "/opt/homebrew/bin/blender 5.2.2 LTS",
+    "node": "v22.18.0",
+    "bytecodeDisabled": true
+  },
+  "argv": [
+    {
+      "args": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/source/round-01.blend",
+        "--python",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01-independent/replay_saved_source.py"
+      ],
+      "output": "native-replay.log"
+    },
+    {
+      "args": [
+        "/opt/homebrew/bin/ffprobe",
+        "-v",
+        "quiet",
+        "-show_streams",
+        "-show_frames",
+        "-of",
+        "json",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/candidates/round-01/native-family-playback.webm"
+      ],
+      "output": "video-probe.json"
+    },
+    {
+      "args": [
+        "/opt/homebrew/bin/ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "info",
+        "-i",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/candidates/round-01/native-family-playback.webm",
+        "-fps_mode",
+        "passthrough",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01-independent/video-frames/%03d.png"
+      ],
+      "output": "video-decode.log"
+    },
+    {
+      "args": [
+        "node",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01-independent/server.mjs"
+      ],
+      "output": "server.log; SIGINT produces server-ledger.json"
+    },
+    {
+      "args": [
+        "node",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01-independent/browser_replay.mjs"
+      ],
+      "output": "browser-replay.log"
+    },
+    {
+      "args": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01-independent/audit_evidence.py"
+      ],
+      "output": "audit-evidence.log"
+    }
+  ],
+  "residuals": "Saved scene replay24 native image samples differ by at most1 byte/channel over80 total changed pixels; all480 geometry/closure/control records match. Video decode retainsYUV444/RGB conversion; browser fullChromium/headlessshell remain separate actual raster layers. No pixel repair.",
+  "scope": "Own reviews only; no source/candidate/helper/production edits, Git, live Blender/device, publishing or extraagent."
+}

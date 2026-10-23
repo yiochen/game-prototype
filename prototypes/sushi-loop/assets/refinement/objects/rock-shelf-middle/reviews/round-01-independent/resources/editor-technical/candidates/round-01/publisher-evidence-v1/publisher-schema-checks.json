@@ -1,0 +1,61 @@
+{
+  "purpose": "Pre-seal technical schema/measurement checks, not official packet audit or approval",
+  "publisherFieldChecks": {
+    "projectExists": true,
+    "recipeIsOriginal": true,
+    "rawFrames2xOriginalAll4": true,
+    "nativeRawFrames4xOriginalAll4": true,
+    "unchangedPreviewCount": 7,
+    "cameraCaptureScale": 2,
+    "cameraFrame": [
+      192,
+      352
+    ],
+    "cameraAnchor": [
+      96,
+      248
+    ],
+    "nativeRawScale": 4,
+    "cameraMatricesUnchangedByNormalization": true
+  },
+  "actualDirectionMeasurements": {
+    "N": {
+      "rootRotationZ": 3.1415927410125732,
+      "matrixRotationZ": -3.1415925661670165,
+      "publisherExpected": 3.141592653589793,
+      "angularError": 8.742278012618954e-08,
+      "rawFrame": "candidates/round-01/publisher-evidence-v1/replay-N-4x.png",
+      "rawSHA256": "8351eb6f8f48870cfa8f40fae87bb8795e7422be36655e58c42ca36c293426f3"
+    },
+    "E": {
+      "rootRotationZ": 1.5707963705062866,
+      "matrixRotationZ": 1.5707963705062848,
+      "publisherExpected": 1.5707963267948966,
+      "angularError": 4.371139006309477e-08,
+      "rawFrame": "candidates/round-01/publisher-evidence-v1/replay-E-4x.png",
+      "rawSHA256": "e19e3e259156bbfceed2a6f040df62cafa79940f7c52ab92bda344565c68411e"
+    },
+    "S": {
+      "rootRotationZ": 0.0,
+      "matrixRotationZ": 0.0,
+      "publisherExpected": 0,
+      "angularError": 0.0,
+      "rawFrame": "candidates/round-01/publisher-evidence-v1/replay-S-4x.png",
+      "rawSHA256": "c89882579302fca7f5a405db7a02c9efc1d58e9c8dac23517fee042338fdadcd"
+    },
+    "W": {
+      "rootRotationZ": -1.5707963705062866,
+      "matrixRotationZ": -1.5707963705062848,
+      "publisherExpected": -1.5707963267948966,
+      "angularError": -4.371139006309477e-08,
+      "rawFrame": "candidates/round-01/publisher-evidence-v1/replay-W-4x.png",
+      "rawSHA256": "97bfea208dfde04a550ca14e3ee99e4c7fddf865cc91c1aca37e2a9021aced29"
+    }
+  },
+  "strictAuditPending": "Root seals official packet, then runs unchanged audit_directions.py; this supplement supplies exact packet-bound validation.nativeValidation -> primary measured views/rootRotationZ ledger.",
+  "inspectedTechnicalSchemaFiles": {
+    "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/seal_object.py": "6322589c536d5c0b0fc84a0f7ab41d2ad448e24a7a19168fe1b915714fb32ebf",
+    "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/promote_object.py": "35a3e4c242d6fab7f6e1db1cdb459cf320a6c199f4b3aa735aaf120298a052fd"
+  }
+}

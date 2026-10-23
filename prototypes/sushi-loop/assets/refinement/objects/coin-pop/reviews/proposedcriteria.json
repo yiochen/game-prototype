@@ -1,0 +1,58 @@
+{
+  "asset": "coin-pop",
+  "status": "proposed-unfrozen",
+  "inputSHA256": {
+    "brief.json": "78881d382aa7bab39f2a14d3493f936294fd5e1579fc98f1512d7370b82ffc07",
+    "inputs/original.png": "6993b1073333d5d5e0adfe545b076cb5646ebe0130c18e94413058ca35731fcd",
+    "inputs/target.png": "cad3de8f58174fbb86acad23be4dd05fe45bd87dc11cd6b2bfcc039d5452a817",
+    "inputs/source-camera.json": "817141d927acb7bcf667afe522f5b472c855e24b25f75e2dd2b6742c29a4e559",
+    "inputs/source-assetRecord.json": "46393fa460223e4b9624cfa1ddd2ee9229825431d7bd70f1835b404e7b2b1ff3",
+    "inputs/source-rig.json": "534392c9e08db22bd8fae85e15b332a4c8e832ac99ce0d17edb56f53390990b2",
+    "inputs/catalog-object.json": "be70c76b57110320c6a24ce7bcf1520d33d0f90802cf2595e634a4fea175780f",
+    "inputs/snapshot.json": "cb37d255498d46e16f7b648987de05593f9e51644ecb4ecb5851082d5da74785",
+    "prompts/judge.txt": "f7fc579d415194e75d9185ef197d2cb83130756374636f60be7e6c09b9e0e7c1",
+    "../../style/warm-soft-reference.png": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+    "sourceBlend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+  },
+  "aestheticPriorityOrder": [
+    "shapeVolume",
+    "color",
+    "softEdgeLightMaterialDetail",
+    "intendedSizeReadabilityAndDeadspots"
+  ],
+  "criteria": [
+    {
+      "id": "coin-form",
+      "rank": 1,
+      "dimension": "shapeVolume",
+      "success": "Native geometry produces a rounded but compact coin with a readable rim thickness, distinct face/inset and a purposeful raised currency bar. No awkward flat slab, jagged rim kink, floating relief, broken silhouette or coplanar overlap in any visible phase.",
+      "freedom": "Forms, proportions, topology, nonfunctional part count, rim/face construction and sparkle geometry may improve. The old 12-sided discs and beam pluses are not locks."
+    },
+    {
+      "id": "warm-gold-separation",
+      "rank": 2,
+      "dimension": "color",
+      "success": "Recognizable original gold/yellow palette family, warm orange-gold side/relief depth, bright readable midtones, and contained pale highlights. The rim, coin face and bar separate at 64px/cell without an outline that becomes a dark cutout."
+    },
+    {
+      "id": "soft-native-finish",
+      "rank": 3,
+      "dimension": "lightingHighlights",
+      "success": "Broad soft light and rounded edge reflections communicate the actual volume. Balanced horizontal lighting, no directional ground shadow. No target-style single-side key copied as a rig requirement; no white highlight sheet that erases the rim or face."
+    },
+    {
+      "id": "purposeful-detail",
+      "rank": 3,
+      "dimension": "materialDetail",
+      "success": "A simple crafted coin construction and clean sparkle silhouettes improve polish at small scale. No reward amounts, accidental text, photo noise, unrelated prop, foliage motif, painted target card, external halo or baked directional shadow."
+    },
+    {
+      "id": "all-phase-readability",
+      "rank": 4,
+      "dimension": "artifactFreeReadability",
+      "success": "All required native frames and four facings preserve one-shot growth/rise/turn/collapse. No frame clipping, late midclip disappearance, flicker, material swim, black seams, blown highlight regions, unlit backs or alpha debris. Near-vanished first/last frames remain intentional. Show original-layout atlases, full canvas, logical size, 64px/cell context, light/mid/dark backgrounds, and actual temporal playback including runtime fade."
+    }
+  ],
+  "approvalGate": "Visible material improvement over original toward fixed target/style plus frozen functional contract. Missing required native/temporal/context evidence means needs_evidence. No score threshold grants approval.",
+  "quantitativeContract": "source-contract-proposal.json; all tolerances require root freeze before candidate."
+}

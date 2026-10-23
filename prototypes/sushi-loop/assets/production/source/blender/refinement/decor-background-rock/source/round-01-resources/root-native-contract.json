@@ -1,0 +1,392 @@
+{
+  "asset": "decor-background-rock",
+  "version": 1,
+  "status": "root-frozen-before-construction",
+  "sourceProposal": {
+    "path": "reviews/source-contract-proposal.json",
+    "sha256": "9af46450ee2fc7f6cfccc83ed7d9032a40032ccc1ebc9722afb1d6538bf23f79"
+  },
+  "preparationManifest": {
+    "path": "reviews/preparation-v1/manifest.json",
+    "sha256": "e126ab79d70c560c39a23680c551c724928ca0216837676005d571a6dc466956",
+    "rootVerifiedFiles": 153
+  },
+  "nativeContract": {
+    "asset": "decor-background-rock",
+    "version": "preparation-v1-proposed",
+    "status": "Root reconciliation pending; all measurements describe source and do not silently impose new construction locks",
+    "pathBase": "object root",
+    "untouchedSource": {
+      "original": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "frozenCopy": "reviews/preparation-v1/resources/native/source.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "blender": "/opt/homebrew/bin/blender \u2014 5.2.2 LTS d13f752e3b9c",
+      "liveBlenderUsed": false
+    },
+    "nativeOwnership": {
+      "scene": "S33 Native Asset Library Export",
+      "collection": "S33 production concept cobalt-shelf.001",
+      "root": "S33 production concept cobalt-shelf root.001",
+      "rootMeaning": "Ground origin0,0,0; x=X, depth=-Y, height=Z. Root and mesh transforms are identity in S after actual view-layer enable/update.",
+      "objects": [
+        "broad main crown",
+        "offset side shoulder",
+        "low front boulder",
+        "right front ledge"
+      ],
+      "construction": "4 closed meshes;128 raw/evaluated vertices and104 polygons total; no modifiers/constraints/shape keys/armature/UVs/custom normals; flat normals. Source mesh/part counts and old palette-slot count are not constraints on refinement.",
+      "materials": "3 native cobalt/cobaltTop/cobaltDark materials, each owned only by the4 actual rock meshes. Height-based color ramp feeds a matte Principled surface; stale emission/view-tone graph branches are not the active surface. No owned image textures or linked libraries.",
+      "resources": "The full source also contains packed unrelated dish images; the rock has no dependency on them. Frozen full source preserves packed resources without copying application/runtime trees.",
+      "evidence": [
+        "reviews/preparation-v1/source-audit.json",
+        "reviews/preparation-v1/source-temporal-ownership.json"
+      ]
+    },
+    "role": {
+      "catalogName": "Quiet background rock",
+      "kind": "prop",
+      "paletteFamily": "cobalt blue underwater stone",
+      "depthLayer": 1,
+      "blocking": false,
+      "catalogPlacementFootprint": [
+        1,
+        1
+      ],
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "supportCells": [],
+      "physicalRole": "Grounded irregular low rock bank; no character feet, floating atmospheric requirement, standable surface or modular cliff joins.",
+      "roleEvidenceLimit": "The root's own native properties identify production_id and static clip but do not encode catalog layer/nonblocking flags. Layer1/nonblocking/quiet depth intent comes from the actual catalog. Native source is fully opaque over its faces; quiet background role must be assessed visibly in the actual actor context, not assumed from its name."
+    },
+    "sourceGeometry": {
+      "sampling": "Collection ancestry AND owned hide_render/hide_viewport/hide_set enabled in actual scene/view layer, depsgraph updated first. Separate transformed raw authored and evaluated measurements retained.",
+      "rawAuthoredBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          1.0750000476837158
+        ]
+      },
+      "evaluatedBounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          1.0750000476837158
+        ]
+      },
+      "nominalCatalogHeight": 1.05,
+      "finiteGroundContact": {
+        "z": 0,
+        "closedBaseCaps": 4,
+        "unionAreaWorldSquared": 0.9494783077573699,
+        "cellArea": 1,
+        "evidence": "reviews/preparation-v1/finite-ground-support.json"
+      },
+      "interfaces": {
+        "sockets3D": {},
+        "portProfiles": {},
+        "rig": null,
+        "attachments": [],
+        "supportSurface": null
+      },
+      "proposal": "Keep placement/root/world scale and the root-reconciled finite one-cell functional envelope, allowing the user's permitted tiny standalone silhouette drift. The +.025 crown is an actual authored variation rather than bevel trim. Use actual1.075 source maximum as the proposed design budget pending root decision; do not scale the object down to nominal1.05 by default. Finite grounded semantics are required; exact base polygons, measured.9494783 coverage fraction, four source parts and source topology are descriptive baselines, not candidate interface laws. No full-square opaque coverage requirement."
+    },
+    "capture": {
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        256
+      ],
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "publishedSourceScale": 2,
+      "nativeFrame": [
+        768,
+        1408
+      ],
+      "nativeCaptureScale": 4,
+      "cellSize": 128,
+      "worldUnitsPerCell": 1,
+      "projection": "top-down-oblique-square-grid",
+      "elevationDegrees": 55.00797980144134,
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "orthoScale": 1.5,
+      "nativeCalibration": {
+        "root": [
+          384,
+          1024
+        ],
+        "unitX": [
+          512,
+          0
+        ],
+        "unitDepth": [
+          0,
+          512
+        ],
+        "unitHeight": [
+          0,
+          -358.400146484375
+        ]
+      },
+      "sourceRecord": "reviews/preparation-v1/resources/inputs/source-camera.json",
+      "measuredReplay": "reviews/preparation-v1/source-audit.json",
+      "facingConvention": {
+        "S": 0,
+        "E": 90,
+        "N": 180,
+        "W": -90
+      },
+      "proposedLocked": "Own registered camera world/projection matrices and pixel aspect, full frame/root/cell scale/cardinal convention; no per-view fitting or posing to the target. Candidate captures must measure the actual native root matrices while rendering or perform a truthful clean saved-source recapture.",
+      "savedStartupConflict": "Saved active camera is chef-noor startup frame4:35 degrees,768x1280,pixelAspect1. It is unrelated to this rock. Own source record and measured replay establish the55.00798-degree rock capture.",
+      "replayResidual": "Independently reconstructed camera recovers native root[384,1023.999939] and basis within0.000062px depth /0.000147px height. Camera matrix component difference is at most5.96e-8; projection offset differs2.53e-6. Historical LANCZOS replay of all4 facings matches published alpha extents; mean absolute channel error<0.00016/255, max5/255 at a few S pixels. Do not claim byte or decoded-pixel identity.",
+      "historicalRawAvailability": "The guide/fingerprint/library name and hash raw native captures, but those source-captures PNG paths are absent from this checkout. All4 published original PNGs, guides/fingerprints and the independent new source replay are frozen. No missing historical file is fabricated."
+    },
+    "temporal": {
+      "clips": [
+        {
+          "id": "static",
+          "frames": 1,
+          "fps": 12,
+          "static": true,
+          "loop": false,
+          "frameOrder": [
+            0
+          ],
+          "nativeFrame": 1,
+          "closingKeyFrame": null
+        }
+      ],
+      "channelsDiscovered": "31 relevant owners audited across own objects, mesh data, materials/node trees, scene, compositor, world and capture light/camera data: no active actions, NLA or drivers. No shape keys or rig. Evaluated source state hashes identical at native frames1/2/12.",
+      "proposal": "Preserve exactly1 static capture in every N/E/S/W facing, fps12, nonlooping; do not invent sway, a closure frame or terminal action. Frames2/12 are audit probes rather than delivery animation.",
+      "evidence": "reviews/preparation-v1/source-temporal-ownership.json"
+    },
+    "lightingAndSampling": {
+      "historicalNative": "Standard/None, exposure0/gamma1, film transparent, filter1.5, sRGB contrast1.35 compositor, world strength0, centered140W size3.5 area plus4 equal100W size4 cardinal fills radius3,z1.8. Source roughness.85/specularIOR.03.",
+      "historicalReduction": "Uniform whole authored768x1408 canvas to384x704 via LANCZOS; no subject fitting or clipping. Historical guide/fingerprint and original publisher establish this; no other family's BOX recipe is assumed.",
+      "proposal": "Keep this registered full-canvas capture/reduction for the first candidate unless root expressly freezes a justified source-only alternative. Native geometry/normals/shader/material/lighting methods may improve the chosen soft style while retaining symmetric broad horizontal light, background readability and no directional ground shadow. Historical wattage, old shade ramp and old part counts are not aesthetic targets.",
+      "samplingStudyLimit": "Early source-four-view/source-small/independent-comparison sheets use a clearly labeled BOX diagnostic reduction; they are not a new publication contract. Historical replay and actual consumer fixture use the exact original LANCZOS published sprites. No coverage/sampling defect specific to this irregular nonmodular rock was found that would justify silently changing the reduction."
+    },
+    "boundedConsumerEvidence": {
+      "actualMethods": [
+        "reviews/preparation-v1/resources/consumer/sprite-layout.js",
+        "reviews/preparation-v1/resources/consumer/world-sprite-raster.js",
+        "reviews/preparation-v1/resources/consumer/object-review.jsx"
+      ],
+      "composition": "Actual spriteFrame, groundRoot, orderPlacements, sceneBounds, direction/repeated placements; exact extracted worldRasterPlan/paintWorldRaster/WeakMap. Compose original published sprites on common native canvas with nearest drawImage sampling, then ordinary whole-canvas SVG/foreignObject browser filtering.",
+      "context": "Own actual6x4 interaction: rock S at(0,1), submarine N travel at(2,0), eel N swim at(4,1); static t0 context captures. Context actors retain their current published art and measured sprite registration; no other-object aesthetic conclusions were consulted.",
+      "browserModes": [
+        {
+          "launch": {
+            "headless": true,
+            "channel": "chromium"
+          },
+          "version": "153.0.8010.12"
+        },
+        {
+          "launch": {
+            "headless": true
+          },
+          "version": "153.0.8010.12"
+        }
+      ],
+      "dpr": 1,
+      "viewports": [
+        [
+          1128,
+          720
+        ],
+        [
+          320,
+          720
+        ],
+        [
+          1280,
+          720
+        ]
+      ],
+      "caseCountPerMode": 6,
+      "visibleFindings": "Rock remains a blue scenery mass and yellow submarine retains the color focal point at phone size. N/W source bottoms flatten into dark fronts; high-contrast target seam highlights would add visual noise against the caustic floor. Repetition shows purposeful overlaps at one-cell spacing; no modular join is implied.",
+      "browserDifferences": "All6 independently composed native canvas pairs have identical decoded pixels. CSS screenshots differ between modes (mean RGB<.185/255,max36/255), visibly as soft filtering around caustics/edges. Both sets inspected; no claim that one mode certifies the other.",
+      "evidence": [
+        "reviews/preparation-v1/consumer/results.json",
+        "reviews/preparation-v1/consumer/two-mode-comparison.json",
+        "reviews/preparation-v1/consumer/chromium-all-cases-sheet.png",
+        "reviews/preparation-v1/consumer/headless-shell-all-cases-sheet.png"
+      ],
+      "scopeLimit": "Fixture reproduces actual SpriteScene composition with exact frozen helpers; it is not a full React catalog execution or Godot device run. Current Godot manifest has no decor-background-rock entry, and bounded .gd/.json/.tscn search found no direct use. Native art_book registration contract was inspected/frozen; Godot integration remains root's later scope."
+    },
+    "futureHandoff": {
+      "coverage": "preparation/REVIEW-COVERAGE.txt and PUBLISHER-HANDOFF.txt frozen in resources/instructions; no changes to shared validators.",
+      "nativeSchema": "Measured actual facing records must be in supported nativeValidation views/captureRecords. If richer ledgers are separate, bind them and use a thin truthful supported target. nativeGeometryMeasurements maps facing to a list of frame dictionaries, not an object dictionary.",
+      "requiredVisuals": "All4 static native/published captures, all declared previews, intended-size and real context with both modes. No motion playback is required for this actually static object.",
+      "resourcePolicy": "Exact explicit object-relative path+SHA manifests, minimal exact dependency closure, every file<100MB, no runtime tree duplication/pycache, source/target/backup preserved."
+    },
+    "reconciliationItems": [
+      {
+        "id": "actual-crown-vs-nominal-height",
+        "finding": "Source max1.07500005 vs nominal1.05",
+        "proposal": "Retain actual authored crown/support envelope and reconcile actual1.075 design budget explicitly before editor. Nominal1.05 does not force a downscale."
+      },
+      {
+        "id": "saved-active-vs-own-camera",
+        "finding": "Saved35-degree chef camera vs registered55.00798-degree rock camera",
+        "proposal": "Use verified own registered camera/root replay and retain tiny measured replay residuals honestly."
+      },
+      {
+        "id": "finite-ground-vs-grid-metadata",
+        "finding": "Actual four irregular base caps atZ0 with .9494783 cell\u00b2 union; no support sockets/ports",
+        "proposal": "Require grounded native stone mass and one-cell placement meaning, with no fullsquare opacity or invented modular/foot/support contracts."
+      },
+      {
+        "id": "target-brightness-vs-background-role",
+        "finding": "Generated single-view target has luminous cyan-white seams and shifted subject composition",
+        "proposal": "Reward organic soft native forms and broad restrained blue highlights; retain quiet scene-depth role and original palette, not target glare or placement."
+      }
+    ],
+    "stop": "Preparation only. Freeze immutable evidence and stop for root reconciliation before fresh editor independent assessment/construction. No candidate, approval, production, Git, publication or device work."
+  },
+  "hardConstraints": [
+    "Standalone Quiet background rock, cobalt scenery on catalog depthLayer1/nonblocking/one-cell placement. Actual original collection S33 production concept cobalt-shelf.001/root S33 production concept cobalt-shelf root.001. Root0/unit scale/world1 cell=1; proper facing S0/E+90/N180/W-90. Improve recognizable organic stone forms, proportions, topology, part count and purposeful details freely inside the functional envelope; old four pieces/128vertices/104faces/old ramp are descriptive only.",
+    "Finite one-cell native geometry envelope X/Y[-.5,.5], Z[0,1.075], tolerance1e-6, proper-rotated all4. Actual authored crown1.07500005 establishes the design budget; nominal catalog1.05 is rounded metadata and does not force shrinking. Tiny standalone silhouette drift within that envelope is allowed. No exact old outline or per-part box lock. Keep native grounded stone mass at original ground planeZ0 with finite closed support/bottoms; no floating or detached stones/exposed open bottoms. Original .9494783 base-cap union/shape/area/four-part count are evidence, not exact candidate requirements. No full opaque square/feet/platform/socket/port/modular contact invented.",
+    "Preserve actual registered top-down-oblique-square-grid55.0079798 camera/projection/world scale/pixel aspect1.22065556/ortho1.5 and measured matrices, not saved unrelated35 chef startup camera. Logical192352/root96256/cell128; native4x7681408/root3841024; published2x384704/root192512. Uniform full authored native canvas LANCZOS reduction to published frame, original atlas layout; no subject fit/crop/warp/ground-root shift. Retain measured float root/basis tolerance under unchanged normalization. No per-view fitting, posing to target, per-view recoloring or alpha/RGB repair.",
+    "Exactly one actual static frame1 in eachN/E/S/W, frame range1..1,12fps/nonloop/frameOrder[0]. Preserve no active temporal channels in own geometry/materials/shaders/world/compositor/capture owners; no invented sway/closure/terminal. Record effective ownership and clean editable-source replay, packed or explicit actual-used dependencies. No target image card/paint-over/linked unrelated scene geometry.",
+    "Native geometry, normals, bevel, shader/material and light methods remain editor choices. Use one symmetric broad horizontal lighting recipe across all4, no preferred horizontal key or directional ground cast shadow. Source filter1.5/whole LANCZOS stays the first-candidate capture recipe; historical watts/world0/contrast1.35/faceted normals/old roughness are not aesthetic locks. No other modular family rig/collar/sampling constraints imported. A genuine new sampling conflict must be reported before any contract change.",
+    "Five frozen visible outcomes: coherent organic stone volumes; original cobalt palette and quiet background role; controlled broad soft blue plane/edge highlights; purposeful restrained stone detail; grounded artifact-free readability in every required view/use context. Fixed target guides style/forms, not camera/brightness/placement/unseen-view truth. No clipped cyan-white glow/seam lattice/black dead patches/overlap/bad normals/halos/clipping/accidental transparency. Scores/hashes alone never establish visible quality.",
+    "Native/published all4; full-frame four-view sheet, repeated3x3 all4 as density/silhouette evidence without a modular seam criterion, light/gray/dark logical and64px-cell use sheet. Frozen six actual consumer cases in both Chromium153 documented headless modes with recorded executables/options/version/DPR1/viewport/helper/input/atlas/rect/root/order hashes; exact sprite-layout099/world-sprite-raster570 composition, native nearest AFTER resize then ordinary whole-canvas CSS filtering. Actor context rockS(0,1), submarineN travel(2,0), eelN swim(4,1), static t0; context actors use exact current published art without family approval. Preserve native/CSS numerical residuals honestly. Fixture is bounded actual-helper composition, not claimed React/Godot/device execution; no Godot catalog entry for this prop.",
+    "Every declared packet hero/preview directly covered independently by the original judge at full resolution; lossless full-pixel tiles or explicit identical-hash aliases may establish coverage, reduced sheets/hash ledgers alone cannot. Unchanged candidate integrity/direction/acceptance gates. Exact resource manifests/minimal used private closure, files<100MB/no runtime app trees/pycache. Originals/backups/target/preparation/initial/brief/frozen criteria immutable. Editor owns source/candidates; judge owns reviews. No Git/index/production/deploy/liveBlender/device/shared-helper edits or extra agents."
+  ],
+  "reconciliation": {
+    "asset": "decor-background-rock",
+    "stage": "ROOT reconciliation BEFORE native construction",
+    "preparation": {
+      "path": "reviews/preparation-v1/manifest.json",
+      "sha256": "e126ab79d70c560c39a23680c551c724928ca0216837676005d571a6dc466956",
+      "rootVerifiedFiles": 153
+    },
+    "freshEditorInitial": {
+      "path": "source/initial-observations.json",
+      "sha256": "17100552b92ac7d42d192143e348d0aacfb73b12ed9c9f8ba97f1a7172426056"
+    },
+    "height": {
+      "decision": "Adopt actual source crown as1.075 native design budget with1e-6 representation tolerance; do not shrink to rounded nominal1.05.",
+      "xy": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        0,
+        1.075
+      ],
+      "nominalCatalogHeightRetained": 1.05
+    },
+    "support": "Keep actual ground plane and finite closed grounded stone semantics; permit useful base/outline remodeling within placement budget and tiny standalone silhouette drift. Baseline .9494783 cap union/area/old four parts are not exact geometry locks. No invented fullsquare opacity/feet/platform/ports.",
+    "camera": "Adopt measured own55.0079798 registered camera/native4x with complete-frame LANCZOS published2x; saved35 startup camera is unrelated. Preserve honest tiny root/basis/historical replay residuals.",
+    "style": "Freeze original five independent proposed visible outcomes, including quiet layer1 scenery role beside actual yellow submarine/eel context. Fixed target remains unchanged. Editor chooses native implementation and useful form/detail improvements; no exact target glare/part count mandate.",
+    "historicalEvidence": "All4 reconstructed historical frames have matching alpha extents but mean error<.00016/max5 channel residual; missing historical raw PNGs are not fabricated. Early BOX sheets are labeled diagnostics, not publication contract. Both consumer modes retained: all6 native pairs decoded-exact; CSS filtering residuals honest.",
+    "scope": "No candidate approval. Root later promotes exact approved bytes/publishes PR37; existing34-object Godot integration remains separate."
+  },
+  "requiredEvidence": {
+    "asset": "decor-background-rock",
+    "scope": "Bounded static standalone prop; no modular seam or motion playback requirement.",
+    "requiredFrames": [
+      "static/N/0",
+      "static/E/0",
+      "static/S/0",
+      "static/W/0"
+    ],
+    "previews": [
+      "Four-view full-frame sheet",
+      "Registered repeated3x3 for all facings as bounded density/silhouette evidence, with no seam criterion",
+      "Light/gray/dark standalone logical and small-use sheet",
+      "Actual declared6x4 submarine/eel context at320x720 and1280x720, including ordinary fractional world pan, in both documented browser modes"
+    ],
+    "consumerCasesPerMode": [
+      {
+        "name": "four-logical-wide",
+        "kind": "four",
+        "width": 1128,
+        "height": 720
+      },
+      {
+        "name": "four-phone320",
+        "kind": "four",
+        "width": 320,
+        "height": 720
+      },
+      {
+        "name": "repeat-S-phone320",
+        "kind": "repeat",
+        "facing": "S",
+        "width": 320,
+        "height": 720
+      },
+      {
+        "name": "repeat-N-landscape",
+        "kind": "repeat",
+        "facing": "N",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "name": "context-phone320",
+        "kind": "context",
+        "width": 320,
+        "height": 720
+      },
+      {
+        "name": "context-landscape-fractional",
+        "kind": "context",
+        "width": 1280,
+        "height": 720,
+        "pan": 0.1875
+      }
+    ],
+    "browserModes": [
+      {
+        "launch": {
+          "headless": true,
+          "channel": "chromium"
+        },
+        "version": "153.0.8010.12"
+      },
+      {
+        "launch": {
+          "headless": true
+        },
+        "version": "153.0.8010.12"
+      }
+    ],
+    "dpr": 1,
+    "scene": "Own actual6x4 interaction: rock S at(0,1), submarine N travel at(2,0), eel N swim at(4,1); static t0 context captures. Context actors retain their current published art and measured sprite registration; no other-object aesthetic conclusions were consulted.",
+    "nativeGate": "Measure actual saved native root/camera, all4 envelope/grounded closed support/effective ownership/static temporal channels and complete full-canvas LANCZOS publication; no exact old cap union or vertex/count lock.",
+    "coverage": "All declared media directly inspected by original judge, with exact-path/hash bindings and acyclic supplemental evidence; unchanged validators."
+  }
+}

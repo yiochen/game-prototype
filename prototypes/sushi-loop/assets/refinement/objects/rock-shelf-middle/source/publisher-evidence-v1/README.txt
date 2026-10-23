@@ -1,0 +1,20 @@
+PUBLISHER METADATA/REPRODUCTION SUPPLEMENT V1 — NO ART CHANGES OR APPROVAL
+Original source SHAda1b8a61f51d4dad60132e9627650ba1b2563e8f6887a6e27b0bb155926669af and all132 original manifest entries are unchanged. The original delivery/manifest/seal and seven exact previews remain authoritative unchanged art. This supplement supplies schema adaptation and actually measured all4 direction/registration evidence.
+
+Read-only clean-source replay:
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b source/round-01.blend -P source/publisher-evidence-v1/reopen-measure-render.py
+PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b source/round-01.blend -P source/publisher-evidence-v1/reopen-control-02.py
+PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/publisher-evidence-v1/derive-publisher-records.py
+Run in a NEW copy with empty new supplement outputs; scripts refuse to replace existing replay/metadata evidence. The exact saved Blender file is opened in background. No build recipe, shader/geometry/camera/light edits, source resave, fitting, recoloring or pixel repair occurs. Only the actual established root cardinal rotations and output filepath change in memory. All native output remains4x768x1408, EEVEE32/filter.5 under saved camera/grade/light. Root matrices/rotations, camera matrices/aspect/projection, native root/unit calibration, frame/fps and static action checks are measured from the evaluated reopened scene.
+
+Measured replay results:
+First clean replay N/E/S matches original native decodedRGBA exactly. First W has one green byte differing by1 at one native pixel, alpha identical; its BOX result also differs at one published pixel. That first result and its exact pixel data remain in first-replay-comparison.json and rgba-replay-and-publication-proof.json.
+The ordinary unchanged second all4 clean-source replay matches original native decodedRGBA and original wholeBOX publishedRGBA all4 exactly. First-vs-second W confirms the same1pixel residual. No further renders were made to seek equality. This is disclosed empirical renderer repeatability, not universal GPU bit identity or visual approval.
+
+Published records:
+native-camera-4x.json retains actual native4x measurements. camera-published-2x.json has captureScale2/frame192x352/anchor96,248, describing delivered source384x704. Its pixel calibration is exactly.5 times the actual native4x calibration; camera world/projection/aspect remain unchanged. Native root384,992 and nativeRaster768x1408 remain explicitly distinct. No native2x render is fabricated. WholeRGBA BOX reduction provenance points to measured proof and exact original published frames.
+asset-record-published-2x.json preserves original game/port/footprint/height/static contracts with truthful publishedScale2/nativeScale4 and actual current root/rig/material identities. rig.json records actual static object/material action checks, private geometry owners and measured lights from saved source. validation.json references the primary actual pose-ledger.json by exactpath/SHA; its views/captureRecords carry measured rootRotationZ/matrices compatible with unchanged audit_directions.py.
+
+Integration:
+delivery/publisher-v2/delivery.json uses project/recipeScript/validation/nativeRecords/heroes/previews/rawFrames/nativeRawFrames/atlases/resources expected by unchanged sealer/publisher. Heroes and all7 previews reference exact originals. RawFrames are exact published2x originals; nativeRawFrames are true original4x; original1x1 atlas layout/rects remain explicit. Every original132 file plus old handoff manifests/seal and new supplement is hash-bound.
+Unchanged seal_object.py permits --delivery only for JSON directly in the object root. Root coordinator should create a new byte-identical root alias (for example delivery-publisher-v2.json) for this nested delivery before official sealing. No shared tool changes or validator exceptions are needed. Official candidate packet, strict direction audit, original independent judge, and any promotion remain root-owned pending stages.

@@ -1,0 +1,264 @@
+{
+  "version": 2,
+  "asset": "chef-ellis",
+  "revision": "canonical-salmon-dependency-only",
+  "status": "proposed-awaiting-coordinator-freeze",
+  "candidateExists": false,
+  "approvalIssued": false,
+  "scope": "Replace only the held packed2D salmon image and the specifically required food-plane full UV/aspect/provenance. Carry forward the exact approved round04 native body and knife. This revision does not reopen body modeling, art direction, materials, lighting, rig, or actions; its explicit foodUpdate scope overrides the general modeling-freedom language inherited by brief-v2-food.json.",
+  "basis": {
+    "brief": "brief-v2-food.json",
+    "approvedBodyBaseline": {
+      "round": "round-04",
+      "project": "source/round-04.blend",
+      "projectSHA256": "2767a8239378e0e44b41c6a4f2870ca9fece3eed9390cac78594f54efb4033a4",
+      "packet": "candidates/round-04/packet.json",
+      "packetSHA256": "bfbb557f075c81826d2f501e2b4b329be6776078345f40b7eeccaf4d593d57d4",
+      "review": "reviews/round-04.json",
+      "reviewSHA256": "4b79e92aaa8168fb54c87cbc7e8d647c399080702844b0c5161f0dfa9eeda71b",
+      "scope": "Exact approved body geometry/material/light/rig/action/camera and visible form must stay unchanged; replace only the held2D salmon source/UV/aspect as specified."
+    },
+    "approvedBodyBackup": {
+      "path": "inputs/approved-round04.blend",
+      "sha256": "2767a8239378e0e44b41c6a4f2870ca9fece3eed9390cac78594f54efb4033a4",
+      "byteIdenticalToApprovedProject": true
+    },
+    "priorStyleCriteria": {
+      "path": "reviews/criteria.json",
+      "sha256": "ceb45e210a00cc7e612a1aac311a8161623a3d860d156579c2b4d8493a5e227f",
+      "preservedOutcomeIds": [
+        "shape-volume",
+        "ellis-identity-color",
+        "light-highlights",
+        "material-crafted-detail",
+        "readability-artifacts",
+        "motion-role-contact"
+      ],
+      "interpretation": "The established warm soft shape, identity/color, broad soft highlights, crafted detail and artifact/readability bar remains in force. It is preserved by exact approved-body parity and complete integration checks, not by asking for further body redesign."
+    },
+    "foodDependency": {
+      "asset": "dish-salmon",
+      "representation": "exact canonical approved packed2D raster texture; not modeled3D food",
+      "path": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "size": [
+        731,
+        505
+      ],
+      "fullSourceUVRectangle": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "canonicalAlphaRectangleTopOrigin": [
+        0,
+        0,
+        731,
+        505
+      ],
+      "worldWidthCells": 0.35,
+      "worldHeightCells": 0.2417920656634747,
+      "originalRootScale": 1.25,
+      "localPlaneWidthAtOriginalScale": 0.27999999999999997,
+      "localPlaneHeightAtOriginalScale": 0.1934336525307797,
+      "nativeCaptureDisplaySizePixels": [
+        89.6,
+        61.89876880984952
+      ],
+      "logicalDisplaySizePixels": [
+        44.8,
+        30.94938440492476
+      ],
+      "anchor": "Original food-root path at evaluated palm midpoint plus0.0225 worldZ; quad lower edge stays at this bottom attachment. Existing0.60 world-cell camera-ray depth bias and facing cancellation remain unchanged."
+    },
+    "receipts": [
+      {
+        "role": "canonical-art",
+        "path": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+        "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+        "matchesExpected": true
+      },
+      {
+        "role": "salmon-packet",
+        "path": "../dish-salmon/candidates/round01/packet.json",
+        "sha256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+        "matchesExpected": true
+      },
+      {
+        "role": "salmon-review-receipt",
+        "path": "../dish-salmon/reviews/round01.json",
+        "sha256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+        "matchesExpected": true
+      },
+      {
+        "role": "approved-body",
+        "path": "source/round-04.blend",
+        "sha256": "2767a8239378e0e44b41c6a4f2870ca9fece3eed9390cac78594f54efb4033a4",
+        "matchesExpected": true
+      },
+      {
+        "role": "approved-body-backup",
+        "path": "inputs/approved-round04.blend",
+        "sha256": "2767a8239378e0e44b41c6a4f2870ca9fece3eed9390cac78594f54efb4033a4",
+        "matchesExpected": true
+      },
+      {
+        "role": "approved-body-packet",
+        "path": "candidates/round-04/packet.json",
+        "sha256": "bfbb557f075c81826d2f501e2b4b329be6776078345f40b7eeccaf4d593d57d4",
+        "matchesExpected": true
+      },
+      {
+        "role": "approved-body-review",
+        "path": "reviews/round-04.json",
+        "sha256": "4b79e92aaa8168fb54c87cbc7e8d647c399080702844b0c5161f0dfa9eeda71b",
+        "matchesExpected": true
+      }
+    ]
+  },
+  "allowedDelta": [
+    "Replace the old packed salmon source image bytes with exactly the canonical731x505 PNG SHA2564389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4; update only the image binding and necessary source-version/path/packed-dependency metadata.",
+    "Use one full-source UV rectangle0..1 over the existing food quad. Retain its lower-edge origin and0.35 world-cell width; set its screen-plane height to0.35*505/731=0.2417920656634747 world cells for the true canonical aspect. At unchanged root scale1.25 this is local width0.28 and height0.1934336525307797.",
+    "Record the intentional old-to-new image hash, dimensions, UV rectangle, aspect and resource provenance. The food image/food-quad UV/height changes are the only visual-source changes authorized by this revision."
+  ],
+  "immutableTechnicalConstraints": [
+    "Native3D body and knife must remain exactly the approved round04 design: object membership, mesh topology and vertex coordinates, shading/normals, materials and node values/links, material assignments, UVs, modifiers, weights, object/parent/rest transforms, constraints/drivers, rig and all action data. No body or knife remodeling, recoloring, rescaling, smoothing, added decoration or material-response adjustment.",
+    "Keep the exact approved camera/root/capture and light/world/render response. Registered35-degree orthographic projection, native384x640 RGBA, logical192x320/root96,248, sourceScale2, cellSize128 and square pixels; S0/E+90/N180/W-90 with approved child orientation. No per-pose/view fitting, crop, root shift, image warp, retouch or per-facing color correction.",
+    "Retain the approved one-cell body/knife bounds and nominal/rest height1.3968749046325684, with the identical authored motion/bob and approved animated body maximumZ1.3984133005142212. Compare to approved round04, not a newly fitted silhouette or a flattened nominal-height cap.",
+    "All four original twelve-frame states and all four facings remain:192 indexed native frames,16 original-layout atlases2304x1280 in6x2 cells, frame order0..11 at12fps. Idle/work/hold loop; load remains non-looping. Closure key13 is evidence only.",
+    "Food root/quad object transforms, parent relationship, attachment actions, yaw-cancellation and camera-ray offset drivers, width and visibility remain approved04 values. Only the food quad vertex height and UV coordinates change as explicitly allowed. Dish is hidden during idle/work, visible throughout hold/load; native knife is visible during work only.",
+    "Load retains its original outward-and-return path and dish visibility through frame11, including its duplicate symmetric poses. Do not introduce a release, belt landing, transfer path, new station or walk animation.",
+    "Preserve the existing2D food material graph/alpha/texture-sampling response, apart from pointing its image node at the new exact canonical source. No food recoloring, relighting, re-rendered substitutes, additional crop, UV bounds fitting, directional variant, raster repair or body-lighting compensation.",
+    "Pack the exact canonical PNG into the reopened candidate and preserve its full resource closure. Metadata must identify the new731x505/fullUV revision rather than retain stale old1254x1254/old-alpha-rectangle claims. Keep representation explicitly packed2D and exclude its display-only ray bias from physical body bounds.",
+    "Keep sealed round04 brief/source/backup/packet/review/renders unchanged. Write a new versioned candidate and bind this food-only brief/criteria, exact approved-body baseline, canonical image and approval-receipt hashes."
+  ],
+  "aestheticOutcomes": [
+    {
+      "id": "approved-body-parity",
+      "priority": 1,
+      "outcome": "Ellis body, knife, identity, soft volume, warm shading, crafted details and authored motion look exactly as independently approved in round04. The new food source must not create a pretext for changes to the body/camera/light response.",
+      "visibleChecks": [
+        "Idle/work views retain the approved face, cap/fringe, round black glasses, ivory sleeves, orange apron and native wood/steel-colored knife.",
+        "Held/load outputs retain that same approved character, with differences attributable only to the new food artwork, authorized aspect/UV and resulting natural source occlusion.",
+        "No new body/artifact dead spot, seam, popup or loss of facial/garment readability is accepted."
+      ]
+    },
+    {
+      "id": "canonical-food-readability",
+      "priority": 1,
+      "outcome": "The actual new held artwork reads as orange salmon with pale fat bands over light rice on an ivory/cream plate at intended logical size in every frame where the source pose makes it visible. Its broad fish/rice/plate forms remain legible and proportionally correct at approximately44.8x30.95 logical pixels before pose occlusion.",
+      "visibleChecks": [
+        "The salmon/rice/plate silhouette uses the full731x505 source aspect, with no stretch, squashed plate, clipped source edge or extra crop.",
+        "Inspect every hold/load frame in S/E/N/W, including maximum outward pose and ending pose; avoid judging integration from idle heroes where the food is hidden.",
+        "Expected N body occlusion and the inherited source side overlap are accepted honestly. Do not move the dish, change the face/body or alter drivers to manufacture visibility. Material new clipping/readability regressions must be reported and solved only within the authorized food update or returned as a constraint conflict."
+      ]
+    },
+    {
+      "id": "warm-style-response",
+      "priority": 1,
+      "outcome": "The canonical warm salmon, pale rice and cream plate sit coherently with the approved softly lit Ellis while retaining their fixed source illustration. The shared approved native response remains unchanged.",
+      "visibleChecks": [
+        "Orange fish remains distinguishable from ginger hair and orange apron through its source silhouette, pale bands/rice and plate edge.",
+        "Plate/rice highlights do not become a blown unreadable patch; no new muddy dark area, bright matte rim or distracting speck is introduced by UV, sampling, alpha or aspect integration.",
+        "Do not copy or invent lighting corrections for individual facings, change food pixels, or regrade the approved body. Fine source texture need not survive as individual rice grains at45-pixel display width."
+      ]
+    },
+    {
+      "id": "food-edge-artifact-quality",
+      "priority": 1,
+      "outcome": "All food edges remain clean against light, neutral gray and dark review backgrounds at logical size and enlarged. The canonical art is sampled without newly introduced halo, alpha bleed, detached pixels, crop seam, texture swimming or frame/facing flicker.",
+      "visibleChecks": [
+        "Use exact canonical bytes; inspection is of integration quality and visible materiality, not permission to repaint an already approved dependency.",
+        "The shorter full-source plane remains bottom-anchored consistently through motion and rotation.",
+        "Do not confuse the intentional2D plate display/depth bias with a physical3D footprint or proof of bilateral palm-on-dish contact."
+      ]
+    },
+    {
+      "id": "attachment-and-motion-continuity",
+      "priority": 1,
+      "outcome": "Food motion and bottom registration stay locked to approved04: evaluated palm midpoint plus0.0225 worldZ, player-facing yaw cancellation and0.60 world-cell camera-ray bias. The source switch changes food image/aspect, not its path, scale width, timing or visibility.",
+      "visibleChecks": [
+        "Twelve-fps hold/load playback shows no plate sliding, vertical jump, scale pulse, skew, new exposure pop or lost ending dish.",
+        "All source/candidate foot, palm, native knife and food-root transforms agree frame by frame; lower quad edge is anchored at the same food root.",
+        "Looping hold closes smoothly at key13; load stops after its original twelve indexed samples with dish retained."
+      ]
+    },
+    {
+      "id": "reopened-source-version-truth",
+      "priority": 1,
+      "outcome": "The delivered editable source, captures, dependency metadata and packet all identify and use this exact new canonical salmon version, while independently proving the body/knife remain approved04 bytes/data.",
+      "visibleChecks": [
+        "Reopen the exact candidate blend and hash the packed image payload; confirm731x505/fullUV0..1/0.35 width/proper height and preserved anchor/driver/action setup.",
+        "No stale old image remains active or can silently resolve through an absolute external path.",
+        "Delivery and capture provenance distinguish a preserved native3D body/knife from the replaced packed2D food and bind the approved canonical image and receipt hashes."
+      ]
+    }
+  ],
+  "requiredEvidence": [
+    "A new immutable packet bound to the exact candidate blend, brief-v2-food.json frozen criteria, approved-round04 source/backup and canonical PNG plus its packet/review receipt hashes. Keep old sealed04 bytes untouched and include explicit old/new source-version metadata.",
+    "A semantic native-data parity audit against exact approved04: all body/knife mesh data, materials/node response/links, UVs, weights/modifiers/normals, transforms/parents/drivers/constraints, rig/rest/action contents, camera/world/lights/render response. A whole-blend hash will differ for the authorized image/quad updates, so enumerate and verify the precise allowed data delta rather than claiming whole-file identity.",
+    "All192 evaluated frame comparisons to approved04 for body/bone/foot/palm/native-knife/food-root transforms, contact/width/yaw/depth/visibility and stable body topology; exact approved-body envelope/height/bob. Food UV/quad-height delta must match the full-source aspect formula without moving its lower anchor.",
+    "Complete192 native frame records,16 unchanged-layout atlases and verified all-frame sheets on light/gray/dark backgrounds; all16 actual12fps state/facing previews with original loop policy. Inspect every affected hold/load frame and relevant enlarged details. Idle/work body evidence may be compared to the already approved04 set, while new integration proof must use the actual new packed source.",
+    "Visible and numerical hold-loop key13 closure for all facings, original non-loop load endpoints/visibility, and native belt/side/customer context captures adequate to expose the new food attachment/readability. No invented release or physical3D food-contact claim.",
+    "Reopened dependency audit hashing the packed canonical PNG payload, image dimensions, full0..1 UV corners, local/world quad width and height, lower-edge origin, unchanged food material response and drivers/actions. Confirm no missing external library/texture and no stale active old-food source or old-dimension/alpha-rectangle metadata.",
+    "Native image/source provenance connecting captures to the reopened exact candidate. Compare body pixels/appearance against approved04 and, where food occlusion makes direct pixels ambiguous, use body-only diagnostic comparison or native semantic parity. Any non-food visible change requires explanation and must not conceal a body/camera/material/light edit.",
+    "Final review records every actually inspected packet render/preview path, exact packet SHA256 and concrete observations. Missing body-parity/dependency/motion evidence requires needs_evidence, not an assumed carry-forward pass."
+  ],
+  "initialDependencyInspection": {
+    "canonicalArtworkInspected": true,
+    "canonicalArtworkBackgrounds": [
+      "light",
+      "gray",
+      "dark"
+    ],
+    "canonicalArtObserved": "Warm orange salmon with broad pale fat bands, soft rounded fish/rice volume and cream plate; full alpha bounds731x505. Integration must establish readability at fixed44.8px logical width.",
+    "receiptHashesVerified": true,
+    "otherJudgeCritiqueRead": false,
+    "receiptHandling": "The salmon review was byte-hashed only as a provenance receipt; its critique/verdict prose was not opened or adopted. Salmon packet source/render identity bindings were inspected as dependency metadata.",
+    "approvedBodyEvidenceReuse": "Own sealed round04 body review and its full192-frame/native rig/contact evidence remain the body baseline. This initial food-only scope does not rerun or replace that approval. Future candidate must prove exact body parity and actual new-food integration before any revised approval.",
+    "candidateReviewed": false,
+    "candidateVerdict": null,
+    "inspectedFiles": [
+      "brief-v2-food.json",
+      "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "../dish-salmon/candidates/round01/packet.json",
+      "reviews/criteria.json",
+      "reviews/round-04.json",
+      "reviews/round-04-inspection/independent-native-summary.json",
+      "reviews/food-v2-inspection/canonical-salmon-backgrounds.png"
+    ],
+    "hashOnlyReceiptFiles": [
+      "../dish-salmon/reviews/round01.json",
+      "candidates/round-04/packet.json",
+      "source/round-04.blend",
+      "inputs/approved-round04.blend"
+    ],
+    "sourceVersionChange": {
+      "oldPackedImageSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+      "oldPackedImageSize": [
+        1254,
+        1254
+      ],
+      "oldUVBounds": [
+        0.0,
+        0.04465709626674652,
+        0.9904305934906006,
+        0.9322168827056885
+      ],
+      "newPackedImageSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "newPackedImageSize": [
+        731,
+        505
+      ],
+      "newUVBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reason": "Canonicalsource replacement with full-source aspect, not a resize/retouch or new contact behavior."
+    }
+  },
+  "approvalPolicy": "Proposed criteria only; no candidate exists and no new approval is issued. Stop for coordinator freeze. A future approval must satisfy the exact body lock, exact canonical dependency/UV/aspect/source-version truth and the existing material-artifact/readability bar over all required captures; it binds only the reviewed new packet. The prior body design is preserved rather than reopened."
+}

@@ -1,0 +1,1514 @@
+{
+  "project": "prototypes/sushi-loop/assets/refinement/objects/customer-rosa/source/round-05-runtime.blend",
+  "projectSHA256": "8410bf57d04105384d51021a43d81b98d3775c88948079626e78943655dc3805",
+  "rigSHA256": "1e5d935943b4f77aa1220ab43defc26729af6fe40518e446c4b1fc25c2aa2479",
+  "collection": "S10 meal S33_CHARACTER_customer_rosa.003",
+  "objectCount": 38,
+  "root": "S10 meal customer_rosa__ground_root.001",
+  "rootLocation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rootScale": [
+    1.25,
+    1.25,
+    1.25
+  ],
+  "rootProperties": {
+    "uniform_native_scale": 1.25,
+    "anatomy_height": 1.2746186554431915,
+    "seat_environment_z": 0.655,
+    "seat_character_plane": 0.4477801191577021,
+    "seat_pelvis_offset": 0.08,
+    "food_composition": "ImageGen dish-cucumber fixed alpha plane attached to evaluated palms; facing-independent image; knife during work.",
+    "held_food_source": "{\"path\": \"/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-cucumber.png\", \"sha256\": \"dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776\", \"alphaRectangleBottomOrigin\": [0, 120, 1234, 1201], \"worldWidthCells\": 0.35, \"cameraElevationDegrees\": 35, \"facingPolicy\": \"player-facing, native yaw cancellation driver\", \"registration\": \"fixed full source alpha rectangle, lowest plate pixel at evaluated palm attachment\", \"cameraRayDepthBiasCells\": 0.6, \"attachmentRevision\": 3}"
+  },
+  "armature": "S10 meal customer_rosa__armature.001",
+  "restBones": [
+    {
+      "name": "ground",
+      "parent": null,
+      "head": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        0.1
+      ],
+      "deform": false
+    },
+    {
+      "name": "pelvis",
+      "parent": "ground",
+      "head": [
+        0.0,
+        0.0,
+        0.15000001
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        0.205
+      ],
+      "deform": true
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "head": [
+        0.0,
+        0.0,
+        0.205
+      ],
+      "tail": [
+        0.0,
+        0.0,
+        0.38499999
+      ],
+      "deform": true
+    },
+    {
+      "name": "neck",
+      "parent": "spine",
+      "head": [
+        0.0,
+        0.005,
+        0.38499999
+      ],
+      "tail": [
+        0.0,
+        0.005,
+        0.43000001
+      ],
+      "deform": true
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "head": [
+        0.0,
+        0.005,
+        0.43000001
+      ],
+      "tail": [
+        0.0,
+        0.005,
+        0.91000003
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm_L",
+      "parent": "spine",
+      "head": [
+        -0.198,
+        0.004,
+        0.352
+      ],
+      "tail": [
+        -0.24900001,
+        -0.002,
+        0.24699998
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm_L",
+      "parent": "upper_arm_L",
+      "head": [
+        -0.249,
+        -0.002,
+        0.24699999
+      ],
+      "tail": [
+        -0.26699999,
+        -0.023,
+        0.211
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand_L",
+      "parent": "forearm_L",
+      "head": [
+        -0.26699999,
+        -0.023,
+        0.211
+      ],
+      "tail": [
+        -0.26699999,
+        -0.025,
+        0.125
+      ],
+      "deform": true
+    },
+    {
+      "name": "upper_arm_R",
+      "parent": "spine",
+      "head": [
+        0.198,
+        0.004,
+        0.352
+      ],
+      "tail": [
+        0.24900001,
+        -0.002,
+        0.24699998
+      ],
+      "deform": true
+    },
+    {
+      "name": "forearm_R",
+      "parent": "upper_arm_R",
+      "head": [
+        0.249,
+        -0.002,
+        0.24699999
+      ],
+      "tail": [
+        0.26699999,
+        -0.023,
+        0.211
+      ],
+      "deform": true
+    },
+    {
+      "name": "hand_R",
+      "parent": "forearm_R",
+      "head": [
+        0.26699999,
+        -0.023,
+        0.211
+      ],
+      "tail": [
+        0.26699999,
+        -0.025,
+        0.125
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh_L",
+      "parent": "pelvis",
+      "head": [
+        -0.115,
+        0.005,
+        0.15000001
+      ],
+      "tail": [
+        -0.115,
+        -0.013,
+        0.08500001
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin_L",
+      "parent": "thigh_L",
+      "head": [
+        -0.115,
+        -0.013,
+        0.085
+      ],
+      "tail": [
+        -0.115,
+        0.0,
+        0.035
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot_L",
+      "parent": "shin_L",
+      "head": [
+        -0.115,
+        0.0,
+        0.035
+      ],
+      "tail": [
+        -0.115,
+        -0.12,
+        0.035
+      ],
+      "deform": true
+    },
+    {
+      "name": "thigh_R",
+      "parent": "pelvis",
+      "head": [
+        0.115,
+        0.005,
+        0.15000001
+      ],
+      "tail": [
+        0.115,
+        -0.013,
+        0.08500001
+      ],
+      "deform": true
+    },
+    {
+      "name": "shin_R",
+      "parent": "thigh_R",
+      "head": [
+        0.115,
+        -0.013,
+        0.085
+      ],
+      "tail": [
+        0.115,
+        0.0,
+        0.035
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot_R",
+      "parent": "shin_R",
+      "head": [
+        0.115,
+        0.0,
+        0.035
+      ],
+      "tail": [
+        0.115,
+        -0.12,
+        0.035
+      ],
+      "deform": true
+    },
+    {
+      "name": "foot_goal_L",
+      "parent": "ground",
+      "head": [
+        -0.115,
+        0.0,
+        0.035
+      ],
+      "tail": [
+        -0.115,
+        0.0,
+        0.11
+      ],
+      "deform": false
+    },
+    {
+      "name": "knee_pole_L",
+      "parent": "ground",
+      "head": [
+        -0.115,
+        -0.2,
+        0.085
+      ],
+      "tail": [
+        -0.115,
+        -0.2,
+        0.16
+      ],
+      "deform": false
+    },
+    {
+      "name": "hand_goal_L",
+      "parent": "ground",
+      "head": [
+        -0.26699999,
+        -0.023,
+        0.211
+      ],
+      "tail": [
+        -0.26699999,
+        -0.023,
+        0.31099999
+      ],
+      "deform": false
+    },
+    {
+      "name": "elbow_pole_L",
+      "parent": "ground",
+      "head": [
+        -0.47999999,
+        -0.06,
+        0.27000001
+      ],
+      "tail": [
+        -0.47999999,
+        -0.06,
+        0.34999999
+      ],
+      "deform": false
+    },
+    {
+      "name": "foot_goal_R",
+      "parent": "ground",
+      "head": [
+        0.115,
+        0.0,
+        0.035
+      ],
+      "tail": [
+        0.115,
+        0.0,
+        0.11
+      ],
+      "deform": false
+    },
+    {
+      "name": "knee_pole_R",
+      "parent": "ground",
+      "head": [
+        0.115,
+        -0.2,
+        0.085
+      ],
+      "tail": [
+        0.115,
+        -0.2,
+        0.16
+      ],
+      "deform": false
+    },
+    {
+      "name": "hand_goal_R",
+      "parent": "ground",
+      "head": [
+        0.26699999,
+        -0.023,
+        0.211
+      ],
+      "tail": [
+        0.26699999,
+        -0.023,
+        0.31099999
+      ],
+      "deform": false
+    },
+    {
+      "name": "elbow_pole_R",
+      "parent": "ground",
+      "head": [
+        0.47999999,
+        -0.06,
+        0.27000001
+      ],
+      "tail": [
+        0.47999999,
+        -0.06,
+        0.34999999
+      ],
+      "deform": false
+    }
+  ],
+  "savedActiveCamera": {
+    "scene": "S10 Starter Meal Variants",
+    "camera": "S33 Capture Camera.260",
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "resolution": [
+      384,
+      640
+    ]
+  },
+  "registeredCamera": {
+    "name": "S33 Capture Camera.260",
+    "worldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
+    "resolution": [
+      384,
+      640
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "groundRootPx": [
+      192.0,
+      495.999755859375
+    ],
+    "unitXPx": [
+      447.99998474121094,
+      495.999755859375
+    ],
+    "unitDepthPx": [
+      192.0,
+      642.8352814912796
+    ],
+    "unitHeightPx": [
+      192.0,
+      286.2968063354492
+    ]
+  },
+  "food": {
+    "root": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber",
+    "plane": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+    "localVertices": [
+      [
+        -0.13677081,
+        0.03276219,
+        0.0
+      ],
+      [
+        0.13947614,
+        0.03276219,
+        0.0
+      ],
+      [
+        0.13947614,
+        0.22360311,
+        0.0
+      ],
+      [
+        -0.13677081,
+        0.22360311,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "imageName": "Rosa refined runtime canonical dish-salmon",
+    "imageSize": [
+      731,
+      505
+    ],
+    "packedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "props": {
+      "representation": "exact approved canonical packed 2D raster, not modeled 3D food",
+      "fixed_alpha_rectangle": "[0, 56, 1242, 1169]",
+      "source_image": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "source_sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "world_width_cells": 0.34530868615379856,
+      "camera_ray_depth_bias_world_cells": 0.6,
+      "meal_variant": "salmon eating; no food while waiting",
+      "semantic_mapping_alpha": 128
+    },
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "id": "S10 meal customer_rosa__ground_root.001",
+            "path": "rotation_euler[2]"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "id": "S10 meal customer_rosa__ground_root.001",
+            "path": "rotation_euler[2]"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "id": "S10 meal customer_rosa__ground_root.001",
+            "path": "rotation_euler[2]"
+          }
+        ]
+      }
+    ]
+  },
+  "clips": {
+    "eat-salmon": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true,
+      "firstFrame": 1,
+      "lastUniqueFrame": 12,
+      "closingKeyFrame": 13,
+      "actions": [
+        {
+          "owner": "S10 meal customer_rosa__armature.001",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__armature.003",
+          "sha256": "5bea916fa0c89dc1facb8904575b3785186c3b0a031f9808cf6f86c0d293e7f4"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber.002",
+          "sha256": "c0b951d34aec022a53a90e5da6da11d87c95e3bbb015eb0792833ba8c4a4fe61"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+          "sha256": "d471cf687e3d5510998000d36b092e7e6e4fe3f5b0340486ac47269fd9e9f3e7"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__utensil",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__utensil.002",
+          "sha256": "af0588ee1d1d9466acd921de294a4c07d9ee6e2303e9384b9919b1f02bdab1d1"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__knife_handle",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_handle.002",
+          "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__knife_blade",
+          "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_blade.002",
+          "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2"
+        }
+      ],
+      "samples": 48,
+      "samplesSHA256": "2f5c2ac29e87c907eb50164cdc32bf3884721bbf79d4e1672bd9f4f6c638dfb3",
+      "physicalGeometryBounds": [
+        [
+          -0.4445025,
+          -0.4445025,
+          0.51278359
+        ],
+        [
+          0.4445025,
+          0.4445025,
+          1.72513938
+        ]
+      ],
+      "contactRanges": {
+        "pelvis": [
+          [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          [
+            0.0,
+            0.0,
+            0.65972513
+          ]
+        ],
+        "head": [
+          [
+            -0.01114921,
+            -0.01114921,
+            1.00960338
+          ],
+          [
+            0.01114921,
+            0.01114921,
+            1.00977826
+          ]
+        ],
+        "foot_L": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722528
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722528
+          ]
+        ],
+        "foot_R": [
+          [
+            -0.14375001,
+            -0.14375001,
+            0.56722528
+          ],
+          [
+            0.14375001,
+            0.14375001,
+            0.56722528
+          ]
+        ],
+        "hand_L": [
+          [
+            -0.18232496,
+            -0.18232498,
+            0.86681247
+          ],
+          [
+            0.18232499,
+            0.18232499,
+            0.86786067
+          ]
+        ],
+        "hand_R": [
+          [
+            -0.17300798,
+            -0.17300798,
+            0.8667773
+          ],
+          [
+            0.17300798,
+            0.17300797,
+            1.01356637
+          ]
+        ],
+        "foot_goal_L": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722516
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722516
+          ]
+        ],
+        "foot_goal_R": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722516
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722516
+          ]
+        ],
+        "hand_goal_L": [
+          [
+            -0.18232505,
+            -0.18232507,
+            0.86681271
+          ],
+          [
+            0.18232508,
+            0.18232508,
+            0.86786067
+          ]
+        ],
+        "hand_goal_R": [
+          [
+            -0.17300802,
+            -0.17300802,
+            0.86677724
+          ],
+          [
+            0.17300802,
+            0.17300801,
+            1.01356637
+          ]
+        ],
+        "ground": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "seat": [
+          [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          [
+            0.0,
+            0.0,
+            0.55972517
+          ]
+        ],
+        "mouth": [
+          [
+            -0.325607,
+            -0.325607,
+            1.14642024
+          ],
+          [
+            0.325607,
+            0.325607,
+            1.15534365
+          ]
+        ]
+      },
+      "foodVisibleSamples": 48,
+      "sampleFirst": {
+        "facing": "N",
+        "frame": 1,
+        "bones": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          "head": [
+            0.0,
+            -0.00625,
+            1.00972509
+          ],
+          "foot_L": [
+            0.14375,
+            0.07500003,
+            0.56722528
+          ],
+          "foot_R": [
+            -0.14375001,
+            0.075,
+            0.56722528
+          ],
+          "hand_L": [
+            0.17589074,
+            0.17927471,
+            0.86734998
+          ],
+          "hand_R": [
+            -0.14353186,
+            0.16521774,
+            0.948493
+          ],
+          "foot_goal_L": [
+            0.14375,
+            0.07500001,
+            0.56722516
+          ],
+          "foot_goal_R": [
+            -0.14375,
+            0.07499998,
+            0.56722516
+          ],
+          "hand_goal_L": [
+            0.17589064,
+            0.17927472,
+            0.86734998
+          ],
+          "hand_goal_R": [
+            -0.14353178,
+            0.16521774,
+            0.948493
+          ]
+        },
+        "contacts": {
+          "ground": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "seat": [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          "mouth": [
+            -3e-08,
+            0.31874999,
+            1.15097511
+          ]
+        },
+        "foodRoot": [
+          0.01617943,
+          0.22877099,
+          0.92608941
+        ],
+        "corners": [
+          [
+            -0.15478405,
+            -0.23923069,
+            1.30378187
+          ],
+          [
+            0.19052464,
+            -0.23923069,
+            1.30378187
+          ],
+          [
+            0.19052464,
+            -0.10240337,
+            1.49919152
+          ],
+          [
+            -0.15478405,
+            -0.10240337,
+            1.49919152
+          ]
+        ],
+        "projectedCorners": [
+          [
+            152.3752784729004,
+            257.7204132080078
+          ],
+          [
+            240.77430725097656,
+            257.7204132080078
+          ],
+          [
+            240.77430725097656,
+            196.65130615234375
+          ],
+          [
+            152.3752784729004,
+            196.65130615234375
+          ]
+        ],
+        "foodVisible": true
+      },
+      "sampleLast": {
+        "facing": "W",
+        "frame": 12,
+        "bones": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          "head": [
+            0.00869982,
+            -0.0,
+            1.00967288
+          ],
+          "foot_L": [
+            -0.075,
+            0.14375,
+            0.56722528
+          ],
+          "foot_R": [
+            -0.07500003,
+            -0.14375001,
+            0.56722528
+          ],
+          "hand_L": [
+            -0.17774603,
+            0.17631923,
+            0.86760873
+          ],
+          "hand_R": [
+            -0.17267732,
+            -0.15328376,
+            0.90751803
+          ],
+          "foot_goal_L": [
+            -0.07499999,
+            0.14375,
+            0.56722516
+          ],
+          "foot_goal_R": [
+            -0.075,
+            -0.14375,
+            0.56722516
+          ],
+          "hand_goal_L": [
+            -0.17774604,
+            0.17631936,
+            0.86760873
+          ],
+          "hand_goal_R": [
+            -0.17267734,
+            -0.15328389,
+            0.90751815
+          ]
+        },
+        "contacts": {
+          "ground": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "seat": [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          "mouth": [
+            -0.31528527,
+            -0.00386841,
+            1.15318322
+          ]
+        },
+        "foodRoot": [
+          -0.23173644,
+          0.01151774,
+          0.90573132
+        ],
+        "corners": [
+          [
+            -0.40269998,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.31965664,
+            1.47883344
+          ],
+          [
+            -0.40269998,
+            -0.31965664,
+            1.47883344
+          ]
+        ],
+        "projectedCorners": [
+          [
+            88.90880584716797,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            232.8209686279297
+          ],
+          [
+            88.90880584716797,
+            232.8209686279297
+          ]
+        ],
+        "foodVisible": true
+      }
+    },
+    "seated-wait-empty": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true,
+      "firstFrame": 1,
+      "lastUniqueFrame": 12,
+      "closingKeyFrame": 13,
+      "actions": [
+        {
+          "owner": "S10 meal customer_rosa__armature.001",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__armature.003",
+          "sha256": "e4cdbe21bdf053881092d67c98a4e559cd69456ebaa60a7ad44e7eba610aae2e"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber.002",
+          "sha256": "f5bdb55662c1b11f122900ed6e890d5b541eb960cfaaf95a2663844d7f676545"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+          "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__utensil",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__utensil.002",
+          "sha256": "57b7fbe1805b45377c3aab028343d4376ab8b099a20ea4ac1bbd11bd387ed3d7"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__knife_handle",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_handle.002",
+          "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2"
+        },
+        {
+          "owner": "S10 meal customer_rosa__ground_root.001__knife_blade",
+          "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_blade.002",
+          "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2"
+        }
+      ],
+      "samples": 48,
+      "samplesSHA256": "a9161009c31d6a8c4f88fd16b491f076d111a6a2cda78e9b955916d48902572a",
+      "physicalGeometryBounds": [
+        [
+          -0.43737325,
+          -0.43737325,
+          0.51278359
+        ],
+        [
+          0.43737325,
+          0.43737325,
+          1.72513664
+        ]
+      ],
+      "contactRanges": {
+        "pelvis": [
+          [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          [
+            0.0,
+            0.0,
+            0.65972513
+          ]
+        ],
+        "head": [
+          [
+            -0.01114921,
+            -0.01114921,
+            1.00960338
+          ],
+          [
+            0.01114921,
+            0.01114921,
+            1.00977826
+          ]
+        ],
+        "foot_L": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722528
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722528
+          ]
+        ],
+        "foot_R": [
+          [
+            -0.14375001,
+            -0.14375001,
+            0.56722528
+          ],
+          [
+            0.14375001,
+            0.14375001,
+            0.56722528
+          ]
+        ],
+        "hand_L": [
+          [
+            -0.18531048,
+            -0.18531047,
+            0.84597498
+          ],
+          [
+            0.18531047,
+            0.1853105,
+            0.84630376
+          ]
+        ],
+        "hand_R": [
+          [
+            -0.18634985,
+            -0.18634984,
+            0.83761996
+          ],
+          [
+            0.18634984,
+            0.18634984,
+            0.85597479
+          ]
+        ],
+        "foot_goal_L": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722516
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722516
+          ]
+        ],
+        "foot_goal_R": [
+          [
+            -0.14375,
+            -0.14375,
+            0.56722516
+          ],
+          [
+            0.14375,
+            0.14375,
+            0.56722516
+          ]
+        ],
+        "hand_goal_L": [
+          [
+            -0.18531057,
+            -0.18531056,
+            0.84597516
+          ],
+          [
+            0.18531056,
+            0.18531059,
+            0.84630382
+          ]
+        ],
+        "hand_goal_R": [
+          [
+            -0.18634997,
+            -0.18634996,
+            0.83761996
+          ],
+          [
+            0.18634996,
+            0.18634996,
+            0.85597515
+          ]
+        ],
+        "ground": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "seat": [
+          [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          [
+            0.0,
+            0.0,
+            0.55972517
+          ]
+        ],
+        "mouth": [
+          [
+            -0.32529804,
+            -0.32529804,
+            1.14642465
+          ],
+          [
+            0.32529804,
+            0.32529804,
+            1.15534103
+          ]
+        ]
+      },
+      "foodVisibleSamples": 0,
+      "sampleFirst": {
+        "facing": "N",
+        "frame": 1,
+        "bones": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          "head": [
+            0.0,
+            -0.00625,
+            1.00972509
+          ],
+          "foot_L": [
+            0.14375,
+            0.07500003,
+            0.56722528
+          ],
+          "foot_R": [
+            -0.14375001,
+            0.075,
+            0.56722528
+          ],
+          "hand_L": [
+            0.18499993,
+            0.17375,
+            0.84597516
+          ],
+          "hand_R": [
+            -0.18499996,
+            0.17374997,
+            0.84597516
+          ],
+          "foot_goal_L": [
+            0.14375,
+            0.07500001,
+            0.56722516
+          ],
+          "foot_goal_R": [
+            -0.14375,
+            0.07499998,
+            0.56722516
+          ],
+          "hand_goal_L": [
+            0.18499999,
+            0.17375001,
+            0.84597516
+          ],
+          "hand_goal_R": [
+            -0.18500002,
+            0.17374998,
+            0.84597516
+          ]
+        },
+        "contacts": {
+          "ground": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "seat": [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          "mouth": [
+            -3e-08,
+            0.31874999,
+            1.15097511
+          ]
+        },
+        "foodRoot": [
+          -2e-08,
+          0.22951566,
+          0.85423857
+        ],
+        "corners": [
+          [
+            -0.40269998,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.31965664,
+            1.47883344
+          ],
+          [
+            -0.40269998,
+            -0.31965664,
+            1.47883344
+          ]
+        ],
+        "projectedCorners": [
+          [
+            88.90880584716797,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            232.8209686279297
+          ],
+          [
+            88.90880584716797,
+            232.8209686279297
+          ]
+        ],
+        "foodVisible": false
+      },
+      "sampleLast": {
+        "facing": "W",
+        "frame": 12,
+        "bones": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.65972513
+          ],
+          "head": [
+            0.00869982,
+            -0.0,
+            1.00967288
+          ],
+          "foot_L": [
+            -0.075,
+            0.14375,
+            0.56722528
+          ],
+          "foot_R": [
+            -0.07500003,
+            -0.14375001,
+            0.56722528
+          ],
+          "hand_L": [
+            -0.17374985,
+            0.185,
+            0.84597498
+          ],
+          "hand_R": [
+            -0.17273813,
+            -0.18535024,
+            0.84137404
+          ],
+          "foot_goal_L": [
+            -0.07499999,
+            0.14375,
+            0.56722516
+          ],
+          "foot_goal_R": [
+            -0.075,
+            -0.14375,
+            0.56722516
+          ],
+          "hand_goal_L": [
+            -0.17374998,
+            0.18500002,
+            0.84597516
+          ],
+          "hand_goal_R": [
+            -0.17273821,
+            -0.18535031,
+            0.84137428
+          ]
+        },
+        "contacts": {
+          "ground": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "seat": [
+            0.0,
+            0.0,
+            0.55972517
+          ],
+          "mouth": [
+            -0.31522921,
+            0.00717144,
+            1.15318274
+          ]
+        },
+        "foodRoot": [
+          -0.22900963,
+          -0.00017512,
+          0.85193801
+        ],
+        "corners": [
+          [
+            -0.40269998,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.45648396,
+            1.28342378
+          ],
+          [
+            -0.05739129,
+            -0.31965664,
+            1.47883344
+          ],
+          [
+            -0.40269998,
+            -0.31965664,
+            1.47883344
+          ]
+        ],
+        "projectedCorners": [
+          [
+            88.90880584716797,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            293.89007568359375
+          ],
+          [
+            177.30783462524414,
+            232.8209686279297
+          ],
+          [
+            88.90880584716797,
+            232.8209686279297
+          ]
+        ],
+        "foodVisible": false
+      }
+    }
+  },
+  "sampleCount": 96,
+  "sampleArchive": {
+    "path": "source-samples-round05-runtime.json.gz",
+    "sha256": "b7f7b423582aa50ae53f273c7575f3d66b786007f30a0d0fc5cadecbc3174ad7",
+    "format": "gzip JSON, all576 source samples across main+runtime, recomputable from inspect-source.py"
+  }
+}

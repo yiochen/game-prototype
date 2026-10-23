@@ -1,0 +1,1 @@
+import path from'node:path';import{fileURLToPath}from'node:url';const H=path.dirname(fileURLToPath(import.meta.url));export default{root:path.resolve(H,...Array(9).fill('..')),cacheDir:path.resolve(H,'../../../candidates/round-02/cache-vite'),server:{host:'127.0.0.1',port:5197,strictPort:true},optimizeDeps:{include:['react','react-dom/client']}};

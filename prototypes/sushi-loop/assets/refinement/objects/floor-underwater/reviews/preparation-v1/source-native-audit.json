@@ -1,0 +1,6824 @@
+{
+  "stage": "unchanged-source-preparation",
+  "blender": "5.2.2 LTS",
+  "camera": {
+    "projection": "top-down-oblique-square-grid",
+    "frame": [
+      128,
+      128
+    ],
+    "anchor": [
+      64,
+      64
+    ],
+    "cellSize": 128,
+    "captureScale": 4,
+    "fps": 12,
+    "axes": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "camera": {
+      "type": "orthographic",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8192318081855774,
+          -0.5734625458717346,
+          -5.734623432159424
+        ],
+        [
+          0.0,
+          0.5734625458717346,
+          0.8192318081855774,
+          8.1923189163208
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projectionMatrix": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          2.4413111209869385,
+          0.0,
+          4.656431428884389e-06
+        ],
+        [
+          0.0,
+          0.0,
+          -0.0020001998636871576,
+          -1.0001999139785767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "worldUnitsPerCell": 1,
+      "elevationDegrees": 55.00797980144134
+    },
+    "calibration": {
+      "root": [
+        256.0,
+        256.0
+      ],
+      "unitX": [
+        512.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        511.99993896484375
+      ],
+      "unitHeight": [
+        0.0,
+        -358.400146484375
+      ]
+    },
+    "artStyle": {
+      "revision": "2026-10-19",
+      "environmentHeightRatio": 0.7,
+      "contrast": 1.35,
+      "contrastSpace": "sRGB",
+      "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
+      "lightingRig": {
+        "treatment": "Faceted",
+        "overheadWatts": 140,
+        "overheadPosition": [
+          0,
+          0,
+          4.5
+        ],
+        "overheadSize": 3.5,
+        "fillWattsEach": 100,
+        "fillSize": 4,
+        "fillRadius": 3,
+        "fillZ": 1.8,
+        "horizontalSymmetry": 4,
+        "worldStrength": 0
+      },
+      "lowerShading": "world-height ramp; camera view-tone bypassed"
+    }
+  },
+  "sceneAtLoad": "preparation-v1/source-collection-first-inspection.json",
+  "collection": "S33_FB_floor-underwater.001",
+  "root": {
+    "name": "floor-underwater__root.001",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "meshes": [
+    {
+      "name": "floor-underwater__full_square.001",
+      "data": "floor-underwater__full_square.001",
+      "sharedObjectUsers": [
+        "floor-underwater__full_square.001"
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_water"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": [
+        [
+          -0.5009999871,
+          -0.5009999871,
+          0.0
+        ],
+        [
+          0.5009999871,
+          -0.5009999871,
+          0.0
+        ],
+        [
+          0.5009999871,
+          0.5009999871,
+          0.0
+        ],
+        [
+          -0.5009999871,
+          0.5009999871,
+          0.0
+        ]
+      ]
+    },
+    {
+      "name": "floor-underwater__periodic_wave_0.001",
+      "data": "floor-underwater__periodic_wave_0.001",
+      "sharedObjectUsers": [
+        "floor-underwater__periodic_wave_0.001"
+      ],
+      "vertices": 130,
+      "faces": 64,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        -1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_water_dark"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": null
+    },
+    {
+      "name": "floor-underwater__periodic_wave_1.001",
+      "data": "floor-underwater__periodic_wave_1.001",
+      "sharedObjectUsers": [
+        "floor-underwater__periodic_wave_1.001"
+      ],
+      "vertices": 130,
+      "faces": 64,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        -1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_water_dark"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": null
+    },
+    {
+      "name": "floor-underwater__tile_border_south",
+      "data": "floor-underwater__tile_border_south",
+      "sharedObjectUsers": [
+        "floor-underwater__tile_border_south"
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_ocean_grout"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": [
+        [
+          -0.5,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          0.5,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          0.5,
+          -0.4889999926,
+          0.0040000002
+        ],
+        [
+          -0.5,
+          -0.4889999926,
+          0.0040000002
+        ]
+      ]
+    },
+    {
+      "name": "floor-underwater__tile_border_north",
+      "data": "floor-underwater__tile_border_north",
+      "sharedObjectUsers": [
+        "floor-underwater__tile_border_north"
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_ocean_grout"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": [
+        [
+          -0.5,
+          0.4889999926,
+          0.0040000002
+        ],
+        [
+          0.5,
+          0.4889999926,
+          0.0040000002
+        ],
+        [
+          0.5,
+          0.5,
+          0.0040000002
+        ],
+        [
+          -0.5,
+          0.5,
+          0.0040000002
+        ]
+      ]
+    },
+    {
+      "name": "floor-underwater__tile_border_west",
+      "data": "floor-underwater__tile_border_west",
+      "sharedObjectUsers": [
+        "floor-underwater__tile_border_west"
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_ocean_grout"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": [
+        [
+          -0.5,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          -0.4889999926,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          -0.4889999926,
+          0.5,
+          0.0040000002
+        ],
+        [
+          -0.5,
+          0.5,
+          0.0040000002
+        ]
+      ]
+    },
+    {
+      "name": "floor-underwater__tile_border_east",
+      "data": "floor-underwater__tile_border_east",
+      "sharedObjectUsers": [
+        "floor-underwater__tile_border_east"
+      ],
+      "vertices": 4,
+      "faces": 1,
+      "uvLayers": [],
+      "hasCustomNormals": false,
+      "normalZ": [
+        1.0
+      ],
+      "materialSlots": [
+        "floor-underwater approved S33_FB_ocean_grout"
+      ],
+      "modifiers": [],
+      "meshBaseCoordinates": [
+        [
+          0.4889999926,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          0.5,
+          -0.5,
+          0.0040000002
+        ],
+        [
+          0.5,
+          0.5,
+          0.0040000002
+        ],
+        [
+          0.4889999926,
+          0.5,
+          0.0040000002
+        ]
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "floor-underwater approved S33_FB_ocean_grout",
+      "sharedObjectUsers": [
+        "floor-underwater__tile_border_east",
+        "floor-underwater__tile_border_north",
+        "floor-underwater__tile_border_south",
+        "floor-underwater__tile_border_west"
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.00802319310605526,
+              0.25015828013420105,
+              0.34191441535949707,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "inputs": {
+            "Color": [
+              0.00802319310605526,
+              0.25015828013420105,
+              0.34191441535949707,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.003369741141796112,
+              0.10506647825241089,
+              0.14360405504703522,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF.001",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ],
+      "animationData": false,
+      "surfaceRenderMethod": "DITHERED",
+      "useBackfaceCulling": false
+    },
+    {
+      "name": "floor-underwater approved S33_FB_water",
+      "sharedObjectUsers": [
+        "floor-underwater__full_square.001"
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.015208514407277107,
+              0.4793201684951782,
+              0.6104955673217773,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "inputs": {
+            "Color": [
+              0.015208514407277107,
+              0.4793201684951782,
+              0.6104955673217773,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.0063875759951770306,
+              0.20131446421146393,
+              0.25640812516212463,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF.001",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ],
+      "animationData": false,
+      "surfaceRenderMethod": "DITHERED",
+      "useBackfaceCulling": false
+    },
+    {
+      "name": "floor-underwater approved S33_FB_water_dark",
+      "sharedObjectUsers": [
+        "floor-underwater__periodic_wave_0.001",
+        "floor-underwater__periodic_wave_1.001"
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.009721217676997185,
+              0.423267662525177,
+              0.5840784311294556,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.5,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "inputs": {
+            "Color": [
+              0.009721217676997185,
+              0.423267662525177,
+              0.5840784311294556,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.0040829116478562355,
+              0.1777724176645279,
+              0.24531294405460358,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "image": null
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Principled BSDF.001",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        }
+      ],
+      "animationData": false,
+      "surfaceRenderMethod": "DITHERED",
+      "useBackfaceCulling": false
+    }
+  ],
+  "actions": [
+    {
+      "name": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_0.001__geometry",
+      "owner": {
+        "ownerType": "Key",
+        "ownerName": "Key.038",
+        "action": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_0.001__geometry",
+        "slotIdentifier": "KEKey.038",
+        "keyframeCount": 169
+      },
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "fcurves": [
+        {
+          "path": "key_blocks[\"S33 Procedural source\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 000\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 001\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 002\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 003\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 004\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 005\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 006\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 007\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 008\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 009\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 010\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 011\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_1.001__geometry",
+      "owner": {
+        "ownerType": "Key",
+        "ownerName": "Key.039",
+        "action": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_1.001__geometry",
+        "slotIdentifier": "KEKey.039",
+        "keyframeCount": 169
+      },
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "fcurves": [
+        {
+          "path": "key_blocks[\"S33 Procedural source\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 000\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 001\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 002\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 003\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 004\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 005\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 006\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 007\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 008\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 009\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 010\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        },
+        {
+          "path": "key_blocks[\"S33 sample floor-underwater scroll 011\"].value",
+          "index": 0,
+          "keys": [
+            {
+              "co": [
+                1.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                2.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                3.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                4.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                5.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                6.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                7.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                8.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                9.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                10.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                11.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                12.0,
+                1.0
+              ],
+              "interpolation": "LINEAR"
+            },
+            {
+              "co": [
+                13.0,
+                0.0
+              ],
+              "interpolation": "LINEAR"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "phases": {
+    "1": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499997854232788,
+            -0.15000022947788239
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "0ae2a2d830721b185d0d6ba78d4489b97aa24902c6bc741c47287a96c48b0573",
+        "leftBoundaryYAtPitch": [
+          -0.305000376,
+          -0.195000376
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.304999637,
+          -0.194999624
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 1.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15000022947788239,
+            0.3499997854232788
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "543a2e6d6e5ff7f97a09b2cfb92c50f3823133c06c69bf71394619aa4e01feae",
+        "leftBoundaryYAtPitch": [
+          0.194999624,
+          0.304999637
+        ],
+        "rightBoundaryYAtPitch": [
+          0.195000376,
+          0.305000376
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 1.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "2": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499726355075836,
+            -0.15001840889453888
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999968215823,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "725a7eddc0a9fcc4f102ba9e601b7ee71daa259c6aa5967244c03b71684f0dfd",
+        "leftBoundaryYAtPitch": [
+          -0.282506827,
+          -0.172506828
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.282506186,
+          -0.172506173
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 1.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15002737939357758,
+            0.3499816060066223
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999549120665,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "26618e101ba0722e37c6f08ec80ede576af644918fc10ba39e3a3efdd9b96a09",
+        "leftBoundaryYAtPitch": [
+          0.217493173,
+          0.327493185
+        ],
+        "rightBoundaryYAtPitch": [
+          0.217493828,
+          0.327493826
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 1.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "3": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499773144721985,
+            -0.15003252029418945
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999502554536,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "0ebe88ecf12e13b893e7639cb4a6bf97471108a426547a5d53e314a505df03b5",
+        "leftBoundaryYAtPitch": [
+          -0.266040322,
+          -0.156040309
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.266039952,
+          -0.15603994
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 1.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15002267062664032,
+            0.34996744990348816
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "7801e49e90d956f3256fa523261b1da9f6b26e8121cc365fe6b2c18a3125fd84",
+        "leftBoundaryYAtPitch": [
+          0.233959692,
+          0.34395969
+        ],
+        "rightBoundaryYAtPitch": [
+          0.23396006,
+          0.343960061
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 1.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "4": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499999940395355,
+            -0.15000088512897491
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999781951308,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "fee3f3e5559441542c0582cf34908b81e912d5add04e41c4fc732fbb3aecdfaf",
+        "leftBoundaryYAtPitch": [
+          -0.260013006,
+          -0.150013021
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.260013006,
+          -0.150013007
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 1.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.14999999105930328,
+            0.3499991297721863
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11022000247612596,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "6988142a411f356a2cf3f7eb118ce1c6830f021583a612e384797665a5ac9c85",
+        "leftBoundaryYAtPitch": [
+          0.23998698,
+          0.349987006
+        ],
+        "rightBoundaryYAtPitch": [
+          0.239986994,
+          0.349987006
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 1.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "5": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499773442745209,
+            -0.15003253519535065
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.1102199973538518,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "14c8033f8b614d15f4a4c968749624a320c6667b01c85a4636b2d58eca7da21b",
+        "leftBoundaryYAtPitch": [
+          -0.266039954,
+          -0.156039939
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.266040322,
+          -0.156040309
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 1.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15002267062664032,
+            0.34996744990348816
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999851800501,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "86c7a4f586c379e05f173f50be6902324e341f3a759c06d3cd9b0a2541bd88ca",
+        "leftBoundaryYAtPitch": [
+          0.233960061,
+          0.343960059
+        ],
+        "rightBoundaryYAtPitch": [
+          0.233959692,
+          0.34395969
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 1.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "6": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499726355075836,
+            -0.15001840889453888
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11022000014781952,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "beef3540c658c681aa3337d655d0aba873c4cbb1f5bf73a23f2ea86eebb9152c",
+        "leftBoundaryYAtPitch": [
+          -0.282506186,
+          -0.172506187
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.282506825,
+          -0.172506828
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 1.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15002737939357758,
+            0.3499815762042999
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999618969858,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "5a9e53400467c4f8c46fcd0d5ea739b10cb095673e1999f4ebd5803acb65e442",
+        "leftBoundaryYAtPitch": [
+          0.217493814,
+          0.327493826
+        ],
+        "rightBoundaryYAtPitch": [
+          0.217493173,
+          0.327493187
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 1.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "7": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499997854232788,
+            -0.1500002145767212
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999944932759,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "cd6e41e77b7d39ae6ddf2823f4bad9e33861996793e5bcfeceb573eea957d9ce",
+        "leftBoundaryYAtPitch": [
+          -0.304999637,
+          -0.194999638
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.305000376,
+          -0.195000362
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 1.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.1500002145767212,
+            0.3499997854232788
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999944932759,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "537f5058a207017fdf895435f3a1f28c859e7b83beaa6dd53fdebf6184fbb445",
+        "leftBoundaryYAtPitch": [
+          0.195000362,
+          0.305000376
+        ],
+        "rightBoundaryYAtPitch": [
+          0.194999638,
+          0.304999637
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 1.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "8": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499815762042999,
+            -0.15002737939357758
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999618969858,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "f4819e0678c4c4a4e4a4c4752034cf42eb96207540ef636c5ee7af40fd153bee",
+        "leftBoundaryYAtPitch": [
+          -0.327493187,
+          -0.217493173
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.327493826,
+          -0.217493814
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 1.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15001840889453888,
+            0.3499726355075836
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11022000014781952,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "bf34dd2f3853b37f45f4c39222e2adf074608b365cee17c0f92d24571dfd1d7f",
+        "leftBoundaryYAtPitch": [
+          0.172506828,
+          0.282506825
+        ],
+        "rightBoundaryYAtPitch": [
+          0.172506187,
+          0.282506186
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 1.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "9": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.34996744990348816,
+            -0.15002267062664032
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999851800501,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "cb1dd5848c282cd0fa2c49dd3f068da5f2dee758d7a3d2822224bf3e1febac27",
+        "leftBoundaryYAtPitch": [
+          -0.34395969,
+          -0.233959692
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.343960059,
+          -0.233960061
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 1.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15003253519535065,
+            0.3499773442745209
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.1102199973538518,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "85682b47da51f51bc4c75727a3c9c7dbff12225f20faa40287e4439ac3d7ff44",
+        "leftBoundaryYAtPitch": [
+          0.156040309,
+          0.266040322
+        ],
+        "rightBoundaryYAtPitch": [
+          0.156039939,
+          0.266039954
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 1.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "10": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499991297721863,
+            -0.14999999105930328
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11022000247612596,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "10f8f96ea28f068698bfa416a4bb5108b91f1f628646954ab22d9a084489abe9",
+        "leftBoundaryYAtPitch": [
+          -0.349987006,
+          -0.239986994
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.349987006,
+          -0.23998698
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 1.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15000088512897491,
+            0.3499999940395355
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999781951308,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "8aee5effbf2df22b887aa6aa4fb10802c25886873c074fd53c5d8b0eb8d5f9d0",
+        "leftBoundaryYAtPitch": [
+          0.150013007,
+          0.260013006
+        ],
+        "rightBoundaryYAtPitch": [
+          0.150013021,
+          0.260013006
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 1.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "11": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.34996744990348816,
+            -0.15002267062664032
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "1342ba2466310b8551154d0288ce6b3429a062bb2dc4086650bd6e3ce839ea53",
+        "leftBoundaryYAtPitch": [
+          -0.343960061,
+          -0.23396006
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.34395969,
+          -0.233959692
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 1.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15003252029418945,
+            0.3499773144721985
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999502554536,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "b919e09360872e195ff6b397c162872aae452f3ddee2104111220d0e189aab11",
+        "leftBoundaryYAtPitch": [
+          0.15603994,
+          0.266039952
+        ],
+        "rightBoundaryYAtPitch": [
+          0.156040309,
+          0.266040322
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 1.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "12": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499816060066223,
+            -0.15002737939357758
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999549120665,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "db1fee04f5d519d3d22b5a88cb5462b2ae911bfd0e282da9089162d94216124b",
+        "leftBoundaryYAtPitch": [
+          -0.327493826,
+          -0.217493828
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.327493185,
+          -0.217493173
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 1.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15001840889453888,
+            0.3499726355075836
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999968215823,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "966a53609066fd956af6818530e18810075413f181ee565d52f399ee22f708cc",
+        "leftBoundaryYAtPitch": [
+          0.172506173,
+          0.282506186
+        ],
+        "rightBoundaryYAtPitch": [
+          0.172506828,
+          0.282506827
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 0.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 1.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ],
+    "13": [
+      {
+        "name": "floor-underwater__full_square.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "area": 1.0040040016174316,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "ed20ffd2b2df5f56646394a09a85e988a5d67b9da6625fa7ab8495565d698a6e",
+        "leftBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.500999987,
+          0.500999987
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__periodic_wave_0.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            -0.3499997854232788,
+            -0.15000022947788239
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "0ae2a2d830721b185d0d6ba78d4489b97aa24902c6bc741c47287a96c48b0573",
+        "leftBoundaryYAtPitch": [
+          -0.305000376,
+          -0.195000376
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.304999637,
+          -0.194999624
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 1.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__periodic_wave_1.001",
+        "bounds": [
+          [
+            -0.5009999871253967,
+            0.5009999871253967
+          ],
+          [
+            0.15000022947788239,
+            0.3499997854232788
+          ],
+          [
+            0.0020000000949949026,
+            0.0020000000949949026
+          ]
+        ],
+        "area": 0.11021999875083566,
+        "normalZ": [
+          -1.0
+        ],
+        "coordinateSHA256": "543a2e6d6e5ff7f97a09b2cfb92c50f3823133c06c69bf71394619aa4e01feae",
+        "leftBoundaryYAtPitch": [
+          0.194999624,
+          0.304999637
+        ],
+        "rightBoundaryYAtPitch": [
+          0.195000376,
+          0.305000376
+        ],
+        "keyValues": {
+          "Basis": 0.0,
+          "S33 Procedural source": 0.0,
+          "S33 sample floor-underwater scroll 000": 1.0,
+          "S33 sample floor-underwater scroll 001": 0.0,
+          "S33 sample floor-underwater scroll 002": 0.0,
+          "S33 sample floor-underwater scroll 003": 0.0,
+          "S33 sample floor-underwater scroll 004": 0.0,
+          "S33 sample floor-underwater scroll 005": 0.0,
+          "S33 sample floor-underwater scroll 006": 0.0,
+          "S33 sample floor-underwater scroll 007": 0.0,
+          "S33 sample floor-underwater scroll 008": 0.0,
+          "S33 sample floor-underwater scroll 009": 0.0,
+          "S33 sample floor-underwater scroll 010": 0.0,
+          "S33 sample floor-underwater scroll 011": 0.0
+        }
+      },
+      {
+        "name": "floor-underwater__tile_border_south",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "13bd5c249276d9a37bda69327f8c1f6f123b47b33b52d88b81786ad5898d636e",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          -0.488999993
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_north",
+        "bounds": [
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "3bf6f86454ba4108bedf05dcdb0d17e317a33aa034a4e14c6999b2676ee8cb2c",
+        "leftBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [
+          0.488999993,
+          0.5
+        ],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_west",
+        "bounds": [
+          [
+            -0.5,
+            -0.48899999260902405
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "e0c394b2ba1a202b334829f87d97d699a820df160b142ac1349496f0f6c92f40",
+        "leftBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "rightBoundaryYAtPitch": [],
+        "keyValues": {}
+      },
+      {
+        "name": "floor-underwater__tile_border_east",
+        "bounds": [
+          [
+            0.48899999260902405,
+            0.5
+          ],
+          [
+            -0.5,
+            0.5
+          ],
+          [
+            0.004000000189989805,
+            0.004000000189989805
+          ]
+        ],
+        "area": 0.011000007390975952,
+        "normalZ": [
+          1.0
+        ],
+        "coordinateSHA256": "188afc7b52656826038b3ab84810bb1f6b8f60f7c7249cf6a2c493d19812b485",
+        "leftBoundaryYAtPitch": [],
+        "rightBoundaryYAtPitch": [
+          -0.5,
+          0.5
+        ],
+        "keyValues": {}
+      }
+    ]
+  },
+  "resources": {
+    "externalLibraries": [],
+    "ownImages": [],
+    "drivers": []
+  },
+  "lights": [
+    {
+      "name": "S33 Faceted overhead.001",
+      "type": "AREA",
+      "energy": 140.0,
+      "size": 3.5,
+      "position": [
+        0.0,
+        0.0,
+        4.5
+      ],
+      "rotation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-0.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "size": 4.0,
+      "position": [
+        3.0,
+        0.0,
+        1.7999999523
+      ],
+      "rotation": [
+        1.2490459681,
+        6.84e-08,
+        1.5707964897
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-1.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "size": 4.0,
+      "position": [
+        0.0,
+        3.0,
+        1.7999999523
+      ],
+      "rotation": [
+        1.2490458488,
+        -1.432e-07,
+        -3.1415925026
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-2.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "size": 4.0,
+      "position": [
+        -3.0,
+        0.0,
+        1.7999999523
+      ],
+      "rotation": [
+        1.2490459681,
+        -6.84e-08,
+        -1.5707964897
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-3.001",
+      "type": "AREA",
+      "energy": 100.0,
+      "size": 4.0,
+      "position": [
+        0.0,
+        -3.0,
+        1.7999999523
+      ],
+      "rotation": [
+        1.2490458488,
+        -0.0,
+        0.0
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -27,14 +27,14 @@
       ],
       [
         0.0,
-        0.8192318081855774,
+        0.8192317485809326,
         -0.5734625458717346,
         -5.734623432159424
       ],
       [
         0.0,
         0.5734625458717346,
-        0.8192318081855774,
+        0.8192317485809326,
         8.1923189163208
       ],
       [
@@ -55,7 +55,7 @@
         0.0,
         0.8877494931221008,
         0.0,
-        -0.4090892970561981
+        -0.4090893268585205
       ],
       [
         0.0,
@@ -75,49 +75,69 @@
       1.0
     ],
     "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+    "elevationDegrees": 55.00797980144134,
+    "orthoScale": 2.252887725830078,
+    "shift": [
+      0.0,
+      0.20454464852809906
+    ]
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0000610351562
+      192.0,
+      496.00017738342285
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      511.99993896484375
+      255.99996042251587
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.20005989074707
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+    "method": "recipe-reuse",
+    "family": {
+      "straight": {
+        "asset": "belt-straight-n",
+        "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+        "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+        "review": "objects/belt-straight-n/reviews/round-11.json",
+        "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+      },
+      "corner": {
+        "asset": "belt-corner-n-e",
+        "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+        "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+        "review": "objects/belt-corner-n-e/reviews/round-01.json",
+        "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+      }
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "render": {
+      "engine": "CYCLES",
+      "samples": 1,
+      "samplingPattern": "TABULATED_SOBOL",
+      "scramblingDistance": 0.0,
+      "filter": "BOX",
+      "filterWidth": 1.0,
+      "dither": 0.0,
+      "denoising": false,
+      "viewTransform": "Standard",
+      "look": "None"
+    },
+    "directionalGroundShadow": false
   },
-  "name": "square top/front oblique"
+  "name": "square top/front oblique",
+  "sourceScale": 2,
+  "publishedSourceScale": 2,
+  "nativeCaptureScale": 2,
+  "nativeResolution": [
+    384,
+    704
+  ]
 }

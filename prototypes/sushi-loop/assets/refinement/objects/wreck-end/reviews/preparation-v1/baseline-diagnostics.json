@@ -1,0 +1,10 @@
+{
+  "failedBaseline": "baseline/",
+  "consumerDiagnostics": [
+    "consumer-baseline/",
+    "consumer-baseline-preclosure-diagnostic/"
+  ],
+  "problem": "Own appended collection retains saved hide_render; object-level visibility toggling alone produced incorrect original-baseline evidence. Source numerical audits remain valid because collection/object viewport state was enabled. Strong explicit collection visibility and per-object visibility corrected the captured source.",
+  "correction": "baseline-v2/ with native-baseline-v2.py and actual visible collection/object records. No prior diagnostic is approval evidence.",
+  "preclosure": "Original React input closure copied after first diagnostic; preclosure bundle exact recovered and bound, before frozen rebuild. Fresh v2 uses private frozen React closure."
+}

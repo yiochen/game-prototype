@@ -1,0 +1,60 @@
+{
+  "asset": "stool-wood",
+  "status": "proposed for coordinator freeze",
+  "styleGoal": "Warm softly lit cartoon honey-wood stool consistent with selected reskin; real native 3D with original identity and palette family.",
+  "immutableTechnicalConstraints": [
+    "Preserve square-grid camera/projection, framing and pixel aspect, logical frame 192x352, physical frame 384x704, logical root (96,248), sourceScale 2 and one-cell footprint.",
+    "Preserve native size, height/proportions, root, seat/occupant_ground sockets, support contact and three-board backless seat identity. Do not adopt target widening, padding or shape drift.",
+    "Deliver static N/E/S/W captures from independent native geometry views under one consistent scene setup, 1 frame per facing, 12 fps metadata and nonlooping static contract. No per-view fitting, recoloring, target card or image warp.",
+    "Use horizontally neutral soft lighting without a preferred horizontal direction and no directional ground cast shadow. Preserve genuine transparent sprite output.",
+    "Keep editable native source and evidence for capture transforms, geometry bounds, socket positions and declared resources."
+  ],
+  "aestheticCriteria": {
+    "shapeVolume": [
+      "The thin square honey-wood seat, clipped/softened corners, three boards, splayed supports and stretcher remain identifiable at intended size.",
+      "Seat rim and support edges have gentle readable volume rather than abrupt faceted bands; softening stays within the source envelope and seat height."
+    ],
+    "color": [
+      "Maintain honey-yellow/golden-orange seat and warm brown legs/stretcher.",
+      "Seat retains tonal room for highlights, midtones and edge shading without flattening to one bright yellow patch; lower supports retain brown/orange information rather than becoming black or gray."
+    ],
+    "lightingHighlights": [
+      "Broad subdued highlights and gradual transitions convey warm matte/satin cartoon wood.",
+      "Equivalent sides have coherent light treatment across N/E/S/W; no unilateral shiny stripe, bright burned outline or directional ground shadow.",
+      "Underside/joins can be darker but remain legible without large dead-black regions."
+    ],
+    "materialDetail": [
+      "Two board seams read as gentle inset separations rather than harsh painted stripes or deep black slits.",
+      "Any grain or color variation is restrained and follows the wood surface; no noisy texture or uniform plastic glare is required.",
+      "Leg/stretcher joins remain clean and distinct; smooth surface shading does not smear the structure."
+    ],
+    "artifactFreeReadability": [
+      "All four facings are clean at logical use size and enlarged: no halos, isolated pixels, alpha fringes, broken corners, seams, coplanar overlap artifacts, clipped edges or floating supports.",
+      "Four-view sheet and repeated preview use identical scale/registration and show a coherent stool without per-view fitting.",
+      "Seat and supports remain distinct on neutral light, gray and dark backgrounds; soft lighting must not erase the board layout or merge the legs."
+    ]
+  },
+  "rankedPriorities": [
+    {
+      "rank": 1,
+      "criterion": "Soft golden seat volume and restrained broad highlights, retaining source dimensions and board structure."
+    },
+    {
+      "rank": 2,
+      "criterion": "Warm readable lower support volumes with clean joins and no dead-black patches."
+    },
+    {
+      "rank": 3,
+      "criterion": "Subtle inset seams, clean alpha, and consistent native four-facing appearance under horizontally neutral light."
+    }
+  ],
+  "targetConflictsAndLimits": [
+    "Target silhouette rounding, apparent enlargement, registration drift and stray outline pixels must not be copied.",
+    "The single-view target establishes material/light vocabulary; unseen facings must be coherent native views, not invented target matches.",
+    "Exact target texture/grain and photographic pixel identity are not required; visible improvement toward soft warm wood must be material, not merely a hue change."
+  ],
+  "approvalEvidence": [
+    "Hash-bound packet including native editable project, all four required PNGs, four-view-sheet and repeated previews, and technical validation.",
+    "Judge inspects exact hash-matching candidate pixels and confirms registration/sockets/size/lighting from native evidence; a rendered file alone is insufficient."
+  ]
+}

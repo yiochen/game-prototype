@@ -1,0 +1,69 @@
+{
+  "asset": "slate-rock",
+  "role": "independent visual judge",
+  "stage": "initial-inspection",
+  "verdict": "criteria-proposed",
+  "inspectedInputs": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "2249e895152ad7841ae2fd7ee6d510231d079b60d30c0d4298a6ce2e947e7cb1"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "233528e7a8bd158d9b1f75200fe86344d21879a9a4fa2050fbaecb38e23955f9"
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "sha256": "05eb0cc76db56113cbe1462ebac0e94fd65f82293e479f487d9e97d7100061e2"
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "sha256": "3cc7a68f1bdca50779da34fbfe62ce89505b6b387689b975cc67842001a2e487"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "06efccffd716fd26fa4d376c6e71979e7d8c8ef360cdc9854077627590f565a5"
+    }
+  ],
+  "additionalInspectedFiles": [
+    "../../../production/sprites/slate-rock/static-N.png",
+    "../../../production/sprites/slate-rock/static-E.png",
+    "../../../production/sprites/slate-rock/static-S.png",
+    "../../../production/sprites/slate-rock/static-W.png",
+    "../../../production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py::_slate"
+  ],
+  "sourceObservations": [
+    "The original is a broad one-cell slate mass, with a slightly asymmetric eight-corner ground outline, a large uneven triangulated crown, and substantial vertical lower facets. It is a squat irregular rock, not a rounded pebble or a separate raised platform.",
+    "All four original captures show blue-gray slate color, a fine dark shallow top fissure that rotates with the rock, and lower side planes falling into very dark blue near the base. The crown reads as a broad smooth polygon at game scale; its modest facet variation is easy to lose.",
+    "The native builder explicitly authors an eight-point ground outline spanning X/Y -0.5 to 0.5, an uneven crown with maximum Z 0.48, and a shallow narrow fissure. Those source features establish identity and dimensions more reliably than the generated target."
+  ],
+  "targetObservations": [
+    "The fixed target suggests softer broad illumination, readable gray-blue planar volume, quieter surface mottling, and restrained warm edge highlights.",
+    "Its beige crown and stronger carved-looking fissure are noticeably more emphatic than the source. Its altered silhouette and apparent surface complexity are aesthetic suggestions only; they do not authorize geometric drift, a wider/deeper split, or a beige rock.",
+    "The most valuable change is to make the original rock feel softly lit and tactile while retaining its subdued slate palette, original large-scale facets, and fine fissure."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Lift the crushed dark lower facets into readable slate-gray volume with soft neutral light; keep crown, bevel transitions, sides and base distinct across all four rotations."
+    },
+    {
+      "rank": 2,
+      "outcome": "Add restrained broad facet-to-facet surface variation and gentle edge response so the crown has warm soft cartoon depth without becoming noisy, glossy, beige or rounded."
+    },
+    {
+      "rank": 3,
+      "outcome": "Retain the original asymmetry, footprint, uneven crown, fine shallow top fissure and registration; every view should remain recognizably the same actual rock."
+    }
+  ],
+  "technicalEvidence": {
+    "checked": "Read registered source camera, asset, rig and catalog records; inspected all four original native sprite files; read the native _slate builder for source form/height/fissure identity.",
+    "contract": "Four static native rotations N/E/S/W, 384x704 capture frames, 192x352 logical frames, logical root [96,248], sourceScale 2, 128 logical pixels/cell, footprint [1,1], height 0.48, orthographic registered square-top/front camera and pixel aspect; no animation or sockets.",
+    "lighting": "No preferred horizontal light direction and no directional ground cast shadow. Different side values caused by actual facet normals are acceptable; a persistent bright-left/dark-right treatment baked into the view is not.",
+    "limits": "No edited Blender scene or candidate has been received. Native camera, bounds, root and dependency validation must accompany candidate review. This initial inspection does not approve any export."
+  }
+}

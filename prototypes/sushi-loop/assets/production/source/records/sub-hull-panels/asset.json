@@ -9,7 +9,7 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
   "clips": {
     "idle": {
       "frames": 1,
@@ -31,18 +31,68 @@
   "height": 0.55,
   "sockets": {},
   "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
+    "revision": "warm-soft-sub-hull-panels-round-01",
+    "lighting": "Centered broad210W key and four equal cardinal85W fills; symmetric neutral world. No ground receiver.",
+    "lightingRig": [
+      {
+        "name": "PANELS__overhead",
+        "position": [
+          0.0,
+          0.0,
+          4.5
+        ],
+        "energy": 210.0,
+        "size": 4.0
+      },
+      {
+        "name": "PANELS__east",
+        "position": [
+          3.0,
+          0.0,
+          2.299999952316284
+        ],
+        "energy": 85.0,
+        "size": 4.0
+      },
+      {
+        "name": "PANELS__west",
+        "position": [
+          -3.0,
+          0.0,
+          2.299999952316284
+        ],
+        "energy": 85.0,
+        "size": 4.0
+      },
+      {
+        "name": "PANELS__north",
+        "position": [
+          0.0,
+          3.0,
+          2.299999952316284
+        ],
+        "energy": 85.0,
+        "size": 4.0
+      },
+      {
+        "name": "PANELS__south",
+        "position": [
+          0.0,
+          -3.0,
+          2.299999952316284
+        ],
+        "energy": 85.0,
+        "size": 4.0
+      }
+    ],
+    "worldStrength": 0.11999999731779099,
+    "filterSize": 0.5,
+    "colorManagement": {
+      "transform": "Standard",
+      "look": "None",
+      "exposure": -0.3499999940395355,
+      "gamma": 1.0
+    }
   },
   "directions": [
     "N",
@@ -57,5 +107,20 @@
         "active"
       ]
     }
-  }
+  },
+  "nativeCaptureScale": 4,
+  "measuredNeutralBounds": [
+    [
+      -0.5180000066757202,
+      -0.29499998688697815,
+      0.0
+    ],
+    [
+      0.5180000066757202,
+      0.29499998688697815,
+      0.1550000011920929
+    ]
+  ],
+  "functionalHeightMetadata": 0.55,
+  "nominalHeightPreserved": true
 }

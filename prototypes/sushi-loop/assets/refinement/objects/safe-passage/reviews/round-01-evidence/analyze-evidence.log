@@ -1,0 +1,30 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/analyze-evidence.py:8: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  a=a.convert('RGBA');b=b.convert('RGBA');diff=ImageChops.difference(a,b);return {'sameDecodedRGBA':a.tobytes()==b.tobytes(),'alphaExact':a.getchannel('A').tobytes()==b.getchannel('A').tobytes(),'meanAbsoluteRGBA':ImageStat.Stat(diff).mean,'maxAbsoluteRGBA':[e[1] for e in diff.getextrema()],'pixelsDiffer':sum(x!=y for x,y in zip(a.getdata(),b.getdata()))}
+{
+  "rawBoundsAllExact": true,
+  "evaluatedBoundsAllExact": true,
+  "nativeExactFrames": 0,
+  "nativeMaximumDifference": 15,
+  "all48PublishedReductionExact": true,
+  "all48AtlasCellsExact": true,
+  "all48TransparentEdges": true,
+  "minEvaluatedLeafVerticesInsideAssignedStone": 31,
+  "closure": {
+    "N": {
+      "evaluatedGeometryExactFirstToClosing": true,
+      "maxLocalMatrixDelta": 0
+    },
+    "E": {
+      "evaluatedGeometryExactFirstToClosing": true,
+      "maxLocalMatrixDelta": 0
+    },
+    "S": {
+      "evaluatedGeometryExactFirstToClosing": true,
+      "maxLocalMatrixDelta": 0
+    },
+    "W": {
+      "evaluatedGeometryExactFirstToClosing": true,
+      "maxLocalMatrixDelta": 0
+    }
+  }
+}

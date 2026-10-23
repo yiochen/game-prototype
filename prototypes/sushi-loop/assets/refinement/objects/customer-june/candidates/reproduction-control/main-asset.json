@@ -1,0 +1,704 @@
+{
+  "id": "customer-june",
+  "projection": "character-orthographic",
+  "frame": [
+    192,
+    320
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "stand": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "walk": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "seated_wait": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "eat": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "sit_down": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "stand_up": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "happy": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "restless": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "puzzled": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "panic": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 1.2746186554431915,
+  "sockets": {
+    "ground": [
+      0,
+      0,
+      0
+    ],
+    "seat_contact": [
+      0,
+      0,
+      0.4477801191577021
+    ],
+    "hand_left": [
+      -0.267,
+      -0.023,
+      0.211
+    ],
+    "hand_right": [
+      0.267,
+      -0.023,
+      0.211
+    ],
+    "mouth": [
+      0,
+      -0.255,
+      0.543
+    ]
+  },
+  "artStyle": {
+    "style": "Warm softly lit native cartoon",
+    "actualRenderSettings": {
+      "engine": "BLENDER_EEVEE",
+      "resolution": [
+        384,
+        640,
+        100
+      ],
+      "pixelAspect": [
+        1.0,
+        1.0
+      ],
+      "filmTransparent": true,
+      "imageSettings": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "depth": "8",
+        "compression": 45
+      },
+      "dither": 0.0,
+      "colorManagement": {
+        "viewTransform": "Standard",
+        "look": "None",
+        "exposure": 0.0,
+        "gamma": 1.0
+      },
+      "eevee": {
+        "samples": 64,
+        "raytracing": false
+      },
+      "worldNodes": {
+        "nodes": [
+          {
+            "type": "ShaderNodeBackground",
+            "inputs": {
+              "Color": [
+                0.6800000071525574,
+                0.7200000286102295,
+                0.7799999713897705,
+                1.0
+              ],
+              "Strength": 0.30000001192092896,
+              "Weight": 0.0
+            },
+            "properties": {}
+          },
+          {
+            "type": "ShaderNodeOutputWorld",
+            "inputs": {},
+            "properties": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              0,
+              "Background"
+            ],
+            "to": [
+              1,
+              "Surface"
+            ]
+          }
+        ]
+      },
+      "lighting": [
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -1.0,
+              -1.5099580252808664e-07,
+              0.0,
+              0.0
+            ],
+            [
+              1.5099580252808664e-07,
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              4.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 320.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 3.5,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              7.549790126404332e-08,
+              -0.5734622478485107,
+              0.8192319869995117,
+              3.0
+            ],
+            [
+              1.0,
+              1.3934737808085629e-08,
+              -8.240260740421945e-08,
+              0.0
+            ],
+            [
+              3.5839001100157475e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -0.7071069478988647,
+              -0.4054989218711853,
+              0.5792843699455261,
+              2.1213202476501465
+            ],
+            [
+              0.7071065902709961,
+              -0.4054991602897644,
+              0.5792846083641052,
+              2.1213202476501465
+            ],
+            [
+              2.301603174714728e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -1.0,
+              -1.879298565654608e-07,
+              5.276300285572688e-08,
+              1.8369701465288538e-16
+            ],
+            [
+              1.5099580252808664e-07,
+              -0.5734621286392212,
+              0.8192320466041565,
+              3.0
+            ],
+            [
+              -1.2370057334010198e-07,
+              0.8192320466041565,
+              0.5734621286392212,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              -0.7071069478988647,
+              0.4054989218711853,
+              -0.5792843699455261,
+              -2.1213202476501465
+            ],
+            [
+              -0.7071065902709961,
+              -0.4054991602897644,
+              0.5792846083641052,
+              2.1213202476501465
+            ],
+            [
+              -2.301603174714728e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              7.549790126404332e-08,
+              0.5734622478485107,
+              -0.8192319869995117,
+              -3.0
+            ],
+            [
+              -1.0,
+              1.3934737808085629e-08,
+              -8.240260740421945e-08,
+              3.6739402930577075e-16
+            ],
+            [
+              -3.5839001100157475e-08,
+              0.8192319869995117,
+              0.5734622478485107,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              0.7071067690849304,
+              0.4054991602897644,
+              -0.5792844295501709,
+              -2.1213202476501465
+            ],
+            [
+              -0.7071067690849304,
+              0.40549904108047485,
+              -0.5792844891548157,
+              -2.1213202476501465
+            ],
+            [
+              -9.85924799579152e-08,
+              0.8192319273948669,
+              0.5734623074531555,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              1.0,
+              1.053433502153145e-16,
+              -1.5049043791454022e-16,
+              -5.510910704284357e-16
+            ],
+            [
+              -1.8369701465288538e-16,
+              0.5734624266624451,
+              -0.8192318677902222,
+              -3.0
+            ],
+            [
+              -1.8763921222233888e-23,
+              0.8192318677902222,
+              0.5734624266624451,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        },
+        {
+          "type": "AREA",
+          "matrix": [
+            [
+              0.7071067690849304,
+              -0.4054991602897644,
+              0.5792844295501709,
+              2.1213202476501465
+            ],
+            [
+              0.7071067690849304,
+              0.40549904108047485,
+              -0.5792844891548157,
+              -2.1213202476501465
+            ],
+            [
+              9.85924799579152e-08,
+              0.8192319273948669,
+              0.5734623074531555,
+              2.0999999046325684
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "energy": 35.0,
+          "color": [
+            1.0,
+            0.9649999737739563,
+            0.8999999761581421
+          ],
+          "shape": "DISK",
+          "size": 4.0,
+          "useShadow": true
+        }
+      ],
+      "compositingNodeGroup": {
+        "nodes": [
+          {
+            "type": "CompositorNodeRLayers",
+            "inputs": {},
+            "properties": {}
+          },
+          {
+            "type": "NodeGroupOutput",
+            "inputs": {
+              "Socket_0": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            "properties": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              0,
+              "Image"
+            ],
+            "to": [
+              1,
+              "Socket_0"
+            ]
+          }
+        ]
+      }
+    },
+    "sourceStyleIsHistoricalProvenance": true
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "locomotion": {
+    "walkCellsPerSecond": 0.225,
+    "panicCellsPerSecond": 0.45,
+    "worldTravelPerWalkCycle": 0.225
+  },
+  "fps": 12,
+  "nativeFrame": [
+    384,
+    640
+  ],
+  "food": {
+    "asset": "dish-cucumber",
+    "representation": "2D ImageGen sprite, not modeled sushi",
+    "canonicalPackedSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "expectedCanonicalSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "imageSize": [
+      635,
+      511
+    ],
+    "vertices": [
+      [
+        -0.13302941620349884,
+        0.003430807963013649,
+        0.0
+      ],
+      [
+        0.1378399282693863,
+        0.003430807963013649,
+        0.0
+      ],
+      [
+        0.1378399282693863,
+        0.2214059680700302,
+        0.0
+      ],
+      [
+        -0.13302941620349884,
+        0.2214059680700302,
+        0.0
+      ]
+    ],
+    "selectedMapping": {
+      "threshold": 128,
+      "originalOccupiedWidthWorld": 0.33752025517835105,
+      "sourceWorldPerPixel": 0.00028363046653642944,
+      "canonicalWorldPerPixel": 0.0005332073541522134,
+      "canonicalFullQuadWorld": [
+        0.3385866698866555,
+        0.27246895797178106
+      ],
+      "canonicalOccupiedCenterFromLeftPixels": 317.5,
+      "preserveSourceSupportOffsetAboveFoodRoot": 0.004821717195721645,
+      "newFullQuadLeftWorld": -0.16628676453038324,
+      "sourceBottomRowSupportXWorld": 0.005672607183705575,
+      "canonicalBottomRowSupportXPixel": 322.5,
+      "newFullQuadBottomWorld": 0.004288509841569432,
+      "pointConvention": "pixel boundary edges: occupied x extent [xmin,xmax+1], support y at bottom edge ymax+1; pixel-center alternative documented separately",
+      "pixelCenterSupportDeltaWorld": 0.00012478844380789197,
+      "canonicalFullQuadNativeVertices": [
+        [
+          -0.1330294116243066,
+          0.0034308078732555453,
+          0
+        ],
+        [
+          0.1378399242850178,
+          0.0034308078732555453,
+          0
+        ],
+        [
+          0.1378399242850178,
+          0.22140597425068037,
+          0
+        ],
+        [
+          -0.1330294116243066,
+          0.22140597425068037,
+          0
+        ]
+      ]
+    },
+    "uvs": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "depthWorld": 0.33,
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      }
+    ],
+    "inheritedSourcePropertiesProvenance": {
+      "representation": "2D ImageGen sprite, not modeled sushi",
+      "source_image": "//canonical-cucumber.png",
+      "source_sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "world_width_cells": 0.3385866842844134,
+      "camera_ray_depth_bias_world_cells": 0.33,
+      "mapping_threshold": 128,
+      "mapping_convention": "pixel-boundary EDGE; bottommost occupied row support midpoint",
+      "current_full_quad_world_dimensions": [
+        0.3385866842844134,
+        0.2724689440593374
+      ],
+      "legacy_fixed_alpha_rectangle_provenance": "[0, 120, 1234, 1201]",
+      "legacy_nominal_world_width_provenance": 0.35
+    },
+    "currentInterpretation": "Full canonical UV0..1 uses selected map128 EDGE support convention. Inherited source fixed_alpha_rectangle/world_width_cells are unmodified provenance; current width/support comes from actual vertices and selectedMapping."
+  }
+}

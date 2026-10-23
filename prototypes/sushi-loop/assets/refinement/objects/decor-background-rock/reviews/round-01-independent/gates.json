@@ -1,0 +1,97 @@
+{
+  "asset": "decor-background-rock",
+  "round": "round-01",
+  "candidatePacketSHA256": "20f3fe4297877ecc50affda4574c2ade50482e7068bd9d457fbfb3e6ff2bc54c",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "5fdffad9ac20abb61802e920e358c49041b462f22793e744f05faaae27a432aa"
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "501ccb27fb2cd83d41f0ebec6e0c6c0d60f1042c37a09dbd30e593de3e0bc759"
+  },
+  "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "helpers": [
+    {
+      "source": "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+      "frozenPath": "reviews/round-01-independent/resources/instructions/refine-3d-model/scripts/candidate_packet.py",
+      "sha256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f"
+    },
+    {
+      "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+      "frozenPath": "reviews/round-01-independent/resources/instructions/tools/audit_directions.py",
+      "sha256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb"
+    },
+    {
+      "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+      "frozenPath": "reviews/round-01-independent/resources/instructions/tools/acceptance_contract.py",
+      "sha256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+    }
+  ],
+  "results": [
+    {
+      "name": "candidate-packet-verify",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-background-rock/reviews/round-01.json"
+      ],
+      "workdir": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "returncode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/candidate-packet-verify.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/candidate-packet-verify.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "audit-directions",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "decor-background-rock",
+        "--round",
+        "round-01"
+      ],
+      "workdir": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "returncode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/audit-directions.stdout.txt",
+        "sha256": "baae287c561966042f568a893162c527ef682cd4bb59f161fb4031410a2ce7c2"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/audit-directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "acceptance-contract",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "decor-background-rock",
+        "--round",
+        "round-01"
+      ],
+      "workdir": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "returncode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/acceptance-contract.stdout.txt",
+        "sha256": "b8863b6aca8a47d0f5c155e40db8ccce5daa761e0c7c1c3b11cf223a6e20f0e4"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/acceptance-contract.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "allPassed": true,
+  "scope": "Unchanged exact approval binding, facing and acceptance validators; no helper/candidate/art mutation."
+}

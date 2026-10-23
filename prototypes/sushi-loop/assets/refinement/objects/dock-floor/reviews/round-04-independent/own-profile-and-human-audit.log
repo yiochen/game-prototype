@@ -1,0 +1,14 @@
+00:00.243  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/round-04.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/reviews/round-04-independent/audit-human-and-profile.py", line 48, in <module>
+    native.apply_clip({'root':hr,'collection':hc},rig,'walk',i+1,'S',sc);hr.location=pos;hr.rotation_euler=(0,0,0);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();shoes=[]
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/resources/approved-human-v3/native_actions.py", line 466, in apply_clip
+    if action is None:raise KeyError('Missing action '+target['action'])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Missing action S33_NATIVE__customer-rosa__walk__customer_rosa__armature.003'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

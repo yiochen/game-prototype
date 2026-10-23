@@ -1,0 +1,2414 @@
+{
+  "id": "harpoon-projectile",
+  "name": "Harpoon projectile",
+  "family": "W16",
+  "status": "ready",
+  "kind": "effect",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    256,
+    352
+  ],
+  "root": [
+    128,
+    224
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "launch",
+      "sourceClipId": "launch",
+      "name": "Launch",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/launch-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/launch-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/launch-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/launch-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "flight",
+      "sourceClipId": "flight",
+      "name": "Flight",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/flight-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/flight-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/flight-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/flight-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "hook",
+      "sourceClipId": "hook",
+      "name": "Hook",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": false,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/harpoon-projectile/hook-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/harpoon-projectile/hook-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/harpoon-projectile/hook-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/harpoon-projectile/hook-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            3072,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              512,
+              704
+            ],
+            [
+              512,
+              0,
+              512,
+              704
+            ],
+            [
+              1024,
+              0,
+              512,
+              704
+            ],
+            [
+              1536,
+              0,
+              512,
+              704
+            ],
+            [
+              2048,
+              0,
+              512,
+              704
+            ],
+            [
+              2560,
+              0,
+              512,
+              704
+            ],
+            [
+              0,
+              704,
+              512,
+              704
+            ],
+            [
+              512,
+              704,
+              512,
+              704
+            ],
+            [
+              1024,
+              704,
+              512,
+              704
+            ],
+            [
+              1536,
+              704,
+              512,
+              704
+            ],
+            [
+              2048,
+              704,
+              512,
+              704
+            ],
+            [
+              2560,
+              704,
+              512,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "World effect beside submarine and eel",
+      "gridSize": [
+        6,
+        5
+      ],
+      "placements": [
+        {
+          "object": "submarine-yellow",
+          "x": 0,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        },
+        {
+          "object": "creature-eel",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "pursuit"
+        },
+        {
+          "object": "harpoon-projectile",
+          "x": 1,
+          "y": 2,
+          "direction": "S"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "launch",
+      "flight",
+      "hook"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "creature-eel"
+    ],
+    "notes": "Separate projectile and explicit mount/target sockets; no baked ship or creature pixels."
+  },
+  "height": 0.55,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      256,
+      352
+    ],
+    "anchor": [
+      128,
+      224
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {
+    "tailCable": [
+      4.898587196589413e-17,
+      0.4,
+      0.3
+    ],
+    "hookTip": [
+      -7.83773951454306e-17,
+      -0.64,
+      0.3
+    ]
+  },
+  "sockets": {
+    "N": {
+      "tailCable": [
+        -1.2540383223268897e-14,
+        24.3199935913086
+      ],
+      "hookTip": [
+        2.0064613157230235e-14,
+        -108.8000064086914
+      ]
+    },
+    "E": {
+      "tailCable": [
+        -51.2,
+        -26.880006408691415
+      ],
+      "hookTip": [
+        81.92,
+        -26.88000640869139
+      ]
+    },
+    "S": {
+      "tailCable": [
+        6.270191611634449e-15,
+        -78.0800064086914
+      ],
+      "hookTip": [
+        -1.0032306578615117e-14,
+        55.0399935913086
+      ]
+    },
+    "W": {
+      "tailCable": [
+        51.2,
+        -26.8800064086914
+      ],
+      "hookTip": [
+        -81.92,
+        -26.880006408691408
+      ]
+    }
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+    "camera": "source/records/harpoon-projectile/camera.json",
+    "guide": "source/registered/harpoon-projectile/launch-N/guide.json",
+    "guides": [
+      "source/registered/harpoon-projectile/launch-N/guide.json",
+      "source/registered/harpoon-projectile/launch-E/guide.json",
+      "source/registered/harpoon-projectile/launch-S/guide.json",
+      "source/registered/harpoon-projectile/launch-W/guide.json",
+      "source/registered/harpoon-projectile/flight-N/guide.json",
+      "source/registered/harpoon-projectile/flight-E/guide.json",
+      "source/registered/harpoon-projectile/flight-S/guide.json",
+      "source/registered/harpoon-projectile/flight-W/guide.json",
+      "source/registered/harpoon-projectile/hook-N/guide.json",
+      "source/registered/harpoon-projectile/hook-E/guide.json",
+      "source/registered/harpoon-projectile/hook-S/guide.json",
+      "source/registered/harpoon-projectile/hook-W/guide.json"
+    ],
+    "assetRecord": "source/records/harpoon-projectile/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/000.png",
+        "sha256": "cee816c8209ffe29929182c2d0282daae73865bf17dd363e325374078ea34f3b",
+        "clip": "launch",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/001.png",
+        "sha256": "01096458ac376015ed8023e8fcf86200640ee8a5c0e857c5819c1a78f04f5e71",
+        "clip": "launch",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/002.png",
+        "sha256": "9c1658b2494ba3c32bb89daf5751150563e67d935d6cc390f2e03bf17b104f42",
+        "clip": "launch",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/003.png",
+        "sha256": "f435fa7a3ce664107f7c0b1409f9f030e06f390be54136b7244e9dc26a01f610",
+        "clip": "launch",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/004.png",
+        "sha256": "83436a19358d2f185260d51bac3b01662c70c2d6b4150d852ea84a426fa1f4c7",
+        "clip": "launch",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/005.png",
+        "sha256": "e027a63183bd3deb315013519ded91b406905417f2e04d12eb3e27dee87abc45",
+        "clip": "launch",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/006.png",
+        "sha256": "ea64ecb2ac787b55e08b74285e148548eace898e90c8d278d41cb368216abc86",
+        "clip": "launch",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/007.png",
+        "sha256": "a84e72f1052cdc18059da681c9cf7845279c9c969ec0c065495e98bda72e1a09",
+        "clip": "launch",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/008.png",
+        "sha256": "824e5a7d82a65c51c2175b5ffbee74ce25e4aa0d624098d492ca8955bbc1497e",
+        "clip": "launch",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/009.png",
+        "sha256": "efe0060cb67df3c4212e7061af859c2700f5cd3257612527c443609c6b06cd4f",
+        "clip": "launch",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/010.png",
+        "sha256": "46387ead4a3c03c011f42342b5368a2f784ee8616a8977d827480513ca1a7d19",
+        "clip": "launch",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-N/source-captures/011.png",
+        "sha256": "d8511c51cfa47f60de510e248f36af2d66bfe26ceab196445e5e86b7ac630712",
+        "clip": "launch",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/000.png",
+        "sha256": "803f25f8ffe61401627aeda99f4b1dc94cf6c45f16ed30f50cffe4335a5772b3",
+        "clip": "launch",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/001.png",
+        "sha256": "d5e14f673564bd93f85d6085599f16c4cb43216a40f3453d54a7604dc5b6f30f",
+        "clip": "launch",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/002.png",
+        "sha256": "b1763ac1e28964d686d4bf91b91d0b44284113659bd7db79a9e4b45bf26862e1",
+        "clip": "launch",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/003.png",
+        "sha256": "ef32c30a86d1d6bbfd9628b1abc831bee5f82a10dea73c43a4a7d294f7610369",
+        "clip": "launch",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/004.png",
+        "sha256": "527aa333a8266717834c4e333102a5feba9216453dba4038f670730b95c82c72",
+        "clip": "launch",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/005.png",
+        "sha256": "4b5ffd6d9889606a198746f524e3cfd4eaca279c0b4198ebc5a55e94d4725542",
+        "clip": "launch",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/006.png",
+        "sha256": "a9759dca0aa0fe638bdebc24b45b016fd3ac8f2b51117c51bef504eedada2dfa",
+        "clip": "launch",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/007.png",
+        "sha256": "3c4954a57e124da0dad2688eec4dc4afac8cccf9a37bbda01888da44747a408b",
+        "clip": "launch",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/008.png",
+        "sha256": "d5d38a3d95f97aedc6090d9e7c9dd68cf60ffd0ff7297885d0683028b3ef9154",
+        "clip": "launch",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/009.png",
+        "sha256": "1d7722bda1887a4b123a2fcb2a09da4f266059f00c66a9bc252c66186b4c3b62",
+        "clip": "launch",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/010.png",
+        "sha256": "27f40594af93346c69c4a731a28daa1bce37c501b324e903def6dc9631185eb8",
+        "clip": "launch",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-E/source-captures/011.png",
+        "sha256": "2a9523e0dfd235d8d91455e6a30a44ccf9c9134e76fe1df7a39b8c2f603bdea8",
+        "clip": "launch",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/000.png",
+        "sha256": "c5200495c828a7f86be62ea35815630a8b785735b8eda4d34b95f144d286d88f",
+        "clip": "launch",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/001.png",
+        "sha256": "da60987c2039a0b9c567f041c0da733aa70a298aca0fd1c0cd60fccf84cade31",
+        "clip": "launch",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/002.png",
+        "sha256": "cf5393d53f3e4e4e75ee8885142bc8880b8224322f1c41f94b9d743699bd724b",
+        "clip": "launch",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/003.png",
+        "sha256": "1a5615e837a69178d7854194d7e07843617e8a323cf546b90e0d6ccca7f7dea9",
+        "clip": "launch",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/004.png",
+        "sha256": "ce7733c951b6c0e3573639c5ea9c7ab7da949bdd601184552005a57a45fb321b",
+        "clip": "launch",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/005.png",
+        "sha256": "d082faf8b72b938c785eba94243014809c4c23046362db8d4d2cde7c7b8d1d41",
+        "clip": "launch",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/006.png",
+        "sha256": "82929ba3cd3d69061a71b9e12aa74764d22aae035d00460f2bcb350eb52cbdf7",
+        "clip": "launch",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/007.png",
+        "sha256": "5123c1f34bd1c784ae98a596a657ea7d5a6ad1f928aafdae2c2e6a08582333e7",
+        "clip": "launch",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/008.png",
+        "sha256": "e8c6825c0faf85e743fd90a899c429c3feaa8895af51a7276e4930f8b3aad86f",
+        "clip": "launch",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/009.png",
+        "sha256": "b9539d58627817f063aa448cff4c5ab0da29f3ab19704cddd84af6b462cd3f7c",
+        "clip": "launch",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/010.png",
+        "sha256": "ca2dea8994a912518a820554bacf18a797dc18793c970fd13d1c8689fe069853",
+        "clip": "launch",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-S/source-captures/011.png",
+        "sha256": "e027ab0c38a6f1f5758521eda30ce3b5ef66a93899fa66ce90246a496618c385",
+        "clip": "launch",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/000.png",
+        "sha256": "3396f1c5d59a28d76b2fe9828976d7220c506f839c7002fed052397afe9c7833",
+        "clip": "launch",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/001.png",
+        "sha256": "cb6a27e0d3050058a4df77556b2cfff1b41902375cd3190d7f10c91253917691",
+        "clip": "launch",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/002.png",
+        "sha256": "556e689ab17203049a40227537e41f50f0d9a339017cc49bb947a4b7e1ea2504",
+        "clip": "launch",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/003.png",
+        "sha256": "e2e94370ac028b72ddcef61e9f92223c47d245b1506b8443cf22fef47abfbc42",
+        "clip": "launch",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/004.png",
+        "sha256": "332a4dec87262273f349d4fabce42c69e61da7dd7b78caca4c363b0d0462ece0",
+        "clip": "launch",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/005.png",
+        "sha256": "bce22e1c5d071262562ae4670b7e1e50fdd668e97600df7add9d405b212a3c91",
+        "clip": "launch",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/006.png",
+        "sha256": "7dfc10acad4606e4a69e8d8a3da390c131f352daa47c84eb54e48b93521df3b6",
+        "clip": "launch",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/007.png",
+        "sha256": "bb6c33ae379b47984d2b6dffcdbfbd998aa400609775430d69a22a528c497be5",
+        "clip": "launch",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/008.png",
+        "sha256": "45c0832322cf01297ce8793ce9c94ae7eb542b9ff0dbe49c6a23fbc05f4d8fe5",
+        "clip": "launch",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/009.png",
+        "sha256": "43d74cef5dd5e0623b83f950dc8296a57b94fd5dbcbc0cb8c4a9ae7f9a8024eb",
+        "clip": "launch",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/010.png",
+        "sha256": "6e43c9b3eccfddcb3dcd0a7a91afb7c7d9fdf323573925f22f5de2466723d172",
+        "clip": "launch",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/launch-W/source-captures/011.png",
+        "sha256": "93591840dcf256ed43b24d2c7a53b00171b79df20ec464e7e24bdb668c19d0b7",
+        "clip": "launch",
+        "direction": "W",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/000.png",
+        "sha256": "31527ce5c911b5a0dc9a0cd692c4769e3eb8e08e9d28b59952a0efb7db27d45e",
+        "clip": "flight",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/001.png",
+        "sha256": "4c7a5aa2dd2e7a70de666a42fc023967f8a096476a057ff65b7bb2410496ea0e",
+        "clip": "flight",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/002.png",
+        "sha256": "be526c3758bc48cdfa235b8db25c7ce79a5dbf8536d8e5596a641b073ab2f6b9",
+        "clip": "flight",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/003.png",
+        "sha256": "696c46937f494b1706714b96224b2460ea5cd5d2c6626ad40867872876234f66",
+        "clip": "flight",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/004.png",
+        "sha256": "a0ea8c3f6965dc38effb0df3ea5ac61687b9e29f65de97e05f2338377bedbd10",
+        "clip": "flight",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/005.png",
+        "sha256": "206ca87bf9181449d836817d763a8dbb42c26f2144643dab477d445caff68fe0",
+        "clip": "flight",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/006.png",
+        "sha256": "fee74879655a33ce4e3c92c0de43eddd64990b213d6c1ae1a6a1de285e6226b7",
+        "clip": "flight",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/007.png",
+        "sha256": "e78851200e9578f8c419c43caf91ee3441d52040de2164f1cf7e6c1b39f9a228",
+        "clip": "flight",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/008.png",
+        "sha256": "07943d53cb703d6985ae0737fd8f1410e8732ad9e9f6daf6875699ff69c74c9b",
+        "clip": "flight",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/009.png",
+        "sha256": "8ddb37757eea7295f9b93b9e77c7d0a65692b609ee25a0becee14b6f8872bc52",
+        "clip": "flight",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/010.png",
+        "sha256": "5964c8996fd7aef29ebbce6dd1b7bd2adca7ca9d26c0ea34cf0660db5ae83fa9",
+        "clip": "flight",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-N/source-captures/011.png",
+        "sha256": "0f7b3ef37c7cb174d1cd9f8fc95411ea50ade262f96e9789a9cc837eb039a8aa",
+        "clip": "flight",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/000.png",
+        "sha256": "85ef7c5d18d5808a12de9c72430d14aa8486ff50c60621ff083404f63320f798",
+        "clip": "flight",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/001.png",
+        "sha256": "6f1fb88d553eae613886f284e4f9e99b062bcf509f13632643d218e924636234",
+        "clip": "flight",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/002.png",
+        "sha256": "5585b6c177dd46ad47867720e72e85aaf0692bc60dac417593768d71038614af",
+        "clip": "flight",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/003.png",
+        "sha256": "4f94008aba84b241fc4f66a34c19b72e662ed5a3550c495c16ba256e487692fc",
+        "clip": "flight",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/004.png",
+        "sha256": "44e26fccbeddd75de868369ccca55d7746f513c5bf418ac462862087d2e3c410",
+        "clip": "flight",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/005.png",
+        "sha256": "c08e9d3f8da89cba491c71df0c01407a689797640864fcc3e526dbf87a628b21",
+        "clip": "flight",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/006.png",
+        "sha256": "dd6f93d8ace8c6eb3941f5d33be4e429d3ff202a89d87601d583d02738e2bf5b",
+        "clip": "flight",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/007.png",
+        "sha256": "1fb1990124a87d846926d205d87e32b1ebf583ade7ead1283ae19bbc73975c1c",
+        "clip": "flight",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/008.png",
+        "sha256": "5dea13f9cc656a57b47594b27b9bfac233407c655848a9ecdb3e68ef7a0fb109",
+        "clip": "flight",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/009.png",
+        "sha256": "b832d9d4234fc134f958eb2a17bac26ff871aca3641ac21c6bd771fc9d80c68c",
+        "clip": "flight",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/010.png",
+        "sha256": "8d6bbf3296e66aac8e39daa23ae65a845525897eaa24bc75d64760d3e0cb26e7",
+        "clip": "flight",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-E/source-captures/011.png",
+        "sha256": "ea9d314ec0ec4f6a8e9fe9aeb38b770c9d9e9e5e8b48769f08cf7d172afc1f67",
+        "clip": "flight",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/000.png",
+        "sha256": "b34e67c7202b9d98f7b1f3ff535ac525c464e6c3f7d2c164f50949edd9c2d3cf",
+        "clip": "flight",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/001.png",
+        "sha256": "0d1be91e15b76624037a85b1175c338ba7d57e95cc5f1a0ea8829db5b948ecde",
+        "clip": "flight",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/002.png",
+        "sha256": "75f61315865c1d6fce215188618427f7ed8afbd8b6a17046253e0772344077ba",
+        "clip": "flight",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/003.png",
+        "sha256": "6ded9b1b30149fc6b5ac096e2e0cd282e0a36c7071492ff8fb8649fc3fd2333b",
+        "clip": "flight",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/004.png",
+        "sha256": "2900d41465e8bd7508ac14c514f9dcf3da57232665fd728c1bccad74154be2ea",
+        "clip": "flight",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/005.png",
+        "sha256": "9d91026973fd3a6c12f895357bfd484ef9de5db829b1759cb20bc7c13a22532b",
+        "clip": "flight",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/006.png",
+        "sha256": "01506691dbc69418cfe59719ee456ef2a55de6a46ea15cbe528387cde3a004c9",
+        "clip": "flight",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/007.png",
+        "sha256": "85760dcb90c8a01a2cf24580ec17d9a24d03740ef239ed239b7ef5c06ad0b33d",
+        "clip": "flight",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/008.png",
+        "sha256": "541da3b6dc29dff551e1a917e75d5033f79ad806fe3a888128565c6ba3d3cd5a",
+        "clip": "flight",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/009.png",
+        "sha256": "eb86532f66854720e136f2588850146f3893a3c434e90010698324512a434644",
+        "clip": "flight",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/010.png",
+        "sha256": "d3b51f79265eb408294c97fdf0978432318f4cd2251bb123a779ccc23b144c6d",
+        "clip": "flight",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-S/source-captures/011.png",
+        "sha256": "a43be898f733c26a94bb915c471d23022f2b67169185f4721974e99a4f3fb213",
+        "clip": "flight",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/000.png",
+        "sha256": "39dad30c5726581476732c45107ef24c27692a1e16a924124f66884e81d41b39",
+        "clip": "flight",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/001.png",
+        "sha256": "8233eb9e594f61a8e516ab8dca5d0bd25d7bdff49f4fe157f6d8d1e2535a6478",
+        "clip": "flight",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/002.png",
+        "sha256": "f1e154386b32c9f707adf3bf186aefc3f4f48d3a8459ffb7d4ab4a256528c846",
+        "clip": "flight",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/003.png",
+        "sha256": "a905c67a78a89981f151ee346b3132a9e7d65ca711658ffd15cf88183b781bd8",
+        "clip": "flight",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/004.png",
+        "sha256": "900a2a634dc7f3d595ca8b36fbe9a8d1992b7c52b6cfb56965a6be64f66699c1",
+        "clip": "flight",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/005.png",
+        "sha256": "3c17eec9c960d735314544b90dbc7a619ea03874f2d461673ce5d93e303b1771",
+        "clip": "flight",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/006.png",
+        "sha256": "daf7f6a5b5c98f16e59a55ad83a07f6903f03d28338e87895afd08c2b5995b22",
+        "clip": "flight",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/007.png",
+        "sha256": "6caa220bb8842d28c012d1511c2385c203a0357f878717db6580838b9c3ac802",
+        "clip": "flight",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/008.png",
+        "sha256": "4ae3d510466f69355e4480be5fed2462ac225ddb8e81a98b25b626278d9fb34e",
+        "clip": "flight",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/009.png",
+        "sha256": "e626b5609bb1167dda1f60f089d02bb095d414e830869fedfcb395dc7960d54d",
+        "clip": "flight",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/010.png",
+        "sha256": "4a865d07c5e95be463adf94be18599011becbc7b08dda9e14f5afbd47b32f864",
+        "clip": "flight",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/flight-W/source-captures/011.png",
+        "sha256": "34febb240dc06709b42233acc82c6b83ca9af75414ebc2af81b230ff3343e724",
+        "clip": "flight",
+        "direction": "W",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/000.png",
+        "sha256": "03208c874665175799aa3cb4e64e74bf94334cbac306e976980ea1bb648dd497",
+        "clip": "hook",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/001.png",
+        "sha256": "1a5593c39f5551993e86edaa4165530de5122c54569e2ae52e66a2e0cdab8bbe",
+        "clip": "hook",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/002.png",
+        "sha256": "a923f57df873dca1a33500c90fcef7d8954dd93bd3e7fbd08d433fad872457d5",
+        "clip": "hook",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/003.png",
+        "sha256": "2a426518d69708fe4ab26958e92807eea4b63c6d33ce8f695ddcd46e3f15b782",
+        "clip": "hook",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/004.png",
+        "sha256": "3e1d0de31e522866f4eb7d8f440c596a00c5257fb738ce74c84c3c21c1d68f97",
+        "clip": "hook",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/005.png",
+        "sha256": "8458c6f8ae12c22e942f546fcc0140ea1d6122ef93e46adc72333dee8255e5ea",
+        "clip": "hook",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/006.png",
+        "sha256": "e04ad082c6a2ce39615bf713939da0979b36587bebd9b9365641f03bcd942362",
+        "clip": "hook",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/007.png",
+        "sha256": "335b1ce5a5d5774dcfe82ad766a907310145a2971698f922936db4e5f3c843f5",
+        "clip": "hook",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/008.png",
+        "sha256": "fbce45771a519d3a0f4d7f06d5b076efe54e44b886b90e290b03821c4f2750e6",
+        "clip": "hook",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/009.png",
+        "sha256": "2004ef9b9c330d9cc51945f18e1d6333bcd9b76dd9dcc7ed65db3f462836b755",
+        "clip": "hook",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/010.png",
+        "sha256": "518681cf82985f7eff675cf5f2d4beaaa69d99fa875e0ade5a131eeb3e854d79",
+        "clip": "hook",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-N/source-captures/011.png",
+        "sha256": "4b5a50ac548fdc18411eaf2e3148b41cd98465eaf69cad9b51e8e657d3755c8c",
+        "clip": "hook",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/000.png",
+        "sha256": "976ce638a298bb02910dac79741948543f7a24ba37f0d73a63870edbe934ef20",
+        "clip": "hook",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/001.png",
+        "sha256": "74fc375581cc2b73c8dcb162d36589bd6752ec27efa39d9b927d07bda69d2c35",
+        "clip": "hook",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/002.png",
+        "sha256": "7af043dbfaba0d7999933a0954923eea2683a266d2f222a64da40a9c9f6be3f9",
+        "clip": "hook",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/003.png",
+        "sha256": "2e04deec6cda23030713a75e0b32fdfbcbebc7f63a361cfcdd535282004e2901",
+        "clip": "hook",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/004.png",
+        "sha256": "1e70f423b359f30b2856af2d552a8e1ffc76e8806e025d2781e9f676f8bc3ca8",
+        "clip": "hook",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/005.png",
+        "sha256": "42943e28df1d86bf5452865daa0be4c6335977b49467f6e8950c7f261c9ad043",
+        "clip": "hook",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/006.png",
+        "sha256": "e221cfe524353f27622b9ebd44065a265baff0334e06b9af1aebf0acdfed1cfd",
+        "clip": "hook",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/007.png",
+        "sha256": "4596ffa84256b32d488cc10e8da18c31d3ed169e5631aa32a91f08757009ef56",
+        "clip": "hook",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/008.png",
+        "sha256": "7cb7c4ba147ec3f15baae5f74577800d76f9231edd74af9cc447c8c75f898219",
+        "clip": "hook",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/009.png",
+        "sha256": "134487aa84e735a3d52078c1f89eabbe7f90776438941bc27570e87a5b221555",
+        "clip": "hook",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/010.png",
+        "sha256": "34c0ebc1f3cba531e96790b1875a201ddf1027dd05cb8dd73efb76ce6d4608a2",
+        "clip": "hook",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-E/source-captures/011.png",
+        "sha256": "7654a5307c56496d8f31553baec652c83e91f25b6049ec256dc523559ef95181",
+        "clip": "hook",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/000.png",
+        "sha256": "102953e375739dc71e9fccffdaf021f9d50aa80b67a3ce54d3a28d587ea24b45",
+        "clip": "hook",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/001.png",
+        "sha256": "f189d10fcda2a644fb45e42fc80a4c8f3752f951394a8b883beae7a365967c40",
+        "clip": "hook",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/002.png",
+        "sha256": "d84665d8077951930f230dc55c8dcc41d9f827bf123a44ee648b003d4999e290",
+        "clip": "hook",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/003.png",
+        "sha256": "bacab69fe80ca4818edbb54b1b886fdd6bdc8976eb30d2e440f0d15a689882f2",
+        "clip": "hook",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/004.png",
+        "sha256": "177d7b3554771df21654f1e59b13f27aa2c7e694d2c1616b7eedffbe22f3c7e7",
+        "clip": "hook",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/005.png",
+        "sha256": "180443057bb516fc51ff5f36b32fa58a9b6f581af2828335d222ebd26a3fc4a0",
+        "clip": "hook",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/006.png",
+        "sha256": "a4a7837233c6ae75b041ac2d3556550c1e1c195fb9835b419c522a3d4532c745",
+        "clip": "hook",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/007.png",
+        "sha256": "4560e7707b317004000e4cc6d44207abd4efa77b358b1c6e5d468394cf1fccb9",
+        "clip": "hook",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/008.png",
+        "sha256": "d9eb9dd35c3af3749c8f9152e001fa7b7682fff06a35f1684d04bb7d8d948594",
+        "clip": "hook",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/009.png",
+        "sha256": "f0675f095f93b3cecaab4dd7e81bd7a43aca26918ae8e403705180b367d77e2f",
+        "clip": "hook",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/010.png",
+        "sha256": "eff99212348af9c7b17616fd74378257d19e45113053fb12add5d7684f65d6a1",
+        "clip": "hook",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-S/source-captures/011.png",
+        "sha256": "e1ce4cbdc371372edb0c2fbe9094e7b6e6af55c3e88bd83c1722c204bba63406",
+        "clip": "hook",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/000.png",
+        "sha256": "7a9e3bb6c5ed20aac7b4e98dfd1a0cfd34256a1e5f80f8389e823051b333028a",
+        "clip": "hook",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/001.png",
+        "sha256": "b6261c3d42a9fc1df8e386e817f50b540c0d4790acdb3f0409988144933aa315",
+        "clip": "hook",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/002.png",
+        "sha256": "b280fa1d1a7f1c2dc67a57a3b68581e52a086b526d69fa8c853061a3b15c0f7c",
+        "clip": "hook",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/003.png",
+        "sha256": "61db9c163b8d443f0366e591bcc0484c09016dea5f60a55826020524ab67d889",
+        "clip": "hook",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/004.png",
+        "sha256": "b3245284070561605a57f31ea45dd3570df5dc912d3c6c99977989c312763cad",
+        "clip": "hook",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/005.png",
+        "sha256": "c7ecb98f232bd81097256d9eb1f9cb84de8bd80a53ea99b7caffed980c6f7719",
+        "clip": "hook",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/006.png",
+        "sha256": "15fa983a4953ec638bb7a98b586855281231efe1c40bdbac3eaf115d155b2e42",
+        "clip": "hook",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/007.png",
+        "sha256": "9f27f4a0834672c805bc02199bece2b7c340d97843a104441cee74fd5df1fe9e",
+        "clip": "hook",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/008.png",
+        "sha256": "cc587ccac5469eef9e9c0dd7bef6a311d8af981b1a31153bd7da44e60badb8e9",
+        "clip": "hook",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/009.png",
+        "sha256": "7ad1e5cf309d1b5410a2765b748a2ae816b724ae6b231709395d3f2a7adae456",
+        "clip": "hook",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/010.png",
+        "sha256": "8aa24a097c3e2b697095e72525241d505aa9789c6faa0fa9d27e3cd4c894b334",
+        "clip": "hook",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/harpoon-projectile/hook-W/source-captures/011.png",
+        "sha256": "c8e651fc240c12f4fb54d3dabc4e42363e7f9b5d8a299fa32c3ae716207359d4",
+        "clip": "hook",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/harpoon-projectile/rig.json"
+  },
+  "captureFingerprint": "e2308af11f7cf3166d5c14beb0e1677471dd12e31428125e7c5655c8e1b7720d",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

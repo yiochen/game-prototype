@@ -1,0 +1,267 @@
+{
+  "id": "sign-blank",
+  "name": "Blank shop sign",
+  "family": "W02",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    256
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "idle",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "S": {
+          "image": "sprites/sign-blank/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Front-edge sign shares a planted tile",
+      "gridSize": [
+        3,
+        3
+      ],
+      "placements": [
+        {
+          "object": "plant-angular",
+          "x": 1,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "sign-blank",
+          "x": 1,
+          "y": 1,
+          "direction": "S",
+          "renderPass": "foreground"
+        }
+      ],
+      "note": "One blank player-facing sign at the front of the same tile as a plant; no title is baked."
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "S"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "floor-cream",
+      "chef-lena"
+    ],
+    "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+  },
+  "height": 1.12,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      256
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {
+    "sign_face": [
+      0,
+      -0.472,
+      0.77
+    ],
+    "display_face": [
+      0,
+      -0.472,
+      0.77
+    ]
+  },
+  "sockets": {
+    "N": {
+      "sign_face": [
+        7.398826101728649e-15,
+        -129.4080281982422
+      ],
+      "display_face": [
+        7.398826101728649e-15,
+        -129.4080281982422
+      ]
+    },
+    "E": {
+      "sign_face": [
+        60.416,
+        -68.9920281982422
+      ],
+      "display_face": [
+        60.416,
+        -68.9920281982422
+      ]
+    },
+    "S": {
+      "sign_face": [
+        0.0,
+        -8.576028198242199
+      ],
+      "display_face": [
+        0.0,
+        -8.576028198242199
+      ]
+    },
+    "W": {
+      "sign_face": [
+        -60.416,
+        -68.9920281982422
+      ],
+      "display_face": [
+        -60.416,
+        -68.9920281982422
+      ]
+    }
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "208aa48174f6299d7f50d543668cc2790f0f4bda3972a2963bc7960fee0359a8",
+  "portProfiles": {},
+  "facingPolicy": "single-player-facing",
+  "reviewNote": "Blank player-facing surface at the front of its tile; shares the same tile with another object. Content is drawn dynamically in Godot.",
+  "renderPass": "foreground",
+  "directions": [
+    "S"
+  ],
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "compositionContext": {
+    "role": "front-edge-player-facing-overlay",
+    "allowCoOccupancy": true,
+    "displayDirection": "S",
+    "groundBandY": [
+      -0.5,
+      -0.27
+    ]
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "camera": "source/records/sign-blank/camera.json",
+    "guide": "source/registered/sign-blank/static-S/guide.json",
+    "assetRecord": "source/records/sign-blank/asset.json",
+    "rig": "source/records/sign-blank/rig.json"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "role": "fresh independent garbage-car editor",
+  "inspectedBeforeJudgeCriteria": true,
+  "inputsViewed": ["inputs/original.png", "inputs/target.png", "../../style/warm-soft-reference.png", "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend"],
+  "observations": {
+    "source": "The source is a broad pale blue-gray wrecked car with a front at negative X, shallow slabs for roof/hood/body, four 12-sided wheel cylinders, eight-sided hubs, real jagged glass polygons against dark window openings, and three ground debris pieces. 56 mesh owners have independent clip actions. Actual restored native rendering matches the source image composition.",
+    "target": "The fixed target keeps the same wreck identity but uses much broader rounded panel corners, convex panel faces, tire sidewall volume, inset metal trim and richer restrained orange-brown rust. Broken windows remain large dark gaps, edged with blue glass. Head/tail lights, door seams and handles aid vehicle reading. Target is visibly enlarged and reframed, so its pixel silhouette does not define camera or size.",
+    "style": "Warm soft light, softly rounded silhouettes and clean color areas carry the reference. Material changes should be visible as deliberate paint, metal, rubber and broken glass surfaces at game size. Avoid excessive surface noise.",
+    "animation": "Native clearance splits source parts into independently lifted, scattered, spinning shrinking fragments. Rendered frame 8 confirms separate wheels, slabs, glass and frame bars. Final pieces remain opaque and small; keep separate floor reveal outside car clip. Highlighting must remain geometric local pulse.",
+    "implementationDirection": "Use all original source-role action transforms as native empty drivers, rebuild visible child surfaces in each driver's idle local coordinates, and attach added details to coherent parent roles. Keep distinct primary panel/wheel/glass trajectories. Rebuild rounded panel volumes and fenders within measured idle envelope; source topology and object counts are not constraints. Preserve original four wheel support regions, reducing visibly detached/intersecting construction without shifting root or camera."
+  },
+  "inspectionArtifacts": ["source/inspection/inspect_native.py", "source/inspection/inspect_native_v02.py", "source/inspection/inspect_native_v03.py", "source/inspection/native-inspection.json", "source/inspection/native-idle-01-S.png", "source/inspection/native-clearance-08-S.png", "source/inspection/native-clearance-12-S.png"],
+  "diagnosticNote": "The first two inspection scripts exposed the unrelated active scene and have been retained. v03 restores the native car scene and renders correctly. Pre-render property bounds in the inspection JSON are stale; final validation will explicitly use evaluated post-render mesh vertices."
+}

@@ -1,0 +1,78 @@
+{
+  "purpose": "Coverage map, not an editor verdict. Original judge must actually inspect every declared hero/preview/playback.",
+  "heroes": {
+    "N": "frames/idle/N/000.png",
+    "E": "frames/idle/E/000.png",
+    "S": "frames/idle/S/000.png",
+    "W": "frames/idle/W/000.png"
+  },
+  "declaredPreviews": {
+    "four-view-sheet": "four-view-sheet.png",
+    "native-four-view-sheet": "native-four-view-sheet.png",
+    "phone": "consumer-v02/full-chromium-phone-detail.png",
+    "repeated": "repeated.png",
+    "logical-light-gray-dark": "logical-backgrounds.png",
+    "closure": "closure-sheet.png",
+    "actual-consumer-controls": "consumer-controls-sheet.png",
+    "idle-N": "idle-N.png",
+    "idle-E": "idle-E.png",
+    "idle-S": "idle-S.png",
+    "idle-W": "idle-W.png",
+    "all-phases-N": "phases-N.png",
+    "all-phases-E": "phases-E.png",
+    "all-phases-S": "phases-S.png",
+    "all-phases-W": "phases-W.png"
+  },
+  "all48UniquePhaseCoverage": {
+    "N": {
+      "sheet": "phases-N.png",
+      "order": "row-major6x2 indexed0..11, each full registered frame uniformly resized to logical192x480",
+      "actualPlayback": "idle-N.png",
+      "playbackFormat": "APNG,12 exact published2x decoded frames,1/12second each"
+    },
+    "E": {
+      "sheet": "phases-E.png",
+      "order": "row-major6x2 indexed0..11, each full registered frame uniformly resized to logical192x480",
+      "actualPlayback": "idle-E.png",
+      "playbackFormat": "APNG,12 exact published2x decoded frames,1/12second each"
+    },
+    "S": {
+      "sheet": "phases-S.png",
+      "order": "row-major6x2 indexed0..11, each full registered frame uniformly resized to logical192x480",
+      "actualPlayback": "idle-S.png",
+      "playbackFormat": "APNG,12 exact published2x decoded frames,1/12second each"
+    },
+    "W": {
+      "sheet": "phases-W.png",
+      "order": "row-major6x2 indexed0..11, each full registered frame uniformly resized to logical192x480",
+      "actualPlayback": "idle-W.png",
+      "playbackFormat": "APNG,12 exact published2x decoded frames,1/12second each"
+    }
+  },
+  "all4Closures": "closure-sheet.png labels compare last unique/first/closure13; full native closure files retained; technical world/pixel differences in validation/publication proof.",
+  "consumerCoverage": "consumer-controls-sheet.png includes full unscaled actual CSS screenshots of phone S0/.570, tiny E6/.099, and actual yellow submarine/eel context S0/.570 in both required modes. Native canvas files separately retained.",
+  "nativeReplayAliases": [
+    {
+      "direction": "S",
+      "nativeFrame": 1,
+      "savedReplayPath": "candidates/round-01/replay-smoke/S-000.png",
+      "submittedPath": "candidates/round-01/native/idle/S/000.png",
+      "replaySHA256": "721efa38b936dc233c038686e17d1803fd129d050a02c92fe7fb37f1b6c5f504",
+      "submittedSHA256": "d81f3c6eaa90589c0e7ecd951e2ed6dde52ef43f2c74dddd96ed744494167fe1",
+      "differentChannels": 0,
+      "maximumChannelDelta": 0
+    },
+    {
+      "direction": "E",
+      "nativeFrame": 1,
+      "savedReplayPath": "candidates/round-01/replay-smoke/E-000.png",
+      "submittedPath": "candidates/round-01/native/idle/E/000.png",
+      "replaySHA256": "0f8fbfceca0efd6b1a29b9f603e8458a68e9b68feffd7a240d46e661599c6ded",
+      "submittedSHA256": "341cd0754bafbf3fb666f3e185e3df68240b6a1363d6b8eb25f9205f630624c0",
+      "differentChannels": 0,
+      "maximumChannelDelta": 0
+    }
+  ],
+  "draftEvidence": "lookdev and lookdev-v02 are earlier retained tests; lookdev-v03 renders exact same final source and may be hash-mapped to final S/E0. They are not additional declared candidate previews.",
+  "ownership": "Editor has not read or changed future judge review and has not self-approved. Root seals exact delivery then original independent judge reviews it."
+}

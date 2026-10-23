@@ -1,0 +1,148 @@
+{
+  "role": "independent-editor",
+  "stage": "Before reading frozen criteria, judge reviews, or sibling critiques",
+  "inspected": [
+    {
+      "label": "original-raw",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/../../../production/source/2d/generated/bubble-preference.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "sha256": "819ff9ee1b8cfb803b26be62621799522221473b759ffc3a753ac413dce0dfc3",
+      "pixelSHA256": "7fc6c581b649ef1076074bba5168ebf8de371fdc7b19d5bc50de732fb7ee6836",
+      "alpha0Bounds": [
+        0,
+        39,
+        1510,
+        984
+      ],
+      "alpha8Bounds": [
+        119,
+        65,
+        1416,
+        964
+      ]
+    },
+    {
+      "label": "original-registered",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/inputs/original.png",
+      "size": [
+        384,
+        640
+      ],
+      "sha256": "30ceb87cc149230a207eeafe33e745c49efcd26b773ca46b9da549da206f4037",
+      "pixelSHA256": "5c616a05b3b317127e89e4fc9094be10d150d1fde63b537ca13a873c03e4bf2e",
+      "alpha0Bounds": [
+        110,
+        335,
+        274,
+        449
+      ],
+      "alpha8Bounds": [
+        110,
+        335,
+        274,
+        449
+      ]
+    },
+    {
+      "label": "fixed-target",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/inputs/target.png",
+      "size": [
+        971,
+        1620
+      ],
+      "sha256": "0f3e1aff5eb7b5e667e238e357c1f97b0f8ff5f5e51f3a9ffe4853ad438c8a8c",
+      "pixelSHA256": "c9943457da1fc426dd090f7502cc49eb649908d830be75e3e192b354f82a4400",
+      "alpha0Bounds": [
+        0,
+        423,
+        941,
+        1502
+      ],
+      "alpha8Bounds": [
+        50,
+        554,
+        923,
+        1136
+      ]
+    },
+    {
+      "label": "dish-salmon",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "size": [
+        731,
+        505
+      ],
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "pixelSHA256": "79c929a5231399a94fe9c52b47a26af2d67faeafe42c3f3fbe9117d386201df2",
+      "alpha0Bounds": [
+        0,
+        0,
+        731,
+        505
+      ],
+      "alpha8Bounds": [
+        0,
+        0,
+        731,
+        505
+      ]
+    },
+    {
+      "label": "dish-cucumber",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/../../../production/source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
+      "size": [
+        635,
+        511
+      ],
+      "sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "pixelSHA256": "84dab715bac53999bd6c87f22e2e605ea9ad41603b680f0fcd1e75a74925b6e0",
+      "alpha0Bounds": [
+        0,
+        0,
+        635,
+        511
+      ],
+      "alpha8Bounds": [
+        0,
+        0,
+        635,
+        511
+      ]
+    },
+    {
+      "label": "dish-eel",
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-preference/../../../production/source/2d/refinement/dish-eel/source/round01/dish-eel.png",
+      "size": [
+        760,
+        499
+      ],
+      "sha256": "1944c44bacb881e815693adc0e60fe029e139b347366b45e7e869d4dbb3b4492",
+      "pixelSHA256": "9ab66b25ef6f6c4e5f50b03ca76fa96b6b9ce5a94ffbeab18a3338c071f51f35",
+      "alpha0Bounds": [
+        0,
+        0,
+        760,
+        499
+      ],
+      "alpha8Bounds": [
+        0,
+        0,
+        760,
+        499
+      ]
+    }
+  ],
+  "publisher": "inputs/original-2d-pipeline/publish_2d.py",
+  "observations": [
+    "Original raw is a wide cream blank balloon with orange lower rim and an external brown low-alpha halo. Registered original already has salmon and fixed transparent384x640 canvas.",
+    "Frozen target is a blank wide rounded cream balloon with brown rim, warm peach lower band, small white highlights and central pointed tail; no food is baked in.",
+    "Actual publisher trims alpha>8 rectangle once, normalizes balloon82logical width and dishes40logical width, shares sin bob/appear scale/opacity and places dish five logical pixels above balloon center. All four facings share S.",
+    "Canonical approved food sources are inspected at full source bounds; no second crop is permissible. Salmon, cucumber, eel retain distinct source dimensions/aspect.",
+    "Current native feedback uses BUBBLE_ATTACHMENT[0,-172], customer_pose_offset and separate circular timer. Catalog[0,-90] is historical. Native current recipe prefix supports cucumber vs salmon only; eel clips remain catalog coverage.",
+    "Family heart/smile images were added after target generation and are context only."
+  ],
+  "next": "Read hash-verified full brief and frozen criteria, build unchanged-math native2D packing candidate."
+}

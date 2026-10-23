@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 
 const url = '/prototypes/sushi-loop/?ntl-drawer-state=hidden';
 const library = JSON.parse(await readFile(new URL('../assets/production/library.json', import.meta.url), 'utf8'));
+const refinement = JSON.parse(await readFile(new URL('../assets/refinement/progress.json', import.meta.url), 'utf8'));
 const objects = library.objects;
 
 for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
@@ -27,9 +28,9 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
     if (object.productionStage) await expect(stage).toContainText(object.productionStage);
     if (object.source?.blend) {
       const source = stage.getByRole('link', { name: 'Editable Blender source ↗', exact: true });
-      await expect(source).toHaveAttribute('href', `https://github.com/yiochen/game-prototype/blob/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${object.source.blend}`);
+      await expect(source).toHaveAttribute('href', `https://github.com/yiochen/game-prototype/blob/${refinement.branch}/prototypes/sushi-loop/assets/production/${object.source.blend}`);
       await expect(source).toHaveAttribute('target', '_blank');
-      await expect(stage.getByRole('link', { name: 'Download .blend ↓', exact: true })).toHaveAttribute('href', `https://raw.githubusercontent.com/yiochen/game-prototype/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${library.production?.editableProject || object.source.blend}`);
+      await expect(stage.getByRole('link', { name: 'Download .blend ↓', exact: true })).toHaveAttribute('href', `https://raw.githubusercontent.com/yiochen/game-prototype/${refinement.branch}/prototypes/sushi-loop/assets/production/${object.source.blend}`);
     }
     for (const title of ['Four directions', 'Repeated 3 × 3', 'Interaction & scale', 'Every animation · all directions']) await expect(stage.locator('.object-review-section h3', { hasText: title })).toHaveCount(1);
     const scenes = stage.locator('.object-tile-scene');
@@ -192,14 +193,14 @@ test('camera-facing effects explain four world-facing contexts while ordinary ob
   await page.goto(`${url}#object-${cameraFacing.id}`);
   const stage = page.locator('#prototype-stage');
   await expect(stage.locator('.object-facing-policy')).toHaveText('Camera-facing artwork · four world-facing contexts');
-  const firstSection = stage.locator('.object-review-section').first();
+  const firstSection = stage.locator('.object-review-section:not(.object-refinement)').first();
   await expect(firstSection).toContainText('Four facing contexts: camera-facing artwork stays readable');
   await expect(firstSection.getByRole('img', { name: `${cameraFacing.name}: camera-facing artwork in North, East, South and West world-facing contexts`, exact: true })).toBeVisible();
   for (const direction of ['N', 'E', 'S', 'W']) await expect(firstSection.locator(`[data-object="${cameraFacing.id}"][data-direction="${direction}"]`)).toHaveCount(1);
   const ordinary = objects.find(object => !['camera-facing', 'single-player-facing'].includes(object.facingPolicy) && object.clips?.length);
   await page.goto(`${url}#object-${ordinary.id}`);
   await expect(stage.locator('.object-facing-policy')).toHaveCount(0);
-  await expect(stage.locator('.object-review-section').first()).toContainText('Same tile pitch and ground root in every facing.');
+  await expect(stage.locator('.object-review-section:not(.object-refinement)').first()).toContainText('Same tile pitch and ground root in every facing.');
 });
 
 for (const [width, height] of [[390, 844], [844, 390]]) {
@@ -214,14 +215,18 @@ for (const [width, height] of [[390, 844], [844, 390]]) {
       const firstScene = stage.locator('.object-tile-scene').first();
       await expect(firstScene.locator(`[data-object="${id}"]`)).toHaveCount(1);
       await expect(firstScene.locator('[data-direction="S"]')).toHaveCount(1);
-      await expect(stage.locator('.object-review-section').first()).toContainText('front-edge placement');
+      await expect(stage.locator('.object-review-section:not(.object-refinement)').first()).toContainText('front-edge placement');
       const interaction = stage.locator('.object-interaction').first();
       await expect(interaction.locator(`[data-object="${id}"]`)).toHaveCount(1);
       await expect(stage.locator('[data-animation^="cucumber-"]')).toHaveCount(0);
       await expect(stage.locator('[data-animation^="eel-"]')).toHaveCount(0);
     }
     await page.goto(`${url}#object-bubble-happy`);
-    await expect(stage.getByRole('link', { name: 'Original ImageGen artwork ↗' })).toBeVisible();
+    const happy = objects.find(object => object.id === 'bubble-happy');
+    const artwork = stage.getByRole('link', { name: happy.source.refinedSource ? 'Refined 2D artwork ↗' : 'Original ImageGen artwork ↗', exact: true });
+    await expect(artwork).toBeVisible();
+    await expect(artwork).toHaveAttribute('href', `https://github.com/yiochen/game-prototype/blob/${refinement.branch}/prototypes/sushi-loop/assets/production/${happy.source.artwork}`);
+    if (happy.source.recipe) await expect(stage.getByRole('link', { name: 'Editable 2D recipe ↗', exact: true })).toBeVisible();
     await expect(stage.getByRole('link', { name: 'Editable Blender source ↗' })).toHaveCount(0);
     const firstScene = stage.locator('.object-tile-scene').first();
     const sources = await firstScene.locator('[data-sprite-source]').evaluateAll(elements => elements.map(element => element.dataset.spriteSource));

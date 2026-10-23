@@ -1,0 +1,172 @@
+{
+  "asset": "chef-mateo",
+  "round": "round03",
+  "scope": "Exact approved native body; canonical2D food image and one globally fixed rest-quad/fullUV mapping only.",
+  "brief": "brief-v3-held-food-semantic-contact.json",
+  "briefSHA256": "e699452c13c421593cf1d1de45a8449222376b7cb6d71ad310b7337d4427c7ac",
+  "approvedBody": "source/round02.blend",
+  "approvedBodySHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "candidate": "source/round03.blend",
+  "candidateSHA256": "b0e7450c0e204426a93bd798b6ba83a9d2a3d6c368987fe887370a3e7f7613f9",
+  "canonicalResource": "source/round03-resources/canonical-salmon.png",
+  "canonicalSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+  "historicalControlResource": "source/round03-resources/historical-salmon.png",
+  "blender": "/opt/homebrew/bin/blender",
+  "blenderVersion": "5.2.2 LTS",
+  "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "ffmpeg": "/opt/homebrew/bin/ffmpeg",
+  "nativeModule": "source/native_actions.py",
+  "globalMapping": {
+    "alphaThreshold": 128,
+    "coordinateConvention": "Continuous image pixel edges; top origin. Semantic support = [midpoint of threshold support left/right edges, bottom edge]. This is a point on the visible plate support, not the old alpha>0 padded quad corner.",
+    "sourceSupportPoint": [
+      627.0,
+      1051
+    ],
+    "canonicalSupportPoint": [
+      365.5,
+      504
+    ],
+    "occupiedWorldWidth": 0.34436392914653785,
+    "oldSourcePixelWorldSize": 0.00028180354267310785,
+    "canonicalPixelWorldSize": 0.0004723785036303674,
+    "sourceSupportRelativeToOldQuadBottomCenterCameraRightUp": [
+      0.0016908212560386472,
+      0.041425120772946855
+    ],
+    "canonicalSupportRelativeToNewQuadBottomCenterCameraRightUp": [
+      0.0,
+      0.0004723785036303674
+    ],
+    "oldSampledCropTopOriginPixelEdges": [
+      0,
+      85,
+      1242,
+      1198
+    ],
+    "canonicalFullSize": [
+      731,
+      505
+    ],
+    "historicalNominalWidthProvenanceOnly": 0.35,
+    "newFullQuadWorldSizeWhenVisible": [
+      0.34530868615379856,
+      0.23855114433333555
+    ],
+    "newQuadBottomCenterDeltaCameraRightUpWorld": [
+      0.0016908212560386472,
+      0.040952742269316486
+    ],
+    "exactProjectionRule": "Freeze the single source-specific global food mapping before editing. Then every candidate evaluated rest-quad corner must equal the unchanged source evaluated plane matrix applied to that fixed mapped quad, including hidden-state transforms. Full UV/aspect, semantic occupied width and visible support are checked before body occlusion. New corners need not equal old unmapped corners. No per-frame/per-facing placement, scale, depth, crop or color adjustments.",
+    "numericTolerance": "Use actual native floating-point evaluation, with semantic width/support expected within1e-5world or0.01native pixel; disclose the exact measured residual. Raster alpha/occlusion is reviewed separately at logical and enlarged sizes.",
+    "implementationFreedom": "Editor may realize the fixed mapping natively by equivalent rest geometry/transform construction that leaves source action/driver behavior intact. Example feasible coordinates and derivation are in reviews/held-food-v2-mapping-evidence.json."
+  },
+  "orderedSteps": [
+    {
+      "open": "source/round02.blend",
+      "script": "source/build_round03.py",
+      "notes": "Portable exact canonical resource preferred; no body/art/style/settings changes. Original source custom strings retained as historical provenance."
+    },
+    {
+      "open": "source/round03.blend",
+      "script": "source/capture_round03.py",
+      "arguments": [
+        "--audit-only"
+      ],
+      "notes": "Validate all192 true source poses/matrices, global semantic mapping and unchanged body before rendering."
+    },
+    {
+      "open": "source/round03.blend",
+      "script": "source/capture_round03.py",
+      "notes": "192native384x640 frames under unchanged approved renderer, seed/samples/denoise/color/light/camera; Metal GPU preference selection only."
+    },
+    {
+      "open": "source/round02.blend",
+      "script": "source/control_round03.py",
+      "notes": "Fresh approved-source old-food A control,18poses."
+    },
+    {
+      "open": "source/round03.blend",
+      "script": "source/control_round03.py",
+      "notes": "Fresh unsaved candidate B with only original old food image/quad/UV restored; no project saved."
+    },
+    {
+      "script": "source/compare_radiance_round03.py",
+      "tool": "Pillow Python",
+      "notes": "Same-input A/B calibration and actual canonical C/B opaque nonfood RGB deltas separately; no exact bodyRGB equality claim."
+    },
+    {
+      "open": "source/round02.blend",
+      "script": "source/probe_frozen_round03.py"
+    },
+    {
+      "open": "source/round03.blend",
+      "script": "source/probe_frozen_round03.py",
+      "notes": "Read-only additional camera DOF/sensor, world/light node and object ray visibility parity."
+    },
+    {
+      "open": "source/round03.blend",
+      "script": "source/context_round03.py",
+      "notes": "Unsaved larger review canvas only, same world capture scale/elevation, original source belt/customer at original recorded context placements."
+    },
+    {
+      "script": "source/package_round03.py",
+      "tool": "Pillow Python+ffmpeg",
+      "notes": "16lossless original6x2 atlases,16actual12fps clips and all-frame/contact/background/phone sheets; output delivery-round03.json only."
+    },
+    {
+      "script": "source/verify_delivery_round03.py",
+      "tool": "Pillow Python+ffprobe",
+      "notes": "All192 atlas cells exact, stream timing, portable closure and998prior bound-file records exact."
+    }
+  ],
+  "sourceNativeContract": "Original skeleton/rest/actions/weights, physical body/headwear/knife meshes/normals/UV, all parent transforms/drivers/material/shader/ray behavior/light/world/camera/render settings unchanged. Source hold/load visible0.6camera-toward law, yaw cancellation and palm midpoint+[0,0,.0225] preserved; idle/work hidden source transforms unchanged.",
+  "registration": {
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "captureScale": 2,
+    "facingsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "fps": 12,
+    "states": [
+      "idle",
+      "work",
+      "hold",
+      "load"
+    ],
+    "framesPerStateFacing": 12,
+    "frames": 192,
+    "atlases": 16,
+    "atlasSize": [
+      2304,
+      1280
+    ],
+    "atlasColumnsRows": [
+      6,
+      2
+    ],
+    "clips": 16,
+    "loop": {
+      "idle": true,
+      "work": true,
+      "hold": true,
+      "load": false
+    }
+  },
+  "metadata": "New assetRecord preserves original registration/static socket fields as authored provenance; actual artStyle now uses the unchanged native camera artStyle and heldFoodDependency records canonical resource/mapping. Native scene custom provenance strings remain untouched.",
+  "approval": "Editor does not approve. Coordinator seals exact packet; same independent judge decides."
+}

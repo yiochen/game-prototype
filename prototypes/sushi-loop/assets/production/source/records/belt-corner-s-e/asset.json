@@ -9,7 +9,7 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
   "clips": {
     "running": {
       "frames": 24,
@@ -151,23 +151,49 @@
     ]
   },
   "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
+    "method": "recipe-reuse",
+    "family": {
+      "straight": {
+        "asset": "belt-straight-n",
+        "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+        "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+        "review": "objects/belt-straight-n/reviews/round-11.json",
+        "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+      },
+      "corner": {
+        "asset": "belt-corner-n-e",
+        "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+        "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+        "review": "objects/belt-corner-n-e/reviews/round-01.json",
+        "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+      }
+    },
+    "nativeNoRasterTextures": true
   },
   "directions": [
     "N",
     "E",
     "S",
     "W"
+  ],
+  "sourceScale": 2,
+  "publishedSourceScale": 2,
+  "nativeCaptureScale": 2,
+  "nativeResolution": [
+    384,
+    704
+  ],
+  "nominalFunctionalHeight": 0.695,
+  "measuredPhysicalBounds": [
+    [
+      -0.48000001907348633,
+      -0.5,
+      0.0
+    ],
+    [
+      0.5,
+      0.47999995946884155,
+      0.6949999928474426
+    ]
   ]
 }

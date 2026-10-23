@@ -1,0 +1,40 @@
+{
+  "asset": "sub-hull-panels",
+  "round": "round-01",
+  "catalogTests": {
+    "passed": 5,
+    "failed": 0,
+    "log": "catalog-tests.log",
+    "retainedFirstFailure": "catalog-tests-attempt-01-progress-record-failure.log",
+    "correction": "Record original fresh judge instance IDs for both newly assigned equipment pairs."
+  },
+  "build": {
+    "passed": true,
+    "log": "build.log"
+  },
+  "localSmoke": {
+    "origin": "http://127.0.0.1:4179",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        1120,
+        720
+      ]
+    ],
+    "passed": true,
+    "atlasSHA256": "290ea9015ebe4db2ada3b6b811796d6b94a246e07f003bfd5f9d27f9c1aa3649"
+  },
+  "stagingToolCorrection": {
+    "file": "tools/verify_staged_object.py",
+    "sha256": "8bb8e21bb065a1fd705f5c09b726354b33870d0952bfa3a7fe6d51649a0ce328",
+    "change": "Resolve a nested supplemental manifest entry relative to the enclosing signed review as well as object/manifest. Missing/ambiguous locations and all original hash/root/index checks still reject.",
+    "regressionTests": {
+      "passed": 3,
+      "file": "tools/test_verify_staged_object.py",
+      "sha256": "80cc276975f30fff7da44f3d32e1a49aa86965bf94447e4a787857d166821aa0"
+    }
+  }
+}

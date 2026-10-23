@@ -1,0 +1,495 @@
+{
+  "id": "stool-blue",
+  "name": "Blue-seat cosmetic stool",
+  "family": "W03",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    248
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "idle",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/stool-blue/static-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/stool-blue/static-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/stool-blue/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/stool-blue/static-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Seat, separate customer and serving belt",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "stool-blue",
+          "x": 1,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "customer-rosa",
+          "x": 1,
+          "y": 1,
+          "direction": "S",
+          "clip": "seated-wait",
+          "offset": [
+            0,
+            -2.688
+          ]
+        },
+        {
+          "object": "belt-straight-e",
+          "x": 1,
+          "y": 2,
+          "direction": "S",
+          "clip": "running"
+        },
+        {
+          "object": "dish-salmon",
+          "x": 1,
+          "y": 2,
+          "direction": "S",
+          "offset": [
+            0.0,
+            -57.3440234375
+          ]
+        }
+      ],
+      "note": "Independent customer layer uses the declared blue cushion attachment delta: 0.03 world units \u00d7 70% = 2.688 logical pixels above the wood-seat support."
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "customer-rosa",
+      "belt-straight-e"
+    ],
+    "notes": "Same support/seat height as wood stool; appearance only."
+  },
+  "height": 0.64,
+  "productionStage": "Native Blender \u00b7 warm soft cartoon \u00b7 independent judge approved",
+  "layer": 2,
+  "sockets": {
+    "N": {
+      "seat": [
+        0.0,
+        -61.37602508544922
+      ],
+      "occupant_ground": [
+        0.0,
+        -0.0
+      ]
+    },
+    "E": {
+      "seat": [
+        0.0,
+        -61.37602508544922
+      ],
+      "occupant_ground": [
+        0.0,
+        0.0
+      ]
+    },
+    "S": {
+      "seat": [
+        0.0,
+        -61.37602508544922
+      ],
+      "occupant_ground": [
+        0.0,
+        0.0
+      ]
+    },
+    "W": {
+      "seat": [
+        0.0,
+        -61.37602508544922
+      ],
+      "occupant_ground": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "source": {
+    "blend": "source/blender/refinement/stool-blue/source/round-02.blend",
+    "modelScript": "source/blender/refinement/stool-blue/source/round-02.py",
+    "camera": "source/records/stool-blue/camera.json",
+    "guide": "source/registered/stool-blue/static-N/guide.json",
+    "guides": [
+      "source/registered/stool-blue/static-N/guide.json",
+      "source/registered/stool-blue/static-E/guide.json",
+      "source/registered/stool-blue/static-S/guide.json",
+      "source/registered/stool-blue/static-W/guide.json"
+    ],
+    "assetRecord": "source/records/stool-blue/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/stool-blue/static-N/source-captures/000.png",
+        "sha256": "04968f897f8fcb39ca7aededa2d60fb64f8b8c0b08c512668acfbaee4284615c",
+        "clip": "static",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/stool-blue/static-E/source-captures/000.png",
+        "sha256": "9ad02f841e46b174c0dbc29f9ad8d9081b20d313e2ca1604c4ad81119c1da239",
+        "clip": "static",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/stool-blue/static-S/source-captures/000.png",
+        "sha256": "8c050649d361d4ebfa27f1456a9984821ea3d20ed6dae175cb86cab246ffc024",
+        "clip": "static",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/stool-blue/static-W/source-captures/000.png",
+        "sha256": "9c2c39fbb230a4308356c4fa89bcc685f592021e31610de8a81f694d682646b6",
+        "clip": "static",
+        "direction": "W",
+        "index": 0
+      }
+    ],
+    "nativeScripts": {
+      "round-02.py": "source/blender/refinement/stool-blue/source/round-02.py"
+    },
+    "hashes": {
+      "source/blender/refinement/stool-blue/source/round-02.blend": "9b0fcb2d648eaf52e8149620d564ef02607159dfeb639db87392574e980a5c49",
+      "source/blender/refinement/stool-blue/source/round-02.py": "2104fe127901582c1dbb7a6c2b72cdb714f78f877fb8b4e276a05833043857c5",
+      "source/blender/refinement/stool-blue/source/reopen-round-02.py": "9440c761921425bec132026529a4638d7795fc88bebd389124ad16e582d5acc6",
+      "source/blender/refinement/stool-blue/source/replay-round-01.py": "576fb85e0bc73c03bec4d2b00e354f6ed28feb37f1bdf655be82fec7bde311cf",
+      "source/blender/refinement/stool-blue/source/package-round-01.py": "39afd33b3f69d368912d0932a572b7013db465f3e01beab3779bd9a00fa8eaac",
+      "source/blender/refinement/stool-blue/source/package-round-02.py": "13d2ac163149aa36629107aeae29432bc27ea27e0730e19a6adeeece8dd76e05",
+      "source/blender/refinement/stool-blue/source/replay-round-02.py": "d60fb577cd7af5e072d711abf80f2394d58966ee6cf800c491983b8846a0e30f",
+      "source/blender/refinement/stool-blue/source/inspect_original.py": "8712985971b3efdb25cbac338cc8946ffcf8dd2cba09472f25bbe02c7e7bb2b2",
+      "source/blender/refinement/stool-blue/source/reopen-round-01.py": "1c034ba4fe8975b03af067de535608beceedd471a354197f13fb64d127f118ec",
+      "source/blender/refinement/stool-blue/source/round-01.py": "2bbd6eb812a6eec6b56e901141ec99e7ff6fb34cecabfcd98ad57d34f655bfa3",
+      "source/blender/refinement/stool-blue/source/draft.py": "8b9e665d7e5a06a9522fe69b5a91b32a011a76da86ef643b17171fab17548d44",
+      "source/blender/refinement/stool-blue/inputs/source-rig.json": "2a350f88a04bc3b437861f689c086934bcc6e6dc08bd6ebb6ebda7b4484bd2be",
+      "source/blender/refinement/stool-blue/inputs/catalog-object.json": "d70b7d66479999747b47ede4954a0aaee1d5311510f3377aded24aa4dd774516",
+      "source/blender/refinement/stool-blue/inputs/source-assetRecord.json": "d00d74f9f252d2321b4ad99dc3a4a1b244ff9fa9296cd16200011a7107f83803",
+      "source/blender/refinement/stool-blue/inputs/source-camera.json": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181",
+      "source/blender/refinement/stool-blue/brief.json": "67755294b7abc89b58a3b4ffb7f64f5d93d6a208f8d1666544f9e222fe573452",
+      "source/records/stool-blue/camera.json": "3263114ac035dd3164b8b18097cffe5d5aff9cfb28bc3bc09f83c784e81f070f",
+      "source/records/stool-blue/asset.json": "76fcea4255715a809f15520b2fdd2bdba927edf24afe461dd908c060533096ae",
+      "source/records/stool-blue/rig.json": "606f97f02030fc0070c3f620af6d046f6623845b568deb1c131695f4e674ef87",
+      "sprites/stool-blue/static-N.png": "04968f897f8fcb39ca7aededa2d60fb64f8b8c0b08c512668acfbaee4284615c",
+      "source/registered/stool-blue/static-N/source-captures/000.png": "04968f897f8fcb39ca7aededa2d60fb64f8b8c0b08c512668acfbaee4284615c",
+      "sprites/stool-blue/static-E.png": "9ad02f841e46b174c0dbc29f9ad8d9081b20d313e2ca1604c4ad81119c1da239",
+      "source/registered/stool-blue/static-E/source-captures/000.png": "9ad02f841e46b174c0dbc29f9ad8d9081b20d313e2ca1604c4ad81119c1da239",
+      "sprites/stool-blue/static-S.png": "8c050649d361d4ebfa27f1456a9984821ea3d20ed6dae175cb86cab246ffc024",
+      "source/registered/stool-blue/static-S/source-captures/000.png": "8c050649d361d4ebfa27f1456a9984821ea3d20ed6dae175cb86cab246ffc024",
+      "sprites/stool-blue/static-W.png": "9c2c39fbb230a4308356c4fa89bcc685f592021e31610de8a81f694d682646b6",
+      "source/registered/stool-blue/static-W/source-captures/000.png": "9c2c39fbb230a4308356c4fa89bcc685f592021e31610de8a81f694d682646b6",
+      "source/records/stool-blue/warm-refinement-validation.json": "db751f6c14a22f1f7e99f89d61b056f4085cf358b8be73693ce0076e81ec889f",
+      "source/registered/stool-blue/static-N/guide.json": "3447d1db6f794939581021646bbbf7bf13fee125aedff029908b029624752ea0",
+      "source/registered/stool-blue/static-E/guide.json": "36388d6da00d91b40230ff261c59f15e8484ba094a7b0da73ca755e08007443f",
+      "source/registered/stool-blue/static-S/guide.json": "b6f5dc3cf7fbedf8b712b535d2460361eb0cd16a35b0080d5bad1c78ab32e046",
+      "source/registered/stool-blue/static-W/guide.json": "865d1418472bd59d965d43a21b41f831da29146b8eb9c593b3d96143a233fd5d"
+    },
+    "rig": "source/records/stool-blue/rig.json",
+    "refinedBlend": "source/blender/refinement/stool-blue/source/round-02.blend",
+    "captureScale": 2,
+    "refinement": {
+      "packet": "../refinement/objects/stool-blue/candidates/round-02/packet.json",
+      "review": "../refinement/objects/stool-blue/reviews/round-02.json",
+      "validation": "source/records/stool-blue/warm-refinement-validation.json"
+    }
+  },
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 2
+  },
+  "sockets3D": {
+    "seat": [
+      0,
+      0,
+      0.685
+    ],
+    "occupant_ground": [
+      0,
+      0,
+      0
+    ]
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "warm-soft-stool-blue-round-02",
+    "style": "Warm softly lit cartoon",
+    "nativeEditable": true,
+    "lighting": {
+      "engine": "CYCLES",
+      "samples": 64,
+      "denoise": true,
+      "worldStrength": 0.25,
+      "noGround": true,
+      "lights": [
+        {
+          "name": "Soft neutral overhead",
+          "type": "AREA",
+          "energy": 110.0,
+          "size": 4.5,
+          "location": [
+            0.0,
+            0.0,
+            4.5
+          ],
+          "rotation": [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        },
+        {
+          "name": "Equal cardinal fill 0",
+          "type": "AREA",
+          "energy": 50.0,
+          "size": 5.0,
+          "location": [
+            3.0,
+            0.0,
+            2.200000047683716
+          ],
+          "rotation": [
+            1.018212080001831,
+            4.108447626549605e-08,
+            1.5707963705062866
+          ]
+        },
+        {
+          "name": "Equal cardinal fill 1",
+          "type": "AREA",
+          "energy": 50.0,
+          "size": 5.0,
+          "location": [
+            1.8369701465288538e-16,
+            3.0,
+            2.200000047683716
+          ],
+          "rotation": [
+            1.0182121992111206,
+            1.2852321162881708e-07,
+            3.141592502593994
+          ]
+        },
+        {
+          "name": "Equal cardinal fill 2",
+          "type": "AREA",
+          "energy": 50.0,
+          "size": 5.0,
+          "location": [
+            -3.0,
+            3.6739402930577075e-16,
+            2.200000047683716
+          ],
+          "rotation": [
+            1.018212080001831,
+            -4.108447626549605e-08,
+            -1.5707963705062866
+          ]
+        },
+        {
+          "name": "Equal cardinal fill 3",
+          "type": "AREA",
+          "energy": 50.0,
+          "size": 5.0,
+          "location": [
+            -5.510910704284357e-16,
+            -3.0,
+            2.200000047683716
+          ],
+          "rotation": [
+            1.0182119607925415,
+            8.282109437813368e-24,
+            -1.8369704112266498e-16
+          ]
+        }
+      ]
+    }
+  },
+  "refinement": {
+    "status": "approved",
+    "round": "round-02",
+    "packetSHA256": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99",
+    "reviewSHA256": "4ca946e827e921bab49a8f84bfcef158f52241984a81aeee861dd4bfa435996e",
+    "editor": "catalog_stool_blue_editor_v1",
+    "judge": "catalog_stool_blue_judge_v1"
+  }
+}

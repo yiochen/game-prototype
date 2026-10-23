@@ -1,0 +1,28 @@
+{
+  "status": "source-only controls and bounded consumer proof; no adoption/art/seam approval",
+  "reports": [
+    {
+      "backend": "full-chrome",
+      "policy": "direct2x-filter001",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 255,
+      "maxLocalRGBDelta": 140,
+      "minMeanWholeFrameRGBDelta": 2.2235699845403736,
+      "maxMeanWholeFrameRGBDelta": 5.0123555201275405
+    },
+    {
+      "backend": "headless-shell",
+      "policy": "direct2x-filter001",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 0,
+      "maxLocalRGBDelta": 25,
+      "minMeanWholeFrameRGBDelta": 2.231299797835652,
+      "maxMeanWholeFrameRGBDelta": 3.0937368642286676
+    }
+  ],
+  "evidenceInterpretation": "BothBOX controls must retain E/W visible RGB cut-profile lines as unresolved native-authoring requirement. Corrected alpha samples exclude legitimate outer silhouette AA; wholeframe residuals remain raw."
+}

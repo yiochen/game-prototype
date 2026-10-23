@@ -1,0 +1,53 @@
+{
+  "candidatePacketSHA256": "4ede4e7a674f282ad62137acc9a349df6bdebefbd131e6f2d1d90994ee90c1ad",
+  "reviewSHA256": "4c1264aafa9cf0dfc3e9ddaeb34a93d1b6e06f49832dd84aa0e0b27e995953e8",
+  "unchangedHelpers": {
+    "candidate_packet.py": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+    "audit_directions.py": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+    "acceptance_contract.py": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "results": [
+    {
+      "name": "integrity",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/round-01.json"
+      ],
+      "exitCode": 0,
+      "log": "reviews/round-01-independent-v1/gates/integrity.log",
+      "logSHA256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+    },
+    {
+      "name": "directions",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "wreck-end",
+        "--round",
+        "round-01"
+      ],
+      "exitCode": 0,
+      "log": "reviews/round-01-independent-v1/gates/directions.log",
+      "logSHA256": "2867d240d691a3e67c817e621f3085381523871c3fe47c5d6d2a18d9cd66a53a"
+    },
+    {
+      "name": "acceptance",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "wreck-end",
+        "--round",
+        "round-01"
+      ],
+      "exitCode": 0,
+      "log": "reviews/round-01-independent-v1/gates/acceptance.log",
+      "logSHA256": "f5df8c77d7c0d8ef0b2b9c1302fd21362bb467e5a0996c81b885cef24651db26"
+    }
+  ],
+  "allPassed": true
+}

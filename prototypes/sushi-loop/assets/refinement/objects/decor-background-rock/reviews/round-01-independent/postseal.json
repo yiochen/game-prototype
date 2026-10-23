@@ -1,0 +1,55 @@
+{
+  "asset": "decor-background-rock",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "20f3fe4297877ecc50affda4574c2ade50482e7068bd9d457fbfb3e6ff2bc54c",
+  "pathBase": "object root",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "5fdffad9ac20abb61802e920e358c49041b462f22793e744f05faaae27a432aa"
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "501ccb27fb2cd83d41f0ebec6e0c6c0d60f1042c37a09dbd30e593de3e0bc759",
+    "verifiedMembers": 437
+  },
+  "gates": {
+    "path": "reviews/round-01-independent/gates.json",
+    "sha256": "7762d5d47f23d10397f3ed81037acbb07607e33229d8b5a80c1286fd39d2443d",
+    "allPassed": true
+  },
+  "gateRunner": {
+    "path": "reviews/round-01-independent/run_final_gates.py",
+    "sha256": "3c3b08730182b78e2bafe61f5b4a1bea6aab8060b713fada9564f443566361b7"
+  },
+  "gateOutputs": [
+    {
+      "path": "reviews/round-01-independent/gates/candidate-packet-verify.stdout.txt",
+      "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+    },
+    {
+      "path": "reviews/round-01-independent/gates/candidate-packet-verify.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "reviews/round-01-independent/gates/audit-directions.stdout.txt",
+      "sha256": "baae287c561966042f568a893162c527ef682cd4bb59f161fb4031410a2ce7c2"
+    },
+    {
+      "path": "reviews/round-01-independent/gates/audit-directions.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "reviews/round-01-independent/gates/acceptance-contract.stdout.txt",
+      "sha256": "b8863b6aca8a47d0f5c155e40db8ccce5daa761e0c7c1c3b11cf223a6e20f0e4"
+    },
+    {
+      "path": "reviews/round-01-independent/gates/acceptance-contract.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sourceSHA256": "f59fbb1aa5e6d45ea0dde0c916ab523d60bf63c748ccf650813072d4c46efd4d",
+  "integrityAfterGates": true,
+  "acyclic": "Review points to supplemental manifest; supplement covers pre-verdict evidence only. Gates bind review+supplement; this postseal binds all three. No reverse reference.",
+  "approvalScope": "This exact object/candidate only. No family/production/publishing/Git/Godot/device authorization."
+}

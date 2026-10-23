@@ -1,0 +1,104 @@
+{
+  "asset": "wall-middle",
+  "stage": "initial-independent-critique",
+  "verdict": "not-a-candidate-review",
+  "independence": {
+    "editorProposalsRead": false,
+    "unrelatedObjectReviewsRead": false,
+    "scope": "Owns reviews only; source, target, brief and candidates unmodified."
+  },
+  "inspectedFiles": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "238480a621df4338f38108e62252c2180e8a6e6e7bd61f566371e3d175ee292c",
+      "size": [
+        384,
+        704
+      ],
+      "inspection": "Direct full image plus full-frame logical 192x352 composite on light/gray/dark backgrounds."
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "b0195c087ab323c65f8215bfb766405fd99e1027a6b360941f707f524f20df06",
+      "size": [
+        926,
+        1698
+      ],
+      "inspection": "Direct full image plus full-frame logical 192x352 composite on light/gray/dark backgrounds; resizing is for style/readability inspection only, not registration authority."
+    },
+    {
+      "path": "reviews/initial-logical-backgrounds.png",
+      "sha256": "a1af3e9ba69a93d7020b3625c1e4f18d97698ea7fa28391c889a60ca7fa13497",
+      "inspection": "Judge-generated source/target contact sheet; actual source framing retained in each rescale."
+    },
+    {
+      "path": "brief.json",
+      "sha256": "c31af69474cdb933f4d8f37207b56608f095fdae2d38b515ca1fe54c9d42f846"
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "sha256": "8deecb15e06ce341db35444f295a215fd1027950a8536f941ba963ebbd76cb8c"
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "817141d927acb7bcf667afe522f5b472c855e24b25f75e2dd2b6742c29a4e559"
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "sha256": "314aa358127ca6fe3e5999f65bcdb889b655e851a5389455418c6b8d1a9d183a"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "ee4410d1135374bbca2fc4124047931fa105eb38414b920dcf8ead118ac9c217"
+    },
+    {
+      "path": "../../../production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "inspection": "Read _plan/_tier/_wall construction only, including straight endpoints and band profiles."
+    }
+  ],
+  "sourceScores": {
+    "shapeVolume": 3,
+    "color": 6,
+    "lightingHighlights": 3,
+    "materialDetail": 2,
+    "artifactFreeReadability": 5
+  },
+  "sourceObservations": [
+    "At logical use size the supplied snapshot is a very flat rectangular wall: a nearly featureless saturated blue upper rectangle and a lower ochre panel split by thin dark horizontal lines. The palette and wall role are legible, but neither the coping nor the timber has much tactile volume.",
+    "The cap-to-timber division is clear, yet the blue region reads more like a painted slab than a shaped coping with distinguishable surface planes. The warm lower region is primarily a large value ramp; narrow strips alone do not give the broad timber faces crafted form.",
+    "The lower timber becomes considerably darker toward its base. Separation is present but muted and can become muddy against a dark background. A richer result needs light and material information across the broad faces, without simply outlining each component.",
+    "The unadorned source is an improvement opportunity. Original strip count, blank surfaces and simple rectangular topology are not aesthetic locks. Useful reconstruction and restrained details should be rewarded when they preserve the wall role, capture and join contract."
+  ],
+  "targetObservations": [
+    "The target offers a recognizable blue coping with a light top plane, darker front lip and a coherent transition between them. Broad soft highlights, a small contact recess below the coping and warm timber face variation create much stronger depth than the source.",
+    "The timber has substantial-looking faces, rounded nonjoining surface transitions and readable warm grain. At logical size the large grain arcs survive while smaller detail falls away; this is a useful hierarchy for the native reconstruction.",
+    "The target is somewhat glossy, with very bright near-white perimeter streaks and yellow/blue edge glow. Its fully rounded left/right terminations describe a finished standalone block, which conflicts with this middle module joining a repeated wall. These features are not requirements.",
+    "The target changes occupied image size and position relative to the source, and contains faint stray/translucent edge pixels beyond the useful object. Its canvas, silhouette registration, halos and terminal rounding cannot validate the source capture or modular cross-sections.",
+    "Only one source/target facing has been supplied as the aesthetic reference. No claim can yet be made about native four-facing quality or continuity; those must be shown by candidate evidence."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Make the native wall feel constructed and softly volumetric: a readable blue coping over warm timber, with intentional structural transitions and rich but restrained surface character at logical game size."
+    },
+    {
+      "rank": 2,
+      "outcome": "Preserve seamless wall-family behavior: exact source W/E connection sections, continuous blue/wood band levels, no artificial terminal rounding or repeated glow/dark seams at internal joins in any actual facing."
+    },
+    {
+      "rank": 3,
+      "outcome": "Maintain an even, softly lit cartoon treatment throughout the required views: no dead broad faces, muddy recesses, clipped highlights, horizontal lighting bias, stray alpha or directional ground shadows."
+    }
+  ],
+  "hardContract": {
+    "capture": "Use the registered orthographic top-down-oblique-square-grid camera and pixel aspect. Logical frame 192x352, root [96,256], cell 128; sprite frame 384x704 at sourceScale 2. Source native camera record uses captureScale 4; validation must reconcile native capture to the declared export without pose fitting.",
+    "function": "One-cell footprint and source functional height/envelope; height record 1.02. Static one-frame clip at 12 fps. Preserve actual ground root, ports and clearance; there are no animated controls in the supplied rig.",
+    "joins": "Local W/E planes x=-0.5,+0.5, matching restaurant-wall-wood-blue-v2 sections, with their true N/E/S/W model rotations. Source construction describes panel half-depth .105, horizontal strips .115, wood cap .15 and blue coping section .18/.12 at their declared heights. Actual edited-scene boundary evidence, not this script alone, must establish unchanged sections.",
+    "delivery": "Native editable Blender geometry and exact native captures; no target-card substitute, painted candidate or per-view refitting/recoloring."
+  },
+  "technicalEvidenceLimits": [
+    "Initial stage only. No candidate, packet, candidate render, native scene measurement or join preview exists in this review.",
+    "Read source contract records and relevant construction code. Exact mesh boundaries, actual camera/root and resource closure still require candidate-native validation.",
+    "No approval issued. Scores describe only the supplied baseline and are not an approval threshold."
+  ]
+}

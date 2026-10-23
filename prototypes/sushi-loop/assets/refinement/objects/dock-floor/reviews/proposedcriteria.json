@@ -1,0 +1,91 @@
+{
+  "asset": "dock-floor",
+  "status": "proposed; not frozen",
+  "evidenceManifest": {
+    "path": "raw-evidence-manifest.json",
+    "sha256": "ad545d4972c63d3da7cc69e7a0e9cd329219070283ca1dc2764af3a4507ed7ba"
+  },
+  "targetSHA256": "2a2450d166d5e5d08a6b19936bed5d7c2b400a34d381d93dbd4c5218205dba34",
+  "technicalContractProposal": "source-contract-proposal.json",
+  "aestheticCriteria": [
+    {
+      "rank": 1,
+      "dimension": "shapeVolume",
+      "observableSuccess": "A readable crafted timber deck with softened corners, convincing front/outer thickness and supporting structure. Useful native construction improvements are rewarded. Preserve occupied3x3scale and clear dock access; avoid lumpy over-rounded walking surfaces or structural detail that reads as trim clutter.",
+      "notLocked": [
+        "12planks",
+        "2joists",
+        "8nails",
+        "source blankness",
+        "old topology/bevel method",
+        "target exact silhouette or board spacing"
+      ]
+    },
+    {
+      "rank": 2,
+      "dimension": "color",
+      "observableSuccess": "Honey/golden top wood with restrained amber contrast and warm dark side/end grain; visibly richer than the source without becoming neon yellow, orange plastic or a bright striped warning pattern. Keep palette family and enough contrast against existing dock family/people."
+    },
+    {
+      "rank": 3,
+      "dimension": "lightingHighlights",
+      "observableSuccess": "Soft broad edge highlights explain board volume and separate front/side planes. One horizontally neutral lighting/material treatment works unchanged in N/E/S/W. No preferred left/right light, hard directional ground shadow, clipped highlight rim, black underside block or view-dependent grade/fitting."
+    },
+    {
+      "rank": 4,
+      "dimension": "materialDetail",
+      "observableSuccess": "Long grain, occasional subtle knots and readable fixing marks feel purposeful, differ across boards and remain low-contrast enough for a walking platform. At phone scale the wood should still read as crafted boards, not noisy scratch lines. Details must be native geometry/material/texture resources with editable source, not a target card."
+    },
+    {
+      "rank": 5,
+      "dimension": "artifactFreeReadability",
+      "observableSuccess": "At128logicalpx/cell and reduced phone presentations all4facings retain deck identity and coherent thickness. Intentional plank grooves are allowed; no accidental tears, coplanar flicker, protruding nail obstacles, black patches, exposed connector ends, holes at an accepted functional transfer, colored halo or filtering-dependent seam. Diagnose pre-existing neighbor issues separately."
+    }
+  ],
+  "reviewPolicy": {
+    "scores": "Comparative1..10 explanation only; no automatic numerical pass cutoff.",
+    "missingEvidence": "needs_evidence",
+    "approval": "Only exact hash-bound candidate bytes can later be approved after fixed contract and complete visual/technical coverage. This preparation makes no candidate/art approval."
+  },
+  "laterRequiredCoverage": [
+    {
+      "id": "native-facing-captures",
+      "required": "One native transparent896x960 static frame per N/E/S/W, logical448x480/root224,256/sourceScale2, fixed camera/light/grade and exact-layout1x1atlas per facing. Preserve static1frame12fps no animation invented."
+    },
+    {
+      "id": "camera-native-validation",
+      "required": "Actual scene camera matrix/projection/pixelaspect/root calibration, identity transform and all4facing rotations; evaluated meshbounds/footprint, top/entry cross-sections, contact clearance, mesh/material/visibility/alpha audits and no external target-card use. Bind measurements to candidateblend hash."
+    },
+    {
+      "id": "human-context",
+      "required": "All-facing registered people on broad deck and traversing entry transfer at frozen walking height, including approach/landing/door path. Use existing published human assets unchanged and identify their source cameras/root; no per-view fitting. Native simple contact probes may supplement, not replace visible human context."
+    },
+    {
+      "id": "real-family-joins",
+      "required": "Native depth-tested dock+actualentry joins N/E/S/W and independently assembled published candidateatlas+current frozen entry N/E/S/W at authored relative transform. Include enlarged entry transfer/detail crops. Measure gap/penetration and tangent/normal/profile correspondence; disclose source baseline submergedstep discrepancy separately. The accepted correction must eliminate native/painter visibility contradiction and real run gap; old source appearance is not a passing threshold."
+    },
+    {
+      "id": "context-family",
+      "required": "All-facing full dock contexts with frozen published hut/submarine/entry and cover covered/uncovered representative views at recorded roots. Native family geometry must be read from named immutable sources, with submarine dock-ready visibility/actions selected, not all hidden variant meshes. Current approved dock-post-rope can appear in an optional perimeter style context; its W/Eself-family ports are not dock-floor ports."
+    },
+    {
+      "id": "repetition",
+      "required": "All-facing repeated multi-platform presentation at declared3cell spacing plus isolated comparisons, intended-size and phone scale. This tests visual rhythm/edge artifacts; it does not invent a seamless self-tiling contract for dock-floor."
+    },
+    {
+      "id": "alpha-consumer-presentations",
+      "required": "Light#f2f0e6/gray#a7a7a7/dark#20242a at logical scale and representative phone reduction, both neutral and fractional pixel origins; actual catalog/native-pixel or Godot sampling behavior where integrated. Inspect premultiplied RGB/alpha together and projected join coverage. Diagnostic Pillow composites alone are not consumer-render parity proof."
+    },
+    {
+      "id": "resource-closure",
+      "required": "Closed editableblend plus exact recipe, actual renders/atlases/validation, packed-or-hash-bound texture/library dependencies and reproduciblecamera/light settings. A hash manifest by itself does not prove source native geometry or visual result. Candidate packet and later review bind all bytes."
+    }
+  ],
+  "coordinatorResolutionsRequiredBeforeEditor": [
+    "Select sufficient coordinated native entry/capture correction from interface-correction-options.json; floor-only cosmetic rebuild or notch cannot certify the current complete join.",
+    "Specify source walking/profile0.22 versus nominalheight0.25 explicitly.",
+    "State acceptance or authorized dock-only repair for native/published submerged-entry-step mismatch and5e-3world transfer gap; no silent change to neighboring source.",
+    "Record pre-existing hut/submarine elevation gaps as accepted baseline or explicitly scope family repair; a zero-gap demand is infeasible for dock-onlymax0.25.",
+    "Use current published references with exact hashes for context, distinguish them from hypothetical future warm family copies."
+  ]
+}

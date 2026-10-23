@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "asset": "backdrop-entrance",
+  "round": "round-06",
+  "project": "source/round-06.blend",
+  "recipe": "source/round-06-recipe.json",
+  "recipeScript": "source/build_round06.py",
+  "validation": "candidates/round-06/validation.json",
+  "heroes": {
+    "S": "candidates/round-06/static-S-000.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "direction": "S",
+      "index": 0,
+      "path": "candidates/round-06/static-S-000.png"
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-06/four-view-sheet.png",
+    "repeated": "candidates/round-06/repeated.png",
+    "background-sheet": "candidates/round-06/background-sheet.png",
+    "native-joined": "candidates/round-06/native-joined.png",
+    "independent-assembled": "candidates/round-06/independent-assembled.png",
+    "entrance-join-strips": "candidates/round-06/entrance-join-strips.png",
+    "rgb-join-comparison": "candidates/round-06/rgb-join-comparison.png"
+  },
+  "atlases": [
+    {
+      "clip": "static",
+      "direction": "S",
+      "path": "candidates/round-06/static-S.png",
+      "sha256": "208c58d36f4862a8e78d3e51b12f8deb6fdaca8f9a456d0a045aa66bbb88a32d",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        1728,
+        1344
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          1728,
+          1344
+        ]
+      ]
+    }
+  ],
+  "nativeRecords": {
+    "camera": "candidates/round-06/native-records/camera.json",
+    "assetRecord": "candidates/round-06/native-records/asset-record.json",
+    "rig": "candidates/round-06/native-records/rig.json"
+  },
+  "resources": [
+    "source/build_round06.py",
+    "source/round-06-recipe.json",
+    "source/capture_validate_round06.py",
+    "source/render_wall_context_round06.py",
+    "source/audit_reopened_round06.py",
+    "source/assemble_delivery_round06.py",
+    "source/native-baseline.json",
+    "source/round-06-family-context.blend",
+    "source/round-06-family-context.json",
+    "source/round-06-join-context.blend",
+    "candidates/round-06/native-joined-raw.png",
+    "candidates/round-06/independent-assembled-raw.png",
+    "candidates/round-06/wall-context-S.png",
+    "candidates/round-06/reopened-S.png",
+    "source/compare_rgb_joins_round06.py",
+    "source/diagnose_rgb_seams.py",
+    "candidates/round-06/rgb-join-comparison.json",
+    "candidates/round-06/diagnostic-denoised-source05.png",
+    "candidates/round-06/diagnostic-denoising-disabled-control.png",
+    "candidates/round-06/diagnostic-ray-bevel-disabled-denoised-control.png",
+    "candidates/round-06/family-settings.json",
+    "source/export_family_settings_round06.py",
+    "source/finalize_handoff_round06.py",
+    "source/round-06-workflow.json"
+  ],
+  "notes": [
+    "Static S only. The four-view-sheet name is a legacy preview slot holding S on three backgrounds, without invented directions.",
+    "Original S0 phase, 35-degree camera, square pixels, sourceScale3 and contact anchor are preserved. Native root origin is explicitly distinguished from front-contact registration.",
+    "Matching wall native context is supplied only for join QA and a reusable technical family contract. Wall production requires its own fresh editor and judge.",
+    "Unchanged protected source geometry and matrices; no added floor geometry, walls decoration, or ground object."
+  ],
+  "familySettings": "candidates/round-06/family-settings.json",
+  "workflow": "source/round-06-workflow.json"
+}

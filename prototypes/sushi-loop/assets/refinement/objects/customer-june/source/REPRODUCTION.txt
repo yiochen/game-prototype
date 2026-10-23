@@ -1,0 +1,12 @@
+June round-02 native delivery
+
+Run Blender5.2.2 LTS in background with source/reproduce_round02_portable.py. The script reads only bundled files in its own source directory. Use a fresh --label to preserve existing captures.
+
+Main: blender --background --python /absolute/path/source/reproduce_round02_portable.py -- --mode main --label reproduction-main
+Runtime: blender --background --python /absolute/path/source/reproduce_round02_portable.py -- --mode runtime --label reproduction-meals
+
+The saved libraries are packed. Native frame384x640, logical192x320, native captureScale2, logicalroot96,248, rootScale1.25,12fps. Each atlas uses complete6x2 native frame regions. No camera/pose fitting occurs.
+
+The exact capture recipe is reproduce_round02.py. The portable alias differs only in its bundled input resolution and default fresh label. Separate reconstruction controls establish exact geometry/material/normal/weight/UV/capture-content parity, and record renderer pixel rounding separately from PNG-file-byte equality. Universal pixel determinism is not claimed.
+
+The first validation report retained a failed overly strict repeat-pixel identity assertion. validation.v2.json records the observed one-channel one-pixel1LSB variation and all actual native contract checks; it does not issue visual approval. Earlier failed design/technical drafts remain retained with their actual saved source and frame bytes.

@@ -1,0 +1,19 @@
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import crypto from 'node:crypto';import {fileURLToPath} from 'node:url';
+const here=path.dirname(fileURLToPath(import.meta.url)),obj=path.dirname(path.dirname(here)),cand=path.join(obj,'candidates/round-01'),out=path.join(here,'consumer-replay');await fs.mkdir(out,{recursive:true});
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');const read=async p=>JSON.parse(await fs.readFile(p,'utf8'));
+const provenance=await read(path.join(here,'resources/candidate/consumer/provenance.json'));
+const frozen=[];
+for(const r of provenance.inputAndAtlasHashes){const src=path.join(obj,r.path),b=await fs.readFile(src);if(sha(b)!==r.sha256)throw new Error('Input changed '+r.path);const local=r.path.split('/consumer/')[1],dest=path.join(here,'resources/consumer',local);await fs.mkdir(path.dirname(dest),{recursive:true});try{const existing=await fs.readFile(dest);if(sha(existing)!==r.sha256)throw new Error('Conflicting frozen input');}catch(e){if(e.code!=='ENOENT')throw e;await fs.writeFile(dest,b);}frozen.push({source:r.path,path:path.relative(obj,dest),sha256:sha(b)});}
+const fixture=path.join(here,'resources/candidate/consumer/fixture.html');const server=http.createServer(async(req,res)=>{try{const pathname=new URL(req.url,'http://localhost').pathname;const file=pathname==='/'?fixture:path.join(here,decodeURIComponent(pathname));if(!file.startsWith(here+path.sep)){res.writeHead(403);return res.end();}const b=await fs.readFile(file);res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.json')?'application/json':file.endsWith('.png')?'image/png':'text/html');res.end(b);}catch{res.writeHead(404);res.end();}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const port=server.address().port;
+const original=await read(path.join(cand,'consumer/results.json'));const result={candidatePacketSHA256:'20f3fe4297877ecc50affda4574c2ade50482e7068bd9d457fbfb3e6ff2bc54c',fixtureSHA256:sha(await fs.readFile(fixture)),node:process.version,inputResources:frozen,modes:[],scope:'Independent replay of the same six frozen cases/mode from exact sealed HTML and exact helper/atlas input bytes. No new matrix/cases; not React/Godot/device execution.'};
+try{
+ for(const [mode,launch] of [['chromium',{headless:true,channel:'chromium'}],['headless-shell',{headless:true}]]){
+  const browser=await chromium.launch(launch),context=await browser.newContext({deviceScaleFactor:1,reducedMotion:'reduce'});const m={mode,launch,browserVersion:browser.version(),cases:[]};
+  const originals=original.modes.find(x=>x.mode===mode).cases;
+  for(const o of originals){const c=o.config,page=await context.newPage();await page.setViewportSize({width:c.width,height:c.height});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:'+port+'/');await page.waitForFunction(()=>window.fixtureReady);const r=await page.evaluate(c=>window.show(c),c);const png=Buffer.from(r.canvasPNG.split(',')[1],'base64');delete r.canvasPNG;const prefix=mode+'-'+c.name;const native=path.join(out,prefix+'-native.png'),screenshot=path.join(out,prefix+'.png');await fs.writeFile(native,png);await page.screenshot({path:screenshot,fullPage:true});
+   m.cases.push({...r,viewport:{width:c.width,height:c.height},errors,screenshot:path.relative(obj,screenshot),nativeCanvas:path.relative(obj,native),nativeCanvasSHA256:sha(png),originalScreenshot:o.screenshot,originalNativeCanvas:o.nativeCanvas,originalSpriteRecords:o.spriteRecords,originalOrder:o.order,originalPlan:o.plan,originalBounds:o.bounds});await page.close();}
+  await context.close();await browser.close();result.modes.push(m);console.log('INDEPENDENT_CONSUMER',mode,m.browserVersion,m.cases.length);
+ }
+}finally{server.close();}
+await fs.writeFile(path.join(out,'results.json'),JSON.stringify(result,null,2)+'\n');

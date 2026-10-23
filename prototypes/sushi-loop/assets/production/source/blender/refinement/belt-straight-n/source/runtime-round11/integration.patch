@@ -1,0 +1,115 @@
+--- a/prototypes/sushi-loop/godot/scripts/restaurant_view.gd
++++ b/prototypes/sushi-loop/godot/scripts/restaurant_view.gd
+@@ -14,6 +14,12 @@
+ const BUBBLE_ATTACHMENT := Vector2(0, -172) # Fixed C125 head clearance, logical pixels.
+ const INACTIVE_TINT := Color(0.56, 0.62, 0.65, 0.82)
+ const DISHES := {"salmon_nigiri": "dish-salmon", "cucumber_maki": "dish-cucumber", "eel_nigiri": "dish-eel"}
++var native_composition_enabled := true
++var _native_world_clone := false
++# Native pixels per source Control pixel, for fixed editor-marker sizes.
++var _native_screen_pixel_scale := 1.0
++var _native_world_layer: Node
++var _native_world_controller: Node
+ var art = ArtBook.new()
+ var state: Dictionary = {}
+ var portrait := Rect2()
+@@ -43,7 +49,17 @@
+ 	font = Typography.body()
+ 	heading = Typography.heading()
+ 	sky_texture = load("res://assets/ui/night-sky.png")
+-	art.reload()
++	if not _native_world_clone:
++		art.reload()
++	if native_composition_enabled:
++		var helper_path: String = get_script().resource_path.get_base_dir().path_join("native_world_layer.gd")
++		_native_world_layer = load(helper_path).new()
++		add_child(_native_world_layer)
++		_native_world_layer.initialize(self)
++
++func _process(_delta: float) -> void:
++	if native_composition_enabled and _native_world_layer != null:
++		_native_world_layer.sync()
+ 
+ func update_layout() -> void:
+ 	var width := minf(size.x, size.y * 9.0 / 16.0)
+@@ -80,7 +96,10 @@
+ 		if _capture_hits:
+ 			_hit_records.append({"owner_id": _current_owner, "art_id": identity, "clip": clip, "direction": direction, "frame": data.frame, "frames": data.frames, "texture": data.texture, "source_path": data.source_path, "region": data.region, "rect": destination, "tint": tint})
+ 		if not _record_only:
+-			draw_texture_rect_region(data.texture, destination, data.region, tint, false)
++			var draw_texture: Texture2D = data.texture
++			if _native_world_clone:
++				draw_texture = _native_world_controller.native_sprite_texture(identity, draw_texture)
++			draw_texture_rect_region(draw_texture, destination, data.region, tint, false)
+ 
+ func caption(text: String, at: Vector2, pixels: int = 30, color := INK, use_heading := false) -> void:
+ 	draw_string(heading if use_heading else font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, maxi(1, pixels), color)
+@@ -88,6 +107,18 @@
+ func _draw() -> void:
+ 	if font == null:
+ 		return
++	if native_composition_enabled and not show_gallery and _native_world_layer != null:
++		# Visuals use the identical world pass in the native viewport. Picking
++		# remains the original pass at actual screen-space roots and rectangles.
++		draw_rect(Rect2(Vector2.ZERO, size), NIGHT)
++		_hit_records.clear()
++		_hit_signature.clear()
++		_record_only = true
++		_render_room_items()
++		_record_only = false
++		return
++	if _native_world_clone:
++		_native_world_controller.begin_native_frame()
+ 	art.begin_frame()
+ 	_hit_records.clear()
+ 	_hit_signature.clear()
+@@ -98,6 +129,8 @@
+ 		_room()
+ 		_sky()
+ 	art.end_frame()
++	if _native_world_clone:
++		_native_world_controller.end_native_frame()
+ 
+ func _room() -> void:
+ 	if state.is_empty():
+@@ -202,9 +235,9 @@
+ 		draw_rect(rect, Color(Color("bfd4af"), 0.48 * editor_selection_alpha))
+ 		# The approved B marker keeps the tile readable under the object: pale
+ 		# sage fill and four navy brackets, with open edges between the corners.
+-		var inset := rect.grow(-2.0)
++		var inset := rect.grow(-2.0 * _native_screen_pixel_scale)
+ 		var arm := cell * 0.20
+-		var thickness := maxf(2.0, cell * 0.04)
++		var thickness := maxf(2.0 * _native_screen_pixel_scale, cell * 0.04)
+ 		for corner in [Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN]:
+ 			var point: Vector2 = inset.position + inset.size * corner
+ 			var across := Vector2(-1.0 if corner.x > 0.0 else 1.0, 0.0) * arm
+@@ -217,7 +250,7 @@
+ 	var color := Color("66b87a") if editor_preview.get("valid", false) else Color("ce6254")
+ 	var footprint := Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
+ 	draw_rect(footprint, Color(color, 0.32))
+-	draw_rect(footprint.grow(-1.5), color, false, 3.0, true)
++	draw_rect(footprint.grow(-1.5 * _native_screen_pixel_scale), color, false, 3.0 * _native_screen_pixel_scale, true)
+ 	var object: Dictionary = editor_preview.get("source", {})
+ 	var identity := str(object.get("art_id", ""))
+ 	var clip := "static"
+@@ -344,8 +377,8 @@
+ 	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
+ 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
+ 		draw_circle(center, pitch * 0.10, PAPER)
+-		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4, true)
+-		draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4, true)
++		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4 * _native_screen_pixel_scale, true)
++		draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4 * _native_screen_pixel_scale, true)
+ 
+ func _seat_at(seat: Dictionary, base: Vector2, pitch: float) -> void:
+ 	sprite("stool-wood", base, "static", str(FACING.get(seat.get("facing", "south"), "S")), 0.0, pitch, activity_tint(seat))
+@@ -427,7 +460,7 @@
+ 	if float(feedback.timer) >= 0.0:
+ 		var center: Vector2 = bubble_base + Vector2(37, -84) * pitch / art.cell_size
+ 		var radius := pitch * 0.115
+-		var stroke := maxf(1.4, pitch * 0.032)
++		var stroke := maxf(1.4 * _native_screen_pixel_scale, pitch * 0.032)
+ 		draw_circle(center, radius + stroke, Color("fff5dc"))
+ 		draw_arc(center, radius, 0, TAU, 36, Color("c5ccbc"), stroke, true)
+ 		var progress := float(feedback.timer)
