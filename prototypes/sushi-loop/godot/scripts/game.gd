@@ -134,6 +134,7 @@ func _ready() -> void:
 	editor_ui.command_requested.connect(_editor_command)
 	editor_ui.item_pointer.connect(_inventory_pointer)
 	editor_ui.item_armed.connect(_arm_item)
+	editor_ui.belt_pointer.connect(_belt_pointer)
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
 	if show_editor_gallery:
 		session.command({"type": "set_mode", "mode": "edit"})
@@ -412,6 +413,16 @@ func _refresh() -> void:
 			selection_tween.tween_property(world, "editor_selection_alpha", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	var selected := _selected_object(world.state)
 	editor_ui.set_selection(world.cell_base(float(selected.get("x", 0)), float(selected.get("y", 0))), editing and not selected.is_empty())
+	var targets: Array = []
+	for target: Dictionary in world.state.editor.get("belt_targets", []):
+		var center := world.cell_base(float(target.x), float(target.y))
+		var bounds := Rect2(center - Vector2.ONE * world.cell * 0.5, Vector2.ONE * world.cell)
+		if not _floor_drop(center): continue
+		if editor_ui.blocked_rects().any(func(blocked: Rect2): return blocked.intersects(bounds)): continue
+		var value := target.duplicate()
+		value.bounds = bounds
+		targets.append(value)
+	editor_ui.set_belt_targets(targets)
 	world.queue_redraw()
 
 func save_now() -> bool:
@@ -440,7 +451,7 @@ func _editor_command(value: Dictionary) -> Dictionary:
 		return {"ok": false, "reason": "shop_unavailable"}
 	var result: Dictionary = session.command(value)
 	if result.get("ok", false):
-		if value.type in ["set_mode", "editor_layer", "editor_remove"]:
+		if value.type in ["set_mode", "editor_layer", "editor_remove", "editor_belt_end"]:
 			armed_item.clear()
 			editor_ui.active_item = ""
 		if value.type == "set_mode":
@@ -465,6 +476,9 @@ func _block_edit_save() -> void:
 
 func _arm_item(item: Dictionary) -> void:
 	if gesture_dragged: return
+	if item.get("kind") == "belt" and int(item.get("count", 0)) <= 0:
+		editor_ui.reject("no_belt_tiles")
+		return
 	if item.kind == "chef":
 		editor_ui.inspect(item)
 		return
@@ -485,6 +499,31 @@ func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
 	gesture_item = item.duplicate(true)
 	gesture_dragged = false
 	gesture_object = str(item.get("id", "")) if item.get("assigned", false) else ""
+
+func _belt_pointer(target: Dictionary, event: InputEvent) -> void:
+	if not event is InputEventScreenTouch or not event.pressed or pointer != -1 or save_blocked: return
+	pointer = event.index
+	pointer_start = last_screen_press
+	previous_pointer = pointer_start
+	gesture_dragged = false
+	gesture_kind = "belt_path"
+	gesture_cell = Vector2i(int(target.x), int(target.y))
+	var object := _object_at(pointer_start)
+	if not object.is_empty() and object.id == session.snapshot().editor.selected_id:
+		gesture_kind = "object"
+		gesture_object = object.id
+		gesture_grab_offset = (_world_position(pointer_start) - world.cell_base(float(object.x), float(object.y))) / world.cell
+	else:
+		var hit := _belt_target_at(pointer_start, object)
+		if not hit.is_empty(): gesture_cell = Vector2i(int(hit.x), int(hit.y))
+
+func _belt_target_at(at: Vector2, object: Dictionary) -> Dictionary:
+	var cell := _cell_at(at)
+	var ground_target := {}
+	for target: Dictionary in session.snapshot().editor.get("belt_targets", []):
+		if not object.is_empty() and target.get("id", "") == object.id: return target
+		if Vector2i(int(target.x), int(target.y)) == cell: ground_target = target
+	return ground_target
 
 func _pickup_allowed() -> bool:
 	return not gesture_item.is_empty() and gesture_item.get("available",true) and (int(gesture_item.get("count",0))>0 or gesture_item.get("assigned",false))
@@ -527,7 +566,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	gesture_kind = "pan"
 	gesture_started_in_tray = false
 	if session.snapshot().get("mode", "live") == "edit":
-		if not armed_item.is_empty():
+		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
+		var hit := _object_at(local)
+		var route_target := _belt_target_at(local, hit) if path_active else {}
+		if path_active and armed_item.is_empty() and not route_target.is_empty() and str(hit.get("id", "")) != str(session.snapshot().editor.selected_id):
+			gesture_kind = "belt_path"
+			gesture_cell = Vector2i(int(route_target.x), int(route_target.y))
+		elif not armed_item.is_empty():
 			gesture_kind = "inventory"
 			gesture_item = armed_item.duplicate(true)
 			gesture_object = str(armed_item.id) if armed_item.get("assigned", false) else ""
@@ -543,8 +588,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				# An object must already be selected before a drag can move it.
 				# All other drags pan; a short release selects the tapped object.
-				tap_object = str(object.get("id", ""))
-				if not selected.is_empty(): _editor_command({"type": "editor_select", "id": null})
+				tap_object = "" if path_active else str(object.get("id", ""))
+				if path_active: _editor_command({"type": "editor_belt_end"})
+				elif not selected.is_empty(): _editor_command({"type": "editor_select", "id": null})
 	get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
@@ -569,7 +615,7 @@ func _input(event: InputEvent) -> void:
 		if not gesture_dragged and displacement.length() >= threshold: gesture_dragged = true
 		if gesture_kind == "inventory_scroll":
 			editor_ui.scroll_by(-change.x)
-		elif gesture_kind == "pan":
+		elif gesture_kind in ["pan", "belt_path"]:
 			_pan(change)
 		elif gesture_dragged and gesture_kind in ["inventory","object"]:
 			_update_preview(local)
@@ -581,6 +627,10 @@ func _input(event: InputEvent) -> void:
 				editor_ui.commit_scroll()
 			elif gesture_kind == "inventory_pending" and not gesture_dragged and _pickup_allowed():
 				_arm_item(gesture_item)
+			elif gesture_kind == "inventory_pending" and not gesture_dragged and gesture_item.get("kind") == "belt":
+				editor_ui.reject("no_belt_tiles")
+			elif gesture_kind == "belt_path" and not gesture_dragged:
+				if _floor_drop(local): _editor_command({"type": "editor_belt_extend", "x": gesture_cell.x, "y": gesture_cell.y})
 			elif gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
 				_editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
@@ -690,11 +740,19 @@ func _notification(what: int) -> void:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and editor_ui != null and editor_ui.inspection.visible:
 			editor_ui.close_inspection()
 			return
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and session != null and not session.snapshot().editor.get("belt_path", []).is_empty():
+			_editor_command({"type": "editor_belt_end"})
+			return
 		save_now()
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST: get_tree().quit()
 
 func _exit_tree() -> void:
 	save_now()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and session != null and not session.snapshot().editor.get("belt_path", []).is_empty():
+		_editor_command({"type": "editor_belt_end"})
+		get_viewport().set_input_as_handled()
 
 func _valid_saved_session(data: Dictionary) -> bool:
 	return Session.new().restore(data)

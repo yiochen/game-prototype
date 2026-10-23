@@ -1,0 +1,21 @@
+Serving...
+Performing Incremental Install
+Success
+ess
+ess
+ess
+Install command complete in 562 ms
+
+Traceback (most recent call last):
+  File "/Users/yiouchen/dev/game-prototype/.scratch/issue13_android_qa.py", line 37, in <module>
+    print(call('shell','am','start','-n',PACKAGE+'/com.godot.game.GodotApp').decode(),flush=True)
+          ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/dev/game-prototype/.scratch/issue13_android_qa.py", line 11, in call
+    if check and r.returncode:raise RuntimeError(r.stderr.decode(errors='replace'))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Error type 3
+Error: Activity class {com.yiochen.sushilooptickets.review13/com.godot.game.GodotApp} does not exist.
+
+Starting: Intent { cmp=com.yiochen.sushilooptickets.review13/com.godot.game.GodotAppLauncher }
+
+Actual Android runtime saved 0.0

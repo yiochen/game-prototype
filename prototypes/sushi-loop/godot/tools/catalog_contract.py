@@ -28,6 +28,9 @@ SELECTION = {
     'belt-start-e': (['running'], DIRECTIONS),
     'belt-straight-e': (['running'], DIRECTIONS),
     'belt-end-e': (['running'], DIRECTIONS),
+    # #13 needs both turn chiralities; native facings cover all eight turns.
+    'belt-corner-n-e': (['running'], DIRECTIONS),
+    'belt-corner-e-n': (['running'], DIRECTIONS),
     'chef-lena': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
     'chef-omar': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
     'chef-blackboard': (['idle'], ['S']),

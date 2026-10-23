@@ -197,11 +197,10 @@ func _test_queued_belt_motion() -> void:
 	_check(_events(actual, "belt_moved").filter(func(event): return event.dish_id == queued_id and event.from_id == "belt-1").size() == 1, "the queued plate crosses its source boundary exactly once")
 
 func _test_partial_crossing_blockage() -> void:
-	# Two inputs can meet in a saved/custom layout. If the quicker input fills
-	# the target, an already moving plate must pause without snapping backward.
+	# An older valid save can retain a partial crossing into a newly occupied
+	# endpoint. Its visible position must survive without precharging or replay.
 	var game := _service_session(292, {"objects": [
 		{"id": "source", "kind": "belt", "x": 1, "y": 3, "facing": "east"},
-		{"id": "other", "kind": "belt", "x": 2, "y": 2, "facing": "south"},
 		{"id": "target", "kind": "belt", "x": 2, "y": 3, "facing": "east"},
 	]})
 	game.command({"type": "set_entrance_open", "open": false})
@@ -209,9 +208,9 @@ func _test_partial_crossing_blockage() -> void:
 	data.state.objects[0].dish = {"id": "dish-1", "recipe_id": "salmon_nigiri"}
 	data.state.objects[0].travel_elapsed = 0.4
 	data.state.objects[1].dish = {"id": "dish-2", "recipe_id": "salmon_nigiri"}
-	data.state.objects[1].travel_elapsed = 1.0
+	data.state.objects[1].travel_elapsed = 0.0
 	data.state.next_dish_id = 3
-	_check(game.restore(data), "partial crossing fixture uses a valid saved layout with two incoming belts")
+	_check(game.restore(data), "partial crossing fixture retains a valid single-input saved layout")
 	game.advance(0.1)
 	var position: float = _object(game.snapshot(), "source").travel_progress
 	game.advance(0.4)

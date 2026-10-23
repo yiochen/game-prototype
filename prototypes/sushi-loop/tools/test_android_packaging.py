@@ -311,7 +311,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
         packages = {normal["android_package"]}
         self.assertEqual(normal_variant["kind"], "normal")
         for scene, issue, label in (("customer-visits", 11, "Customer Visits"),
-                                    ("restaurant-editor", 12, "Restaurant Editor")):
+                                    ("restaurant-editor", 12, "Restaurant Editor"),
+                                    ("conveyor-routes", 13, "Conveyor Routes")):
             with self.subTest(scene=scene):
                 review, variant = build.resolve_branding(self.branding, review_scene=scene)
                 review_source, staged, _ = build.stage_build(self.project, self.root / scene, review)
@@ -338,7 +339,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(normal_staged, normal_again)
 
     def test_review_identity_cannot_be_overridden_into_normal_package(self):
-        for scene in ("customer-visits", "restaurant-editor"):
+        for scene in ("customer-visits", "restaurant-editor", "conveyor-routes"):
             for options in ({"package_id": "example.game"}, {"title": "Example"}):
                 with self.subTest(scene=scene, options=options), self.assertRaisesRegex(ValueError, "isolated title/package"):
                     build.resolve_branding(self.branding, review_scene=scene, **options)

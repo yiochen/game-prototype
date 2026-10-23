@@ -432,6 +432,8 @@ func _test_issue10_save_upgrade() -> void:
 	for object in observed.objects:
 		object.erase("active")
 		object.erase("inactive_reason")
+		# #13 adds explicit route descriptors; the legacy fixture predates them.
+		for key in ["next_id", "input_facing", "incoming_id"]: object.erase(key)
 	for index in range(observed.customers.size()):
 		var previous: Dictionary = fixture.snapshot.customers[index]
 		for key in observed.customers[index].keys():

@@ -10,6 +10,12 @@ const NIGHT := Color("103d4b")
 const PAPER := Color("ffefcf")
 const DIRECTIONS := {"north": Vector2.UP, "south": Vector2.DOWN, "east": Vector2.RIGHT, "west": Vector2.LEFT}
 const BELT_FACING := {"east": "S", "north": "E", "west": "N", "south": "W"}
+const CORNER_FACING := {
+	"south:east": ["belt-corner-n-e", "S"], "east:north": ["belt-corner-n-e", "E"],
+	"north:west": ["belt-corner-n-e", "N"], "west:south": ["belt-corner-n-e", "W"],
+	"west:north": ["belt-corner-e-n", "S"], "south:west": ["belt-corner-e-n", "E"],
+	"east:south": ["belt-corner-e-n", "N"], "north:east": ["belt-corner-e-n", "W"],
+}
 const FACING := {"north": "N", "east": "E", "south": "S", "west": "W"}
 const CUSTOMERS := ["customer-rosa", "customer-ellis", "customer-samir", "customer-june"]
 const BUBBLE_ATTACHMENT := Vector2(0, -172) # Fixed C125 head clearance, logical pixels.
@@ -178,6 +184,7 @@ func _room() -> void:
 	_editor_ground()
 	_render_room_items(items)
 	_editor_ghost()
+	_belt_target_overlay()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
 	for customer in state.get("customers", []):
@@ -254,6 +261,12 @@ func object_at(point: Vector2) -> Dictionary:
 
 func _editor_ground() -> void:
 	if state.get("mode", "live") != "edit": return
+	for target: Dictionary in state.get("editor", {}).get("belt_targets", []):
+		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
+		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
+		var tone := Color("cea04c") if target.kind == "close" else Color("587e59") if target.valid else Color("7c8790")
+		draw_rect(bounds, Color(tone, 0.25 if target.valid else 0.12))
+		draw_rect(bounds, Color(tone, 0.95 if target.valid else 0.4), false, 2 * _native_screen_pixel_scale)
 	var identity := str(state.get("editor", {}).get("selected_id", ""))
 	for object in state.get("objects", []):
 		if str(object.id) != identity: continue
@@ -270,6 +283,24 @@ func _editor_ground() -> void:
 			var down := Vector2(0.0, -1.0 if corner.y > 0.0 else 1.0) * arm
 			draw_polyline(PackedVector2Array([point + across, point, point + down]), Color(Color("233d58"), editor_selection_alpha), thickness, true)
 
+func _belt_target_overlay() -> void:
+	# Keep grid targets legible over the raised fronts of the real furniture.
+	if state.get("mode", "live") != "edit" or state.get("editor", {}).get("belt_path", []).is_empty(): return
+	for target: Dictionary in state.editor.get("belt_targets", []):
+		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
+		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
+		var tone := Color("b77c27") if target.kind == "close" else Color("426d47") if target.valid else Color("7c8790")
+		draw_rect(bounds, Color(PAPER, 0.8 if target.valid else 0.3), false, 4 * _native_screen_pixel_scale)
+		draw_rect(bounds, Color(tone, 1.0 if target.valid else 0.55), false, 2 * _native_screen_pixel_scale)
+	for object in state.objects:
+		if object.id != state.editor.selected_id: continue
+		var bounds := Rect2(cell_base(float(object.x), float(object.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-2 * _native_screen_pixel_scale)
+		for corner in [Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN]:
+			var point: Vector2 = bounds.position + bounds.size * corner
+			var across := Vector2(-1 if corner.x > 0 else 1, 0) * cell * 0.2
+			var down := Vector2(0, -1 if corner.y > 0 else 1) * cell * 0.2
+			draw_polyline(PackedVector2Array([point + across, point, point + down]), INK, 2 * _native_screen_pixel_scale, true)
+
 func _editor_ghost() -> void:
 	if state.get("mode", "live") != "edit" or editor_preview.is_empty(): return
 	var base := cell_base(float(editor_preview.x), float(editor_preview.y))
@@ -282,11 +313,11 @@ func _editor_ghost() -> void:
 	var clip := "static"
 	if object.get("kind") == "chef": clip = "idle"
 	elif object.get("kind") == "belt":
-		identity = "belt-straight-e"
+		identity = "belt-start-e"
 		clip = "running"
 	elif object.get("kind") == "seat": identity = "stool-wood"
 	elif identity == "plant-angular": clip = "idle"
-	if not identity.is_empty(): sprite(identity, base, clip, belt_direction(object) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
+	if not identity.is_empty(): sprite(identity, base, clip, str(BELT_FACING.get(object.get("facing", "east"), "S")) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
@@ -297,7 +328,8 @@ func render_plan() -> Array:
 			"belt":
 				result.append({"kind": "belt", "value": object, "depth": float(object.y), "priority": 1})
 				if object.get("dish") != null:
-					result.append({"kind": "dish", "value": object, "depth": float(object.y), "priority": 3})
+					var following := _belt_next(object)
+					result.append({"kind": "dish", "value": object, "depth": maxf(float(object.y), float(following.get("y", object.y))), "priority": 3})
 			"seat":
 				result.append({"kind": "seat", "value": object, "depth": float(object.y), "priority": 0})
 			"decor":
@@ -355,29 +387,67 @@ func _has_belt(at: Vector2) -> bool:
 			return true
 	return false
 
+func _belt_next(belt: Dictionary) -> Dictionary:
+	for tile in state.get("objects", []):
+		if tile.kind != "belt": continue
+		if belt.has("next_id"):
+			if tile.id == belt.next_id: return tile
+		elif Vector2(float(tile.x - belt.x), float(tile.y - belt.y)) == DIRECTIONS[belt.facing]: return tile
+	return {}
+
+func _belt_input(belt: Dictionary) -> Dictionary:
+	for tile in state.get("objects", []):
+		if tile.kind != "belt" or tile.id == belt.id: continue
+		if tile.has("next_id"):
+			if tile.next_id == belt.id: return tile
+		elif Vector2(float(belt.x - tile.x), float(belt.y - tile.y)) == DIRECTIONS[tile.facing]: return tile
+	return {}
+
+func _belt_shape(belt: Dictionary) -> Array:
+	if not belt.has("x") or not belt.has("y"): return ["belt-start-e", BELT_FACING.get(belt.get("facing", "east"), "S")]
+	var previous := _belt_input(belt)
+	var following := _belt_next(belt)
+	if previous.is_empty(): return ["belt-start-e", BELT_FACING[belt.facing]]
+	var flow: String = str(previous.facing)
+	if following.is_empty(): return ["belt-end-e", BELT_FACING[flow]]
+	return CORNER_FACING.get(flow + ":" + str(belt.facing), ["belt-straight-e", BELT_FACING[belt.facing]])
+
 func belt_clip(belt: Dictionary) -> String:
-	var direction: Vector2 = DIRECTIONS.get(str(belt.facing), Vector2.RIGHT)
-	var at := Vector2(float(belt.x), float(belt.y))
-	if not _has_belt(at - direction):
-		return "belt-start-e"
-	if not _has_belt(at + direction):
-		return "belt-end-e"
-	return "belt-straight-e"
+	return str(_belt_shape(belt)[0])
 
 func belt_direction(belt: Dictionary) -> String:
-	return str(BELT_FACING.get(str(belt.get("facing", "east")), "S"))
+	return str(_belt_shape(belt)[1])
 
 func _belt(belt: Dictionary) -> void:
 	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", belt_direction(belt), 0.0 if reduced_motion else float(state.elapsed))
 
 func dish_base(belt: Dictionary) -> Vector2:
-	var direction: Vector2 = DIRECTIONS.get(str(belt.facing), Vector2.ZERO)
-	var ahead := Vector2.ZERO
-	for other in state.objects:
-		if other.kind == "belt" and float(other.x) == float(belt.x) + direction.x and float(other.y) == float(belt.y) + direction.y:
-			ahead = direction * cell * float(belt.travel_progress)
-			break
-	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck", belt_direction(belt)) * cell / art.cell_size
+	var following := _belt_next(belt)
+	var offset := belt_path_point(belt, 0.5)
+	if not following.is_empty():
+		var own_length := belt_path_length(belt)
+		var next_length := belt_path_length(following)
+		var distance := float(belt.get("travel_progress", 0.0)) * (own_length + next_length) * 0.5
+		if distance <= own_length * 0.5:
+			offset = belt_path_point(belt, 0.5 + distance / own_length)
+		else:
+			offset = Vector2(float(following.x - belt.x), float(following.y - belt.y)) + belt_path_point(following, (distance - own_length * 0.5) / next_length)
+	return cell_base(float(belt.x), float(belt.y)) + offset * cell + art.socket(belt_clip(belt), "deck", belt_direction(belt)) * cell / art.cell_size
+
+func belt_path_length(belt: Dictionary) -> float:
+	return PI * 0.25 if belt_clip(belt).begins_with("belt-corner-") else 1.0
+
+func belt_path_point(belt: Dictionary, progress: float) -> Vector2:
+	var outgoing: Vector2 = DIRECTIONS[belt.facing]
+	var previous := _belt_input(belt)
+	var incoming: Vector2 = DIRECTIONS[previous.facing] if not previous.is_empty() else outgoing
+	if _belt_next(belt).is_empty(): outgoing = incoming
+	if incoming == outgoing: return outgoing * (progress - 0.5)
+	var start := -incoming * 0.5
+	var end := outgoing * 0.5
+	var center := start + end
+	var radius := start - center
+	return center + radius.rotated(radius.angle_to(end - center) * progress)
 
 func _dish(belt: Dictionary) -> void:
 	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))

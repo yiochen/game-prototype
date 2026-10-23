@@ -763,7 +763,7 @@ func set_selection(base: Vector2, show: bool) -> void:
 	refresh_layout()
 
 func reject(reason: String) -> void:
-	var messages := {"occupied": "That tile is occupied.", "entrance": "Keep the entrance clear.", "customer_busy": "A guest is using this space.", "no_stock": "None left in inventory.", "shop_unavailable": "Shop is not available yet.", "invalid_position": "Place objects on cleared floor."}
+	var messages := {"occupied": "That tile is occupied.", "entrance": "Keep the entrance clear.", "customer_busy": "A guest is using this space.", "no_stock": "None left in inventory.", "no_belt_tiles": "No belt tiles left", "visited_belt": "Tap the starting tile to close the loop.", "shop_unavailable": "Shop is not available yet.", "invalid_position": "Place objects on cleared floor."}
 	rejection.text = messages.get(reason, "This object cannot go there.")
 	rejection.accessibility_name = rejection.text
 	rejection.show()
