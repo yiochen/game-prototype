@@ -2,12 +2,16 @@ extends "res://scripts/editor_presentation.gd"
 ## Approved HTML dock, with native controls, accessible labels and clipped goods.
 const WoodSkin = preload("res://scripts/wood_skin.gd")
 const WOOD_INK := Color("592c10")
+signal belt_pointer(target: Dictionary, event: InputEvent)
 var wood = WoodSkin.new()
 var backdrop: Control
 var scroll_offsets: Dictionary = {}
 var header_height := 78.0
 var safe_height := 42.0
 var wood_font: Font
+var path_count: Label
+var path_exit: Button
+var path_targets: Array[Button] = []
 
 class Backdrop extends Control:
 	var owner_ui
@@ -45,7 +49,87 @@ func _ready() -> void:
 	rail.gui_input.connect(func(event: InputEvent):
 		_tray_input(event)
 		if event is InputEventScreenTouch and event.pressed: item_pointer.emit({},event))
+	path_count = _label("")
+	path_count.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	path_count.accessibility_live = AccessibilityServer.LIVE_POLITE
+	context_bubble.add_child(path_count)
+	path_exit = _button("Inventory", "context-action", "close", "Exit conveyor path to inventory", context_bubble)
+	path_exit.set_meta("visual_stacked", true)
+	_add_button_visual(path_exit)
+	path_exit.pressed.connect(func(): command_requested.emit({"type": "editor_belt_end"}))
+	path_exit.accessibility_description = "Keep every accepted edit and return to inventory."
+	for index in range(4):
+		var target := Button.new()
+		target.mouse_filter = Control.MOUSE_FILTER_STOP
+		for treatment in ["normal", "hover", "pressed", "disabled"]: target.add_theme_stylebox_override(treatment, StyleBoxEmpty.new())
+		var focus := StyleBoxFlat.new()
+		focus.bg_color = Color.TRANSPARENT
+		focus.border_color = INK
+		focus.set_border_width_all(3)
+		target.add_theme_stylebox_override("focus", focus)
+		target.gui_input.connect(func(event: InputEvent):
+			var value: Dictionary = target.get_meta("target", {})
+			if event is InputEventScreenTouch: belt_pointer.emit(value, event)
+			if event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]:
+				command_requested.emit({"type": "editor_belt_extend", "x": value.x, "y": value.y})
+				get_viewport().set_input_as_handled())
+		add_child(target)
+		target.hide()
+		path_targets.append(target)
 	refresh_layout()
+
+func set_belt_targets(targets: Array) -> void:
+	for index in range(path_targets.size()):
+		var button := path_targets[index]
+		button.visible = index < targets.size() and visible
+		if not button.visible: continue
+		var target: Dictionary = targets[index]
+		button.set_meta("target", target)
+		button.position = target.bounds.position
+		button.size = target.bounds.size
+		button.accessibility_name = ("Close conveyor loop" if target.kind == "close" else "Reuse conveyor" if target.kind == "reuse" else "Place conveyor") + " at column %s, row %s" % [int(target.x) + 1, int(target.y) + 1]
+		button.accessibility_description = "No belt tiles left. Existing belts and Inventory remain available." if target.reason == "no_belt_tiles" else "Uses one inventory tile." if target.valid and target.kind == "new" else "Uses no inventory tiles." if target.valid else "This neighboring cell is unavailable."
+
+func _layout_context() -> void:
+	super._layout_context()
+	if path_exit == null: return
+	var active: bool = not state.get("editor", {}).get("belt_path", []).is_empty()
+	path_exit.visible = active
+	path_count.visible = active
+	context_pointer.visible = not active
+	if not active:
+		context_bubble.accessibility_name = "Selected object actions"
+		rotate.accessibility_name = "Rotate selected object"
+		remove.accessibility_name = "Return selected object to inventory"
+		return
+	context_bubble.show()
+	rotate.show()
+	remove.show()
+	context_bubble.accessibility_name = "Conveyor path controls"
+	context_bubble.position = Vector2(area.position.x + 18 * unit, occlusion_top() - 142 * unit)
+	context_bubble.size = Vector2(684, 128) * unit
+	var remaining := 0
+	for item in state.get("inventory", []):
+		if item.id == "belt-tile": remaining = int(item.count)
+	path_count.text = "Belt tiles\n%s left" % remaining
+	path_count.accessibility_name = "%s belt tiles remaining" % remaining
+	path_count.position = Vector2(12, 14) * unit
+	path_count.size = Vector2(148, 100) * unit
+	path_count.add_theme_font_size_override("font_size", maxi(1, int(27 * unit)))
+	for index in range(3):
+		var button: Button = [rotate, remove, path_exit][index]
+		button.position = Vector2(166 + 166 * index, 8) * unit
+		button.size = Vector2(166, 112) * unit
+		_layout_button_visual(button, Rect2(0, 0, 166, 112), 27, 32 if button == path_exit else 42)
+	rotate.accessibility_name = "Rotate latest conveyor tile"
+	remove.accessibility_name = "Return latest conveyor tile to inventory"
+
+func _notification(what: int) -> void:
+	super._notification(what)
+	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT] and path_exit != null:
+		path_exit.disabled = true
+		path_exit.disabled = false
+		_press_button_visual(path_exit, false)
 
 func _is_wood_button(button: Button) -> bool:
 	return button == shop or button in layers.values()

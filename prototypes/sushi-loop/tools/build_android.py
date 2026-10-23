@@ -44,6 +44,7 @@ FORBIDDEN_SUFFIXES = {".keystore", ".jks", ".blend", ".py", ".bak", ".tmp"}
 REVIEW_SCENES = {
     "customer-visits": {"issue": 11, "package_suffix": ".review11", "label": "Customer Visits"},
     "restaurant-editor": {"issue": 12, "package_suffix": ".review12", "label": "Restaurant Editor"},
+    "conveyor-routes": {"issue": 13, "package_suffix": ".review13", "label": "Conveyor Routes"},
 }
 
 

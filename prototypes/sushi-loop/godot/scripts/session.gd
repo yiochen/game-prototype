@@ -6,6 +6,8 @@ extends RefCounted
 
 const SAVE_VERSION := 1
 const BELT_MOTION_VERSION := 1
+const BELT_ROUTE_VERSION := 1
+const BeltRoutes = preload("res://scripts/belt_routes.gd")
 const CUSTOMER_VISIT_VERSION := 1
 const CUSTOMER_NAVIGATION_VERSION := 1
 const CUSTOMER_ADMISSION_VERSION := 1
@@ -54,6 +56,7 @@ func command(request: Dictionary) -> Dictionary:
 			if not request.get("mode") in ["live", "edit"]:
 				return {"ok": false, "reason": "invalid_mode"}
 			_state.mode = request.mode
+			if request.mode == "live": _state.editor.belt_path = []
 			return {"ok": true}
 		"set_camera":
 			if not _finite_number(request.get("x")) or not _finite_number(request.get("y")):
@@ -122,8 +125,10 @@ func snapshot() -> Dictionary:
 			object.erase("preparation_elapsed")
 		elif object.kind == "belt":
 			object.travel_progress = clampf(float(object.travel_elapsed) / float(_configuration.service.belt_seconds_per_cell), 0.0, 1.0)
+			object.incoming_id = str(BeltRoutes.incoming(_state.objects, object.id).get("id", ""))
 			object.erase("travel_elapsed")
 		result.objects.append(object)
+	result.editor.belt_targets = _belt_targets()
 	for customer in _state.customers:
 		result.customers.append({
 			"id": customer.id, "x": customer.x, "y": customer.y,
@@ -156,6 +161,7 @@ func save_data() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
 		"belt_motion_version": BELT_MOTION_VERSION,
+		"belt_route_version": BELT_ROUTE_VERSION,
 		"customer_visit_version": CUSTOMER_VISIT_VERSION,
 		"customer_navigation_version": CUSTOMER_NAVIGATION_VERSION,
 		"customer_admission_version": CUSTOMER_ADMISSION_VERSION,
@@ -184,6 +190,8 @@ func restore(data: Dictionary) -> bool:
 		return false
 	if not _nonnegative_integer(data.get("belt_motion_version", 0)) or int(data.get("belt_motion_version", 0)) > BELT_MOTION_VERSION:
 		return false
+	if not _nonnegative_integer(data.get("belt_route_version", 0)) or int(data.get("belt_route_version", 0)) > BELT_ROUTE_VERSION:
+		return false
 	if not _nonnegative_integer(data.get("customer_visit_version", 0)) or int(data.get("customer_visit_version", 0)) > CUSTOMER_VISIT_VERSION:
 		return false
 	if not _nonnegative_integer(data.get("customer_navigation_version", 0)) or int(data.get("customer_navigation_version", 0)) > CUSTOMER_NAVIGATION_VERSION:
@@ -211,6 +219,7 @@ func restore(data: Dictionary) -> bool:
 	if not _valid_configuration(restored_configuration):
 		return false
 	var restored_state: Dictionary = data.state.duplicate(true)
+	if not restored_state.get("objects") is Array or not _valid_objects(restored_state.objects, restored_configuration): return false
 	_migrate_visual_state(restored_state)
 	if int(data.get("customer_visit_version", 0)) == 0:
 		_migrate_visit_state(restored_state, restored_configuration)
@@ -218,6 +227,10 @@ func restore(data: Dictionary) -> bool:
 		_initialize_editor_state(restored_state)
 	elif int(data.get("editor_version", 0)) < EDITOR_VERSION:
 		if not _migrate_editor_paging(restored_state, int(data.editor_version)): return false
+	if int(data.get("belt_route_version", 0)) == 0:
+		BeltRoutes.initialize(restored_state.objects)
+		if not restored_state.get("editor") is Dictionary: return false
+		restored_state.editor.belt_path = []
 	var navigation_version := int(data.get("customer_navigation_version", 0))
 	var admission_version := int(data.get("customer_admission_version", 0))
 	if not _valid_saved_state(restored_state, restored_configuration, navigation_version, admission_version):
@@ -359,6 +372,7 @@ func _start() -> void:
 				object.travel_elapsed = 0.0
 				object.dish = null
 	_initialize_editor_state(_state)
+	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
 
@@ -398,7 +412,8 @@ func _step_chefs(delta: float, events: Array) -> void:
 		if chef.held_dish == null:
 			continue
 		var loading := _facing_object(chef)
-		if loading.get("kind") != "belt" or loading.dish != null:
+		var approaching := BeltRoutes.incoming(_state.objects, str(loading.get("id", "")))
+		if loading.get("kind") != "belt" or loading.dish != null or (not approaching.is_empty() and approaching.dish != null and float(approaching.travel_elapsed) > 0.0):
 			chef.loading_elapsed = 0.0
 			_set_visual(chef, "hold")
 			continue
@@ -425,35 +440,36 @@ func _step_chefs(delta: float, events: Array) -> void:
 func _step_belts(delta: float, events: Array) -> void:
 	var duration := float(_configuration.service.belt_seconds_per_cell)
 	var transfers: Array = []
-	var reserved: Dictionary = {}
-	# Decide against the same beginning-of-step occupancy. A dish cannot race
-	# through multiple tiles just because they occur later in the content array.
+	var moving := {}
+	for tile in _state.objects:
+		if tile.kind == "belt" and tile.dish != null and not tile.next_id.is_empty(): moving[tile.id] = true
+	moving = BeltRoutes.vacating_tiles(_state.objects, moving)
+	var ready := {}
+	# A free endpoint releases its upstream train; a closed occupied cycle can
+	# advance as one train. A blocked endpoint freezes its complete queue.
 	for tile in _state.objects:
 		if tile.kind != "belt" or tile.dish == null:
 			continue
-		var destination := _facing_object(tile)
-		if destination.get("kind") != "belt":
-			# An open endpoint retains its plate at the tile center indefinitely.
+		if tile.next_id.is_empty():
 			tile.travel_elapsed = 0.0
 			continue
-		if destination.dish != null:
-			# Do not precharge queued motion. A previously started crossing keeps
-			# its position if another input fills the target in a merged layout.
-			continue
+		if not moving.get(tile.id, false): continue
 		tile.travel_elapsed = minf(duration, _clock_advance(float(tile.travel_elapsed), delta))
-		if float(tile.travel_elapsed) + 0.000000001 < duration:
-			continue
-		if not reserved.has(destination.id):
-			transfers.append({"from": tile, "to": destination})
-			reserved[destination.id] = true
+		if float(tile.travel_elapsed) + 0.000000001 >= duration: ready[tile.id] = true
+	ready = BeltRoutes.vacating_tiles(_state.objects, ready)
+	for tile in _state.objects:
+		if tile.kind == "belt" and ready.get(tile.id, false):
+			transfers.append({"from": tile, "to": BeltRoutes.by_id(_state.objects, tile.next_id), "dish": tile.dish})
+	# Clear every source before assigning any destination, including cycles.
 	for transfer in transfers:
 		var source: Dictionary = transfer.from
-		var destination: Dictionary = transfer.to
-		destination.dish = source.dish
-		destination.travel_elapsed = 0.0
 		source.dish = null
 		source.travel_elapsed = 0.0
-		events.append({"type": "belt_moved", "dish_id": destination.dish.id, "from_id": source.id, "to_id": destination.id})
+	for transfer in transfers:
+		var destination: Dictionary = transfer.to
+		destination.dish = transfer.dish
+		destination.travel_elapsed = 0.0
+		events.append({"type": "belt_moved", "dish_id": destination.dish.id, "from_id": transfer.from.id, "to_id": destination.id})
 
 func _customer_number(key: String) -> float:
 	return float(_configuration.get("customers", {}).get(key, 0.0))
@@ -477,7 +493,7 @@ func _belt_reaches(source: Dictionary, target_id: String) -> bool:
 		if tile.id == target_id:
 			return true
 		seen[tile.id] = true
-		tile = _facing_object(tile)
+		tile = BeltRoutes.by_id(_state.objects, tile.next_id)
 	return false
 
 func _seat_service(seat: Dictionary) -> Dictionary:
@@ -1560,6 +1576,7 @@ func _initialize_editor_state(state: Dictionary) -> void:
 	var definition := _editor_definition()
 	state.mode = "live"
 	state.editor = {"layer": definition.get("default_layer", "layout"), "tray_open": true, "selected_id": "", "page": 0, "pages": {"people": 0, "layout": 0, "floor": 0}}
+	state.editor.belt_path = []
 	state.inventory = definition.get("inventory", []).duplicate(true)
 	state.next_object_id = 1
 	state.discarded_dishes = 0
@@ -1633,6 +1650,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	var objects: Variant = state.get("objects")
 	if not objects is Array or not _valid_objects(objects, config):
 		return false
+	if not BeltRoutes.valid(objects) or not editor.get("belt_path") is Array: return false
 	var placed: Dictionary = {}
 	for object in objects:
 		if not object is Dictionary or not object.get("id") is String:
@@ -1642,6 +1660,14 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 			return false
 	if not editor.selected_id.is_empty() and not placed.has(editor.selected_id):
 		return false
+	var path_seen := {}
+	var previous := ""
+	for identity in editor.belt_path:
+		if not identity is String or path_seen.has(identity) or not placed.has(identity) or placed[identity].kind != "belt": return false
+		if not previous.is_empty() and placed[previous].next_id != identity: return false
+		path_seen[identity] = true
+		previous = identity
+	if not previous.is_empty() and (editor.selected_id != previous or state.mode != "edit" or editor.layer != "layout"): return false
 	var inventory_ids := {}
 	var known_chefs := {}
 	for initial in config.objects:
@@ -1714,6 +1740,7 @@ func _editor_command(request: Dictionary) -> Dictionary:
 			_state.editor.layer = request.layer
 			_state.editor.page = _state.editor.pages[request.layer]
 			_state.editor.tray_open = true
+			_state.editor.belt_path = []
 			return {"ok": true}
 		"editor_toggle_tray":
 			_state.editor.tray_open = not _state.editor.tray_open
@@ -1735,12 +1762,21 @@ func _editor_command(request: Dictionary) -> Dictionary:
 			var identity: Variant = request.get("id")
 			if identity == null or identity == "":
 				_state.editor.selected_id = ""
+				_state.editor.belt_path = []
 				return {"ok": true}
 			if not identity is String or _object_by_id(identity).is_empty():
 				return _editor_fail("unknown_object")
 			_state.editor.selected_id = identity
 			_state.editor.layer = _editor_layer_for(_object_by_id(identity))
 			_state.editor.page = _state.editor.pages[_state.editor.layer]
+			_state.editor.belt_path = [identity] if _object_by_id(identity).kind == "belt" else []
+			return {"ok": true}
+		"editor_belt_extend":
+			return _extend_belt_path(request)
+		"editor_belt_end":
+			_state.editor.belt_path = []
+			_state.editor.selected_id = ""
+			_state.editor.tray_open = true
 			return {"ok": true}
 		"editor_move", "editor_rotate", "editor_remove", "editor_place":
 			return _editor_change(request)
@@ -1761,6 +1797,68 @@ func _editor_cell_rejection(request: Dictionary, excluding_id: String = "") -> S
 		if cell == Vector2i(floori(center.x + 0.5), floori(center.y + 0.5)) or cell == Vector2i(floori(rendered.x + 0.5), floori(rendered.y + 0.5)) or Vector2(cell).distance_to(rendered) < 0.65:
 			return "customer_busy"
 	return ""
+
+func _belt_target(cell: Vector2i) -> Dictionary:
+	var path: Array = _state.editor.belt_path
+	var result := {"x": cell.x, "y": cell.y, "kind": "new", "valid": false, "reason": "invalid_position"}
+	if path.is_empty(): return result
+	var source := _object_by_id(path[-1])
+	if source.is_empty() or abs(cell.x - int(source.x)) + abs(cell.y - int(source.y)) != 1: return result
+	var target := _object_at(cell)
+	if target.get("kind") == "belt":
+		result.id = target.id
+		result.kind = "close" if target.id == path[0] and path.size() >= 4 else "reuse"
+		if path.has(target.id) and result.kind != "close":
+			result.reason = "visited_belt"
+			return result
+		result.valid = true
+		result.reason = ""
+		return result
+	result.reason = _editor_cell_rejection(result)
+	if result.reason.is_empty() and int(_inventory_item("belt-tile").count) <= 0: result.reason = "no_belt_tiles"
+	result.valid = result.reason.is_empty()
+	return result
+
+func _belt_targets() -> Array:
+	var path: Array = _state.editor.belt_path
+	var result: Array = []
+	if path.is_empty(): return result
+	var source := _object_by_id(path[-1])
+	if source.is_empty(): return result
+	for offset in DIRECTIONS.values(): result.append(_belt_target(_point(source) + offset))
+	return result
+
+func _extend_belt_path(request: Dictionary) -> Dictionary:
+	if _state.editor.belt_path.is_empty(): return _editor_fail("no_belt_path")
+	if not _valid_point(request, _configuration.floor): return _editor_fail("invalid_position")
+	var candidate := _belt_target(_point(request))
+	if not candidate.valid: return _editor_fail(candidate.reason)
+	var before := _state.duplicate(true)
+	var path: Array = _state.editor.belt_path.duplicate()
+	var source := _object_by_id(path[-1])
+	var target := _object_at(_point(request))
+	if target.is_empty():
+		var placed := _editor_change({"type": "editor_place", "inventory_id": "belt-tile", "x": request.x, "y": request.y, "facing": BeltRoutes.direction(_point(request) - _point(source))})
+		if not placed.ok: return placed
+		target = _object_by_id(placed.id)
+	BeltRoutes.connect_tiles(_state.objects, source, target)
+	path.append(target.id)
+	_state.editor.belt_path = [] if candidate.kind == "close" else path
+	_state.editor.selected_id = target.id
+	# Reusing a neighbor can replace the input of an earlier route. A path
+	# cursor only retains the still-connected suffix; every old tile survives.
+	while _state.editor.belt_path.size() > 1:
+		var ids: Array = _state.editor.belt_path
+		var broken := -1
+		for index in range(ids.size() - 1):
+			if _object_by_id(ids[index]).next_id != ids[index + 1]: broken = index
+		if broken < 0: break
+		_state.editor.belt_path = ids.slice(broken + 1)
+	if not _valid_saved_state(_state, _configuration):
+		_state = before
+		_rebuild_access()
+		return _editor_fail("invalid_state")
+	return {"ok": true, "id": target.id, "reused": candidate.kind != "new", "closed": candidate.kind == "close"}
 
 func _editor_change(request: Dictionary) -> Dictionary:
 	var type: String = str(request.type)
@@ -1793,6 +1891,11 @@ func _editor_change(request: Dictionary) -> Dictionary:
 	if type == "editor_rotate" and request.has("clockwise") and not request.clockwise is bool:
 		return _editor_fail("invalid_rotation")
 	var before: Dictionary = _state.duplicate(true)
+	var path: Array = _state.editor.belt_path.duplicate()
+	if type != "editor_rotate" and type != "editor_remove": _state.editor.belt_path = []
+	if type == "editor_rotate" and not path.is_empty() and path[-1] != object.id: _state.editor.belt_path = []
+	if object.get("kind") == "belt" and type in ["editor_move", "editor_remove"]:
+		BeltRoutes.detach(_state.objects, object)
 	if type == "editor_place":
 		if stock.kind == "chef":
 			object = stock.stored_object.duplicate(true)
@@ -1806,6 +1909,8 @@ func _editor_change(request: Dictionary) -> Dictionary:
 			if stock.kind == "belt":
 				object.dish = null
 				object.travel_elapsed = 0.0
+				object.next_id = ""
+				object.input_facing = request.get("facing", stock.facing)
 			elif stock.kind == "decor":
 				object.art_id = stock.art_id
 		stock.count -= 1
@@ -1819,7 +1924,12 @@ func _editor_change(request: Dictionary) -> Dictionary:
 		object.y = int(request.y)
 	elif type == "editor_rotate":
 		var facings := ["north", "east", "south", "west"]
+		if object.kind == "belt":
+			BeltRoutes.detach(_state.objects, object)
 		object.facing = facings[posmod(facings.find(object.facing) + (1 if request.get("clockwise", true) else -1), facings.size())]
+		if object.kind == "belt":
+			object.input_facing = object.facing
+			_state.editor.belt_path = [object.id]
 	else:
 		var inventory_id := _owned_stock_id(object)
 		stock = _inventory_item(inventory_id)
@@ -1850,13 +1960,20 @@ func _editor_change(request: Dictionary) -> Dictionary:
 	if type in ["editor_move", "editor_rotate"] and object.kind == "belt":
 		object.travel_elapsed = 0.0
 		for other in _state.objects:
-			if other.kind == "belt" and _facing_object(other).get("id") == object.id:
+			if other.kind == "belt" and other.next_id == object.id:
 				other.travel_elapsed = 0.0
 	if type in ["editor_move", "editor_rotate"] and object.kind == "chef" and object.visual_phase == "load":
 		object.loading_elapsed = 0.0
 		object.visual_phase = "hold"
 		object.visual_elapsed = 0.0
 	_state.editor.selected_id = "" if type == "editor_remove" else object.id
+	if type == "editor_place" and object.kind == "belt": _state.editor.belt_path = [object.id]
+	elif type == "editor_remove":
+		if not path.is_empty() and path[-1] == object.id:
+			path.pop_back()
+			_state.editor.belt_path = path
+			_state.editor.selected_id = "" if path.is_empty() else path[-1]
+		else: _state.editor.belt_path = []
 	if type != "editor_remove":
 		_state.editor.layer = _editor_layer_for(object)
 		_state.editor.page = _state.editor.pages[_state.editor.layer]
