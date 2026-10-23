@@ -310,7 +310,13 @@ def hydrate_registrations(manifest,target):
         if not record or not camera:continue
         record_path,camera_path=target/record,target/camera
         if record_path.is_file() and camera_path.is_file():
-            set_registration(asset,json.loads(record_path.read_text()),json.loads(camera_path.read_text()))
+            info=json.loads(record_path.read_text())
+            # Some refined endpoint records preserve the complete catalog
+            # registration in a different schema (for example frameSize/root
+            # and per-facing projected ports). Do not feed those records back
+            # through the compact capture metadata reader.
+            if not {'footprint','frame','anchor'} <= info.keys():continue
+            set_registration(asset,info,json.loads(camera_path.read_text()))
 
 
 def refresh_interactions(manifest,ids=None):

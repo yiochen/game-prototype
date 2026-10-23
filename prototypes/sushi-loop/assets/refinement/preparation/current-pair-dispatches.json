@@ -247,7 +247,8 @@
         "judge": "rock-wall-corner/judge-dispatch.txt",
         "editor": "rock-wall-corner/editor-dispatch.txt",
         "judgeRound03": "rock-wall-corner/judge-round-03-dispatch.txt",
-        "editorRound04": "rock-wall-corner/editor-round-04-dispatch.txt"
+        "editorRound04": "rock-wall-corner/editor-round-04-dispatch.txt",
+        "judgeRound04": "rock-wall-corner/judge-round-04-dispatch.txt"
       }
     },
     {
@@ -261,7 +262,8 @@
       "prompts": {
         "judge": "sub-hull-panels/judge-dispatch.txt",
         "editor": "sub-hull-panels/editor-dispatch.txt",
-        "motionReconciliation": "sub-hull-panels/active-motion-reconciliation.txt"
+        "motionReconciliation": "sub-hull-panels/active-motion-reconciliation.txt",
+        "judgeRound01": "sub-hull-panels/judge-round-01-dispatch.txt"
       },
       "briefSHA256": "bedbf67109f0c56c7477c5bf774b78726ac176a068a121547a916f32895048aa",
       "nativeContractSHA256": "7ceeee947ec0d88f3d2eebef041a54cac59bf92f28f7eb25ee94958dc46a8c03"
@@ -282,6 +284,58 @@
         "editorExecutableClarification": "rock-wall-end/editor-executable-clarification.txt",
         "judgeRound03": "rock-wall-end/judge-round-03-dispatch.txt"
       }
+    },
+    {
+      "asset": "sub-harpoon-mount",
+      "brief": "../objects/sub-harpoon-mount/brief.json",
+      "judge": "catalog_sub_harpoon_mount_judge_v1",
+      "editor": null,
+      "freshContext": true,
+      "status": "independent-preparation-before-freeze",
+      "workflow": "Own original/target observations first, then exact frozen body/interface and source-native function/capture audit. Root freezes reconciliation before separate fresh editor.",
+      "prompts": {
+        "judge": "sub-harpoon-mount/judge-dispatch.txt"
+      }
+    },
+    {
+      "asset": "sub-collector-inlet",
+      "brief": "../objects/sub-collector-inlet/brief.json",
+      "judge": "catalog_sub_collector_inlet_judge_v1",
+      "editor": null,
+      "freshContext": true,
+      "status": "independent-preparation-before-freeze",
+      "workflow": "Own original/target observations first, then exact frozen body/interface and source-native function/capture audit. Root freezes reconciliation before separate fresh editor.",
+      "prompts": {
+        "judge": "sub-collector-inlet/judge-dispatch.txt"
+      }
+    },
+    {
+      "asset": "rock-shelf-middle",
+      "brief": "../objects/rock-shelf-middle/brief.json",
+      "briefSHA256": "708eb790e6ba8e5c81287fa7ad3589bbb24a733922c197a7104c7e3ed0533275",
+      "editor": "catalog_rock_shelf_middle_editor_v1",
+      "judge": "catalog_rock_shelf_middle_judge_v1",
+      "freshContext": true,
+      "workflow": "Independent own source/target observations before criteria; root freezes actual native contract and judge outcomes before candidate. Same original pair for revisions.",
+      "prompts": {
+        "judge": "../objects/rock-shelf-middle/prompts/judge.txt",
+        "editor": "../objects/rock-shelf-middle/prompts/editor.txt"
+      },
+      "stage": "fresh-editor-after-rootfreeze"
+    },
+    {
+      "asset": "floor-underwater",
+      "brief": "../objects/floor-underwater/brief.json",
+      "briefSHA256": "3fbe0de8986b1ab07a6a9064773b0fa59bbfcedf8d0e1cdb171422edcfd3bca6",
+      "editor": "catalog_floor_underwater_editor_v1",
+      "judge": "catalog_floor_underwater_judge_v1",
+      "freshContext": true,
+      "workflow": "Independent own source/target observations before criteria; root freezes actual native contract and judge outcomes before candidate. Same original pair for revisions.",
+      "prompts": {
+        "judge": "../objects/floor-underwater/prompts/judge.txt",
+        "editor": "../objects/floor-underwater/prompts/editor.txt"
+      },
+      "stage": "fresh-editor-after-rootfreeze"
     }
   ]
 }

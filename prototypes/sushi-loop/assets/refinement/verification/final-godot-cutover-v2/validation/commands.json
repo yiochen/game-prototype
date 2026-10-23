@@ -1,0 +1,230 @@
+[
+  {
+    "name": "engine",
+    "argv": [
+      "node",
+      "--test",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/atlas-packing.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/connected-fixtures.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/flat-art.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/native-section-source.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/refinement-rollout.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/restaurant-backdrop.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/scene-motion.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/sprite-layout.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/world-showcase-data.test.js",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/tests/world-showcase-joins.test.js"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/engine.stdout.txt",
+      "sha256": "a874b0d99644b748845311a0f0bfaa2358d4de22f60bdf1cc638181731b45fa9"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/engine.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "build",
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/build.stdout.txt",
+      "sha256": "8ee27b2e52d3a9499c00178a8122a6a12450fa056d4e4e7b3a20857ccda15667"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/build.stderr.txt",
+      "sha256": "ccb6bf354a0674eeb1e49df9a880a000b75240079fdb849282bb899d81eeb58c"
+    }
+  },
+  {
+    "name": "browser",
+    "argv": [
+      "npx",
+      "playwright",
+      "test",
+      "prototypes/sushi-loop/tests/art-catalog.spec.js",
+      "prototypes/sushi-loop/tests/world-showcase.spec.js",
+      "prototypes/sushi-loop/tests/world-sprite-raster.spec.js",
+      "prototypes/sushi-loop/tests/wireframe.spec.js"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/browser.stdout.txt",
+      "sha256": "d226618bde14a55ba47e9e3fdb1712a3acc8282a02265ea6fa56998254289196"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/browser.stderr.txt",
+      "sha256": "00bd40452f8c32689783fe1acbb1ad3f575bd510292d2976aef214478da3c3da"
+    }
+  },
+  {
+    "name": "native-suites",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/native-suites.stdout.txt",
+      "sha256": "9d9b56e6482569409077dd8d4983547307b34507b596b007f5d7f34b6bda644e"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/native-suites.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "native-app-phone",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/native_app_tests.gd",
+      "--visible",
+      "--size",
+      "390x844"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/native-app-phone.stdout.txt",
+      "sha256": "1c0b4509940b71a2434e0d1fb26f2103a2ded286b52470ce9a2260fca4d087ad"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/native-app-phone.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "capture-phone-starter",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/capture_starter.gd",
+      "--visible",
+      "--size",
+      "390x844",
+      "--output",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/verification/final-godot-cutover-v2/phone-starter"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-phone-starter.stdout.txt",
+      "sha256": "c42e35503ffbb5abad3a0d1dfabb17bfc447cc8161632447a80255d227cd7d17"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-phone-starter.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "capture-phone-editor",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/capture_editor.gd",
+      "--visible",
+      "--size",
+      "390x844",
+      "--output",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/verification/final-godot-cutover-v2/phone-editor"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-phone-editor.stdout.txt",
+      "sha256": "dbbacad396b7d12d2aadb930142877375403cb4091919b50d758d519da4df38c"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-phone-editor.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "native-app-landscape",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/native_app_tests.gd",
+      "--visible",
+      "--size",
+      "1120x720"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/native-app-landscape.stdout.txt",
+      "sha256": "d755e8041b6b8f1bcb49ad9fa1cb22f9cf4b01b53736bc8ee4595da91bb62cbf"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/native-app-landscape.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "capture-landscape-starter",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/capture_starter.gd",
+      "--visible",
+      "--size",
+      "1120x720",
+      "--output",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/verification/final-godot-cutover-v2/landscape-starter"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-landscape-starter.stdout.txt",
+      "sha256": "1739d567a4e4e9b025c94b85553625e0e384b3b464bff86a8803886befa4727c"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-landscape-starter.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "name": "capture-landscape-editor",
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/tools/test_native.py",
+      "--godot",
+      "/opt/homebrew/bin/godot",
+      "--script",
+      "tests/capture_editor.gd",
+      "--visible",
+      "--size",
+      "1120x720",
+      "--output",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/verification/final-godot-cutover-v2/landscape-editor"
+    ],
+    "exitCode": 0,
+    "stdout": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-landscape-editor.stdout.txt",
+      "sha256": "868ce98f175026de394c12f5765f497322081062a53aab124518b9c35ab75e1a"
+    },
+    "stderr": {
+      "path": "verification/final-godot-cutover-v2/validation/capture-landscape-editor.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+]

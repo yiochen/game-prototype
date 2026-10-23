@@ -51,10 +51,19 @@ function ports(placement) {
   const definitions = record.flow ? ['incoming', 'outgoing'].filter(role => record.flow[role]).map(role => {
     const side = record.flow[role], normal = normals[side];
     return { name: role, direction: side, role, position: [...normal.map(v => v * .5), record.flow.deckHeight], normal, profile: 'conveyor-deck' };
-  }) : (record.ports || []).map(port => ({ ...port, name: port.name || port.direction }));
+  }) : Array.isArray(record.ports) ? record.ports.map(port => ({ ...port, name: port.name || port.direction })) :
+    Object.keys(record.ports?.[direction] || {}).map(side => {
+      const sidePosition = {
+        N: [0, -object.footprint[1] / 2, 0], E: [object.footprint[0] / 2, 0, 0],
+        S: [0, object.footprint[1] / 2, 0], W: [-object.footprint[0] / 2, 0, 0],
+      };
+      return { name: side, direction: side, position: sidePosition[side], normal: normals[side], profile: object.portProfiles[side] };
+    });
   return definitions.map(port => {
     const relative = project(port.position, direction, object);
     assert.ok(distance(relative, object.ports[direction][port.name]) < .001, `${placement.id}/${port.name}: published registration must match native port geometry`);
+    const savedProjection = record.ports?.[direction]?.[port.name];
+    if (savedProjection) assert.ok(distance(relative, savedProjection) < .001, `${placement.id}/${port.name}: saved native endpoint registration must match its camera projection`);
     if (port.role) assert.equal(object.portDefinition[port.role], port.direction);
     else assert.equal(object.portProfiles[port.name], port.profile);
     // All these native lofts begin at W and leave via E/N/S. Preserve the
