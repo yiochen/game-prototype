@@ -1,0 +1,3167 @@
+{
+  "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "scene": "S33 Native Asset Library Export",
+  "collection": "S33_CFX_creature-fish.001",
+  "blender": "5.2.2 LTS",
+  "camera": {
+    "projection": "character-orthographic",
+    "frame": [
+      448,
+      512
+    ],
+    "anchor": [
+      224,
+      352
+    ],
+    "cellSize": 128,
+    "captureScale": 4,
+    "fps": 12,
+    "axes": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "camera": {
+      "type": "orthographic",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projectionMatrix": [
+        [
+          0.5714285969734192,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          0.5,
+          0.0,
+          -0.3749990463256836
+        ],
+        [
+          0.0,
+          0.0,
+          -0.0020001998636871576,
+          -1.0001999139785767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pixelAspect": [
+        1.0,
+        1.0
+      ],
+      "worldUnitsPerCell": 1,
+      "elevationDegrees": 35
+    },
+    "calibration": {
+      "root": [
+        896.0,
+        1408.0
+      ],
+      "unitX": [
+        512.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        293.6710205078125
+      ],
+      "unitHeight": [
+        0.0,
+        -419.4058837890625
+      ]
+    },
+    "artStyle": {
+      "revision": "2026-10-19",
+      "environmentHeightRatio": 0.7,
+      "contrast": 1.35,
+      "contrastSpace": "sRGB",
+      "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
+      "lightingRig": {
+        "treatment": "Faceted",
+        "overheadWatts": 140,
+        "overheadPosition": [
+          0,
+          0,
+          4.5
+        ],
+        "overheadSize": 3.5,
+        "fillWattsEach": 100,
+        "fillSize": 4,
+        "fillRadius": 3,
+        "fillZ": 1.8,
+        "horizontalSymmetry": 4,
+        "worldStrength": 0
+      },
+      "lowerShading": "world-height ramp; camera view-tone bypassed"
+    }
+  },
+  "materials": [
+    {
+      "name": "creature-fish approved S33_CFX_blue",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.00802319310605526,
+              0.2746773064136505,
+              0.6444796919822693,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.800000011920929,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.00802319310605526,
+              0.2746773064136505,
+              0.6444796919822693,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {}
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "colorRamp": [
+            {
+              "position": 0.0,
+              "color": [
+                0.3700000047683716,
+                0.384799987077713,
+                0.40700000524520874,
+                1.0
+              ]
+            },
+            {
+              "position": 0.8999999761581421,
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.00802319310605526,
+              0.2746773064136505,
+              0.6444796919822693,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "VECT_MATH",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.800000011920929
+          }
+        },
+        {
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        }
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Geometry",
+          "Normal",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Geometry",
+          "Incoming",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Value",
+          "Math",
+          "Value"
+        ],
+        [
+          "Math",
+          "Value",
+          "Math.001",
+          "Value"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Mix (Legacy).001",
+          "Color1"
+        ],
+        [
+          "Math.001",
+          "Value",
+          "Mix (Legacy).001",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy).001",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF.001",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF.001",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ],
+      "externalImageNodes": []
+    },
+    {
+      "name": "creature-fish approved S33_CFX_blue_dark",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.002428215928375721,
+              0.12743768095970154,
+              0.33716362714767456,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.800000011920929,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.002428215928375721,
+              0.12743768095970154,
+              0.33716362714767456,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {}
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "colorRamp": [
+            {
+              "position": 0.0,
+              "color": [
+                0.3700000047683716,
+                0.384799987077713,
+                0.40700000524520874,
+                1.0
+              ]
+            },
+            {
+              "position": 0.8999999761581421,
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.002428215928375721,
+              0.12743768095970154,
+              0.33716362714767456,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "VECT_MATH",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.800000011920929
+          }
+        },
+        {
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        }
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Geometry",
+          "Normal",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Geometry",
+          "Incoming",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Value",
+          "Math",
+          "Value"
+        ],
+        [
+          "Math",
+          "Value",
+          "Math.001",
+          "Value"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Mix (Legacy).001",
+          "Color1"
+        ],
+        [
+          "Math.001",
+          "Value",
+          "Mix (Legacy).001",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy).001",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF.001",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF.001",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ],
+      "externalImageNodes": []
+    },
+    {
+      "name": "creature-fish approved S33_CFX_blue_light",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.05448027700185776,
+              0.48514994978904724,
+              0.7991027235984802,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.800000011920929,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.05448027700185776,
+              0.48514994978904724,
+              0.7991027235984802,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {}
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "colorRamp": [
+            {
+              "position": 0.0,
+              "color": [
+                0.3700000047683716,
+                0.384799987077713,
+                0.40700000524520874,
+                1.0
+              ]
+            },
+            {
+              "position": 0.8999999761581421,
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.05448027700185776,
+              0.48514994978904724,
+              0.7991027235984802,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "VECT_MATH",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.800000011920929
+          }
+        },
+        {
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        }
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Geometry",
+          "Normal",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Geometry",
+          "Incoming",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Value",
+          "Math",
+          "Value"
+        ],
+        [
+          "Math",
+          "Value",
+          "Math.001",
+          "Value"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Mix (Legacy).001",
+          "Color1"
+        ],
+        [
+          "Math.001",
+          "Value",
+          "Mix (Legacy).001",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy).001",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF.001",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF.001",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ],
+      "externalImageNodes": []
+    },
+    {
+      "name": "creature-fish approved S33_CFX_navy",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.008568125776946545,
+              0.03433980792760849,
+              0.07818742096424103,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.800000011920929,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.008568125776946545,
+              0.03433980792760849,
+              0.07818742096424103,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {}
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "colorRamp": [
+            {
+              "position": 0.0,
+              "color": [
+                0.3700000047683716,
+                0.384799987077713,
+                0.40700000524520874,
+                1.0
+              ]
+            },
+            {
+              "position": 0.8999999761581421,
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.008568125776946545,
+              0.03433980792760849,
+              0.07818742096424103,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "VECT_MATH",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.800000011920929
+          }
+        },
+        {
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        }
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Geometry",
+          "Normal",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Geometry",
+          "Incoming",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Value",
+          "Math",
+          "Value"
+        ],
+        [
+          "Math",
+          "Value",
+          "Math.001",
+          "Value"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Mix (Legacy).001",
+          "Color1"
+        ],
+        [
+          "Math.001",
+          "Value",
+          "Mix (Legacy).001",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy).001",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF.001",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF.001",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ],
+      "externalImageNodes": []
+    },
+    {
+      "name": "creature-fish approved S33_CFX_white",
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.9215818643569946,
+              0.9559733271598816,
+              0.9046611785888672,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.800000011920929,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2199999988079071,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              0.9215818643569946,
+              0.9559733271598816,
+              0.9046611785888672,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          }
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {}
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "colorRamp": [
+            {
+              "position": 0.0,
+              "color": [
+                0.3700000047683716,
+                0.384799987077713,
+                0.40700000524520874,
+                1.0
+              ]
+            },
+            {
+              "position": 0.8999999761581421,
+              "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.9215818643569946,
+              0.9559733271598816,
+              0.9046611785888672,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "VECT_MATH",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          }
+        },
+        {
+          "name": "Math",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.5
+          }
+        },
+        {
+          "name": "Math.001",
+          "type": "MATH",
+          "inputs": {
+            "Value": 0.800000011920929
+          }
+        },
+        {
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB",
+          "inputs": {
+            "Factor": 1.0,
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        {
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8500000238418579,
+            "IOR": 1.4500000476837158,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          }
+        }
+      ],
+      "links": [
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Mix (Legacy)",
+          "Color2"
+        ],
+        [
+          "Geometry",
+          "Normal",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Geometry",
+          "Incoming",
+          "Vector Math",
+          "Vector"
+        ],
+        [
+          "Vector Math",
+          "Value",
+          "Math",
+          "Value"
+        ],
+        [
+          "Math",
+          "Value",
+          "Math.001",
+          "Value"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Mix (Legacy).001",
+          "Color1"
+        ],
+        [
+          "Math.001",
+          "Value",
+          "Mix (Legacy).001",
+          "Color2"
+        ],
+        [
+          "Mix (Legacy).001",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Mix (Legacy)",
+          "Color",
+          "Principled BSDF.001",
+          "Base Color"
+        ],
+        [
+          "Principled BSDF.001",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ],
+      "externalImageNodes": []
+    }
+  ],
+  "objects": [
+    {
+      "name": "creature-fish__ground_root.001",
+      "type": "EMPTY",
+      "parent": null,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": null,
+      "meshPolygons": null,
+      "modifiers": [],
+      "shapeKeys": [],
+      "vertexGroups": [],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__armature.001",
+      "type": "ARMATURE",
+      "parent": "creature-fish__canonical_S_facing.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": null,
+      "meshPolygons": null,
+      "modifiers": [],
+      "shapeKeys": [],
+      "vertexGroups": [],
+      "bones": [
+        {
+          "name": "spine_0",
+          "parent": null,
+          "head": [
+            0.0,
+            0.4300000071525574,
+            0.4399999976158142
+          ],
+          "tail": [
+            0.0,
+            0.2280000001192093,
+            0.4399999976158142
+          ],
+          "deform": true
+        },
+        {
+          "name": "spine_1",
+          "parent": "spine_0",
+          "head": [
+            0.0,
+            0.2280000001192093,
+            0.4399999976158142
+          ],
+          "tail": [
+            0.0,
+            0.026000000536441803,
+            0.4399999976158142
+          ],
+          "deform": true
+        },
+        {
+          "name": "spine_2",
+          "parent": "spine_1",
+          "head": [
+            0.0,
+            0.026000000536441803,
+            0.4399999976158142
+          ],
+          "tail": [
+            0.0,
+            -0.17599999904632568,
+            0.4399999976158142
+          ],
+          "deform": true
+        },
+        {
+          "name": "spine_3",
+          "parent": "spine_2",
+          "head": [
+            0.0,
+            -0.17599999904632568,
+            0.4399999976158142
+          ],
+          "tail": [
+            0.0,
+            -0.3779999911785126,
+            0.4399999976158142
+          ],
+          "deform": true
+        },
+        {
+          "name": "spine_4",
+          "parent": "spine_3",
+          "head": [
+            0.0,
+            -0.3779999911785126,
+            0.4399999976158142
+          ],
+          "tail": [
+            0.0,
+            -0.5799999833106995,
+            0.4399999976158142
+          ],
+          "deform": true
+        }
+      ]
+    },
+    {
+      "name": "creature-fish__continuous_body.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 190,
+      "meshPolygons": 182,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__continuous_dorsal_fin.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 57,
+      "meshPolygons": 54,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__tail_fin.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 5,
+      "meshPolygons": 6,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__side_fin_-1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 4,
+      "meshPolygons": 4,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_white_-1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.06499999761581421,
+          5.68248026411311e-09,
+          0.0,
+          0.14500002562999725
+        ],
+        [
+          -5.68248026411311e-09,
+          -0.06499999761581421,
+          0.0,
+          -0.38499999046325684
+        ],
+        [
+          0.0,
+          0.0,
+          0.06499999761581421,
+          0.5899999737739563
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 42,
+      "meshPolygons": 80,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_pupil_-1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.03700000047683716,
+          3.234642775851171e-09,
+          0.0,
+          0.15500003099441528
+        ],
+        [
+          -3.234642775851171e-09,
+          -0.03700000047683716,
+          0.0,
+          -0.40700000524520874
+        ],
+        [
+          0.0,
+          0.0,
+          0.03700000047683716,
+          0.6330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 42,
+      "meshPolygons": 80,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_glint_-1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.010999999940395355,
+          9.61650536979164e-10,
+          0.0,
+          0.1600000262260437
+        ],
+        [
+          -9.61650536979164e-10,
+          -0.010999999940395355,
+          0.0,
+          -0.4129999876022339
+        ],
+        [
+          0.0,
+          0.0,
+          0.010999999940395355,
+          0.6610000133514404
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 12,
+      "meshPolygons": 20,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__side_fin_1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 4,
+      "meshPolygons": 4,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_white_1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.06499999761581421,
+          5.68248026411311e-09,
+          0.0,
+          -0.14499996602535248
+        ],
+        [
+          -5.68248026411311e-09,
+          -0.06499999761581421,
+          0.0,
+          -0.38499999046325684
+        ],
+        [
+          0.0,
+          0.0,
+          0.06499999761581421,
+          0.5899999737739563
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 42,
+      "meshPolygons": 80,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_pupil_1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.03700000047683716,
+          3.234642775851171e-09,
+          0.0,
+          -0.1549999713897705
+        ],
+        [
+          -3.234642775851171e-09,
+          -0.03700000047683716,
+          0.0,
+          -0.40700000524520874
+        ],
+        [
+          0.0,
+          0.0,
+          0.03700000047683716,
+          0.6330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 42,
+      "meshPolygons": 80,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__eye_glint_1.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          -0.010999999940395355,
+          9.61650536979164e-10,
+          0.0,
+          -0.15999996662139893
+        ],
+        [
+          -9.61650536979164e-10,
+          -0.010999999940395355,
+          0.0,
+          -0.4129999876022339
+        ],
+        [
+          0.0,
+          0.0,
+          0.010999999940395355,
+          0.6610000133514404
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 12,
+      "meshPolygons": 20,
+      "modifiers": [
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__mouth.001",
+      "type": "MESH",
+      "parent": "creature-fish__armature.001",
+      "matrix": [
+        [
+          1.3113415775478643e-07,
+          -4.371138828673793e-08,
+          -1.0,
+          4.1350972423970234e-08
+        ],
+        [
+          -1.0,
+          -5.732056607252352e-15,
+          -1.3113415775478643e-07,
+          -0.4729999899864197
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          0.38499999046325684
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": 8,
+      "meshPolygons": 6,
+      "modifiers": [
+        {
+          "name": "Angular edge bevel",
+          "type": "BEVEL",
+          "object": null
+        },
+        {
+          "name": "Continuous weighted spine",
+          "type": "ARMATURE",
+          "object": "creature-fish__armature.001"
+        }
+      ],
+      "shapeKeys": [],
+      "vertexGroups": [
+        "spine_0",
+        "spine_1",
+        "spine_2",
+        "spine_3",
+        "spine_4"
+      ],
+      "bones": []
+    },
+    {
+      "name": "creature-fish__canonical_S_facing.001",
+      "type": "EMPTY",
+      "parent": "creature-fish__ground_root.001",
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshVertices": null,
+      "meshPolygons": null,
+      "modifiers": [],
+      "shapeKeys": [],
+      "vertexGroups": [],
+      "bones": []
+    }
+  ],
+  "lightFields": [
+    {
+      "name": "S33 Faceted overhead.001",
+      "energy": 140.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 3.5,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          4.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-0.001",
+      "energy": 100.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 4.0,
+      "matrix": [
+        [
+          -1.6292068494294654e-07,
+          -0.31622758507728577,
+          0.9486833810806274,
+          3.0
+        ],
+        [
+          1.0,
+          1.3353419703321379e-08,
+          1.7618459935420105e-07,
+          0.0
+        ],
+        [
+          -6.838259736241525e-08,
+          0.9486833810806274,
+          0.31622758507728577,
+          1.7999999523162842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-1.001",
+      "energy": 100.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 4.0,
+      "matrix": [
+        [
+          -1.0,
+          1.8364526965797268e-07,
+          -9.794846533850432e-08,
+          0.0
+        ],
+        [
+          -1.5099580252808664e-07,
+          -0.3162277042865753,
+          0.9486833214759827,
+          3.0
+        ],
+        [
+          1.432471918860756e-07,
+          0.9486833214759827,
+          0.3162277042865753,
+          1.7999999523162842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-2.001",
+      "energy": 100.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 4.0,
+      "matrix": [
+        [
+          -1.6292068494294654e-07,
+          0.31622758507728577,
+          -0.9486833810806274,
+          -3.0
+        ],
+        [
+          -1.0,
+          1.3353419703321379e-08,
+          1.7618459935420105e-07,
+          0.0
+        ],
+        [
+          6.838259736241525e-08,
+          0.9486833810806274,
+          0.31622758507728577,
+          1.7999999523162842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "S33 Faceted fill-3.001",
+      "energy": 100.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 4.0,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.3162277042865753,
+          -0.9486833214759827,
+          -3.0
+        ],
+        [
+          0.0,
+          0.9486833214759827,
+          0.3162277042865753,
+          1.7999999523162842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "externalLibraries": [],
+  "usedExternalImages": [],
+  "initialNoncontractDump": "noncontract-active-scene-diagnostic.json is excluded because it used the saved unrelated active scene; do not freeze its bounds/matrices."
+}
