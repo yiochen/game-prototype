@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 98,
-  "published": 97,
-  "current": "creature-eel",
+  "completed": 99,
+  "published": 98,
+  "current": "portal-rim",
   "objects": [
     {
       "id": "plant-angular",
@@ -1866,7 +1866,7 @@
       "name": "Portal rim",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 48,
       "target": "inputs/target.png",
@@ -1876,23 +1876,26 @@
       "editorStatus": "immutable-round01-handoff",
       "stage": "approved-awaiting-release99",
       "briefSHA256": "7b0d0e80698fdeab8b333023e7452347c3ebb695048eb22355fdb5d20cd924a4",
-      "candidatePacketSHA256": "1f04e775e59b9b26bb01ef07f961a731c9df4aa26fdb6cbb33fe42f1cf5e21a9"
+      "candidatePacketSHA256": "1f04e775e59b9b26bb01ef07f961a731c9df4aa26fdb6cbb33fe42f1cf5e21a9",
+      "round": "round-01",
+      "packetSHA256": "1f04e775e59b9b26bb01ef07f961a731c9df4aa26fdb6cbb33fe42f1cf5e21a9"
     },
     {
       "id": "portal-entry",
       "name": "Portal entry effect",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 48,
       "target": "inputs/target.png",
-      "judgeStatus": "prepared-awaiting-candidate",
+      "judgeStatus": "reviewing-round01",
       "editor": "catalog_portal_entry_editor_v1",
       "judge": "catalog_portal_entry_judge_v1",
-      "editorStatus": "starting-construction",
+      "editorStatus": "immutable-round01-handoff",
       "stage": "native-portal-entry-round01",
-      "briefSHA256": "f19d9806df6a439f342eddada30a778a72c64c2d5756d5c33029b165a9212c00"
+      "briefSHA256": "f19d9806df6a439f342eddada30a778a72c64c2d5756d5c33029b165a9212c00",
+      "candidatePacketSHA256": "d7be0b28d1431db44377d85c3ab8687f15d11e80a8b14e55491f02c7e3bfe2ba"
     },
     {
       "id": "safe-passage",
@@ -1915,7 +1918,7 @@
       "name": "Eel",
       "kind": "actor",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 11,
       "frames": 528,
       "target": "inputs/target.png",
@@ -1927,14 +1930,18 @@
       "briefSHA256": "d5096449ffa4034c3f1a9a46e53c707d25ff55118b30874cf84d3a439b4dc4b0",
       "candidatePacketSHA256": "b8f5dc5b60963d067045d06a952a112c0c78697c4d2336b6c4a009b17d026ded",
       "round": "round-02",
-      "packetSHA256": "b8f5dc5b60963d067045d06a952a112c0c78697c4d2336b6c4a009b17d026ded"
+      "packetSHA256": "b8f5dc5b60963d067045d06a952a112c0c78697c4d2336b6c4a009b17d026ded",
+      "commit": "10403e363c4dbfd2d386f7897a6575e0056b1eda",
+      "deployId": "6adaabb8a623655e1c44b126",
+      "previewVerified": true,
+      "reviewSHA256": "90171caa97d50beae3c968ce10267d6b70ef3d11ed8512cdc8a2f3e20217d318"
     },
     {
       "id": "creature-fish",
       "name": "Current generic fish example",
       "kind": "actor",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 11,
       "frames": 528,
       "target": "inputs/target.png",
@@ -1946,7 +1953,11 @@
       "briefSHA256": "5279940f2703e7c92458c80cd813fe326d4e225313e93980219bb9a3ca230498",
       "candidatePacketSHA256": "5b11c24968df9117ccc35ee5891031a7f08a8eafe6d0d1149aa111c6b3081365",
       "round": "round-01",
-      "packetSHA256": "5b11c24968df9117ccc35ee5891031a7f08a8eafe6d0d1149aa111c6b3081365"
+      "packetSHA256": "5b11c24968df9117ccc35ee5891031a7f08a8eafe6d0d1149aa111c6b3081365",
+      "commit": "b10a41e1f1ad5df68333e7fa02adc55f02459f65",
+      "deployId": "6adaa7bfb812d5bc47262cf1",
+      "previewVerified": true,
+      "reviewSHA256": "966e3e6dd4fafcf637b56249e639da72c4ef7aa1d0608bd26381718b8b4d7c11"
     },
     {
       "id": "harpoon-projectile",
@@ -2004,12 +2015,16 @@
       "name": "Reef-breaking fragments",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "preparing",
+      "status": "editing",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
-      "preparationJudge": "catalog_attack_reef_fragments_judge_v1",
-      "judgeStatus": "initial-source-preparation"
+      "judgeStatus": "prepared-awaiting-candidate",
+      "editor": "catalog_attack_reef_fragments_editor_v1",
+      "judge": "catalog_attack_reef_fragments_judge_v1",
+      "editorStatus": "starting-construction",
+      "stage": "native-reef-fragments-round01",
+      "briefSHA256": "dd92c6fd8be0630639d9080610e8459c1b8db49323f800dc3bd62bcc59c5bac1"
     },
     {
       "id": "attack-swirl",

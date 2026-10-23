@@ -1,0 +1,65 @@
+{
+  "asset": "portal-rim",
+  "round": "round-01",
+  "verdict": "approve",
+  "status": "exact-candidate-approved-and-all-three-unchanged-gates-passed",
+  "candidatePacketSHA256": "1f04e775e59b9b26bb01ef07f961a731c9df4aa26fdb6cbb33fe42f1cf5e21a9",
+  "candidateSourceSHA256": "b50941fdefc5acfcaa040479227b517164ddedd886671a9130d014f2f7ceea60",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "f82756c2c793f605f98f36d7b556d6969cebabd74fe0d7a2fbf9569ac1d80783"
+  },
+  "supplement": {
+    "path": "reviews/round-01-independent-v1/supplemental-evidence.json",
+    "sha256": "17e16713bf8a24813e445173b8130f0fb1a097bfa2a3ad012d0616eac4f00836",
+    "verifiedMembers": 536,
+    "changedMembers": []
+  },
+  "postReviewFiles": [
+    {
+      "path": "reviews/round-01-independent-v1/run_gates.py",
+      "sha256": "53d65b24b7bbf9cb4b7dc12c570aa642c899554ebe2ba0313a1b1dff8f7c8551",
+      "bytes": 4825
+    },
+    {
+      "path": "reviews/round-01-independent-v1/gates.json",
+      "sha256": "646df4ac59a0e21ec281552eb59f797f108b8158466d6f9f327176480d2091b5",
+      "bytes": 4515
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-candidate_packet.stdout.txt",
+      "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062",
+      "bytes": 74
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-candidate_packet.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-audit_directions.stdout.txt",
+      "sha256": "72e3110d31a7e6232bd36fe618e70de0df1619d32cbac4ae6d21b769e2c9968d",
+      "bytes": 195
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-audit_directions.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-acceptance_contract.stdout.txt",
+      "sha256": "cbca53c5d9b917f3088242a377916eac32907151ac4145c59dff1dd79d592ef1",
+      "bytes": 134
+    },
+    {
+      "path": "reviews/round-01-independent-v1/logs/gate-acceptance_contract.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "acyclicBinding": "supplement -> review -> gates -> post-review-seal; no back references by content hash",
+  "scopeNotes": [
+    "The helper-identities.json field executedOriginal records the canonical helper origin path. verify_staged_object.py was inspected read-only for supplemental manifest schema and was never executed. Only the three gate helpers listed here were executed.",
+    "All candidate, target, source, frozen criteria, brief, media and helper bytes remain unchanged. Approval is candidate-specific; no production/family/Godot/device/publishing approval."
+  ]
+}

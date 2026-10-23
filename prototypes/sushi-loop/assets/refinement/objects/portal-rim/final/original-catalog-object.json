@@ -1,0 +1,990 @@
+{
+  "id": "portal-rim",
+  "name": "Portal rim",
+  "family": "W14",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    384
+  ],
+  "root": [
+    96,
+    288
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "idle",
+      "sourceClipId": "idle",
+      "name": "Idle",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/portal-rim/idle-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/portal-rim/idle-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/portal-rim/idle-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/portal-rim/idle-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Route object beside the traveling submarine",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "portal-rim",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "idle"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "floor-underwater"
+    ],
+    "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+  },
+  "height": 1.48,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      384
+    ],
+    "anchor": [
+      96,
+      288
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {
+    "entry": [
+      0,
+      0,
+      0.74
+    ]
+  },
+  "sockets": {
+    "N": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "E": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "S": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    },
+    "W": {
+      "entry": [
+        0.0,
+        -66.30402709960937
+      ]
+    }
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+    "camera": "source/records/portal-rim/camera.json",
+    "guide": "source/registered/portal-rim/idle-N/guide.json",
+    "guides": [
+      "source/registered/portal-rim/idle-N/guide.json",
+      "source/registered/portal-rim/idle-E/guide.json",
+      "source/registered/portal-rim/idle-S/guide.json",
+      "source/registered/portal-rim/idle-W/guide.json"
+    ],
+    "assetRecord": "source/records/portal-rim/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/000.png",
+        "sha256": "d5d5a7cf2538314e8cc235118e3f360445efc7309e9c79d502dd89f0257f6325",
+        "clip": "idle",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/001.png",
+        "sha256": "c38312b753169fbe5ca1757a54d72abc8cff7fdd9a421ac33cd4e535ab6fa86a",
+        "clip": "idle",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/002.png",
+        "sha256": "3d29d5e1328846a4fb786f24ff1dcd0293b2ff0af46535f9c2b164251813aca3",
+        "clip": "idle",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/003.png",
+        "sha256": "c89a738761ed8a58ed4c589c78902fe156b2c4ecb8fc265f831a1c184823fed8",
+        "clip": "idle",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/004.png",
+        "sha256": "6458c2e34683f2da84f84ddf8dbdcd20e1e2887da2321652cd34f2732d596720",
+        "clip": "idle",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/005.png",
+        "sha256": "f14ec224d47f92e1418dfae3a51d966ef49347b2ea18352cb27e6b4c80f7622e",
+        "clip": "idle",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/006.png",
+        "sha256": "487f0a36865c590bba6527908becaa128e0712e55740cb4d4a06b3d145835487",
+        "clip": "idle",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/007.png",
+        "sha256": "643f036df60fef0fa5fdc2cbf3157019d36adabea624a82c847044fbdb8053ca",
+        "clip": "idle",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/008.png",
+        "sha256": "810b433c7968e861a27dd5ec49e73a8cbebb7ba2ba16e351c5f975278a9b51c3",
+        "clip": "idle",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/009.png",
+        "sha256": "e4f4bf331fc1967f913b368fb095b4f4f8a00ccdd0d84e754063baa2d1349895",
+        "clip": "idle",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/010.png",
+        "sha256": "8940bda894cbc5d8892b81a05fa1c7addd33d35e65fff7ff6df77ac9dd99a60b",
+        "clip": "idle",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-rim/idle-N/source-captures/011.png",
+        "sha256": "7aecaade947b14202a22704e57b6522f4928fb641c6b4989b47e0b7315027cdd",
+        "clip": "idle",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/000.png",
+        "sha256": "b0222e58f00dd735c5f67586f71623c19eb91a36b9c0fb6e52ae424dee4671b7",
+        "clip": "idle",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/001.png",
+        "sha256": "8404fce4c1164070b7c245aec9d76034992eb46c1bde9ef164d0244f94b60f71",
+        "clip": "idle",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/002.png",
+        "sha256": "c9a96c72b9dfb7305a9df016d37219d9c55c83fd732d9a4eb891fa2eb1eb6930",
+        "clip": "idle",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/003.png",
+        "sha256": "a53c5aae26f8d40a1f76155c3111a2d28271360c8d777d796324b23b789ffe36",
+        "clip": "idle",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/004.png",
+        "sha256": "f4d482b47434b64a93b9732e67beec8adec0f42ffc274b8bad1d2259abc136b7",
+        "clip": "idle",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/005.png",
+        "sha256": "ee59e85db395dabef99f0f78bd4974cb6a1ad1fce8f0124feb9c15f0aa4ec397",
+        "clip": "idle",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/006.png",
+        "sha256": "e864563b2e43132c8c066345f2ccff81106d03b09cc1dfbddb5366bcfa9fcd2d",
+        "clip": "idle",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/007.png",
+        "sha256": "ab8d1c1bb79e7557cda06278566797456da04b3ec55c4208d73eb7a655eac285",
+        "clip": "idle",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/008.png",
+        "sha256": "3d9207bc2a73a2a1423fe35a8bff622819c39fbe645c7ccbbbf6f9bf09addbbe",
+        "clip": "idle",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/009.png",
+        "sha256": "decb6ccf1dc4fb441d41b0ce91aa1d9733ac67404d0bb25e52c72062f3e27eaa",
+        "clip": "idle",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/010.png",
+        "sha256": "b8e8df55424d8b95ba1db6f076e196edc2182817867d25449f2a34afcf89706f",
+        "clip": "idle",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-rim/idle-E/source-captures/011.png",
+        "sha256": "7393b096a2f1f4396981aacaed88c33fef8bccad13a1a0c6bb566ef75c2da3a7",
+        "clip": "idle",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/000.png",
+        "sha256": "b38649f67bdc299ff372946d03f770ec5d9df2d3d65908e37bdaef9b56367274",
+        "clip": "idle",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/001.png",
+        "sha256": "7347b06358dce17e432eaf38d9b465a557144fa461eb84bf3c5c7a0c04e89ad1",
+        "clip": "idle",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/002.png",
+        "sha256": "31d9ff1def90aba253c02329ed58c2e7ef6b2f6edac75d0186b0895682f4a433",
+        "clip": "idle",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/003.png",
+        "sha256": "86cc49cbb8cf3267ef2617a6c94999118bc10c9db48d9747b9e0d65dfd23da37",
+        "clip": "idle",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/004.png",
+        "sha256": "99e77d5425681c1bcdbbae956a787322abf20bf5e59ee50dc7acd389d6cbae9d",
+        "clip": "idle",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/005.png",
+        "sha256": "8b3e2ca5ed2c587db967b0b9bf245b8531984007f70273452e4bdc5e03bbcb59",
+        "clip": "idle",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/006.png",
+        "sha256": "9bda8d3c280c02718a783958aea5e44db975fd39c26d066d7bd23e34aac3ef5e",
+        "clip": "idle",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/007.png",
+        "sha256": "12a4ffcb0f13be2735e124ff53b150ee67f5e4f1772b8315ae4c9ffd6ad69e3a",
+        "clip": "idle",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/008.png",
+        "sha256": "c73da1bb4b18fab2c191a5e665bc68a07835db0f8889f5153c3a3e98ff02ac6f",
+        "clip": "idle",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/009.png",
+        "sha256": "c0c8bb9c599ae083c68567a90f7fce1bc6e28e80c55b2fb9601d2d4e1fb5f8c0",
+        "clip": "idle",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/010.png",
+        "sha256": "d7da00110a83dc160474ccbf484e3c99b3ce46b18c57d5b78a78180326bc34e2",
+        "clip": "idle",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-rim/idle-S/source-captures/011.png",
+        "sha256": "b4ae20946a10ea0ed76bc001023084f069028bbb84af97504e1109ed8b5ced68",
+        "clip": "idle",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/000.png",
+        "sha256": "d5469e092ed389f6a8c3f479d917ee5ccbaf57f3686b539a72a3f7d6b470bba3",
+        "clip": "idle",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/001.png",
+        "sha256": "ed4d674637c9ca6e89f59ff5259945cf2446aa8499c33f2294f7a8ccdb6e5c7f",
+        "clip": "idle",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/002.png",
+        "sha256": "3dd63e657d167e38c192a695e96ec230c60d97590116aa97324370ac8fe4e340",
+        "clip": "idle",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/003.png",
+        "sha256": "ca067bc4262da743cab8ed5d87e1306880450bba91df0bfd740e9694aa6e9ece",
+        "clip": "idle",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/004.png",
+        "sha256": "4944ec96d1ac6e54263a9f65e335445d90bb0384f4c7fa1d5cb3f1306928e86e",
+        "clip": "idle",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/005.png",
+        "sha256": "0774f639d46c0eac66e6701411a776175d872325fb5b5a70f00dfcb7102f4b22",
+        "clip": "idle",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/006.png",
+        "sha256": "e403aea7d296f952907de2aed23ccc6b751ac6feefa416685cdf4b2cdc7159a8",
+        "clip": "idle",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/007.png",
+        "sha256": "482f3a69f766144b6abac1e6216b3d60fdc125bc31d547103fc863a430c8f434",
+        "clip": "idle",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/008.png",
+        "sha256": "c8df7f509cd857e308e955aea795b36933109cd0e43f87c69ff9a331fb6ff7ec",
+        "clip": "idle",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/009.png",
+        "sha256": "bfe63f5d8d90d25e66f084e61ac11e31299c656fec12c3d301d268bfe9104605",
+        "clip": "idle",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/010.png",
+        "sha256": "d1e253996583e2cb13449d79631ab9be6e02a0c67c13a11e8f785e3166f2407d",
+        "clip": "idle",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/portal-rim/idle-W/source-captures/011.png",
+        "sha256": "69c3df06abfdac41780b97235d1fcf6f28bc72ac433066998439bfa176f8871a",
+        "clip": "idle",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/portal-rim/rig.json"
+  },
+  "captureFingerprint": "acf3354e6f83d0f14c9033bd65b1b1cd1e0315360481c0998a86eb2c3022e33b",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

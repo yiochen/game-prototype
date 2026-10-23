@@ -1,0 +1,77 @@
+[
+  {
+    "name": "nativeReplay",
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/resources/native/original.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/capture_original.py"
+    ],
+    "stdoutStderr": "logs/blender.log",
+    "result": "48 native4x RGBA PNGs and evaluated ledgers; exit0"
+  },
+  {
+    "name": "groundContactMeasurementOnly",
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/resources/native/original.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/measure_contacts.py"
+    ],
+    "stdoutStderr": "logs/contacts.log",
+    "result": "ground cross sections only, no renders; exit0"
+  },
+  {
+    "name": "uniformReductionAndResiduals",
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/prepare_pixels.py"
+    ],
+    "result": "all48 original atlas cell decoded RGBA exact; exit0"
+  },
+  {
+    "name": "twoCurrentConsumerModes",
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "argv": [
+      "node",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/capture_consumer.mjs"
+    ],
+    "stdoutStderr": "logs/consumer.log",
+    "result": "two headless modes, exact pinned helpers, 3 backgrounds, logical/phone, recorded playback; exit0"
+  },
+  {
+    "name": "videoDecodeInspection",
+    "commandsAndLogs": [
+      "logs/video-full-chromium.log",
+      "logs/video-headless-shell.log"
+    ],
+    "note": "Actual browser WebM at25fps decoded to timed contact sheets. Original fixture loops for2.2seconds then holds its last demonstration frame; the tail in the decoded sheet is that hold, not a source one-shot."
+  },
+  {
+    "name": "recordActualBrowserResiduals",
+    "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+    "env": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/record_consumer_residuals.py"
+    ],
+    "result": "Recorded nonzero browser display RGB residuals with unchanged sampled native canvas PNG hashes. No image or helper edits.",
+    "preparationSealNote": "Initial own preparation integrity assertion incorrectly required screenshot equality and stopped before writing a seal. Removed that unsupported equality gate from the new preparation sealer and retained actual residuals. No shared validator was altered."
+  }
+]

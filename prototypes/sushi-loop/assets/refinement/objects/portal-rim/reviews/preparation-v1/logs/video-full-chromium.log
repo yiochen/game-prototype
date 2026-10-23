@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/opt/homebrew/bin/ffmpeg",
+    "-y",
+    "-v",
+    "warning",
+    "-ss",
+    "1.7799999999999998",
+    "-i",
+    "prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/evidence/full-chromium-video/page@b38bdc0f07a78569a7d2e79a00ed1478.webm",
+    "-vf",
+    "fps=6,scale=420:-1,tile=6x2",
+    "-frames:v",
+    "1",
+    "prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/evidence/playback-full-chromium-sheet.png"
+  ],
+  "stdout": "",
+  "stderr": "[image2 @ 0x787018280] The specified filename 'prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/preparation-v1/evidence/playback-full-chromium-sheet.png' does not contain an image sequence pattern or a pattern is invalid.\n[image2 @ 0x787018280] Use a pattern such as %03d for an image sequence or use the -update option (with -frames:v 1 if needed) to write a single image.\n"
+}

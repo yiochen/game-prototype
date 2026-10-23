@@ -1,0 +1,94 @@
+{
+  "asset": "portal-rim",
+  "round": "round-01",
+  "reviewSHA256": "f82756c2c793f605f98f36d7b556d6969cebabd74fe0d7a2fbf9569ac1d80783",
+  "candidatePacketSHA256": "1f04e775e59b9b26bb01ef07f961a731c9df4aa26fdb6cbb33fe42f1cf5e21a9",
+  "supplementSHA256": "17e16713bf8a24813e445173b8130f0fb1a097bfa2a3ad012d0616eac4f00836",
+  "gates": [
+    {
+      "name": "candidate_packet",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-rim/reviews/round-01.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "currentHelperSHA256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+      "retainedHelperCopy": {
+        "path": "reviews/round-01-independent-v1/resources/checkers/candidate_packet.py",
+        "sha256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f"
+      },
+      "stdout": {
+        "path": "reviews/round-01-independent-v1/logs/gate-candidate_packet.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062",
+        "bytes": 74
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent-v1/logs/gate-candidate_packet.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "audit_directions",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "portal-rim",
+        "--round",
+        "round-01"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "currentHelperSHA256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+      "retainedHelperCopy": {
+        "path": "reviews/round-01-independent-v1/resources/checkers/audit_directions.py",
+        "sha256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb"
+      },
+      "stdout": {
+        "path": "reviews/round-01-independent-v1/logs/gate-audit_directions.stdout.txt",
+        "sha256": "72e3110d31a7e6232bd36fe618e70de0df1619d32cbac4ae6d21b769e2c9968d",
+        "bytes": 195
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent-v1/logs/gate-audit_directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "acceptance_contract",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "portal-rim",
+        "--round",
+        "round-01"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "currentHelperSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+      "retainedHelperCopy": {
+        "path": "reviews/round-01-independent-v1/resources/checkers/acceptance_contract.py",
+        "sha256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+      },
+      "stdout": {
+        "path": "reviews/round-01-independent-v1/logs/gate-acceptance_contract.stdout.txt",
+        "sha256": "cbca53c5d9b917f3088242a377916eac32907151ac4145c59dff1dd79d592ef1",
+        "bytes": 134
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent-v1/logs/gate-acceptance_contract.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "allPassed": true,
+  "scope": "Only read-only integrity/review-binding, direction and independent acceptance gates executed. No staged/index checker, Git, promotion or deployment command."
+}
