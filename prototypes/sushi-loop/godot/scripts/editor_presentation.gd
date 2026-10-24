@@ -57,6 +57,7 @@ var inspection_preview: ItemPreview
 var inspection_preview_panel: Panel
 
 class ItemPreview extends Control:
+	const RecipeArt = preload("res://scripts/recipe_art.gd")
 	const GOODS_MANIFEST := "res://assets/ui/editor-goods/manifest.json"
 	static var frame_bounds: Dictionary = {}
 	static var goods: Dictionary = {}
@@ -80,6 +81,9 @@ class ItemPreview extends Control:
 	func _draw() -> void:
 		if entry.is_empty(): return
 		var identity := str(entry.get("art_id", ""))
+		if entry.get("kind") == "chef":
+			RecipeArt.draw_head(self, identity, Rect2(Vector2.ZERO, size))
+			return
 		_load_goods()
 		if goods_texture != null and goods.has(identity) and str(entry.get("kind", "")) != "chef":
 			var region: Array = goods[identity].get("region", [])

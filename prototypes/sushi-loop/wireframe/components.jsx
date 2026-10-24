@@ -1,3 +1,4 @@
+import { WoodRecipeTile, plateRecipes } from './recipe-maple.jsx';
 import React, { useId } from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
 import { RosterTray } from './staff-tray.jsx';
@@ -43,16 +44,7 @@ export function Dock({ state = {}, locked = false, future = false }) {
   </div>;
 }
 
-export function RecipeTile({ recipe, recipeKey, selected, current, seen = [], isNew = false }) {
-  const unknown = recipeKey === 'unknown';
-  const classes = ['recipe-tile', `tier-${recipe.tier.toLowerCase()}`, recipeKey === selected && 'is-inspected', recipeKey === current && 'is-preparing', unknown && 'is-undiscovered'].filter(Boolean).join(' ');
-  return <Target action="select-recipe" className={classes} data={{value:recipeKey}} title={`Inspect ${recipe.name}`} aria-description={`${recipe.tier} material.${!unknown && recipe.price != null ? ` Price ${recipe.price} coins.` : ''}${recipeKey === current ? ' Currently preparing.' : ''}${recipeKey === selected ? ' Selected for inspection.' : ''}`}>
-    <span className={`recipe-dish ${unknown ? 'dish-silhouette' : ''}`} aria-hidden="true">{recipe.symbol}</span><span className="recipe-tile-name">{recipe.name}</span><span className="sr-only">{recipe.tier} material.</span>
-    {!unknown && recipe.price != null && <span className="recipe-tile-price"><Money amount={recipe.price} /></span>}
-    {isNew && !seen.includes(recipeKey) && <span className="new-label">NEW</span>}
-    {recipeKey === current && <span className="sr-only">Currently preparing.</span>}{recipeKey === selected && <span className="sr-only">Selected for inspection.</span>}
-  </Target>;
-}
+export function RecipeTile(props) { return <WoodRecipeTile {...props}/>; }
 
 export function HullMeter({ percent = 78, danger = false }) {
   return <div className={`hull-meter ${danger ? 'low-hull' : ''}`}><span>Hull</span><i><b style={{width:`${percent}%`}} /></i></div>;
@@ -68,11 +60,7 @@ export function SalvageReceipt({ completed = true, repeatCatch = false }) {
   return <div className="salvage-receipt"><h3>Salvage earned</h3><dl><div><dt>Pickups</dt><dd>72</dd></div>{repeatBonus > 0 && <div><dt>Repeat-catch bonus</dt><dd>18</dd></div>}<div><dt>Completion bonus</dt><dd>{completed ? 30 : 0}</dd></div></dl>{!completed && <small>No completion bonus because the route was not finished.</small>}<div className="receipt-total"><span>Total</span><Money kind="salvage" amount={total} /></div></div>;
 }
 
-const galleryRecipes = {
-  salmon:{name:'Salmon nigiri',tier:'Wood',symbol:'◓',price:18},
-  eel:{name:'Eel roll',tier:'Copper',symbol:'≋',price:48},
-  unknown:{name:'Undiscovered dish',tier:'Silver',symbol:'?'},
-};
+const galleryRecipes = plateRecipes;
 const hullTrack = {id:'hull',name:'Hull',unit:'Maximum hull',current:'100',next:'125',price:90,icon:'submarine'};
 const example = (label, children, className = '') => <section className={`component-example ${className}`} key={label}><h3>{label}</h3>{children}</section>;
 

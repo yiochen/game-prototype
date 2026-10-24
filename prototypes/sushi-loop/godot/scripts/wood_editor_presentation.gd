@@ -2,6 +2,7 @@ extends "res://scripts/editor_presentation.gd"
 ## Approved HTML dock, with native controls, accessible labels and clipped goods.
 const WoodSkin = preload("res://scripts/wood_skin.gd")
 const WOOD_INK := Color("592c10")
+signal recipes_requested(chef_id: String)
 signal belt_pointer(target: Dictionary, event: InputEvent)
 var wood = WoodSkin.new()
 var backdrop: Control
@@ -14,6 +15,11 @@ var path_exit: Button
 var path_targets: Array[Button] = []
 var customer_targets: Array[Button] = []
 var pickup_active := false
+
+class PhotoFrame extends Control:
+	const PhotoArt = preload("res://scripts/recipe_art.gd")
+	func _draw() -> void:
+		PhotoArt.draw_photo(self, Rect2(Vector2.ZERO, size))
 
 class Backdrop extends Control:
 	var owner_ui
@@ -247,6 +253,11 @@ func _rebuild_cards() -> void:
 		card.button_pressed = active_item == str(item.id)
 		card.disabled = not item.get("available",true) or (int(item.get("count",0))<=0 and not item.get("assigned",false))
 		card.accessibility_description = "Current floor" if layer == "floor" else "Assigned. Inspect or drag upward to move." if item.get("assigned",false) else "%s available. Swipe sideways to browse; drag upward or select then tap a free floor tile." % int(item.get("count",0))
+		if layer == "people":
+			var photo := PhotoFrame.new()
+			photo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			card.add_child(photo)
+			card.set_meta("photo_frame", photo)
 		var preview := ItemPreview.new()
 		preview.trim_goods = true
 		preview.art = art
@@ -335,6 +346,14 @@ func _layout_goods(layer: String) -> void:
 		preview.position = Vector2(12,8)*unit
 		if card.button_pressed: preview.position.y -= 4*unit
 		preview.size = Vector2(width-24,126)*unit
+		if layer == "people":
+			var photo: Control = card.get_meta("photo_frame")
+			photo.position = Vector2.ZERO
+			photo.size = card.size
+			photo.modulate = Color(1.0, 0.96, 0.88) if card.button_pressed else Color.WHITE
+			photo.queue_redraw()
+			preview.position = Vector2(48, 18)*unit
+			preview.size = Vector2(108, 130)*unit
 		preview.modulate.a = 0.4 if card.disabled else 1.0
 		var caption: Label = card.get_meta("name_label")
 		caption.visible = true
@@ -402,3 +421,7 @@ func _update_inventory_backing() -> void:
 	inventory_backing.color = Color.TRANSPARENT
 	inventory_backing.position = category_rail.position
 	inventory_backing.size = Vector2(area.size.x,area.end.y-category_rail.position.y)
+
+# Tapping a People photo opens the same native recipe picker as a chef in-scene.
+func inspect(item: Dictionary) -> void:
+	recipes_requested.emit(str(item.id))

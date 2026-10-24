@@ -5,6 +5,8 @@ extends RefCounted
 ## A caller decides when time passes and where snapshots are stored.
 
 const SAVE_VERSION := 1
+const RecipeBook = preload("res://scripts/recipe_book.gd")
+const RECIPE_BOOK_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
@@ -50,6 +52,8 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if request.get("type") in ["inspect_recipe", "prepare_recipe", "discover_recipe"]:
+		return RecipeBook.command(_configuration, _state, request)
 	if str(request.get("type", "")).begins_with("editor_"):
 		return _editor_command(request)
 	match request.get("type", ""):
@@ -112,6 +116,8 @@ func snapshot() -> Dictionary:
 		"inventory": _inventory_snapshot(),
 		"floor": _configuration.floor.duplicate(true),
 		"recipes": _configuration.recipes.duplicate(true),
+		"loading_seconds": float(_configuration.service.get("loading_seconds", 0.0)),
+		"recipe_book": _state.recipe_book.duplicate(true),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
@@ -123,8 +129,8 @@ func snapshot() -> Dictionary:
 			object.active = service.active
 			object.inactive_reason = service.reason
 		if object.kind == "chef":
-			object.preparation_seconds = _configuration.recipes[object.recipe_id].preparation_seconds
-			object.preparation = clampf(float(object.preparation_elapsed) / float(object.preparation_seconds), 0.0, 1.0)
+			object.preparation_seconds = RecipeBook.seconds(_configuration.recipes.get(object.recipe_id, {}), object)
+			object.preparation = clampf(float(object.preparation_elapsed) / float(object.preparation_seconds), 0.0, 1.0) if float(object.preparation_seconds) > 0.0 else 0.0
 			object.erase("preparation_elapsed")
 		elif object.kind == "belt":
 			object.travel_progress = clampf(float(object.travel_elapsed) / float(_configuration.service.belt_seconds_per_cell), 0.0, 1.0)
@@ -171,6 +177,7 @@ func save_data() -> Dictionary:
 		"customer_admission_version": CUSTOMER_ADMISSION_VERSION,
 		"customer_layout_version": CUSTOMER_LAYOUT_VERSION,
 		"editor_version": EDITOR_VERSION,
+		"recipe_book_version": RECIPE_BOOK_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -181,6 +188,8 @@ func save_data() -> Dictionary:
 func restore(data: Dictionary) -> bool:
 	# Validate before changing anything. Restoring is a state replacement, never
 	# elapsed-time simulation or event playback, even when called repeatedly.
+	if not _nonnegative_integer(data.get("recipe_book_version", 0)) or int(data.get("recipe_book_version", 0)) > RECIPE_BOOK_VERSION:
+		return false
 	if data.get("version") != SAVE_VERSION or not data.get("configuration") is Dictionary:
 		return false
 	if not _valid_configuration(data.configuration) or not data.get("state") is Dictionary:
@@ -244,6 +253,9 @@ func restore(data: Dictionary) -> bool:
 		for customer in restored_state.get("customers", []):
 			if not customer is Dictionary: return false
 			_initialize_customer_layout(customer)
+	if int(data.get("recipe_book_version", 0)) == 0:
+		if not RecipeBook.initialize(restored_configuration, restored_state): return false
+	if not RecipeBook.valid(restored_configuration, restored_state): return false
 	if not _valid_saved_state(restored_state, restored_configuration, navigation_version, admission_version):
 		return false
 	if navigation_version == 0:
@@ -383,6 +395,7 @@ func _start() -> void:
 				object.travel_elapsed = 0.0
 				object.dish = null
 	_initialize_editor_state(_state)
+	RecipeBook.initialize(_configuration, _state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
@@ -413,7 +426,7 @@ func _step_chefs(delta: float, events: Array) -> void:
 			continue
 		if chef.held_dish == null:
 			_set_visual(chef, "work")
-			var duration := float(_configuration.recipes[chef.recipe_id].preparation_seconds)
+			var duration := RecipeBook.seconds(_configuration.recipes[chef.recipe_id], chef)
 			chef.preparation_elapsed = minf(duration, _clock_advance(float(chef.preparation_elapsed), delta))
 			if float(chef.preparation_elapsed) + 0.000000001 >= duration:
 				chef.preparation_elapsed = duration
@@ -492,6 +505,7 @@ func _rebuild_access() -> void:
 			_access_paths[object.id] = _walk_path(entrance, _point(object), object.id)
 
 func _chef_service(chef: Dictionary) -> Dictionary:
+	if str(chef.get("recipe_id", "")).is_empty(): return {"active":false, "reason":"no_recipe"}
 	if _facing_object(chef).get("kind") != "belt":
 		return {"active": false, "reason": "no_belt"}
 	return {"active": true, "reason": ""}
@@ -701,7 +715,8 @@ func _step_customers(delta: float, events: Array) -> void:
 					if not customer.visit_legacy and customer.preferred_recipe_id.is_empty():
 						var service := _seat_service(_object_by_id(customer.seat_id))
 						var recipes: Array = service.ready + service.menu
-						if recipes.is_empty(): recipes = _configuration.recipes.keys()
+						if recipes.is_empty(): recipes = _state.recipe_book.discovered.duplicate()
+						if recipes.is_empty(): continue
 						recipes.sort()
 						customer.preferred_recipe_id = str(recipes[_random.randi_range(0, recipes.size() - 1)])
 					_set_preference(customer, "active")
@@ -1185,7 +1200,7 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 		var cell := _point(object)
 		if cells.has(cell) or cell == _point(config.floor.entrance):
 			return false
-		if object.kind == "chef" and not config.recipes.has(object.get("recipe_id")):
+		if object.kind == "chef" and (not object.get("recipe_id") is String or (object.recipe_id != "" and not config.recipes.has(object.recipe_id))):
 			return false
 		if object.kind == "decor" and not object.get("art_id") in DECOR_ART_IDS:
 			return false
@@ -1309,7 +1324,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 		if object.kind == "chef":
 			if not object.has("held_dish") or not _valid_dish(object.held_dish, config.recipes, dish_ids):
 				return false
-			var duration := float(config.recipes[object.recipe_id].preparation_seconds)
+			var duration := RecipeBook.seconds(config.recipes.get(object.recipe_id, {}), object)
 			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0 or float(object.preparation_elapsed) > duration:
 				return false
 			if not object.get("visual_phase") in ["work", "hold", "load", "idle"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
@@ -1722,7 +1737,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 		if entry.get("kind") == "chef":
 			if not known_chefs.has(entry.id):
 				return false
-			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not config.recipes.has(entry.get("recipe_id")) or not DIRECTIONS.has(entry.get("facing")):
+			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not entry.get("recipe_id") is String or (entry.recipe_id != "" and not config.recipes.has(entry.recipe_id)) or not DIRECTIONS.has(entry.get("facing")):
 				return false
 			if entry.assigned:
 				if int(entry.count) != 0 or entry.get("stored_object") != null or not placed.has(entry.id) or placed[entry.id].get("kind") != "chef":

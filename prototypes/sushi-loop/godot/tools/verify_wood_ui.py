@@ -23,7 +23,15 @@ def verify_wood_ui(project, source_project=None):
     for name, expected in source['source']['files'].items():
         if not name.startswith('prototypes/sushi-loop/'):
             raise ValueError('Wood UI source escapes this prototype')
-        if sha(prototype / name.removeprefix('prototypes/sushi-loop/')) != expected:
+        current = prototype / name.removeprefix('prototypes/sushi-loop/')
+        snapshot = manifest.get('source_snapshots', {}).get(name)
+        if snapshot is not None:
+            # A retained original is checked against the unchanged export's
+            # recorded hash, never against a newly blessed current source hash.
+            archived = (source_root / snapshot['path']).resolve()
+            if not archived.is_relative_to(source_root.resolve()) or snapshot['sha256'] != expected or sha(archived) != expected:
+                raise ValueError(f'Wood UI historical source snapshot changed: {name}')
+        elif sha(current) != expected:
             raise ValueError(f'Wood UI needs a fresh HTML export: {name}')
     if set(manifest['assets']) != set(source['assets']) or len(manifest['assets']) != 26:
         raise ValueError('Wood UI component coverage changed')
