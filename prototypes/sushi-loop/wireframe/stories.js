@@ -34,10 +34,10 @@ export const storyGroups = [
 
 export const stories = [
   {
-    id: 'chef-ui-portraits', group: 'components', title: 'Chef portraits · Blender front views', scene: 'chef-portraits',
-    description: 'All eight existing native Blender chefs rendered from one fixed eye-level orthographic front camera. Inventory, applications and profile UI reuse the full portrait; recipe headers use a fixed chest-up crop of that same image.',
-    elements: [element('Shared front portraits', 'Compare each full front view and chest-up crop. Identity, geometry, materials and the current Faceted lighting are retained. In-scene sprites keep their established camera.', 'Static portraits; no animation or alpha fitting.')],
-    notes: ['UI portrait capture only. This does not change native scene sprites or gameplay.'],
+    id: 'chef-ui-portraits', group: 'components', title: 'Chef profiles · ImageGen headshots', scene: 'chef-portraits',
+    description: 'Eight coordinated ImageGen headshots in the supplied concept-art style. Inventory, applications and profiles reuse the illustrated family; recipe headers rise from the separator above the popup border.',
+    elements: [element('Shared illustrated headshots', 'Compare each headshot and its dialog crop. The supplied concept establishes the soft illustrated style; existing chef designs guide identity and costume. Scene sprites keep their established presentation.', 'Static transparent portraits; uniform display scaling and a shared dialog crop.')],
+    notes: ['UI profile artwork only. This does not change native scene sprites or gameplay.'],
   },
   {
     id: 'recipe-wood-review', group: 'recipes', title: 'Recipe picker · wood board HTML', scene: 'recipe-review', variant: 'new',

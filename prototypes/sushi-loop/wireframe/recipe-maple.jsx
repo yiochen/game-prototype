@@ -54,7 +54,7 @@ export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', le
   const prep = recipe ? (recipe.baseSeconds / (1 + (level - 1) * .12)).toFixed(1) : '';
   return <div className="wr-scrim" onClick={onInspect ? event => event.stopPropagation() : undefined}>
     <dialog open className="wr-panel" aria-modal="true" aria-labelledby="wr-title">
-      <header className="wr-header"><ChefPortrait className="wr-chef" chefId={chefId} bust/><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
+      <ChefPortrait className="wr-chef" chefId={chefId} bust/><div className="wr-panel-interior"><header className="wr-header"><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
       <div ref={catalog} className="wr-catalog" aria-label="Scrollable recipe catalog" tabIndex={0}>
         <div className="wr-grid">{sorted.map(key => <WoodRecipeTile key={key} recipeKey={key} selected={selected} current={current} seen={state.seenRecipes} isNew={key === 'eel'} level={level} onInspect={onInspect}/>)}</div>
       </div>
@@ -63,7 +63,7 @@ export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', le
         {recipe && !recipe.unknown && !eligible && <p className="wr-requirement">{chefName} needs Level {recipe.level} to prepare this dish.</p>}
         {currentSelected ? <div className="wr-preparing"><Icon name="check"/>Preparing<span>Current recipe</span></div> : <button type="button" className="wr-prepare" disabled={!eligible} data-action={onPrepare ? undefined : 'prepare'} onClick={onPrepare}>Prepare</button>}
       </section>
-      <div className="wr-wave" aria-hidden="true"/>
+      <div className="wr-wave" aria-hidden="true"/></div>
     </dialog>
   </div>;
 }

@@ -1,7 +1,7 @@
 const frontPortraits = {
-  'chef-lena':new URL('../../assets/ui/chef-portraits/v1/lena-front.png',import.meta.url).href,
-  'chef-omar':new URL('../../assets/ui/chef-portraits/v1/omar-front.png',import.meta.url).href,
-  'chef-ama':new URL('../../assets/ui/chef-portraits/v1/ama-front.png',import.meta.url).href,
+  'chef-lena':new URL('../../assets/ui/chef-headshots/v1/raw/lena.png',import.meta.url).href,
+  'chef-omar':new URL('../../assets/ui/chef-headshots/v1/raw/omar.png',import.meta.url).href,
+  'chef-ama':new URL('../../assets/ui/chef-headshots/v1/raw/ama.png',import.meta.url).href,
 };
 const asset = name => frontPortraits[name] || new URL(`./assets/${name}.png`, import.meta.url).href;
 const root = document.querySelector('.scene');

@@ -1,5 +1,7 @@
 # Front-facing chef UI portraits
 
+> Historical capture and identity reference. The current UI uses the [ImageGen headshot family](../../chef-headshots/v1/README.md), following the user’s later direction. These original Blender captures and source scene remain unchanged.
+
 Eight transparent front views rendered in Blender from the existing native chef models: Lena, Omar, Ama, Mateo, Noor, Dalia, Ellis and Rowan.
 
 ## Capture contract
