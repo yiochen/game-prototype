@@ -10,7 +10,7 @@ Extend the approved continuous maple inventory dock: pale warm maple, quiet grai
 
 - Maple dialog frame, maple header with chef portrait/name and level, round cream close target.
 - Scrollable two-column catalog in a cream inset; recipe artwork on White/Yellow/Red/Blue/Black plates with distinct rims.
-- Cream recipe cards: normal, pressed, current (walnut inner outline), inspected (indigo outer outline), both, NEW, muted ineligible, unknown food silhouette without name/price.
+- Cream recipe cards: normal, pressed, current (walnut inner outline), inspected (brighter cream background), both, NEW, muted ineligible, unknown food silhouette without name/price.
 - Full-width fixed lower details area, flush to both inner popup edges with padded content: plated dish, name, fixed price, effective prep time and required level. Empty, eligible, ineligible, current and unknown states.
 - Vermilion Prepare action, noninteractive Preparing status and subdued disabled Prepare. Quiet wave engraving at the bottom.
 - Return to the originating restaurant preview on Prepare/close; reopening retains the current recipe and inspection-cleared NEW state in this browser. No save/economy simulation is claimed.

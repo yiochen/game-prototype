@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Icon } from './common.jsx';
+import { ChefPortrait } from './chef-portrait.jsx';
 import './recipe-maple.css';
 
 import chefArt from '../design/editor-dock-preview/assets/chef-lena.png';
@@ -34,7 +35,7 @@ export function WoodRecipeTile({ recipeKey, selected, current, seen = [], isNew 
   </button>;
 }
 
-export function MapleRecipePanel({ state, chefName = 'Lena', level = 5, onInspect, onPrepare, onClose }) {
+export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', level = 5, onInspect, onPrepare, onClose }) {
   const selected = state.selectedRecipe, current = state.currentRecipe;
   const recipe = plateRecipes[selected], eligible = recipe && !recipe.unknown && level >= recipe.level;
   const currentSelected = eligible && current === selected;
@@ -53,7 +54,7 @@ export function MapleRecipePanel({ state, chefName = 'Lena', level = 5, onInspec
   const prep = recipe ? (recipe.baseSeconds / (1 + (level - 1) * .12)).toFixed(1) : '';
   return <div className="wr-scrim" onClick={onInspect ? event => event.stopPropagation() : undefined}>
     <dialog open className="wr-panel" aria-modal="true" aria-labelledby="wr-title">
-      <header className="wr-header"><img className="wr-chef" src={chefArt} alt=""/><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
+      <header className="wr-header"><ChefPortrait className="wr-chef" chefId={chefId} bust/><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
       <div ref={catalog} className="wr-catalog" aria-label="Scrollable recipe catalog" tabIndex={0}>
         <div className="wr-grid">{sorted.map(key => <WoodRecipeTile key={key} recipeKey={key} selected={selected} current={current} seen={state.seenRecipes} isNew={key === 'eel'} level={level} onInspect={onInspect}/>)}</div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChefPortrait, chefPortraitFor } from './chef-portrait.jsx';
 
 export function Target({ children, action, className = '', disabled = false, data = {}, title = '', ...rest }) {
   const attributes = Object.fromEntries(Object.entries(data).map(([key, value]) => [`data-${key.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)}`, value]));
@@ -41,7 +42,8 @@ export function Money({ kind = 'coin', amount }) {
   return <span className="wire-money"><Icon name={kind === 'salvage' ? 'salvage' : 'coin'} /><span>{typeof amount === 'number' ? amount.toLocaleString('en-US') : amount}</span></span>;
 }
 
-export function Character({ name, kind = 'chef', ...rest }) {
+export function Character({ name, kind = 'chef', inScene = false, ...rest }) {
+  if (kind === 'chef' && !inScene && chefPortraitFor(name)) return <ChefPortrait name={name} {...rest} className={`wire-character ${rest.className || ''}`}/>;
   const seed = [...name].reduce((n, char) => n + char.charCodeAt(0), 0);
   const hair = seed % 3;
   const skin = ['#f5f6f7', '#dce2e7', '#aebbc7', '#8295a5'][seed % 4];

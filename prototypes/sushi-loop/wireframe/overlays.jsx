@@ -24,7 +24,7 @@ export function Dialog({ story, title, eyebrow, className = '', children, footer
 function Recipes({ story, state }) {
   const chef = chefFor(state);
   const level = variantFor(story) === 'new' ? Math.max(5, state.chefLevel) : state.chefLevel;
-  return <MapleRecipePanel state={state} chefName={chef.name.split(' ')[0]} level={level}/>;
+  return <MapleRecipePanel state={state} chefName={chef.name.split(' ')[0]} chefId={chef.id} level={level}/>;
 }
 
 function Applicants({ story, state }) {

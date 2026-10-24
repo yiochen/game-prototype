@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChefPortraitGallery } from './chef-portrait.jsx';
 import { RecipeExperience } from './recipe-maple.jsx';
 import { Target, Icon, Money, Character } from './common.jsx';
 import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
@@ -38,7 +39,7 @@ function FloorPanels({ state, map = false }) {
     <Entry panel={panel} active={panel === 0 || (panel === 1 && expanded)} />
     {panel === 0 && map && <div className="starter-label"><strong>Starter restaurant</strong><span>Cleared, usable floor</span></div>}
     {panel === 0 && !map && state._variant === 'selected' && <SelectedFootprint state={state} />}
-    {panel === 0 && !map && showPreview && <Target action="navigate" data={{story:'staff-detail',value:previewChef.id}} className="roster-placed-chef" title={`Inspect ${previewChef.name}`} style={{left:`${state.rosterPlacement.x*100}%`,top:`${state.rosterPlacement.y*100}%`}}><Character name={previewChef.name} /></Target>}
+    {panel === 0 && !map && showPreview && <Target action="navigate" data={{story:'staff-detail',value:previewChef.id}} className="roster-placed-chef" title={`Inspect ${previewChef.name}`} style={{left:`${state.rosterPlacement.x*100}%`,top:`${state.rosterPlacement.y*100}%`}}><Character name={previewChef.name} inScene /></Target>}
     {panel > 0 && (panel === 2 || !expanded) && <Garbage panel={panel} state={state} full={map} />}
     {panel === 1 && <Dock state={state} locked={!map && !expanded} future={map} />}
     {map && <span className="viewport-guide">Viewport guide · no dividing wall</span>}
@@ -110,6 +111,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
+    case 'chef-portraits': return <ChefPortraitGallery/>;
     case 'recipe-review': return <RecipeExperience initial={story.variant}/>;
     case 'object-review': return <ObjectReview objectId={story.objectId}/>;
     case 'world-showcase': return <WorldShowcase key={story.variant} sceneId={story.variant}/>;

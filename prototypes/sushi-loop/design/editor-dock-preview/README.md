@@ -23,3 +23,7 @@ Validation covers six states at 390×844, 320×720, 984×1224 and 1280×720, nin
 The pack is in [`../../assets/ui/editor/html-export-v1/`](../../assets/ui/editor/html-export-v1/README.md), with source-pixel nine-patch margins and logical draw offsets in its manifest. Capsules allow horizontal resizing at fixed height; composites retain uniform scale. See the pack README for Godot placement details and regeneration commands.
 
 The approved dock has been ported to native Godot controls in `scripts/wood_editor_presentation.gd`, using the current export under `assets/ui/wood-editor/`. Existing HUD, world art, contextual actions and unavailable-Shop behavior are retained.
+
+## Current UI portrait refinement
+
+The People inventory now uses the dedicated Blender front-view family in `../../assets/ui/chef-portraits/v1/`. Historical source crops and exported native dock artwork remain preserved. Scene sprites retain their existing camera.

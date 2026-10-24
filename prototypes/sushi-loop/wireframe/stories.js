@@ -34,10 +34,16 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'chef-ui-portraits', group: 'components', title: 'Chef portraits · Blender front views', scene: 'chef-portraits',
+    description: 'All eight existing native Blender chefs rendered from one fixed eye-level orthographic front camera. Inventory, applications and profile UI reuse the full portrait; recipe headers use a fixed chest-up crop of that same image.',
+    elements: [element('Shared front portraits', 'Compare each full front view and chest-up crop. Identity, geometry, materials and the current Faceted lighting are retained. In-scene sprites keep their established camera.', 'Static portraits; no animation or alpha fitting.')],
+    notes: ['UI portrait capture only. This does not change native scene sprites or gameplay.'],
+  },
+  {
     id: 'recipe-wood-review', group: 'recipes', title: 'Recipe picker · wood board HTML', scene: 'recipe-review', variant: 'new',
     description: 'Issue #15 design review in the current maple inventory-board style. Empty plate and sushi are separate ImageGen layers composed in HTML, with live labels and controls.',
     elements: [
-      element('Recipe catalog and fixed details', 'Inspect a recipe in the scrolling two-column catalog; the lower details area stays in place. Walnut inner outline marks current production and indigo outer outline marks inspection. NEW clears when inspected, including when ineligible.', 'Restrained press feedback; reduced motion removes entry movement.'),
+      element('Recipe catalog and fixed details', 'Inspect a recipe in the scrolling two-column catalog; the lower details area stays in place. Walnut inner outline marks current production and a brighter cream background marks inspection. NEW clears when inspected, including when ineligible.', 'Restrained press feedback; reduced motion removes entry movement.'),
       element('Prepare and return', 'Prepare commits only an eligible inspected recipe in this mock example, closes to the restaurant preview and updates the blackboard. Close and Escape preserve the current recipe; reopen returns to it. Outside taps stay blocked.', 'The fixture restaurant has no economy, meal clock or native save simulation.'),
       element('Review states', 'The controls above the phone are review tools. Compare eligible, current, NEW, ineligible, unknown and idle-chef states. All tiers use the same independent food and plate layers.', 'No automatic cycling or decorative perpetual motion.'),
     ],
@@ -231,7 +237,7 @@ export const stories = [
     id: 'recipe-picker', group: 'recipes', title: 'Picker · eligible recipe', scene: 'restaurant', variant: 'eligible', overlay: 'recipes',
     description: 'A large portrait dialog overlays the visible restaurant. Its two-column catalog scrolls above a fixed details panel.',
     elements: [
-      element('Catalog tiles', 'Discovered tiles show each dish’s fixed coin selling price beside its artwork and name. Tap to inspect without changing the chef’s current recipe; current and inspected outlines remain distinct. Undiscovered tiles do not reveal a price.', 'Tile press for 70 ms; selected outline appears for 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
+      element('Catalog tiles', 'Discovered tiles show each dish’s fixed coin selling price beside its artwork and name. Tap to inspect without changing the chef’s current recipe; the current marker and inspected background remain distinct. Undiscovered tiles do not reveal a price.', 'Tile press for 70 ms; inspected background brightens over 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
       element('Recipe header and catalog', 'Show the chef’s level without a White chef or other tier suffix. Preserve catalog ordering without visible group headings; use plate colors, rim patterns and muted/outline states to distinguish recipes.', 'The catalog scrolls directly with input. Header stays stable; no title transition accompanies recipe inspection.'),
       element('Fixed recipe details', 'Show dish, fixed selling price and chef-adjusted preparation time beside its tier-colored plate. Plate color and rim pattern convey required tier without a visible tier label; retain tier information in accessible descriptions. Exclude base time and belt-loading waits.', 'Details stay anchored while catalog scrolls. Content and plate artwork crossfade together over 140 ms, without counting through intermediate facts.'),
       element('Prepare', 'Choose the inspected eligible recipe, close the picker and update the blackboard. If it is already current, show noninteractive Preparing instead.', 'Apply on tap; close over 160 ms. Blackboard updates immediately and shakes 2° over 260 ms.'),
@@ -254,7 +260,7 @@ export const stories = [
     id: 'recipe-unavailable', group: 'recipes', title: 'Picker · chef tier too low', scene: 'restaurant', variant: 'unavailable', overlay: 'recipes',
     description: 'Discovered recipes above this chef’s quality can be inspected, but cannot be prepared.',
     elements: [
-      element('Muted discovered tile', 'Tap to view price and the required tier’s colored plate without a visible tier name. An accessible description retains the requirement. Inspection still clears NEW, even when the chef cannot cook it.', 'Artwork is muted rather than hidden. Selection outline remains readable; details and plate artwork crossfade for 140 ms.'),
+      element('Muted discovered tile', 'Tap to view price and the required tier’s colored plate without a visible tier name. An accessible description retains the requirement. Inspection still clears NEW, even when the chef cannot cook it.', 'Artwork is muted rather than hidden. The inspected background remains readable; details and plate artwork crossfade for 140 ms.'),
       element('Preparation time', 'Show an em dash while the chef is ineligible; do not imply a usable adjusted duration.', 'Static value; no timer or progress ring.'),
       element('Disabled Prepare', 'Retain the unavailable action and required tier’s board texture; tapping performs no purchase or shortage popup. Expose eligibility and tier to assistive technology.', 'Muted outline and text with no press bounce; accessible disabled state.'),
       closePopup(),
@@ -694,7 +700,7 @@ export const stories = [
     description: 'The same recipe-tile renderer used inside every chef recipe picker is shown here with current, inspected, NEW, above-tier and undiscovered treatments. Revisions carry through to all picker stories.',
     elements: [
       element('Tier board and dish', 'Discovered tiles show artwork, name and fixed coin selling price on their tier-colored plate, without redundant visible tier labels. Undiscovered tiles show unidentified food silhouettes without revealing or inventing a price. Distinct plate colors and rim patterns convey the tier beyond color; retain it in accessible descriptions.', 'Artwork may crossfade on discovery over 180 ms; no pulsing mystery teaser. Material stays consistent with the fixed details board.'),
-      element('Current and inspected outlines', 'Keep current cooking assignment and inspection selection distinct, including when they are the same tile. Tap inspection does not Prepare.', 'Press 70 ms; selected outline changes over 100 ms. The fixed details panel crossfades separately over 140 ms.'),
+      element('Current marker and inspected background', 'Keep current cooking assignment and inspection selection distinct, including when they are the same tile. Tap inspection does not Prepare.', 'Press 70 ms; inspected background brightens over 100 ms. The fixed details panel crossfades separately over 140 ms.'),
       element('NEW marker', 'Present until inspected in the restaurant picker. Above-tier inspection also clears it; the expedition award does not.', 'Marker fades away over 140 ms after inspection, with no constant attention loop.'),
       element('Unavailable tile', 'A discovered above-tier tile remains inspectable with muted artwork; eligibility is handled by the picker’s Prepare area.', 'Retain target response and selection outline. Do not turn an inspectable tile into a disabled tap target.'),
     ],

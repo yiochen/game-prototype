@@ -1,4 +1,9 @@
-const asset = name => new URL(`./assets/${name}.png`, import.meta.url).href;
+const frontPortraits = {
+  'chef-lena':new URL('../../assets/ui/chef-portraits/v1/lena-front.png',import.meta.url).href,
+  'chef-omar':new URL('../../assets/ui/chef-portraits/v1/omar-front.png',import.meta.url).href,
+  'chef-ama':new URL('../../assets/ui/chef-portraits/v1/ama-front.png',import.meta.url).href,
+};
+const asset = name => frontPortraits[name] || new URL(`./assets/${name}.png`, import.meta.url).href;
 const root = document.querySelector('.scene');
 const initial = new URLSearchParams(location.search).get('state') || document.body.dataset.state || 'layout';
 const stockless = initial === 'out-of-stock';
@@ -12,7 +17,7 @@ const goods = [
 const people = [
   {id:'lena',name:'Lena',art:'chef-lena',status:'Placed'},
   {id:'omar',name:'Omar',art:'chef-omar',status:'Placed'},
-  {id:'mina',name:'Mina',art:'chef-lena',status:'Placed'},
+  {id:'ama',name:'Ama',art:'chef-ama',status:'Placed'},
 ];
 const floors = [{id:'floor',name:'Cream tile',art:'floor-cream',status:'Current',unavailable:true}];
 // Simple profile and basket geometry follows the existing wireframe/common.jsx
