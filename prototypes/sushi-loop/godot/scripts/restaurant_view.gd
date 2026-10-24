@@ -565,11 +565,8 @@ func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Col
 	# Sit/stand actions retain their native wood-stool support calibration.
 	# Passing and brief happiness move only the visual instance, never its cell.
 	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch, tint)
-	if customer.get("meal_dish") is Dictionary and customer.get("phase") in ["standing", "walking"]:
-		# The same owned plate remains recognizable while a seatless guest is
-		# rescued or walks to replacement seating. Eating itself stays paused.
-		var hand: Vector2 = art.socket(identity, "hand_right", direction) * pitch / art.cell_size
-		sprite(DISHES.get(customer.meal_dish.recipe_id, "dish-salmon"), base + customer_pose_offset(customer, pitch) + hand, "static", "S", 0.0, pitch * 0.62, tint)
+	# Off-stool poses use the authored empty hands. The unfinished meal stays
+	# in session state and becomes visible again in the seated eating clip.
 
 func customer_clip(customer: Dictionary) -> String:
 	var phase := str(customer.get("phase", "waiting"))

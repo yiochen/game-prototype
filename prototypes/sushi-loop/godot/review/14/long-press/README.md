@@ -1,5 +1,7 @@
 # Long-press pickup — issue 14 amendment
 
+> The [0.6.2 presentation correction](../empty-hands/README.md) supersedes carried sushi in these historical captures: standing, walking and directly lifted guests now have empty hands.
+
 The user's feedback supersedes the original standing/trapped-only restriction. This update extends the existing customer-recovery branch and keeps issue 14 open for Android verification. The [interaction contract](contract.md) records the accepted composition and state inventory. The previous 0.6.0 evidence remains historical.
 
 ## Try it

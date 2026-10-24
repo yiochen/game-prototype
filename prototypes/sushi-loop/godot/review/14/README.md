@@ -1,6 +1,6 @@
 # Issue 14 — customer layout recovery
 
-> **Current update:** the [0.6.1 long-press amendment](long-press/README.md) adds pickup for every guest and object, including seated guests, and preserves object menus after dropping. The 0.6.0 evidence below records the earlier implementation.
+> **Current update:** the [0.6.2 empty-hands correction](empty-hands/README.md) hides sushi when a guest leaves their stool. The [0.6.1 long-press amendment](long-press/README.md) adds pickup for every guest and object and preserves object menus after dropping. The 0.6.0 evidence below is historical.
 
 Native Godot implementation for [issue 14](https://github.com/yiochen/game-prototype/issues/14), ready for user verification. The [complete composition and state inventory](composition.md) records the screen before implementation; [reference and art hashes](references-and-art.json) identify the exact approved artwork reused. The current maple dock, character/stool/dish atlases and finished puzzled/panic feedback are retained.
 
