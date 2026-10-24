@@ -1,5 +1,7 @@
 # Sushi Loop implementation
 
+- Recipe and chef eligibility tiers now use **White → Yellow → Red → Blue → Black** colored plates, with shared level thresholds **1 / 3 / 5 / 8 / 12** and distinct rim patterns. Follow the [plate-color tier contract](docs/plate-color-tiers.md) for dish/recipe/award presentation and migration. Keep existing per-recipe price bands and progression rules; earlier material-tier artwork and interview wording are superseded.
+
 - The game target is **Godot Android**. The wireframe site is a design/reference surface and does not replace the native implementation.
 - Use Godot's **Mobile** renderer, with **Vulkan on Android** and automatic OpenGL/Compatibility fallback disabled. Verify the actual renderer/driver in GPU checks; macOS uses Metal. Headless simulation tests do not verify Android graphics.
 - Deliver Android updates with the original pinned **release** signer, the same package/save identity and a higher version code. Never share a debug-signed APK as an update to the normal installed app. Verify the release certificate and nondebuggable flag before uploading; do not ask the user to uninstall to resolve a signing mismatch.

@@ -1,5 +1,7 @@
 # UI design interview
 
+> **Current tier presentation:** [Plate-color tiers](./plate-color-tiers.md) replace the former material theme. Tier-related summaries below use the current color names; existing progression and pricing rules remain.
+
 Status: wrapped at the user's request. Accepted UI decisions are recorded below; unresolved balance and presentation details remain open for prototyping. Question 206 is intentionally deferred and has no selected answer.
 
 Visual direction: [doodle](./art-direction.md). Questions 1–23 used image-generated, polished 2D screen options. On 2026-10-06 the user requested text descriptions only for follow-on questions. In Question 41 the user explicitly requested image-generated backgrounds for the three result outcomes. That request is an exception for these backgrounds; continue follow-on questions in text unless images are requested again.
@@ -511,9 +513,9 @@ Recommendation accepted: A because it helps the player find the discovery as the
 
 ## Question 50: inspecting and assigning a recipe
 
-Accepted: **A — inspect, then Prepare**, with the action renamed in Question 54. Tapping a recipe entry opens a compact preview showing its fixed price, preparation time, and required chef quality. Question 52 subsequently refines the time field to show only the duration adjusted for this chef's speed when eligible, superseding the original base-time proposal for the chef preview. A separate Prepare action applies the recipe to the selected chef when eligible. Inspection alone clears the NEW marker and leaves the chef's current recipe intact.
+Accepted: **A — inspect, then Prepare**, with the action renamed in Question 54. Tapping a recipe entry opens a compact preview showing its fixed price, preparation time, and required chef plate tier. Question 52 subsequently refines the time field to show only the duration adjusted for this chef's speed when eligible, superseding the original base-time proposal for the chef preview. A separate Prepare action applies the recipe to the selected chef when eligible. Inspection alone clears the NEW marker and leaves the chef's current recipe intact.
 
-- **A — inspect, then Assign**: open a compact preview of the recipe's price, base preparation time, and required chef quality. A separate Assign action applies it to the selected chef.
+- **A — inspect, then Assign**: open a compact preview of the recipe's price, base preparation time, and required chef plate tier. A separate Assign action applies it to the selected chef.
 - **B — assign directly**: tapping an eligible recipe entry applies it immediately. A separate information icon opens its details for inspection.
 
 Recommendation accepted: A because recipe changes reset unfinished preparation and replace a held dish, so players should be able to inspect alternatives before committing. Service continues while inspecting. Prepare applies an eligible recipe with the accepted live-change effects; simply inspecting does not reset preparation or replace a held dish. Question 51 subsequently accepts keeping unlocked recipes above the selected chef's quality visible and inspectable, with Prepare disabled. Question 52 accepts adjusted preparation time only for cookable recipes. Question 54 accepts closing the picker and briefly shaking the updated blackboard after Prepare. Exact picker/preview layout and feedback timing remain open. This was a text-only question.
@@ -619,25 +621,25 @@ Recommendation accepted with the user's refinement: outlining the current recipe
 
 ## Question 62: recipe-card order
 
-Accepted with the user's refinement. Use named recipe-quality tiers in this order: Wood, Steel, Copper, Silver, Gold. Reaching designated chef levels unlocks whole tiers, and each recipe tile is rendered as a board made from its tier's material. Arrange this chef's catalog in three groups: recipes they can cook, from highest to lowest tier; discovered recipes above their highest tier, also from highest to lowest and shown in muted color; then undiscovered recipes shown as silhouettes engraved on their tier boards.
+Accepted with the user's refinement. Use named recipe plate tiers in this order: White, Yellow, Red, Blue, Black. Reaching designated chef levels unlocks whole tiers, and each recipe tile is rendered as a recipe card displaying its tier's colored ceramic plate and distinct rim pattern. Arrange this chef's catalog in three groups: recipes they can cook, from highest to lowest tier; discovered recipes above their highest tier, also from highest to lowest and shown in muted color; then undiscovered recipes shown as silhouettes on their tier-colored plates.
 
 - **A — by required quality**: keep recipes in a stable progression from lowest to highest quality, with NEW markers identifying recent discoveries.
 - **B — newest discoveries first**: put recently unlocked recipes at the start, followed by older recipes.
 
-The user's tiered grouping supersedes the original ascending-order options and fine-grained recipe quality grades. Discovered recipes above this chef's tier remain inspectable under the existing rule; undiscovered entries stay unidentified until discovered. Question 63 refines each tier's visual identity to a material board, with unknown dishes engraved as silhouettes on their board. This was a text-only question.
+The user's tiered grouping supersedes the original ascending-order options and fine-grained recipe quality grades. Discovered recipes above this chef's tier remain inspectable under the existing rule; undiscovered entries stay unidentified until discovered. Question 63 refines each tier's visual identity to a colored plate, with unknown dishes shown as silhouettes on their tier-colored plate. This was a text-only question.
 
-## Question 63: material treatment for undiscovered recipes
+## Question 63: plate color and rim-pattern treatment for undiscovered recipes
 
-Accepted with the user's refinement: recipe tiles use a board made from their tier's material, such as wood or silver. An undiscovered dish appears as a silhouette engraved on its board, revealing the material tier while keeping the dish identity hidden.
+Accepted with the user's refinement: recipe tiles use a recipe card displaying their tier's colored ceramic plate and distinct rim pattern, such as white or blue plates. An undiscovered dish appears as a dish silhouette on its tier-colored plate, revealing the plate tier while keeping the dish identity hidden.
 
 - **A — tier color visible**: keep the dish as a silhouette but use its tier color as the card background.
 - **B — neutral silhouette**: keep the background neutral so the undiscovered recipe's tier stays hidden.
 
-The user clarified that the material itself forms the board and the silhouette is engraved into it. This communicates the tier while preserving the unknown dish identity. The exact materials and their visual treatment remain art-direction work. This was a text-only question.
+The plate-color amendment supersedes the earlier material-board decision. The colored plate and distinct rim pattern communicate tier while the unknown dish silhouette preserves recipe identity. Exact rim artwork remains art-direction work.
 
 ## Question 64: tier-unlock levels across chefs
 
-Accepted: **A — shared thresholds**. Every chef unlocks each quality tier at the same chef level. Candidate growth speed and maximum level can still differ.
+Accepted: **A — shared thresholds**. Every chef unlocks each plate tier at the same chef level. Candidate growth speed and maximum level can still differ.
 
 - **A — shared thresholds**: every chef reaches each tier at the same level; candidate growth and level caps still differ.
 - **B — chef-specific thresholds**: each chef's attributes determine the level at which they reach each tier.
@@ -649,7 +651,7 @@ Recommendation accepted: A because tier requirements are easier to understand an
 Accepted: **A — ceiling limits tiers**. A chef whose maximum level is below a shared tier threshold can never unlock that tier.
 
 - **A — ceiling limits tiers**: a chef whose maximum level is below a shared tier threshold can never unlock that tier.
-- **B — all chefs reach Gold**: every chef can unlock every tier; their maximum level limits other development but not access to Gold.
+- **B — all chefs reach Black**: every chef can unlock every tier; their maximum level limits other development but not access to Black.
 
 Recommendation accepted: A because it makes the capability ceiling meaningful for recipe access and gives hiring choices a clear long-term consequence. This was a text-only question.
 
@@ -662,29 +664,29 @@ Accepted: **A — show both**. Each job application shows the chef's maximum lev
 
 Recommendation accepted: A because it makes the long-term value of an applicant clear at a glance, especially when comparing growth speed and level caps. This was a text-only question.
 
-## Question 67: shared level milestones for quality tiers
+## Question 67: shared level milestones for plate tiers
 
-Accepted: **B — later tiers farther apart**. Use these shared starting thresholds: Wood at Level 1, Steel at Level 3, Copper at Level 5, Silver at Level 8, and Gold at Level 12. They are progression targets for later balance tuning.
+Accepted: **B — later tiers farther apart**. Use these shared starting thresholds: White at Level 1, Yellow at Level 3, Red at Level 5, Blue at Level 8, and Black at Level 12. They are progression targets for later balance tuning.
 
-- **A — evenly spaced**: Wood at Level 1, Steel at Level 3, Copper at Level 5, Silver at Level 7, Gold at Level 9.
-- **B — later tiers farther apart**: Wood at Level 1, Steel at Level 3, Copper at Level 5, Silver at Level 8, Gold at Level 12.
+- **A — evenly spaced**: White at Level 1, Yellow at Level 3, Red at Level 5, Blue at Level 7, Black at Level 9.
+- **B — later tiers farther apart**: White at Level 1, Yellow at Level 3, Red at Level 5, Blue at Level 8, Black at Level 12.
 
 Recommendation accepted: B because the first upgrades broaden the menu quickly while the final tiers remain long-term hiring and development goals. This was a text-only question.
 
-## Question 68: making recipe-board materials distinct
+## Question 68: making recipe plate tiers distinct
 
-Accepted: **A — color and texture**. Give each tier board a distinct material color and surface texture; players should recognize the tier without relying on a text label.
+Accepted: **A — color and rim pattern**. Give each tier-colored plate a distinct plate color and rim pattern; players should recognize the tier without relying on a text label.
 
-- **A — color and texture**: give each tier a visibly different material color and grain or surface texture, without relying on a text label.
+- **A — color and rim pattern**: give each tier a visibly different plate color and rim pattern, without relying on a text label.
 - **B — shared board with tier label**: keep board appearance mostly uniform and print the tier name prominently on each tile.
 
-Recommendation accepted: A because the material carries the tier identity while texture helps distinguish tiers beyond color alone. This was a text-only question.
+Recommendation accepted: A because the plate color carries tier identity while rim patterns distinguish tiers beyond color alone. This was a text-only question.
 
-## Question 69: discovered dish art on its tier board
+## Question 69: discovered dish art on its tier-colored plate
 
-Accepted: **A — full-color dish illustration**. Show the recognizable prepared dish in color against the tier-material board; undiscovered dishes remain engraved silhouettes.
+Accepted: **A — full-color dish illustration**. Show the recognizable prepared dish in color against the tier-colored plate; undiscovered dishes remain dish silhouettes.
 
-- **A — full-color dish illustration**: show the recognizable prepared dish in color against the tier-material board; keep undiscovered dishes as engraved silhouettes.
+- **A — full-color dish illustration**: show the recognizable prepared dish in color against the tier-colored plate; keep undiscovered dishes as dish silhouettes.
 - **B — engraved dish relief**: reveal the recognizable dish as a detailed engraving in the board material, without separate food colors.
 
 Recommendation accepted: A because colorful plated food makes the recipe collection appetizing and gives a clear visual payoff when a silhouette is discovered. This was a text-only question.
@@ -716,11 +718,11 @@ Accepted: **B — independent within each tier**. Recipe price and preparation t
 
 Recommendation accepted: B because it supports varied restaurant strategies while tier price bands already make progression clear. This was a text-only question.
 
-## Question 73: quality-tier pacing for new expedition catches
+## Question 73: plate-tier pacing for new expedition catches
 
-Accepted: **A — tier progression**. As expeditions progress, newly caught creatures unlock recipes in tier order, moving from Wood toward Gold. Each expedition still guarantees a new catch until the collection is complete; the exact point when the available tier advances remains open.
+Accepted: **A — tier progression**. As expeditions progress, newly caught creatures unlock recipes in tier order, moving from White toward Black. Each expedition still guarantees a new catch until the collection is complete; the exact point when the available tier advances remains open.
 
-- **A — tier progression**: reveal recipes in tier order, beginning with Wood and moving to higher tiers as expedition progress advances.
+- **A — tier progression**: reveal recipes in tier order, beginning with White and moving to higher tiers as expedition progress advances.
 - **B — mixed-tier discoveries**: any expedition may reveal a recipe from any undiscovered tier, including one the restaurant's chefs cannot yet cook.
 
 Recommendation accepted: A because recipe discoveries stay aligned with chef progression while every expedition still guarantees a new catch. The reward remains unknown before departure. This was a text-only question.
@@ -781,9 +783,9 @@ Recommendation accepted: A because it communicates the unlock without adding ano
 
 ## Question 80: information in the tier-unlock notice
 
-Accepted: **A — tier identity only**. The inline notice shows the tier name and its material-board icon, with a short note that recipes from the tier can now appear on expeditions.
+Accepted: **A — tier identity only**. The inline notice shows the tier name and its colored-plate icon, with a short note that recipes from the tier can now appear on expeditions.
 
-- **A — tier identity only**: show the tier name and its material-board icon, with a short note that its recipes can now be found on expeditions.
+- **A — tier identity only**: show the tier name and its colored-plate icon, with a short note that its recipes can now be found on expeditions.
 - **B — collection preview**: also show the newly available recipe silhouettes in the notice.
 
 Recommendation accepted: A because it makes the progression legible while leaving the collection itself as the place to browse recipes. This was a text-only question.
@@ -1951,7 +1953,7 @@ The user supplied eighteen browser comments on the PR preview. These directions 
 
 - **Clearance confirmation:** keep the title, patch preview, Cancel and Clear carrying the coin cost. Remove patch dimensions, expansion/panel numbers, a separate price row, explanatory copy, permanence notice and the header close X. Cancel is the sole visible dismissal action; system Back also cancels and outside taps leave the card open. An unaffordable Clear button is greyed out with its price retained, without a shortage explanation or example balance. Clearing remains permanent, affects capacity/customer arrivals and can be purchased in live or edit mode. Proposed entrance is 220 ms; Cancel exits over 160 ms, the patch outline clears over 100 ms, and local debris fades over 350 ms after an immediate clear-state change.
 - **Dock composition:** submarine and Workshop together occupy 3 × 3 floor cells. Put Workshop to the submarine’s right so taller cartoon hut artwork can extend upward without covering it. Keep separate marked touch targets. Locked landmarks are covered with patchwork rags containing small peek openings instead of showing faded complete art or a Future access instruction. Locked targets are unavailable. Proposed unlock reveals them with a local 240 ms covering fade; reduced motion reveals directly. The same renderer must update the isolated dock page, full floor plan and restaurant states. Exact route requirements and approach remain open.
-- **Recipe materials:** remove visible Wood and other tier names from recipe tiles and the fixed details panel. Their material board conveys the tier: wood grain for Wood recipes and distinct metal textures for other tiers. Preserve tier requirements and eligibility in accessible descriptions; textures must be distinguishable beyond color. The picker header shows level without a Wood chef suffix, and catalog order remains unchanged without visible group headings. Current/inspected outlines, NEW clearing and Prepare semantics remain unchanged. Details content and board material crossfade together over 140 ms; the catalog does not move when a tile is inspected.
+- **Recipe plate colors:** remove visible White and other tier names from recipe tiles and the fixed details panel. Their colored plate conveys the tier: White, Yellow, Red, Blue and Black plates with distinct rim patterns. Preserve tier requirements and eligibility in accessible descriptions; rim patterns must be distinguishable beyond color. The picker header shows level without a White chef suffix, and catalog order remains unchanged without visible group headings. Current/inspected outlines, NEW clearing and Prepare semantics remain unchanged. Details content and plate artwork crossfade together over 140 ms; the catalog does not move when a tile is inspected.
 - **Selected editor layer:** show People, Layout or Floor beside its icon only when that layer is selected. Keep the name visible when its tray is collapsed; unselected layers remain icon-only with accessible names. Changing layer moves the title to the new selection and opens its content. Proposed title/outline crossfade is 140 ms; tray height and the stack’s position change together over 200 ms, with direct state changes under reduced motion.
 - **Roster tray:** replace the fullscreen roster with a paginated bottom tray over the visible restaurant. Two chef profiles appear per page with portrait, name and assignment state; the isolated fixture has four chefs to expose two pages. Profiles are draggable targets; tapping one opens level and stats in its separate popup. Previous/Next controls have accessible names and at least 44 × 44 px targets. Keep current/max capacity and Job applicants navigation. Closing the tray preserves restaurant mode and camera position. Proposed tray entrance is 200 ms, exit 160 ms and page-content crossfade 160 ms. After 8 px of movement, the source fades over 120 ms and a portrait drag ghost follows the pointer directly; a valid-target outline appears immediately. The wireframe previews a neutral assigned footprint only after a valid drop on the visible cleared starter floor, retaining the tray. Invalid or cancelled previews remove the ghost immediately. A 160 ms invalid-drop snap-back is a proposed future game effect, with direct restoration under reduced motion. The wireframe does not implement real adjacency, occupancy or belt-connection validation.
 - **Applicant resumes:** show one paper resume at a time with a varied portrait, occupation/background, strengths, growth, maximum level, reachable quality and hiring cost. The user confirmed left/right gestures for browsing, with an explicit Hire button to commit the current applicant. Accessible Previous/Next controls provide the same navigation alongside a position/remaining count; a browse swipe alone neither hires nor rejects. Hiring retains the accepted unassigned-roster outcome, removes the hired offer without replacement and keeps resume browsing open. Full capacity or insufficient coins disables Hire while browsing stays available. Refresh retains the accepted free real-time cooldown and no pinned applicant, replacing the set and returning to its first resume. Proposed resume entrance is 180 ms; its horizontal track follows the pointer with a small tilt and settles the selected page over 200 ms, without a rejection fling. Hire content crossfades over 160 ms; Refresh crossfades the set over 180 ms. Reduced motion updates content directly. Cooldown duration and countdown visibility remain deferred.
@@ -1966,12 +1968,12 @@ The user supplied twenty-one further browser comments on the PR preview. These d
 - **Stable HUD:** always reserve the credited-earnings line beside/below savings, including when no earnings are displayed. A cue such as +420 while away must appear and disappear without moving Shop. The notice still uses the proposed 120 ms entrance, roughly 2.2 s hold and 200 ms fade out; it neither pauses service nor requires collection.
 - **One roster component:** People-layer content in the isolated editor and combined restaurant editor is the shared roster tray. Make profile cards compact enough for three chef profiles in a row. Put Previous/Next carets at the left and right edges on that same row, without a visible page number; provide accessible control names and an accessible page announcement. Keep portrait, name, assignment state, tap-for-stats and drag-placement affordances. At least 44 × 44 px targets remain required. Pagination changes profile content with the proposed 160 ms crossfade while the tray stays in place; source fade, direct portrait drag ghost and valid/invalid placement-preview behavior remain as recorded above.
 - **Inventory pagination:** Layout and Floor also use same-row edge carets, with two choices per page in the current wireframe. Omit visible page numbers while retaining accessible page announcements and disabled end directions. Floor thumbnails keep accessible style names without visible names, Owned captions or hints. Proposed page-content crossfade is 160 ms; paging does not move the layer stack or restaurant camera.
-- **Recipe tile prices:** show the fixed coin selling price on each discovered recipe tile, both in its isolated page and the picker. Keep tier conveyed by material, current/inspected outlines and NEW behavior. Undiscovered silhouettes do not reveal or invent prices. Updated price and selection content appears directly with the tile; no count-up or compulsory wait is proposed.
+- **Recipe tile prices:** show the fixed coin selling price on each discovered recipe tile, both in its isolated page and the picker. Keep tier conveyed by plate color and rim pattern, current/inspected outlines and NEW behavior. Undiscovered silhouettes do not reveal or invent prices. Updated price and selection content appears directly with the tile; no count-up or compulsory wait is proposed.
 - **Applicant and firing copy:** remove Back to staff from applicant popups because the header X already closes them. X and system Back return to the originating roster or editor view without changing a candidate. Left/right gestures still browse and an explicit Hire commits. Remove the separate no-refund sentence from firing confirmation while keeping the named permanent-removal choice and the accepted no-refund rule.
 - **Shop catalog:** combine essentials, rotating goods and floor-style offers into one catalog without visible section headings. Remove the wireframe implementation note. Purchase targets show the coin price without a visible Buy word; retain accessible Buy plus item names. Essentials remain unlimited, rotating quantities still decrement, styles remain one-time unlocks, and owned/unaffordable states retain their prior meanings. Proposed press feedback is 70 ms; quantity and state changes happen immediately with short 140–180 ms emphasis.
 - **Shared paper page:** Shop and Workshop are paper pages over the actual originating restaurant. Put a curled corner at the upper-right that exposes the restaurant beneath and acts as Return to Restaurant. This replaces the wide Shop return button and Workshop Sushi Bar doorway. Returning preserves live/edit mode, layer/tray state and exact camera position; Workshop no longer recenters the camera. Expedition preparation/results still use their existing recentering rule. Keep an accessible return name and a target of at least 44 × 44 px. The wireframe implements curl growth from 48 px to 72 px over 160 ms on hover or press, restores the restaurant directly on activation and returns focus to the Shop or Workshop opener without scrolling the floor. A 200 ms paper exit fade is proposed for later polish; reduced motion restores directly, and navigation applies on input rather than waiting for any fade. The shared paper-page review must update both Shop and Workshop.
 - **Pause and early return:** remove Expedition preserved and the explanatory paragraph from Pause. Keep the Paused title, Resume and Return early, with the actions side by side. Early return has one short sentence about retained rewards and the missing completion bonus rather than several paragraphs. Retain the accepted unfinished-catch and recharge consequences in the game rules. Proposed popup entrance stays 220 ms with a 160 ms scrim; changing from Pause to confirmation crossfades over 180 ms.
 - **Resume cue:** show only the countdown numeral and Returning to ship… in the cue. Remove Resuming expedition, Scene remains frozen during countdown, Frozen scene and Paused · no steering copy. The saved expedition still stays frozen until the countdown completes and still consumes the opening touch. Proposed numeral transition is a 100 ms crossfade without zoom; exact countdown duration remains open.
-- **Recipe award material:** remove the visible Chef requirement row. Convey required chef quality through the recipe roll/board material, using copper for the Eel fixture, and preserve the tier in an accessible description. Continue showing dish name, fixed selling price and base preparation time. The award does not clear NEW or earn an already-retained reward. Proposed card entrance remains 220 ms and artwork/material reveal 180 ms.
+- **Recipe award plate:** remove the visible Chef requirement row. Convey required chef plate tier through the recipe colored plate and rim pattern, using the red plate for the Eel fixture, and preserve the tier in an accessible description. Continue showing dish name, fixed selling price and base preparation time. The award does not clear NEW or earn an already-retained reward. Proposed card entrance remains 220 ms and dish/plate reveal 180 ms.
 
 The library now has **56 examples and thirteen shared-component pages**, including the paper page. All designs remain review drafts; these comments authorize revisions and do not imply screen approval. Animation values remain proposed tuning, with direct or short-fade equivalents under reduced motion. Navigation and state changes are presentation fixtures rather than game simulation, economy, clocks or save behavior.

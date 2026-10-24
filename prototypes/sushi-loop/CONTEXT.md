@@ -29,7 +29,7 @@ A single-cell seating position facing one adjacent belt tile, from which a seate
 _Avoid_: Table when referring to an individual belt-side seat
 
 **Dish**:
-A prepared food item carried on a plate and available for a customer to take from the belt.
+A prepared food item served on a plate whose color and rim pattern identify its recipe tier, available for a customer to take from the belt.
 _Avoid_: Recipe when referring to an individual serving
 
 **Recipe**:
@@ -37,7 +37,7 @@ A type of dish that a chef can prepare.
 _Avoid_: Plate when referring to a food type
 
 **Recipe tile**:
-A recipe-picker entry rendered as a board made from its quality tier's material. An undiscovered dish appears as an engraved silhouette on its tier board.
+A recipe-picker card showing a dish on its tier-colored plate with a distinct rim pattern; an undiscovered recipe uses an unidentified dish silhouette on that plate.
 _Avoid_: Grid cell, generic card
 
 **Prepare**:
@@ -125,15 +125,15 @@ The edit layer containing floor tiles and their appearance, presented as a pagin
 _Avoid_: Layout layer
 
 **Chef level**:
-A chef's development rank advanced through upgrade investment. Reaching designated levels unlocks a whole recipe quality tier for that chef.
+A chef's development rank advanced through upgrade investment. Reaching designated levels unlocks a whole recipe plate tier for that chef.
 _Avoid_: Chef speed, dish quality
 
-**Quality tier**:
-A named recipe-quality band in the order Wood, Steel, Copper, Silver, Gold. Each tier has a distinct board material color and texture; shared starting unlock thresholds are Wood 1, Steel 3, Copper 5, Silver 8, and Gold 12.
-_Avoid_: Fine-grained grade number
+**Plate tier**:
+A recipe's ordered price and chef-eligibility category: White, Yellow, Red, Blue or Black, recognized by its plate color and distinct rim pattern.
+_Avoid_: Material tier, metal tier, fine-grained quality grade
 
 **Recipe tier**:
-The minimum chef quality tier required to prepare a discovered recipe. A chef can prepare recipes at or below the highest tier they have unlocked.
+The plate tier of a recipe, which determines its price band and the minimum chef capability needed to prepare it.
 _Avoid_: Individual recipe level, dish quality number
 
 **Chef assignment**:
@@ -153,7 +153,7 @@ A prospective chef's profile, exposing their predefined strengths, growth speed,
 _Avoid_: Hired staff profile
 
 **Capability ceiling**:
-The maximum chef level established by a chef's predefined attributes. A chef cannot unlock a quality tier whose shared level threshold is above this ceiling.
+The maximum chef level established by a chef's predefined attributes. A chef cannot unlock a plate tier whose shared level threshold is above this ceiling.
 _Avoid_: Current chef level
 
 **Staff capacity**:
@@ -168,12 +168,12 @@ _Avoid_: Fullness meter, departure timer
 The positive visual reaction replacing a preference bubble when the customer receives their preferred dish.
 _Avoid_: Fullness progress bar
 
-**Chef quality tier**:
+**Chef plate tier**:
 A chef's highest cooking-capability tier, unlocked when they reach its designated level threshold.
 _Avoid_: Fine-grained quality grade
 
 **Growth**:
-The cooking-speed improvement a chef gains per level-up, as determined by predefined attributes; designated chef levels unlock higher recipe quality tiers.
+The cooking-speed improvement a chef gains per level-up, as determined by predefined attributes; designated chef levels unlock higher recipe plate tiers.
 _Avoid_: Cooking experience rate, training duration, upgrade discount
 
 **Expedition**:
