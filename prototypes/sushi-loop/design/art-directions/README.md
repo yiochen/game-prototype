@@ -1,5 +1,7 @@
 # Sushi Loop art direction
 
+> **Recipe tier amendment:** [Plate-color tiers](../../docs/plate-color-tiers.md) supersede tier-specific wood/metal recipe boards. Use shared colored ceramic plates and distinct rim patterns while retaining the approved B/maple screen composition and all unrelated world-material decisions. Historical art approvals remain evidence for their original versions.
+
 Accepted direction: colorful low-poly game art with a square-grid environment and undistorted characters. The four images below are the current references for both scenes.
 
 ## Locked revision decisions

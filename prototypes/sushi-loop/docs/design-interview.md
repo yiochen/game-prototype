@@ -1,5 +1,7 @@
 # Gameplay and control interview
 
+> **Current tier presentation:** [Plate-color tiers](./plate-color-tiers.md) replace the former material theme. Tier-related summaries below use the current color names; existing progression and pricing rules remain.
+
 This is a design discussion, not an implemented or registered game. Sushi Loop is a working name from the mockups.
 
 ## Checkpoint status
@@ -95,7 +97,7 @@ Each belt tile has at most one incoming and one outgoing connection. Open paths 
 
 ### Chef upgrades: one Level Up action
 
-Chefs use one purchased Level Up action to improve cooking speed according to the chef's predefined growth attributes. Shared level thresholds unlock whole recipe quality tiers: Wood, Steel, Copper, Silver, and Gold. A chef capped below a tier's threshold cannot reach it. This explicitly supersedes the earlier separate speed/quality upgrade purchases and fine-grained quality grades. Strategy centers on which chef to hire and develop. Quality tier gates recipe eligibility and does not modify a recipe's fixed sale price. Upgrade costs, growth curves, ceilings, and tier thresholds remain to be balanced.
+Chefs use one purchased Level Up action to improve cooking speed according to the chef's predefined growth attributes. Shared level thresholds unlock whole recipe plate tiers: White, Yellow, Red, Blue, and Black. A chef capped below a tier's threshold cannot reach it. This explicitly supersedes the earlier separate speed/quality upgrade purchases and fine-grained quality grades. Strategy centers on which chef to hire and develop. Plate tier gates recipe eligibility and does not modify a recipe's fixed sale price. Upgrade costs, growth curves, ceilings, and tier thresholds remain to be balanced.
 
 ### Customer access: real walking routes
 
@@ -197,13 +199,13 @@ The restaurant earns while the app is closed according to the actual committed s
 
 Offline earnings accumulate for the entire absence, without a time-based accrual cap or a required check-in to continue earning. Returning after a long absence may provide a large sum; progression must accommodate it. Layout improvements remain valuable because they increase future earning performance. Estimate offline earnings from the committed layout's production and customer throughput over the elapsed time, without simulating each individual visit; assume new customers continue arriving and filling reachable seats. Use each connected chef's assigned recipe, price, quality, and preparation time, preserve actual belt paths, loading points, and customer access as delivery bottlenecks, and use average preference demand to estimate how quickly dishes are taken. Restore the saved customer positions, meal progress, and belt dishes after the calculation rather than advancing each temporary state. On reopening, credit the total automatically, show the total in a top toast, and fade the toast out; animate the coin count rolling up to the new balance like a slot machine.
 
-### Recipe unlocks: restaurant-wide, gated by quality tier
+### Recipe unlocks: restaurant-wide, gated by plate tier
 
-Recipes unlock for the restaurant rather than being taught separately to each chef. Each recipe belongs to a named quality tier: Wood, Steel, Copper, Silver, or Gold. A chef may prepare an unlocked recipe when its tier is at or below the highest tier that chef has unlocked. The shared starting thresholds are Wood 1, Steel 3, Copper 5, Silver 8, and Gold 12; a chef capped below a tier's threshold cannot reach it. These values remain open to balance tuning.
+Recipes unlock for the restaurant rather than being taught separately to each chef. Each recipe belongs to a named plate tier: White, Yellow, Red, Blue, or Black. A chef may prepare an unlocked recipe when its tier is at or below the highest tier that chef has unlocked. The shared starting thresholds are White 1, Yellow 3, Red 5, Blue 8, and Black 12; a chef capped below a tier's threshold cannot reach it. These values remain open to balance tuning.
 
 ### Chef level advancement: purchased Level Up
 
-Chef development advances through purchased Level Up actions, not a separate cooking-experience track. Each action improves cooking speed according to predefined growth attributes. Reaching designated chef levels unlocks whole quality tiers and therefore more recipes. Tier thresholds and upgrade costs remain undecided.
+Chef development advances through purchased Level Up actions, not a separate cooking-experience track. Each action improves cooking speed according to predefined growth attributes. Reaching designated chef levels unlocks whole plate tiers and therefore more recipes. Tier thresholds and upgrade costs remain undecided.
 
 ### Chef lifecycle: hire, assign, unassign, or fire
 
@@ -211,21 +213,21 @@ Chefs are hired staff, not construction objects that can be sold by removing the
 
 ### Hiring: applications expose predefined chef attributes
 
-Each chef has predefined attributes that the player can learn by viewing their job application before hiring. These attributes determine strengths, growth speed, capability ceiling, highest quality tier reachable at that ceiling, and hiring cost. They differentiate candidates and make replacing limited-capability chefs with better-suited applicants meaningful. Growth, staff capacity, and application availability are resolved below; exact attribute formulas remain undecided.
+Each chef has predefined attributes that the player can learn by viewing their job application before hiring. These attributes determine strengths, growth speed, capability ceiling, highest plate tier reachable at that ceiling, and hiring cost. They differentiate candidates and make replacing limited-capability chefs with better-suited applicants meaningful. Growth, staff capacity, and application availability are resolved below; exact attribute formulas remain undecided.
 
 ### Staff capacity: proportional to workable floor space
 
 Assigned and unassigned hired chefs both count toward a staff limit. That limit grows proportionally with the restaurant's cleared workable space. Firing frees a roster slot for a new applicant; unassigning does not. Show the current and maximum staff count in both the chef panel and applicants popup. At the staff limit, the applicants popup shows the roster is full and disables Hire until the player expands or fires a chef. Capacity depends on available floor area, not the amount left empty after furniture placement. This makes expansion useful for both layouts and staff retention. The floor-area-to-capacity ratio and rounding thresholds remain undecided.
 
-### Growth and recipe eligibility: chef levels unlock quality tiers
+### Growth and recipe eligibility: chef levels unlock plate tiers
 
-Growth speed means larger cooking-speed boosts on each level-up, not cheaper upgrade costs or shorter training timers. Chef level thresholds unlock whole recipe-quality tiers, and recipes are eligible when their tier is at or below the chef's highest unlocked tier. This replaces fine-grained recipe and chef quality grades. Higher-tier chefs retain access to simpler recipes.
+Growth speed means larger cooking-speed boosts on each level-up, not cheaper upgrade costs or shorter training timers. Chef level thresholds unlock whole recipe plate tiers, and recipes are eligible when their tier is at or below the chef's highest unlocked tier. This replaces fine-grained recipe and chef quality grades. Higher-tier chefs retain access to simpler recipes.
 
-Each level-up improves cooking speed through one paid Level Up action; designated level thresholds unlock quality tiers. The user explicitly confirmed replacing the earlier separate speed/quality purchase controls. Quality tier gates recipe eligibility but does not modify fixed recipe prices. Do not implement the superseded separate-upgrade model alongside the confirmed model.
+Each level-up improves cooking speed through one paid Level Up action; designated level thresholds unlock plate tiers. The user explicitly confirmed replacing the earlier separate speed/quality purchase controls. Plate tier gates recipe eligibility but does not modify fixed recipe prices. Do not implement the superseded separate-upgrade model alongside the confirmed model.
 
 ### Recipe sale value: fixed by recipe
 
-A recipe sells for its fixed price regardless of the preparing chef's quality tier. Each higher recipe tier has a higher fixed-price band than every lower tier; quality unlocks recipe eligibility, while chef speed governs production rate. Preparation time varies independently of tier and price, so a higher-tier recipe may be quicker than a lower-tier recipe and a longer recipe within a tier does not guarantee a higher price. There is no chef-quality price multiplier. Exact recipe prices remain a balance decision.
+A recipe sells for its fixed price regardless of the preparing chef's plate tier. Each higher recipe tier has a higher fixed-price band than every lower tier; quality unlocks recipe eligibility, while chef speed governs production rate. Preparation time varies independently of tier and price, so a higher-tier recipe may be quicker than a lower-tier recipe and a longer recipe within a tier does not guarantee a higher price. There is no chef-quality price multiplier. Exact recipe prices remain a balance decision.
 
 ### Recruitment: changing applications, retained until refresh
 
@@ -241,7 +243,7 @@ Refreshing applications is free and becomes available after a cooldown. Tapping 
 
 ### Chef capability ceiling: maximum chef level
 
-A chef's predefined capability ceiling is their maximum chef level. At that level, further level-ups stop, so their final cooking speed and highest unlocked quality tier derive from starting attributes, per-level growth, and shared tier thresholds. A chef capped below a tier's threshold cannot reach it. Speed and quality do not have independent purchased cap systems. Exact maximum levels and the initial tier thresholds remain balance decisions.
+A chef's predefined capability ceiling is their maximum chef level. At that level, further level-ups stop, so their final cooking speed and highest unlocked plate tier derive from starting attributes, per-level growth, and shared tier thresholds. A chef capped below a tier's threshold cannot reach it. Speed and quality do not have independent purchased cap systems. Exact maximum levels and the initial tier thresholds remain balance decisions.
 
 ### Financial feedback: no earning-rate display
 
