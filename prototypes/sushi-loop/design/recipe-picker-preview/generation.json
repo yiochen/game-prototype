@@ -1,0 +1,96 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "created_utc": "2026-10-24T04:10:34.974854+00:00",
+  "authoritative_style": "Current game continuous maple inventory board; noren is historical and not a style reference for this revision.",
+  "references": [
+    {
+      "path": "prototypes/sushi-loop/godot/review/12/wood-dock/native/phone/06-layout-final.png",
+      "sha256": "bb688ad6c6323814ee7933b75ad33de82c5839963a75dcf6e8349002889ef3b4"
+    },
+    {
+      "path": "prototypes/sushi-loop/design/inventory-tray-concepts/v5-connected-tabs/full-screen.png",
+      "sha256": "0e931231a7b4b22688d133bbbe41d42a69d79200e181a72f40b540ea6810da2b"
+    },
+    {
+      "path": "prototypes/sushi-loop/design/art-directions/restaurant-item-catalog.png",
+      "sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2"
+    }
+  ],
+  "generations": [
+    {
+      "prompt": "composition-prompt.txt",
+      "output": "raw/composition.png",
+      "output_sha256": "252349240ff504c08b6baf7974296f0568b013fd671ac0ce8e4a42c551cc3085",
+      "original_path": "/Users/yiouchen/.codex/generated_images/01a167aa-39a2-7752-9812-2f92e42b7a87/exec-2434d163-0848-41ff-a1f0-6b02afd99672.png",
+      "role": "composition reference",
+      "transparent_background": false,
+      "input_references": [
+        "prototypes/sushi-loop/godot/review/12/wood-dock/native/phone/06-layout-final.png",
+        "prototypes/sushi-loop/design/inventory-tray-concepts/v5-connected-tabs/full-screen.png",
+        "prototypes/sushi-loop/design/art-directions/restaurant-item-catalog.png"
+      ]
+    },
+    {
+      "prompt": "dishes-prompt.txt",
+      "output": "raw/dishes.png",
+      "output_sha256": "8ec43a98b706a7be769fe8c68c2dfadb59b370a8f02795ab554cb1ed039a8880",
+      "original_path": "/Users/yiouchen/.codex/generated_images/01a167aa-39a2-7752-9812-2f92e42b7a87/exec-6588f462-ba0f-4dbb-825e-c7ff3a75b41d.png",
+      "role": "superseded combined plate/food experiment; not referenced by runtime",
+      "transparent_background": true,
+      "input_references": [
+        "raw/composition.png"
+      ]
+    },
+    {
+      "prompt": "plates-prompt.txt",
+      "output": "raw/plates.png",
+      "output_sha256": "1bf1cc1b170a07519d67a148019ca4553400b978659450df7837a68ae16c9b1f",
+      "original_path": "/Users/yiouchen/.codex/generated_images/01a167aa-39a2-7752-9812-2f92e42b7a87/exec-9d1de324-6a81-42b3-a752-73d5e904310c.png",
+      "role": "runtime empty plate layer",
+      "transparent_background": true,
+      "input_references": [
+        "raw/composition.png"
+      ]
+    },
+    {
+      "prompt": "food-prompt.txt",
+      "output": "raw/food.png",
+      "output_sha256": "ee716ee546e10dbf8b022ce362e55ea1976296d154dc50eb0e1da39707bcb070",
+      "original_path": "/Users/yiouchen/.codex/generated_images/01a167aa-39a2-7752-9812-2f92e42b7a87/exec-409bcf71-694b-481d-97f5-c94eed5dc8da.png",
+      "role": "runtime sushi-only layer",
+      "transparent_background": true,
+      "input_references": [
+        "raw/composition.png"
+      ]
+    }
+  ],
+  "composition": {
+    "sprite_grid": {
+      "columns": 3,
+      "rows": 2,
+      "cell_pixels": 512
+    },
+    "plate_order": [
+      "White",
+      "Yellow",
+      "Red",
+      "Blue",
+      "Black",
+      null
+    ],
+    "food_order": [
+      "Eel roll",
+      "Tamago nigiri",
+      "Salmon nigiri",
+      "Cucumber maki",
+      "Unidentified silhouette",
+      null
+    ],
+    "html_layers": [
+      ".wr-plate",
+      ".wr-food"
+    ],
+    "source_transform": "Unmodified full original sheets; CSS samples one square cell and uniformly sizes the independent food layer.",
+    "ui_surfaces": "HTML/CSS geometry with the existing approved wood-grain and waves textures. Live labels, counts, prices and states."
+  }
+}

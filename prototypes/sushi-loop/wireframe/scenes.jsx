@@ -1,4 +1,5 @@
 import React from 'react';
+import { RecipeExperience } from './recipe-maple.jsx';
 import { Target, Icon, Money, Character } from './common.jsx';
 import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
 import { roster, chefAssigned } from './fixtures.js';
@@ -109,6 +110,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
+    case 'recipe-review': return <RecipeExperience initial={story.variant}/>;
     case 'object-review': return <ObjectReview objectId={story.objectId}/>;
     case 'world-showcase': return <WorldShowcase key={story.variant} sceneId={story.variant}/>;
     case 'projection-study': return <ProjectionStudy/>;
