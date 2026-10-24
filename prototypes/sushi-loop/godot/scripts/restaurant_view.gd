@@ -39,6 +39,8 @@ var cell := 76.0
 var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
+var recipe_shakes: Dictionary = {}
+const RecipeArt = preload("res://scripts/recipe_art.gd")
 var reduced_motion := false
 var editor_preview: Dictionary = {}
 var editor_selection_alpha := 1.0
@@ -508,7 +510,8 @@ func belt_path_point(belt: Dictionary, progress: float) -> Vector2:
 	return center + radius.rotated(radius.angle_to(end - center) * progress)
 
 func _dish(belt: Dictionary) -> void:
-	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))
+	var base := dish_base(belt)
+	_draw_recipe(str(belt.dish.recipe_id), Rect2(base-Vector2(cell*0.38,cell*0.73),Vector2.ONE*cell*0.76))
 
 func activity_tint(object: Dictionary) -> Color:
 	return Color.WHITE if object.get("active", true) else INACTIVE_TINT
@@ -526,8 +529,14 @@ func _chef(chef: Dictionary) -> void:
 
 func _chef_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	var clip := chef_clip(chef)
+	var composed: bool = chef.get("held_dish") is Dictionary and str(chef.get("recipe_id")) != "salmon_nigiri" and not (chef.get("art_id") == "chef-omar" and chef.get("recipe_id") == "cucumber_maki")
+	# Existing native clips contain their original food. Other recipe choices
+	# reuse the same character's empty-handed pose plus the shared dish layers.
+	if composed and clip in ["hold", "load"]: clip = "idle"
 	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.get("elapsed", time)))
 	sprite(str(chef.get("art_id", "chef-lena")), base, clip, str(FACING.get(chef.get("facing", "south"), "S")), seconds, pitch, activity_tint(chef))
+	if composed and chef.get("active", true):
+		_actor_recipe(chef, base, pitch, str(chef.recipe_id), true)
 	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
 		draw_circle(center, pitch * 0.10, PAPER)
@@ -544,9 +553,12 @@ func _board_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	# Front placement and blank face are modeled in the source. This fixture
 	# stays in the chef's cell and always faces the player.
 	var tint := activity_tint(chef)
+	var age: float = time-float(recipe_shakes.get(str(chef.get("id", "")), -10.0))
+	if not reduced_motion and age >= 0.0 and age < 0.3: base.x += sin(age*TAU*16.0)*pitch*0.035*(1.0-age/0.3)
 	sprite("chef-blackboard", base, "idle", "S", 0.0, pitch, tint)
 	var face: Vector2 = base + art.socket("chef-blackboard", "display_face") * pitch / art.cell_size
-	sprite(str(DISHES.get(str(chef.get("recipe_id", "salmon_nigiri")), "dish-salmon")), face, "static", "S", 0.0, pitch * 0.28, tint)
+	if not str(chef.get("recipe_id", "")).is_empty():
+		_draw_recipe(str(chef.recipe_id), Rect2(face-Vector2(pitch*0.20,pitch*0.38),Vector2.ONE*pitch*0.40), tint)
 
 func _customer(customer: Dictionary) -> void:
 	_customer_at(customer, cell_base(float(customer.x), float(customer.y)), cell)
@@ -564,7 +576,10 @@ func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Col
 	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.get("elapsed", time)))
 	# Sit/stand actions retain their native wood-stool support calibration.
 	# Passing and brief happiness move only the visual instance, never its cell.
-	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch, tint)
+	var meal: Dictionary = customer.meal_dish if customer.get("meal_dish") is Dictionary else {}
+	var composed: bool = customer.get("phase") == "eating" and not meal.is_empty() and not meal.get("recipe_id") in ["salmon_nigiri", "cucumber_maki"]
+	sprite(identity, base + customer_pose_offset(customer, pitch), "seated-wait-empty" if composed else customer_clip(customer), direction, seconds, pitch, tint)
+	if composed: _actor_recipe(customer, base + customer_pose_offset(customer, pitch), pitch, str(meal.recipe_id), false, identity)
 	# Off-stool poses use the authored empty hands. The unfinished meal stays
 	# in session state and becomes visible again in the seated eating clip.
 
@@ -695,3 +710,21 @@ func _paper_style() -> StyleBoxFlat:
 	style.shadow_color = Color(0, 0, 0, 0.2)
 	style.shadow_size = 10
 	return style
+
+func _draw_recipe(identity: String, bounds: Rect2, tint := Color.WHITE) -> void:
+	if _record_only or _collect_ground_shadows: return
+	var recipe: Dictionary = state.get("recipes", {}).get(identity, {"tier":"White", "food_cell":3 if identity == "cucumber_maki" else 2})
+	RecipeArt.draw_dish(self, recipe, bounds, false, tint)
+
+func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: String, loading: bool, identity := "") -> void:
+	if _record_only or _collect_ground_shadows: return
+	if identity.is_empty(): identity = str(actor.get("art_id", "chef-lena"))
+	var facing := str(actor.get("facing", "south"))
+	var direction := str(FACING.get(facing, "S"))
+	var hands := (art.socket(identity,"hand_left",direction)+art.socket(identity,"hand_right",direction))*0.5
+	var center: Vector2 = base+hands*pitch/art.cell_size
+	if loading and actor.get("visual_phase") == "load":
+		var seconds := float(actor.get("loading_elapsed", 0))
+		var t := clampf(seconds / maxf(0.001,float(state.get("loading_seconds", 1.0))),0,1)
+		center = center.lerp(base+DIRECTIONS.get(facing,Vector2.UP)*pitch-Vector2(0,pitch*0.38), t)
+	_draw_recipe(recipe,Rect2(center-Vector2(pitch*0.27,pitch*0.40),Vector2.ONE*pitch*0.54))

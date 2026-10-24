@@ -1,5 +1,8 @@
 extends Control
 
+const RecipePicker = preload("res://scripts/recipe_picker.gd")
+var recipe_ui: RecipePicker
+
 const Session = preload("res://scripts/session.gd")
 const Persistence = preload("res://scripts/save_store.gd")
 const RestaurantView = preload("res://scripts/restaurant_view.gd")
@@ -141,6 +144,11 @@ func _ready() -> void:
 	editor_ui.item_pointer.connect(_inventory_pointer)
 	editor_ui.item_armed.connect(_arm_item)
 	editor_ui.belt_pointer.connect(_belt_pointer)
+	editor_ui.recipes_requested.connect(_open_recipes)
+	recipe_ui = RecipePicker.new()
+	add_child(recipe_ui)
+	recipe_ui.inspected.connect(_inspect_recipe)
+	recipe_ui.prepared.connect(_prepare_recipe)
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
 	if show_editor_gallery:
 		session.command({"type": "set_mode", "mode": "edit"})
@@ -346,6 +354,7 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	# Editor controls share the same contained portrait and root input coordinates.
 	editor_ui.size = size
 	editor_ui.set_state(session.snapshot(), area)
+	if recipe_ui != null: recipe_ui.layout(world.portrait, maxf(top_inset, world.diagnostic_header_height))
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = area.position + Vector2(34 * unit, area.size.y * 0.28)
@@ -396,6 +405,7 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 
 func _refresh() -> void:
 	world.state = session.snapshot()
+	if recipe_ui != null: recipe_ui.refresh(world.state)
 	var coins_text := str(int(world.state.coins))
 	if money.get_meta("full_balance", "") != coins_text:
 		money.text = coins_text
@@ -579,7 +589,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if session == null or show_gallery or save_blocked or pointer != -1: return
+	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible: return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
 	if not world.hud_area().has_point(local): return
@@ -590,6 +600,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	gesture_grab_offset = Vector2.ZERO
 	gesture_kind = "pan"
 	gesture_started_in_tray = false
+	if session.snapshot().get("mode", "live") == "live":
+		var hit := _object_at(local)
+		tap_object = str(hit.id) if hit.get("kind") == "chef" else ""
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
 		if armed_item.is_empty(): _arm_long_press(local)
@@ -661,7 +674,8 @@ func _input(event: InputEvent) -> void:
 			elif gesture_kind == "belt_path" and not gesture_dragged:
 				if _floor_drop(local): _editor_command({"type": "editor_belt_extend", "x": gesture_cell.x, "y": gesture_cell.y})
 			elif gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
-				_editor_command({"type": "editor_select", "id": tap_object})
+				if session.snapshot().mode == "live": _open_recipes(tap_object)
+				else: _editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
 				if _floor_drop(local):
 					var coordinate := _placement_cell_at(local)
@@ -799,6 +813,9 @@ func _notification(what: int) -> void:
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and recipe_ui != null and recipe_ui.visible:
+			recipe_ui.dismiss()
+			return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and editor_ui != null and editor_ui.inspection.visible:
 			editor_ui.close_inspection()
 			return
@@ -816,6 +833,10 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and recipe_ui != null and recipe_ui.visible:
+		recipe_ui.dismiss()
+		get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed("ui_cancel") and session != null:
 		if not session.snapshot().editor.get("belt_path", []).is_empty():
 			_editor_command({"type": "editor_belt_end"})
@@ -885,3 +906,27 @@ func _retry_restore() -> void:
 	recovery = null
 	_refresh()
 	save_now()
+
+func _open_recipes(identity: String) -> void:
+	if save_blocked: return
+	_cancel_gesture()
+	recipe_ui.layout(world.portrait, maxf(_display_safe_top(), world.diagnostic_header_height))
+	recipe_ui.open(session.snapshot(), identity)
+
+func _inspect_recipe(identity: String, recipe_id: String) -> void:
+	if save_blocked: return
+	var result := session.command({"type":"inspect_recipe", "chef_id":identity, "recipe_id":recipe_id})
+	if result.get("ok", false):
+		if not save_now(): _block_edit_save()
+
+func _prepare_recipe(identity: String, recipe_id: String) -> void:
+	if save_blocked: return
+	var result := session.command({"type":"prepare_recipe", "chef_id":identity, "recipe_id":recipe_id})
+	if not result.get("ok", false): return
+	if not save_now():
+		_block_edit_save()
+		return
+	recipe_ui.dismiss()
+	if result.get("changed", false): world.recipe_shakes[identity] = world.time
+	audio.play_cue("click")
+	_refresh()
