@@ -6,8 +6,10 @@ Target: **Godot Android**, as confirmed by the user. Implement **one ticket at a
 | --- | --- | --- |
 | [#10 Operating starter restaurant](https://github.com/yiochen/game-prototype/issues/10) | Verified by the user; PR #32 merged into main, issue closed | [Current review and APK](10/catalog-integration/README.md); [historical v0.1.1 pass](10/README.md) |
 | [#11 Customer visits](https://github.com/yiochen/game-prototype/issues/11) | Verified by the user; PR #35 merged into main, issue closed | [Customer-visit review](11/README.md) |
-| [#12 Restaurant editor](https://github.com/yiochen/game-prototype/issues/12) | Implemented with catalog-derived ImageGen UI and a verified Android review build; awaiting user verification before #13 | [Review and APK](12/README.md) |
+| [#12 Restaurant editor](https://github.com/yiochen/game-prototype/issues/12) | Verified by the user; issue closed | [Review and APK](12/README.md) |
+| [#13 Conveyor routes](https://github.com/yiochen/game-prototype/issues/13) | PR #39 merged at user request, issue closed | [Review and APK](13/README.md) |
+| [#14 Customer layout recovery](https://github.com/yiochen/game-prototype/issues/14) | Verified by the user; PR #40 approved for merge and issue closure | [Current review and APK](14/empty-hands/README.md); [recovery history](14/README.md) |
 
-Later tickets remain pending until the user verifies the preceding slice and asks to proceed. Public issue closure occurs through the implementation PR when merged.
+Later tickets remain pending until the user verifies the preceding slice and asks to proceed. Close an implementation issue after user verification or an explicit instruction to close it.
 
 Future preference already confirmed by the user for #22: retain steering adjustments inside the safe passage while the current carries the submarine. No #22 implementation has started.

@@ -170,9 +170,10 @@ func _customer_protection() -> void:
 	if game.snapshot().customers.is_empty():
 		return
 	var visitor: Dictionary = game.snapshot().customers[0]
-	_reject_unchanged(game, {"type": "editor_remove", "id": visitor.seat_id}, "customer_busy")
-	_reject_unchanged(game, {"type": "editor_move", "id": visitor.seat_id, "x": 0, "y": 11}, "customer_busy")
-	_reject_unchanged(game, {"type": "editor_place", "inventory_id": "crate-wood", "x": int(round(visitor.x)), "y": int(round(visitor.y))})
+	_check(game.command({"type": "editor_move", "id": visitor.seat_id, "x": 0, "y": 11}).ok, "#14 moves occupied or reserved seating while retaining the visitor")
+	_check(game.command({"type": "editor_remove", "id": visitor.seat_id}).ok and game.snapshot().customers[0].phase == "standing", "#14 returns seating and preserves its standing visitor")
+	var standing: Dictionary = game.snapshot().customers[0]
+	_check(game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": int(round(standing.x)), "y": int(round(standing.y))}).ok, "#14 displaces a standing visitor safely when another object is placed")
 	var walking := Session.new_session(41)
 	walking.advance(0.85)
 	_edit(walking)
@@ -189,7 +190,7 @@ func _customer_protection() -> void:
 			break
 	_check(blocked_a_future_cell, "a paused visitor no longer reserves every tile of their remaining aisle path")
 	var before: Array = _customer_visit_values(game.save_data().state.customers)
-	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 0, "y": 11}).ok and _same(before, _customer_visit_values(game.save_data().state.customers)), "a safe edit leaves every customer's preference, meal, position and visit progress intact while navigation may replan")
+	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 6, "y": 12}).ok and _same(before, _customer_visit_values(game.save_data().state.customers)), "a safe edit leaves every customer's preference, meal, position and visit progress intact while navigation may replan")
 	_reopen(game)
 	game.command({"type": "set_mode", "mode": "live"})
 	_check(not game.advance(20.0).is_empty(), "Live service resumes normally with customer-safe changed arrangements")

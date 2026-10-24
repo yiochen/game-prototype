@@ -12,6 +12,8 @@ var wood_font: Font
 var path_count: Label
 var path_exit: Button
 var path_targets: Array[Button] = []
+var customer_targets: Array[Button] = []
+var pickup_active := false
 
 class Backdrop extends Control:
 	var owner_ui
@@ -90,14 +92,50 @@ func set_belt_targets(targets: Array) -> void:
 		button.accessibility_name = ("Close conveyor loop" if target.kind == "close" else "Reuse conveyor" if target.kind == "reuse" else "Place conveyor") + " at column %s, row %s" % [int(target.x) + 1, int(target.y) + 1]
 		button.accessibility_description = "No belt tiles left. Existing belts and Inventory remain available." if target.reason == "no_belt_tiles" else "Uses one inventory tile." if target.valid and target.kind == "new" else "Uses no inventory tiles." if target.valid else "This neighboring cell is unavailable."
 
+func set_customer_targets(targets: Array) -> void:
+	while customer_targets.size() < targets.size():
+		var button := Button.new()
+		# Touch continues through the registered sprite-pixel picker. These
+		# floor anchors also expose selection to keyboard/accessibility users.
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.toggle_mode = true
+		for treatment in ["normal", "hover", "pressed", "disabled"]: button.add_theme_stylebox_override(treatment, StyleBoxEmpty.new())
+		var focus := StyleBoxFlat.new()
+		focus.bg_color = Color.TRANSPARENT
+		focus.border_color = INK
+		focus.set_border_width_all(2)
+		button.add_theme_stylebox_override("focus", focus)
+		button.pressed.connect(func(): command_requested.emit({"type": "editor_select", "id": button.get_meta("customer_id")}))
+		add_child(button)
+		customer_targets.append(button)
+	for index in range(customer_targets.size()):
+		var button := customer_targets[index]
+		button.visible = index < targets.size() and visible
+		if not button.visible: continue
+		var target: Dictionary = targets[index]
+		button.set_meta("customer_id", target.id)
+		button.position = target.bounds.position
+		button.size = target.bounds.size
+		button.button_pressed = state.editor.selected_id == target.id
+		button.accessibility_name = "Select %s to move" % target.name
+		button.accessibility_description = "Select, then drag the guest to clear floor or a free seat. Their visit and unfinished meal are preserved."
+
 func _layout_context() -> void:
 	super._layout_context()
 	if path_exit == null: return
+	if pickup_active:
+		for control in [context_bubble, context_pointer, rotate, remove, path_exit, path_count]: control.hide()
+		return
 	var active: bool = not state.get("editor", {}).get("belt_path", []).is_empty()
 	path_exit.visible = active
 	path_count.visible = active
 	context_pointer.visible = not active
 	if not active:
+		if state.get("customers", []).any(func(guest): return guest.id == state.get("editor", {}).get("selected_id", "")):
+			context_bubble.hide()
+			rotate.hide()
+			remove.hide()
+			return
 		context_bubble.accessibility_name = "Selected object actions"
 		rotate.accessibility_name = "Rotate selected object"
 		remove.accessibility_name = "Return selected object to inventory"

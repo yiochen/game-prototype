@@ -312,7 +312,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(normal_variant["kind"], "normal")
         for scene, issue, label in (("customer-visits", 11, "Customer Visits"),
                                     ("restaurant-editor", 12, "Restaurant Editor"),
-                                    ("conveyor-routes", 13, "Conveyor Routes")):
+                                    ("conveyor-routes", 13, "Conveyor Routes"),
+                                    ("customer-rescue", 14, "Customer Rescue")):
             with self.subTest(scene=scene):
                 review, variant = build.resolve_branding(self.branding, review_scene=scene)
                 review_source, staged, _ = build.stage_build(self.project, self.root / scene, review)
