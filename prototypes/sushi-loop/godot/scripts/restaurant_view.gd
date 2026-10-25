@@ -377,7 +377,7 @@ func _editor_ghost() -> void:
 			if guest.seat_id == object.get("id") and (guest.phase in ["waiting", "eating"] or guest.visual_phase == "stand-up"):
 				_customer_at(guest, base, cell, tint)
 	elif object.get("kind") == "belt" and object.get("dish") is Dictionary:
-		sprite(DISHES.get(object.dish.recipe_id, "dish-salmon"), base + dish_base(object) - cell_base(float(object.x), float(object.y)), "static", "S", 0.0, -1.0, tint)
+		_draw_recipe_centered(str(object.dish.recipe_id), base + dish_base(object) - cell_base(float(object.x), float(object.y)), cell*0.76, tint)
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
@@ -511,7 +511,7 @@ func belt_path_point(belt: Dictionary, progress: float) -> Vector2:
 
 func _dish(belt: Dictionary) -> void:
 	var base := dish_base(belt)
-	_draw_recipe(str(belt.dish.recipe_id), Rect2(base-Vector2(cell*0.38,cell*0.73),Vector2.ONE*cell*0.76))
+	_draw_recipe_centered(str(belt.dish.recipe_id),base,cell*0.76)
 
 func activity_tint(object: Dictionary) -> Color:
 	return Color.WHITE if object.get("active", true) else INACTIVE_TINT
@@ -558,7 +558,7 @@ func _board_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	sprite("chef-blackboard", base, "idle", "S", 0.0, pitch, tint)
 	var face: Vector2 = base + art.socket("chef-blackboard", "display_face") * pitch / art.cell_size
 	if not str(chef.get("recipe_id", "")).is_empty():
-		_draw_recipe(str(chef.recipe_id), Rect2(face-Vector2(pitch*0.20,pitch*0.38),Vector2.ONE*pitch*0.40), tint)
+		_draw_recipe_centered(str(chef.recipe_id),face,pitch*0.40,tint)
 
 func _customer(customer: Dictionary) -> void:
 	_customer_at(customer, cell_base(float(customer.x), float(customer.y)), cell)
@@ -728,3 +728,7 @@ func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: Strin
 		var t := clampf(seconds / maxf(0.001,float(state.get("loading_seconds", 1.0))),0,1)
 		center = center.lerp(base+DIRECTIONS.get(facing,Vector2.UP)*pitch-Vector2(0,pitch*0.38), t)
 	_draw_recipe(recipe,Rect2(center-Vector2(pitch*0.27,pitch*0.40),Vector2.ONE*pitch*0.54))
+
+func _draw_recipe_centered(identity: String, center: Vector2, edge: float, tint := Color.WHITE) -> void:
+	var recipe: Dictionary = state.get("recipes",{}).get(identity,{"tier":"White","food_cell":2})
+	_draw_recipe(identity,Rect2(center-RecipeArt.plate_center(recipe)*edge,Vector2.ONE*edge),tint)

@@ -21,6 +21,18 @@ class PhotoFrame extends Control:
 	func _draw() -> void:
 		PhotoArt.draw_photo(self, Rect2(Vector2.ZERO, size))
 
+
+class AssignedStamp extends Control:
+	const PhotoArt = preload("res://scripts/recipe_art.gd")
+	func _draw() -> void:
+		PhotoArt.draw_assigned_stamp(self,Rect2(Vector2.ZERO,size))
+
+class PhotoPortrait extends Control:
+	const PhotoArt = preload("res://scripts/recipe_art.gd")
+	var entry: Dictionary = {}
+	func _draw() -> void:
+		PhotoArt.draw_photo_headshot(self,str(entry.get("art_id","chef-lena")),Rect2(Vector2.ZERO,size))
+
 class Backdrop extends Control:
 	var owner_ui
 	func _draw() -> void:
@@ -258,10 +270,17 @@ func _rebuild_cards() -> void:
 			photo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			card.add_child(photo)
 			card.set_meta("photo_frame", photo)
-		var preview := ItemPreview.new()
-		preview.trim_goods = true
-		preview.art = art
-		preview.entry = item
+		var preview: Control
+		if layer == "people":
+			var profile := PhotoPortrait.new()
+			profile.entry = item
+			preview = profile
+		else:
+			var goods := ItemPreview.new()
+			goods.trim_goods = true
+			goods.art = art
+			goods.entry = item
+			preview = goods
 		preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		card.add_child(preview)
 		var caption := _label(_inventory_caption(item))
@@ -276,6 +295,15 @@ func _rebuild_cards() -> void:
 		card.set_meta("name_label",caption)
 		card.set_meta("stock_badge",badge)
 		card.set_meta("stock",stock)
+		if layer == "people":
+			var assigned := AssignedStamp.new()
+			assigned.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			card.add_child(assigned)
+			var stamp_text := _label("Assigned")
+			stamp_text.add_theme_color_override("font_color",Color("b83d2d"))
+			assigned.add_child(stamp_text)
+			card.set_meta("assigned_stamp",assigned)
+			card.set_meta("assigned_text",stamp_text)
 		card.gui_input.connect(func(event: InputEvent):
 			_tray_input(event)
 			item_pointer.emit(item,event)
@@ -352,8 +380,8 @@ func _layout_goods(layer: String) -> void:
 			photo.size = card.size
 			photo.modulate = Color(1.0, 0.96, 0.88) if card.button_pressed else Color.WHITE
 			photo.queue_redraw()
-			preview.position = Vector2(48, 18)*unit
-			preview.size = Vector2(108, 130)*unit
+			preview.position = Vector2(22, 8)*unit
+			preview.size = Vector2(160, 142)*unit
 		preview.modulate.a = 0.4 if card.disabled else 1.0
 		var caption: Label = card.get_meta("name_label")
 		caption.visible = true
@@ -366,7 +394,18 @@ func _layout_goods(layer: String) -> void:
 		badge.add_theme_stylebox_override("panel",wood.style("quantity-badge",unit))
 		badge.modulate.a = 0.7 if card.disabled else 1.0
 		var stock: Label = card.get_meta("stock")
-		stock.visible = true
+		stock.visible = layer != "people"
+		if layer == "people":
+			var assigned: Control = card.get_meta("assigned_stamp")
+			assigned.visible = bool(card.get_meta("entry").get("assigned",false))
+			assigned.position = Vector2(44,182)*unit
+			assigned.size = Vector2(116,26)*unit
+			assigned.pivot_offset = assigned.size*0.5
+			assigned.rotation = -0.04
+			assigned.queue_redraw()
+			var stamp_text: Label = card.get_meta("assigned_text")
+			if wood_font != null: stamp_text.add_theme_font_override("font",wood_font)
+			UISkin.layout_caption(stamp_text,Rect2(Vector2.ZERO,assigned.size),maxi(1,int(18*unit)))
 		stock.add_theme_color_override("font_color",CREAM if layer == "layout" else WOOD_INK)
 		if wood_font != null: stock.add_theme_font_override("font",wood_font)
 		UISkin.layout_caption(stock,Rect2(badge.position,badge.size) if layer == "layout" else Rect2(0,185*unit,width*unit,24*unit),maxi(1,int((24 if layer == "layout" else 19)*unit)))

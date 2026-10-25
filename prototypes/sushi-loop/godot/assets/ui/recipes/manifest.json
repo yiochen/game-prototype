@@ -87,44 +87,48 @@
         1024
       ]
     },
-    "assets/ui/chef-headshots/instant-photo.png": {
-      "source": "assets/ui/people-photos/v1/raw/instant-photo.png",
-      "sha256": "f4b00cfa2be80985af747a6b15c7475763adc74ef1b4a0092834450434e4ca06",
+    "assets/ui/chef-headshots/photo-outer.png": {
+      "source": "assets/ui/people-photos/v2/raw/outer-paper.png",
+      "sha256": "162532ac4fc6e677261f514b79dfeebb198f55a39e7a94b42ce2d560db8b62b4",
       "size": [
         1224,
         1285
       ]
+    },
+    "assets/ui/chef-headshots/photo-inner.png": {
+      "source": "assets/ui/people-photos/v2/raw/inner-picture.png",
+      "sha256": "17564443fb60cb64321b010bd1aeaaa213bb404fa17c9c481f3a43a53db64004",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    "assets/ui/chef-headshots/assigned-stamp.png": {
+      "source": "assets/ui/people-photos/v2/raw/assigned-stamp.png",
+      "sha256": "135f47f9ebfd09f5f71dacb18ad3bdad77f368b2192ac971fa5dfdc99207ffd0",
+      "size": [
+        2172,
+        724
+      ]
     }
   },
   "calibration": {
-    "photo_source": [
-      128,
-      104,
-      980,
-      1110
-    ],
     "photo_control": [
       204,
       214
     ],
-    "photo_resize": "uniform fit of documented source rectangle",
+    "photo_resize": "Independent outer paper and inner picture; uniform fit; headshot cropped at chest and bottom-aligned to inner content edge",
     "photo_headshot": [
-      48,
-      18,
-      108,
-      130
+      22,
+      8,
+      160,
+      142
     ],
     "name": [
       0,
       154,
       204,
       30
-    ],
-    "status": [
-      0,
-      185,
-      204,
-      24
     ],
     "recipe_headshot_aspect": [
       25,
@@ -144,11 +148,106 @@
       0.76,
       0.76
     ],
-    "surface_family": "Existing wood-editor calibrated nine-patch exports; cream card/focus states extend approved HTML code geometry"
+    "surface_family": "Existing wood-editor calibrated nine-patch exports; cream card/focus states extend approved HTML code geometry",
+    "photo_outer_source": [
+      132,
+      103,
+      962,
+      1100
+    ],
+    "photo_inner_source": [
+      123,
+      145,
+      1008,
+      966
+    ],
+    "photo_inner_content": [
+      143,
+      165,
+      968,
+      925
+    ],
+    "world_plate_anchors": {
+      "Black": {
+        "bounds": [
+          21,
+          65,
+          491,
+          406
+        ],
+        "center": [
+          0.5,
+          0.4599609375
+        ]
+      },
+      "Blue": {
+        "bounds": [
+          30,
+          65,
+          498,
+          406
+        ],
+        "center": [
+          0.515625,
+          0.4599609375
+        ]
+      },
+      "Red": {
+        "bounds": [
+          15,
+          112,
+          483,
+          454
+        ],
+        "center": [
+          0.486328125,
+          0.552734375
+        ]
+      },
+      "White": {
+        "bounds": [
+          31,
+          108,
+          499,
+          447
+        ],
+        "center": [
+          0.517578125,
+          0.5419921875
+        ]
+      },
+      "Yellow": {
+        "bounds": [
+          21,
+          105,
+          493,
+          449
+        ],
+        "center": [
+          0.501953125,
+          0.541015625
+        ]
+      }
+    },
+    "world_plate_anchor_method": "Center of plate alpha bounds at alpha >= 0.5, excluding food layer; normalized within each 512px sheet cell",
+    "assigned_stamp_source": [
+      64,
+      120,
+      2048,
+      488
+    ],
+    "assigned_stamp_control": [
+      44,
+      182,
+      116,
+      26
+    ],
+    "assigned_stamp_rotation_radians": -0.04
   },
   "sources": [
     "assets/ui/chef-headshots/v1/provenance.json",
     "assets/ui/people-photos/v1/provenance.json",
-    "design/recipe-picker-preview/generation.json"
+    "design/recipe-picker-preview/generation.json",
+    "assets/ui/people-photos/v2/provenance.json"
   ]
 }

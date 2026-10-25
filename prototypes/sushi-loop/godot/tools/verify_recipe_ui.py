@@ -15,7 +15,7 @@ def verify_recipe_ui(project, source_project=None):
     manifest = json.loads((project / 'assets/ui/recipes/manifest.json').read_text())
     if manifest['version'] != 1 or manifest['dynamic_text_baked'] is not False:
         raise ValueError('Recipe UI requires separate native labels and the registered artwork family')
-    expected = {f'assets/ui/chef-headshots/{name}.png' for name in ['lena','omar','ama','mateo','noor','dalia','ellis','rowan','instant-photo']}
+    expected = {f'assets/ui/chef-headshots/{name}.png' for name in ['lena','omar','ama','mateo','noor','dalia','ellis','rowan','photo-outer','photo-inner','assigned-stamp']}
     expected.update({'assets/ui/recipes/plates.png','assets/ui/recipes/food.png'})
     if set(manifest['artwork']) != expected:
         raise ValueError('Incomplete headshot, photo or independent plate/food family')

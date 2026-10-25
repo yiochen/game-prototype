@@ -19,6 +19,8 @@ var unit := 1.0
 var area := Rect2()
 var safe_top := 0.0
 var panel: Panel
+var maple_face: TextureRect
+var catalog_backing: Panel
 var heading: Label
 var level_label: Label
 var portrait: Control
@@ -73,6 +75,20 @@ func _ready() -> void:
 	panel.accessibility_name = "Chef recipe picker"
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(panel)
+	maple_face = TextureRect.new()
+	maple_face.texture = wood.texture("wood-grain")
+	maple_face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	maple_face.stretch_mode = TextureRect.STRETCH_SCALE
+	maple_face.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	maple_face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var maple_material := ShaderMaterial.new()
+	maple_material.shader = load("res://scripts/maple_face.gdshader")
+	maple_face.material = maple_material
+	panel.add_child(maple_face)
+	catalog_backing = Panel.new()
+	catalog_backing.mouse_filter = Control.MOUSE_FILTER_STOP
+	catalog_backing.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
+	panel.add_child(catalog_backing)
 	heading = _label(panel)
 	level_label = _label(panel)
 	close_button = _button("×", "Close recipes", panel)
@@ -83,7 +99,7 @@ func _ready() -> void:
 	catalog.follow_focus = true
 	catalog.mouse_filter = Control.MOUSE_FILTER_STOP
 	catalog.accessibility_name = "Scrollable recipe catalog"
-	panel.add_child(catalog)
+	catalog_backing.add_child(catalog)
 	grid = GridContainer.new()
 	grid.columns = 2
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -154,6 +170,7 @@ func open(state: Dictionary, id: String) -> void:
 	_rebuild()
 	_refresh_details()
 	layout(area, safe_top)
+	close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	close_button.grab_focus()
 	if not selected.is_empty():
 		inspected.emit(chef_id, selected)
@@ -290,11 +307,26 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	var top := maxf(area.position.y, inset) + 74 * unit
 	panel.position = Vector2(area.position.x + 24 * unit, top)
 	panel.size = Vector2(672 * unit, area.end.y - top - 26 * unit)
-	panel.add_theme_stylebox_override("panel", wood.style("panel-maple", unit))
+	var outer_shadow := _flat(Color.TRANSPARENT, 32)
+	outer_shadow.shadow_color = Color(0.35, 0.18, 0.05, 0.2)
+	outer_shadow.shadow_size = int(8*unit)
+	outer_shadow.shadow_offset = Vector2(0,6)*unit
+	panel.add_theme_stylebox_override("panel", outer_shadow)
+	maple_face.size = panel.size
+	var maple_material: ShaderMaterial = maple_face.material
+	maple_material.set_shader_parameter("surface_size", panel.size)
+	maple_material.set_shader_parameter("corner_radius", 32*unit)
+	maple_material.set_shader_parameter("grain_width", 720*unit)
 	var height := panel.size.y / unit
 	var header := 146.0
 	var footer := 390.0
 	var detail_top := height - footer
+	catalog_backing.position = Vector2(0,header)*unit
+	catalog_backing.size = Vector2(672,detail_top-header+48)*unit
+	var cream := _flat(Color("fff3db"),32)
+	cream.corner_radius_bottom_left = 0
+	cream.corner_radius_bottom_right = 0
+	catalog_backing.add_theme_stylebox_override("panel",cream)
 	heading.text = "%s’s recipes" % str(actor.get("name", "Chef"))
 	_text(heading, Rect2(184, 28, 368, 52), 36)
 	level_label.text = "Level %s" % int(actor.get("level", 1))
@@ -308,8 +340,6 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	close_button.add_theme_font_size_override("font_size", int(54 * unit))
 	for treatment in ["normal", "hover", "pressed", "disabled"]:
 		var close_surface := _flat(Color("f5d39e") if treatment == "pressed" else Color("ffe8bc"), 48)
-		close_surface.border_color = Color("d8ad76")
-		close_surface.set_border_width_all(maxi(1, int(unit)))
 		close_surface.shadow_color = Color(0.45, 0.25, 0.08, 0.18)
 		close_surface.shadow_size = int(5*unit)
 		close_surface.shadow_offset = Vector2(0,4)*unit
@@ -317,9 +347,9 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	var focus := _flat(Color.TRANSPARENT, 30)
 	focus.border_color = Color("93633c")
 	focus.set_border_width_all(maxi(1, int(3*unit)))
-	close_button.add_theme_stylebox_override("focus", focus)
-	catalog.position = Vector2(14, header + 12) * unit
-	catalog.size = Vector2(644, maxf(120, detail_top - header - 12)) * unit
+	close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	catalog.position = Vector2(14, 0) * unit
+	catalog.size = Vector2(644, maxf(120, detail_top - header)) * unit
 	grid.add_theme_constant_override("h_separation", int(16*unit))
 	grid.add_theme_constant_override("v_separation", int(16*unit))
 	# Reserve a narrow scrollbar without changing the two equal card columns.
@@ -416,6 +446,10 @@ func _input(event: InputEvent) -> void:
 			dismiss()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_TAB:
+			var keyboard_glow := _flat(Color.TRANSPARENT,48)
+			keyboard_glow.shadow_color = Color(0.85,0.5,0.18,0.75)
+			keyboard_glow.shadow_size = maxi(2,int(5*unit))
+			close_button.add_theme_stylebox_override("focus",keyboard_glow)
 			var targets: Array[Control] = [close_button]
 			for record in tiles.values(): targets.append(record.button)
 			if prepare_button.visible and not prepare_button.disabled: targets.append(prepare_button)

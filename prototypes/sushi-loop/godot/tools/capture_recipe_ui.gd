@@ -20,6 +20,12 @@ func run() -> void:
 	app.session.command({"type":"editor_layer", "layer":"people"})
 	app._refresh()
 	await capture("01-people-instant-photos")
+	var roster_save: Dictionary = app.session.save_data()
+	app.session.command({"type":"editor_remove","id":"chef-disconnected"})
+	app._refresh()
+	await capture("01b-people-unassigned")
+	app.session.restore(roster_save)
+	app._refresh()
 	app._open_recipes("chef-1")
 	await capture("02-current-recipe")
 	app.recipe_ui.inspect("cucumber_maki")
@@ -72,6 +78,29 @@ func run() -> void:
 	app._open_recipes("chef-1")
 	app.recipe_ui.inspect("tamago_nigiri")
 	await capture("10-shared-native-picker")
+	app.recipe_ui.dismiss()
+	app.show_gallery = false
+	app.world.show_gallery = false
+	var fixtures: Array = []
+	var cells := [[1,5,"east"],[2,5,"east"],[3,5,"east"],[4,5,"east"],[5,5,"south"],[5,6,"south"],[5,7,"south"],[5,8,"west"],[4,8,"west"],[3,8,"west"],[2,8,"west"],[1,8,"north"],[1,7,"north"],[1,6,"north"]]
+	for index in range(cells.size()):
+		fixtures.append({"id":"loop-%s"%index,"kind":"belt","x":cells[index][0],"y":cells[index][1],"facing":cells[index][2]})
+	fixtures.append({"id":"chef-1","kind":"chef","name":"Lena","art_id":"chef-lena","x":2,"y":9,"facing":"north","recipe_id":"salmon_nigiri"})
+	fixtures.append({"id":"chef-2","kind":"chef","name":"Omar","art_id":"chef-omar","x":0,"y":6,"facing":"east","recipe_id":"cucumber_maki"})
+	app.session = app.Session.new_session(55,{"objects":fixtures})
+	app.session.command({"type":"discover_recipe","recipe_id":"tamago_nigiri"})
+	app.session.command({"type":"discover_recipe","recipe_id":"eel_roll"})
+	var loop_save: Dictionary = app.session.save_data()
+	var dishes := {"loop-1":"salmon_nigiri","loop-5":"tamago_nigiri","loop-9":"eel_roll"}
+	var dish_id := 1
+	for object in loop_save.state.objects:
+		if dishes.has(object.id):
+			object.dish = {"id":"dish-%s"%dish_id,"recipe_id":dishes[object.id]}
+			dish_id += 1
+	loop_save.state.next_dish_id = dish_id
+	app.session.restore(loop_save)
+	app._refresh()
+	await capture("11-centered-loop-dishes")
 	var renderer := {"renderer":RenderingServer.get_current_rendering_method(), "driver":RenderingServer.get_current_rendering_driver_name(), "device":RenderingServer.get_video_adapter_name(), "window":[root.size.x,root.size.y]}
 	var file := FileAccess.open(destination.path_join("renderer.json"),FileAccess.WRITE)
 	file.store_string(JSON.stringify(renderer,"\t"))
