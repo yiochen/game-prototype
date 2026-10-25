@@ -15,6 +15,7 @@ var path_exit: Button
 var path_targets: Array[Button] = []
 var customer_targets: Array[Button] = []
 var pickup_active := false
+var keyboard_navigation := false
 
 class PhotoFrame extends Control:
 	const PhotoArt = preload("res://scripts/recipe_art.gd")
@@ -233,9 +234,9 @@ func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon
 	visual.size = button.size
 	visual.scale = Vector2.ONE
 	var surface: Panel = button.get_meta("visual_surface")
-	surface.position = Vector2(0,(header_height-78)*unit)
+	surface.position = Vector2(0,(header_height-78-14)*unit)
 	surface.size = Vector2(button.size.x,78*unit)
-	var face := Rect2(0,(header_height-78+14)*unit,button.size.x,60*unit)
+	var face := Rect2(0,(header_height-78)*unit,button.size.x,60*unit)
 	var focus: Panel = button.get_meta("visual_focus")
 	focus.position = face.position
 	focus.size = face.size
@@ -313,7 +314,10 @@ func _rebuild_cards() -> void:
 			if event is InputEventKey and event.pressed and event.keycode in [KEY_HOME,KEY_END]:
 				(cards[0] if event.keycode == KEY_HOME else cards[-1]).grab_focus()
 				get_viewport().set_input_as_handled())
-		card.focus_entered.connect(func(): reveal_card(card))
+		card.focus_entered.connect(func():
+			reveal_card(card)
+			_update_photo_focus())
+		card.focus_exited.connect(func(): _update_photo_focus())
 		cards.append(card)
 	if not scroll_offsets.has(layer):
 		scroll_offsets[layer] = float(state.get("editor",{}).get("scrolls",{}).get(layer,int(state.get("editor",{}).get("pages",{}).get(layer,0))*648))
@@ -363,13 +367,13 @@ func _layout_goods(layer: String) -> void:
 		card.size = Vector2(width,214)*unit
 		if card.get_meta("wood_unit",-1.0) != unit:
 			card.set_meta("wood_unit",unit)
-			for treatment in ["normal","hover","pressed","disabled"]: card.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
+			for treatment in ["normal","hover","pressed","disabled","hover_pressed"]: card.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
 			var outline := StyleBoxFlat.new()
 			outline.bg_color = Color.TRANSPARENT
 			outline.border_color = WOOD_INK
 			outline.set_border_width_all(maxi(1,int(2*unit)))
-			card.add_theme_stylebox_override("focus",outline)
-			card.add_theme_stylebox_override("pressed",outline)
+			card.add_theme_stylebox_override("focus",StyleBoxEmpty.new() if layer == "people" else outline)
+			card.add_theme_stylebox_override("pressed",StyleBoxEmpty.new() if layer == "people" else outline)
 		var preview: Control = card.get_meta("preview")
 		preview.position = Vector2(12,8)*unit
 		if card.button_pressed: preview.position.y -= 4*unit
@@ -385,6 +389,7 @@ func _layout_goods(layer: String) -> void:
 		preview.modulate.a = 0.4 if card.disabled else 1.0
 		var caption: Label = card.get_meta("name_label")
 		caption.visible = true
+		caption.add_theme_color_override("font_color",Color("b83d2d") if layer == "people" and keyboard_navigation and card.has_focus() else WOOD_INK)
 		if wood_font != null: caption.add_theme_font_override("font",wood_font)
 		UISkin.layout_caption(caption,Rect2(0,154*unit,width*unit,30*unit),maxi(1,int(25*unit)))
 		var badge: Panel = card.get_meta("stock_badge")
@@ -464,3 +469,18 @@ func _update_inventory_backing() -> void:
 # Tapping a People photo opens the same native recipe picker as a chef in-scene.
 func inspect(item: Dictionary) -> void:
 	recipes_requested.emit(str(item.id))
+
+func _input(event: InputEvent) -> void:
+	if not visible: return
+	if event is InputEventKey and event.pressed and event.keycode in [KEY_TAB,KEY_LEFT,KEY_RIGHT,KEY_HOME,KEY_END]:
+		keyboard_navigation = true
+		_update_photo_focus()
+	elif (event is InputEventScreenTouch or event is InputEventMouseButton) and event.pressed:
+		keyboard_navigation = false
+		_update_photo_focus()
+
+func _update_photo_focus() -> void:
+	if str(state.get("editor",{}).get("layer","layout")) != "people": return
+	for card in cards:
+		var caption: Label = card.get_meta("name_label")
+		caption.add_theme_color_override("font_color",Color("b83d2d") if keyboard_navigation and card.has_focus() else WOOD_INK)

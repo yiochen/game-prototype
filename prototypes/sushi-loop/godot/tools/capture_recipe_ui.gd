@@ -28,6 +28,9 @@ func run() -> void:
 	app._refresh()
 	app._open_recipes("chef-1")
 	await capture("02-current-recipe")
+	app.recipe_ui.catalog.scroll_vertical = 80
+	await capture("02a-scrolled-no-scrollbar")
+	app.recipe_ui.catalog.scroll_vertical = 0
 	app.recipe_ui.inspect("cucumber_maki")
 	await capture("03-inspected-recipe")
 	app._prepare_recipe("chef-1", "cucumber_maki")

@@ -68,3 +68,8 @@ static func draw_assigned_stamp(canvas: CanvasItem, target: Rect2) -> void:
 	if stamp == null: stamp = load("res://assets/ui/chef-headshots/assigned-stamp.png")
 	var source := _rect(_calibration().assigned_stamp_source)
 	canvas.draw_texture_rect_region(stamp,UISkin.fit_rect(source.size,target),source)
+
+static func plate_visible_width(recipe: Dictionary) -> float:
+	if plates == null: plates = load("res://assets/ui/recipes/plates.png")
+	var bounds: Array = _calibration().world_plate_anchors[str(recipe.get("tier","White"))].bounds
+	return (float(bounds[2])-float(bounds[0]))/(plates.get_width()/3.0)

@@ -396,8 +396,12 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 		return []
 	world.time += elapsed
 	var events: Array = session.advance(elapsed)
+	var ending_scene: Dictionary = {}
 	for event in events:
 		audio.play_cue(str(event.type))
+		if event.type == "eating_started" and not world.reduced_motion:
+			if ending_scene.is_empty(): ending_scene = session.snapshot()
+			_start_dish_flight(event,ending_scene)
 		if event.type == "sale":
 			world.sale_pops.append({"x": event.x, "y": event.y, "time": world.time})
 	if refresh_view: _refresh()
@@ -405,6 +409,7 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 
 func _refresh() -> void:
 	world.state = session.snapshot()
+	world.prune_dish_flights()
 	if recipe_ui != null: recipe_ui.refresh(world.state)
 	var coins_text := str(int(world.state.coins))
 	if money.get_meta("full_balance", "") != coins_text:
@@ -930,3 +935,12 @@ func _prepare_recipe(identity: String, recipe_id: String) -> void:
 	if result.get("changed", false): world.recipe_shakes[identity] = world.time
 	audio.play_cue("click")
 	_refresh()
+
+func _start_dish_flight(event: Dictionary, scene: Dictionary) -> void:
+	var age := maxf(0,float(scene.elapsed)-float(event.get("taken_at",scene.elapsed)))
+	if age >= world.DISH_FLIGHT_SECONDS: return
+	if not scene.customers.any(func(guest): return guest.id == event.customer_id and guest.phase == "eating" and guest.meal_dish is Dictionary and guest.meal_dish.id == event.dish_id): return
+	var source := world.dish_base(event.source_belt)
+	var camera: Dictionary = world.state.camera
+	var source_grid := (source-world.floor_origin)/world.cell+Vector2(float(camera.x),float(camera.y))
+	world.dish_flights.append({"customer_id":event.customer_id,"dish_id":event.dish_id,"recipe_id":event.recipe_id,"source_grid":source_grid,"started":world.time-age})

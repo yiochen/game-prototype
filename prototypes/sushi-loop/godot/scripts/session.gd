@@ -765,9 +765,11 @@ func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events
 		events.append(_customer_event("preference_matched", customer))
 	elif not customer.preference_phase in ["satisfied", "expired"]:
 		_set_preference(customer, "complete")
+	var source_belt := tile.duplicate(true)
+	source_belt.travel_progress = clampf(float(tile.travel_elapsed)/float(_configuration.service.belt_seconds_per_cell),0,1)
 	tile.dish = null
 	tile.travel_elapsed = 0.0
-	events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "recipe_id": customer.meal_dish.recipe_id, "seat_id": seat.id})
+	events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "recipe_id": customer.meal_dish.recipe_id, "seat_id": seat.id, "source_belt":source_belt, "taken_at":float(_state.elapsed)})
 
 func _begin_leaving(customer: Dictionary, reason: String) -> void:
 	customer.phase = "leaving"

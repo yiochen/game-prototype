@@ -40,6 +40,7 @@ func sync() -> void:
 	# targets. Keep the float content extent; allocation padding is clipped.
 	native_view.size = source_view.portrait.size * native_factor
 	native_view.safe_top = source_view.safe_top * native_factor
+	native_view.dish_flights = source_view.dish_flights
 	native_view.recipe_shakes = source_view.recipe_shakes
 	native_view.state = source_view.state
 	native_view.time = source_view.time

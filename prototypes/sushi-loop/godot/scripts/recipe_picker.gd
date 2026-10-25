@@ -26,6 +26,7 @@ var level_label: Label
 var portrait: Control
 var close_button: Button
 var catalog: ScrollContainer
+var catalog_content: MarginContainer
 var grid: GridContainer
 var details: Panel
 var detail_dish: Control
@@ -95,15 +96,18 @@ func _ready() -> void:
 	close_button.pressed.connect(dismiss)
 	catalog = ScrollContainer.new()
 	catalog.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	catalog.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	catalog.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	catalog.follow_focus = true
 	catalog.mouse_filter = Control.MOUSE_FILTER_STOP
 	catalog.accessibility_name = "Scrollable recipe catalog"
 	catalog_backing.add_child(catalog)
+	catalog_content = MarginContainer.new()
+	catalog_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	catalog.add_child(catalog_content)
 	grid = GridContainer.new()
 	grid.columns = 2
 	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	catalog.add_child(grid)
+	catalog_content.add_child(grid)
 	details = Panel.new()
 	details.mouse_filter = Control.MOUSE_FILTER_STOP
 	details.accessibility_name = "Selected recipe details"
@@ -133,7 +137,8 @@ func _ready() -> void:
 	waves.wood_skin = wood
 	waves.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	waves.clip_contents = true
-	panel.add_child(waves)
+	details.add_child(waves)
+	details.move_child(waves,0)
 	portrait = Portrait.new()
 	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
@@ -167,6 +172,7 @@ func open(state: Dictionary, id: String) -> void:
 	if actor.is_empty(): return
 	selected = str(actor.get("recipe_id", ""))
 	show()
+	catalog.scroll_vertical = 0
 	_rebuild()
 	_refresh_details()
 	layout(area, safe_top)
@@ -352,8 +358,9 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	catalog.size = Vector2(644, maxf(120, detail_top - header)) * unit
 	grid.add_theme_constant_override("h_separation", int(16*unit))
 	grid.add_theme_constant_override("v_separation", int(16*unit))
-	# Reserve a narrow scrollbar without changing the two equal card columns.
-	var tile_width := (644.0 - 16.0 - 14.0) / 2.0
+	# This inset belongs to the scrolling content and disappears as it scrolls.
+	catalog_content.add_theme_constant_override("margin_top",int(24*unit))
+	var tile_width := (644.0 - 16.0) / 2.0
 	for id in tiles:
 		var record: Dictionary = tiles[id]
 		var tile: Button = record.button
@@ -378,7 +385,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		record.badge.visible = id in session_state.recipe_book.new
 	# Full-width details, top corners kept round, padded content inside.
 	details.position = Vector2(0, detail_top)*unit
-	details.size = Vector2(672, footer-24)*unit
+	details.size = Vector2(672, footer)*unit
 	details.add_theme_stylebox_override("panel", wood.style("panel-maple", unit))
 	detail_dish.position = Vector2(16, 8)*unit
 	detail_dish.size = Vector2(260, 238)*unit
@@ -403,7 +410,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		prepare_button.add_theme_stylebox_override(treatment, wood.style("hud-cream-normal" if treatment == "disabled" else "hud-live-pressed" if treatment == "pressed" else "hud-live-normal", unit))
 	prepare_button.add_theme_stylebox_override("focus", focus)
 	_text(preparing_label, Rect2(32, 260, 608, 100), 28)
-	waves.position = Vector2(4, height-24)*unit
+	waves.position = Vector2(4, footer-32)*unit
 	waves.size = Vector2(664, 24)*unit
 	waves.queue_redraw()
 	for control: Control in [close_button, prepare_button]:

@@ -40,6 +40,9 @@ var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
 var recipe_shakes: Dictionary = {}
+const DISH_FLIGHT_SECONDS := 0.34
+var dish_flights: Array = []
+var meal_attachments: Dictionary = {}
 const RecipeArt = preload("res://scripts/recipe_art.gd")
 var reduced_motion := false
 var editor_preview: Dictionary = {}
@@ -186,6 +189,7 @@ func _room() -> void:
 	_editor_ground()
 	_render_room_items(items)
 	_editor_ghost()
+	_draw_dish_flights()
 	_belt_target_overlay()
 	_customer_selection_overlay()
 	# Thought/reaction art is a final feedback layer, following the same saved
@@ -577,9 +581,10 @@ func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Col
 	# Sit/stand actions retain their native wood-stool support calibration.
 	# Passing and brief happiness move only the visual instance, never its cell.
 	var meal: Dictionary = customer.meal_dish if customer.get("meal_dish") is Dictionary else {}
+	var awaiting_dish := _guest_awaiting_dish(str(customer.get("id","")))
 	var composed: bool = customer.get("phase") == "eating" and not meal.is_empty() and not meal.get("recipe_id") in ["salmon_nigiri", "cucumber_maki"]
-	sprite(identity, base + customer_pose_offset(customer, pitch), "seated-wait-empty" if composed else customer_clip(customer), direction, seconds, pitch, tint)
-	if composed: _actor_recipe(customer, base + customer_pose_offset(customer, pitch), pitch, str(meal.recipe_id), false, identity)
+	sprite(identity, base + customer_pose_offset(customer, pitch), "seated-wait-empty" if composed or awaiting_dish else customer_clip(customer), direction, seconds, pitch, tint)
+	if composed and not awaiting_dish: _actor_recipe(customer, base + customer_pose_offset(customer, pitch), pitch, str(meal.recipe_id), false, identity)
 	# Off-stool poses use the authored empty hands. The unfinished meal stays
 	# in session state and becomes visible again in the seated eating clip.
 
@@ -732,3 +737,48 @@ func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: Strin
 func _draw_recipe_centered(identity: String, center: Vector2, edge: float, tint := Color.WHITE) -> void:
 	var recipe: Dictionary = state.get("recipes",{}).get(identity,{"tier":"White","food_cell":2})
 	_draw_recipe(identity,Rect2(center-RecipeArt.plate_center(recipe)*edge,Vector2.ONE*edge),tint)
+
+func prune_dish_flights() -> void:
+	if reduced_motion:
+		dish_flights.clear()
+		return
+	dish_flights = dish_flights.filter(func(flight): return time-float(flight.started)<DISH_FLIGHT_SECONDS and state.get("customers",[]).any(func(guest): return guest.id == flight.customer_id and guest.phase == "eating" and guest.meal_dish is Dictionary and guest.meal_dish.id == flight.dish_id))
+
+func _guest_awaiting_dish(identity: String) -> bool:
+	return not reduced_motion and dish_flights.any(func(flight): return flight.customer_id == identity and time-float(flight.started)>=0 and time-float(flight.started)<DISH_FLIGHT_SECONDS)
+
+func _meal_landing(guest: Dictionary) -> Vector3:
+	if meal_attachments.is_empty(): meal_attachments = JSON.parse_string(FileAccess.get_file_as_string("res://content/meal_attachments.json"))
+	var identity: String = CUSTOMERS[posmod(int(guest.get("appearance",0)),CUSTOMERS.size())]
+	var clip := "eat-salmon" if guest.meal_dish.recipe_id == "salmon_nigiri" else "eat"
+	var direction := str(FACING.get(str(guest.get("facing","south")),"S"))
+	# Higher-tier meals use the composed empty-hands pose and its static socket.
+	if not guest.meal_dish.recipe_id in ["salmon_nigiri", "cucumber_maki"]:
+		var recipe: Dictionary = state.recipes[guest.meal_dish.recipe_id]
+		var hands: Vector2 = (art.socket(identity,"hand_left",direction)+art.socket(identity,"hand_right",direction))*0.5/art.cell_size
+		var center: Vector2 = hands-Vector2(0.27,0.40)+RecipeArt.plate_center(recipe)*0.54
+		return Vector3(center.x,center.y,0.54*RecipeArt.plate_visible_width(recipe))
+	var frames: Array = meal_attachments.actors[identity][clip][direction]
+	var index := posmod(int(floor(float(guest.get("visual_elapsed",0))*12)),frames.size())
+	var value: Array = frames[index]
+	return Vector3(float(value[0]),float(value[1]),float(value[2]))
+
+func _draw_dish_flights() -> void:
+	if reduced_motion or _record_only or _collect_ground_shadows: return
+	var camera: Dictionary = state.get("camera",{})
+	for flight in dish_flights:
+		var progress := (time-float(flight.started))/DISH_FLIGHT_SECONDS
+		if progress<0 or progress>=1: continue
+		var matches: Array = state.get("customers",[]).filter(func(guest): return guest.id == flight.customer_id and guest.phase == "eating" and guest.meal_dish is Dictionary and guest.meal_dish.id == flight.dish_id)
+		if matches.is_empty(): continue
+		var guest: Dictionary = matches[0]
+		var source: Vector2 = floor_origin+(Vector2(flight.source_grid)-Vector2(float(camera.get("x",0)),float(camera.get("y",0))))*cell
+		var landing := _meal_landing(guest)
+		var target := cell_base(float(guest.x),float(guest.y))+customer_pose_offset(guest,cell)+Vector2(landing.x,landing.y)*cell
+		var arc := minf(cell*0.42,maxf(cell*0.22,source.distance_to(target)*0.3))
+		var control := (source+target)*0.5-Vector2(0,arc)
+		var t := 1.0-pow(1.0-progress,2.0)
+		var center: Vector2 = source*(1.0-t)*(1.0-t)+control*2.0*(1.0-t)*t+target*t*t
+		var recipe: Dictionary = state.recipes[flight.recipe_id]
+		var edge := lerpf(cell*0.76,cell*landing.z/RecipeArt.plate_visible_width(recipe),t)
+		_draw_recipe_centered(str(flight.recipe_id),center,edge)
