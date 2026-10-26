@@ -140,7 +140,7 @@ func _rescue_and_guards() -> void:
 	check(game.command({"type":"editor_move","id":standing.id,"x":0,"y":11}).ok and same(progress(standing),progress(guest(game))), "A direct rescue needs no route and preserves visit and meal progress")
 	check(guest(game).layout_pending and game.snapshot().editor.selected_id == standing.id, "A floor rescue stays selected and defers reactions")
 	reopen(game)
-	reject(game,{"type":"editor_move","id":standing.id,"x":4,"y":3},"entrance")
+	check(game.command({"type":"editor_move","id":standing.id,"x":4,"y":3}).ok and same(progress(standing),progress(guest(game))), "A guest can be rescued onto the now-unreserved front entrance tile without losing the visit")
 	reject(game,{"type":"editor_move","id":standing.id,"x":-1,"y":3},"invalid_position")
 	reject(game,{"type":"editor_move","id":standing.id,"x":1,"y":7},"occupied")
 	reject(game,{"type":"editor_remove","id":standing.id},"seated_customer")

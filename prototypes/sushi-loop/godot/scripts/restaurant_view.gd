@@ -2,6 +2,8 @@ extends Control
 ## Shared scene/gallery renderer for the approved Faceted #33 asset library.
 ## Ground cells are square; every full sprite uses its authored 128px root/pitch.
 
+const Doorway = preload("res://scripts/doorway.gd")
+const EntranceCurtain = preload("res://scripts/entrance_curtain.gd")
 const ArtBook = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
 const GroundShadows = preload("res://scripts/ground_shadows.gd")
@@ -224,6 +226,7 @@ func _render_room_items(items: Array = []) -> void:
 			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
 			"board": _board(item.value)
 			"customer": _customer(item.value)
+			"curtain": EntranceCurtain.draw_front(self, item.base)
 	_capture_hits = false
 	_current_owner = ""
 	_hit_signature = _geometry_signature()
@@ -255,11 +258,19 @@ func sprite_hits() -> Array[Dictionary]:
 	_ensure_sprite_hits()
 	return _hit_records.duplicate(true)
 
+func _curtain_hides_hit(item: Dictionary, point: Vector2) -> bool:
+	if not Doorway.enabled(state.get("floor", {})): return false
+	for guest in state.get("customers", []):
+		if guest.id == item.owner_id and float(guest.y) + float(guest.get("render_offset_y", 0)) < float(state.floor.entrance.y) + Doorway.CURTAIN_OFFSET:
+			return EntranceCurtain.covers(self, point, cell_base(4.5, 2.5))
+	return false
+
 func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
 	_ensure_sprite_hits()
 	for index in range(_hit_records.size() - 1, -1, -1):
 		var item: Dictionary = _hit_records[index]
+		if _curtain_hides_hit(item, point): continue
 		var bounds: Rect2 = item.rect
 		if not bounds.has_area() or not bounds.has_point(point) or float(item.tint.a) <= ArtBook.PICK_ALPHA: continue
 		var uv := (point - bounds.position) / bounds.size
@@ -387,6 +398,8 @@ func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
 	# at the same depth precede every plate, preventing neighboring rail overlap.
 	var result := _decor_plan()
+	if Doorway.enabled(state.get("floor", {})):
+		result.append({"kind": "curtain", "base": cell_base(4.5, 2.5), "depth": float(state.floor.entrance.y) + Doorway.CURTAIN_OFFSET, "priority": 1})
 	for object in state.get("objects", []):
 		match object.kind:
 			"belt":
@@ -570,11 +583,13 @@ func _customer(customer: Dictionary) -> void:
 func customer_pose_offset(customer: Dictionary, pitch: float) -> Vector2:
 	var result := Vector2(float(customer.get("render_offset_x", 0)), float(customer.get("render_offset_y", 0))) * pitch
 	var happy := float(customer.get("happy_elapsed", 100.0))
-	if not reduced_motion and customer.get("preference_phase") == "satisfied" and happy >= 0.0 and happy < 0.55:
+	if not customer.get("doorway", false) and not reduced_motion and customer.get("preference_phase") == "satisfied" and happy >= 0.0 and happy < 0.55:
 		result.y -= sin(PI * happy / 0.55) * pitch * 0.14
 	return result
 
 func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Color.WHITE) -> void:
+	var light := float(customer.get("door_light", 1.0))
+	tint *= Color(light, light, light, float(customer.get("door_alpha", 1.0)))
 	var identity: String = CUSTOMERS[posmod(int(customer.get("appearance", 0)), CUSTOMERS.size())]
 	var direction := str(FACING.get(str(customer.get("facing", "south")), "S"))
 	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.get("elapsed", time)))
@@ -601,6 +616,7 @@ func customer_clip(customer: Dictionary) -> String:
 	return clip
 
 func customer_feedback(customer: Dictionary) -> Dictionary:
+	if customer.get("doorway", false): return {}
 	if customer.get("layout_pending", false) and state.get("mode") == "edit": return {}
 	if customer.get("phase") == "standing" and customer.get("navigation_mode") != "wander":
 		return {"object": "bubble-puzzled", "clip": "idle" if reduced_motion or float(customer.get("standing_elapsed", 0)) >= 1.0 else "appear", "seconds": 0.0 if reduced_motion else float(customer.get("standing_elapsed", 0)), "timer": -1.0}
