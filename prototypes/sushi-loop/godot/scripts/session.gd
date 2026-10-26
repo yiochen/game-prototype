@@ -5,6 +5,9 @@ extends RefCounted
 ## A caller decides when time passes and where snapshots are stored.
 
 const SAVE_VERSION := 1
+const Doorway = preload("res://scripts/doorway.gd")
+const RecipeBook = preload("res://scripts/recipe_book.gd")
+const RECIPE_BOOK_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
@@ -50,6 +53,8 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if request.get("type") in ["inspect_recipe", "prepare_recipe", "discover_recipe"]:
+		return RecipeBook.command(_configuration, _state, request)
 	if str(request.get("type", "")).begins_with("editor_"):
 		return _editor_command(request)
 	match request.get("type", ""):
@@ -112,6 +117,8 @@ func snapshot() -> Dictionary:
 		"inventory": _inventory_snapshot(),
 		"floor": _configuration.floor.duplicate(true),
 		"recipes": _configuration.recipes.duplicate(true),
+		"loading_seconds": float(_configuration.service.get("loading_seconds", 0.0)),
+		"recipe_book": _state.recipe_book.duplicate(true),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
@@ -123,8 +130,8 @@ func snapshot() -> Dictionary:
 			object.active = service.active
 			object.inactive_reason = service.reason
 		if object.kind == "chef":
-			object.preparation_seconds = _configuration.recipes[object.recipe_id].preparation_seconds
-			object.preparation = clampf(float(object.preparation_elapsed) / float(object.preparation_seconds), 0.0, 1.0)
+			object.preparation_seconds = RecipeBook.seconds(_configuration.recipes.get(object.recipe_id, {}), object)
+			object.preparation = clampf(float(object.preparation_elapsed) / float(object.preparation_seconds), 0.0, 1.0) if float(object.preparation_seconds) > 0.0 else 0.0
 			object.erase("preparation_elapsed")
 		elif object.kind == "belt":
 			object.travel_progress = clampf(float(object.travel_elapsed) / float(_configuration.service.belt_seconds_per_cell), 0.0, 1.0)
@@ -133,7 +140,7 @@ func snapshot() -> Dictionary:
 		result.objects.append(object)
 	result.editor.belt_targets = _belt_targets()
 	for customer in _state.customers:
-		result.customers.append({
+		var visible := {
 			"id": customer.id, "x": customer.x, "y": customer.y,
 			"seat_id": customer.seat_id, "phase": customer.phase,
 			"meal_progress": clampf(float(customer.meal_elapsed) / float(customer.meal_duration), 0.0, 1.0),
@@ -158,7 +165,9 @@ func snapshot() -> Dictionary:
 			"wander_elapsed": customer.wander_elapsed,
 			"layout_pending": customer.layout_pending, "standing_elapsed": customer.standing_elapsed,
 			"render_offset_x": customer.render_offset_x, "render_offset_y": customer.render_offset_y,
-		})
+		}
+		Doorway.present(visible, customer, float(_configuration.service.walking_cells_per_second))
+		result.customers.append(visible)
 	return result
 
 func save_data() -> Dictionary:
@@ -171,6 +180,7 @@ func save_data() -> Dictionary:
 		"customer_admission_version": CUSTOMER_ADMISSION_VERSION,
 		"customer_layout_version": CUSTOMER_LAYOUT_VERSION,
 		"editor_version": EDITOR_VERSION,
+		"recipe_book_version": RECIPE_BOOK_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -181,6 +191,8 @@ func save_data() -> Dictionary:
 func restore(data: Dictionary) -> bool:
 	# Validate before changing anything. Restoring is a state replacement, never
 	# elapsed-time simulation or event playback, even when called repeatedly.
+	if not _nonnegative_integer(data.get("recipe_book_version", 0)) or int(data.get("recipe_book_version", 0)) > RECIPE_BOOK_VERSION:
+		return false
 	if data.get("version") != SAVE_VERSION or not data.get("configuration") is Dictionary:
 		return false
 	if not _valid_configuration(data.configuration) or not data.get("state") is Dictionary:
@@ -244,6 +256,9 @@ func restore(data: Dictionary) -> bool:
 		for customer in restored_state.get("customers", []):
 			if not customer is Dictionary: return false
 			_initialize_customer_layout(customer)
+	if int(data.get("recipe_book_version", 0)) == 0:
+		if not RecipeBook.initialize(restored_configuration, restored_state): return false
+	if not RecipeBook.valid(restored_configuration, restored_state): return false
 	if not _valid_saved_state(restored_state, restored_configuration, navigation_version, admission_version):
 		return false
 	if navigation_version == 0:
@@ -383,6 +398,7 @@ func _start() -> void:
 				object.travel_elapsed = 0.0
 				object.dish = null
 	_initialize_editor_state(_state)
+	RecipeBook.initialize(_configuration, _state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
@@ -413,7 +429,7 @@ func _step_chefs(delta: float, events: Array) -> void:
 			continue
 		if chef.held_dish == null:
 			_set_visual(chef, "work")
-			var duration := float(_configuration.recipes[chef.recipe_id].preparation_seconds)
+			var duration := RecipeBook.seconds(_configuration.recipes[chef.recipe_id], chef)
 			chef.preparation_elapsed = minf(duration, _clock_advance(float(chef.preparation_elapsed), delta))
 			if float(chef.preparation_elapsed) + 0.000000001 >= duration:
 				chef.preparation_elapsed = duration
@@ -484,14 +500,40 @@ func _step_belts(delta: float, events: Array) -> void:
 func _customer_number(key: String) -> float:
 	return float(_configuration.get("customers", {}).get(key, 0.0))
 
+func _entrance_lanes() -> Array[Vector2i]:
+	var entrance := _point(_configuration.floor.entrance)
+	if not Doorway.enabled(_configuration.floor): return [entrance]
+	var result: Array[Vector2i] = []
+	for x in [4, 5]:
+		var cell := Vector2i(x, entrance.y)
+		if _object_at(cell).is_empty(): result.append(cell)
+	return result
+
+func _entrance_path(entrance: Vector2i, seat: Dictionary) -> Array:
+	# Prefer walking straight off this side of the threshold before turning
+	# toward the seat. Furniture may require a valid sideways alternative.
+	if Doorway.enabled(_configuration.floor):
+		var apron := entrance + Vector2i.DOWN
+		if _object_at(apron).is_empty():
+			var onward := _walk_path(apron, _point(seat), seat.id)
+			if not onward.is_empty():
+				onward.push_front({"x": apron.x, "y": apron.y})
+				return onward
+	return _walk_path(entrance, _point(seat), seat.id)
+
 func _rebuild_access() -> void:
 	_access_paths.clear()
-	var entrance := _point(_configuration.floor.entrance)
 	for object in _state.objects:
-		if object.kind == "seat":
-			_access_paths[object.id] = _walk_path(entrance, _point(object), object.id)
+		if object.kind != "seat": continue
+		_access_paths[object.id] = []
+		for entrance in _entrance_lanes():
+			var route := _entrance_path(entrance, object)
+			if not route.is_empty():
+				_access_paths[object.id] = route
+				break
 
 func _chef_service(chef: Dictionary) -> Dictionary:
+	if str(chef.get("recipe_id", "")).is_empty(): return {"active":false, "reason":"no_recipe"}
 	if _facing_object(chef).get("kind") != "belt":
 		return {"active": false, "reason": "no_belt"}
 	return {"active": true, "reason": ""}
@@ -574,12 +616,12 @@ func _new_visit_fields(customer: Dictionary) -> void:
 	customer.departure_reason = ""
 	customer.entrance_wait_elapsed = 0.0
 
-func _arrival_seat_choices() -> Array:
+func _arrival_seat_choices(customer: Dictionary = {}) -> Array:
 	var choices: Array = []
 	for seat in _state.objects:
 		if seat.kind != "seat" or _seat_reserved(seat.id):
 			continue
-		var path: Array = _access_paths.get(seat.id, [])
+		var path: Array = _entrance_path(Doorway.anchor(customer, _configuration.floor), seat) if customer.has("door_lane") else _access_paths.get(seat.id, [])
 		var service := _seat_service(seat)
 		if not path.is_empty() and service.active:
 			choices.append({"seat": seat, "path": path, "service": service})
@@ -602,11 +644,22 @@ func _step_arrivals(delta: float, events: Array) -> void:
 	if float(_state.arrival_remaining) > 0.000000001:
 		return
 	var entrance := _point(_configuration.floor.entrance)
+	var door_motion := {}
+	var entrance_guest := {}
+	if Doorway.enabled(_configuration.floor):
+		var lanes := _entrance_lanes()
+		# A blocked doorway is outside admission: do not spawn in furniture.
+		if lanes.is_empty(): return
+		door_motion = Doorway.motion("enter", "customer-%s" % _state.next_customer_id, _random.state)
+		var preferred_lane := Vector2i(4 + roundi(float(door_motion.offset_x)), entrance.y)
+		entrance = preferred_lane if lanes.has(preferred_lane) else lanes[0]
+		entrance_guest.door_lane = entrance.x
+		if lanes.size() == 1: door_motion.offset_x = _offset_for_lane(float(door_motion.offset_x), entrance.x)
 	# A new arrival never materializes inside an existing visitor at the door.
 	for customer in _state.customers:
-		if _render_position(customer).distance_to(Vector2(entrance)) < _customer_number("personal_space"):
+		if customer.has("door_motion") or customer.phase == "entrance_wait" or _render_position(customer).distance_to(Vector2(entrance)) < _customer_number("personal_space"):
 			return
-	var choices := _arrival_seat_choices()
+	var choices := _arrival_seat_choices(entrance_guest)
 	var preferred := ""
 	var choice: Dictionary = {}
 	if not choices.is_empty():
@@ -623,9 +676,12 @@ func _step_arrivals(delta: float, events: Array) -> void:
 		"facing": "south", "visual_phase": "stand", "visual_elapsed": 0.0,
 	}
 	_new_visit_fields(customer)
+	if entrance_guest.has("door_lane"): customer.door_lane = entrance.x
 	_initialize_navigation(customer, Vector2(entrance))
 	if not choice.is_empty():
 		_assign_arrival_seat(customer, choice, preferred)
+	if Doorway.enabled(_configuration.floor):
+		customer.door_motion = door_motion
 	_state.next_customer_id += 1
 	_state.customers.append(customer)
 	_state.stats.arrivals += 1
@@ -641,10 +697,62 @@ func _set_preference(customer: Dictionary, phase: String) -> void:
 func _customer_event(kind: String, customer: Dictionary) -> Dictionary:
 	return {"type": kind, "customer_id": customer.id, "seat_id": customer.seat_id, "recipe_id": customer.preferred_recipe_id, "x": customer.x, "y": customer.y}
 
+func _offset_for_lane(sample: float, lane: int) -> float:
+	if 4 + roundi(sample) == lane: return sample
+	return sample * 0.5 if lane == 4 else 0.5 + sample * 0.5
+
+func _exit_route(customer: Dictionary) -> Dictionary:
+	if not Doorway.enabled(_configuration.floor):
+		return _route_from_position(customer, _point(_configuration.floor.entrance))
+	var sample := float(customer.get("door_exit_offset", Doorway.motion("exit", str(customer.id), _random.state).offset_x))
+	var preferred := int(customer.get("door_lane", 4 + roundi(sample))) if customer.has("door_exit_offset") else 4 + roundi(sample)
+	var lanes := _entrance_lanes()
+	var position := Vector2(float(customer.x), float(customer.y))
+	# Try the selected side's front approach before falling back to a sideways
+	# route around furniture. Neither side is permanently reserved by the door.
+	for direct in [false, true]:
+		for lane in [preferred, 9 - preferred]:
+			var goal := Vector2i(lane, int(_configuration.floor.entrance.y))
+			if not lanes.has(goal): continue
+			var apron := goal + Vector2i.DOWN
+			var route := {}
+			if direct or position.y <= float(goal.y) + 0.000001 or (position.y < float(apron.y) and roundi(position.x) == lane):
+				route = _route_from_position(customer, goal)
+			elif _object_at(apron).is_empty():
+				route = _route_from_position(customer, apron)
+				if not route.is_empty(): route.path.append({"x": goal.x, "y": goal.y})
+			if route.is_empty(): continue
+			route.door_lane = lane
+			route.door_exit_offset = _offset_for_lane(sample, lane) if lanes.size() == 1 else sample
+			return route
+	return {}
+
+func _begin_door_exit(customer: Dictionary) -> void:
+	customer.door_motion = Doorway.motion("exit", str(customer.id), _random.state)
+	if customer.has("door_exit_offset"): customer.door_motion.offset_x = customer.door_exit_offset
+	customer.render_offset_x = 0.0
+	customer.render_offset_y = 0.0
+	customer.yielding = false
+	_clear_seated_route(customer)
+	_set_visual(customer, "walk")
+
+func _step_door_motion(customer: Dictionary, delta: float) -> bool:
+	var motion: Dictionary = customer.door_motion
+	motion.distance = minf(Doorway.TRAVEL, float(motion.distance) + delta * float(_configuration.service.walking_cells_per_second))
+	if float(motion.distance) + 0.000000001 < Doorway.TRAVEL: return false
+	if motion.direction == "exit": return true
+	customer.erase("door_motion")
+	return false
+
 func _step_customers(delta: float, events: Array) -> void:
 	var departed: Array = []
 	for customer in _state.customers:
 		customer.layout_pending = false
+		if customer.has("door_motion"):
+			if _step_door_motion(customer, delta):
+				departed.append(customer)
+				events.append({"type": "departed", "customer_id": customer.id, "reason": customer.departure_reason})
+			continue
 		if customer.phase == "standing":
 			customer.standing_elapsed = _clock_advance(float(customer.standing_elapsed), delta)
 			if not _try_reseat(customer):
@@ -653,7 +761,7 @@ func _step_customers(delta: float, events: Array) -> void:
 		if customer.phase == "entrance_wait":
 			# An unadmitted visitor has not started a meal preference or a route.
 			# They stay at the door rather than borrowing trapped-guest wandering.
-			var choices := _arrival_seat_choices()
+			var choices := _arrival_seat_choices(customer)
 			if not choices.is_empty():
 				var preferred := _preference_for(choices)
 				_assign_arrival_seat(customer, _choose_useful_seat(choices, preferred), preferred)
@@ -661,8 +769,15 @@ func _step_customers(delta: float, events: Array) -> void:
 			else:
 				customer.entrance_wait_elapsed = _clock_advance(float(customer.entrance_wait_elapsed), delta)
 				if float(customer.entrance_wait_elapsed) + 0.000000001 >= _customer_number("entrance_wait_seconds"):
-					departed.append(customer)
-					events.append({"type": "departed", "customer_id": customer.id, "reason": "no_seat"})
+					if Doorway.enabled(_configuration.floor):
+						customer.phase = "leaving"
+						customer.departure_reason = "no_seat"
+						customer.entrance_wait_elapsed = 0.0
+						_set_visual(customer, "walk")
+						_apply_navigation_route(customer, _exit_route(customer))
+					else:
+						departed.append(customer)
+						events.append({"type": "departed", "customer_id": customer.id, "reason": "no_seat"})
 			continue
 		customer.visual_elapsed = _clock_advance(float(customer.visual_elapsed), delta)
 		if customer.navigation_mode == "wander":
@@ -682,8 +797,11 @@ func _step_customers(delta: float, events: Array) -> void:
 					continue
 				if _step_navigation(customer, delta):
 					if customer.phase == "leaving":
-						departed.append(customer)
-						events.append({"type": "departed", "customer_id": customer.id, "reason": customer.departure_reason})
+						if Doorway.enabled(_configuration.floor):
+							_begin_door_exit(customer)
+						else:
+							departed.append(customer)
+							events.append({"type": "departed", "customer_id": customer.id, "reason": customer.departure_reason})
 					else:
 						customer.phase = "eating" if customer.meal_dish != null else "waiting"
 						_clear_seated_route(customer)
@@ -701,7 +819,8 @@ func _step_customers(delta: float, events: Array) -> void:
 					if not customer.visit_legacy and customer.preferred_recipe_id.is_empty():
 						var service := _seat_service(_object_by_id(customer.seat_id))
 						var recipes: Array = service.ready + service.menu
-						if recipes.is_empty(): recipes = _configuration.recipes.keys()
+						if recipes.is_empty(): recipes = _state.recipe_book.discovered.duplicate()
+						if recipes.is_empty(): continue
 						recipes.sort()
 						customer.preferred_recipe_id = str(recipes[_random.randi_range(0, recipes.size() - 1)])
 					_set_preference(customer, "active")
@@ -750,9 +869,11 @@ func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events
 		events.append(_customer_event("preference_matched", customer))
 	elif not customer.preference_phase in ["satisfied", "expired"]:
 		_set_preference(customer, "complete")
+	var source_belt := tile.duplicate(true)
+	source_belt.travel_progress = clampf(float(tile.travel_elapsed)/float(_configuration.service.belt_seconds_per_cell),0,1)
 	tile.dish = null
 	tile.travel_elapsed = 0.0
-	events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "recipe_id": customer.meal_dish.recipe_id, "seat_id": seat.id})
+	events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "recipe_id": customer.meal_dish.recipe_id, "seat_id": seat.id, "source_belt":source_belt, "taken_at":float(_state.elapsed)})
 
 func _begin_leaving(customer: Dictionary, reason: String) -> void:
 	customer.phase = "leaving"
@@ -835,7 +956,7 @@ func _navigation_speed(customer: Dictionary) -> float:
 
 func _navigation_goal(customer: Dictionary) -> Vector2i:
 	if customer.phase == "standing": return Vector2i(roundi(customer.x), roundi(customer.y))
-	return _point(_configuration.floor.entrance) if customer.phase == "leaving" else _point(_object_by_id(customer.seat_id))
+	return Doorway.anchor(customer, _configuration.floor) if customer.phase == "leaving" else _point(_object_by_id(customer.seat_id))
 
 func _navigation_anchors(customer: Dictionary) -> Array[Vector2i]:
 	# The centerline lies on a cardinal segment. Replanning may reverse to its
@@ -879,13 +1000,16 @@ func _route_from_position(customer: Dictionary, goal: Vector2i, goal_id: String 
 	return best
 
 func _apply_navigation_route(customer: Dictionary, route: Dictionary) -> void:
+	if route.has("door_lane"):
+		customer.door_lane = route.door_lane
+		customer.door_exit_offset = route.door_exit_offset
 	customer.path = route.path
 	customer.path_origin = route.origin
 	customer.path_index = 0
 
 func _try_goal_route(customer: Dictionary) -> bool:
 	var goal_id := "" if customer.phase == "leaving" else str(customer.seat_id)
-	var route := _route_from_position(customer, _navigation_goal(customer), goal_id)
+	var route := _exit_route(customer) if customer.phase == "leaving" else _route_from_position(customer, _navigation_goal(customer), goal_id)
 	if route.is_empty():
 		return false
 	_apply_navigation_route(customer, route)
@@ -901,7 +1025,7 @@ func _try_reachable_exit(customer: Dictionary) -> bool:
 	if customer.phase != "walking" or _state.mode != "live":
 		return false
 	if customer.meal_dish != null: return false
-	var route := _route_from_position(customer, _point(_configuration.floor.entrance))
+	var route := _exit_route(customer)
 	if route.is_empty():
 		return false
 	# A newly reopened seat still takes priority over abandoning the visit.
@@ -970,6 +1094,7 @@ func _choose_wander_route(customer: Dictionary) -> void:
 	_apply_navigation_route(customer, {"path": route, "origin": {"x": position.x, "y": position.y}})
 
 func _replan_navigation(customer: Dictionary) -> void:
+	if customer.get("door_motion", {}).get("direction") == "exit": return
 	if customer.phase == "standing":
 		_clear_seated_route(customer)
 		return
@@ -1007,9 +1132,9 @@ func _walk_with_traffic(customer: Dictionary, delta: float) -> bool:
 	var right := Vector2(-direction.y, direction.x)
 	var desired := right * _customer_number("passing_offset")
 	var goal := _navigation_goal(customer)
-	# Crossing into the entrance cell completes a departure. Requiring its
-	# exact center would make outgoing visitors compete with new arrivals.
-	if customer.phase == "leaving" and customer.navigation_mode == "goal" and Vector2(float(candidate.x), float(candidate.y)).distance_to(Vector2(goal)) <= 0.5:
+	# Small simulation fixtures retain their cell-edge departure boundary.
+	# The restaurant reaches its selected doorway lane before walking outside.
+	if not Doorway.enabled(_configuration.floor) and customer.phase == "leaving" and customer.navigation_mode == "goal" and Vector2(float(candidate.x), float(candidate.y)).distance_to(Vector2(goal)) <= 0.5:
 		return true
 	# Return to the anchor when arriving at a seat or exiting through the door.
 	desired *= minf(1.0, Vector2(float(candidate.x), float(candidate.y)).distance_to(Vector2(goal)))
@@ -1183,9 +1308,9 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 		if not _valid_point(object, config.floor):
 			return false
 		var cell := _point(object)
-		if cells.has(cell) or cell == _point(config.floor.entrance):
+		if cells.has(cell) or (not Doorway.enabled(config.floor) and cell == _point(config.floor.entrance)):
 			return false
-		if object.kind == "chef" and not config.recipes.has(object.get("recipe_id")):
+		if object.kind == "chef" and (not object.get("recipe_id") is String or (object.recipe_id != "" and not config.recipes.has(object.recipe_id))):
 			return false
 		if object.kind == "decor" and not object.get("art_id") in DECOR_ART_IDS:
 			return false
@@ -1309,7 +1434,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 		if object.kind == "chef":
 			if not object.has("held_dish") or not _valid_dish(object.held_dish, config.recipes, dish_ids):
 				return false
-			var duration := float(config.recipes[object.recipe_id].preparation_seconds)
+			var duration := RecipeBook.seconds(config.recipes.get(object.recipe_id, {}), object)
 			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0 or float(object.preparation_elapsed) > duration:
 				return false
 			if not object.get("visual_phase") in ["work", "hold", "load", "idle"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
@@ -1340,7 +1465,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 	var reservations: Dictionary = {}
 	var entrance_wait_reserved := false
 	for customer in state.customers:
-		if not customer is Dictionary or _id_index(customer.get("id"), "customer-") == 0 or customer_ids.has(customer.id):
+		if not customer is Dictionary or not Doorway.valid(customer, config.floor) or _id_index(customer.get("id"), "customer-") == 0 or customer_ids.has(customer.id):
 			return false
 		if _id_index(customer.id, "customer-") >= int(state.next_customer_id):
 			return false
@@ -1478,8 +1603,9 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 		return false
 	if not customer.get("preference_phase") in ["pending", "active", "satisfied", "expired", "complete"]:
 		return false
-	if not customer.get("departure_reason") in ["", "satisfied", "unfed", "seat_unreachable"]:
+	if not customer.get("departure_reason") in ["", "satisfied", "unfed", "seat_unreachable", "no_seat"]:
 		return false
+	if customer.departure_reason == "no_seat" and (not Doorway.enabled(config.floor) or customer.seat_id != "" or customer.preferred_recipe_id != "" or customer.first_dish_received): return false
 	if (customer.phase == "leaving") != (customer.departure_reason != ""):
 		return false
 	if customer.first_dish_received and customer.preference_phase in ["pending", "active"]:
@@ -1512,7 +1638,7 @@ func _valid_entrance_wait(customer: Dictionary, config: Dictionary) -> bool:
 	if customer.get("seat_id") != "" or customer.get("visit_legacy") != false or customer.get("first_dish_received") != false or customer.get("preferred_recipe_id") != "" or customer.get("preference_phase") != "pending":
 		return false
 	for key in ["x", "y"]:
-		if not _finite_number(customer.get(key)) or absf(float(customer[key]) - float(config.floor.entrance[key])) > 0.000001:
+		if not _finite_number(customer.get(key)) or absf(float(customer[key]) - float(customer.get("door_lane", config.floor.entrance.x) if key == "x" else config.floor.entrance.y)) > 0.000001:
 			return false
 	for key in ["preference_elapsed", "preference_phase_elapsed", "happy_elapsed", "waiting_elapsed", "fullness", "meal_fullness", "meal_elapsed", "render_offset_x", "render_offset_y", "visual_elapsed"]:
 		if not _finite_number(customer.get(key)) or float(customer[key]) != 0.0:
@@ -1539,7 +1665,7 @@ func _valid_customer_navigation(customer: Dictionary, seat: Dictionary, occupant
 	if absf(previous.x - roundf(previous.x)) > 0.000001 and absf(previous.y - roundf(previous.y)) > 0.000001:
 		return false
 	var position := Vector2(float(customer.x), float(customer.y))
-	var goal := _point(config.floor.entrance) if customer.phase in ["leaving", "entrance_wait"] else Vector2i(roundi(customer.x), roundi(customer.y)) if customer.phase == "standing" else _point(seat)
+	var goal := Doorway.anchor(customer, config.floor) if customer.phase in ["leaving", "entrance_wait"] else Vector2i(roundi(customer.x), roundi(customer.y)) if customer.phase == "standing" else _point(seat)
 	var index := int(customer.path_index)
 	if customer.phase == "standing" and customer.navigation_mode == "goal":
 		return customer.path.is_empty() and index == 0 and previous.distance_to(position) <= 0.000001
@@ -1722,7 +1848,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 		if entry.get("kind") == "chef":
 			if not known_chefs.has(entry.id):
 				return false
-			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not config.recipes.has(entry.get("recipe_id")) or not DIRECTIONS.has(entry.get("facing")):
+			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not entry.get("recipe_id") is String or (entry.recipe_id != "" and not config.recipes.has(entry.recipe_id)) or not DIRECTIONS.has(entry.get("facing")):
 				return false
 			if entry.assigned:
 				if int(entry.count) != 0 or entry.get("stored_object") != null or not placed.has(entry.id) or placed[entry.id].get("kind") != "chef":
@@ -1845,7 +1971,7 @@ func _editor_cell_rejection(request: Dictionary, excluding_id: String = "") -> S
 	if not _valid_point(request, _configuration.floor):
 		return "invalid_position"
 	var cell := _point(request)
-	if cell == _point(_configuration.floor.entrance):
+	if not Doorway.enabled(_configuration.floor) and cell == _point(_configuration.floor.entrance):
 		return "entrance"
 	var other := _object_at(cell)
 	if not other.is_empty() and other.id != excluding_id:
@@ -2079,7 +2205,7 @@ func _customer_touches(customer: Dictionary, cell: Vector2i) -> bool:
 	return cell == Vector2i(floori(center.x + 0.5), floori(center.y + 0.5)) or cell == Vector2i(floori(rendered.x + 0.5), floori(rendered.y + 0.5)) or Vector2(cell).distance_to(rendered) < 0.65
 
 func _empty_customer_cell(cell: Vector2i, excluding: String = "") -> bool:
-	if not _inside(cell, _configuration.floor) or cell == _point(_configuration.floor.entrance) or not _object_at(cell).is_empty(): return false
+	if not _inside(cell, _configuration.floor) or (not Doorway.enabled(_configuration.floor) and cell == _point(_configuration.floor.entrance)) or not _object_at(cell).is_empty(): return false
 	return not _state.customers.any(func(guest): return guest.id != excluding and _customer_touches(guest, cell))
 
 func _nearest_customer_cell(customer: Dictionary) -> Dictionary:
@@ -2096,6 +2222,7 @@ func _nearest_customer_cell(customer: Dictionary) -> Dictionary:
 	return best
 
 func _stand_customer(customer: Dictionary) -> void:
+	customer.erase("door_motion")
 	customer.seat_id = ""
 	if customer.phase != "leaving": customer.phase = "standing"
 	customer.render_offset_x = 0.0
@@ -2160,11 +2287,12 @@ func _editor_customer_change(request: Dictionary) -> Dictionary:
 	if request.type != "editor_move" or not _customer_rescuable(customer): return _editor_fail("seated_customer")
 	if not _valid_point(request, _configuration.floor): return _editor_fail("invalid_position")
 	var cell := _point(request)
-	if cell == _point(_configuration.floor.entrance): return _editor_fail("entrance")
+	if not Doorway.enabled(_configuration.floor) and cell == _point(_configuration.floor.entrance): return _editor_fail("entrance")
 	var object := _object_at(cell)
 	if not object.is_empty() and (object.kind != "seat" or _seat_reserved(object.id, customer.id)): return _editor_fail("occupied")
 	if _state.customers.any(func(guest): return guest.id != customer.id and _customer_touches(guest, cell)): return _editor_fail("customer_busy")
 	var before := _state.duplicate(true)
+	customer.erase("door_motion")
 	customer.x = float(cell.x)
 	customer.y = float(cell.y)
 	customer.render_offset_x = 0.0
@@ -2218,7 +2346,7 @@ func _try_reseat(customer: Dictionary) -> bool:
 
 func _step_standing(customer: Dictionary, delta: float) -> void:
 	customer.visual_elapsed = _clock_advance(float(customer.visual_elapsed), delta)
-	var trapped := _route_from_position(customer, _point(_configuration.floor.entrance)).is_empty()
+	var trapped := _exit_route(customer).is_empty()
 	if not trapped:
 		_clear_seated_route(customer)
 		if customer.visual_phase != "stand": _set_visual(customer, "stand")

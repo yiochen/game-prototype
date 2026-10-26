@@ -1,0 +1,10 @@
+.chef-portrait{display:inline-block;position:relative;vertical-align:middle;flex:none;width:48px;height:64px;overflow:hidden;isolation:isolate;pointer-events:none}
+.chef-portrait>img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+/* Shared illustrated profile. The dialog clips the bottom 4% to seat the chest on its separator. */
+.chef-portrait--bust{width:60px;height:76.8px;overflow:hidden;aspect-ratio:25/32}
+.chef-portrait--bust>img{position:absolute;max-width:none;width:100%;height:auto;left:0;top:0;object-fit:initial}
+.chef-portrait-gallery{padding:24px;background:#f5e8d1;color:#60381c;font-family:RecipeNunito,Nunito,sans-serif}
+.chef-portrait-gallery header{max-width:650px;margin-bottom:24px}.chef-portrait-gallery h2{margin:0 0 8px;font-size:28px}.chef-portrait-gallery header p{font-size:14px;line-height:1.5;margin:4px 0}
+.chef-portrait-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.chef-portrait-cards section{min-width:0;padding:14px;background:#fff3db;border:1px solid #e3c390;border-radius:16px}.chef-portrait-cards h3{font-size:17px;margin:0 0 12px}.chef-portrait-pair{display:flex;align-items:flex-start;justify-content:space-around;gap:10px}.chef-portrait-pair figure{margin:0;min-width:0;text-align:center}.chef-portrait-pair figcaption{margin-top:8px;font-size:12px;color:#86623e}.chef-portrait-pair .chef-portrait{width:110px;height:146.666667px;max-width:100%}.chef-portrait-pair .chef-portrait--bust{width:96px;height:122.88px}
+.prototype-stage[data-scene=chef-portraits]{height:auto;overflow:visible;width:100%;max-width:800px;background:#f5e8d1;border-color:#d1b38b}.prototype-stage[data-scene=chef-portraits] .scene-host{height:auto}
+@media(max-width:560px){.chef-portrait-gallery{padding:14px}.chef-portrait-cards{grid-template-columns:1fr}}

@@ -4,7 +4,7 @@ Open `/prototypes/sushi-loop/design/editor-dock-preview/` from the repository Vi
 
 The complete visible UI uses HTML/CSS/SVG: the coin counter and coin emblem, cream Editing pill, vermilion Live button, continuous maple board, connected active tab, detached inactive tabs, walnut Shop capsule, circular stock badges, icons, text, borders, highlights and shadows. **Only `wood-grain.png` and `waves.png` are UI image backgrounds.** There are no baked button, panel, badge or HUD images, no border-image frames and no texture bridge covering the inventory. The board and selected cap share one grain origin; their CSS geometry overlaps by two design units to cover the top edge cleanly.
 
-Native Blender goods and chef previews remain content artwork. Clean sky/wall/floor reference crops supply the restaurant illustration; the blue wall band under the HUD is CSS. The source crops exclude baked HUD pixels. All crops retain exact source pixels and provenance in `assets/provenance.json`; original generated sheets remain in `../../assets/ui/editor/wood-v1/` as history.
+Native Blender goods and ImageGen chef headshots remain content artwork. Clean sky/wall/floor reference crops supply the restaurant illustration; the blue wall band under the HUD is CSS. The source crops exclude baked HUD pixels. All crops retain exact source pixels and provenance in `assets/provenance.json`; original generated sheets remain in `../../assets/ui/editor/wood-v1/` as history.
 
 Switch People/Layout/Floor, scroll horizontally or with the mouse wheel, tap an item, drag upward for a visual pickup preview, and open Shop. Arrow keys or Home/End reveal inventory items. Escape cancels preview/selection or closes Shop. Horizontal touch scrolling cannot turn into pickup within the same touch. Releasing a pickup ends the visual preview; it does not place an object or edit a save. Shop has its existing Coming soon view and one Back action.
 
@@ -23,3 +23,7 @@ Validation covers six states at 390×844, 320×720, 984×1224 and 1280×720, nin
 The pack is in [`../../assets/ui/editor/html-export-v1/`](../../assets/ui/editor/html-export-v1/README.md), with source-pixel nine-patch margins and logical draw offsets in its manifest. Capsules allow horizontal resizing at fixed height; composites retain uniform scale. See the pack README for Godot placement details and regeneration commands.
 
 The approved dock has been ported to native Godot controls in `scripts/wood_editor_presentation.gd`, using the current export under `assets/ui/wood-editor/`. Existing HUD, world art, contextual actions and unavailable-Shop behavior are retained.
+
+## Current UI portrait refinement
+
+The People inventory uses the illustrated ImageGen family in `../../assets/ui/chef-headshots/v1/`. Historical source crops and exported native dock artwork remain preserved. Scene sprites retain their existing camera.

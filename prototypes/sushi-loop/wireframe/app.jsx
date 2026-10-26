@@ -12,6 +12,7 @@ import { Feedback } from './feedback.jsx';
 import { chefFor, roster } from './fixtures.js';
 import './single-scroll.css';
 import { productionArtStatus } from './object-review-data.js';
+import { RecipeExperience } from './recipe-maple.jsx';
 
 const byId = new Map(stories.map(story => [story.id, story]));
 const exampleOrder = storyGroups.flatMap(group => stories.filter(story => story.group === group.id));
@@ -316,4 +317,5 @@ function App() {
   </>;
 }
 
-createRoot(document.getElementById('app')).render(<App/>);
+const recipeReview = new URLSearchParams(location.search);
+createRoot(document.getElementById('app')).render(recipeReview.get('recipe-ui') === '1' ? <div className="wr-standalone"><RecipeExperience initial={recipeReview.get('state') || 'new'}/></div> : <App/>);

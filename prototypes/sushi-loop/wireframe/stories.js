@@ -34,6 +34,22 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'chef-ui-portraits', group: 'components', title: 'Chef profiles · ImageGen headshots', scene: 'chef-portraits',
+    description: 'Eight coordinated ImageGen headshots in the supplied concept-art style. Inventory, applications and profiles reuse the illustrated family; recipe headers rise from the separator above the popup border.',
+    elements: [element('Shared illustrated headshots', 'Compare each headshot and its dialog crop. The supplied concept establishes the soft illustrated style; existing chef designs guide identity and costume. Scene sprites keep their established presentation.', 'Static transparent portraits; uniform display scaling and a shared dialog crop.')],
+    notes: ['UI profile artwork only. This does not change native scene sprites or gameplay.'],
+  },
+  {
+    id: 'recipe-wood-review', group: 'recipes', title: 'Recipe picker · wood board HTML', scene: 'recipe-review', variant: 'new',
+    description: 'Issue #15 design review in the current maple inventory-board style. Empty plate and sushi are separate ImageGen layers composed in HTML, with live labels and controls.',
+    elements: [
+      element('Recipe catalog and fixed details', 'Inspect a recipe in the scrolling two-column catalog; the lower details area stays in place. Walnut inner outline marks current production and a brighter cream background marks inspection. NEW clears when inspected, including when ineligible.', 'Restrained press feedback; reduced motion removes entry movement.'),
+      element('Prepare and return', 'Prepare commits only an eligible inspected recipe in this mock example, closes to the restaurant preview and updates the blackboard. Close and Escape preserve the current recipe; reopen returns to it. Outside taps stay blocked.', 'The fixture restaurant has no economy, meal clock or native save simulation.'),
+      element('Review states', 'The controls above the phone are review tools. Compare eligible, current, NEW, ineligible, unknown and idle-chef states. All tiers use the same independent food and plate layers.', 'No automatic cycling or decorative perpetual motion.'),
+    ],
+    notes: ['HTML design review only. Native Godot implementation and final artwork approval remain pending.', 'The current wood inventory board is the style reference; the earlier noren concept does not govern this screen.'],
+  },
+  {
     id: 'character-lighting-study', group: 'scene-review', title: 'Surface lighting study', scene: 'character-lighting-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
     description: 'Historical lighting and material comparisons. Faceted lighting, matte wood and muted clay rails are approved. Matching cameras, frames, roots and the 135% grade preserve each experiment.',
@@ -221,9 +237,9 @@ export const stories = [
     id: 'recipe-picker', group: 'recipes', title: 'Picker · eligible recipe', scene: 'restaurant', variant: 'eligible', overlay: 'recipes',
     description: 'A large portrait dialog overlays the visible restaurant. Its two-column catalog scrolls above a fixed details panel.',
     elements: [
-      element('Catalog tiles', 'Discovered tiles show each dish’s fixed coin selling price beside its artwork and name. Tap to inspect without changing the chef’s current recipe; current and inspected outlines remain distinct. Undiscovered tiles do not reveal a price.', 'Tile press for 70 ms; selected outline appears for 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
-      element('Recipe header and catalog', 'Show the chef’s level without a Wood chef or other tier suffix. Preserve catalog ordering without visible group headings; use material textures and muted/outline states to distinguish recipes.', 'The catalog scrolls directly with input. Header stays stable; no title transition accompanies recipe inspection.'),
-      element('Fixed recipe details', 'Show dish, fixed selling price and chef-adjusted preparation time on a board made from the recipe tier’s material. Material texture conveys required tier without a visible tier label; retain tier information in accessible descriptions. Exclude base time and belt-loading waits.', 'Details stay anchored while catalog scrolls. Content and board material crossfade together over 140 ms, without counting through intermediate facts.'),
+      element('Catalog tiles', 'Discovered tiles show each dish’s fixed coin selling price beside its artwork and name. Tap to inspect without changing the chef’s current recipe; the current marker and inspected background remain distinct. Undiscovered tiles do not reveal a price.', 'Tile press for 70 ms; inspected background brightens over 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
+      element('Recipe header and catalog', 'Show the chef’s level without a White chef or other tier suffix. Preserve catalog ordering without visible group headings; use plate colors, rim patterns and muted/outline states to distinguish recipes.', 'The catalog scrolls directly with input. Header stays stable; no title transition accompanies recipe inspection.'),
+      element('Fixed recipe details', 'Show dish, fixed selling price and chef-adjusted preparation time beside its tier-colored plate. Plate color and rim pattern convey required tier without a visible tier label; retain tier information in accessible descriptions. Exclude base time and belt-loading waits.', 'Details stay anchored while catalog scrolls. Content and plate artwork crossfade together over 140 ms, without counting through intermediate facts.'),
       element('Prepare', 'Choose the inspected eligible recipe, close the picker and update the blackboard. If it is already current, show noninteractive Preparing instead.', 'Apply on tap; close over 160 ms. Blackboard updates immediately and shakes 2° over 260 ms.'),
       closePopup(),
     ],
@@ -244,7 +260,7 @@ export const stories = [
     id: 'recipe-unavailable', group: 'recipes', title: 'Picker · chef tier too low', scene: 'restaurant', variant: 'unavailable', overlay: 'recipes',
     description: 'Discovered recipes above this chef’s quality can be inspected, but cannot be prepared.',
     elements: [
-      element('Muted discovered tile', 'Tap to view price and the required tier’s material board without a visible tier name. An accessible description retains the requirement. Inspection still clears NEW, even when the chef cannot cook it.', 'Artwork is muted rather than hidden. Selection outline remains readable; details and board material crossfade for 140 ms.'),
+      element('Muted discovered tile', 'Tap to view price and the required tier’s colored plate without a visible tier name. An accessible description retains the requirement. Inspection still clears NEW, even when the chef cannot cook it.', 'Artwork is muted rather than hidden. The inspected background remains readable; details and plate artwork crossfade for 140 ms.'),
       element('Preparation time', 'Show an em dash while the chef is ineligible; do not imply a usable adjusted duration.', 'Static value; no timer or progress ring.'),
       element('Disabled Prepare', 'Retain the unavailable action and required tier’s board texture; tapping performs no purchase or shortage popup. Expose eligibility and tier to assistive technology.', 'Muted outline and text with no press bounce; accessible disabled state.'),
       closePopup(),
@@ -253,13 +269,13 @@ export const stories = [
   },
   {
     id: 'recipe-undiscovered', group: 'recipes', title: 'Picker · undiscovered silhouette', scene: 'restaurant', variant: 'undiscovered', overlay: 'recipes',
-    description: 'Undiscovered recipes remain engraved silhouettes on tier-material boards and do not reveal dish identity or facts.',
+    description: 'Undiscovered recipes remain unidentified food silhouettes on tier-colored plates and do not reveal dish identity or facts.',
     elements: [
-      element('Undiscovered tile', 'A silhouette explains collection space without revealing the upcoming expedition reward. It has no Prepare action.', 'Static engraved silhouette; no teaser pulse or fake NEW badge.'),
-      element('Tier board', 'Distinct wood grain and metal textures communicate Wood, Steel, Copper, Silver and Gold without visible tier labels. Keep tier information in accessible descriptions; texture must remain distinguishable beyond color.', 'No transition until discovery; later artwork can reveal with a 180 ms crossfade.'),
+      element('Undiscovered tile', 'A silhouette explains collection space without revealing the upcoming expedition reward. It has no Prepare action.', 'Static unidentified food silhouette; no teaser pulse or fake NEW badge.'),
+      element('Tier board', 'Distinct ceramic plate colors and rim patterns communicate White, Yellow, Red, Blue and Black without visible tier labels. Keep tier information in accessible descriptions; texture must remain distinguishable beyond color.', 'No transition until discovery; later artwork can reveal with a 180 ms crossfade.'),
       closePopup(),
     ],
-    notes: ['The wireframe uses distinguishable material patterns without visible tier names; dish illustrations remain placeholders.', motionNote],
+    notes: ['The current wood-board review uses independent ImageGen plate and food layers with distinct rim patterns and no redundant tier names.', motionNote],
   },
   {
     id: 'recipe-new', group: 'recipes', title: 'Picker · newly discovered recipe', scene: 'restaurant', variant: 'new', overlay: 'recipes',
@@ -523,8 +539,8 @@ export const stories = [
     id: 'recipe-award', group: 'rewards', title: 'First-catch recipe award', scene: 'catch', variant: 'first', overlay: 'recipe-award',
     description: 'A dedicated discovery card shows the new dish and recipe-wide facts after the brief first catch cutscene.',
     elements: [
-      element('Recipe artwork and name', 'Show the earned recipe on a board/roll made from its required material; the Eel fixture uses a copper texture. Material conveys required chef tier without a visible Chef requirement row. Keep tier information accessible and retain the recipe if presentation is interrupted.', 'Card rises 12 px over 220 ms, artwork reveals with a 180 ms fade. Reduced motion removes travel.'),
-      element('Recipe facts', 'Show fixed dish price and base preparation time. Required chef quality is conveyed by the roll’s material and an accessible description rather than a visible Chef requirement row. Base time here is distinct from the chef-adjusted picker time.', 'Facts appear together after a short 120 ms fade, without a staggered mandatory wait.'),
+      element('Recipe artwork and name', 'Show the earned recipe on its required colored plate; the Eel fixture uses a red plate. Plate color and rim pattern convey required chef tier without a visible Chef requirement row. Keep tier information accessible and retain the recipe if presentation is interrupted.', 'Card rises 12 px over 220 ms, artwork reveals with a 180 ms fade. Reduced motion removes travel.'),
+      element('Recipe facts', 'Show fixed dish price and base preparation time. Required chef quality is conveyed by the plate’s color/rim and an accessible description rather than a visible Chef requirement row. Base time here is distinct from the chef-adjusted picker time.', 'Facts appear together after a short 120 ms fade, without a staggered mandatory wait.'),
       element('Continue', 'Open receipt-only results. This action does not earn the recipe and does not clear its NEW marker in the restaurant picker.', '70 ms press then 200 ms scene crossfade; consume the touch.'),
     ],
     notes: [motionNote, mockNote],
@@ -534,7 +550,7 @@ export const stories = [
     description: 'Completion uses its own background with a salvage receipt and one Restaurant continuation.',
     elements: [
       element('Salvage receipt', 'Show pickups, repeat-catch bonus only when earned, completion bonus and total earned this run; not the banked balance.', 'Rows fade in together over 160 ms. Total is final immediately; avoid count-up delaying continuation.'),
-      element('Tier notice', 'When a tier opens, show its name and material icon with a brief future-expedition explanation. No new-species preview or separate reveal.', 'Inline notice fades in over 160 ms; no extra Continue step.'),
+      element('Tier notice', 'When a tier opens, show its name and colored-plate icon with a brief future-expedition explanation. No new-species preview or separate reveal.', 'Inline notice fades in over 160 ms; no extra Continue step.'),
       element('Restaurant', 'Return to recentered cleared floor, with recharge and rewards retained in intended gameplay. No Workshop shortcut on results.', '70 ms press and 220 ms crossfade; restaurant earnings notice can appear beside cash balance afterward.'),
     ],
     notes: ['Results omit a recipe recap. The neutral completion background is a wireframe placeholder for future art.', motionNote, mockNote],
@@ -683,8 +699,8 @@ export const stories = [
     id: 'component-recipe-tile', group: 'components', title: 'Recipe catalog tile', scene: 'component', variant: 'recipe-tile', component: 'recipe-tile',
     description: 'The same recipe-tile renderer used inside every chef recipe picker is shown here with current, inspected, NEW, above-tier and undiscovered treatments. Revisions carry through to all picker stories.',
     elements: [
-      element('Tier board and dish', 'Discovered tiles show artwork, name and fixed coin selling price on their tier’s material board, without visible Wood or other tier labels. Undiscovered tiles show unidentified engraved silhouettes without revealing or inventing a price. Distinct grain/metal patterns convey the tier beyond color; retain it in accessible descriptions.', 'Artwork may crossfade on discovery over 180 ms; no pulsing mystery teaser. Material stays consistent with the fixed details board.'),
-      element('Current and inspected outlines', 'Keep current cooking assignment and inspection selection distinct, including when they are the same tile. Tap inspection does not Prepare.', 'Press 70 ms; selected outline changes over 100 ms. The fixed details panel crossfades separately over 140 ms.'),
+      element('Tier board and dish', 'Discovered tiles show artwork, name and fixed coin selling price on their tier-colored plate, without redundant visible tier labels. Undiscovered tiles show unidentified food silhouettes without revealing or inventing a price. Distinct plate colors and rim patterns convey the tier beyond color; retain it in accessible descriptions.', 'Artwork may crossfade on discovery over 180 ms; no pulsing mystery teaser. Material stays consistent with the fixed details board.'),
+      element('Current marker and inspected background', 'Keep current cooking assignment and inspection selection distinct, including when they are the same tile. Tap inspection does not Prepare.', 'Press 70 ms; inspected background brightens over 100 ms. The fixed details panel crossfades separately over 140 ms.'),
       element('NEW marker', 'Present until inspected in the restaurant picker. Above-tier inspection also clears it; the expedition award does not.', 'Marker fades away over 140 ms after inspection, with no constant attention loop.'),
       element('Unavailable tile', 'A discovered above-tier tile remains inspectable with muted artwork; eligibility is handled by the picker’s Prepare area.', 'Retain target response and selection outline. Do not turn an inspectable tile into a disabled tap target.'),
     ],

@@ -1,17 +1,12 @@
 import React from 'react';
 import { Target, Icon, Character, Money } from './common.jsx';
-import { RecipeTile } from './components.jsx';
+import { MapleRecipePanel, plateRecipes, PlatedDish } from './recipe-maple.jsx';
 import { ResumeDeck } from './applicants.jsx';
 import { applicantSet, chefFor, roster, chefAssigned, chefSpeed } from './fixtures.js';
 
-const recipes = {
-  salmon: { name: 'Salmon nigiri', tier: 'Wood', level: 1, price: 18, seconds: 4.2, symbol: '◓' },
-  cucumber: { name: 'Cucumber maki', tier: 'Wood', level: 1, price: 12, seconds: 2.8, symbol: '◎' },
-  eel: { name: 'Eel roll', tier: 'Copper', level: 5, price: 48, seconds: 5.1, symbol: '≋' },
-  unknown: { name: 'Undiscovered dish', tier: 'Silver', level: 8, symbol: '?' },
-};
+const recipes = plateRecipes;
 const variantFor = story => ({ 'recipe-unavailable': 'unavailable', 'recipe-undiscovered': 'undiscovered', 'recipe-new': 'new', 'recipe-idle': 'idle', 'staff-full': 'full', 'staff-max': 'max', 'staff-unaffordable': 'unaffordable', 'expansion-unaffordable': 'unaffordable' }[story.id]) || story.variant;
-const tierFor = level => level >= 12 ? 'Gold' : level >= 8 ? 'Silver' : level >= 5 ? 'Copper' : level >= 3 ? 'Steel' : 'Wood';
+const tierFor = level => level >= 12 ? 'Black' : level >= 8 ? 'Blue' : level >= 5 ? 'Red' : level >= 3 ? 'Yellow' : 'White';
 function Navigate({ children, story, className = '' }) { return <Target action="navigate" data={{ story }} className={className}>{children}</Target>; }
 function Fact({ label, children }) { return <div className="overlay-fact"><dt>{label}</dt><dd>{children}</dd></div>; }
 
@@ -26,27 +21,10 @@ export function Dialog({ story, title, eyebrow, className = '', children, footer
   </div>;
 }
 
-function RecipeGroup({ title, keys, selected, current, seen, isNew, muted = false }) {
-  return <section className={`recipe-group ${muted ? 'muted-recipes' : ''}`} aria-label={title}><div className="recipe-grid">{keys.map(key => <RecipeTile key={key} recipe={recipes[key]} recipeKey={key} selected={selected} current={current} seen={seen} isNew={isNew && key === 'eel'}/>)}</div></section>;
-}
-
 function Recipes({ story, state }) {
-  const variant = variantFor(story), chef = chefFor(state), firstName = chef.name.split(' ')[0];
-  const level = variant === 'new' ? Math.max(5, state.chefLevel) : state.chefLevel;
-  const current = state.currentRecipe, selected = state.selectedRecipe, recipe = recipes[selected];
-  const eligible = recipe && selected !== 'unknown' && level >= recipe.level;
-  const available = ['salmon', 'cucumber', 'eel'];
-  const cookable = available.filter(key => recipes[key].level <= level).sort((a,b) => recipes[b].level - recipes[a].level);
-  const above = available.filter(key => recipes[key].level > level).sort((a,b) => recipes[b].level - recipes[a].level);
-  const groupProps = { selected, current, seen: state.seenRecipes, isNew: variant === 'new' };
-  let details;
-  if (!recipe) details = <><div className="recipe-details-empty"><span className="recipe-dish" aria-hidden="true">◌</span><div><h3>Choose a recipe</h3><p>Inspect a dish above, then press Prepare.</p></div></div><Target action="prepare" className="primary-action full-width" disabled>Prepare</Target></>;
-  else if (selected === 'unknown') details = <><div className="recipe-detail-heading"><span className="recipe-dish dish-silhouette" aria-hidden="true">?</span><div><h3>Undiscovered dish</h3></div></div><p className="unknown-recipe-note">Catch a new creature on an expedition to reveal this recipe.</p><Target action="prepare" className="primary-action full-width" disabled>Prepare</Target></>;
-  else details = <><div className="recipe-detail-heading"><span className="recipe-dish" aria-hidden="true">{recipe.symbol}</span><div><h3>{recipe.name}</h3></div></div><dl className="overlay-facts recipe-facts"><Fact label="Price / dish"><Money kind="coins" amount={recipe.price}/></Fact><Fact label={`Prep with ${firstName}`}>{eligible ? `${recipe.seconds.toFixed(1)} sec` : '—'}</Fact><Fact label="Requires">Lv {recipe.level}</Fact></dl>{!eligible && <p className="inline-reason">{firstName} needs Level {recipe.level} to prepare this recipe.</p>}{selected === current ? <div className="noninteractive-status preparing-status">Preparing <span>Current recipe</span></div> : <Target action="prepare" className="primary-action full-width" disabled={!eligible}>Prepare</Target>}</>;
-  return <Dialog story={story} title={`${firstName}’s recipes`} eyebrow={`Level ${level}`} className="recipe-dialog">
-    <div className="recipe-catalog" tabIndex={0} aria-label="Scrollable recipe catalog"><RecipeGroup title="Can prepare" keys={cookable} {...groupProps}/>{!!above.length && <RecipeGroup title="Needs a higher chef level" keys={above} {...groupProps} muted/>}<RecipeGroup title="Still undiscovered" keys={['unknown']} {...groupProps}/><p className="catalog-key"><span className="current-key" aria-hidden="true"/>Current recipe <span className="inspection-key" aria-hidden="true"/>Inspecting</p></div>
-    <section className={`recipe-details ${recipe ? `tier-${recipe.tier.toLowerCase()}` : ''}`} aria-live="polite" aria-label="Selected recipe details" aria-description={recipe ? `${recipe.tier} material board` : undefined}>{details}</section>
-  </Dialog>;
+  const chef = chefFor(state);
+  const level = variantFor(story) === 'new' ? Math.max(5, state.chefLevel) : state.chefLevel;
+  return <MapleRecipePanel state={state} chefName={chef.name.split(' ')[0]} chefId={chef.id} level={level}/>;
 }
 
 function Applicants({ story, state }) {
@@ -87,7 +65,7 @@ function EarlyReturn({ story }) {
 }
 
 function RecipeAward({ story }) {
-  return <Dialog story={story} title="New recipe discovered!" eyebrow="First catch · Eel" className="recipe-award-dialog" showClose={false} footer={<Navigate story="results-complete" className="primary-action full-width">Continue</Navigate>}><div className="dialog-scroll"><div className="award-dish tier-copper" role="img" aria-label="Eel roll on a copper material background"><span aria-hidden="true">≋</span><i/><i/><i/><i/></div><h3 className="award-name">Eel roll</h3><p className="award-subtitle">Added to your restaurant collection</p><dl className="overlay-facts award-facts"><Fact label="Price / dish"><Money kind="coins" amount={48}/></Fact><Fact label="Base prep time">6.0 sec</Fact></dl><p className="inline-note">Already earned. Continue opens your expedition receipt.</p></div></Dialog>;
+  return <Dialog story={story} title="New recipe discovered!" eyebrow="First catch · Eel" className="recipe-award-dialog" showClose={false} footer={<Navigate story="results-complete" className="primary-action full-width">Continue</Navigate>}><div className="dialog-scroll"><div className="wr-award-dish" role="img" aria-label="Eel roll on a red plate with dashed rim"><PlatedDish recipe={plateRecipes.eel}/></div><h3 className="award-name">Eel roll</h3><p className="award-subtitle">Added to your restaurant collection</p><dl className="overlay-facts award-facts"><Fact label="Price / dish"><Money kind="coins" amount={48}/></Fact><Fact label="Base prep time">6.0 sec</Fact></dl><p className="inline-note">Already earned. Continue opens your expedition receipt.</p></div></Dialog>;
 }
 
 export function Overlay({ story, state }) {

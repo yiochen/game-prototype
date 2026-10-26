@@ -2,6 +2,8 @@ extends Control
 ## Shared scene/gallery renderer for the approved Faceted #33 asset library.
 ## Ground cells are square; every full sprite uses its authored 128px root/pitch.
 
+const Doorway = preload("res://scripts/doorway.gd")
+const EntranceCurtain = preload("res://scripts/entrance_curtain.gd")
 const ArtBook = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
 const GroundShadows = preload("res://scripts/ground_shadows.gd")
@@ -39,6 +41,11 @@ var cell := 76.0
 var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
+var recipe_shakes: Dictionary = {}
+const DISH_FLIGHT_SECONDS := 0.34
+var dish_flights: Array = []
+var meal_attachments: Dictionary = {}
+const RecipeArt = preload("res://scripts/recipe_art.gd")
 var reduced_motion := false
 var editor_preview: Dictionary = {}
 var editor_selection_alpha := 1.0
@@ -184,6 +191,7 @@ func _room() -> void:
 	_editor_ground()
 	_render_room_items(items)
 	_editor_ghost()
+	_draw_dish_flights()
 	_belt_target_overlay()
 	_customer_selection_overlay()
 	# Thought/reaction art is a final feedback layer, following the same saved
@@ -218,6 +226,7 @@ func _render_room_items(items: Array = []) -> void:
 			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
 			"board": _board(item.value)
 			"customer": _customer(item.value)
+			"curtain": EntranceCurtain.draw_front(self, item.base)
 	_capture_hits = false
 	_current_owner = ""
 	_hit_signature = _geometry_signature()
@@ -249,11 +258,19 @@ func sprite_hits() -> Array[Dictionary]:
 	_ensure_sprite_hits()
 	return _hit_records.duplicate(true)
 
+func _curtain_hides_hit(item: Dictionary, point: Vector2) -> bool:
+	if not Doorway.enabled(state.get("floor", {})): return false
+	for guest in state.get("customers", []):
+		if guest.id == item.owner_id and float(guest.y) + float(guest.get("render_offset_y", 0)) < float(state.floor.entrance.y) + Doorway.CURTAIN_OFFSET:
+			return EntranceCurtain.covers(self, point, cell_base(4.5, 2.5))
+	return false
+
 func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
 	_ensure_sprite_hits()
 	for index in range(_hit_records.size() - 1, -1, -1):
 		var item: Dictionary = _hit_records[index]
+		if _curtain_hides_hit(item, point): continue
 		var bounds: Rect2 = item.rect
 		if not bounds.has_area() or not bounds.has_point(point) or float(item.tint.a) <= ArtBook.PICK_ALPHA: continue
 		var uv := (point - bounds.position) / bounds.size
@@ -375,12 +392,14 @@ func _editor_ghost() -> void:
 			if guest.seat_id == object.get("id") and (guest.phase in ["waiting", "eating"] or guest.visual_phase == "stand-up"):
 				_customer_at(guest, base, cell, tint)
 	elif object.get("kind") == "belt" and object.get("dish") is Dictionary:
-		sprite(DISHES.get(object.dish.recipe_id, "dish-salmon"), base + dish_base(object) - cell_base(float(object.x), float(object.y)), "static", "S", 0.0, -1.0, tint)
+		_draw_recipe_centered(str(object.dish.recipe_id), base + dish_base(object) - cell_base(float(object.x), float(object.y)), cell*0.76, tint)
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
 	# at the same depth precede every plate, preventing neighboring rail overlap.
 	var result := _decor_plan()
+	if Doorway.enabled(state.get("floor", {})):
+		result.append({"kind": "curtain", "base": cell_base(4.5, 2.5), "depth": float(state.floor.entrance.y) + Doorway.CURTAIN_OFFSET, "priority": 1})
 	for object in state.get("objects", []):
 		match object.kind:
 			"belt":
@@ -508,7 +527,8 @@ func belt_path_point(belt: Dictionary, progress: float) -> Vector2:
 	return center + radius.rotated(radius.angle_to(end - center) * progress)
 
 func _dish(belt: Dictionary) -> void:
-	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))
+	var base := dish_base(belt)
+	_draw_recipe_centered(str(belt.dish.recipe_id),base,cell*0.76)
 
 func activity_tint(object: Dictionary) -> Color:
 	return Color.WHITE if object.get("active", true) else INACTIVE_TINT
@@ -526,8 +546,14 @@ func _chef(chef: Dictionary) -> void:
 
 func _chef_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	var clip := chef_clip(chef)
+	var composed: bool = chef.get("held_dish") is Dictionary and str(chef.get("recipe_id")) != "salmon_nigiri" and not (chef.get("art_id") == "chef-omar" and chef.get("recipe_id") == "cucumber_maki")
+	# Existing native clips contain their original food. Other recipe choices
+	# reuse the same character's empty-handed pose plus the shared dish layers.
+	if composed and clip in ["hold", "load"]: clip = "idle"
 	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.get("elapsed", time)))
 	sprite(str(chef.get("art_id", "chef-lena")), base, clip, str(FACING.get(chef.get("facing", "south"), "S")), seconds, pitch, activity_tint(chef))
+	if composed and chef.get("active", true):
+		_actor_recipe(chef, base, pitch, str(chef.recipe_id), true)
 	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
 		draw_circle(center, pitch * 0.10, PAPER)
@@ -544,9 +570,12 @@ func _board_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	# Front placement and blank face are modeled in the source. This fixture
 	# stays in the chef's cell and always faces the player.
 	var tint := activity_tint(chef)
+	var age: float = time-float(recipe_shakes.get(str(chef.get("id", "")), -10.0))
+	if not reduced_motion and age >= 0.0 and age < 0.3: base.x += sin(age*TAU*16.0)*pitch*0.035*(1.0-age/0.3)
 	sprite("chef-blackboard", base, "idle", "S", 0.0, pitch, tint)
 	var face: Vector2 = base + art.socket("chef-blackboard", "display_face") * pitch / art.cell_size
-	sprite(str(DISHES.get(str(chef.get("recipe_id", "salmon_nigiri")), "dish-salmon")), face, "static", "S", 0.0, pitch * 0.28, tint)
+	if not str(chef.get("recipe_id", "")).is_empty():
+		_draw_recipe_centered(str(chef.recipe_id),face,pitch*0.40,tint)
 
 func _customer(customer: Dictionary) -> void:
 	_customer_at(customer, cell_base(float(customer.x), float(customer.y)), cell)
@@ -554,17 +583,23 @@ func _customer(customer: Dictionary) -> void:
 func customer_pose_offset(customer: Dictionary, pitch: float) -> Vector2:
 	var result := Vector2(float(customer.get("render_offset_x", 0)), float(customer.get("render_offset_y", 0))) * pitch
 	var happy := float(customer.get("happy_elapsed", 100.0))
-	if not reduced_motion and customer.get("preference_phase") == "satisfied" and happy >= 0.0 and happy < 0.55:
+	if not customer.get("doorway", false) and not reduced_motion and customer.get("preference_phase") == "satisfied" and happy >= 0.0 and happy < 0.55:
 		result.y -= sin(PI * happy / 0.55) * pitch * 0.14
 	return result
 
 func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Color.WHITE) -> void:
+	var light := float(customer.get("door_light", 1.0))
+	tint *= Color(light, light, light, float(customer.get("door_alpha", 1.0)))
 	var identity: String = CUSTOMERS[posmod(int(customer.get("appearance", 0)), CUSTOMERS.size())]
 	var direction := str(FACING.get(str(customer.get("facing", "south")), "S"))
 	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.get("elapsed", time)))
 	# Sit/stand actions retain their native wood-stool support calibration.
 	# Passing and brief happiness move only the visual instance, never its cell.
-	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch, tint)
+	var meal: Dictionary = customer.meal_dish if customer.get("meal_dish") is Dictionary else {}
+	var awaiting_dish := _guest_awaiting_dish(str(customer.get("id","")))
+	var composed: bool = customer.get("phase") == "eating" and not meal.is_empty() and not meal.get("recipe_id") in ["salmon_nigiri", "cucumber_maki"]
+	sprite(identity, base + customer_pose_offset(customer, pitch), "seated-wait-empty" if composed or awaiting_dish else customer_clip(customer), direction, seconds, pitch, tint)
+	if composed and not awaiting_dish: _actor_recipe(customer, base + customer_pose_offset(customer, pitch), pitch, str(meal.recipe_id), false, identity)
 	# Off-stool poses use the authored empty hands. The unfinished meal stays
 	# in session state and becomes visible again in the seated eating clip.
 
@@ -581,6 +616,7 @@ func customer_clip(customer: Dictionary) -> String:
 	return clip
 
 func customer_feedback(customer: Dictionary) -> Dictionary:
+	if customer.get("doorway", false): return {}
 	if customer.get("layout_pending", false) and state.get("mode") == "edit": return {}
 	if customer.get("phase") == "standing" and customer.get("navigation_mode") != "wander":
 		return {"object": "bubble-puzzled", "clip": "idle" if reduced_motion or float(customer.get("standing_elapsed", 0)) >= 1.0 else "appear", "seconds": 0.0 if reduced_motion else float(customer.get("standing_elapsed", 0)), "timer": -1.0}
@@ -695,3 +731,70 @@ func _paper_style() -> StyleBoxFlat:
 	style.shadow_color = Color(0, 0, 0, 0.2)
 	style.shadow_size = 10
 	return style
+
+func _draw_recipe(identity: String, bounds: Rect2, tint := Color.WHITE) -> void:
+	if _record_only or _collect_ground_shadows: return
+	var recipe: Dictionary = state.get("recipes", {}).get(identity, {"tier":"White", "food_cell":3 if identity == "cucumber_maki" else 2})
+	RecipeArt.draw_dish(self, recipe, bounds, false, tint)
+
+func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: String, loading: bool, identity := "") -> void:
+	if _record_only or _collect_ground_shadows: return
+	if identity.is_empty(): identity = str(actor.get("art_id", "chef-lena"))
+	var facing := str(actor.get("facing", "south"))
+	var direction := str(FACING.get(facing, "S"))
+	var hands := (art.socket(identity,"hand_left",direction)+art.socket(identity,"hand_right",direction))*0.5
+	var center: Vector2 = base+hands*pitch/art.cell_size
+	if loading and actor.get("visual_phase") == "load":
+		var seconds := float(actor.get("loading_elapsed", 0))
+		var t := clampf(seconds / maxf(0.001,float(state.get("loading_seconds", 1.0))),0,1)
+		center = center.lerp(base+DIRECTIONS.get(facing,Vector2.UP)*pitch-Vector2(0,pitch*0.38), t)
+	_draw_recipe(recipe,Rect2(center-Vector2(pitch*0.27,pitch*0.40),Vector2.ONE*pitch*0.54))
+
+func _draw_recipe_centered(identity: String, center: Vector2, edge: float, tint := Color.WHITE) -> void:
+	var recipe: Dictionary = state.get("recipes",{}).get(identity,{"tier":"White","food_cell":2})
+	_draw_recipe(identity,Rect2(center-RecipeArt.plate_center(recipe)*edge,Vector2.ONE*edge),tint)
+
+func prune_dish_flights() -> void:
+	if reduced_motion:
+		dish_flights.clear()
+		return
+	dish_flights = dish_flights.filter(func(flight): return time-float(flight.started)<DISH_FLIGHT_SECONDS and state.get("customers",[]).any(func(guest): return guest.id == flight.customer_id and guest.phase == "eating" and guest.meal_dish is Dictionary and guest.meal_dish.id == flight.dish_id))
+
+func _guest_awaiting_dish(identity: String) -> bool:
+	return not reduced_motion and dish_flights.any(func(flight): return flight.customer_id == identity and time-float(flight.started)>=0 and time-float(flight.started)<DISH_FLIGHT_SECONDS)
+
+func _meal_landing(guest: Dictionary) -> Vector3:
+	if meal_attachments.is_empty(): meal_attachments = JSON.parse_string(FileAccess.get_file_as_string("res://content/meal_attachments.json"))
+	var identity: String = CUSTOMERS[posmod(int(guest.get("appearance",0)),CUSTOMERS.size())]
+	var clip := "eat-salmon" if guest.meal_dish.recipe_id == "salmon_nigiri" else "eat"
+	var direction := str(FACING.get(str(guest.get("facing","south")),"S"))
+	# Higher-tier meals use the composed empty-hands pose and its static socket.
+	if not guest.meal_dish.recipe_id in ["salmon_nigiri", "cucumber_maki"]:
+		var recipe: Dictionary = state.recipes[guest.meal_dish.recipe_id]
+		var hands: Vector2 = (art.socket(identity,"hand_left",direction)+art.socket(identity,"hand_right",direction))*0.5/art.cell_size
+		var center: Vector2 = hands-Vector2(0.27,0.40)+RecipeArt.plate_center(recipe)*0.54
+		return Vector3(center.x,center.y,0.54*RecipeArt.plate_visible_width(recipe))
+	var frames: Array = meal_attachments.actors[identity][clip][direction]
+	var index := posmod(int(floor(float(guest.get("visual_elapsed",0))*12)),frames.size())
+	var value: Array = frames[index]
+	return Vector3(float(value[0]),float(value[1]),float(value[2]))
+
+func _draw_dish_flights() -> void:
+	if reduced_motion or _record_only or _collect_ground_shadows: return
+	var camera: Dictionary = state.get("camera",{})
+	for flight in dish_flights:
+		var progress := (time-float(flight.started))/DISH_FLIGHT_SECONDS
+		if progress<0 or progress>=1: continue
+		var matches: Array = state.get("customers",[]).filter(func(guest): return guest.id == flight.customer_id and guest.phase == "eating" and guest.meal_dish is Dictionary and guest.meal_dish.id == flight.dish_id)
+		if matches.is_empty(): continue
+		var guest: Dictionary = matches[0]
+		var source: Vector2 = floor_origin+(Vector2(flight.source_grid)-Vector2(float(camera.get("x",0)),float(camera.get("y",0))))*cell
+		var landing := _meal_landing(guest)
+		var target := cell_base(float(guest.x),float(guest.y))+customer_pose_offset(guest,cell)+Vector2(landing.x,landing.y)*cell
+		var arc := minf(cell*0.42,maxf(cell*0.22,source.distance_to(target)*0.3))
+		var control := (source+target)*0.5-Vector2(0,arc)
+		var t := 1.0-pow(1.0-progress,2.0)
+		var center: Vector2 = source*(1.0-t)*(1.0-t)+control*2.0*(1.0-t)*t+target*t*t
+		var recipe: Dictionary = state.recipes[flight.recipe_id]
+		var edge := lerpf(cell*0.76,cell*landing.z/RecipeArt.plate_visible_width(recipe),t)
+		_draw_recipe_centered(str(flight.recipe_id),center,edge)
