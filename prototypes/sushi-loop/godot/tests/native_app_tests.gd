@@ -36,6 +36,9 @@ func _run() -> void:
 	app.simulation_enabled = false
 	root.add_child(app)
 	await _frames()
+	# Fix the service generator so revenue probes do not depend on wall-clock seed.
+	app.session=Session.new_session(41)
+	app._refresh();app.save_now()
 	print("Native UI viewport: window=%s canvas=%s transform=%s" % [root.size, app.size, app.get_viewport_transform()])
 	_expect(not app.session.snapshot().is_empty(), "The actual main scene opens an operating public session")
 	var stopped: Dictionary = app.session.snapshot()
@@ -106,7 +109,7 @@ func _test_skin(app) -> void:
 	# containers. Fixed corners and content insets follow their manifest roles.
 	var editor = app.editor_ui
 	var unit: float = app.world.portrait.size.x / 720.0
-	var surfaces: Array = [_button_surface(app.shop), _button_surface(app.edit), _button_surface(app.staff), editor.live.get_meta("visual_surface").get_theme_stylebox("panel"), editor.context_bubble.get_theme_stylebox("panel"), editor.inspection_panel.get_theme_stylebox("panel"), editor.inspection_preview_panel.get_theme_stylebox("panel"), editor.rejection.get_theme_stylebox("normal")]
+	var surfaces: Array = [_button_surface(app.shop), _button_surface(app.edit), editor.live.get_meta("visual_surface").get_theme_stylebox("panel"), editor.context_bubble.get_theme_stylebox("panel"), editor.inspection_panel.get_theme_stylebox("panel"), editor.inspection_preview_panel.get_theme_stylebox("panel"), editor.rejection.get_theme_stylebox("normal")]
 	surfaces.append(app.coin_panel.get_theme_stylebox("panel"))
 	surfaces.append(app.editing_panel.get_theme_stylebox("panel"))
 	var generated := true
@@ -116,7 +119,7 @@ func _test_skin(app) -> void:
 		calibrated = calibrated and _skin_calibrated(surface, editor.skin, unit)
 	_expect(generated, "Inherited HUD, context, profile, modal and toast retain the coordinated generated B family")
 	_expect(calibrated, "Generated surfaces retain their documented fixed corner edges and content insets at the actual viewport scale")
-	_expect(_skin_source(surfaces[0]) == _skin_source(editor.skin.style("control-wood", unit, "disabled")) and _skin_source(surfaces[1]) == _skin_source(editor.skin.style("control-wood", unit)) and _skin_source(surfaces[2]) == _skin_source(editor.skin.style("control-wood", unit, "disabled")), "Shop, Edit and Staff share the neutral ceramic family with its generated disabled treatment")
+	_expect(_skin_source(surfaces[0]) == _skin_source(editor.skin.style("control-wood", unit, "disabled")) and _skin_source(surfaces[1]) == _skin_source(editor.skin.style("control-wood", unit)), "Shop and Edit share the neutral ceramic family")
 	_expect(_skin_source(editor.live.get_meta("visual_surface").get_theme_stylebox("panel")) != _skin_source(_button_surface(app.edit)), "Live has the distinct generated vermilion primary surface")
 	_expect(not editor.previous.visible and not editor.next.visible and editor.rail.clip_contents, "The wood dock replaces carets with a clipped scroll viewport")
 	_expect(app.coin.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_CENTERED and app.coin.texture is AtlasTexture, "The generated coin preserves its aspect ratio in the transparent HUD")
@@ -128,11 +131,11 @@ func _test_skin(app) -> void:
 	var full_pill_frames := true
 	for control in [app.coin_panel, app.editing_panel, editor.live.get_meta("visual_surface"), editor.inspection_close.get_meta("visual_surface")]:
 		full_pill_frames = full_pill_frames and control.size.y >= 100 * unit - 0.01
-	for button in [app.shop, app.edit, app.staff, editor.live, editor.inspection_close]:
+	for button in [app.shop, app.edit, editor.live, editor.inspection_close]:
 		full_pill_frames = full_pill_frames and button.size.y >= 100 * unit - 0.01
 	_expect(full_pill_frames, "Actual pill frames and native button targets retain the full rounded ends instead of compressing below their material minimum")
 	var refuses_flattening := true
-	for control in [app.coin_panel, app.editing_panel, editor.live.get_meta("visual_surface"), editor.inspection_close.get_meta("visual_surface"), app.shop, app.edit, app.staff, editor.live, editor.inspection_close]:
+	for control in [app.coin_panel, app.editing_panel, editor.live.get_meta("visual_surface"), editor.inspection_close.get_meta("visual_surface"), app.shop, app.edit, editor.live, editor.inspection_close]:
 		var original_size: Vector2 = control.size
 		control.size = Vector2(original_size.x, 40 * unit)
 		refuses_flattening = refuses_flattening and control.size.y >= 100 * unit - 0.01
@@ -160,7 +163,7 @@ func _test_geometry(app) -> void:
 	# Godot rounds an expanded logical viewport to integer dimensions. The two
 	# scale axes can consequently differ by a tiny fraction of one screen pixel.
 	_expect(absf(physical_horizontal.length() - physical_vertical.length()) < 0.1, "Physical display scaling keeps cells square within subpixel viewport rounding")
-	for button in [app.shop, app.edit, app.staff]:
+	for button in [app.shop, app.edit]:
 		var rect: Rect2 = button.get_global_rect()
 		var physical: Rect2 = transform * rect
 		_expect(portrait.encloses(rect), "%s stays inside the portrait play area" % button.text)
@@ -239,7 +242,7 @@ func _test_configured_camera(app) -> void:
 	await _frames()
 
 func _test_touch_and_hud(app) -> void:
-	await _test_optical_pairs(app, [_button_ink_pair(app.shop), _button_ink_pair(app.edit), _button_ink_pair(app.staff)])
+	await _test_optical_pairs(app, [_button_ink_pair(app.shop), _button_ink_pair(app.edit)])
 	app.session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
 	await _frames()
 	var before: Dictionary = app.session.snapshot()
@@ -253,7 +256,7 @@ func _test_touch_and_hud(app) -> void:
 	var moved: Dictionary = app.session.snapshot()
 	_expect(float(moved.camera.x) > 1.0 and float(moved.camera.x) < 3.0, "A physical screen gesture pans the restaurant by the expected visible distance")
 	_expect(moved.coins == before.coins and moved.elapsed == before.elapsed, "Panning does not alter coins or advance the controlled simulation")
-	_expect(_same(hud, _hud_rects(app)), "Coin, reserved earnings area and Shop/Edit/Staff controls remain fixed while the world pans")
+	_expect(_same(hud, _hud_rects(app)), "Coin, reserved earnings area and Shop/Edit controls remain fixed while the world pans")
 	var cancel_start := area.position + Vector2(area.size.x * 0.72, area.size.y * 0.50)
 	var cancel_end := cancel_start - Vector2(app.world.cell * 0.7, 0)
 	await _touch(app, cancel_start, true, 3)
@@ -267,11 +270,12 @@ func _test_touch_and_hud(app) -> void:
 	await _touch(app, start + Vector2(app.world.cell * 0.5, 0), false, 4)
 	_expect(float(app.session.snapshot().camera.x) < float(cancelled.camera.x), "A new gesture works immediately after cancellation")
 	var before_buttons: Dictionary = app.session.snapshot()
-	for button in [app.shop, app.staff]:
+	for button in [app.shop]:
 		var center: Vector2 = button.get_global_rect().get_center()
 		await _touch(app, center, true, 5)
 		await _touch(app, center, false, 5)
-	_expect(_same(before_buttons, app.session.snapshot()), "Unavailable future-feature buttons neither change coins nor pan the restaurant on tap")
+	_expect(_same(before_buttons, app.session.snapshot()), "Shop neither change coins nor pan the restaurant on tap")
+	app._refresh()
 	app.session.advance(60.0)
 	await _frames()
 	_expect(int(app.money.text) == int(app.session.snapshot().coins) and app.session.snapshot().coins > before.coins, "Controlled live service updates the native coin label")
@@ -638,7 +642,7 @@ func _test_editor_gallery() -> void:
 	await _frames()
 
 func _hud_rects(app) -> Dictionary:
-	return {"coin": app.coin.get_global_rect(), "coin_capsule": app.coin_panel.get_global_rect(), "editing_capsule": app.editing_panel.get_global_rect(), "shop": app.shop.get_global_rect(), "edit": app.edit.get_global_rect(), "staff": app.staff.get_global_rect()}
+	return {"coin": app.coin.get_global_rect(), "coin_capsule": app.coin_panel.get_global_rect(), "editing_capsule": app.editing_panel.get_global_rect(), "shop": app.shop.get_global_rect(), "edit": app.edit.get_global_rect()}
 
 func _test_save_recovery() -> void:
 	# Keep one authentic, operating save for the later repair. The second

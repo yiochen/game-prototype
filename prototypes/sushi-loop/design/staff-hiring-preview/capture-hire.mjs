@@ -1,0 +1,13 @@
+import {chromium} from '@playwright/test';
+import {fileURLToPath} from 'node:url';
+const out=fileURLToPath(new URL('../../review/16/hired-stamp/',import.meta.url));
+const base=process.env.TEST_URL||'http://127.0.0.1:4176';
+const browser=await chromium.launch();
+for(const [width,height,label] of [[320,720,'phone'],[1440,1000,'wide']]){
+ const page=await browser.newPage({viewport:{width,height}});await page.goto(base+'/prototypes/sushi-loop/design/staff-hiring-preview/');await page.getByLabel('Review state').selectOption('available');await page.evaluate(()=>document.fonts.ready);await page.locator('.is-active .application-card-visual[data-presence=settled]').waitFor();await page.getByRole('button',{name:'Hire Ama Mensah for 180 coins'}).click();const hired=page.locator('[data-applicant=ama] .application-card-visual');await hired.waitFor();
+ await hired.evaluate(el=>{for(const animation of el.getAnimations({subtree:true}))if(animation.effect.getComputedTiming().duration===1280)animation.pause();});await page.waitForFunction(()=>[...document.images].every(image=>image.complete&&image.naturalWidth>0));
+ for(const [time,name] of [[190,'01-expanded'],[410,'02-stamp-impact'],[800,'03-hired-ink'],[1130,'04-fly-out']]){await hired.evaluate((el,time)=>{for(const animation of el.getAnimations({subtree:true}))if(animation.effect.getComputedTiming().duration===1280)animation.currentTime=time;},time);await page.screenshot({path:`${out}/${label}-${name}.png`});}
+ await hired.evaluate(el=>{for(const animation of el.getAnimations({subtree:true}))if(animation.effect.getComputedTiming().duration===1280)animation.play();});await page.locator('[data-applicant=ama]').waitFor({state:'detached'});await page.getByRole('button',{name:'Close applicants'}).click();await page.getByRole('dialog').waitFor({state:'detached'});await page.screenshot({path:`${out}/${label}-05-new-dot.png`});await page.waitForFunction(()=>!document.querySelector('[data-chef=ama] .new-chef-dot'));await page.screenshot({path:`${out}/${label}-06-seen.png`});
+ await page.getByLabel('Review state').selectOption('gallery');await page.getByRole('button',{name:'Play hire animation'}).click();await page.locator('.hire-gallery-demo').evaluate(el=>{const root=el.closest('.shared-gallery');root.scrollTop+=el.getBoundingClientRect().top-root.getBoundingClientRect().top-16;});await page.waitForTimeout(780);await page.screenshot({path:`${out}/${label}-07-shared-hired.png`});await page.getByRole('button',{name:'Show new-chef dot'}).click();await page.screenshot({path:`${out}/${label}-08-shared-dot.png`});await page.close();
+}
+await browser.close();

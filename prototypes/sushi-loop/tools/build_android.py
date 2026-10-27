@@ -26,6 +26,7 @@ import verify_editor_ui as editor_ui_contract
 import verify_editor_goods as editor_goods_contract
 import verify_wood_ui as wood_ui_contract
 import verify_recipe_ui as recipe_ui_contract
+import verify_staff_ui as staff_ui_contract
 
 ROOT_FILES = ("project.godot", "main.tscn", "branding.json", "export_presets.cfg")
 RUNTIME_TREES = {
@@ -69,6 +70,7 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/ui/editor/manifest.json")
     paths.append(source / "assets/ui/wood-editor/manifest.json")
     paths.append(source / "assets/ui/recipes/manifest.json")
+    paths.append(source / "assets/ui/staff/manifest.json")
     paths.append(source / "assets/ui/editor-goods/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
@@ -105,6 +107,10 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     chefs = chef_contract.verify_chef_variants(source)
     feedback = feedback_contract.verify_feedback_variants(source)
     editor_ui = editor_ui_contract.verify_editor_ui(source)
+    staff_ui = staff_ui_contract.verify_staff_ui(source)
+    expected_staff = set(staff_ui['runtime_images']) | {'assets/ui/staff/manifest.json'}
+    if {name for name in files if name.startswith('assets/ui/staff/')} != expected_staff:
+        raise ValueError('Unexpected or missing staff runtime artwork')
     expected_ui_files = {"assets/ui/editor/manifest.json"} | {
         f"assets/ui/editor/{name}" for name in editor_ui["runtime_images"]}
     if {name for name in files if name.startswith("assets/ui/editor/")} != expected_ui_files:
@@ -123,6 +129,8 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     if {name for name in files if name.startswith(("assets/ui/recipes/", "assets/ui/chef-headshots/"))} != expected_recipe_ui:
         raise ValueError("The staged recipe UI differs from its verified ImageGen family.")
     return {
+        "staff_ui": staff_ui,
+        "staff_ui_manifest_sha256": sha(source / "assets/ui/staff/manifest.json"),
         "recipe_ui": recipe_ui,
         "recipe_ui_manifest_sha256": sha(source / "assets/ui/recipes/manifest.json"),
         "wood_ui": wood_ui,
@@ -159,6 +167,7 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     catalog_contract.verify_catalog(source.parent / "assets/production", project / "assets/catalog")
     wood_ui_contract.verify_wood_ui(project, source_project=source)
     recipe_ui_contract.verify_recipe_ui(project, source_project=source)
+    staff_ui_contract.verify_staff_ui(project, source_project=source)
     recipe_contract.verify_recipe_variants(project, source_project=source)
     chef_contract.verify_chef_variants(project, source_project=source)
     feedback_contract.verify_feedback_variants(project, source_project=source)

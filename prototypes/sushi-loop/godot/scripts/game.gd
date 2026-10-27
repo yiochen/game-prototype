@@ -2,6 +2,8 @@ extends Control
 
 const RecipePicker = preload("res://scripts/recipe_picker.gd")
 var recipe_ui: RecipePicker
+const StaffPresentation = preload("res://scripts/staff_presentation.gd")
+var staff_ui: StaffPresentation
 
 const Session = preload("res://scripts/session.gd")
 const Persistence = preload("res://scripts/save_store.gd")
@@ -21,6 +23,7 @@ var world_clip: Control
 var audio: Audio
 var show_gallery := false
 var show_editor_gallery := false
+var show_staff_gallery := false
 var editor_ui: EditorPresentation
 var pointer_start := Vector2.ZERO
 var gesture_kind := ""
@@ -49,7 +52,6 @@ var editing_panel: Panel
 var editing_icon: TextureRect
 var shop: Button
 var edit: Button
-var staff: Button
 var gallery_buttons: Array[Button] = []
 var autosave_elapsed := 0.0
 var pointer := -1
@@ -75,7 +77,8 @@ func _ready() -> void:
 	get_tree().quit_on_go_back = false
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args()
+	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery
 	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -137,7 +140,6 @@ func _ready() -> void:
 	add_child(editing_icon)
 	shop = make_button("Shop", "shop", true)
 	edit = make_button("Edit", "edit", false)
-	staff = make_button("Staff", "people", true)
 	editor_ui = EditorPresentation.new()
 	add_child(editor_ui)
 	editor_ui.command_requested.connect(_editor_command)
@@ -145,23 +147,31 @@ func _ready() -> void:
 	editor_ui.item_armed.connect(_arm_item)
 	editor_ui.belt_pointer.connect(_belt_pointer)
 	editor_ui.recipes_requested.connect(_open_recipes)
+	editor_ui.applicants_requested.connect(func():staff_ui.open_applicants())
+	staff_ui = StaffPresentation.new()
+	add_child(staff_ui)
+	staff_ui.command_requested.connect(_staff_command)
 	recipe_ui = RecipePicker.new()
 	add_child(recipe_ui)
 	recipe_ui.inspected.connect(_inspect_recipe)
 	recipe_ui.prepared.connect(_prepare_recipe)
+	staff_ui.tray_source=editor_ui
+	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
 	if show_editor_gallery:
 		session.command({"type": "set_mode", "mode": "edit"})
 		session.command({"type": "editor_layer", "layer": "layout"})
 	if show_gallery:
 		edit.hide()
-		staff.hide()
 		for mode in ["Normal", "Pressed", "Disabled"]:
 			var button := make_button(mode, "shop", mode == "Disabled")
 			if mode == "Pressed":
 				button.toggle_mode = true
 				button.button_pressed = true
 			gallery_buttons.append(button)
+	if show_staff_gallery:
+		session=Session.new_session(81,{"starting_coins":1000})
+		for button in gallery_buttons:button.hide()
 	if save_blocked:
 		_make_recovery()
 	performance_overlay = PerformanceOverlay.new()
@@ -169,6 +179,7 @@ func _ready() -> void:
 	resized.connect(_layout)
 	_layout()
 	_refresh()
+	if show_staff_gallery:staff_ui.open_applicants()
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -347,7 +358,6 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	_layout_hud(area, unit)
 	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
 	_place_native_button(edit, Rect2(Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit), Vector2(206, 110) * unit), unit, 34, 48)
-	_place_native_button(staff, Rect2(Vector2(area.position.x + 266 * unit, area.end.y - 156 * unit), Vector2(214, 110) * unit), unit, 34, 48)
 	for i in range(gallery_buttons.size()):
 		var button: Button = gallery_buttons[i]
 		_place_native_button(button, Rect2(Vector2(area.position.x + (38 + i * 220) * unit, area.end.y - 185 * unit), Vector2(206, 110) * unit), unit, 34, 38)
@@ -355,6 +365,7 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	editor_ui.size = size
 	editor_ui.set_state(session.snapshot(), area)
 	if recipe_ui != null: recipe_ui.layout(world.portrait, maxf(top_inset, world.diagnostic_header_height))
+	if staff_ui != null:staff_ui.layout(world.portrait)
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = area.position + Vector2(34 * unit, area.size.y * 0.28)
@@ -422,10 +433,14 @@ func _refresh() -> void:
 	editing_icon.visible = editing_cue.visible
 	shop.visible = show_gallery or not editing
 	edit.visible = not show_gallery and not editing
-	staff.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
 	editor_ui.pickup_active = gesture_lifted
 	editor_ui.set_state(world.state, world.hud_area())
+	staff_ui.reduced_motion=world.reduced_motion
+	staff_ui.interaction_blocked=save_blocked or backgrounded
+	staff_ui.safe_top=maxf(_display_safe_top(),world.diagnostic_header_height)
+	staff_ui.refresh(world.state)
+	staff_ui.layout(world.portrait)
 	var selected_id: String = str(world.state.get("editor", {}).get("selected_id", ""))
 	if selected_id != previous_selection:
 		previous_selection = selected_id
@@ -502,6 +517,16 @@ func _editor_command(value: Dictionary) -> Dictionary:
 	_refresh()
 	return result
 
+func _staff_command(request: Dictionary) -> Dictionary:
+	if save_blocked:return {"ok":false,"reason":"save_blocked"}
+	var result:Dictionary=session.command(request)
+	if result.get("ok",false):
+		if not save_now():_block_edit_save()
+		_refresh()
+		if request.type=="staff_place" and not save_blocked:
+			_open_recipes(str(request.inventory_id))
+	else:editor_ui.reject(str(result.get("reason","invalid_position")))
+	return result
 func _block_edit_save() -> void:
 	# The accepted edit remains in memory. Stop further mutations until the
 	# same pending restaurant can be durably written; never reload old data
@@ -519,7 +544,7 @@ func _arm_item(item: Dictionary) -> void:
 		editor_ui.reject("no_belt_tiles")
 		return
 	if item.kind == "chef":
-		editor_ui.inspect(item)
+		_open_recipes(str(item.id))
 		return
 	_editor_command({"type": "editor_select", "id": null})
 	if save_blocked: return
@@ -569,7 +594,7 @@ func _pickup_allowed() -> bool:
 	return not gesture_item.is_empty() and gesture_item.get("available",true) and (int(gesture_item.get("count",0))>0 or gesture_item.get("assigned",false))
 
 func _begin_inventory_pickup() -> void:
-	if not str(session.snapshot().editor.selected_id).is_empty():
+	if session.snapshot().mode=="edit" and not str(session.snapshot().editor.selected_id).is_empty():
 		_editor_command({"type":"editor_select","id":null})
 	armed_item = gesture_item.duplicate(true)
 	editor_ui.active_item = str(gesture_item.id)
@@ -594,7 +619,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible: return
+	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible: return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
 	if not world.hud_area().has_point(local): return
@@ -606,8 +631,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	gesture_kind = "pan"
 	gesture_started_in_tray = false
 	if session.snapshot().get("mode", "live") == "live":
-		var hit := _object_at(local)
-		tap_object = str(hit.id) if hit.get("kind") == "chef" else ""
+		if not armed_item.is_empty() and armed_item.get("kind")=="chef":
+			gesture_kind="inventory";gesture_item=armed_item.duplicate(true);gesture_object=str(armed_item.id) if armed_item.get("assigned",false) else ""
+		else:
+			var hit := _object_at(local)
+			tap_object = str(hit.id) if hit.get("kind") == "chef" else ""
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
 		if armed_item.is_empty(): _arm_long_press(local)
@@ -695,7 +723,8 @@ func _input(event: InputEvent) -> void:
 				elif _floor_drop(local):
 					var coordinate := _cell_at(local)
 					var value := {"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y} if not gesture_object.is_empty() else {"type": "editor_place", "inventory_id": gesture_item.id, "x": coordinate.x, "y": coordinate.y}
-					var result := _editor_command(value)
+					if gesture_item.get("kind")=="chef" and value.type=="editor_place":value.type="staff_place"
+					var result := _staff_command(value) if value.type=="staff_place" else _editor_command(value)
 					if result.get("ok", false):
 						armed_item.clear()
 						editor_ui.active_item = ""
@@ -709,7 +738,7 @@ func _input(event: InputEvent) -> void:
 func _floor_drop(at: Vector2) -> bool:
 	if not world.hud_area().has_point(at) or at.y <= world.hud_area().position.y + 145 * editor_ui.unit:
 		return false
-	if editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
+	if staff_ui.modal.visible or editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
 		return false
 	for blocked: Rect2 in editor_ui.blocked_rects():
 		if blocked.has_point(at): return false
@@ -722,6 +751,7 @@ func _update_preview(at: Vector2) -> void:
 	# rather than merely looking for an empty cell.
 	var probe = Session.new()
 	var candidate := {"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y} if not gesture_object.is_empty() else {"type": "editor_place", "inventory_id": gesture_item.id, "x": coordinate.x, "y": coordinate.y}
+	if gesture_item.get("kind")=="chef" and candidate.type=="editor_place":candidate.type="staff_place"
 	var valid: bool = _floor_drop(at) and probe.restore(session.save_data()) and probe.command(candidate).get("ok", false)
 	var source: Dictionary = gesture_item if gesture_kind == "inventory" else _selected_object()
 	world.editor_preview = {"x": coordinate.x, "y": coordinate.y, "valid": valid, "source": source}
@@ -789,7 +819,7 @@ func _pan(change: Vector2) -> void:
 	_refresh()
 
 func _cancel_native_button_presses() -> void:
-	var buttons: Array = [shop, edit, staff, recovery_retry, recovery_close]
+	var buttons: Array = [shop, edit, recovery_retry, recovery_close]
 	buttons.append_array(gallery_buttons)
 	for candidate in buttons:
 		if not is_instance_valid(candidate) or not candidate.has_meta("visual"): continue
@@ -818,6 +848,9 @@ func _notification(what: int) -> void:
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and staff_ui!=null and staff_ui.modal.visible:
+			staff_ui.dismiss()
+			return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and recipe_ui != null and recipe_ui.visible:
 			recipe_ui.dismiss()
 			return
@@ -838,6 +871,8 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and staff_ui!=null and staff_ui.modal.visible:
+		staff_ui.dismiss();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and recipe_ui != null and recipe_ui.visible:
 		recipe_ui.dismiss()
 		get_viewport().set_input_as_handled()
@@ -915,6 +950,7 @@ func _retry_restore() -> void:
 func _open_recipes(identity: String) -> void:
 	if save_blocked: return
 	_cancel_gesture()
+	staff_ui.note_viewed(identity)
 	recipe_ui.layout(world.portrait, maxf(_display_safe_top(), world.diagnostic_header_height))
 	recipe_ui.open(session.snapshot(), identity)
 

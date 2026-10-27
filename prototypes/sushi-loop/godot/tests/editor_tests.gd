@@ -228,6 +228,7 @@ func _persistence_and_migration() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
 	var legacy := _json(game.save_data())
 	legacy.erase("editor_version")
+	legacy.erase("staff_version");legacy.state.erase("staff")
 	for key in ["mode", "editor", "inventory", "next_object_id", "discarded_dishes"]:
 		legacy.state.erase(key)
 	var migrated := Session.new_session(99)

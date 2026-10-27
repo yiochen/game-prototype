@@ -3,6 +3,10 @@ extends "res://scripts/editor_presentation.gd"
 const WoodSkin = preload("res://scripts/wood_skin.gd")
 const WOOD_INK := Color("592c10")
 signal recipes_requested(chef_id: String)
+signal applicants_requested
+var applicants: Button
+var roster_count: Label
+var people_header_height := 0.0
 signal belt_pointer(target: Dictionary, event: InputEvent)
 var wood = WoodSkin.new()
 var backdrop: Control
@@ -16,6 +20,19 @@ var path_targets: Array[Button] = []
 var customer_targets: Array[Button] = []
 var pickup_active := false
 var keyboard_navigation := false
+
+class NewChefDot extends Control:
+	func _draw() -> void:
+		draw_circle(size*.5,size.x*.5,Color("fff4da"))
+		draw_circle(size*.5,size.x*.5-2.0,Color("e34c3c"))
+
+func set_state(value: Dictionary, portrait: Rect2) -> void:
+	super.set_state(value, portrait)
+	if not is_node_ready(): return
+	# The People tray is the only roster. Mode changes always restore Edit's
+	# navigation; there is no alternate Live-only visibility state to inherit.
+	for control in [category_rail, live, shop]: control.show()
+	for button in layers.values(): button.show()
 
 class PhotoFrame extends Control:
 	const PhotoArt = preload("res://scripts/recipe_art.gd")
@@ -59,6 +76,15 @@ func _ready() -> void:
 	super._ready()
 	wood_font = Typography.body()
 	wood_font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"):800}
+	applicants = Button.new()
+	applicants.text = "Applicants"
+	applicants.accessibility_name = "Browse applicants"
+	applicants.add_theme_font_override("font", wood_font)
+	tray.add_child(applicants)
+	applicants.pressed.connect(func(): applicants_requested.emit())
+	roster_count = _label("")
+	roster_count.add_theme_font_override("font", wood_font)
+	tray.add_child(roster_count)
 	backdrop = Backdrop.new()
 	backdrop.owner_ui = self
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -183,6 +209,9 @@ func _layout_context() -> void:
 
 func _notification(what: int) -> void:
 	super._notification(what)
+	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT] and applicants != null:
+		applicants.disabled = true
+		applicants.disabled = false
 	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT] and path_exit != null:
 		path_exit.disabled = true
 		path_exit.disabled = false
@@ -305,6 +334,7 @@ func _rebuild_cards() -> void:
 			assigned.add_child(stamp_text)
 			card.set_meta("assigned_stamp",assigned)
 			card.set_meta("assigned_text",stamp_text)
+			var unread:=NewChefDot.new();unread.mouse_filter=Control.MOUSE_FILTER_IGNORE;card.add_child(unread);card.set_meta("new_dot",unread)
 		card.gui_input.connect(func(event: InputEvent):
 			_tray_input(event)
 			item_pointer.emit(item,event)
@@ -408,6 +438,7 @@ func _layout_goods(layer: String) -> void:
 			assigned.pivot_offset = assigned.size*0.5
 			assigned.rotation = -0.04
 			assigned.queue_redraw()
+			var unread:Control=card.get_meta("new_dot");unread.visible=bool(card.get_meta("entry").get("staff_new",false));unread.position=Vector2(width-24,3)*unit;unread.size=Vector2(22,22)*unit;unread.queue_redraw()
 			var stamp_text: Label = card.get_meta("assigned_text")
 			if wood_font != null: stamp_text.add_theme_font_override("font",wood_font)
 			UISkin.layout_caption(stamp_text,Rect2(Vector2.ZERO,assigned.size),maxi(1,int(18*unit)))
@@ -429,7 +460,9 @@ func refresh_layout() -> void:
 		var bottom := maxf(0,float(get_window().size.y)-Rect2(DisplayServer.get_display_safe_area()).end.y)
 		safe_height = maxf(42,bottom/physical_scale/unit+8)
 	var opened := bool(state.get("editor",{}).get("tray_open",true))
-	var goods_height := 249.0 if opened else 0.0
+	var layer := str(state.get("editor",{}).get("layer","layout"))
+	people_header_height = maxf(104,44.01/physical_scale/unit+16) if layer == "people" else 0.0
+	var goods_height := 249.0 + people_header_height if opened else 0.0
 	category_rail.position = Vector2(area.position.x,area.end.y-(header_height+goods_height+safe_height)*unit)
 	category_rail.size = Vector2(area.size.x,header_height*unit)
 	category_rod.hide()
@@ -440,10 +473,10 @@ func refresh_layout() -> void:
 	tray.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	tray.position = category_rail.position+Vector2(0,header_height*unit)
 	tray.size = Vector2(area.size.x,goods_height*unit)
-	rail.position = Vector2(16*unit,0)
-	rail.size = Vector2(688*unit,goods_height*unit)
-	var layer := str(state.get("editor",{}).get("layer","layout"))
+	rail.position = Vector2(16*unit,people_header_height*unit)
+	rail.size = Vector2(688*unit,249*unit if opened else 0.0)
 	_layout_goods(layer)
+	_layout_people_actions(layer)
 	var x := 14.0
 	for i in range(4):
 		var button: Button = layers[["people","layout","floor"][i]] if i<3 else shop
@@ -459,6 +492,33 @@ func refresh_layout() -> void:
 		backdrop.size = Vector2(area.size.x,(header_height+goods_height+safe_height)*unit)
 		backdrop.queue_redraw()
 	_layout_context()
+
+func _layout_people_actions(layer: String) -> void:
+	if applicants == null: return
+	applicants.visible = layer == "people"
+	roster_count.visible = applicants.visible
+	if not applicants.visible: return
+	var roster: Dictionary = state.get("staff", {})
+	var count := int(roster.get("count", 0))
+	var capacity := int(roster.get("capacity", 4))
+	roster_count.text = "%s / %s chefs" % [count, capacity]
+	roster_count.add_theme_color_override("font_color", WOOD_INK)
+	UISkin.layout_caption(roster_count, Rect2(20*unit,0,330*unit,people_header_height*unit),maxi(1,int(27*unit)))
+	roster_count.position.x = 20*unit
+	applicants.custom_minimum_size = Vector2.ZERO
+	applicants.position = Vector2(468,8)*unit
+	applicants.size = Vector2(232,people_header_height-16)*unit
+	applicants.add_theme_font_size_override("font_size",maxi(1,int(27*unit)))
+	for treatment in ["normal","hover","pressed","disabled"]:
+		applicants.add_theme_stylebox_override(treatment,wood.style("hud-cream-pressed" if treatment == "pressed" else "hud-cream-normal",unit))
+	for treatment in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:
+		applicants.add_theme_color_override(treatment,WOOD_INK)
+	var focus := StyleBoxFlat.new()
+	focus.bg_color = Color.TRANSPARENT
+	focus.border_color = WOOD_INK
+	focus.set_border_width_all(maxi(1,int(2*unit)))
+	focus.set_corner_radius_all(int(24*unit))
+	applicants.add_theme_stylebox_override("focus",focus)
 
 func _update_inventory_backing() -> void:
 	if inventory_backing == null or category_rail == null: return
