@@ -1,0 +1,268 @@
+{
+  "issue": 16,
+  "approved_review": "https://6adfa8edd2cc138ad8c62b1f--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/design/staff-hiring-preview/",
+  "native_suites": [
+    {
+      "script": "backdrop_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 48 backdrop checks\n"
+    },
+    {
+      "script": "conveyor_native_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nConveyor native: 29 checks, 0 failures\n"
+    },
+    {
+      "script": "conveyor_routes_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 88 conveyor route checks\n"
+    },
+    {
+      "script": "customer_layout_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 121 customer layout and rescue checks\n"
+    },
+    {
+      "script": "customer_rescue_native_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 31 native customer rescue touch checks\n"
+    },
+    {
+      "script": "customer_visit_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock\n1 of 84 customer visit checks failed\n"
+    },
+    {
+      "script": "demonstration_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 12 exhibition scene checks\n"
+    },
+    {
+      "script": "doodle_art_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 2180 approved art checks, 356 atlases, 4204 whole frames\n"
+    },
+    {
+      "script": "doorway_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 41 doorway checks\n"
+    },
+    {
+      "script": "editor_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: pre-editor saves receive a one-time compatible Live editor-state migration\nFAIL: migration retains every previous arrangement, service clock, sale, coin and camera\n"
+    },
+    {
+      "script": "empty_hands_native_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 108 native customer rescue touch checks\n"
+    },
+    {
+      "script": "entrance_routes_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 20 entrance route and blocking checks\n"
+    },
+    {
+      "script": "entrance_wait_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 78 entrance waiting checks\n"
+    },
+    {
+      "script": "frame_work_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFrame work checks passed: one snapshot per Live frame, explicit advance still refreshes\nWARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\n"
+    },
+    {
+      "script": "guest_exit_recovery_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 68 guest exit recovery checks\n"
+    },
+    {
+      "script": "guest_wandering_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 82 blocked guest wandering checks\n"
+    },
+    {
+      "script": "long_press_native_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCHECK FAILED: An unselected loaded belt picks up with its exact owned dish\nCHECK FAILED: The held belt drops with the same food and unfinished transfer clock\nCHECK FAILED: A dropped belt retains selection and its Rotate/Return menu\nCHECK FAILED: An unselected decorative object supports stationary hold pickup\nCHECK FAILED: A normal walking guest can be held from the Floor layer\nCHECK FAILED: Reduced motion retains a clear static pickup pose\nFAIL: An unselected loaded belt picks up with its exact owned dish\nFAIL: The held belt drops with the same food and unfinished transfer clock\nFAIL: A dropped belt retains selection and its Rotate/Return menu\nFAIL: An unselected decorative object supports stationary hold pickup\nFAIL: A normal walking guest can be held from the Floor layer\nFAIL: Reduced motion retains a clear static pickup pose\n"
+    },
+    {
+      "script": "native_app_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNative UI viewport: window=(390, 844) canvas=(720.0, 1558.0) transform=[X: (0.541667, 0.0), Y: (0.0, 0.54172), O: (0.0, 0.0)]\nFAIL: Separate Shop keeps its unavailable behavior without changing selection or scroll\nFAIL: Pointer down changes only tab artwork, keeping its native target stable\nFAIL: People keeps the three native chef previews\nFAIL: A chef tap opens the shared native staff details\nFAIL: Floor retains its single disabled current swatch\nFAIL: Existing active-category collapse remains available\nFAIL: Live returns to the existing simulation\nFAIL: Live resumes the service clock\nFAIL: Top-right Live returns directly to service without Save, Done, Cancel or Undo\nFAIL: Returning to Live resumes the actual operating simulation\n10 of 148 native app checks failed\n"
+    },
+    {
+      "script": "performance_overlay_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPerformance overlay cadence/hitch/resume checks passed\n"
+    },
+    {
+      "script": "save_store_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSaveStore: 26 checks, 0 failures\n"
+    },
+    {
+      "script": "session_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact\n1 of 94 GameSession checks failed\n"
+    },
+    {
+      "script": "sprite_picking_tests.gd",
+      "ok": false,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSprite picking probes: {\"chef-blackboard\":\"(322.0312, 608.1473)\",\"chef_hat\":\"(372.2545, 499.6652)\",\"dish-salmon\":\"(inf, inf)\",\"guest_blocker\":\"(329.0, 567.0)\",\"native_canvas_size\":\"(720.0, 1558.0)\",\"native_hat_destination\":\"(227.2098, 226.0045)\",\"native_hat_source\":\"(124.3527, 226.0045)\",\"overlap_front\":\"(341.0, 604.0)\",\"overlap_transparent\":\"(329.0, 568.0)\",\"plant_old_leaf_now_gap\":\"(347.0, 519.0)\",\"plant_transparent_padding\":\"(283.0, 415.0)\",\"room_blocker\":\"(1.0, 363.0)\"}\nSCRIPT ERROR: Invalid access to property or key 'rect' on a base object of type 'Dictionary'.\n          at: _test_attachments (res://tests/sprite_picking_tests.gd:250)\n          GDScript backtrace (most recent call first):\n              [0] _test_attachments (res://tests/sprite_picking_tests.gd:250)\n              [1] _run (res://tests/sprite_picking_tests.gd:33)\nFAIL: The chef's dish-salmon attachment selects its owning chef\nFAIL: A plate resting on the belt selects the owning conveyor\n2 of 35 sprite picking checks failed\n"
+    },
+    {
+      "script": "staff_native_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nStaff native: 33 checks, 0 failures\n"
+    },
+    {
+      "script": "staff_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nPASS: 28 staff checks\n"
+    },
+    {
+      "script": "ui_skin_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nHeadless: native layout checked; run ui_skin_tests.gd --visible for rendered border regression.\nPASS: 69 restaurant UI skin checks\n"
+    },
+    {
+      "script": "wood_editor_tests.gd",
+      "ok": true,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nWood editor: 37 checks, 0 failures\nWARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\n"
+    }
+  ],
+  "baseline_suites": [
+    {
+      "script": "customer_visit_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock\n1 of 84 customer visit checks failed\n"
+    },
+    {
+      "script": "session_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact\n1 of 94 GameSession checks failed\n"
+    },
+    {
+      "script": "editor_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nFAIL: pre-editor saves receive a one-time compatible Live editor-state migration\nFAIL: migration retains every previous arrangement, service clock, sale, coin and camera\n"
+    },
+    {
+      "script": "long_press_native_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nCHECK FAILED: An unselected loaded belt picks up with its exact owned dish\nCHECK FAILED: The held belt drops with the same food and unfinished transfer clock\nCHECK FAILED: A dropped belt retains selection and its Rotate/Return menu\nCHECK FAILED: An unselected decorative object supports stationary hold pickup\nCHECK FAILED: A normal walking guest can be held from the Floor layer\nCHECK FAILED: Reduced motion retains a clear static pickup pose\nFAIL: An unselected loaded belt picks up with its exact owned dish\nFAIL: The held belt drops with the same food and unfinished transfer clock\nFAIL: A dropped belt retains selection and its Rotate/Return menu\nFAIL: An unselected decorative object supports stationary hold pickup\nFAIL: A normal walking guest can be held from the Floor layer\nFAIL: Reduced motion retains a clear static pickup pose\n"
+    },
+    {
+      "script": "native_app_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nNative UI viewport: window=(390, 844) canvas=(720.0, 1558.0) transform=[X: (0.541667, 0.0), Y: (0.0, 0.54172), O: (0.0, 0.0)]\nFAIL: A chef tap retains native staff inspection\nFAIL: Floor retains its single disabled current swatch\nFAIL: The disabled Floor swatch retains its native caption and Current status\nFAIL: Existing active-category collapse remains available\nFAIL: Live returns to the existing simulation\nFAIL: Live resumes the service clock\nFAIL: Retry writes the same pending arrangement once storage recovers and re-enables the editor\nFAIL: Every accepted editor change immediately persists mode, camera, layer and tray state through the actual save store\nFAIL: Top-right Live returns directly to service without Save, Done, Cancel or Undo\nFAIL: Returning to Live resumes the actual operating simulation\nFAIL: An ordinary slow foreground frame accounts for all active time rather than discarding time above 250 ms\nFAIL: Normal active service continues after the resumed frame\nFAIL: The actual app commits its live session through save_now\nFAIL: A fresh main scene reopens coins, camera, chef progress, customer positions and belt food unchanged\nFAIL: Restored transient state reaches the real renderer and coin HUD\nFAIL: Reopened app continuation produces identical future sales, dish identities and visitor progress\n16 of 148 native app checks failed\n"
+    },
+    {
+      "script": "sprite_picking_tests.gd",
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nSprite picking probes: {\"chef-blackboard\":\"(322.0312, 608.1473)\",\"chef_hat\":\"(372.2545, 499.6652)\",\"dish-salmon\":\"(inf, inf)\",\"guest_blocker\":\"(329.0, 567.0)\",\"native_canvas_size\":\"(720.0, 1558.0)\",\"native_hat_destination\":\"(227.2098, 226.0045)\",\"native_hat_source\":\"(124.3527, 226.0045)\",\"overlap_front\":\"(341.0, 604.0)\",\"overlap_transparent\":\"(329.0, 568.0)\",\"plant_old_leaf_now_gap\":\"(347.0, 519.0)\",\"plant_transparent_padding\":\"(283.0, 415.0)\",\"room_blocker\":\"(1.0, 363.0)\"}\nSCRIPT ERROR: Invalid access to property or key 'rect' on a base object of type 'Dictionary'.\n          at: _test_attachments (res://tests/sprite_picking_tests.gd:250)\n          GDScript backtrace (most recent call first):\n              [0] _test_attachments (res://tests/sprite_picking_tests.gd:250)\n              [1] _run (res://tests/sprite_picking_tests.gd:33)\nFAIL: The chef's dish-salmon attachment selects its owning chef\nFAIL: A plate resting on the belt selects the owning conveyor\n2 of 35 sprite picking checks failed\n"
+    }
+  ],
+  "web": {
+    "build": "passed",
+    "node_tests": {
+      "pass": 200,
+      "fail": 2,
+      "existing_missing_evidence": [
+        "belt-straight-n/candidates/round-09/consumer/.godot/.gdignore",
+        "coin-pop/final/original-catalog-object.json"
+      ]
+    }
+  },
+  "feature_gpu_touch": {
+    "320x720": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\nMetal 4.0 - Forward Mobile - Using Device #0: Apple - Apple M4 (Apple9)\n\nStaff native: 33 checks, 0 failures\n",
+    "1440x1000": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\nMetal 4.0 - Forward Mobile - Using Device #0: Apple - Apple M4 (Apple9)\n\nStaff native: 35 checks, 0 failures\nWARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).\n   at: cleanup (core/object/object.cpp:2536)\n"
+  },
+  "capture_sizes": [
+    "320x720",
+    "390x844",
+    "1440x1000",
+    "844x390"
+  ],
+  "renderers": {
+    "320x720": {
+      "device": "Apple M4 (Apple9)",
+      "driver": "metal",
+      "renderer": "mobile",
+      "window": [
+        320,
+        720
+      ]
+    },
+    "390x844": {
+      "device": "Apple M4 (Apple9)",
+      "driver": "metal",
+      "renderer": "mobile",
+      "window": [
+        390,
+        844
+      ]
+    },
+    "1440x1000": {
+      "device": "Apple M4 (Apple9)",
+      "driver": "metal",
+      "renderer": "mobile",
+      "window": [
+        1440,
+        1000
+      ]
+    },
+    "844x390": {
+      "device": "Apple M4 (Apple9)",
+      "driver": "metal",
+      "renderer": "mobile",
+      "window": [
+        844,
+        390
+      ]
+    }
+  },
+  "apk": {
+    "version_name": "0.8.0",
+    "version_code": 67,
+    "android_package": "com.yiochen.sushilooptickets",
+    "save_identity": "SushiLoopTickets",
+    "mode": "release",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "apk_sha256": "12f2c5be5c5431465362383772b13b2bf8a8c69f560856d59eb16f8f5ec68e8f",
+    "bytes": 351918517,
+    "signer_sha256": "7b03c6783796f1cf455e31e51eb54d64c0b66168e79ec7f87a29a140da7c8f91",
+    "debuggable": false
+  },
+  "android_smoke": {
+    "package_verified": "com.yiochen.sushilooptickets",
+    "installed_version": "0.8.0 / 67",
+    "renderer": "mobile",
+    "driver": "Vulkan 1.3.0",
+    "device": "SwiftShader Device (LLVM 10.0.0)",
+    "status": "Backend presentation failure: VkResult error 5; no Android visual pass claimed",
+    "physical_device_connected": false,
+    "host_gpu_attempt": {
+      "installed_version": "0.8.0 / 67",
+      "device": "Apple M4 through Android emulator MoltenVK bridge",
+      "renderer": "Vulkan 1.3.0 / Forward Mobile",
+      "result": "Same Vulkan presentation error 5; visual check unavailable"
+    }
+  },
+  "drive_upload": {
+    "status": "verified",
+    "metadata": {
+      "id": "1z5VZxpwZXqhxKtjGhN3xPZeKlb1wB0-T",
+      "md5Checksum": "45ec066fa17eb09dbdd1e7737768b575",
+      "mimeType": "application/vnd.android.package-archive",
+      "name": "sushi-loop-release-v0.8.0.apk",
+      "sha256Checksum": "12f2c5be5c5431465362383772b13b2bf8a8c69f560856d59eb16f8f5ec68e8f",
+      "size": "351918517",
+      "webViewLink": "https://drive.google.com/file/d/1z5VZxpwZXqhxKtjGhN3xPZeKlb1wB0-T/view?usp=drivesdk"
+    }
+  },
+  "runtime_source_hashes_match_apk_receipt": 470,
+  "physical_phone_install": {
+    "model": "Pixel 10 Pro",
+    "version_name": "0.8.0",
+    "version_code": 67,
+    "status": "adb install --no-incremental -r: Success",
+    "package_readback_verified": true
+  }
+}

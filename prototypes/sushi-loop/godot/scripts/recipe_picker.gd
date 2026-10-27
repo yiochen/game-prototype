@@ -128,7 +128,7 @@ func _ready() -> void:
 	detail_requirement = _label(details)
 	prepare_button = _button("Prepare", "Prepare selected recipe", details)
 	prepare_button.pressed.connect(func():
-		if not prepare_button.disabled: prepared.emit(chef_id, selected))
+		if prepare_button.visible and not prepare_button.disabled: prepared.emit(chef_id, selected))
 	preparing_label = _label(details)
 	preparing_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	preparing_label.text = "Preparing · Current recipe"
@@ -191,8 +191,8 @@ func _find_chef(state: Dictionary, id: String) -> Dictionary:
 
 func refresh(state: Dictionary) -> void:
 	if not visible: return
-	var signature := JSON.stringify([state.recipes, state.recipe_book, _find_chef(state, chef_id).get("recipe_id", "")])
-	var previous := JSON.stringify([session_state.recipes, session_state.recipe_book, actor.get("recipe_id", "")])
+	var signature := JSON.stringify([state.recipes, state.recipe_book, _find_chef(state, chef_id).get("recipe_id", ""), _is_placed(state)])
+	var previous := JSON.stringify([session_state.recipes, session_state.recipe_book, actor.get("recipe_id", ""), _is_placed(session_state)])
 	session_state = state
 	actor = _find_chef(state, chef_id)
 	if signature != previous:
@@ -201,6 +201,9 @@ func refresh(state: Dictionary) -> void:
 		_rebuild()
 		catalog.set_deferred("scroll_vertical", offset)
 		_refresh_details()
+
+func _is_placed(state: Dictionary = session_state) -> bool:
+	return state.get("objects", []).any(func(object): return object.get("kind") == "chef" and object.get("id") == chef_id)
 
 func _known(id: String) -> bool:
 	return id in session_state.recipe_book.discovered
@@ -295,9 +298,10 @@ func _refresh_details() -> void:
 	detail_coin.visible = known
 	detail_time.text = "Prep with %s   %s" % [str(actor.get("name", "Chef")), "%.1f sec" % Book.seconds(recipe, actor) if eligible else "—"] if known else "Find new creatures on expeditions." if exists else "Pick a dish above to see its details."
 	detail_requirement.text = "Requires Lv %s" % Book.required_level(recipe) if known else ""
-	prepare_button.disabled = not eligible
-	prepare_button.visible = not (eligible and str(actor.get("recipe_id", "")) == selected)
-	preparing_label.visible = not prepare_button.visible
+	var placed := _is_placed()
+	prepare_button.disabled = not placed or not eligible
+	prepare_button.visible = placed and not (eligible and str(actor.get("recipe_id", "")) == selected)
+	preparing_label.visible = placed and not prepare_button.visible
 	details.accessibility_description = "%s. %s. %s. %s" % [detail_name.text, detail_price.text, detail_time.text, detail_requirement.text]
 
 func _text(label: Label, bounds: Rect2, pixels: float) -> void:
@@ -325,7 +329,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	maple_material.set_shader_parameter("grain_width", 720*unit)
 	var height := panel.size.y / unit
 	var header := 146.0
-	var footer := 390.0
+	var footer := 390.0 if _is_placed() else 286.0
 	var detail_top := height - footer
 	catalog_backing.position = Vector2(0,header)*unit
 	catalog_backing.size = Vector2(672,detail_top-header+48)*unit

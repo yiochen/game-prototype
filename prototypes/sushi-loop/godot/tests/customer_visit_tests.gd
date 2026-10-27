@@ -427,7 +427,7 @@ func _test_issue10_save_upgrade() -> void:
 	var game := Session.new_session(91)
 	_check(fixture.source_commit == "d30f3cbe" and game.restore(fixture.save_data), "the actual merged #10 save upgrades into the new visit engine")
 	var observed: Dictionary = game.snapshot()
-	for key in ["mode", "editor", "inventory"]:
+	for key in ["mode", "editor", "inventory", "staff"]:
 		observed.erase(key)
 	for object in observed.objects:
 		object.erase("active")

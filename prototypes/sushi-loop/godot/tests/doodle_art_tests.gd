@@ -19,7 +19,7 @@ func _run() -> void:
 	root.add_child(world)
 	world.update_layout()
 	var art = world.art
-	_expect(art.objects.size() == 36 and art.cell_size == 128.0, "The starter loads the approved 36-object subset, including both corner chiralities, at one 128px logical pitch")
+	_expect(art.objects.size() == 42 and art.cell_size == 128.0, "The starter loads the approved 42-object subset, including both corner chiralities, at one 128px logical pitch")
 	var verified_atlases := 0
 	var verified_frames := 0
 	for identity in art.objects:
@@ -60,7 +60,7 @@ func _run() -> void:
 				_expect(after.frame == (count - 1 if action.get("loop", true) == false else 0), "%s/%s honors the authored one-shot or loop boundary" % [identity, clip])
 				verified_atlases += 1
 				art.end_frame()
-	_expect(verified_atlases == 260 and verified_frames == 3052, "The audit exercises every selected atlas and directional frame")
+	_expect(verified_atlases == 356 and verified_frames == 4204, "The audit exercises every selected atlas and directional frame")
 	_expect(art.objects["coin-pop"].clips.pop.frames == 12 and art.objects["coin-pop"].clips.pop.loop == false, "Local sale feedback uses the approved twelve-frame native coin-pop one-shot")
 	_expect(world.customer_clip({"phase": "waiting", "visual_phase": "seated-wait", "meal_dish": null}) == "seated-wait-empty", "Waiting customers have no meal sprite before consumption")
 	_expect(world.customer_clip({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}}) == "eat-salmon", "The actual consumed salmon dish chooses the native salmon eating clip")

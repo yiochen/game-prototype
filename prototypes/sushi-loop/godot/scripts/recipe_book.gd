@@ -113,6 +113,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 	if request.type == "inspect_recipe":
 		state.recipe_book.new.erase(id)
 		return {"ok":true}
+	if not state.objects.any(func(object): return object.kind == "chef" and object.id == actor.id): return {"ok":false,"reason":"chef_unassigned"}
 	if not eligible(config, state, actor, id): return {"ok":false, "reason":"recipe_ineligible"}
 	if actor.recipe_id == id: return {"ok":true, "changed":false}
 	actor.recipe_id = id

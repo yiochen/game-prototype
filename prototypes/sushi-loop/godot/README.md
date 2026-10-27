@@ -139,3 +139,17 @@ CPU process milliseconds and total draw calls in the sky strip. From 0.4.16,
 CPU uses the same rolling one-second window as the cadence statistics. Text refreshes
 at 4 Hz; max covers the last second and clears after resume. CPU is not GPU
 time. See `review/performance-overlay/README.md` for measurement details.
+
+## Applicants in the People tray (#16)
+
+**Edit → People** is the only roster entry. The continuous maple People tray contains the current/maximum chef count, Applicants action and photo inventory; Live has no Staff button or separate roster panel. Applications and Recipes use the same native modals in gameplay and Shared. Tapping any chef photo opens Recipes directly, including for unplaced staff; unplaced Recipes has no Prepare action. Inventory category tabs and the top-right Live action stay visible and interactive throughout Edit, including after either modal closes.
+
+`content/staff_catalog.json` owns six backgrounds, cooking speeds, growth, caps, prices, four-chef capacity and the five-minute absolute Refresh deadline. Offers persist until Hire or free explicit Refresh, with no timed replacement. Hiring commits once, keeps the other offers, then expands the paper, drops the independent wooden stamp, leaves live red Hired ink and flies away. It produces no toast.
+
+Each new photo has a saved unread dot. The tray collects chefs whose photos are at least 85% visible while foreground and unobscured. Dots remain throughout the open People tray, including while Recipes is inspected; they clear for viewed chefs when People closes, another inventory tab is selected, or Edit returns to Live. Offscreen unseen photos remain unread. There is no real-time expiry.
+
+Drag an unassigned photo upward onto an empty workable belt-adjacent cell, using the existing direction-locked drag gesture. The native recipe picker opens idle; only Prepare starts production. Invalid/cancelled drops preserve the roster and arrangement. Unplaced staff can inspect recipe information; the public Prepare command also rejects unplaced chefs. Older saves receive offers and read flags once, retaining existing chefs and payments.
+
+`scripts/staff_presentation.gd` and `staff_resume.gd` serve gameplay and `--staff-gallery`; their approved source paper/stamp images remain independent of live labels. The paper retains 170px source slices and 36-unit corners. Six applicant identities reuse their production world clips and matching illustrated portraits. Android exports retain the original package/save identity/release signer.
+
+`tests/staff_tests.gd` covers pure commands/time/saves; `staff_native_tests.gd` covers integrated hiring, placement and unread behavior. `edit_navigation_tests.gd` exercises repeated Edit/People/Layout/Floor/Live journeys and confirms Applicants belongs inside People. The 0.8.1 navigation amendment and full-scene evidence live in `../review/16/navigation-fix/`.

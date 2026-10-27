@@ -33,6 +33,7 @@ SELECTION = {
     'belt-corner-e-n': (['running'], DIRECTIONS),
     'chef-lena': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
     'chef-omar': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
+    **{identity: (['idle','work','hold','load'], DIRECTIONS) for identity in ['chef-ama','chef-mateo','chef-noor','chef-dalia','chef-ellis','chef-rowan']},
     'chef-blackboard': (['idle'], ['S']),
     'coin-pop': (['pop'], ['S']),
     'bubble-preference': (['appear', 'idle', 'fade', 'cucumber-appear', 'cucumber-idle', 'cucumber-fade'], ['S']),
