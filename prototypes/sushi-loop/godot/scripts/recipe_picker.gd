@@ -6,10 +6,15 @@ const Dish = preload("res://scripts/recipe_dish_view.gd")
 const Wood = preload("res://scripts/wood_skin.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const Typography = preload("res://scripts/typography.gd")
+const Management = preload("res://scripts/chef_management.gd")
+const Dismissal = preload("res://scripts/chef_dismissal.gd")
+const Dev = preload("res://scripts/chef_development.gd")
 const INK := Color("592c10")
 signal inspected(chef_id: String, recipe_id: String)
 signal prepared(chef_id: String, recipe_id: String)
 signal closed
+signal management_requested(value: Dictionary)
+signal placement_requested(chef_id: String)
 var wood = Wood.new()
 var session_state: Dictionary = {}
 var actor: Dictionary = {}
@@ -22,7 +27,20 @@ var panel: Panel
 var maple_face: TextureRect
 var catalog_backing: Panel
 var heading: Label
-var level_label: Label
+var level_label: Label # Retained as a hidden compatibility node; header uses tabs.
+var recipe_tab: Button
+var manage_tab: Button
+var tab := "recipes"
+var slide := 0.0
+var slide_tween: Tween
+var content_clip: Control
+var recipe_page: Control
+var manage_view: Management
+var dismissal: Dismissal
+var separator: ColorRect
+var tab_marker: ColorRect
+var reduced_motion := false
+var management_signature := ""
 var portrait: Control
 var close_button: Button
 var catalog: ScrollContainer
@@ -86,12 +104,24 @@ func _ready() -> void:
 	maple_material.shader = load("res://scripts/maple_face.gdshader")
 	maple_face.material = maple_material
 	panel.add_child(maple_face)
+	content_clip=Control.new();content_clip.clip_contents=true;content_clip.mouse_filter=MOUSE_FILTER_STOP;panel.add_child(content_clip)
+	recipe_page=Control.new();recipe_page.mouse_filter=MOUSE_FILTER_STOP;content_clip.add_child(recipe_page)
+	manage_view=Management.new();content_clip.add_child(manage_view)
+	manage_view.requested.connect(func(value):
+		if tab=="manage" and visible and not dismissal.visible:management_requested.emit(value))
+	manage_view.placement_requested.connect(func():
+		if tab=="manage" and visible and not dismissal.visible:placement_requested.emit(chef_id))
+	manage_view.firing_requested.connect(open_firing)
 	catalog_backing = Panel.new()
 	catalog_backing.mouse_filter = Control.MOUSE_FILTER_STOP
 	catalog_backing.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
-	panel.add_child(catalog_backing)
+	recipe_page.add_child(catalog_backing)
 	heading = _label(panel)
-	level_label = _label(panel)
+	level_label = _label(panel);level_label.hide()
+	recipe_tab=_button("Recipes","Recipes tab",panel);manage_tab=_button("Manage","Manage tab",panel)
+	recipe_tab.pressed.connect(func():switch_tab("recipes"));manage_tab.pressed.connect(func():switch_tab("manage"))
+	tab_marker=ColorRect.new();tab_marker.color=Color("95613c");tab_marker.mouse_filter=MOUSE_FILTER_IGNORE;panel.add_child(tab_marker)
+	separator=ColorRect.new();separator.color=Color("d29c5e");separator.mouse_filter=MOUSE_FILTER_IGNORE;panel.add_child(separator)
 	close_button = _button("×", "Close recipes", panel)
 	close_button.pressed.connect(dismiss)
 	catalog = ScrollContainer.new()
@@ -111,7 +141,7 @@ func _ready() -> void:
 	details = Panel.new()
 	details.mouse_filter = Control.MOUSE_FILTER_STOP
 	details.accessibility_name = "Selected recipe details"
-	panel.add_child(details)
+	recipe_page.add_child(details)
 	detail_dish = Dish.new()
 	details.add_child(detail_dish)
 	detail_name = _label(details)
@@ -128,7 +158,7 @@ func _ready() -> void:
 	detail_requirement = _label(details)
 	prepare_button = _button("Prepare", "Prepare selected recipe", details)
 	prepare_button.pressed.connect(func():
-		if prepare_button.visible and not prepare_button.disabled: prepared.emit(chef_id, selected))
+		if tab=="recipes" and prepare_button.is_visible_in_tree() and not prepare_button.disabled and not dismissal.visible: prepared.emit(chef_id, selected))
 	preparing_label = _label(details)
 	preparing_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	preparing_label.text = "Preparing · Current recipe"
@@ -143,6 +173,10 @@ func _ready() -> void:
 	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	portrait.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	panel.add_child(portrait)
+	dismissal=Dismissal.new();add_child(dismissal)
+	dismissal.confirmed.connect(func():management_requested.emit({"type":"fire_chef","chef_id":chef_id}))
+	dismissal.canceled.connect(func():switch_tab("manage",false);manage_view.fire.grab_focus())
+	dismissal.closed.connect(dismiss)
 	hide()
 
 func _label(parent: Node) -> Label:
@@ -171,10 +205,13 @@ func open(state: Dictionary, id: String) -> void:
 	actor = _find_chef(state, id)
 	if actor.is_empty(): return
 	selected = str(actor.get("recipe_id", ""))
+	tab="recipes";slide=0;manage_view.result.text="";management_signature=""
+	if is_instance_valid(slide_tween):slide_tween.kill()
 	show()
 	catalog.scroll_vertical = 0
 	_rebuild()
 	_refresh_details()
+	manage_view.refresh(state,actor)
 	layout(area, safe_top)
 	close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	close_button.grab_focus()
@@ -191,10 +228,19 @@ func _find_chef(state: Dictionary, id: String) -> Dictionary:
 
 func refresh(state: Dictionary) -> void:
 	if not visible: return
-	var signature := JSON.stringify([state.recipes, state.recipe_book, _find_chef(state, chef_id).get("recipe_id", ""), _is_placed(state)])
-	var previous := JSON.stringify([session_state.recipes, session_state.recipe_book, actor.get("recipe_id", ""), _is_placed(session_state)])
+	var next_actor:=_find_chef(state,chef_id)
+	if next_actor.is_empty() and dismissal.visible:
+		session_state=state
+		if state.get("staff",{}).get("dismissed",{}).has(chef_id):dismissal.play_fired()
+		return
+	if next_actor.is_empty():dismiss();return
+	var signature := JSON.stringify([state.recipes, state.recipe_book, next_actor.get("recipe_id", ""), _is_placed(state), next_actor.get("level"),next_actor.get("cooking_speed")])
+	var previous := JSON.stringify([session_state.recipes, session_state.recipe_book, actor.get("recipe_id", ""), _is_placed(session_state),actor.get("level"),actor.get("cooking_speed")])
 	session_state = state
-	actor = _find_chef(state, chef_id)
+	actor = next_actor
+	var management_key:=JSON.stringify([chef_id,actor.level,actor.level_cap,actor.cooking_speed,actor.growth_rate,state.coins,_is_placed(state)])
+	if management_key!=management_signature:
+		manage_view.refresh(state,actor);management_signature=management_key
 	if signature != previous:
 		# Never rebuild the scroll tree for Live preparation progress.
 		var offset := catalog.scroll_vertical
@@ -313,10 +359,15 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	area = value
 	safe_top = inset
 	if panel == null or area.size.x <= 0: return
-	unit = area.size.x / 720.0
-	var top := maxf(area.position.y, inset) + 74 * unit
+	var physical:=maxf(.001,get_viewport_transform().get_scale().x)
+	var compact:=size.x>size.y and size.y*physical<600
+	if compact:
+		var width:=minf(size.x,620.0/physical)
+		area=Rect2((size.x-width)*.5,0,width,size.y)
+	unit = minf(area.size.x/720.0,390.0/720.0/physical) if compact else area.size.x / 720.0
+	var top := maxf(area.position.y, inset) + (34 if compact else 130) * unit
 	panel.position = Vector2(area.position.x + 24 * unit, top)
-	panel.size = Vector2(672 * unit, area.end.y - top - 26 * unit)
+	panel.size = Vector2(area.size.x-48*unit, area.end.y - top - (24 if compact else 110) * unit)
 	var outer_shadow := _flat(Color.TRANSPARENT, 32)
 	outer_shadow.shadow_color = Color(0.35, 0.18, 0.05, 0.2)
 	outer_shadow.shadow_size = int(8*unit)
@@ -328,24 +379,37 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	maple_material.set_shader_parameter("corner_radius", 32*unit)
 	maple_material.set_shader_parameter("grain_width", 720*unit)
 	var height := panel.size.y / unit
-	var header := 146.0
-	var footer := 390.0 if _is_placed() else 286.0
+	var reference_width:=panel.size.x/unit
+	var catalog_width:=reference_width-28
+	var header := 136.0 if compact else 178.0
+	var footer := (220.0 if _is_placed() else 200.0) if compact else 390.0 if _is_placed() else 286.0
 	var detail_top := height - footer
-	catalog_backing.position = Vector2(0,header)*unit
-	catalog_backing.size = Vector2(672,detail_top-header+48)*unit
+	content_clip.position=Vector2(0,header)*unit
+	content_clip.size=Vector2(reference_width,height-header)*unit
+	recipe_page.size=content_clip.size
+	manage_view.layout(content_clip.size,unit)
+	_position_pages(slide)
+	catalog_backing.position = Vector2.ZERO
+	catalog_backing.size = Vector2(reference_width,detail_top-header+48)*unit
 	var cream := _flat(Color("fff3db"),32)
 	cream.corner_radius_bottom_left = 0
 	cream.corner_radius_bottom_right = 0
 	catalog_backing.add_theme_stylebox_override("panel",cream)
-	heading.text = "%s’s recipes" % str(actor.get("name", "Chef"))
-	_text(heading, Rect2(184, 28, 368, 52), 36)
-	level_label.text = "Level %s" % int(actor.get("level", 1))
-	_text(level_label, Rect2(184, 83, 348, 40), 25)
+	heading.text = ("%s’s recipes" if tab=="recipes" else "%s") % str(actor.get("name", "Chef"))
+	_text(heading, Rect2(184, 10 if compact else 32, reference_width-304, 52), 36)
+	for i in range(2):
+		var button:Button=[recipe_tab,manage_tab][i]
+		button.position=Vector2(184+i*146,51 if compact else 89)*unit;button.size=Vector2(126,82)*unit
+		button.add_theme_font_size_override("font_size",int(25*unit));button.accessibility_description="Selected tab" if (i==0)==(tab=="recipes") else "";button.toggle_mode=true;button.set_pressed_no_signal((i==0)==(tab=="recipes"))
+		for treatment in ["normal","hover","pressed","focus"]:button.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
+		button.add_theme_color_override("font_color",INK if (i==0)==(tab=="recipes") else Color("91633f"))
+	tab_marker.position=Vector2(184+(0 if tab=="recipes" else 146),header-16)*unit;tab_marker.size=Vector2(126,4)*unit
+	separator.position=Vector2(0,header)*unit;separator.size=Vector2(panel.size.x, maxf(1,unit));separator.visible=tab=="manage"
 	portrait.identity = str(actor.get("art_id", "chef-lena"))
 	portrait.position = Vector2(16, header - 204.8) * unit
 	portrait.size = Vector2(160, 204.8) * unit
 	portrait.queue_redraw()
-	close_button.position = Vector2(552, 18) * unit
+	close_button.position = Vector2(reference_width-120, 12 if compact else 18) * unit
 	close_button.size = Vector2(96, 96) * unit
 	close_button.add_theme_font_size_override("font_size", int(54 * unit))
 	for treatment in ["normal", "hover", "pressed", "disabled"]:
@@ -359,12 +423,12 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	focus.set_border_width_all(maxi(1, int(3*unit)))
 	close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	catalog.position = Vector2(14, 0) * unit
-	catalog.size = Vector2(644, maxf(120, detail_top - header)) * unit
+	catalog.size = Vector2(catalog_width, maxf(100, detail_top - header)) * unit
 	grid.add_theme_constant_override("h_separation", int(16*unit))
 	grid.add_theme_constant_override("v_separation", int(16*unit))
 	# This inset belongs to the scrolling content and disappears as it scrolls.
 	catalog_content.add_theme_constant_override("margin_top",int(24*unit))
-	var tile_width := (644.0 - 16.0) / 2.0
+	var tile_width := (catalog_width - 16.0) / 2.0
 	for id in tiles:
 		var record: Dictionary = tiles[id]
 		var tile: Button = record.button
@@ -388,8 +452,8 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		_text(record.badge, Rect2(tile_width-80, 8, 70, 30), 19)
 		record.badge.visible = id in session_state.recipe_book.new
 	# Full-width details, top corners kept round, padded content inside.
-	details.position = Vector2(0, detail_top)*unit
-	details.size = Vector2(672, footer)*unit
+	details.position = Vector2(0, detail_top-header)*unit
+	details.size = Vector2(reference_width, footer)*unit
 	details.add_theme_stylebox_override("panel", wood.style("panel-maple", unit))
 	detail_dish.position = Vector2(16, 8)*unit
 	detail_dish.size = Vector2(260, 238)*unit
@@ -407,7 +471,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		_text(detail_name, Rect2(32, 48, 608, 64), 34)
 		_text(detail_time, Rect2(32, 124, 608, 90), 23)
 	prepare_button.position = Vector2(32, 260)*unit
-	prepare_button.size = Vector2(608, 100)*unit
+	prepare_button.size = Vector2(reference_width-64, 100)*unit
 	prepare_button.add_theme_font_size_override("font_size", int(35*unit))
 	for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]: prepare_button.add_theme_color_override(key, Color("fff9e9"))
 	for treatment in ["normal", "hover", "pressed", "disabled"]:
@@ -415,18 +479,33 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	prepare_button.add_theme_stylebox_override("focus", focus)
 	_text(preparing_label, Rect2(32, 260, 608, 100), 28)
 	waves.position = Vector2(4, footer-32)*unit
-	waves.size = Vector2(664, 24)*unit
+	waves.size = Vector2(reference_width-8, 24)*unit
 	waves.queue_redraw()
-	for control: Control in [close_button, prepare_button]:
-		var physical := get_viewport_transform().get_scale().x
+	if compact:
+		detail_dish.position=Vector2(14,4)*unit;detail_dish.size=Vector2(180,180)*unit
+		_text(detail_name,Rect2(210,12,reference_width-480,48),30)
+		_text(detail_price,Rect2(254,62,reference_width-510,36),28);detail_coin.position=Vector2(210,65)*unit
+		_text(detail_time,Rect2(210,110,reference_width-480,42),22)
+		_text(detail_requirement,Rect2(210,158,reference_width-480,30),21)
+		prepare_button.position=Vector2(reference_width-244,54)*unit;prepare_button.size=Vector2(216,92)*unit
+		_text(preparing_label,Rect2(reference_width-250,54,222,92),23)
+		if selected.is_empty():
+			_text(detail_name,Rect2(30,16,reference_width-300,60),30);_text(detail_time,Rect2(30,80,reference_width-300,64),22)
+	for control: Control in [close_button, prepare_button,recipe_tab,manage_tab]:
 		control.custom_minimum_size = Vector2.ONE * 44.01 / maxf(0.001, physical)
+	if dismissal.visible:dismissal.layout(Rect2(Vector2(area.position.x,maxf(area.position.y,safe_top)),Vector2(area.size.x,area.end.y-maxf(area.position.y,safe_top))))
 
 func _reveal_selected() -> void:
 	if tiles.has(selected): catalog.ensure_control_visible(tiles[selected].button)
 
 func _input(event: InputEvent) -> void:
 	if not visible: return
-	if event is InputEventScreenTouch and event.pressed and catalog.get_global_rect().has_point(event.position):
+	if dismissal.visible:
+		if event.is_action_pressed("ui_cancel"):dismissal.back();get_viewport().set_input_as_handled()
+		elif event is InputEventKey and event.pressed and event.keycode==KEY_TAB:
+			var targets:=dismissal.targets();var current:=targets.find(get_viewport().gui_get_focus_owner());targets[posmod(current+(-1 if event.shift_pressed else 1),targets.size())].grab_focus();get_viewport().set_input_as_handled()
+		return
+	if tab=="recipes" and event is InputEventScreenTouch and event.pressed and catalog.get_global_rect().has_point(event.position):
 		if touch_index == -1:
 			touch_index = event.index
 			touch_origin = event.position
@@ -453,7 +532,9 @@ func _input(event: InputEvent) -> void:
 		if not event.canceled and not dragged and not pick.is_empty() and tiles.has(pick) and tiles[pick].button.get_global_rect().has_point(event.position): inspect(pick)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
+		if event.keycode in [KEY_LEFT,KEY_RIGHT] and get_viewport().gui_get_focus_owner() in [recipe_tab,manage_tab]:
+			switch_tab("manage" if tab=="recipes" else "recipes");(recipe_tab if tab=="recipes" else manage_tab).grab_focus();get_viewport().set_input_as_handled()
+		elif event.keycode == KEY_ESCAPE:
 			dismiss()
 			get_viewport().set_input_as_handled()
 		elif event.keycode == KEY_TAB:
@@ -461,14 +542,21 @@ func _input(event: InputEvent) -> void:
 			keyboard_glow.shadow_color = Color(0.85,0.5,0.18,0.75)
 			keyboard_glow.shadow_size = maxi(2,int(5*unit))
 			close_button.add_theme_stylebox_override("focus",keyboard_glow)
-			var targets: Array[Control] = [close_button]
-			for record in tiles.values(): targets.append(record.button)
-			if prepare_button.visible and not prepare_button.disabled: targets.append(prepare_button)
+			var targets: Array[Control] = [recipe_tab,manage_tab,close_button]
+			if tab=="recipes":
+				for record in tiles.values(): targets.append(record.button)
+				if prepare_button.visible and not prepare_button.disabled: targets.append(prepare_button)
+			else:
+				if manage_view.upgrade.visible and not manage_view.upgrade.disabled:targets.append(manage_view.upgrade)
+				targets.append(manage_view.unassign);targets.append(manage_view.fire)
 			var current := targets.find(get_viewport().gui_get_focus_owner())
 			targets[posmod(current+(-1 if event.shift_pressed else 1), targets.size())].grab_focus()
 			get_viewport().set_input_as_handled()
 
 func dismiss() -> void:
+	if dismissal.visible:
+		dismissal.back();return
+	if is_instance_valid(slide_tween):slide_tween.kill()
 	touch_index = -1
 	touch_dragged = false
 	hide()
@@ -479,7 +567,9 @@ func _notification(what: int) -> void:
 	if what in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT]:
 		touch_index = -1
 		touch_dragged = false
-		var buttons: Array = [close_button, prepare_button]
+		var buttons: Array = [close_button, prepare_button,recipe_tab,manage_tab]
+		if manage_view!=null:buttons.append_array([manage_view.upgrade,manage_view.unassign,manage_view.fire])
+		if dismissal!=null:buttons.append_array([dismissal.close_button,dismissal.cancel_button,dismissal.confirm_button])
 		for record in tiles.values(): buttons.append(record.button)
 		for button in buttons:
 			if button == null: continue
@@ -492,3 +582,34 @@ func _coin_texture() -> Texture2D:
 	texture.atlas = wood.texture("coin-emblem")
 	texture.region = Rect2(32, 32, 108, 108)
 	return texture
+
+func switch_tab(value:String,animate:=true)->void:
+	if value not in ["recipes","manage"]:return
+	for button in [prepare_button,manage_view.upgrade,manage_view.unassign,manage_view.fire]:
+		var old_disabled:bool=button.disabled;button.disabled=true;button.disabled=old_disabled
+	touch_index=-1;touch_dragged=false;tab=value
+	if is_instance_valid(slide_tween):slide_tween.kill()
+	layout(area,safe_top)
+	var destination:=0.0 if tab=="recipes" else 1.0
+	if reduced_motion or not animate:_position_pages(destination)
+	else:
+		slide_tween=create_tween();slide_tween.tween_method(_position_pages,slide,destination,.26).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+func _position_pages(value:float)->void:
+	slide=value
+	if content_clip==null:return
+	var w:=content_clip.size.x
+	recipe_page.position=Vector2(-value*w,0);manage_view.position=Vector2((1-value)*w,0)
+	recipe_page.visible=value<.999 or tab=="recipes";manage_view.visible=value>.001 or tab=="manage"
+	for record in tiles.values():record.button.mouse_filter=MOUSE_FILTER_STOP if tab=="recipes" else MOUSE_FILTER_IGNORE;record.button.focus_mode=FOCUS_ALL if tab=="recipes" else FOCUS_NONE
+	for control in [prepare_button]:control.mouse_filter=MOUSE_FILTER_STOP if tab=="recipes" else MOUSE_FILTER_IGNORE;control.focus_mode=FOCUS_ALL if tab=="recipes" else FOCUS_NONE
+	for control in [manage_view.upgrade,manage_view.unassign,manage_view.fire]:
+		if control!=null:control.mouse_filter=MOUSE_FILTER_STOP if tab=="manage" else MOUSE_FILTER_IGNORE;control.focus_mode=FOCUS_ALL if tab=="manage" else FOCUS_NONE
+	queue_redraw()
+func open_firing()->void:
+	if actor.is_empty() or tab!="manage" or dismissal.visible:return
+	dismissal.reduced_motion=reduced_motion;dismissal.open(actor,Rect2(Vector2(area.position.x,maxf(area.position.y,safe_top)),Vector2(area.size.x,area.end.y-maxf(area.position.y,safe_top))))
+func management_result(request:Dictionary,result:Dictionary)->void:
+	if not result.get("ok",false):return
+	if request.type=="fire_chef":dismissal.play_fired()
+	elif request.type=="level_up_chef":
+		manage_view.result.text="Level %s · %s recipes unlocked!"%[actor.level,Dev.tier(int(actor.level))] if Dev.tier(int(actor.level))!=Dev.tier(int(request.expected_level)) else "Level %s · Cooking speed %.2f×"%[actor.level,actor.cooking_speed]

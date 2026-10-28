@@ -1,6 +1,7 @@
 extends RefCounted
 ## Pure applicant/roster rules. Caller supplies absolute time; offers never expire.
 const PATH := "res://content/staff_catalog.json"
+const Development = preload("res://scripts/chef_development.gd")
 const Book = preload("res://scripts/recipe_book.gd")
 static var _definition: Dictionary = {}
 
@@ -77,6 +78,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			if point.x<0:return {"ok":false,"reason":"invalid_floor"}
 			var actor := {"id":id,"kind":"chef","name":str(data.name).get_slice(" ",0),"full_name":data.name,"art_id":data.art_id,"x":point.x,"y":point.y,"facing":"south","recipe_id":"","level":1,"level_cap":int(data.level_cap),"cooking_speed":float(data.cooking_speed),"growth_rate":float(data.growth_rate),"preparation_elapsed":0.0,"held_dish":null,"loading_elapsed":0.0,"visual_phase":"idle","visual_elapsed":0.0}
 			state.inventory.append({"id":id,"kind":"chef","name":actor.name,"full_name":data.name,"art_id":data.art_id,"recipe_id":"","level":1,"level_cap":actor.level_cap,"cooking_speed":actor.cooking_speed,"growth_rate":actor.growth_rate,"count":1,"assigned":false,"facing":"south","stored_object":actor,"staff_new":true})
+			Development.initialize(state)
 			state.coins = int(state.coins)-int(data.cost)
 			staff.hired[id] = offer.applicant_id
 			staff.next_hire_id = int(staff.next_hire_id)+1
@@ -92,6 +94,19 @@ static func valid(config: Dictionary, state: Dictionary) -> bool:
 		if not _integer(staff.get(key)) or int(staff[key])<(0 if key=="generation" else 1): return false
 	if not _number(staff.get("refresh_deadline")) or float(staff.refresh_deadline)<0: return false
 	if not staff.get("random_state") is String or not staff.random_state.is_valid_int() or str(int(staff.random_state))!=staff.random_state: return false
+	if not staff.get("dismissed") is Dictionary:return false
+	for id in staff.dismissed:
+		if not id is String or Book.chef(state,id)!={} or staff.hired.has(id):return false
+		var original:Dictionary={}
+		for object in config.objects:
+			if object.id==id and object.kind=="chef":original=object
+		if not original.is_empty():
+			if staff.dismissed[id]!=original.art_id:return false
+		else:
+			if not id.begins_with("hired-chef-"):return false
+			var index:=str(id).trim_prefix("hired-chef-")
+			if not index.is_valid_int() or int(index)<1 or int(index)>=int(staff.next_hire_id) or str(int(index))!=index:return false
+			if not definition().applicants.values().any(func(data):return data.art_id==staff.dismissed[id]):return false
 	var identities := {}; var offers := {}
 	for offer in staff.offers:
 		if not offer is Dictionary or not offer.get("id") is String or not offer.id.begins_with("application-") or not definition().applicants.has(offer.get("applicant_id")): return false

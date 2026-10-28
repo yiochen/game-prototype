@@ -35,7 +35,7 @@ export function WoodRecipeTile({ recipeKey, selected, current, seen = [], isNew 
   </button>;
 }
 
-export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', level = 5, onInspect, onPrepare, onClose }) {
+export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', level = 5, cookingSpeed, assigned = true, embedded = false, onInspect, onPrepare, onClose }) {
   const selected = state.selectedRecipe, current = state.currentRecipe;
   const recipe = plateRecipes[selected], eligible = recipe && !recipe.unknown && level >= recipe.level;
   const currentSelected = eligible && current === selected;
@@ -51,19 +51,22 @@ export function MapleRecipePanel({ state, chefName = 'Lena', chefId = 'lena', le
     else if (a.top < b.top) catalog.current.scrollTop -= b.top - a.top + 8;
   }, [selected]);
   useEffect(() => { close.current?.focus({preventScroll:true}); }, []);
-  const prep = recipe ? (recipe.baseSeconds / (1 + (level - 1) * .12)).toFixed(1) : '';
-  return <div className="wr-scrim" onClick={onInspect ? event => event.stopPropagation() : undefined}>
-    <dialog open className="wr-panel" aria-modal="true" aria-labelledby="wr-title">
-      <ChefPortrait className="wr-chef" chefId={chefId} bust/><div className="wr-panel-interior"><header className="wr-header"><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
+  const prep = recipe ? (recipe.baseSeconds / (cookingSpeed ?? (1 + (level - 1) * .12))).toFixed(1) : '';
+  const content=<>
       <div ref={catalog} className="wr-catalog" aria-label="Scrollable recipe catalog" tabIndex={0}>
         <div className="wr-grid">{sorted.map(key => <WoodRecipeTile key={key} recipeKey={key} selected={selected} current={current} seen={state.seenRecipes} isNew={key === 'eel'} level={level} onInspect={onInspect}/>)}</div>
       </div>
       <section className="wr-details" aria-label="Selected recipe details" aria-live="polite" aria-atomic="true">
         {recipe ? <div className="wr-detail-row"><PlatedDish recipe={recipe}/><div className="wr-detail-copy"><h3>{recipe.name}</h3>{recipe.unknown ? <p className="wr-discover">Find new creatures on expeditions to discover this dish.</p> : <><Coins amount={recipe.price}/><dl><div><dt>Prep with {chefName}</dt><dd>{eligible ? `${prep} sec` : '—'}</dd></div><div><dt>Requires</dt><dd>Lv {recipe.level}</dd></div></dl></>}</div></div> : <div className="wr-empty"><span className="wr-empty-plate" aria-hidden="true"/><h3>Choose a recipe</h3><p>Pick a dish above to see its details.</p></div>}
         {recipe && !recipe.unknown && !eligible && <p className="wr-requirement">{chefName} needs Level {recipe.level} to prepare this dish.</p>}
-        {currentSelected ? <div className="wr-preparing"><Icon name="check"/>Preparing<span>Current recipe</span></div> : <button type="button" className="wr-prepare" disabled={!eligible} data-action={onPrepare ? undefined : 'prepare'} onClick={onPrepare}>Prepare</button>}
+        {!assigned ? <p className="wr-requirement">Place {chefName} in the restaurant to prepare.</p> : currentSelected ? <div className="wr-preparing"><Icon name="check"/>Preparing<span>Current recipe</span></div> : <button type="button" className="wr-prepare" disabled={!eligible} data-action={onPrepare ? undefined : 'prepare'} onClick={onPrepare}>Prepare</button>}
       </section>
-      <div className="wr-wave" aria-hidden="true"/></div>
+      <div className="wr-wave" aria-hidden="true"/></>;
+  if(embedded)return <div className="wr-panel-interior recipe-embedded">{content}</div>;
+  return <div className="wr-scrim" onClick={onInspect ? event => event.stopPropagation() : undefined}>
+    <dialog open className="wr-panel" aria-modal="true" aria-labelledby="wr-title">
+      <ChefPortrait className="wr-chef" chefId={chefId} bust/><div className="wr-panel-interior"><header className="wr-header"><div><h2 id="wr-title">{chefName}’s recipes</h2><p>Level {level}</p></div><button ref={close} type="button" className="wr-close" aria-label="Close recipes" data-action={onClose ? undefined : 'dismiss'} onClick={onClose}><Icon name="close"/></button></header>
+      {content}</div>
     </dialog>
   </div>;
 }
