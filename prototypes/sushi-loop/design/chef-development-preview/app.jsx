@@ -1,3 +1,4 @@
+import {SharedClose} from '../../wireframe/shared-close.jsx';
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {ChefPortrait} from '../../wireframe/chef-portrait.jsx';
@@ -17,7 +18,7 @@ const initial=new URLSearchParams(location.search).get('state')||'develop';
 const paths={close:'m7 7 10 10M17 7 7 17',play:'m8 4 12 8-12 8Z',people:'M4 21v-3a8 8 0 0 1 16 0v3M8 6a4 4 0 1 0 8 0 4 4 0 0 0-8 0',layout:'M4 5h16v14H4ZM4 10h16M10 10v9',floor:'M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h7v7h-7Z',left:'m14 6-6 6 6 6'};
 function Icon({name}){return <svg className="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={paths[name]}/></svg>;}
 function Coin({amount}){return <span className="money"><span className="mini-coin" aria-hidden="true">★</span>{amount.toLocaleString()}</span>;}
-function Close({onClick,label}){return <button className="round" onClick={onClick} aria-label={label}><Icon name="close"/></button>;}
+function Close({onClick,label}){return <SharedClose label={label} onClick={onClick}/>;}
 function Plate({level}){const color=tier(level);return <span className={`tier-plate plate-${color.toLowerCase()}`} role="img" aria-label={`${color} plate tier, requires Level ${balance.thresholds[balance.tiers.indexOf(color)]}`}/>;}
 function Photo({chef,...props}){return <button {...props} className="staff-photo" data-chef={chef.id} aria-label={`Open ${given(chef)}’s recipes, ${chef.assigned?'assigned':'unassigned'}`}><img className="photo-paper" src={art('photo-outer')} alt="" draggable="false"/><img className="photo-inner" src={art('photo-inner')} alt="" draggable="false"/><span className="photo-portrait"><ChefPortrait chefId={chef.id} bust/></span><strong className="photo-name">{given(chef)}</strong>{chef.assigned&&<span className="assigned-stamp"><img src={art('assigned-stamp')} alt=""/>Assigned</span>}</button>;}
 

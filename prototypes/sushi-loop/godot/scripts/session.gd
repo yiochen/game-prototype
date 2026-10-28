@@ -12,6 +12,8 @@ const StaffBook = preload("res://scripts/staff_book.gd")
 const STAFF_VERSION := 1
 const Development = preload("res://scripts/chef_development.gd")
 const CHEF_DEVELOPMENT_VERSION := 1
+const ShopBook = preload("res://scripts/shop_book.gd")
+const SHOP_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
@@ -59,6 +61,7 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if request.get("type") == "shop_purchase": return ShopBook.command(_state, request)
 	if request.get("type") in ["level_up_chef","fire_chef"]:
 		var result:=Development.command(_configuration,_state,request)
 		if result.get("ok",false):
@@ -163,6 +166,7 @@ func snapshot() -> Dictionary:
 		"loading_seconds": float(_configuration.service.get("loading_seconds", 0.0)),
 		"recipe_book": _state.recipe_book.duplicate(true),
 		"staff": StaffBook.snapshot(_state),
+		"shop": ShopBook.snapshot(_state),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
@@ -227,6 +231,7 @@ func save_data() -> Dictionary:
 		"recipe_book_version": RECIPE_BOOK_VERSION,
 		"staff_version": STAFF_VERSION,
 		"chef_development_version": CHEF_DEVELOPMENT_VERSION,
+		"shop_version": SHOP_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -235,6 +240,7 @@ func save_data() -> Dictionary:
 	}
 
 func restore(data: Dictionary) -> bool:
+	if not _nonnegative_integer(data.get("shop_version",0)) or int(data.get("shop_version",0)) > SHOP_VERSION: return false
 	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
 	# Validate before changing anything. Restoring is a state replacement, never
 	# elapsed-time simulation or event playback, even when called repeatedly.
@@ -308,6 +314,10 @@ func restore(data: Dictionary) -> bool:
 		if not RecipeBook.initialize(restored_configuration, restored_state): return false
 	if int(data.get("staff_version",0))==0: StaffBook.initialize(restored_configuration,restored_state)
 	if int(data.get("chef_development_version",0))==0 or int(data.get("staff_version",0))==0 or int(data.get("recipe_book_version",0))==0:Development.initialize(restored_state)
+	if int(data.get("shop_version",0)) == 0:
+		if restored_state.has("shop"): return false
+		ShopBook.initialize(restored_state)
+	if not ShopBook.valid(restored_state): return false
 	if not Development.valid(restored_state):return false
 	if not StaffBook.valid(restored_configuration,restored_state): return false
 	if not RecipeBook.valid(restored_configuration, restored_state): return false
@@ -394,6 +404,7 @@ func _upgrade_restaurant_backdrop() -> void:
 	_rebuild_access()
 
 func _normalize_restored_numbers() -> void:
+	ShopBook.normalize(_state)
 	# JSON represents integers and floats with the same number type. Normalize
 	# counters before future ID creation, and cell coordinates before rendering.
 	_configuration.starting_coins = int(_configuration.starting_coins)
@@ -453,6 +464,7 @@ func _start() -> void:
 	RecipeBook.initialize(_configuration, _state)
 	StaffBook.initialize(_configuration,_state,_staff_seed)
 	Development.initialize(_state)
+	ShopBook.initialize(_state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
@@ -1923,7 +1935,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	for identity in known_stock:
 		if not inventory_ids.has(identity):
 			return false
-		var expected := int(known_stock[identity].count)
+		var expected := int(known_stock[identity].count) + int(state.get("shop",{}).get("purchased",{}).get(identity,0))
 		var owned := 0
 		for initial in config.objects:
 			if _owned_stock_id(initial) == identity:

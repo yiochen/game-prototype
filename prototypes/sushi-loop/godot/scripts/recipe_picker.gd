@@ -9,6 +9,7 @@ const Typography = preload("res://scripts/typography.gd")
 const Management = preload("res://scripts/chef_management.gd")
 const Dismissal = preload("res://scripts/chef_dismissal.gd")
 const Dev = preload("res://scripts/chef_development.gd")
+const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
 const INK := Color("592c10")
 signal inspected(chef_id: String, recipe_id: String)
 signal prepared(chef_id: String, recipe_id: String)
@@ -94,16 +95,7 @@ func _ready() -> void:
 	panel.accessibility_name = "Chef recipe picker"
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(panel)
-	maple_face = TextureRect.new()
-	maple_face.texture = wood.texture("wood-grain")
-	maple_face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	maple_face.stretch_mode = TextureRect.STRETCH_SCALE
-	maple_face.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
-	maple_face.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var maple_material := ShaderMaterial.new()
-	maple_material.shader = load("res://scripts/maple_face.gdshader")
-	maple_face.material = maple_material
-	panel.add_child(maple_face)
+	maple_face = PopupSkin.make_face(panel,wood.texture("wood-grain"))
 	content_clip=Control.new();content_clip.clip_contents=true;content_clip.mouse_filter=MOUSE_FILTER_STOP;panel.add_child(content_clip)
 	recipe_page=Control.new();recipe_page.mouse_filter=MOUSE_FILTER_STOP;content_clip.add_child(recipe_page)
 	manage_view=Management.new();content_clip.add_child(manage_view)
@@ -373,11 +365,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	outer_shadow.shadow_size = int(8*unit)
 	outer_shadow.shadow_offset = Vector2(0,6)*unit
 	panel.add_theme_stylebox_override("panel", outer_shadow)
-	maple_face.size = panel.size
-	var maple_material: ShaderMaterial = maple_face.material
-	maple_material.set_shader_parameter("surface_size", panel.size)
-	maple_material.set_shader_parameter("corner_radius", 32*unit)
-	maple_material.set_shader_parameter("grain_width", 720*unit)
+	PopupSkin.layout_face(maple_face,panel.size,unit)
 	var height := panel.size.y / unit
 	var reference_width:=panel.size.x/unit
 	var catalog_width:=reference_width-28
@@ -410,14 +398,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	portrait.size = Vector2(160, 204.8) * unit
 	portrait.queue_redraw()
 	close_button.position = Vector2(reference_width-120, 12 if compact else 18) * unit
-	close_button.size = Vector2(96, 96) * unit
-	close_button.add_theme_font_size_override("font_size", int(54 * unit))
-	for treatment in ["normal", "hover", "pressed", "disabled"]:
-		var close_surface := _flat(Color("f5d39e") if treatment == "pressed" else Color("ffe8bc"), 48)
-		close_surface.shadow_color = Color(0.45, 0.25, 0.08, 0.18)
-		close_surface.shadow_size = int(5*unit)
-		close_surface.shadow_offset = Vector2(0,4)*unit
-		close_button.add_theme_stylebox_override(treatment, close_surface)
+	PopupSkin.close_button(close_button,unit,physical)
 	var focus := _flat(Color.TRANSPARENT, 30)
 	focus.border_color = Color("93633c")
 	focus.set_border_width_all(maxi(1, int(3*unit)))

@@ -321,7 +321,7 @@ func _test_editor(app) -> void:
 	var restored = Session.new()
 	_expect(app.save_now() and restored.restore(app.store.load_session()) and _same(edit_saved, restored.snapshot()), "Every accepted editor change immediately persists mode, camera, layer and tray state through the actual save store")
 	await _tap(app, app.editor_ui.live.get_global_rect().get_center())
-	_expect(app.session.snapshot().mode == "live" and not app.editor_ui.visible and app.edit.visible and app.shop.visible and not app.editing_cue.visible, "Top-right Live returns directly to service without Save, Done, Cancel or Undo")
+	_expect(app.session.snapshot().mode == "live" and not app.editor_ui.visible and app.edit.visible and not app.shop.visible and not app.editing_cue.visible, "Top-right Live returns directly to service without Save, Done, Cancel or Undo")
 	var elapsed_before := float(app.session.snapshot().elapsed)
 	app.advance_time(1.0)
 	_expect(float(app.session.snapshot().elapsed) > elapsed_before, "Returning to Live resumes the actual operating simulation")
