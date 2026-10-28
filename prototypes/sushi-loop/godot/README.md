@@ -153,3 +153,26 @@ Drag an unassigned photo upward onto an empty workable belt-adjacent cell, using
 `scripts/staff_presentation.gd` and `staff_resume.gd` serve gameplay and `--staff-gallery`; their approved source paper/stamp images remain independent of live labels. The paper retains 170px source slices and 36-unit corners. Six applicant identities reuse their production world clips and matching illustrated portraits. Android exports retain the original package/save identity/release signer.
 
 `tests/staff_tests.gd` covers pure commands/time/saves; `staff_native_tests.gd` covers integrated hiring, placement and unread behavior. `edit_navigation_tests.gd` exercises repeated Edit/People/Layout/Floor/Live journeys and confirms Applicants belongs inside People. The 0.8.1 navigation amendment and full-scene evidence live in `../review/16/navigation-fix/`.
+
+## Chef development and lifecycle · issue 17
+
+The shared native recipe popup has Recipes / Manage tabs. Only the contents slide;
+the portrait and maple frame stay fixed, and Manage's separator touches the crop's
+bottom. Manage text sits directly on wood grain. Open the same component with
+`godot --path prototypes/sushi-loop/godot -- --chef-gallery`.
+
+Purchased levels preview speed, a plate-tier threshold and the coin cost. Costs
+and default growth live in `content/chef_development.json`; configured hired-chef
+growth/caps remain in `staff_catalog.json`. Levels change actual preparation time
+without changing recipe prices, discoveries or experience. MAX keeps final stats
+without a cost. Commands include the previewed level to reject replayed purchases.
+
+Unassign retains development in People; reassignment uses the existing valid
+placement rules and opens an idle recipe picker until Prepare. Fire slides up that
+chef's named application. Confirm saves removal before the shared physical stamp
+lands and leaves live Fired ink until Close, with no toast. Cancel is read-only.
+
+Versioned migration preserves existing levels, speeds, caps, layout, clocks, coins
+and random state. It records growth/baselines and permanently dismissed identities
+so removing a starter does not resurrect them on reopen. Native rule and viewport
+tests, captures and the signed 0.9.0 / 70 build audit are in `../review/17/native/`.

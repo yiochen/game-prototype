@@ -6,6 +6,9 @@ const Typography = preload("res://scripts/typography.gd")
 const Wood = preload("res://scripts/wood_skin.gd")
 signal hire_requested(id: String)
 var offer: Dictionary = {}
+var dismissal_mode := false
+var compact_dismissal := false
+var dismissal_note: Label
 var coins := 0
 var full := false
 var unit := 1.0
@@ -48,6 +51,7 @@ func _ready() -> void:
 	background_text = label(""); background_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	portrait = Head.new();portrait.mouse_filter = MOUSE_FILTER_IGNORE;add_child(portrait)
 	for text in ["Cooking speed","Growth / level","Max level"]: names.append(label(text));values.append(label(""))
+	names.append(label("Current level"));values.append(label(""));dismissal_note=label("");dismissal_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	hire_button = Button.new();hire_button.mouse_filter = MOUSE_FILTER_STOP;hire_button.accessibility_name = "Hire applicant";add_child(hire_button)
 	hire_button.pressed.connect(func(): hire_requested.emit(str(offer.id)))
 	hire_word = label("Hire",hire_button)
@@ -63,6 +67,8 @@ func text_at(node: Label, box: Rect2, pixels: float, color := Color("592c10")) -
 	node.add_theme_color_override("font_color",color)
 	if node.autowrap_mode != TextServer.AUTOWRAP_OFF:
 		node.add_theme_font_size_override("font_size",maxi(1,int(pixels*unit)));node.position=box.position*unit;node.size=box.size*unit
+	elif dismissal_mode:
+		node.position=box.position*unit;node.size=box.size*unit;node.add_theme_font_size_override("font_size",maxi(1,int(pixels*unit)));node.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT;node.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	else: UISkin.layout_caption(node,Rect2(box.position*unit,box.size*unit),maxi(1,int(pixels*unit)))
 func layout() -> void:
 	if not is_node_ready(): return
@@ -103,6 +109,28 @@ func layout() -> void:
 	imprint.size=Vector2(minf(176,width*.66),minf(176,width*.66)*488.0/2048)*unit;imprint.pivot_offset=imprint.size*.5;imprint.position=size*.52-imprint.size*.5;imprint.position.x=size.x*.5-imprint.size.x*.5;imprint.rotation=deg_to_rad(-12);imprint.queue_redraw()
 	UISkin.layout_caption(stamp_text,Rect2(Vector2.ZERO,imprint.size),int(28*unit))
 	stamp_prop.size=Vector2(minf(172,width*.56),minf(172,width*.56)*876.0/964)*unit;stamp_prop.position=Vector2((size.x-stamp_prop.size.x)*.5,size.y*.52-stamp_prop.size.y)
+	names[3].visible=dismissal_mode;values[3].visible=dismissal_mode;dismissal_note.visible=dismissal_mode
+	if dismissal_mode:
+		hire_button.hide()
+		var stats_top:=top+head_height+88
+		var labels:=["Current level","Cooking speed","Growth / level","Maximum level"]
+		var data:=["%s / %s"%[offer.get("level",1),offer.get("level_cap",12)],"%.2f×"%float(offer.get("cooking_speed",1)),"+%s%%"%int(round(float(offer.get("growth_rate",.12))*100)),str(offer.get("level_cap",12))]
+		for i in range(4):
+			names[i].text=labels[i];values[i].text=data[i]
+			text_at(names[i],Rect2(pad+(i%2)*(width-pad*2)/2,stats_top+(i/2)*64,(width-pad*2)/2,18),10,Color("98754f"))
+			text_at(values[i],Rect2(pad+(i%2)*(width-pad*2)/2,stats_top+(i/2)*64+22,(width-pad*2)/2,30),19)
+		text_at(dismissal_note,Rect2(pad,stats_top+139,width-pad*2,65),11,Color("805e3f"))
+		imprint.size=Vector2(minf(210,width*.72),minf(210,width*.72)*488.0/2048)*unit;imprint.pivot_offset=imprint.size*.5;imprint.position=size*.55-imprint.size*.5;imprint.position.x=size.x*.5-imprint.size.x*.5
+		UISkin.layout_caption(stamp_text,Rect2(Vector2.ZERO,imprint.size),int(36*unit))
+	if dismissal_mode and compact_dismissal:
+		portrait.position=Vector2(18,12)*unit;portrait.size=Vector2(45,58)*unit
+		text_at(eyebrow,Rect2(74,10,width*.55-84,15),8,Color("9c794f"));text_at(heading,Rect2(74,29,width*.55-84,28),18);text_at(occupation,Rect2(74,59,width*.55-84,24),9,Color("916b46"))
+		text_at(background_text,Rect2(18,87,width*.55-36,32),10,Color("805e3f"))
+		for i in range(4):
+			var x:=width*.58+(i%2)*(width*.38/2)
+			text_at(names[i],Rect2(x,20+(i/2)*58,width*.38/2,18),8,Color("98754f"));text_at(values[i],Rect2(x,40+(i/2)*58,width*.38/2,26),16)
+		text_at(dismissal_note,Rect2(18,134,width-36,36),10,Color("805e3f"))
+		imprint.position=Vector2(size.x*.5-imprint.size.x*.5,size.y*.58-imprint.size.y*.5)
 	queue_redraw()
 func _draw() -> void:
 	var source := paper.get_size();var edge := 36*unit
@@ -112,6 +140,7 @@ func _draw() -> void:
 		for x in range(3): draw_texture_rect_region(paper,Rect2(dx[x],dy[y],dx[x+1]-dx[x],dy[y+1]-dy[y]),Rect2(sx[x],sy[y],sx[x+1]-sx[x],sy[y+1]-sy[y]))
 	if is_node_ready():
 		var pad := (14.0 if narrow else 18.0)*unit
-		var y := minf(173.0 if narrow else 204.0,hire_button.position.y/unit-67)*unit
-		draw_line(Vector2(pad,y),Vector2(size.x-pad,y),Color("dac69e"),unit)
-		draw_line(Vector2(pad,hire_button.position.y-12*unit),Vector2(size.x-pad,hire_button.position.y-12*unit),Color("dac69e"),unit)
+		var y := ((16.0 if narrow else 18.0)+(80.0 if narrow else 94.0)+81)*unit if dismissal_mode else minf(173.0 if narrow else 204.0,hire_button.position.y/unit-67)*unit
+		if not compact_dismissal:draw_line(Vector2(pad,y),Vector2(size.x-pad,y),Color("dac69e"),unit)
+		var lower:=124*unit if compact_dismissal else y+138*unit if dismissal_mode else hire_button.position.y-12*unit
+		draw_line(Vector2(pad,lower),Vector2(size.x-pad,lower),Color("dac69e"),unit)

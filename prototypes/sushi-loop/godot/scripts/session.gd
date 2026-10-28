@@ -10,6 +10,8 @@ const RecipeBook = preload("res://scripts/recipe_book.gd")
 const RECIPE_BOOK_VERSION := 1
 const StaffBook = preload("res://scripts/staff_book.gd")
 const STAFF_VERSION := 1
+const Development = preload("res://scripts/chef_development.gd")
+const CHEF_DEVELOPMENT_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
@@ -57,6 +59,24 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if request.get("type") in ["level_up_chef","fire_chef"]:
+		var result:=Development.command(_configuration,_state,request)
+		if result.get("ok",false):
+			for layer in EDITOR_LAYERS:_state.editor.pages[layer]=mini(int(_state.editor.pages[layer]),_editor_page_count(layer,_state.inventory)-1)
+			_state.editor.page=_state.editor.pages[_state.editor.layer]
+			_rebuild_access()
+		return result
+	if request.get("type")=="unassign_chef":
+		var actor:=RecipeBook.chef(_state,str(request.get("chef_id","")))
+		if actor.is_empty():return {"ok":false,"reason":"unknown_chef"}
+		if not _state.objects.has(actor):return {"ok":true,"changed":false}
+		var old_mode:String=_state.mode
+		var old_editor:Dictionary=_state.editor.duplicate(true)
+		_state.mode="edit";_state.editor.layer="people"
+		var result:=_editor_change({"type":"editor_remove","id":actor.id})
+		_state.mode=old_mode;_state.editor=old_editor
+		if _state.editor.selected_id==actor.id:_state.editor.selected_id=""
+		return result
 	if request.get("type") in ["hire_applicant", "refresh_applicants", "staff_seen"]:
 		return StaffBook.command(_configuration, _state, request)
 	if request.get("type") == "staff_place":
@@ -70,6 +90,11 @@ func command(request: Dictionary) -> Dictionary:
 		var result := _editor_change(placement)
 		_state.mode = old_mode
 		_state.editor = old_editor
+		if result.get("ok",false):
+			var placed:=RecipeBook.chef(_state,str(request.inventory_id))
+			if placed.get("held_dish") is Dictionary:_state.discarded_dishes=int(_state.discarded_dishes)+1
+			placed.recipe_id="";placed.held_dish=null;placed.preparation_elapsed=0.0;placed.loading_elapsed=0.0;placed.visual_phase="idle";placed.visual_elapsed=0.0
+			stock.recipe_id=""
 		return result
 	if request.get("type") in ["inspect_recipe", "prepare_recipe", "discover_recipe"]:
 		return RecipeBook.command(_configuration, _state, request)
@@ -201,6 +226,7 @@ func save_data() -> Dictionary:
 		"editor_version": EDITOR_VERSION,
 		"recipe_book_version": RECIPE_BOOK_VERSION,
 		"staff_version": STAFF_VERSION,
+		"chef_development_version": CHEF_DEVELOPMENT_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -209,6 +235,7 @@ func save_data() -> Dictionary:
 	}
 
 func restore(data: Dictionary) -> bool:
+	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
 	# Validate before changing anything. Restoring is a state replacement, never
 	# elapsed-time simulation or event playback, even when called repeatedly.
 	if not _nonnegative_integer(data.get("recipe_book_version", 0)) or int(data.get("recipe_book_version", 0)) > RECIPE_BOOK_VERSION:
@@ -280,6 +307,8 @@ func restore(data: Dictionary) -> bool:
 	if int(data.get("recipe_book_version", 0)) == 0:
 		if not RecipeBook.initialize(restored_configuration, restored_state): return false
 	if int(data.get("staff_version",0))==0: StaffBook.initialize(restored_configuration,restored_state)
+	if int(data.get("chef_development_version",0))==0 or int(data.get("staff_version",0))==0 or int(data.get("recipe_book_version",0))==0:Development.initialize(restored_state)
+	if not Development.valid(restored_state):return false
 	if not StaffBook.valid(restored_configuration,restored_state): return false
 	if not RecipeBook.valid(restored_configuration, restored_state): return false
 	if not _valid_saved_state(restored_state, restored_configuration, navigation_version, admission_version):
@@ -423,6 +452,7 @@ func _start() -> void:
 	_initialize_editor_state(_state)
 	RecipeBook.initialize(_configuration, _state)
 	StaffBook.initialize(_configuration,_state,_staff_seed)
+	Development.initialize(_state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
@@ -1862,6 +1892,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	for initial in config.objects:
 		if initial.kind == "chef":
 			known_chefs[initial.id] = initial
+	for id in state.get("staff",{}).get("dismissed",{}):known_chefs.erase(id)
 	for id in state.get("staff",{}).get("hired",{}): known_chefs[id] = {}
 	var known_stock := {}
 	for entry in _editor_definition().get("inventory", []):

@@ -24,6 +24,7 @@ var audio: Audio
 var show_gallery := false
 var show_editor_gallery := false
 var show_staff_gallery := false
+var show_chef_gallery := false
 var editor_ui: EditorPresentation
 var pointer_start := Vector2.ZERO
 var gesture_kind := ""
@@ -78,7 +79,8 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery
+	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery
 	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -155,6 +157,9 @@ func _ready() -> void:
 	add_child(recipe_ui)
 	recipe_ui.inspected.connect(_inspect_recipe)
 	recipe_ui.prepared.connect(_prepare_recipe)
+	recipe_ui.management_requested.connect(_manage_chef)
+	recipe_ui.placement_requested.connect(_place_managed_chef)
+	recipe_ui.closed.connect(_restore_chef_focus)
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -180,6 +185,9 @@ func _ready() -> void:
 	_layout()
 	_refresh()
 	if show_staff_gallery:staff_ui.open_applicants()
+	if show_chef_gallery:
+		for button in gallery_buttons:button.hide()
+		session=Session.new_session(81,{"starting_coins":1240});_refresh();_open_recipes(str(session.snapshot().objects.filter(func(c):return c.kind=="chef")[0].id));recipe_ui.switch_tab("manage",false)
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -980,3 +988,25 @@ func _start_dish_flight(event: Dictionary, scene: Dictionary) -> void:
 	var camera: Dictionary = world.state.camera
 	var source_grid := (source-world.floor_origin)/world.cell+Vector2(float(camera.x),float(camera.y))
 	world.dish_flights.append({"customer_id":event.customer_id,"dish_id":event.dish_id,"recipe_id":event.recipe_id,"source_grid":source_grid,"started":world.time-age})
+
+func _manage_chef(request:Dictionary)->void:
+	if save_blocked:return
+	var result:=session.command(request)
+	if not result.get("ok",false):return
+	if request.type=="fire_chef":staff_ui.viewed_chefs.erase(str(request.chef_id))
+	if not save_now():_block_edit_save();return
+	_refresh()
+	recipe_ui.management_result(request,result)
+func _place_managed_chef(identity:String)->void:
+	if save_blocked:return
+	recipe_ui.dismiss()
+	_editor_command({"type":"set_mode","mode":"edit"})
+	_editor_command({"type":"editor_layer","layer":"people"})
+	for item in session.snapshot().inventory:
+		if item.id==identity:
+			armed_item=item.duplicate(true);editor_ui.active_item=identity;_refresh();return
+
+func _restore_chef_focus()->void:
+	for card in editor_ui.cards:
+		if card.get_meta("entry",{}).get("id")==recipe_ui.chef_id and card.is_visible_in_tree():card.grab_focus();return
+	if not editor_ui.cards.is_empty() and editor_ui.cards[0].is_visible_in_tree():editor_ui.cards[0].grab_focus()
