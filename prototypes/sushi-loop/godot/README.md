@@ -176,3 +176,11 @@ Versioned migration preserves existing levels, speeds, caps, layout, clocks, coi
 and random state. It records growth/baselines and permanently dismissed identities
 so removing a starter does not resurrect them on reopen. Native rule and viewport
 tests, captures and the signed 0.9.0 / 70 build audit are in `../review/17/native/`.
+
+## Persistent Shop · issue 18 · 0.10.0 / 71
+
+The approved Shop opens only from Edit's inventory tray. It hides the complete dock, uses the shared maple popup/round close and a rounded beige scroll area, and returns through either X or the floating bag. Camera, category, tray scroll and focus are retained. Run the same production component with `godot --path prototypes/sushi-loop/godot -- --shop-gallery`.
+
+`content/shop.json` owns the mixed catalog, prices, finite stock and 1.1-second flight duration. `shop_book.gd` owns purchases through `shop_purchase`, with an expected purchase sequence to reject replayed input. Coins, stock and existing inventory change together. Existing editor placement/storage consumes and returns these same goods. Save migration adds Shop metadata without granting goods, changing balances or resetting progress. Purchases save before flying to the bag; a failed save blocks further mutations and Retry persists the same purchase before resuming its feedback. Motion cancellation and reduced motion never replay payment. There is no purchase-status text.
+
+The popup follows the contained native portrait at phone pixel densities; desktop physical-pixel width caps must not shrink Android controls. Six native viewport runs include 720×1560 and 1080×2340 alongside narrow phone, wide and landscape. The release retains `com.yiochen.sushilooptickets`, `SushiLoopTickets`, the original release certificate and a higher code 71. See `../review/18/native/` for tests, actual Mobile/Metal captures, source/APK audits, known unchanged fixture failures, and verified Drive metadata. No connected Android device was available for an install or actual Vulkan-driver check.

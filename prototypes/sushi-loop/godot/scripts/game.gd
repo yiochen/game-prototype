@@ -4,6 +4,10 @@ const RecipePicker = preload("res://scripts/recipe_picker.gd")
 var recipe_ui: RecipePicker
 const StaffPresentation = preload("res://scripts/staff_presentation.gd")
 var staff_ui: StaffPresentation
+const ShopPresentation = preload("res://scripts/shop_presentation.gd")
+var shop_ui: ShopPresentation
+var show_shop_gallery := false
+var pending_shop_receipt: Dictionary = {}
 
 const Session = preload("res://scripts/session.gd")
 const Persistence = preload("res://scripts/save_store.gd")
@@ -78,9 +82,10 @@ func _ready() -> void:
 	get_tree().quit_on_go_back = false
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	show_shop_gallery = "--shop-gallery" in OS.get_cmdline_user_args()
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
 	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery
 	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -160,6 +165,10 @@ func _ready() -> void:
 	recipe_ui.management_requested.connect(_manage_chef)
 	recipe_ui.placement_requested.connect(_place_managed_chef)
 	recipe_ui.closed.connect(_restore_chef_focus)
+	shop_ui = ShopPresentation.new()
+	add_child(shop_ui)
+	shop_ui.purchase_requested.connect(_shop_purchase)
+	shop_ui.closed.connect(_shop_closed)
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -188,6 +197,11 @@ func _ready() -> void:
 	if show_chef_gallery:
 		for button in gallery_buttons:button.hide()
 		session=Session.new_session(81,{"starting_coins":1240});_refresh();_open_recipes(str(session.snapshot().objects.filter(func(c):return c.kind=="chef")[0].id));recipe_ui.switch_tab("manage",false)
+	if show_shop_gallery:
+		for button in gallery_buttons: button.hide()
+		session = Session.new_session(18,{"starting_coins":1240})
+		session.command({"type":"set_mode","mode":"edit"})
+		_refresh();_open_shop()
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -374,6 +388,8 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	editor_ui.set_state(session.snapshot(), area)
 	if recipe_ui != null: recipe_ui.layout(world.portrait, maxf(top_inset, world.diagnostic_header_height))
 	if staff_ui != null:staff_ui.layout(world.portrait)
+	if shop_ui != null:
+		shop_ui.layout(world.portrait,maxf(top_inset,world.diagnostic_header_height))
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = area.position + Vector2(34 * unit, area.size.y * 0.28)
@@ -439,7 +455,7 @@ func _refresh() -> void:
 	editing_cue.visible = editing and not show_gallery
 	editing_panel.visible = editing_cue.visible
 	editing_icon.visible = editing_cue.visible
-	shop.visible = show_gallery or not editing
+	shop.visible = show_gallery and not show_shop_gallery
 	edit.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
 	editor_ui.pickup_active = gesture_lifted
@@ -480,6 +496,11 @@ func _refresh() -> void:
 			if editor_ui.blocked_rects().any(func(blocked: Rect2): return blocked.intersects(bounds)): continue
 			customer_targets.append({"id": guest.id, "name": ["Rosa", "Ellis", "Samir", "June"][int(guest.appearance)], "bounds": bounds})
 	editor_ui.set_customer_targets(customer_targets)
+	if shop_ui != null:
+		shop_ui.reduced_motion = world.reduced_motion
+		shop_ui.interaction_blocked = save_blocked or backgrounded
+		shop_ui.refresh(world.state)
+		if shop_ui.visible: editor_ui.hide()
 	world.queue_redraw()
 
 func save_now() -> bool:
@@ -506,11 +527,8 @@ func _selected_object(scene: Dictionary = {}) -> Dictionary:
 func _editor_command(value: Dictionary) -> Dictionary:
 	if save_blocked: return {"ok": false, "reason": "save_blocked"}
 	if value.get("type") == "editor_shop":
-		# The drawer shortcut exposes the existing unavailable feature without
-		# introducing purchases or mutating the paused restaurant.
-		audio.play_cue("click")
-		editor_ui.reject("shop_unavailable")
-		return {"ok": false, "reason": "shop_unavailable"}
+		return _open_shop()
+	if shop_ui != null and shop_ui.visible: return {"ok":false,"reason":"shop_open"}
 	var result: Dictionary = session.command(value)
 	if result.get("ok", false):
 		if value.type in ["set_mode", "editor_layer", "editor_remove", "editor_belt_end"]:
@@ -627,7 +645,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
-	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible: return
+	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible or (shop_ui != null and shop_ui.visible): return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
 	if not world.hud_area().has_point(local): return
@@ -746,7 +764,7 @@ func _input(event: InputEvent) -> void:
 func _floor_drop(at: Vector2) -> bool:
 	if not world.hud_area().has_point(at) or at.y <= world.hud_area().position.y + 145 * editor_ui.unit:
 		return false
-	if staff_ui.modal.visible or editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
+	if (shop_ui != null and shop_ui.visible) or staff_ui.modal.visible or editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
 		return false
 	for blocked: Rect2 in editor_ui.blocked_rects():
 		if blocked.has_point(at): return false
@@ -827,6 +845,7 @@ func _pan(change: Vector2) -> void:
 	_refresh()
 
 func _cancel_native_button_presses() -> void:
+	if shop_ui != null: shop_ui.cancel_interactions()
 	var buttons: Array = [shop, edit, recovery_retry, recovery_close]
 	buttons.append_array(gallery_buttons)
 	for candidate in buttons:
@@ -856,6 +875,9 @@ func _notification(what: int) -> void:
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and shop_ui != null and shop_ui.visible:
+			shop_ui.dismiss()
+			return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and staff_ui!=null and staff_ui.modal.visible:
 			staff_ui.dismiss()
 			return
@@ -879,6 +901,8 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and shop_ui != null and shop_ui.visible:
+		shop_ui.dismiss();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and staff_ui!=null and staff_ui.modal.visible:
 		staff_ui.dismiss();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and recipe_ui != null and recipe_ui.visible:
@@ -941,6 +965,7 @@ func _retry_restore() -> void:
 		recovery.queue_free()
 		recovery = null
 		_refresh()
+		_resume_shop_receipt()
 		return
 	var saved: Dictionary = store.load_session(_valid_saved_session)
 	if saved.is_empty() and not store.last_error.is_empty():
@@ -1010,3 +1035,40 @@ func _restore_chef_focus()->void:
 	for card in editor_ui.cards:
 		if card.get_meta("entry",{}).get("id")==recipe_ui.chef_id and card.is_visible_in_tree():card.grab_focus();return
 	if not editor_ui.cards.is_empty() and editor_ui.cards[0].is_visible_in_tree():editor_ui.cards[0].grab_focus()
+
+func _open_shop() -> Dictionary:
+	if save_blocked or session.snapshot().mode != "edit": return {"ok":false,"reason":"edit_required"}
+	if recipe_ui.visible or staff_ui.modal.visible or editor_ui.inspection.visible: return {"ok":false,"reason":"modal_open"}
+	if shop_ui.visible: return {"ok":true,"changed":false}
+	_cancel_gesture()
+	shop_ui.interaction_blocked = false
+	shop_ui.reduced_motion = world.reduced_motion
+	if not shop_ui.open(session.snapshot()): return {"ok":false,"reason":"edit_required"}
+	audio.play_cue("click")
+	_refresh()
+	return {"ok":true}
+
+func _shop_closed() -> void:
+	_refresh()
+	if is_instance_valid(shop_ui.focused_before) and shop_ui.focused_before.is_visible_in_tree():
+		shop_ui.focused_before.call_deferred("grab_focus")
+	elif editor_ui.shop.is_visible_in_tree(): editor_ui.shop.call_deferred("grab_focus")
+
+func _shop_purchase(request: Dictionary, source: Rect2) -> Dictionary:
+	if save_blocked or backgrounded or not shop_ui.visible: return {"ok":false,"reason":"shop_closed"}
+	var result: Dictionary = session.command(request)
+	if result.get("ok",false):
+		pending_shop_receipt = {"offer_id":request.offer_id,"source":source}
+		if not save_now(): _block_edit_save()
+		_refresh()
+		if not save_blocked: _resume_shop_receipt()
+	else: _refresh()
+	return result
+
+func _resume_shop_receipt() -> void:
+	if pending_shop_receipt.is_empty(): return
+	var receipt := pending_shop_receipt.duplicate()
+	pending_shop_receipt.clear()
+	if shop_ui.visible and not backgrounded:
+		audio.play_cue("click")
+		shop_ui.purchased(str(receipt.offer_id),receipt.source)

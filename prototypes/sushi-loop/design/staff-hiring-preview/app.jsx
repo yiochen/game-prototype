@@ -1,3 +1,4 @@
+import {SharedClose} from '../../wireframe/shared-close.jsx';
 import React, {useCallback,useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {applicants,refreshedApplicants,startingChefs} from '../../wireframe/fixtures.js';
@@ -31,7 +32,7 @@ const paths={close:'m7 7 10 10M17 7 7 17',left:'m15 5-7 7 7 7',right:'m9 5 7 7-7
 function Icon({name}){return <svg viewBox="0 0 24 24" aria-hidden="true" className="ui-icon" fill={name==='play'?'currentColor':'none'} stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d={paths[name]}/></svg>;}
 function Coin({amount}){return <span className="money"><span className="mini-coin" aria-hidden="true">★</span>{amount.toLocaleString()}</span>;}
 function Plate({tier}){return <span className={`tier-plate plate-${tier.toLowerCase()}`} role="img" aria-label={`${tier} plate, ${patterns[tier]} rim, requires Level ${tierLevel[tier]}`}/>;}
-function Close({onClick,label='Close applicants'}){return <button className="round" aria-label={label} onClick={onClick}><Icon name="close"/></button>;}
+function Close({onClick,label='Close applicants'}){return <SharedClose label={label} onClick={onClick}/>;}
 function Photo({chef,...props}){return <button {...props} className={`staff-photo ${props.className||''}`} aria-label={`Inspect ${chef.name}, ${chef.assigned?'assigned':'unassigned'}${chef.isNew?', new chef':''}`}><img className="photo-paper" src={art('photo-outer')} alt="" draggable="false"/><img className="photo-inner" src={art('photo-inner')} alt="" draggable="false"/><span className="photo-portrait"><ChefPortrait chefId={chef.id} bust/></span><strong className="photo-name">{given(chef)}</strong>{chef.isNew&&<span className="new-chef-dot" role="img" aria-label="New chef"/>}{chef.assigned&&<span className="assigned-stamp"><img src={art('assigned-stamp')} alt=""/>Assigned</span>}</button>;}
 function Resume({chef,full,coins,onHire,tabIndex=0}){return <article className="resume-paper" aria-label={`${chef.name} résumé`} tabIndex={tabIndex}>
  <header className="resume-heading"><ChefPortrait chefId={chef.id} bust/><div><p className="eyebrow">Application</p><h2>{chef.name}</h2><p className="occupation">{chef.role}</p></div></header>

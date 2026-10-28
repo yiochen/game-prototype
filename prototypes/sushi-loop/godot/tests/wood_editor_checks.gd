@@ -90,7 +90,9 @@ func run(app, scene_tree: SceneTree, destination := "") -> void:
 	expect(not app.session.command({"type":"editor_scroll","offset":NAN}).ok,"Nonfinite scroll commands are rejected without altering state")
 	var scroll: float = ui.scroll_offsets.layout
 	await tap(app,ui.shop)
-	expect(ui.rejection.visible and ui.scroll_offsets.layout==scroll and gameplay(app.session.snapshot())==paused,"Separate Shop keeps its unavailable behavior without changing selection or scroll")
+	expect(app.shop_ui.visible and not ui.is_visible_in_tree() and ui.scroll_offsets.layout==scroll and gameplay(app.session.snapshot())==paused,"Separate Shop opens the paused catalog without changing selection or scroll")
+	await tap(app,app.shop_ui.bag_button)
+	expect(not app.shop_ui.visible and ui.is_visible_in_tree() and ui.scroll_offsets.layout==scroll,"Shopping bag returns to the same inventory")
 	await capture("02-scrolled")
 	ui.rejection.hide()
 	var floor_button: Button = ui.layers.floor
