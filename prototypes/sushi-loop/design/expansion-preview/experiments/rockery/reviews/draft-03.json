@@ -1,0 +1,92 @@
+{
+  "round": "draft-03",
+  "verdict": "revise",
+  "provisional": true,
+  "reviewSequence": 1,
+  "submissionType": "draft",
+  "candidatePacketSHA256": null,
+  "inspectedFiles": [
+    "candidates/draft-03/static-N.png",
+    "candidates/draft-03/static-E.png",
+    "candidates/draft-03/static-S.png",
+    "candidates/draft-03/static-W.png",
+    "candidates/draft-03/phone-edge.png",
+    "candidates/draft-03/phone-corner.png"
+  ],
+  "inspectedReviewComposites": [
+    "reviews/draft-03-logical-backgrounds.png"
+  ],
+  "inspectedFileSHA256": {
+    "candidates/draft-03/static-N.png": "91396695b4ec266b550eb2858346dd4bab92228c7779fc731988029d72ec2d70",
+    "candidates/draft-03/static-E.png": "ea9ad41482732a00f61553bb030efb512e8b7ac886992dfd2747027882934b2a",
+    "candidates/draft-03/static-S.png": "103d5e022972abfadea9e985d06cc30dfc45749f0e7089f6a354cc7853c7f74e",
+    "candidates/draft-03/static-W.png": "e7d0def6f2c3c82891ac5e0fcf3966da73eb677c7278ba5488b97e9e908576dc",
+    "candidates/draft-03/phone-edge.png": "63bd232779a393dd504a62be2683cb74bb96e83ef6bf3a12e3bde9c37d7c5922",
+    "candidates/draft-03/phone-corner.png": "b0aef87a8f44ff67e0dad1584f1a35baae675cd5024d80e810682d2232b8d7b9"
+  },
+  "scores": {
+    "shapeVolume": 5,
+    "color": 7,
+    "lightingHighlights": 7,
+    "materialDetail": 6,
+    "artifactFreeReadability": 6
+  },
+  "observations": [
+    "All four native images materially improve on the plain pale source slab: cool violet crowns, slate sides and distinct green folded leaves are visible, with coherent native shading and no obvious clipped edge or black dead face.",
+    "The S facing shows all three height steps most clearly. N, E and W instead emphasize one or two upright octagonal column masses with long comparatively straight sides and fairly regular crowns. The target's broad uneven shoulders and low clustered boulder mass are not yet established.",
+    "At 192x352 logical scale on light and dark review backgrounds, crown/side separation survives and green foliage remains distinct. Several foliage silhouettes resolve as isolated upright blades and small horizontal triangles rather than two compact attached crevice clumps.",
+    "In both real 390x844 consumer captures, the left edge is dominated by the existing dense potted plants. Only small violet crown fragments from the substituted rockery are visible. The large pale slab in the bottom decor row is the unchanged original, so it cannot establish new rockery readability."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "category": "visual",
+      "location": "static-N.png, static-E.png, static-W.png; tall principal rock sides/crowns",
+      "materialEffect": "The principal masses read as upright chamfered columns, leaving the broad uneven boulder-cluster goal only partly met.",
+      "desiredOutcome": "Make the visible rock bodies read as broad irregular boulders with varied shoulders and staggered exposed crowns. Keep coherent volume at every facing within the frozen footprint/camera; do not copy target viewpoint drift."
+    },
+    {
+      "rank": 2,
+      "category": "consumer",
+      "location": "phone-edge.png and phone-corner.png, dense left perimeter",
+      "materialEffect": "Existing potted plants occlude nearly all candidate volume and attached foliage, preventing a useful judgement of the new module at its actual consumer scale.",
+      "desiredOutcome": "Coordinate a representative real edge/corner capture in which enough new rock masses are exposed among the existing separate decor to judge the cluster. Keep this as a consumer/evidence correction; it does not justify changing fixed registration or violating the model envelope."
+    },
+    {
+      "rank": 3,
+      "category": "visual",
+      "location": "static-E.png and static-W.png foreground crevice leaves; static-S.png small right crevice",
+      "materialEffect": "Sparse isolated spear leaves and small triangular flaps weaken the folded crevice-cluster reading at logical size.",
+      "desiredOutcome": "Consolidate the foliage into two attached, thick folded clumps with some compact crown volume and readable light/dark folds, keeping broad rock crowns exposed."
+    }
+  ],
+  "remainingDifferences": [
+    "The single-view target has a more frontal camera and apparent arrangement; its exact pixel silhouette is not required.",
+    "The current restrained rough facet lighting and cooler/darker side values are appropriate and need no gloss treatment."
+  ],
+  "technicalEvidence": {
+    "nativeRenderHashesMatchValidation": {
+      "N": true,
+      "E": true,
+      "S": true,
+      "W": true
+    },
+    "candidateProjectHashMatchesValidation": true,
+    "cameraRecordMatchesReportedSource": true,
+    "reportedEnvelope": [
+      -0.4557616710662842,
+      -0.4733979105949402,
+      0.0,
+      0.49000000953674316,
+      0.45678672194480896,
+      0.9700000286102295
+    ],
+    "reportedClosedMeshes": true,
+    "validationSHA256": "cd80072406eae2f409629744e928819e8db011bb5eda43812ab9eb13eaa442dc",
+    "limits": [
+      "Unsealed provisional draft; no final packet or four-view sheet supplied.",
+      "Native validation was read and reported bounds, camera, topology and dependency checks considered; the judge did not independently reopen Blender.",
+      "Consumer screenshots were inspected directly and native source hashes verified against the accompanying consumer report; layout occlusion remains unresolved."
+    ]
+  }
+}

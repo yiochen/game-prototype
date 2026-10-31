@@ -1,0 +1,92 @@
+{
+  "asset": "garbage-armchair",
+  "status": "independently-approved static prototype asset",
+  "selectedArtRound": "round-01",
+  "selectedEvidenceSubmission": 2,
+  "packet": "candidates/round-01-evidence-02/packet.json",
+  "packetSHA256": "f8ed489fe73ef6826d306b11716f52275588b0a8b097e1cc7649e935ea5e46c6",
+  "review": "reviews/round-01-evidence-02.json",
+  "reviewSHA256": "851f3e529501f366ef560c2f4e745219501d1862d84311d8bdd6d92832486ef8",
+  "files": {
+    "model": {
+      "path": "final/armchair.blend",
+      "sha256": "f155c69d6fd9aacefe469b81c1461ac2172f64c2acb9787335f0c14548f520a7",
+      "approvedSourcePath": "source/round-01.blend"
+    },
+    "N": {
+      "path": "final/N.png",
+      "sha256": "06e855b4521af01240c16afa7d42e302383974a44c1bfa982980d705b97a0570",
+      "approvedSourcePath": "candidates/round-01/N.png"
+    },
+    "E": {
+      "path": "final/E.png",
+      "sha256": "fc0afbd11a291ff8b31c1fd715c4d073a5e599a91d30c1202213e30e57aaed32",
+      "approvedSourcePath": "candidates/round-01/E.png"
+    },
+    "S": {
+      "path": "final/S.png",
+      "sha256": "9fd11ba335b63d1341de3884381635d20c58301d2b0639b00cc1933c757ad65a",
+      "approvedSourcePath": "candidates/round-01/S.png"
+    },
+    "W": {
+      "path": "final/W.png",
+      "sha256": "c5a1557f29afca6e66886ce2db7e357c5d8e5673359bf212341128dd4da805b0",
+      "approvedSourcePath": "candidates/round-01/W.png"
+    },
+    "four-view-sheet": {
+      "path": "final/four-view-sheet.png",
+      "sha256": "3d96a6f1621853628bba1903b8ab32ed0a6723f0c3b25cf300bd96af14ed48ce",
+      "approvedSourcePath": "candidates/round-01/four-view-sheet.png"
+    },
+    "phone-consumer": {
+      "path": "final/phone-consumer.png",
+      "sha256": "17e92e51f51377901d95340f8ab76a4e57e00ed074afc5da7d1e6c184fa6b0b0",
+      "approvedSourcePath": "candidates/round-01/phone-consumer.png"
+    }
+  },
+  "recipe": {
+    "path": "source/recipe-round-01.py",
+    "sha256": "5e25cf559fb49ccc7628c4614398842308578edd8b661868acc9298718b6a354"
+  },
+  "settings": {
+    "path": "candidates/round-01/settings.json",
+    "sha256": "70db9ddaf6abde07ed5d21270e8b33d9ec5966f79339c5dbafdd6b22feab7601"
+  },
+  "validation": {
+    "path": "candidates/round-01/validation.json",
+    "sha256": "ba3373f7f37d5c162768778d23e6650530eb5dc4533408fce8d6d4f82fd7d59f"
+  },
+  "capture": {
+    "frame": [
+      896,
+      1152
+    ],
+    "logicalFrame": [
+      448,
+      576
+    ],
+    "logicalRoot": [
+      224,
+      352
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "phone-consumer"
+    ],
+    "cameraRecord": "inputs/source-camera.json",
+    "footprint": [
+      1,
+      1
+    ],
+    "registration": "Preserve source camera matrix, ortho/pixel aspect/shift. New physical model fits declared footprint; no alpha fitting or per-view camera changes."
+  },
+  "limits": "Static four facings only. Native animation and production/Godot integration deferred. Original source/assets unchanged. Final files copy exact approved bytes; no rerender or art edits after approval."
+}

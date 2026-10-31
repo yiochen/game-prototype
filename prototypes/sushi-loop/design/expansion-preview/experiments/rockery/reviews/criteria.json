@@ -1,0 +1,48 @@
+{
+  "asset": "perimeter-rockery",
+  "status": "proposed-for-coordinator-freeze",
+  "scope": "Native prototype variant and supplied preview evidence only; no production or Godot integration approval.",
+  "technicalLocks": [
+    "Preserve measured source camera matrix, orthographic projection, pixel aspect and shift. Export native 384x704 frames at sourceScale 2 with logical frame 192x352, logical root [96,248] and cellSize 128.",
+    "Use one geometry/material/light setup for N/E/S/W with the declared source facing rotations; no per-view fitting, recoloring, camera adjustment or target-facing art cards.",
+    "All physical geometry stays inside X/Y [-0.5,0.5], has ground contact at z0 and maximum height <=1.5. No ground plane or added ground cast-shadow receiver.",
+    "Use native editable geometry/materials, source lighting family and declared resource closure; preserve original and production bytes.",
+    "Final evidence includes exact editable project, all four native facings, four-view sheet, dense real phone edge/corner consumer showing existing decor intermixture, native validation and hash-bound packet."
+  ],
+  "visibleSuccessCriteria": {
+    "shapeVolume": [
+      "A broad asymmetric rockery cluster reads as three interlocking substantial boulder masses, with purposeful low/middle/high crown variation and uneven shoulders, rather than one regular slab, shelf, thin spike or three identical stones.",
+      "Large faceted crowns and chamfered irregular edges support believable solid volume; crown, bevel and lower-side planes have clear hierarchy at the fixed steep source camera.",
+      "Every facing retains a coherent rockery silhouette and volume, without an unworked flat rear, exposed construction, detached geometry or a materially weaker view. Unseen directions need not duplicate the one target view."
+    ],
+    "color": [
+      "The dominant mass is cool dark slate-blue/violet with lighter desaturated blue-violet crown planes and darker side planes. It fits the frozen edge scene and existing prop family.",
+      "Green crevice foliage is distinct from the rocks, with lighter leaf faces and darker folds. Neither saturated leaves nor near-black rock sides overwhelm the whole prop."
+    ],
+    "lightingHighlights": [
+      "Broad face-to-face value changes clarify the faceted volume while the declared symmetric lighting remains intact.",
+      "Highlights remain restrained; side faces retain enough information to avoid large black dead spots. No bloom, conspicuous gloss or blown white accents are needed for this rough faceted style."
+    ],
+    "materialDetail": [
+      "Rock detail is carried primarily by large uneven planes and local facet/value variation, with quiet surface treatment that survives reduction without grain noise.",
+      "Thick angular folded leaves grow from the rock gaps in two visible crevice clusters, including compact crown-like foliage where useful. Leaves feel attached and volumetric, without a pot or detached decoration; the principal rock masses remain exposed.",
+      "Avoid obvious identical repeated leaf spikes, thin paper planes, coplanar artifacts, unsupported intersections or decorative outline halos."
+    ],
+    "artifactFreeReadability": [
+      "At logical sprite scale and in the actual phone edge/corner composition, the cluster still reads as cool rocks plus green attached foliage, with staggered crowns and a clear outer silhouette.",
+      "In dense repetition beside crates, plants, barrels and lanterns, it contributes contiguous organic edge mass without visual holes, grid-like slab cadence, abrupt chopped contours or apparent floating pieces.",
+      "All required images are transparent, unclipped and free of visible unwanted outlines, seam flicker, black crevices that merge whole masses, or stray pixels/geometry."
+    ]
+  },
+  "reviewPriority": [
+    "Broad staggered boulder volume and silhouette",
+    "Cool faceted material hierarchy and attached green foliage",
+    "Four-facing and dense phone consumer coherence"
+  ],
+  "acceptancePolicy": [
+    "Approval requires a perceptually material improvement from the actual plain native slab toward the frozen style, a passing technical capture/asset contract and no material dead spots in required views.",
+    "Comparative 1-10 scores summarize visible evidence; no score alone is a pass threshold.",
+    "Do not demand target camera drift or exact target pixel geometry. Retain broad cluster identity, coherent material and meaningful phone-scale improvement within the physical envelope.",
+    "Missing packaging or technical/consumer proof produces needs_evidence; an actual visual blocker produces revise. At most three ranked material blockers per round."
+  ]
+}

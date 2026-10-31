@@ -1,0 +1,12 @@
+00:00.317  blend            | Read blend: "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/armchair/backups/original.blend"
+00:00.332  blend            | Read blend: "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/armchair/source/round-01.blend"
+/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/armchair/source/audit.py:27: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  nodes=list(m.node_tree.nodes) if m.use_nodes else [];bs=[n for n in nodes if n.type=='BSDF_PRINCIPLED'];materials.append({'name':m.name,'alpha':[n.inputs['Alpha'].default_value for n in bs],'externalImageNodes':[n.image.filepath for n in nodes if n.type=='TEX_IMAGE' and n.image],'animated':bool(m.animation_data or m.node_tree.animation_data)})
+00:03.479  render           | Saved: '/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/armchair/candidates/round-01/replay-S.png'
+BlenderMCP addon registered
+AUDIT {"sourceCameraExact": true, "sourceRootExact": true, "sourceLightsExact": true, "sourceWorldExact": true, "nativeFrame896x1152": true, "physicalEnvelope": true, "groundContact": true, "heightMaximum": true, "fourShortFootContacts": true, "projectionCalibrationWithin005px": true, "opaqueMaterials": true, "noExternalResources": true, "nativeGeometryOnly": true, "staticNoAnimations": true, "transparentCanvas": true, "backupUntouched": true}
+BOUNDS {'min': [-0.4886660873889923, -0.48529505729675293, 0.0], 'max': [0.4846477806568146, 0.46466416120529175, 1.128596544265747]}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

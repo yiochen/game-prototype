@@ -3,6 +3,7 @@ extends RefCounted
 const PATH := "res://content/staff_catalog.json"
 const Development = preload("res://scripts/chef_development.gd")
 const Book = preload("res://scripts/recipe_book.gd")
+const Expansion = preload("res://scripts/expansion_book.gd")
 static var _definition: Dictionary = {}
 
 static func definition() -> Dictionary:
@@ -22,9 +23,12 @@ static func _offer(staff: Dictionary, identity: String) -> void:
 	staff.offers.append({"id":"application-%s" % int(staff.next_offer_id),"applicant_id":identity})
 	staff.next_offer_id = int(staff.next_offer_id)+1
 
-static func snapshot(state: Dictionary) -> Dictionary:
+static func capacity(state: Dictionary, config: Dictionary = {}) -> int:
+	return int(definition().capacity) + (Expansion.staff_bonus(state,config.floor) if config.has("floor") and Expansion.enabled(config.floor) else 0)
+
+static func snapshot(state: Dictionary, config: Dictionary = {}) -> Dictionary:
 	var result: Dictionary = state.staff.duplicate(true)
-	result.capacity = int(definition().capacity)
+	result.capacity = capacity(state,config)
 	result.count = state.inventory.filter(func(entry): return entry.kind == "chef").size()
 	for offer in result.offers:
 		for field in definition().applicants[offer.applicant_id]: offer[field] = definition().applicants[offer.applicant_id][field]
@@ -67,7 +71,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 				if candidate.id == request.get("offer_id"): offer = candidate
 			if offer.is_empty(): return {"ok":false,"reason":"unknown_offer"}
 			var data: Dictionary = definition().applicants[offer.applicant_id]
-			if state.inventory.filter(func(entry): return entry.kind == "chef").size()>=int(definition().capacity): return {"ok":false,"reason":"staff_full"}
+			if state.inventory.filter(func(entry): return entry.kind == "chef").size()>=capacity(state,config): return {"ok":false,"reason":"staff_full"}
 			if int(state.coins)<int(data.cost): return {"ok":false,"reason":"not_enough_coins"}
 			var id := "hired-chef-%s" % int(staff.next_hire_id)
 			var point:=Vector2i(-1,-1)

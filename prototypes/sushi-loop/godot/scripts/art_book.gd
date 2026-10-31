@@ -10,6 +10,8 @@ const CHEF_MANIFEST := "res://assets/chef-variants/manifest.json"
 const CHEF_DIRECTORY := "res://assets/chef-variants/"
 const FEEDBACK_MANIFEST := "res://assets/feedback-variants/manifest.json"
 const FEEDBACK_DIRECTORY := "res://assets/feedback-variants/"
+const EXPANSION_MANIFEST := "res://assets/expansion/manifest.json"
+const EXPANSION_DIRECTORY := "res://assets/expansion/"
 const PICK_ALPHA := 0.1
 var objects: Dictionary = {}
 var sources: Dictionary = {}
@@ -36,6 +38,11 @@ func reload() -> void:
 	_merge_variants(MEAL_MANIFEST, MEAL_DIRECTORY)
 	_merge_variants(CHEF_MANIFEST, CHEF_DIRECTORY)
 	_merge_variants(FEEDBACK_MANIFEST, FEEDBACK_DIRECTORY)
+	var expansion: Variant = JSON.parse_string(FileAccess.get_file_as_string(EXPANSION_MANIFEST))
+	if expansion is Dictionary:
+		for identity in expansion.get("objects",{}):
+			if not objects.has(identity): objects[identity] = expansion.objects[identity].duplicate(true)
+	_merge_variants(EXPANSION_MANIFEST,EXPANSION_DIRECTORY)
 
 func _merge_variants(path: String, directory: String) -> void:
 	var variants: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))

@@ -1,0 +1,57 @@
+{
+  "round": "01",
+  "verdict": "needs_evidence",
+  "reviewSequence": 1,
+  "submissionType": "art-change",
+  "reviewedAt": "2026-10-29T20:32:21.188832+00:00",
+  "candidatePacketSHA256": "a10d49062baf53ad4f91214ec6ce19099e92aaed4fc1226cb27f92fff66561c7",
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "four-view-sheet.png",
+    "phone-consumer.png",
+    "alpha-edges.png"
+  ],
+  "inspectedFilesBase": "candidates/round-01",
+  "scores": {
+    "shapeVolume": 8.5,
+    "color": 8.5,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 8.5
+  },
+  "observations": [
+    "The native result visibly changes the tall open source shelf into a low broad sideboard with an enclosed body, short feet and substantial three-board top.",
+    "S presents two distinct framed door leaves with deliberate crooked displacement, attached hardware and an exposed central cubby. The olive/tan parcels and door separation remain recognizable at the small phone-scale row and in the running dense phone consumer.",
+    "Honey wood, softly rounded edges, subdued metal and sparse long grain are coherent with the source family. The cubby retains tonal information rather than becoming a black dead spot.",
+    "N has a plausible boarded rear and frame. E/W show coherent side construction and top depth under the locked projection. No floating debris, visible clipping, abrupt seams or material dead spots were observed.",
+    "Cream alpha-edge sheet, slate sheet and native transparency appearance show clean silhouettes without the target halo or ground shadow.",
+    "No visual revision is requested. Final approval is held only for the stale brief binding in the packet."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "category": "evidence",
+      "location": "packet.json files.brief",
+      "materialEffect": "The helper cannot verify the immutable handoff because ../../brief.json now hashes to 78edb02e6dbe5faf637cf1e1c4a41ae5018bf200fc0e825a4b58f7542199d160 while this packet binds 9fc1a2be268df958428575dc3210a4272dc13cff21a7dcbe14a87d31ab5373b8. All other supplied bound artifacts match.",
+      "desiredOutcome": "Reseal unchanged native blend, render and preview bytes into a new immutable evidence-only packet against the current stable brief. Keep round-01 retained and supply the new packet for helper verification. Do not rerender or change art for this correction."
+    }
+  ],
+  "remainingDifferences": [
+    "The fixed source camera exposes more top area and less front area than the target; this is required capture fidelity.",
+    "Both doors are framed crooked leaves, with less front-panel asymmetry and fewer prominently exposed parcels than the target. Their damage, attachment and exposed cubby read clearly, so this simplification is accepted.",
+    "The side and rear construction are restrained native interpretations because the single target view does not define those faces.",
+    "Wood surface treatment follows the existing source family and is slightly more regular than the target, without material loss of readability."
+  ],
+  "technicalEvidence": {
+    "helperVerification": "Failed only on changed ../../brief.json.",
+    "hashAudit": "Verified every files/candidateRenders/previews entry directly against SHA-256; only files.brief differs. Candidate packet SHA matches the submitted value.",
+    "frozenContract": "Current brief qualityCriteria and capture compare equal to the packet copies.",
+    "nativeValidation": "Read the bound validator and validation record. All 17 checks pass, including exact source camera/ortho/shift/frame/pixel aspect/lights/color management, native-only closed meshes, no image/emission nodes, no animation, transparent unclipped PNGs, source/backup integrity and resource closure.",
+    "measurements": "58 closed meshes, zero recorded nonmanifold edges. Root location [0,0,0], scale [1,1,1]. Local x [-0.9750000238,0.9750000238], y [-0.4821807146,0.4550000131], z [0,1.1647870541]. E/W world envelope rotates correctly to the 1x2 orientation.",
+    "previewVerification": "Read bound preview and consumer harnesses. Four-view sheet uses the same crop and uniform scale for all views; phone-size row uses 390/7 px per cell. Phone screenshot is from the running page with isolated candidate substitution, center-footprint anchoring, and unfinished armchair content omitted in memory.",
+    "limits": "Native measurements were evaluated from the bound Blender validator/records rather than rerunning Blender. The phone preview approves static asset readability; full state interactions, deferred armchair integration and production installation remain coordinator scope."
+  }
+}

@@ -1,0 +1,544 @@
+
+Running 65 tests using 1 worker
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:7:1 › wood assembly preserves tabs, badge counts, scroll reachability and separate Shop navigation
+[2/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:29:1 › direction locking prevents horizontal browsing from turning into pickup
+[3/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:49:1 › keyboard reveals the last item; unavailable fixtures stay unavailable
+[4/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:71:1 › touch scrolling uses the native horizontal pan without arming an item
+[5/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:89:3 › dock containment and safe footer at 320x720
+[6/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:89:3 › dock containment and safe footer at 984x1224
+[7/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:89:3 › dock containment and safe footer at 1280x720
+[8/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:130:1 › HTML HUD mode preview restores the editor without changing inventory
+[9/65] prototypes/sushi-loop/tests/editor-dock-preview.spec.js:145:1 › UI surfaces use only the wood-grain and wave bitmap backgrounds
+[10/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:8:1 › inspect matches preview, centers, shields outside taps and Cancel preserves camera
+[11/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:14:1 › browser Back and Escape close without clearing or moving the camera
+[12/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:18:1 › confirm commits once before visual removal and opens both shared dock targets
+[13/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:24:1 › unaffordable keeps the cost readable, disables only Clear, and traps modal focus
+[14/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:28:1 › Edit clear pauses earnings and newly opened floor accepts placement across reload
+[15/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:33:1 › drag pans at constant tile pitch and a moved touch cannot inspect
+[16/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:37:1 › gallery shares the popup and all whole-object previews, with pressed/disabled states
+[17/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:41:1 › touch drag pans without opening a patch; a stationary tap inspects it
+[18/65] prototypes/sushi-loop/tests/expansion-preview.spec.js:48:1 › phone, landscape and wider portrait contain every popup control and all assets
+[19/65] prototypes/sushi-loop/tests/shop-preview.spec.js:6:1 › buy, place, return and reload preserve real quantities
+[20/65] prototypes/sushi-loop/tests/shop-preview.spec.js:16:1 › limited stock sells out in place and cannot be bought after reload
+[21/65] prototypes/sushi-loop/tests/shop-preview.spec.js:22:1 › poor offers retain cost and accessible Buy labels
+[22/65] prototypes/sushi-loop/tests/shop-preview.spec.js:26:1 › return preserves camera, mode, category, strip scroll and opener focus
+[23/65] prototypes/sushi-loop/tests/shop-preview.spec.js:33:1 › Shop is Edit-only, hides the tray, and retains the pause
+[24/65] prototypes/sushi-loop/tests/shop-preview.spec.js:40:1 › keyboard focus stays on paper, Escape and browser Back restore opener
+[25/65] prototypes/sushi-loop/tests/shop-preview.spec.js:44:1 › gallery uses identical rows and exposes pressed, disabled and sold-out states
+[26/65] prototypes/sushi-loop/tests/shop-preview.spec.js:48:1 › touch browsing owns horizontal motion and an upward pickup places one bought good
+[27/65] prototypes/sushi-loop/tests/shop-preview.spec.js:57:73 › layout and touch bounds 320×720
+[28/65] prototypes/sushi-loop/tests/shop-preview.spec.js:57:73 › layout and touch bounds 390×844
+[29/65] prototypes/sushi-loop/tests/shop-preview.spec.js:57:73 › layout and touch bounds 844×390
+[30/65] prototypes/sushi-loop/tests/shop-preview.spec.js:57:73 › layout and touch bounds 1440×1000
+[31/65] prototypes/sushi-loop/tests/shop-preview.spec.js:65:1 › purchases fly to the bag without status copy; closing during travel preserves payment
+[32/65] prototypes/sushi-loop/tests/shop-preview.spec.js:72:1 › reduced motion skips item travel and still commits a purchase
+[33/65] prototypes/sushi-loop/tests/shop-preview.spec.js:75:1 › successive purchases have independent flights and cannot be paid again by animation
+[34/65] prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at small-phone
+  1) prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at small-phone 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#prototype-stage')
+    Expected: "chef-ui-portraits"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#prototype-stage') with timeout 5000ms
+      - waiting for locator('#prototype-stage')
+        - waiting for "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden" navigation to finish...
+        - navigated to "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden#chef-ui-portraits"
+
+
+      12 |   if (page.url() !== 'about:blank') await page.goto('about:blank');
+      13 |   await page.goto(`${URL}#${story}`);
+    > 14 |   await expect(stage(page)).toHaveAttribute('data-story', story);
+         |                             ^
+      15 |   await expect(page.locator('#story-title')).not.toBeEmpty();
+      16 | }
+      17 |
+        at open (/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:14:29)
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:62:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-ba1a1-tal-clipping-at-small-phone/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-ba1a1-tal-clipping-at-small-phone/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-ba1a1-tal-clipping-at-small-phone/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-ba1a1-tal-clipping-at-small-phone/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[35/65] prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at phone
+  2) prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at phone 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#prototype-stage')
+    Expected: "chef-ui-portraits"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#prototype-stage') with timeout 5000ms
+      - waiting for locator('#prototype-stage')
+        - waiting for navigation to finish...
+        - navigated to "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden#chef-ui-portraits"
+
+
+      12 |   if (page.url() !== 'about:blank') await page.goto('about:blank');
+      13 |   await page.goto(`${URL}#${story}`);
+    > 14 |   await expect(stage(page)).toHaveAttribute('data-story', story);
+         |                             ^
+      15 |   await expect(page.locator('#story-title')).not.toBeEmpty();
+      16 | }
+      17 |
+        at open (/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:14:29)
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:62:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-ae764-orizontal-clipping-at-phone/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-ae764-orizontal-clipping-at-phone/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-ae764-orizontal-clipping-at-phone/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-ae764-orizontal-clipping-at-phone/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[36/65] prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at landscape
+  3) prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at landscape 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#prototype-stage')
+    Expected: "chef-ui-portraits"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#prototype-stage') with timeout 5000ms
+      - waiting for locator('#prototype-stage')
+        - waiting for navigation to finish...
+        - navigated to "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden#chef-ui-portraits"
+
+
+      12 |   if (page.url() !== 'about:blank') await page.goto('about:blank');
+      13 |   await page.goto(`${URL}#${story}`);
+    > 14 |   await expect(stage(page)).toHaveAttribute('data-story', story);
+         |                             ^
+      15 |   await expect(page.locator('#story-title')).not.toBeEmpty();
+      16 | }
+      17 |
+        at open (/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:14:29)
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:62:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-30cef-ontal-clipping-at-landscape/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-30cef-ontal-clipping-at-landscape/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-30cef-ontal-clipping-at-landscape/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-30cef-ontal-clipping-at-landscape/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[37/65] prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at desktop
+  4) prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at desktop 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: locator('#prototype-stage')
+    Expected: "component-restaurant-hud"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" locator('#prototype-stage') with timeout 5000ms
+      - waiting for locator('#prototype-stage')
+        - waiting for "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden" navigation to finish...
+        - navigated to "http://127.0.0.1:4176/prototypes/sushi-loop/?ntl-drawer-state=hidden#component-restaurant-hud"
+
+
+      12 |   if (page.url() !== 'about:blank') await page.goto('about:blank');
+      13 |   await page.goto(`${URL}#${story}`);
+    > 14 |   await expect(stage(page)).toHaveAttribute('data-story', story);
+         |                             ^
+      15 |   await expect(page.locator('#story-title')).not.toBeEmpty();
+      16 | }
+      17 |
+        at open (/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:14:29)
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:62:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-40529-izontal-clipping-at-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-40529-izontal-clipping-at-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-40529-izontal-clipping-at-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-40529-izontal-clipping-at-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[38/65] prototypes/sushi-loop/tests/wireframe.spec.js:90:1 › restaurant concept catalog loads the low-poly image and supports contained phone zoom and a full-size link
+[39/65] prototypes/sushi-loop/tests/wireframe.spec.js:132:1 › phone example menu supports search, selection, dismissal and behavior/motion notes
+[40/65] prototypes/sushi-loop/tests/wireframe.spec.js:155:1 › floating Shop and scene landmarks navigate between editing, Workshop and restaurant
+[41/65] prototypes/sushi-loop/tests/wireframe.spec.js:179:1 › expedition navigation preserves a deliberate start, pause/resume and confirmed early return
+[42/65] prototypes/sushi-loop/tests/wireframe.spec.js:208:1 › first discovery opens its recipe award, then the receipt; repeat catch goes straight to the receipt
+[43/65] prototypes/sushi-loop/tests/wireframe.spec.js:224:1 › recipe inspection keeps current production until Prepare; idle chefs require a choice
+  5) prototypes/sushi-loop/tests/wireframe.spec.js:224:1 › recipe inspection keeps current production until Prepare; idle chefs require a choice 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#prototype-stage').getByRole('dialog').locator('.preparing-status')
+    Expected substring: "Preparing"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#prototype-stage').getByRole('dialog').locator('.preparing-status') with timeout 5000ms
+      - waiting for locator('#prototype-stage').getByRole('dialog').locator('.preparing-status')
+
+
+      225 |   await page.setViewportSize({ width: 390, height: 844 });
+      226 |   await open(page, 'recipe-picker');
+    > 227 |   await expect(dialog(page).locator('.preparing-status')).toContainText('Preparing');
+          |                                                           ^
+      228 |   await expect(dialog(page).locator('.dialog-header .dialog-eyebrow')).toHaveText('Level 2');
+      229 |   await expect(dialog(page).locator('.recipe-group h3, .recipe-details .dialog-eyebrow, .recipe-tier')).toHaveCount(0);
+      230 |   await expect(dialog(page).locator('.recipe-details')).toHaveClass(/tier-wood/);
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:227:59
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-19252-idle-chefs-require-a-choice/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-19252-idle-chefs-require-a-choice/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-19252-idle-chefs-require-a-choice/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-19252-idle-chefs-require-a-choice/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[44/65] prototypes/sushi-loop/tests/wireframe.spec.js:263:1 › tap markers are visible by default and phone controls retain at least 44px touch targets
+  6) prototypes/sushi-loop/tests/wireframe.spec.js:263:1 › tap markers are visible by default and phone controls retain at least 44px touch targets 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, copyfile '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-5/traces/9c86e3661f1964900447-ecb16c5264d9d17c989b-recording1.network' -> '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-5/traces/9c86e3661f1964900447-ecb16c5264d9d17c989b-recording1-pwnetcopy-1.network'
+
+    Error: browserContext._wrapApiCall: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-5/traces/9c86e3661f1964900447-ecb16c5264d9d17c989b.trace'
+
+    Error: locator.boundingBox: Test ended.
+    Call log:
+      - waiting for locator('#prototype-stage').getByRole('dialog').getByRole('button', { name: 'Close dialog', exact: true })
+
+
+      281 |   await open(page, 'recipe-picker');
+      282 |   const close = dialog(page).getByRole('button', { name: 'Close dialog', exact: true });
+    > 283 |   const box = await close.boundingBox();
+          |                           ^
+      284 |   expect(box.width).toBeGreaterThanOrEqual(44);
+      285 |   expect(box.height).toBeGreaterThanOrEqual(44);
+      286 | });
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:283:27
+
+    Error: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-5/ed37ca5742c1f2517042cd91b41b931c.zip'
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-40b2d-at-least-44px-touch-targets/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[45/65] prototypes/sushi-loop/tests/wireframe.spec.js:288:1 › dialog backdrop does not dismiss or activate the scene; keyboard focus stays inside and Escape closes recipe only
+  7) prototypes/sushi-loop/tests/wireframe.spec.js:288:1 › dialog backdrop does not dismiss or activate the scene; keyboard focus stays inside and Escape closes recipe only 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, copyfile '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-6/traces/9c86e3661f1964900447-a1de6aaaf519c85a9668-recording1.network' -> '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-6/traces/9c86e3661f1964900447-a1de6aaaf519c85a9668-recording1-pwnetcopy-1.network'
+
+    Error: browserContext._wrapApiCall: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-6/traces/9c86e3661f1964900447-a1de6aaaf519c85a9668.trace'
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for locator('#prototype-stage').locator('[data-scrim]')
+
+
+      289 |   await page.setViewportSize({ width: 390, height: 844 });
+      290 |   await open(page, 'recipe-picker');
+    > 291 |   await stage(page).locator('[data-scrim]').click({ position: { x: 2, y: 2 } });
+          |                                             ^
+      292 |   await at(page, 'recipe-picker');
+      293 |   await expect(dialog(page)).toBeVisible();
+      294 |   await expect(stage(page).locator('.scene-host')).toHaveAttribute('inert', '');
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:291:45
+
+    Error: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-6/6c7335089caa4c685578823158a5053f.zip'
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-59ba0-d-Escape-closes-recipe-only/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[46/65] prototypes/sushi-loop/tests/wireframe.spec.js:308:1 › hiring stays in applicants with remaining candidates; reset restores the fixture
+[47/65] prototypes/sushi-loop/tests/wireframe.spec.js:327:1 › unaffordable, ineligible, full and MAX examples keep facts visible and block their unavailable action
+  8) prototypes/sushi-loop/tests/wireframe.spec.js:327:1 › unaffordable, ineligible, full and MAX examples keep facts visible and block their unavailable action 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#prototype-stage').getByRole('dialog').locator('.recipe-facts')
+    Expected substring: "—"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#prototype-stage').getByRole('dialog').locator('.recipe-facts') with timeout 5000ms
+      - waiting for locator('#prototype-stage').getByRole('dialog').locator('.recipe-facts')
+
+
+      339 |   }
+      340 |   await open(page, 'recipe-unavailable');
+    > 341 |   await expect(dialog(page).locator('.recipe-facts')).toContainText('—');
+          |                                                       ^
+      342 |   await expect(dialog(page).locator('.recipe-facts')).toContainText('Lv 5');
+      343 |   await open(page, 'staff-max');
+      344 |   await expect(dialog(page).getByText('MAX', { exact: true })).toBeVisible();
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:341:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-91d92-ck-their-unavailable-action/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-91d92-ck-their-unavailable-action/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-91d92-ck-their-unavailable-action/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-91d92-ck-their-unavailable-action/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[48/65] prototypes/sushi-loop/tests/wireframe.spec.js:351:1 › native phone swipes pan the restaurant while fixed controls stay reachable
+[49/65] prototypes/sushi-loop/tests/wireframe.spec.js:377:1 › floating Shop stays below upper-left savings during panning and preserves the editing panel on return
+[50/65] prototypes/sushi-loop/tests/wireframe.spec.js:411:1 › nested dialogs return to their parent and an inventory toast leaves editing usable
+  9) prototypes/sushi-loop/tests/wireframe.spec.js:411:1 › nested dialogs return to their parent and an inventory toast leaves editing usable 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, copyfile '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-8/traces/9c86e3661f1964900447-eff547327f67e8bc9bfe-recording5.network' -> '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-8/traces/9c86e3661f1964900447-eff547327f67e8bc9bfe-recording5-pwnetcopy-1.network'
+
+    Error: browserContext._wrapApiCall: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-8/traces/9c86e3661f1964900447-eff547327f67e8bc9bfe-recording4.trace'
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for locator('#prototype-stage').getByRole('dialog').getByRole('button', { name: 'Close dialog', exact: true })
+
+
+      424 |   await dialog(page).getByRole('button', { name: 'Recipes', exact: true }).click();
+      425 |   await at(page, 'recipe-picker');
+    > 426 |   await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
+          |                                                                                 ^
+      427 |   await at(page, 'staff-detail');
+      428 |   await expect(dialog(page).getByRole('heading', { name: 'Lena Brooks', exact: true })).toBeVisible();
+      429 | });
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:426:81
+
+    Error: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-8/82cf9035f08da41f4b7a34664269e5f0.zip'
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-f176f-toast-leaves-editing-usable/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[51/65] prototypes/sushi-loop/tests/wireframe.spec.js:431:1 › refreshed hires retain their identity and cooking speed through paged roster profiles and stats
+[52/65] prototypes/sushi-loop/tests/wireframe.spec.js:451:1 › unassignment updates the roster and expedition returns recenter while resume retains danger
+[53/65] prototypes/sushi-loop/tests/wireframe.spec.js:474:1 › floor-plan editor layers toggle the tray, swatches have no captions and Live stays top-right
+[54/65] prototypes/sushi-loop/tests/wireframe.spec.js:537:1 › empty belt inventory is a short toast while layers and floating Shop remain usable
+[55/65] prototypes/sushi-loop/tests/wireframe.spec.js:554:1 › clearance confirmation keeps cost on Clear only, uses Cancel, and greys out unaffordable clearance
+[56/65] prototypes/sushi-loop/tests/wireframe.spec.js:574:1 › dock and right-side Workshop share three by three floor tiles, with covered peeks before unlock
+[57/65] prototypes/sushi-loop/tests/wireframe.spec.js:608:1 › touch drags place a roster preview without opening stats, while taps inspect and shared pages paginate
+[58/65] prototypes/sushi-loop/tests/wireframe.spec.js:670:1 › paper résumé touch swipes browse in both directions without hiring and shared resume stays interactive
+  10) prototypes/sushi-loop/tests/wireframe.spec.js:670:1 › paper résumé touch swipes browse in both directions without hiring and shared resume stays interactive 
+
+    Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, copyfile '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-9/traces/9c86e3661f1964900447-95838eaa465f394b74ff-recording15.network' -> '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-9/traces/9c86e3661f1964900447-95838eaa465f394b74ff-recording15-pwnetcopy-1.network'
+
+      698 |     await stage(page).getByRole('button', { name: 'Hire Mateo Rivera', exact: true }).tap();
+      699 |     await expect(stage(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toHaveCount(0);
+    > 700 |   } finally { await context.close(); }
+          |                             ^
+      701 | });
+      702 |
+      703 | test('Shop, Workshop and the shared paper page reveal an inert restaurant behind a top-right return corner', async ({ page }) => {
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:700:29
+
+    Error: browserContext._wrapApiCall: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-9/traces/9c86e3661f1964900447-95838eaa465f394b74ff-recording14.trace'
+
+    Error: ENOENT: no such file or directory, open '/Users/yiouchen/dev/game-prototype/test-results/.playwright-artifacts-9/3bd19b003eebab6da69b06573ef2bf4b.zip'
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-afc23-ed-resume-stays-interactive/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[59/65] prototypes/sushi-loop/tests/wireframe.spec.js:703:1 › Shop, Workshop and the shared paper page reveal an inert restaurant behind a top-right return corner
+[60/65] prototypes/sushi-loop/tests/wireframe.spec.js:733:1 › paper corner returns restore the collapsed editor, exact camera and opener focus
+[61/65] prototypes/sushi-loop/tests/wireframe.spec.js:755:1 › the HUD reserves away-earnings space and recipe tiles show known dish prices
+  11) prototypes/sushi-loop/tests/wireframe.spec.js:755:1 › the HUD reserves away-earnings space and recipe tiles show known dish prices 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: locator('#prototype-stage').getByRole('button', { name: 'Inspect Salmon nigiri', exact: true }).locator('.recipe-tile-price')
+    Expected: "18"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" locator('#prototype-stage').getByRole('button', { name: 'Inspect Salmon nigiri', exact: true }).locator('.recipe-tile-price') with timeout 5000ms
+      - waiting for locator('#prototype-stage').getByRole('button', { name: 'Inspect Salmon nigiri', exact: true }).locator('.recipe-tile-price')
+
+
+      771 |   const salmon = stage(page).getByRole('button', { name: 'Inspect Salmon nigiri', exact: true });
+      772 |   const eel = stage(page).getByRole('button', { name: 'Inspect Eel roll', exact: true });
+    > 773 |   await expect(salmon.locator('.recipe-tile-price')).toHaveText('18');
+          |                                                      ^
+      774 |   await expect(eel.locator('.recipe-tile-price')).toHaveText('48');
+      775 |   await expect(salmon).toHaveAccessibleDescription(/Price 18 coins/);
+      776 |   await expect(stage(page).getByRole('button', { name: 'Inspect Undiscovered dish', exact: true }).locator('.recipe-tile-price')).toHaveCount(0);
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:773:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-c8677-iles-show-known-dish-prices/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-c8677-iles-show-known-dish-prices/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-c8677-iles-show-known-dish-prices/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-c8677-iles-show-known-dish-prices/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[62/65] prototypes/sushi-loop/tests/wireframe.spec.js:782:1 › compact roster cards share their row with edge carets and preserve accessible pagination
+[63/65] prototypes/sushi-loop/tests/wireframe.spec.js:815:1 › People uses shared roster profiles and closes stats or applicants back to the same editor
+  12) prototypes/sushi-loop/tests/wireframe.spec.js:815:1 › People uses shared roster profiles and closes stats or applicants back to the same editor 
+
+    Test was interrupted.
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for locator('#prototype-stage').getByRole('dialog').getByRole('button', { name: 'Close dialog', exact: true })
+        - locator resolved to <button type="button" title="Close dialog" data-action="dismiss" aria-label="Close dialog" class="tap-target dialog-close">…</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not stable
+        - retrying click action
+        - waiting 20ms
+
+
+      827 |     await stage(page).getByRole('button', { name: 'Applicants', exact: true }).click();
+      828 |     await expect(dialog(page).getByRole('button', { name: 'Back to staff', exact: true })).toHaveCount(0);
+    > 829 |     await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
+          |                                                                                   ^
+      830 |     await at(page, origin);
+      831 |     await expect(stage(page).getByRole('button', { name: 'Inspect Omar Haddad', exact: true })).toBeVisible();
+      832 |   }
+        at /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/tests/wireframe.spec.js:829:83
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-aa705-nts-back-to-the-same-editor/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/sushi-loop-tests-wireframe-aa705-nts-back-to-the-same-editor/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/sushi-loop-tests-wireframe-aa705-nts-back-to-the-same-editor/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/sushi-loop-tests-wireframe-aa705-nts-back-to-the-same-editor/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+  11 failed
+    prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at small-phone 
+    prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at phone 
+    prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at landscape 
+    prototypes/sushi-loop/tests/wireframe.spec.js:50:3 › all base wireframe deep-linked examples render without errors or horizontal clipping at desktop 
+    prototypes/sushi-loop/tests/wireframe.spec.js:224:1 › recipe inspection keeps current production until Prepare; idle chefs require a choice 
+    prototypes/sushi-loop/tests/wireframe.spec.js:263:1 › tap markers are visible by default and phone controls retain at least 44px touch targets 
+    prototypes/sushi-loop/tests/wireframe.spec.js:288:1 › dialog backdrop does not dismiss or activate the scene; keyboard focus stays inside and Escape closes recipe only 
+    prototypes/sushi-loop/tests/wireframe.spec.js:327:1 › unaffordable, ineligible, full and MAX examples keep facts visible and block their unavailable action 
+    prototypes/sushi-loop/tests/wireframe.spec.js:411:1 › nested dialogs return to their parent and an inventory toast leaves editing usable 
+    prototypes/sushi-loop/tests/wireframe.spec.js:670:1 › paper résumé touch swipes browse in both directions without hiring and shared resume stays interactive 
+    prototypes/sushi-loop/tests/wireframe.spec.js:755:1 › the HUD reserves away-earnings space and recipe tiles show known dish prices 
+  1 interrupted
+    prototypes/sushi-loop/tests/wireframe.spec.js:815:1 › People uses shared roster profiles and closes stats or applicants back to the same editor 
+  2 did not run
+  51 passed (5.7m)

@@ -1,0 +1,135 @@
+{
+  "device": {
+    "model": "Pixel 10 Pro",
+    "api": 37,
+    "resolution": [
+      1080,
+      2410
+    ],
+    "renderer": "Godot 4.7.2 Mobile, Vulkan 1.4.317",
+    "gpu": "ImgTec PowerVR D-Series DXT-48-1536 MC1"
+  },
+  "method": "12-second Perfetto captures; game-process-only Swappy CPU frame marker cadence and GPU slices. Android HWUI and FrameTimeline do not measure this SurfaceView. Raw system traces remain in /tmp; filtered game slices are retained here.",
+  "measurements": [
+    {
+      "label": "baseline114-live",
+      "frames": 193,
+      "seconds": 11.619054436,
+      "fps": 16.524580468881798,
+      "frame_median_ms": 30.9158075,
+      "frame_p95_ms": 229.128802,
+      "frame_max_ms": 324.947969,
+      "gpu_average_ms": 11.291531875647669,
+      "frame_over_50ms": 48,
+      "frame_over_100ms": 31
+    },
+    {
+      "label": "baseline114-live-warm",
+      "frames": 353,
+      "seconds": 9.856425919,
+      "fps": 35.71274241725471,
+      "frame_median_ms": 27.4541275,
+      "frame_p95_ms": 29.346979,
+      "frame_max_ms": 76.405287,
+      "gpu_average_ms": 12.419117708215298,
+      "frame_over_50ms": 3,
+      "frame_over_100ms": 0
+    },
+    {
+      "label": "intermediate115-live",
+      "frames": 461,
+      "seconds": 11.866102093,
+      "fps": 38.76588928653843,
+      "frame_median_ms": 18.099193,
+      "frame_p95_ms": 95.28599,
+      "frame_max_ms": 199.674037,
+      "gpu_average_ms": 10.487895707158351,
+      "frame_over_50ms": 32,
+      "frame_over_100ms": 19
+    },
+    {
+      "label": "intermediate116-edit",
+      "frames": 781,
+      "seconds": 11.782316858,
+      "fps": 66.20090169026415,
+      "frame_median_ms": 14.868633500000001,
+      "frame_p95_ms": 17.120703,
+      "frame_max_ms": 32.566771,
+      "gpu_average_ms": 10.738164653008964,
+      "frame_over_50ms": 0,
+      "frame_over_100ms": 0
+    },
+    {
+      "label": "intermediate116-live",
+      "frames": 508,
+      "seconds": 11.7941904,
+      "fps": 42.98726600174269,
+      "frame_median_ms": 15.58039,
+      "frame_p95_ms": 93.042266,
+      "frame_max_ms": 253.302552,
+      "gpu_average_ms": 10.214010216535433,
+      "frame_over_50ms": 33,
+      "frame_over_100ms": 19
+    },
+    {
+      "label": "final117-live",
+      "frames": 905,
+      "seconds": 11.848554306,
+      "fps": 76.29622793240038,
+      "frame_median_ms": 10.462005000000001,
+      "frame_p95_ms": 18.831771,
+      "frame_max_ms": 134.67125,
+      "gpu_average_ms": 7.862891701657459,
+      "frame_over_50ms": 28,
+      "frame_over_100ms": 3
+    },
+    {
+      "label": "final117-live-warm",
+      "frames": 691,
+      "seconds": 11.887080738,
+      "fps": 58.046211278286684,
+      "frame_median_ms": 14.0261195,
+      "frame_p95_ms": 23.026823,
+      "frame_max_ms": 207.742266,
+      "gpu_average_ms": 9.433618626628075,
+      "frame_over_50ms": 29,
+      "frame_over_100ms": 6
+    }
+  ],
+  "caveat": "The 0.11.4 save differs from the post-install room. These phone runs are not a controlled identical-save A/B comparison. The local refresh benchmark is controlled; 0.11.6 and 0.11.7 retain the same current restaurant layout.",
+  "save_observation": {
+    "before_first_install_coins": 6298,
+    "after_first_install_first_capture_coins": 148,
+    "first_install_issue": "The incremental update reported success, followed by an unavailable package lookup. Subsequent streamed installations were verified. The user confirmed playing or resetting during profiling; the balance-change concern is resolved.",
+    "subsequent_streamed_update_retention": {
+      "code77_to78_coins": 1234,
+      "code78_to79_before_coins": 2858,
+      "firstInstallTime_retained": "2026-10-30 11:39:43",
+      "code78_to79_first_live_coins": 2910
+    },
+    "final_cold_restart_check": "Stopped when the phone switched to another app; no further touch input.",
+    "user_confirmation": {
+      "date": "2026-10-30",
+      "answer": "Yes, I was playing or reset it",
+      "status": "Balance-change concern resolved; no save recovery requested."
+    }
+  },
+  "tests": {
+    "native_suites": 15,
+    "native_checks": 1590,
+    "native_passed": true,
+    "browser_checks": 25,
+    "browser_passed": true,
+    "vite_build_passed": true,
+    "javascript_tests": 89,
+    "javascript_passed": 87,
+    "javascript_failed": 2,
+    "javascript_failure_reason": "Missing historical refinement fixture files: belt-straight-n round-09 consumer/.godot/.gdignore and coin-pop final/original-catalog-object.json."
+  },
+  "logcat_observation": {
+    "startup_pid": 13613,
+    "vulkan": "10-30 12:01:13.678 13613 13671 I godot: Vulkan 1.4.317 - Forward Mobile - Using Device #0: ImgTec - PowerVR D-Series DXT-48-1536 MC1",
+    "main_loop_started": "10-30 12:01:15.279",
+    "source": "Observed final startup logcat; later ring-buffer read was empty."
+  }
+}

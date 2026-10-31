@@ -1,0 +1,13 @@
+00:00.321  blend            | Read blend: "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/source/draft-05.blend"
+00:02.122  render           | Saved: '/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/candidates/draft-05/reopened-N.png'
+00:03.823  render           | Saved: '/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/candidates/draft-05/reopened-E.png'
+00:05.590  render           | Saved: '/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/candidates/draft-05/reopened-S.png'
+00:07.249  render           | Saved: '/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/candidates/draft-05/reopened-W.png'
+/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/source/audit-candidate.py:36: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  v={'project':str(project.relative_to(base)),'projectSHA256':sha(project),'blender':bpy.app.version_string,'scene':scene.name,'root':{'name':root.name,'matrixWorld':[list(r) for r in root.matrix_world]},'savedCapture':capture(),'facings':records,'images':[{'name':i.name,'source':i.source,'filepath':i.filepath,'packed':bool(i.packed_file)} for i in bpy.data.images],'libraries':[x.filepath for x in bpy.data.libraries],'sceneMeshes':[o.name for o in meshes],'lights':[{'name':o.name,'energy':o.data.energy,'color':list(o.data.color),'size':o.data.size,'matrixWorld':[list(r) for r in o.matrix_world]} for o in scene.objects if o.type=='LIGHT'],'transparentFilm':scene.render.film_transparent,'proceduralNativeMaterialsOnly':not any(n.type=='TEX_IMAGE' for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes),'imageFileFormat':[scene.render.image_settings.file_format,scene.render.image_settings.color_mode,scene.render.image_settings.color_depth],'renderSettings':{'engine':scene.render.engine,'samples':scene.cycles.samples,'seed':scene.cycles.seed,'denoising':scene.cycles.use_denoising},'captureInvariantAcrossFacings':all(x['capture']==records[0]['capture'] for x in records)}
+BlenderMCP addon registered
+NATIVE_REOPENED_AUDIT_PASSED /Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/rockery/candidates/draft-05
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

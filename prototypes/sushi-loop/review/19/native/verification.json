@@ -1,0 +1,252 @@
+{
+  "ticket": 19,
+  "prototype_revision": 8,
+  "native_implementation_authorized": true,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "domain_checks": 251,
+  "clearance_gpu_checks": 318,
+  "gpu_sizes": [
+    {
+      "size": "390x844",
+      "passed": true
+    },
+    {
+      "size": "320x720",
+      "passed": true
+    },
+    {
+      "size": "844x390",
+      "passed": true
+    },
+    {
+      "size": "1440x1000",
+      "passed": true
+    },
+    {
+      "size": "720x1560",
+      "passed": true
+    },
+    {
+      "size": "1080x2340",
+      "passed": true
+    }
+  ],
+  "gpu_driver": "metal",
+  "gpu_renderer": "mobile",
+  "gpu_adapter": "Apple M4 (Apple9)",
+  "native_regressions": [
+    {
+      "script": "backdrop_tests.gd",
+      "passed": true,
+      "seconds": 1.04,
+      "gpu": false
+    },
+    {
+      "script": "chef_development_native_tests.gd",
+      "passed": true,
+      "seconds": 7.46
+    },
+    {
+      "script": "chef_development_tests.gd",
+      "passed": true,
+      "seconds": 0.36
+    },
+    {
+      "script": "chef_recipe_flow_tests.gd",
+      "passed": true,
+      "seconds": 3.66
+    },
+    {
+      "script": "conveyor_native_tests.gd",
+      "passed": true,
+      "seconds": 4.45
+    },
+    {
+      "script": "conveyor_routes_tests.gd",
+      "passed": true,
+      "seconds": 0.34
+    },
+    {
+      "script": "customer_layout_tests.gd",
+      "passed": true,
+      "seconds": 9.86,
+      "gpu": false
+    },
+    {
+      "script": "customer_rescue_native_tests.gd",
+      "passed": true,
+      "seconds": 4.21
+    },
+    {
+      "script": "customer_visit_tests.gd",
+      "passed": false,
+      "seconds": 67.17,
+      "known_baseline_evidence": "review/18/native/baseline/customer_visit.log"
+    },
+    {
+      "script": "demonstration_tests.gd",
+      "passed": true,
+      "seconds": 11.51
+    },
+    {
+      "script": "doodle_art_tests.gd",
+      "passed": true,
+      "seconds": 110.01,
+      "gpu": false
+    },
+    {
+      "script": "doorway_tests.gd",
+      "passed": true,
+      "seconds": 5.53
+    },
+    {
+      "script": "edit_navigation_tests.gd",
+      "passed": true,
+      "seconds": 3.33
+    },
+    {
+      "script": "editor_tests.gd",
+      "passed": true,
+      "seconds": 1.44,
+      "gpu": false
+    },
+    {
+      "script": "empty_hands_native_tests.gd",
+      "passed": true,
+      "seconds": 2.92
+    },
+    {
+      "script": "entrance_routes_tests.gd",
+      "passed": true,
+      "seconds": 0.54
+    },
+    {
+      "script": "entrance_wait_tests.gd",
+      "passed": true,
+      "seconds": 1.04
+    },
+    {
+      "script": "frame_work_tests.gd",
+      "passed": true,
+      "seconds": 0.92
+    },
+    {
+      "script": "guest_exit_recovery_tests.gd",
+      "passed": true,
+      "seconds": 0.44
+    },
+    {
+      "script": "guest_wandering_tests.gd",
+      "passed": true,
+      "seconds": 5.89
+    },
+    {
+      "script": "long_press_native_tests.gd",
+      "passed": true,
+      "seconds": 5.53
+    },
+    {
+      "script": "native_app_tests.gd",
+      "passed": true,
+      "seconds": 14.47,
+      "gpu": true
+    },
+    {
+      "script": "performance_overlay_tests.gd",
+      "passed": true,
+      "seconds": 0.15
+    },
+    {
+      "script": "save_store_tests.gd",
+      "passed": true,
+      "seconds": 0.94
+    },
+    {
+      "script": "session_tests.gd",
+      "passed": false,
+      "seconds": 1.7,
+      "known_baseline_evidence": "review/18/native/baseline/session.log"
+    },
+    {
+      "script": "shop_native_tests.gd",
+      "passed": true,
+      "seconds": 3.48,
+      "gpu": true
+    },
+    {
+      "script": "shop_tests.gd",
+      "passed": true,
+      "seconds": 0.42
+    },
+    {
+      "script": "sprite_picking_tests.gd",
+      "passed": false,
+      "seconds": 2.24,
+      "gpu": false,
+      "known_baseline_evidence": "review/18/native/baseline/sprite_picking.log"
+    },
+    {
+      "script": "staff_native_tests.gd",
+      "passed": true,
+      "seconds": 9.24,
+      "gpu": true
+    },
+    {
+      "script": "staff_tests.gd",
+      "passed": true,
+      "seconds": 0.33
+    },
+    {
+      "script": "ui_skin_tests.gd",
+      "passed": true,
+      "seconds": 0.24
+    },
+    {
+      "script": "wood_editor_tests.gd",
+      "passed": true,
+      "seconds": 2.63,
+      "gpu": true
+    }
+  ],
+  "native_regression_suites_passed": 29,
+  "native_regression_suites_total": 32,
+  "all_atlases_checked": 380,
+  "all_native_frames_checked": 4228,
+  "art_checks": 2300,
+  "js_model_parity_checks": 10,
+  "browser_checks": 15,
+  "repository_tests": {
+    "passed": 215,
+    "total": 217,
+    "known_missing_historical_artifacts": 2
+  },
+  "vite_build": "passed",
+  "assets": {
+    "objects": 9,
+    "frames": 24,
+    "bytes": 5884377,
+    "manifest_sha256": "c5138fad6e03fec5db39e7638ded337d1d88e14c66a08690d4449d53c2783e4a"
+  },
+  "apk": {
+    "mode": "release",
+    "version_name": "0.11.0",
+    "version_code": 72,
+    "package": "com.yiochen.sushilooptickets",
+    "save_identity": "SushiLoopTickets",
+    "signer_sha256": "7b03c6783796f1cf455e31e51eb54d64c0b66168e79ec7f87a29a140da7c8f91",
+    "debuggable": false,
+    "bytes": 357447298,
+    "apk_sha256": "0ac039493e2bf31224d1e4888122aa1755507352baf2097be967ee34b6a78b5f",
+    "runtime_source_fingerprint": "01620fc506b58cbbbd1459fc4dccc0099e680a36288688845e869cc925e4f8ea",
+    "staged_source_fingerprint": "3a5d0f006c5bade8de7966677104ad684bc6e122499966d87651e286291a1bb5",
+    "expansion_manifest_sha256": "c5138fad6e03fec5db39e7638ded337d1d88e14c66a08690d4449d53c2783e4a",
+    "excluded_material_check": "passed"
+  },
+  "runtime_source_files": 507,
+  "source_matches_build": true,
+  "tested_runtime_matches_build": true,
+  "test_only_config_difference": "isolated user-data identity",
+  "android_device_connected": false,
+  "android_vulkan_device_verification": false,
+  "apk_path": "godot/build/sushi-loop-release-v0.11.0.apk"
+}

@@ -52,6 +52,7 @@ func run() -> void:
 	var reopened_ok: bool = reopened.restore(JSON.parse_string(JSON.stringify(upgraded)))
 	check(reopened_ok and same(reopened.save_data(),upgraded), "Upgraded saves validate and reopen idempotently")
 	var crowded: Dictionary = game.save_data()
+	crowded.erase("expansion_version");crowded.state.erase("expansion")
 	crowded.configuration.floor.erase("backdrop_rows")
 	crowded.configuration.floor.entrance = {"x":3,"y":2}
 	crowded.configuration.content_version = 2
