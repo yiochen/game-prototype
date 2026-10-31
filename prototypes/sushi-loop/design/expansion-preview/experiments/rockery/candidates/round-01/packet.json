@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "asset": "perimeter-rockery",
+  "style": "Faceted cool dark slate-blue/violet rocks with broad uneven shoulders, low/mid/high crowns and folded angular green crevice foliage. Match the frozen left-edge scene target and current Sushi Loop production family.",
+  "qualityCriteria": {
+    "asset": "perimeter-rockery",
+    "status": "proposed-for-coordinator-freeze",
+    "scope": "Native prototype variant and supplied preview evidence only; no production or Godot integration approval.",
+    "technicalLocks": [
+      "Preserve measured source camera matrix, orthographic projection, pixel aspect and shift. Export native 384x704 frames at sourceScale 2 with logical frame 192x352, logical root [96,248] and cellSize 128.",
+      "Use one geometry/material/light setup for N/E/S/W with the declared source facing rotations; no per-view fitting, recoloring, camera adjustment or target-facing art cards.",
+      "All physical geometry stays inside X/Y [-0.5,0.5], has ground contact at z0 and maximum height <=1.5. No ground plane or added ground cast-shadow receiver.",
+      "Use native editable geometry/materials, source lighting family and declared resource closure; preserve original and production bytes.",
+      "Final evidence includes exact editable project, all four native facings, four-view sheet, dense real phone edge/corner consumer showing existing decor intermixture, native validation and hash-bound packet."
+    ],
+    "visibleSuccessCriteria": {
+      "shapeVolume": [
+        "A broad asymmetric rockery cluster reads as three interlocking substantial boulder masses, with purposeful low/middle/high crown variation and uneven shoulders, rather than one regular slab, shelf, thin spike or three identical stones.",
+        "Large faceted crowns and chamfered irregular edges support believable solid volume; crown, bevel and lower-side planes have clear hierarchy at the fixed steep source camera.",
+        "Every facing retains a coherent rockery silhouette and volume, without an unworked flat rear, exposed construction, detached geometry or a materially weaker view. Unseen directions need not duplicate the one target view."
+      ],
+      "color": [
+        "The dominant mass is cool dark slate-blue/violet with lighter desaturated blue-violet crown planes and darker side planes. It fits the frozen edge scene and existing prop family.",
+        "Green crevice foliage is distinct from the rocks, with lighter leaf faces and darker folds. Neither saturated leaves nor near-black rock sides overwhelm the whole prop."
+      ],
+      "lightingHighlights": [
+        "Broad face-to-face value changes clarify the faceted volume while the declared symmetric lighting remains intact.",
+        "Highlights remain restrained; side faces retain enough information to avoid large black dead spots. No bloom, conspicuous gloss or blown white accents are needed for this rough faceted style."
+      ],
+      "materialDetail": [
+        "Rock detail is carried primarily by large uneven planes and local facet/value variation, with quiet surface treatment that survives reduction without grain noise.",
+        "Thick angular folded leaves grow from the rock gaps in two visible crevice clusters, including compact crown-like foliage where useful. Leaves feel attached and volumetric, without a pot or detached decoration; the principal rock masses remain exposed.",
+        "Avoid obvious identical repeated leaf spikes, thin paper planes, coplanar artifacts, unsupported intersections or decorative outline halos."
+      ],
+      "artifactFreeReadability": [
+        "At logical sprite scale and in the actual phone edge/corner composition, the cluster still reads as cool rocks plus green attached foliage, with staggered crowns and a clear outer silhouette.",
+        "In dense repetition beside crates, plants, barrels and lanterns, it contributes contiguous organic edge mass without visual holes, grid-like slab cadence, abrupt chopped contours or apparent floating pieces.",
+        "All required images are transparent, unclipped and free of visible unwanted outlines, seam flicker, black crevices that merge whole masses, or stray pixels/geometry."
+      ]
+    },
+    "reviewPriority": [
+      "Broad staggered boulder volume and silhouette",
+      "Cool faceted material hierarchy and attached green foliage",
+      "Four-facing and dense phone consumer coherence"
+    ],
+    "acceptancePolicy": [
+      "Approval requires a perceptually material improvement from the actual plain native slab toward the frozen style, a passing technical capture/asset contract and no material dead spots in required views.",
+      "Comparative 1-10 scores summarize visible evidence; no score alone is a pass threshold.",
+      "Do not demand target camera drift or exact target pixel geometry. Retain broad cluster identity, coherent material and meaningful phone-scale improvement within the physical envelope.",
+      "Missing packaging or technical/consumer proof produces needs_evidence; an actual visual blocker produces revise. At most three ranked material blockers per round."
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "phone-consumer"
+    ],
+    "cameraRecord": "inputs/source-camera.json",
+    "footprint": [
+      1,
+      1
+    ],
+    "registration": "Preserve source camera matrix, ortho/pixel aspect/shift. New physical model fits declared footprint; no alpha fitting or per-view camera changes."
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "a58c0c99cc83e7abc38aaa48123087d6659b714b59e1cbcd91952401ed5cd134"
+    },
+    "originalProject": {
+      "path": "../../../../../../assets/production/source/blender/refinement/slate-rock/source/round-03.blend",
+      "sha256": "71abf96894dd9e530f42b138ab6e218f8304330f94f3e4881afb2ff5b2f0489b"
+    },
+    "backup": {
+      "path": "../../backups/original.blend",
+      "sha256": "71abf96894dd9e530f42b138ab6e218f8304330f94f3e4881afb2ff5b2f0489b"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "008250ff288dd9c6027c902b65e58507de7994e916472a03359754a4bb47c6b6"
+    },
+    "target": {
+      "path": "../../targets/target-v01.png",
+      "sha256": "672fd7036ae5ea4f313a930436df29982d427f271988642861e020a929769f74"
+    },
+    "candidateProject": {
+      "path": "../../source/round-01.blend",
+      "sha256": "de5b6c782db753d1c97d81c8f06a3384e991ad39bbffcad2d2cb6631121e70fc"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "e284ea0ba73d4d51dd3864e6aa8c67b75aef07a7b9592b6f17e2af3dfd46b931"
+    },
+    "targetPrompt": {
+      "path": "../../targets/imagegen-prompt.txt",
+      "sha256": "45a6716074eb312458366a593cdaee93d8e2d277df7051b5426b9c3f882a4972"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "f95e23fb85802017ec458a17baf21adba26f51999f2c2762ea0f905edf5bc931"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "9bd048ca25ac836498630ac820e93fd1308bdba964bde1a4f13908fea867b90f"
+    },
+    "candidateResource:native-recipe": {
+      "path": "../../source/build-draft-05.py",
+      "sha256": "8e9b6481d2479727e8369e382e6b61c196beb84ab2282d1526263d0331343b70"
+    },
+    "candidateResource:reopen-audit-recipe": {
+      "path": "../../source/audit-candidate.py",
+      "sha256": "bfd9d970c835427ae8158d6ef5e78b07e7ce9b3454c98a01b828f5b599d05262"
+    },
+    "candidateResource:consumer-harness": {
+      "path": "../../source/capture-consumer.mjs",
+      "sha256": "3cd07f671d40a4dab2df20a97b1dafcaf5f392b331e72de6b2b12d5ae6f0aff8"
+    },
+    "candidateResource:preview-harness": {
+      "path": "../../source/make-previews.py",
+      "sha256": "3790d59a0f1c79d6caa9d7fe8359772e02d039f907a2b9a383f36382f1d262ed"
+    },
+    "candidateResource:seal-recipe": {
+      "path": "../../source/seal-round-01.py",
+      "sha256": "46aac3d0127d7a4a816fcd5148259df551a86326468fcf0c48abfc0124f07f4e"
+    },
+    "candidateResource:consumer-validation": {
+      "path": "consumer-validation.json",
+      "sha256": "8a0aa92276740a0ce1a9e277358282a7d8af70ee4a7cf0dd57ed2f9619191775"
+    },
+    "candidateResource:alpha-validation": {
+      "path": "alpha-validation.json",
+      "sha256": "68e7f03aa2004cb88676427fad739f10d06fff224bda5a6e842b7ed498b18b60"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "static-N.png",
+      "sha256": "9bd5a5f08aa340a4056974063aef398efc6e69e5ad7932a186af10b693e47d22",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "E": {
+      "path": "static-E.png",
+      "sha256": "ec58751d42f4eae875473c4b88f5cf1030efa2f86c40e4f62640bf10ef29360d",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "S": {
+      "path": "static-S.png",
+      "sha256": "0377cbbc666d57ac2c301acce848f46e87b1064438814d510ec0c17b778f3cbc",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "W": {
+      "path": "static-W.png",
+      "sha256": "7264d4a0e69451eac4c956ce30395c1cd4a29071a12a25d0eb557932791e2eb6",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "b39395a971c7eb75a8a965c6454336edbc82fa551fb1233606b659fef1ff6e39"
+    },
+    "phone-consumer": {
+      "path": "phone-consumer.png",
+      "sha256": "b0e16e96c38cef52419a45c6d8558f488b4b6e6b8548da395a9be9f0a19ac032"
+    },
+    "phone-consumer-pan": {
+      "path": "phone-consumer-pan.png",
+      "sha256": "e13979feb214fd2f77e5fd103c3f287d1ec41531e55f70a5fbb04a1e88f814df"
+    },
+    "phone-edge": {
+      "path": "phone-edge.png",
+      "sha256": "ef190e1232a735c2647f4727be743c991ea634ba6e2eb83f03733c5c3d86ca7b"
+    },
+    "phone-corner": {
+      "path": "phone-corner.png",
+      "sha256": "f69f4726113afb4f6e79bc0c19336b8c6108a97b41fc03003fbd85defa77b829"
+    },
+    "phone-edge-pan": {
+      "path": "phone-edge-pan.png",
+      "sha256": "d416c11d71b4671ae0cb9c4888121c9e23d564758f5549d0051eae2fe3a6840c"
+    },
+    "phone-corner-pan": {
+      "path": "phone-corner-pan.png",
+      "sha256": "e4fc7af3f365464bd58c6f324b8cc6de5f77d7683a54a7cbf8d31747daf03470"
+    }
+  }
+}

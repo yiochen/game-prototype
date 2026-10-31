@@ -1,0 +1,52 @@
+import {chromium} from 'playwright';
+import {readFile,writeFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {createHash} from 'node:crypto';
+const folder=resolve(process.argv[2]);
+const base=process.env.TEST_URL||'http://127.0.0.1:4176';
+const data={},hashes={};
+for(const facing of ['N','E','S','W']){
+ const bytes=await readFile(join(folder,`static-${facing}.png`));
+ data[facing]='data:image/png;base64,'+bytes.toString('base64');
+ hashes[facing]=createHash('sha256').update(bytes).digest('hex');
+}
+const browser=await chromium.launch();
+const page=await browser.newPage({viewport:{width:390,height:844},hasTouch:true,deviceScaleFactor:1});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.clock.install();
+await page.goto(base+'/prototypes/sushi-loop/design/expansion-preview/?state=edge');
+await page.getByRole('button',{name:'Reset',exact:true}).click();
+await page.evaluate(()=>document.fonts.ready);
+await page.evaluate(()=>Promise.all([...document.images].map(i=>i.complete?Promise.resolve():new Promise(r=>i.onload=i.onerror=r))));
+const substitutions=await page.evaluate(data=>{
+ const sprites=[...document.querySelectorAll('.perimeter-decor')].slice(0,17);
+ return sprites.map((img,i)=>{
+  const facing=img.src.match(/slate-rock-([NESW])\.png/)[1];
+  const record={index:i,facing,originalURL:img.src,style:img.getAttribute('style'),nativeFrame:[384,704],logicalFrame:[192,352],logicalRoot:[96,248],cellSize:128};
+  img.src=data[facing];img.dataset.nativeCandidate='perimeter-rockery';return record;
+ });
+},data);
+await page.evaluate(()=>Promise.all([...document.images].map(i=>i.complete?Promise.resolve():new Promise(r=>i.onload=i.onerror=r))));
+const scene=await page.locator('.expansion-scene').boundingBox();
+await page.screenshot({path:join(folder,'phone-edge.png')});
+await page.locator('.room-pan').focus();
+for(let i=0;i<5;i++)await page.keyboard.press('ArrowDown');
+await page.locator('.room-pan').evaluate(e=>e.blur());
+await page.screenshot({path:join(folder,'phone-corner.png')});
+const camera=await page.locator('.exp-room').getAttribute('data-camera');
+await page.locator('.room-pan').focus();
+for(let i=0;i<5;i++)await page.keyboard.press('ArrowUp');
+await page.locator('.room-pan').dispatchEvent('wheel',{deltaX:-scene.width/7*.4,deltaY:0,shiftKey:false});
+await page.locator('.room-pan').evaluate(e=>e.blur());
+const supplementalEdgeCamera=await page.locator('.exp-room').getAttribute('data-camera');
+await page.screenshot({path:join(folder,'phone-edge-pan.png')});
+await page.locator('.room-pan').focus();
+for(let i=0;i<5;i++)await page.keyboard.press('ArrowDown');
+await page.locator('.room-pan').evaluate(e=>e.blur());
+await page.screenshot({path:join(folder,'phone-corner-pan.png')});
+const supplementalCornerCamera=await page.locator('.exp-room').getAttribute('data-camera');
+const record={url:base+'/prototypes/sushi-loop/design/expansion-preview/?state=edge',viewport:[390,844],deviceScaleFactor:1,scene,method:'Read-only in-memory DOM image source substitution for the existing 17 leftRocks. Native frames retain existing registration and uniform CSS scale; no fixture coordinates, production files or layout code changed. Primary captures retain default x1.25; clearly labeled supplemental captures pan +0.4 cell through the actual UI wheel handler.',substitutions,nativeFrameSHA256:hashes,edgeCamera:'1.25,0',cornerCamera:camera,supplementalEdgeCamera,supplementalCornerCamera,existingOtherDecorKept:true,errors};
+await browser.close();
+await writeFile(join(folder,'consumer-validation.json'),JSON.stringify(record,null,2)+'\n');
+if(errors.length)throw new Error(errors.join('\n'));
+console.log(JSON.stringify({folder,substitutions:substitutions.length,cornerCamera:camera,errors}));

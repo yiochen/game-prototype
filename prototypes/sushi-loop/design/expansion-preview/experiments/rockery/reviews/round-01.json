@@ -1,0 +1,81 @@
+{
+  "round": "round-01",
+  "verdict": "approve",
+  "reviewSequence": 4,
+  "submissionType": "art-change",
+  "candidatePacketSHA256": "80e76f9a00727da9dabf9a4dfe84631990cd8e4c00e640afcd096d1cbd34d01b",
+  "inspectedFileRoot": "candidates/round-01",
+  "inspectedFiles": [
+    "static-N.png",
+    "static-E.png",
+    "static-S.png",
+    "static-W.png",
+    "four-view-sheet.png",
+    "phone-consumer.png",
+    "phone-consumer-pan.png",
+    "phone-edge.png",
+    "phone-corner.png",
+    "phone-edge-pan.png",
+    "phone-corner-pan.png"
+  ],
+  "inspectedFileSHA256": {
+    "static-N.png": "9bd5a5f08aa340a4056974063aef398efc6e69e5ad7932a186af10b693e47d22",
+    "static-E.png": "ec58751d42f4eae875473c4b88f5cf1030efa2f86c40e4f62640bf10ef29360d",
+    "static-S.png": "0377cbbc666d57ac2c301acce848f46e87b1064438814d510ec0c17b778f3cbc",
+    "static-W.png": "7264d4a0e69451eac4c956ce30395c1cd4a29071a12a25d0eb557932791e2eb6",
+    "four-view-sheet.png": "b39395a971c7eb75a8a965c6454336edbc82fa551fb1233606b659fef1ff6e39",
+    "phone-consumer.png": "b0e16e96c38cef52419a45c6d8558f488b4b6e6b8548da395a9be9f0a19ac032",
+    "phone-consumer-pan.png": "e13979feb214fd2f77e5fd103c3f287d1ec41531e55f70a5fbb04a1e88f814df",
+    "phone-edge.png": "ef190e1232a735c2647f4727be743c991ea634ba6e2eb83f03733c5c3d86ca7b",
+    "phone-corner.png": "f69f4726113afb4f6e79bc0c19336b8c6108a97b41fc03003fbd85defa77b829",
+    "phone-edge-pan.png": "d416c11d71b4671ae0cb9c4888121c9e23d564758f5549d0051eae2fe3a6840c",
+    "phone-corner-pan.png": "e4fc7af3f365464bd58c6f324b8cc6de5f77d7683a54a7cbf8d31747daf03470"
+  },
+  "priorLogicalBackgroundInspection": {
+    "path": "reviews/draft-05-logical-backgrounds.png",
+    "nativeRendersHashIdentical": true
+  },
+  "scores": {
+    "shapeVolume": 7,
+    "color": 7,
+    "lightingHighlights": 7,
+    "materialDetail": 7,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "The approved native frames are byte-identical to draft-05, and each was inspected again alongside the logical four-view sheet. They materially improve on the actual source slab: broad bulging irregular rock bodies, staggered exposed crowns, substantial side planes and two compact attached folded foliage clumps now establish a coherent rockery.",
+    "N/E/S/W retain consistent slate-blue/violet material, lighter crown planes and readable darker sides. Natural view occlusion varies which boulders and crevices are exposed; no facing has an unworked rear, dominant black dead face, clipped native silhouette or material artifact.",
+    "At logical scale on previously inspected light and dark backgrounds, the large facets and green folded accents remain clear without noisy detail. The former long straight column sidewalls and isolated spear/flap foliage are resolved to a satisfactory visible level.",
+    "The revised actual 390x844 phone edge and corner captures expose rock crowns and dark faces among separate crates, potted plants, barrels and lanterns. The cool rock/green rhythm contributes contiguous organic perimeter mass while warm accents remain distinct. This is a material consumer improvement over the plant-occluded draft captures.",
+    "Both primary default-camera captures and their individual screenshots were inspected. Supplemental +0.4-cell pan images were inspected separately and are correctly labeled; approval does not depend on substituting that pan for the default phone view.",
+    "The pale slab in the bottom decor comparison row remains the original reference prop. It was not counted as candidate rockery evidence."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The native result has simpler, quieter facet variation and compact foliage compared with the imagegen target. These differences are accepted because the broad rockery identity and phone-scale plane hierarchy are clear.",
+    "Exact target pixel silhouette, more frontal target camera and unseen-side target geometry are not reproduced; the frozen native source capture controls.",
+    "Small occluded leaf-tip peeks in E/S are visible enlarged but are not material defects at intended logical or phone size.",
+    "The phone viewport naturally crops the outermost perimeter at the screen edge; the exposed clusters and supplemental views provide sufficient consumer coverage."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": "All files, resources, native render and preview hashes independently recomputed and matched the packet; candidate_packet.py verify passed.",
+    "promotion": "Candidate project and all four native PNG bytes independently compared equal to draft-05; no post-draft art mutation was found.",
+    "sourceAndBackup": "Packet verification confirmed untouched original project and byte-identical backup SHA-256 71abf96894dd9e530f42b138ab6e218f8304330f94f3e4881afb2ff5b2f0489b.",
+    "capture": "Read source camera record, validation and native reopen audit. All four reported captures equal saved capture, with source matrix/ortho/shift/pixel aspect, 384x704 frame, sourceScale 2, logical root [96,248] and cellSize 128 retained. Root calibration is [192,495.9999885559082] in native pixels.",
+    "facings": {
+      "N": 180,
+      "E": 90,
+      "S": 0,
+      "W": -90
+    },
+    "geometry": "All four reopen audit envelopes are inside X/Y +/-0.5; native total height is 0.7900000214576721 <=1.5; boulder ground contacts are z0. Reported native meshes are closed with zero nonmanifold edges, zero degenerate faces and no unbound material slots.",
+    "nativeConstruction": "Audit lists three boulder meshes and ten closed folded-leaf meshes, procedural native materials, no external image textures/libraries, no raster target card and no ground plane. Source overhead/equal-cardinal lighting is retained.",
+    "replay": "Independently opened every saved native replay PNG, checked its audit hash, and recomputed RGBA differences against each sealed native frame: maximum channel difference 0 for N/E/S/W. Different PNG container bytes are not an art difference.",
+    "transparency": "RGBA 384x704 captures with recorded interior alpha bounds and no clipping; visible backgrounds and outline inspection found no material halo.",
+    "consumer": "Read consumer validation and inspected all six phone-related packet previews, including primary default x1.25 edge/corner and clearly labeled supplemental x1.65 pair. Native frame hashes match the displayed substitution evidence; viewport is 390x844 and no page errors were reported.",
+    "limits": [
+      "Judge directly inspected exported pixels and recomputed hashes/replay differences, while native scene topology/capture evidence came from the supplied Blender reopen audit rather than a second judge-run Blender process.",
+      "This approval is specific to packet 80e76f9a00727da9dabf9a4dfe84631990cd8e4c00e640afcd096d1cbd34d01b and the native prototype variant/preview scope. It grants no production, Godot integration or publishing authorization."
+    ]
+  }
+}

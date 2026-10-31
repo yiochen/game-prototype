@@ -1,0 +1,80 @@
+{
+  "catalog_sections": [
+    1,
+    2,
+    15,
+    3,
+    4,
+    5,
+    8
+  ],
+  "generation": "Built-in ImageGen left-edge target and three native redesign targets. All new runtime art is independently approved Blender output; target images are references only.",
+  "sources": {
+    "assets/ui/editor/v4/raw/b-indigo-ceramic.png": "8e77f369bcee02c1f49be0ce40c97152d210b963104c55dc3528121b3208af0c",
+    "design/art-directions/restaurant-item-catalog.png": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
+    "design/art-directions/restaurant-concept.png": "c3e178a36b604e59dc8dedbc7a48f2a9f13a5d7c45a990fee2b28c55e1941713",
+    "design/editor-dock-preview/shared.css": "e0d1f7ce8bc4b33beac907c99fc1f4cfae3c5625544c70ac649f30ae9e8160c7",
+    "design/editor-dock-preview/assets/wood-grain.png": "e6b2be38b066b4445797bf56bd6dee456293a8bedc6b670e0ef8497fde94a621",
+    "design/editor-dock-preview/assets/waves.png": "a17a7eac0169179dac729901698da7f3db68b29e3b942f2a0fa7798d5befa440",
+    "wireframe/recipe-maple.css": "d6342b378b0ef7cdf342d7cbf6135a2e85f1dd28aa5a1a9e0cd65f4f4c720e7b",
+    "design/shop-preview/style.css": "645cd661684629184a2b9ec2619c2b4bfec7f309f3249ed4ab78c1815d0d48f8",
+    "review/18/native/720x1560/04-returned-inventory.png": "b629f1e263c3d490ed6162946a76e59b53ed6fd7eee67dbc5db47745ec31fd01",
+    "design/staff-hiring-preview/style.css": "8651bd060f9c29ba42c08c4cccba0a343b87a1b9474c80ab0cc9e09d07fd871c"
+  },
+  "revision": 2,
+  "model_lineage": {
+    "armchair": {
+      "brief": "experiments/armchair/brief.json",
+      "brief_sha256": "0a11ba76367536cf628eccb5c3032d307850901f4a4706889bceecad09127c6b",
+      "final_manifest": "experiments/armchair/final/manifest.json",
+      "final_manifest_sha256": "ae255fce7f3eac242e4f61234c31e003e9b5bb975501cb4695fa8df7d0e3c60c",
+      "source_project": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/garbage-sofa/source/round-02.blend",
+      "source_sha256": "7fa178bbfc0bde281a7b8c6188602662c5dac7e2a133363375fb037be909d7e6",
+      "target": "experiments/armchair/targets/target-v01.png",
+      "target_sha256": "2992c7ac640bd2e27eaf4df31f598e228897ef604c66583d9309ed2d0b4b8f7f",
+      "prompt": "experiments/armchair/targets/imagegen-prompt.txt",
+      "workflow": "fresh independent Blender editor and visual judge; exact approved source/render bytes"
+    },
+    "cabinet": {
+      "brief": "experiments/cabinet/brief.json",
+      "brief_sha256": "78edb02e6dbe5faf637cf1e1c4a41ae5018bf200fc0e825a4b58f7542199d160",
+      "final_manifest": "experiments/cabinet/final/manifest.json",
+      "final_manifest_sha256": "f738411067f472eadfa22c3b300436d80e112344b8d0edef4284a008fed91db5",
+      "source_project": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/garbage-shelving/source/round-04/round-04.blend",
+      "source_sha256": "afe1f6d8d8ee72188b7ceed08b93effaa350f26002e9017fc186374eccc25d45",
+      "target": "experiments/cabinet/targets/target-v01.png",
+      "target_sha256": "6b974e8e19c5fdecc33c22a32be5592d521bc607d32f6e38d3b9dc02843a643b",
+      "prompt": "experiments/cabinet/targets/imagegen-prompt.txt",
+      "workflow": "fresh independent Blender editor and visual judge; exact approved source/render bytes"
+    },
+    "rockery": {
+      "brief": "experiments/rockery/brief.json",
+      "brief_sha256": "a58c0c99cc83e7abc38aaa48123087d6659b714b59e1cbcd91952401ed5cd134",
+      "final_manifest": "experiments/rockery/final/manifest.json",
+      "final_manifest_sha256": "66077a1618959c403e5dc72eaa2e9268fde6de4bdde0c25cb7c31d51fb300b32",
+      "source_project": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/slate-rock/source/round-03.blend",
+      "source_sha256": "71abf96894dd9e530f42b138ab6e218f8304330f94f3e4881afb2ff5b2f0489b",
+      "target": "experiments/rockery/targets/target-v01.png",
+      "target_sha256": "672fd7036ae5ea4f313a930436df29982d427f271988642861e020a929769f74",
+      "prompt": "experiments/rockery/targets/imagegen-prompt.txt",
+      "workflow": "fresh independent Blender editor and visual judge; exact approved source/render bytes"
+    }
+  },
+  "composition_target": {
+    "path": "../../review/19/revision-2/targets/left-edge-imagegen.png",
+    "prompt": "../../review/19/revision-2/targets/left-edge-prompt.txt",
+    "provenance": "../../review/19/revision-2/targets/left-edge-provenance.json",
+    "use": "reference comparison only; CSS clips the baked 85px review bar at uniform source scale. Original853x1844 target is unchanged."
+  },
+  "blocked_submarine_notice": {
+    "revision": 8,
+    "source": "design/staff-hiring-preview/style.css",
+    "source_selector": ".notice",
+    "runtime_selector": ".access-toast",
+    "text": "Clear all surrounding trash to uncover the submarine.",
+    "duration_ms": 3200,
+    "content": "live HTML text with polite status; reused existing cream notice material",
+    "placement": "scene overlay, 80px below scene top, 7% symmetric horizontal insets",
+    "resizing": "wrap live text with symmetric 12px/16px padding; no raster art or image stretching"
+  }
+}

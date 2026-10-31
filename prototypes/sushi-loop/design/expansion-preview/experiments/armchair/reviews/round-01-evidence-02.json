@@ -1,0 +1,65 @@
+{
+  "round": "round-01-evidence-02",
+  "reviewSequence": 3,
+  "submissionType": "evidence-only",
+  "verdict": "approve",
+  "candidatePacketSHA256": "f8ed489fe73ef6826d306b11716f52275588b0a8b097e1cc7649e935ea5e46c6",
+  "inspectedFiles": [
+    "../round-01/N.png",
+    "../round-01/E.png",
+    "../round-01/S.png",
+    "../round-01/W.png",
+    "../round-01/four-view-sheet.png",
+    "../round-01/phone-consumer.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "All four 896x1152 native images and the exact four-view/390x844 phone consumer previews were inspected. The three-row sheet establishes transparent-edge appearance against light, gray and dark backgrounds.",
+    "The model now reads clearly as one compact upholstered mustard armchair with a broad puffy back, single sagged seat, two substantial arms and short brown feet. N/E/S/W form a consistent whole object without lingering sofa proportions.",
+    "Compared with draft-02, the back now has a broad asymmetric trough across its lit upper surface and a bowed lower front/recess. This gives visible worn padding under the fixed high source camera rather than a symmetric rectangular block.",
+    "The arm opening now exposes coherent brown slats behind thick irregular attached mustard folds and a ragged sleeve. In S the opening is plainly visible; E shows actual depth and folded cloth; N/W show plausible rear/side continuation. The thin outlined-box impression is materially improved.",
+    "The seat slit and three pale attached stuffing lobes remain readable in S/E, with a dark/folded lip leading into the pale cluster. The pale marking remains useful at phone size without becoming detached noise.",
+    "Broad warm highlights and ochre self shading describe rounded padding. No blown highlight, featureless black patch, ground shadow, clipping, distracting coplanar seam or material edge defect was visible in the required views.",
+    "At 390px phone width, all four chairs retain clear cushion/arm separation and single-chair identity among neighboring barrels. The S tear/tuft is still a useful contrast cue. The alpha-fitted gallery and clearance cards show matching undistorted native art.",
+    "Evidence-only packet corrects the style-reference metadata in the stable brief. Independent hash checks show the model, N/E/S/W, four-view-sheet and phone-consumer pixels are exactly the already inspected bytes. Frozen criteria and capture remain equal. The packaging blocker is resolved; no visual blocker remains."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The native source projection is higher than the ImageGen target, as required by the frozen contract. The front-back proportions are consequently seen from above rather than copied from the target camera.",
+    "Back sag is a broad asymmetric trough instead of the target's deeper central crescent. Torn fabric/wood construction is simpler and more faceted, while remaining coherent and soft within the current native family.",
+    "Stuffing uses three smooth chunky lobes rather than target fiber detail; small stains and rear repair are interpreted coherently rather than matching the single-view reference exactly."
+  ],
+  "technicalEvidence": {
+    "packetIntegrityInitial": "New evidence-only packet passes all file/hash/frame checks.",
+    "packetIntegrityFinal": "Approval review binds the exact new packet; run candidate_packet.py verify --packet candidates/round-01-evidence-02/packet.json --review reviews/round-01-evidence-02.json.",
+    "nativeAudit": "Read recipe-round-01.py, audit.py, native-measurements.json summaries, readback-audit.json, validation.json, settings.json, consumer settings/check and preview construction script.",
+    "cameraAndRoot": "Source/current camera matrix, ortho=3.5, shift=[0,0.11703243851661682], pixel aspect=[1.2206555604934692,1], frame=896x1152 and root identity match. Recorded projection max error is 0.0000923157 native px; ground root projects [448,704.0000267].",
+    "bounds": {
+      "min": [
+        -0.4886660873889923,
+        -0.48529505729675293,
+        0.0
+      ],
+      "max": [
+        0.4846477806568146,
+        0.46466416120529175,
+        1.128596544265747
+      ]
+    },
+    "lightingAndResources": "Read-back source/current equal broad cardinal fills, overhead and world compare exactly. All nine materials are opaque procedural BSDFs, no external image nodes or libraries; 42 native mesh/curve parts. Recipe deletes prior furniture, retains source root/camera/lights, and uses real mesh apertures, folded cloth and solid stuffing. No target image or impostor card.",
+    "topology": "No null-material faces. Read-back records 16 zero-area facets on hidden underside dust cover and 4 on rear repair; none produces a visible defect in required facings. No remeshing demanded for invisible zero-area bevel artifacts.",
+    "consumer": "Browser consumer reports no errors and all native images loaded at 896x1152. 195px native-frame CSS width at 390/7px per cell yields declared physical sprite scale. Gallery/clear SVG fit uses the same S image with uniform meet fit over exact alpha bounds.",
+    "repeatability": "Editor read-back evidence records exact reopened S pixel equivalence. No numerical appearance tolerance was invented or needed for this approval decision.",
+    "limits": "Technical validation scripts/evidence were inspected; judge did not independently rerender. No native animation, Godot or production integration is in this asset approval scope.",
+    "retainedPixelReview": "reviews/round-01.json contains full required direct pixel coverage. All art, native evidence, consumer harness/resources and preview SHA-256 records are unchanged, so no redundant re-render is required.",
+    "evidenceDelta": "Independently compared old/new/current qualityCriteria and capture (equal); old/new candidateProject, four native render and two preview SHA-256 records are equal. Read evidence-delta.json and candidate_packet.py verify passed on exact new packet f8ed489fe73ef6826d306b11716f52275588b0a8b097e1cc7649e935ea5e46c6."
+  },
+  "createdAt": "2026-10-29T20:32:05.823132+00:00",
+  "approvalScope": "Exact bound editable armchair model, N/E/S/W static native images and declared preview bytes only. Production integration, animation, Godot and publishing remain outside this approval."
+}

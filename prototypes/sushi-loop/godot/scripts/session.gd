@@ -13,6 +13,7 @@ const STAFF_VERSION := 1
 const Development = preload("res://scripts/chef_development.gd")
 const CHEF_DEVELOPMENT_VERSION := 1
 const ShopBook = preload("res://scripts/shop_book.gd")
+const Expansion = preload("res://scripts/expansion_book.gd")
 const SHOP_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
@@ -40,6 +41,9 @@ var _remainder := 0.0
 var _staff_seed := 1
 var _access_paths: Dictionary = {}
 var _editor_content: Dictionary = {}
+var _expansion_view_state: Dictionary = {}
+var _expansion_view_floor: Dictionary = {}
+var _expansion_view_cache: Dictionary = {}
 
 static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> GameSession:
 	var session := GameSession.new()
@@ -61,6 +65,10 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if request.get("type") in ["clear_trash","dock_access","reveal_dock"]:
+		var result := Expansion.command(_configuration,_state,request)
+		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
+		return result
 	if request.get("type") == "shop_purchase": return ShopBook.command(_state, request)
 	if request.get("type") in ["level_up_chef","fire_chef"]:
 		var result:=Development.command(_configuration,_state,request)
@@ -165,8 +173,9 @@ func snapshot() -> Dictionary:
 		"recipes": _configuration.recipes.duplicate(true),
 		"loading_seconds": float(_configuration.service.get("loading_seconds", 0.0)),
 		"recipe_book": _state.recipe_book.duplicate(true),
-		"staff": StaffBook.snapshot(_state),
+		"staff": StaffBook.snapshot(_state,_configuration),
 		"shop": ShopBook.snapshot(_state),
+		"expansion": _expansion_view(),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
@@ -218,6 +227,17 @@ func snapshot() -> Dictionary:
 		result.customers.append(visible)
 	return result
 
+func _expansion_view() -> Dictionary:
+	# Only clearance/reveal and floor geometry affect this map. Service clocks,
+	# coins and camera change every frame; none needs another neighborhood scan.
+	var expansion: Dictionary = _state.get("expansion", {})
+	if _expansion_view_cache.is_empty() or _expansion_view_state != expansion or _expansion_view_floor != _configuration.floor:
+		_expansion_view_cache = Expansion.snapshot(_configuration, _state)
+		_expansion_view_state = expansion.duplicate(true)
+		_expansion_view_floor = _configuration.floor.duplicate(true)
+	# Snapshot consumers own their dictionaries and cannot change later frames.
+	return _expansion_view_cache.duplicate(true)
+
 func save_data() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
@@ -232,6 +252,7 @@ func save_data() -> Dictionary:
 		"staff_version": STAFF_VERSION,
 		"chef_development_version": CHEF_DEVELOPMENT_VERSION,
 		"shop_version": SHOP_VERSION,
+		"expansion_version": Expansion.VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -240,6 +261,7 @@ func save_data() -> Dictionary:
 	}
 
 func restore(data: Dictionary) -> bool:
+	if not _nonnegative_integer(data.get("expansion_version",0)) or int(data.get("expansion_version",0)) > Expansion.VERSION: return false
 	if not _nonnegative_integer(data.get("shop_version",0)) or int(data.get("shop_version",0)) > SHOP_VERSION: return false
 	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
 	# Validate before changing anything. Restoring is a state replacement, never
@@ -318,6 +340,12 @@ func restore(data: Dictionary) -> bool:
 		if restored_state.has("shop"): return false
 		ShopBook.initialize(restored_state)
 	if not ShopBook.valid(restored_state): return false
+	if int(data.get("expansion_version",0)) == 0:
+		if restored_state.has("expansion"): return false
+		Expansion.initialize(restored_configuration,restored_state)
+	elif int(data.expansion_version) == 1 and Expansion.enabled(restored_configuration.floor):
+		if not Expansion.migrate_v1(restored_state): return false
+	if not Expansion.valid(restored_configuration,restored_state): return false
 	if not Development.valid(restored_state):return false
 	if not StaffBook.valid(restored_configuration,restored_state): return false
 	if not RecipeBook.valid(restored_configuration, restored_state): return false
@@ -340,6 +368,8 @@ func restore(data: Dictionary) -> bool:
 	_random.state = int(data.random_state)
 	_rebuild_access()
 	_upgrade_restaurant_backdrop()
+	Expansion.initialize(_configuration,_state)
+	_rebuild_access()
 	return true
 
 func _upgrade_restaurant_backdrop() -> void:
@@ -465,6 +495,7 @@ func _start() -> void:
 	StaffBook.initialize(_configuration,_state,_staff_seed)
 	Development.initialize(_state)
 	ShopBook.initialize(_state)
+	Expansion.initialize(_configuration,_state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
@@ -753,7 +784,9 @@ func _step_arrivals(delta: float, events: Array) -> void:
 	_state.stats.arrivals += 1
 	events.append({"type": "arrived", "customer_id": customer.id, "seat_id": customer.seat_id, "preferred_recipe_id": preferred})
 	var jitter := float(_configuration.service.arrival_jitter_seconds)
-	_state.arrival_remaining = float(_configuration.service.arrival_seconds) + _random.randf_range(-jitter, jitter)
+	var multiplier := 1.0
+	if Expansion.enabled(_configuration.floor): multiplier = Expansion.arrival_multiplier(_state,_configuration.floor)
+	_state.arrival_remaining = (float(_configuration.service.arrival_seconds) + _random.randf_range(-jitter, jitter)) / multiplier
 
 func _set_preference(customer: Dictionary, phase: String) -> void:
 	if customer.preference_phase != phase:
@@ -975,9 +1008,9 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 func _render_position(customer: Dictionary) -> Vector2:
 	return Vector2(float(customer.x) + float(customer.render_offset_x), float(customer.y) + float(customer.render_offset_y))
 
-func _foot_on_floor(position: Vector2, seat_id: String, objects: Array, floor_data: Dictionary) -> bool:
+func _foot_on_floor(position: Vector2, seat_id: String, objects: Array, floor_data: Dictionary, saved_state: Dictionary = {}) -> bool:
 	var cell := Vector2i(floori(position.x + 0.5), floori(position.y + 0.5))
-	if not _inside(cell, floor_data):
+	if not _inside(cell, floor_data, saved_state):
 		return false
 	for object in objects:
 		if _point(object) == cell:
@@ -1137,7 +1170,7 @@ func _choose_wander_route(customer: Dictionary) -> void:
 	var choices: Array[Vector2i] = []
 	# Preserve stable row order independently of flood-fill and Dictionary order.
 	for y in range(int(_configuration.floor.rows)):
-		for x in range(int(_configuration.floor.columns)):
+		for x in range(Expansion.columns(_configuration.floor)):
 			var target := Vector2i(x, y)
 			if reachable.has(target) and not blocked.has(target) and position.distance_to(Vector2(target)) >= 0.75:
 				choices.append(target)
@@ -1306,8 +1339,8 @@ func _facing_object(object: Dictionary) -> Dictionary:
 func _point(value: Dictionary) -> Vector2i:
 	return Vector2i(int(value.x), int(value.y))
 
-func _inside(cell: Vector2i, floor_data: Dictionary) -> bool:
-	return cell.x >= 0 and cell.y >= int(floor_data.get("backdrop_rows", 0)) and cell.x < int(floor_data.columns) and cell.y < int(floor_data.rows)
+func _inside(cell: Vector2i, floor_data: Dictionary, saved_state: Dictionary = {}) -> bool:
+	return Expansion.usable(_state if saved_state.is_empty() else saved_state,floor_data,cell,true)
 
 func _merge_configuration(base: Dictionary, override_values: Dictionary) -> Dictionary:
 	var result := base.duplicate(true)
@@ -1389,7 +1422,7 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 func _valid_point(value: Variant, floor_data: Dictionary) -> bool:
 	if not value is Dictionary or not _nonnegative_integer(value.get("x")) or not _nonnegative_integer(value.get("y")):
 		return false
-	return _inside(_point(value), floor_data)
+	return int(value.x) < Expansion.columns(floor_data) and int(value.y) >= int(floor_data.get("backdrop_rows",0)) and int(value.y) < int(floor_data.rows)
 
 func _migrate_visual_state(state: Dictionary) -> void:
 	# Version 1 saves predate explicit animation clocks. Their gameplay state
@@ -1569,14 +1602,14 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 			reservations[customer.seat_id] = true
 		if not _finite_number(customer.get("x")) or not _finite_number(customer.get("y")):
 			return false
-		if not _inside(Vector2i(floori(customer.x), floori(customer.y)), config.floor):
+		if not _inside(Vector2i(floori(customer.x), floori(customer.y)), config.floor, state):
 			return false
 		if not _nonnegative_integer(customer.get("appearance")) or int(customer.appearance) > 3 or not _nonnegative_integer(customer.get("path_index")):
 			return false
 		if not customer.get("path") is Array or int(customer.path_index) > customer.path.size():
 			return false
 		for point in customer.path:
-			if not _valid_point(point, config.floor):
+			if not _valid_point(point, config.floor) or not Expansion.usable(state,config.floor,_point(point),true):
 				return false
 		if entrance_wait:
 			if navigation_version == 0 or not _valid_customer_navigation(customer, {}, occupants, config):
@@ -1586,7 +1619,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 				return false
 		elif not _valid_customer_navigation(customer, seats.get(customer.seat_id, {}), occupants, config):
 			return false
-		if not _foot_on_floor(Vector2(float(customer.x), float(customer.y)), customer.seat_id, state.objects, config.floor) or not _foot_on_floor(_render_position(customer), customer.seat_id, state.objects, config.floor):
+		if not _foot_on_floor(Vector2(float(customer.x), float(customer.y)), customer.seat_id, state.objects, config.floor, state) or not _foot_on_floor(_render_position(customer), customer.seat_id, state.objects, config.floor, state):
 			return false
 		if not _finite_number(customer.get("meal_elapsed")) or float(customer.meal_elapsed) < 0.0:
 			return false
@@ -1726,7 +1759,7 @@ func _valid_customer_navigation(customer: Dictionary, seat: Dictionary, occupant
 	if not origin is Dictionary or not _finite_number(origin.get("x")) or not _finite_number(origin.get("y")):
 		return false
 	var previous := Vector2(float(origin.x), float(origin.y))
-	if previous.x < 0.0 or previous.y < 0.0 or previous.x > int(config.floor.columns) - 1 or previous.y > int(config.floor.rows) - 1:
+	if previous.x < 0.0 or previous.y < 0.0 or previous.x > Expansion.columns(config.floor) - 1 or previous.y > int(config.floor.rows) - 1:
 		return false
 	if absf(previous.x - roundf(previous.x)) > 0.000001 and absf(previous.y - roundf(previous.y)) > 0.000001:
 		return false
@@ -2039,6 +2072,7 @@ func _editor_cell_rejection(request: Dictionary, excluding_id: String = "") -> S
 	if not _valid_point(request, _configuration.floor):
 		return "invalid_position"
 	var cell := _point(request)
+	if not Expansion.usable(_state,_configuration.floor,cell,true): return "uncleared_floor"
 	if not Doorway.enabled(_configuration.floor) and cell == _point(_configuration.floor.entrance):
 		return "entrance"
 	var other := _object_at(cell)
@@ -2281,7 +2315,7 @@ func _nearest_customer_cell(customer: Dictionary) -> Dictionary:
 	var distance := INF
 	var origin := Vector2(float(customer.x), float(customer.y))
 	for y in range(int(_configuration.floor.rows)):
-		for x in range(int(_configuration.floor.columns)):
+		for x in range(Expansion.columns(_configuration.floor)):
 			var cell := Vector2i(x, y)
 			var candidate := origin.distance_squared_to(Vector2(cell))
 			if candidate + 0.000001 < distance and _empty_customer_cell(cell, customer.id):

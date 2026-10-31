@@ -18,6 +18,15 @@ const EditorPresentation = preload("res://scripts/wood_editor_presentation.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const PerformanceOverlay = preload("res://scripts/performance_overlay.gd")
 const ScreenLayout = preload("res://scripts/screen_layout.gd")
+const Expansion = preload("res://scripts/expansion_book.gd")
+const ClearancePresentation = preload("res://scripts/clearance_presentation.gd")
+var clearance_ui: ClearancePresentation
+var clearance_toast: Label
+var clearance_toast_seconds := 0.0
+var show_clearance_gallery := false
+var show_exhibition_gallery := false
+var dock_unlock_pending := false
+var clearance_targets: Dictionary = {}
 const INK := Color("233d58")
 const CREAM := Color("fff3db")
 var session: Session
@@ -83,9 +92,11 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	show_shop_gallery = "--shop-gallery" in OS.get_cmdline_user_args()
+	show_exhibition_gallery = "--exhibition-gallery" in OS.get_cmdline_user_args()
+	show_clearance_gallery = show_exhibition_gallery or "--clearance-gallery" in OS.get_cmdline_user_args()
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
 	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery
 	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -104,7 +115,8 @@ func _ready() -> void:
 	audio.set_muted(show_gallery or show_editor_gallery or save_blocked)
 	add_child(audio)
 	world = RestaurantView.new()
-	world.show_gallery = show_gallery
+	world.focus_mode = Control.FOCUS_ALL;world.accessibility_name = "Pan restaurant"
+	world.show_gallery = show_gallery and not show_clearance_gallery
 	world_clip = Control.new()
 	world_clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	world_clip.clip_contents = true
@@ -169,6 +181,18 @@ func _ready() -> void:
 	add_child(shop_ui)
 	shop_ui.purchase_requested.connect(_shop_purchase)
 	shop_ui.closed.connect(_shop_closed)
+	clearance_ui = ClearancePresentation.new();add_child(clearance_ui)
+	clearance_ui.confirmed.connect(_confirm_clearance)
+	clearance_ui.reveal_confirmed.connect(_confirm_reveal)
+	clearance_ui.unlock_go_requested.connect(_enter_unlocked_submarine)
+	clearance_ui.closed.connect(func():
+		world.clearance_selected = "";_refresh()
+		if get_viewport().gui_get_focus_owner() == null: world.grab_focus())
+	clearance_toast = Label.new();clearance_toast.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	clearance_toast.add_theme_font_override("font",body_font);clearance_toast.add_theme_color_override("font_color",Color("765033"))
+	clearance_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;clearance_toast.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	clearance_toast.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;clearance_toast.accessibility_live = AccessibilityServer.LIVE_POLITE
+	add_child(clearance_toast);clearance_toast.hide()
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -202,6 +226,15 @@ func _ready() -> void:
 		session = Session.new_session(18,{"starting_coins":1240})
 		session.command({"type":"set_mode","mode":"edit"})
 		_refresh();_open_shop()
+	if show_clearance_gallery:
+		for button in gallery_buttons: button.hide()
+		session = Session.new_session(19,{"starting_coins":640});clearance_ui.gallery = true
+		if show_exhibition_gallery:
+			session = Session.new_session(19,{"starting_coins":10000})
+			for identity in ["armchair-west","dock-access","trash-8-5","trash-9-4","trash-10-6","trash-10-8","trash-10-9"]: session.command({"type":"clear_trash","id":identity})
+			session.command({"type":"reveal_dock"});session.command({"type":"set_camera","x":4,"y":0})
+			_refresh();_layout();clearance_ui.open_unlock(session.snapshot())
+		else: _refresh();_layout();_open_clearance("dock-access")
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -302,7 +335,7 @@ func _style_native_button(button: Button, unit: float, held = null) -> void:
 	UISkin.layout_caption(caption, Rect2(left + fitted_icon.x + 10 * unit, face.position.y, text_width, face.size.y), font_size)
 
 func _layout_hud(area: Rect2, unit: float) -> void:
-	var top: float = area.position.y + (124 * unit if show_gallery else 32 * unit)
+	var top: float = area.position.y + (124 * unit if show_gallery and not show_clearance_gallery else 32 * unit)
 	coin_panel.position = Vector2(area.position.x + 24 * unit, top)
 	skin.apply_panel(coin_panel, "coin-panel", unit)
 	coin_panel.size = Vector2(240, 100) * unit
@@ -364,9 +397,11 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	if world == null:
 		return
 	world.size = size
+	world.state = session.snapshot()
 	world.diagnostic_header_height = maxf(38.0 / maxf(0.01, get_viewport_transform().get_scale().y), 38.0 * minf(size.x, size.y * 9.0 / 16.0) / 390.0)
 	world.safe_top = top_inset
 	world.update_layout()
+	_clamp_camera()
 	var scene_area: Rect2 = world.portrait
 	if performance_overlay != null:
 		performance_overlay.place(scene_area, top_inset, world.sky_height)
@@ -377,9 +412,21 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	world.position = -scene_area.position
 	var area: Rect2 = world.hud_area()
 	var unit: float = area.size.x / 720.0
+	if clearance_ui != null:
+		clearance_ui.layout(area)
+	if clearance_toast != null:
+		var toast_unit := area.size.x/390.0
+		clearance_toast.position = area.position+Vector2(area.size.x*.07,80*toast_unit)
+		clearance_toast.size = Vector2(area.size.x*.86,64*toast_unit)
+		clearance_toast.add_theme_font_size_override("font_size",maxi(1,int(13*toast_unit)))
+		var toast_style = preload("res://scripts/maple_popup_skin.gd").flat(Color("fff4dc"),15*toast_unit)
+		toast_style.shadow_color = Color("bc905d");toast_style.shadow_offset = Vector2(0,3)*toast_unit
+		for side in [SIDE_LEFT,SIDE_RIGHT]: toast_style.set_content_margin(side,16*toast_unit)
+		for side in [SIDE_TOP,SIDE_BOTTOM]: toast_style.set_content_margin(side,12*toast_unit)
+		clearance_toast.add_theme_stylebox_override("normal",toast_style)
 	_layout_hud(area, unit)
 	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
-	_place_native_button(edit, Rect2(Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit), Vector2(206, 110) * unit), unit, 34, 48)
+	_place_native_button(edit, Rect2(Vector2(area.end.x-190*unit,area.position.y+32*unit),Vector2(166,100)*unit),unit,32,38)
 	for i in range(gallery_buttons.size()):
 		var button: Button = gallery_buttons[i]
 		_place_native_button(button, Rect2(Vector2(area.position.x + (38 + i * 220) * unit, area.end.y - 185 * unit), Vector2(206, 110) * unit), unit, 34, 38)
@@ -405,8 +452,14 @@ func _layout_for_safe_top(top_inset: float) -> void:
 		_place_native_button(recovery_close, Rect2(Vector2(344, 500) * unit, Vector2(276, 110) * unit), unit, 34, 44)
 
 func _process(delta: float) -> void:
+	if store != null:
+		var completed: Dictionary = store.poll_autosave()
+		if not completed.is_empty(): save_error = completed.error
 	if session == null or backgrounded or save_blocked:
 		return
+	if clearance_toast_seconds > 0:
+		clearance_toast_seconds -= delta
+		if clearance_toast_seconds <= 0: clearance_toast.hide()
 	# An Android resume must not turn the suspended frame into offline income.
 	# Ordinary foreground frame delays still belong to the active session.
 	if skip_resume_frame:
@@ -415,15 +468,14 @@ func _process(delta: float) -> void:
 	_advance_long_press(delta)
 	if not show_gallery and not show_editor_gallery and simulation_enabled:
 		var events: Array = advance_time(delta, false)
-		if not events.is_empty():
-			save_now()
 		autosave_elapsed += delta
-		if autosave_elapsed >= 3.0:
-			save_now()
+		if not events.is_empty() or autosave_elapsed >= 3.0:
+			store.request_autosave(session.save_data())
 			autosave_elapsed = 0.0
 	else:
 		world.time += delta
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
+	world.clearance_removals = world.clearance_removals.filter(func(item: Dictionary): return world.time-float(item.started) < .26)
 	_refresh()
 
 func advance_time(elapsed: float, refresh_view := true) -> Array:
@@ -444,6 +496,11 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 
 func _refresh() -> void:
 	world.state = session.snapshot()
+	_clamp_camera()
+	if dock_unlock_pending and not save_blocked and not backgrounded and not world.dock_revealing():
+		dock_unlock_pending = false
+		clearance_ui.open_unlock(world.state)
+	if clearance_ui != null: clearance_ui.refresh(world.state)
 	world.prune_dish_flights()
 	if recipe_ui != null: recipe_ui.refresh(world.state)
 	var coins_text := str(int(world.state.coins))
@@ -455,7 +512,7 @@ func _refresh() -> void:
 	editing_cue.visible = editing and not show_gallery
 	editing_panel.visible = editing_cue.visible
 	editing_icon.visible = editing_cue.visible
-	shop.visible = show_gallery and not show_shop_gallery
+	shop.visible = show_gallery and not show_shop_gallery and not show_exhibition_gallery
 	edit.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
 	editor_ui.pickup_active = gesture_lifted
@@ -501,6 +558,7 @@ func _refresh() -> void:
 		shop_ui.interaction_blocked = save_blocked or backgrounded
 		shop_ui.refresh(world.state)
 		if shop_ui.visible: editor_ui.hide()
+	_sync_clearance_targets()
 	world.queue_redraw()
 
 func save_now() -> bool:
@@ -645,6 +703,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
+	if clearance_ui != null and clearance_ui.visible: return
 	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible or (shop_ui != null and shop_ui.visible): return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
@@ -661,11 +720,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			gesture_kind="inventory";gesture_item=armed_item.duplicate(true);gesture_object=str(armed_item.id) if armed_item.get("assigned",false) else ""
 		else:
 			var hit := _object_at(local)
-			tap_object = str(hit.id) if hit.get("kind") == "chef" else ""
+			tap_object = str(hit.id) if hit.get("kind") in ["chef","trash","landmark"] else ""
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
 		if armed_item.is_empty(): _arm_long_press(local)
 		var hit := _object_at(local)
+		if armed_item.is_empty() and hit.get("kind") in ["trash","landmark"]:
+			tap_object = str(hit.id);get_viewport().set_input_as_handled();return
 		var route_target := _belt_target_at(local, hit) if path_active else {}
 		if path_active and armed_item.is_empty() and not route_target.is_empty() and str(hit.get("id", "")) != str(session.snapshot().editor.selected_id):
 			gesture_kind = "belt_path"
@@ -692,6 +753,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
+	if clearance_ui != null and clearance_ui.visible: return
 	var inverse := get_global_transform_with_canvas().affine_inverse()
 	if event is InputEventScreenTouch and event.pressed:
 		last_screen_press = inverse * event.position
@@ -733,7 +795,9 @@ func _input(event: InputEvent) -> void:
 			elif gesture_kind == "belt_path" and not gesture_dragged:
 				if _floor_drop(local): _editor_command({"type": "editor_belt_extend", "x": gesture_cell.x, "y": gesture_cell.y})
 			elif gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
-				if session.snapshot().mode == "live": _open_recipes(tap_object)
+				if not Expansion.patch(tap_object).is_empty(): _open_clearance(tap_object)
+				elif tap_object.begins_with("landmark-"): _open_landmark("Workshop" if tap_object.ends_with("workshop") else "Submarine")
+				elif session.snapshot().mode == "live": _open_recipes(tap_object)
 				else: _editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
 				if _floor_drop(local):
@@ -792,6 +856,7 @@ func _update_preview(at: Vector2) -> void:
 	world.queue_redraw()
 
 func _arm_long_press(at: Vector2) -> void:
+	if world.object_at(_world_position(at),true).get("kind") in ["trash","landmark"]: return
 	long_press_candidate = world.object_at(_world_position(at), true).duplicate(true)
 	long_press_elapsed = 0.0
 
@@ -831,12 +896,10 @@ func _pan(change: Vector2) -> void:
 	var scene: Dictionary = session.snapshot()
 	var camera: Dictionary = scene.camera
 	var floor_data: Dictionary = scene.floor
-	var visible_columns := float(floor_data.get("viewport_columns", floor_data.columns))
+	var visible_columns := world.portrait.size.x/world.cell
 	var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
 	var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
-	var visible_bottom := world.portrait.end.y - 24.0
-	if scene.get("mode", "live") == "edit":
-		visible_bottom = editor_ui.occlusion_top()
+	var visible_bottom := world.portrait.end.y
 	# Include the rendered floor origin so the final tile can reach the rail.
 	var floor_bottom := world.floor_origin.y + float(floor_data.rows) * world.cell
 	var vertical_limit := maxf(0.0, (floor_bottom - visible_bottom) / world.cell)
@@ -845,6 +908,7 @@ func _pan(change: Vector2) -> void:
 	_refresh()
 
 func _cancel_native_button_presses() -> void:
+	if clearance_ui != null: clearance_ui.cancel_interactions()
 	if shop_ui != null: shop_ui.cancel_interactions()
 	var buttons: Array = [shop, edit, recovery_retry, recovery_close]
 	buttons.append_array(gallery_buttons)
@@ -875,6 +939,8 @@ func _notification(what: int) -> void:
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and clearance_ui != null and clearance_ui.visible:
+			clearance_ui.dismiss();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and shop_ui != null and shop_ui.visible:
 			shop_ui.dismiss()
 			return
@@ -901,6 +967,10 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if clearance_ui != null and clearance_ui.visible: return
+	if event is InputEventKey and event.pressed and event.keycode in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN] and not show_gallery and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible:
+		var direction: Vector2 = {KEY_LEFT:Vector2.LEFT,KEY_RIGHT:Vector2.RIGHT,KEY_UP:Vector2.UP,KEY_DOWN:Vector2.DOWN}[event.keycode]
+		_pan(-direction*world.cell);get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and shop_ui != null and shop_ui.visible:
 		shop_ui.dismiss();get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and staff_ui!=null and staff_ui.modal.visible:
@@ -918,8 +988,107 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			_editor_command({"type": "editor_select", "id": null})
 			get_viewport().set_input_as_handled()
 
-func _valid_saved_session(data: Dictionary) -> bool:
+static func _valid_saved_session(data: Dictionary) -> bool:
 	return Session.new().restore(data)
+
+func _clamp_camera() -> void:
+	if world == null or world.show_gallery or world.cell <= 0 or world.state.is_empty() or not world.state.get("expansion",{}).get("enabled",false): return
+	var camera: Dictionary = world.state.camera
+	var x := clampf(float(camera.x),0,maxf(0,float(world.state.floor.world_columns)-world.portrait.size.x/world.cell))
+	var y := clampf(float(camera.y),0,maxf(0,float(world.state.floor.rows)-(world.portrait.size.y-world.sky_height)/world.cell))
+	if not is_equal_approx(x,float(camera.x)) or not is_equal_approx(y,float(camera.y)):
+		session.command({"type":"set_camera","x":x,"y":y});world.state = session.snapshot()
+
+func _open_clearance(identity: String) -> void:
+	if save_blocked or backgrounded or clearance_ui.visible: return
+	var saved: Dictionary = session.save_data()
+	var value := Expansion.patch(identity,saved.configuration.floor)
+	if value.is_empty() or not saved.state.has("expansion") or identity in saved.state.expansion.cleared: return
+	if not Expansion.neighboring(saved.state,saved.configuration.floor,value):
+		_show_clearance_notice("Clear trash beside the open floor first.");return
+	_cancel_gesture();clearance_toast.hide();world.clearance_selected = identity
+	clearance_ui.open(value,session.snapshot());_refresh()
+
+func _show_clearance_notice(message: String) -> void:
+	clearance_toast.text = message
+	clearance_toast.accessibility_name = message
+	clearance_toast_seconds = 3.2
+	clearance_toast.show()
+
+func _confirm_clearance(identity: String) -> void:
+	if save_blocked or backgrounded or clearance_ui.busy: return
+	if show_clearance_gallery:
+		clearance_ui.sample = "pressed";clearance_ui.layout(world.hud_area());return
+	var result := session.command({"type":"clear_trash","id":identity})
+	if not result.get("ok",false): clearance_ui.refresh(session.snapshot());return
+	if result.get("changed",false): world.clearance_removals.append({"patch":clearance_ui.patch.duplicate(true),"started":world.time})
+	clearance_ui.finish_clear()
+	if not save_now(): _block_edit_save()
+	_refresh()
+
+func _confirm_reveal() -> void:
+	if save_blocked or backgrounded or clearance_ui.busy: return
+	var result := session.command({"type":"reveal_dock"})
+	if not result.get("ok",false): clearance_ui.refresh(session.snapshot());return
+	if result.get("changed",false):
+		world.dock_reveal_started = world.time;dock_unlock_pending = true
+		clearance_ui.hold_for_reveal()
+	else: clearance_ui.dismiss()
+	if not save_now():
+		# Recovery owns input while Retry makes this same accepted reveal durable.
+		clearance_ui.hide();_block_edit_save()
+	_refresh()
+
+func _enter_unlocked_submarine() -> void:
+	if save_blocked or backgrounded or clearance_ui.busy or not clearance_ui.unlock_popup: return
+	clearance_ui.dismiss()
+	_open_landmark("Submarine")
+
+func _open_landmark(destination: String) -> void:
+	if save_blocked or backgrounded or clearance_ui.visible or world.dock_revealing(): return
+	var expansion: Dictionary = session.snapshot().expansion
+	if not expansion.dock_open:
+		if not expansion.dock_ready: _show_clearance_notice("Clear all surrounding trash first.");return
+		_cancel_gesture();clearance_toast.hide();clearance_ui.open_reveal(session.snapshot());_refresh();return
+	var result := session.command({"type":"dock_access","destination":destination})
+	if not result.get("ok",false):
+		_show_clearance_notice("Clear all surrounding trash first.");return
+	_cancel_gesture();clearance_toast.hide();clearance_ui.open_destination(destination,session.snapshot());_refresh()
+
+func _sync_clearance_targets() -> void:
+	if clearance_ui == null: return
+	var visible_world: bool = not show_gallery and not save_blocked and not backgrounded and not clearance_ui.visible and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible
+	var entries: Array = world.state.get("expansion",{}).get("patches",[]).duplicate()
+	var scene: Dictionary = world.state.get("expansion",{})
+	var dock_x := 7.0+float(scene.get("offset_x",0))
+	if scene.get("enabled",false):
+		if scene.dock_open:
+			entries.append({"id":"landmark-submarine","name":"Open Submarine","x":dock_x,"y":6,"w":1.5,"h":3,"destination":"Submarine"})
+			entries.append({"id":"landmark-workshop","name":"Open Workshop","x":dock_x+1.5,"y":6,"w":1.5,"h":3,"destination":"Workshop"})
+		else: entries.append({"id":"landmark-submarine","name":"Inspect cover","x":dock_x,"y":6,"w":3,"h":3,"destination":"Submarine"})
+	var keep := {}
+	for entry in entries:
+		var identity: String = str(entry.id);keep[identity] = true
+		if not clearance_targets.has(identity):
+			var button := Button.new();button.mouse_filter = Control.MOUSE_FILTER_IGNORE;button.focus_mode = Control.FOCUS_ALL
+			for treatment in ["normal","hover","pressed","disabled","focus"]: button.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
+			add_child(button);clearance_targets[identity] = button
+			button.pressed.connect(func():
+				if identity.begins_with("landmark-"): _open_landmark("Workshop" if identity.ends_with("workshop") else "Submarine")
+				else: _open_clearance(identity))
+		var target: Button = clearance_targets[identity]
+		target.accessibility_name = str(entry.name) if entry.has("destination") else "Inspect %s, %s coins" % [entry.name,int(entry.price)]
+		if not entry.has("destination") and not entry.available: target.accessibility_name = "Inspect %s. Clear trash beside the open floor first." % entry.name
+		var bounds := Rect2(world.cell_base(float(entry.x)-.5,float(entry.y)-.5),Vector2(float(entry.w),float(entry.h))*world.cell)
+		bounds = bounds.intersection(world.hud_area())
+		var physical := maxf(.001,get_viewport_transform().get_scale().x)
+		if not is_equal_approx(float(target.get_meta("clearance_scale",0.0)),physical):
+			var focus := StyleBoxFlat.new();focus.bg_color = Color.TRANSPARENT;focus.border_color = Color("32636b");focus.set_border_width_all(maxi(1,int(3/physical)));focus.set_corner_radius_all(maxi(1,int(8/physical)))
+			target.add_theme_stylebox_override("focus",focus);target.set_meta("clearance_scale",physical)
+		target.visible = visible_world and (not entry.has("destination") or not world.dock_revealing()) and bounds.size.x*physical >= 44 and bounds.size.y*physical >= 44 and _floor_drop(bounds.get_center())
+		target.position = bounds.position;target.size = bounds.size
+	for identity in clearance_targets.keys():
+		if not keep.has(identity): clearance_targets[identity].queue_free();clearance_targets.erase(identity)
 
 func _make_recovery() -> void:
 	recovery = Panel.new()

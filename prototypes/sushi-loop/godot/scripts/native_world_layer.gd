@@ -49,6 +49,9 @@ func sync() -> void:
 	native_view.ground_shadows_enabled = source_view.ground_shadows_enabled
 	native_view.editor_preview = source_view.editor_preview
 	native_view.editor_selection_alpha = source_view.editor_selection_alpha
+	native_view.clearance_selected = source_view.clearance_selected
+	native_view.clearance_removals = source_view.clearance_removals
+	native_view.dock_reveal_started = source_view.dock_reveal_started
 	native_view.show_gallery = false
 	# Transform the authoritative layout once. Re-running its aspect-ratio min()
 	# at float native dimensions can turn a256px cell into255.99998px.

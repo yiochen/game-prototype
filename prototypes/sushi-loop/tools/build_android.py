@@ -27,6 +27,8 @@ import verify_editor_goods as editor_goods_contract
 import verify_wood_ui as wood_ui_contract
 import verify_recipe_ui as recipe_ui_contract
 import verify_staff_ui as staff_ui_contract
+import verify_expansion as expansion_contract
+import verify_exhibition_ui as exhibition_ui_contract
 
 ROOT_FILES = ("project.godot", "main.tscn", "branding.json", "export_presets.cfg")
 RUNTIME_TREES = {
@@ -36,6 +38,7 @@ RUNTIME_TREES = {
     "assets/recipe-variants/sprites": {".png"},
     "assets/chef-variants/sprites": {".png"},
     "assets/feedback-variants/sprites": {".png"},
+    "assets/expansion/sprites": {".png"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},
@@ -67,11 +70,13 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/recipe-variants/manifest.json")
     paths.append(source / "assets/chef-variants/manifest.json")
     paths.append(source / "assets/feedback-variants/manifest.json")
+    paths.append(source / "assets/expansion/manifest.json")
     paths.append(source / "assets/ui/editor/manifest.json")
     paths.append(source / "assets/ui/wood-editor/manifest.json")
     paths.append(source / "assets/ui/recipes/manifest.json")
     paths.append(source / "assets/ui/staff/manifest.json")
     paths.append(source / "assets/ui/editor-goods/manifest.json")
+    paths.append(source / "assets/ui/exhibition/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
                      if path.is_file() and path.suffix.lower() in suffixes)
@@ -106,6 +111,11 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     meals = recipe_contract.verify_recipe_variants(source)
     chefs = chef_contract.verify_chef_variants(source)
     feedback = feedback_contract.verify_feedback_variants(source)
+    expansion = expansion_contract.verify_expansion(source)
+    exhibition_ui = exhibition_ui_contract.verify_exhibition_ui(source)
+    expected_exhibition = set(exhibition_ui['runtime_images']) | {'assets/ui/exhibition/manifest.json'}
+    if {name for name in files if name.startswith('assets/ui/exhibition/')} != expected_exhibition:
+        raise ValueError('Unexpected or missing exhibition runtime artwork')
     editor_ui = editor_ui_contract.verify_editor_ui(source)
     staff_ui = staff_ui_contract.verify_staff_ui(source)
     expected_staff = set(staff_ui['runtime_images']) | {'assets/ui/staff/manifest.json'}
@@ -145,6 +155,10 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
         "chef_variants": chefs,
         "chef_manifest_sha256": sha(source / "assets/chef-variants/manifest.json"),
         "feedback_variants": feedback,
+        "expansion": expansion,
+        "expansion_manifest_sha256": sha(source / "assets/expansion/manifest.json"),
+        "exhibition_ui": exhibition_ui,
+        "exhibition_ui_manifest_sha256": sha(source / "assets/ui/exhibition/manifest.json"),
         "feedback_manifest_sha256": sha(source / "assets/feedback-variants/manifest.json"),
         "editor_ui": editor_ui,
         "editor_ui_manifest_sha256": sha(source / "assets/ui/editor/manifest.json"),
@@ -171,6 +185,8 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     recipe_contract.verify_recipe_variants(project, source_project=source)
     chef_contract.verify_chef_variants(project, source_project=source)
     feedback_contract.verify_feedback_variants(project, source_project=source)
+    expansion_contract.verify_expansion(project, source_project=source)
+    exhibition_ui_contract.verify_exhibition_ui(project, source_project=source)
     editor_ui_contract.verify_editor_ui(project, source_project=source)
     editor_goods_contract.verify_editor_goods(project, source_project=source)
     return hashes, catalog
@@ -346,6 +362,10 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if feedback_manifest_path not in names:
             raise ValueError("The verified 2D feedback-variant manifest is missing from the APK.")
         feedback_manifest_hash = hashlib.sha256(apk.read(feedback_manifest_path)).hexdigest()
+        expansion_manifest_path = "assets/assets/expansion/manifest.json"
+        if expansion_manifest_path not in names:
+            raise ValueError("The verified clearance sprite manifest is missing from the APK.")
+        expansion_manifest_hash = hashlib.sha256(apk.read(expansion_manifest_path)).hexdigest()
         editor_ui_manifest_path = "assets/assets/ui/editor/manifest.json"
         if editor_ui_manifest_path not in names:
             raise ValueError("The verified ImageGen editor UI manifest is missing from the APK.")
@@ -356,6 +376,7 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         editor_goods_manifest_hash = hashlib.sha256(apk.read(editor_goods_manifest_path)).hexdigest()
         wood_manifest_hash = hashlib.sha256(apk.read("assets/assets/ui/wood-editor/manifest.json")).hexdigest()
         recipe_ui_manifest_hash = hashlib.sha256(apk.read("assets/assets/ui/recipes/manifest.json")).hexdigest()
+        exhibition_manifest_hash = hashlib.sha256(apk.read("assets/assets/ui/exhibition/manifest.json")).hexdigest()
         needle = password.encode()
         for name in names:
             parts = set(Path(name).parts)
@@ -373,6 +394,8 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         "recipe_manifest_sha256": recipe_manifest_hash,
         "chef_manifest_sha256": chef_manifest_hash,
         "feedback_manifest_sha256": feedback_manifest_hash,
+        "expansion_manifest_sha256": expansion_manifest_hash,
+        "exhibition_ui_manifest_sha256": exhibition_manifest_hash,
         "editor_ui_manifest_sha256": editor_ui_manifest_hash,
         "wood_ui_manifest_sha256": wood_manifest_hash,
         "recipe_ui_manifest_sha256": recipe_ui_manifest_hash,
@@ -459,6 +482,10 @@ def main() -> int:
         raise ValueError("The APK wood UI differs from the verified HTML export.")
     if verification["recipe_ui_manifest_sha256"] != catalog["recipe_ui_manifest_sha256"]:
         raise ValueError("The APK headshot/recipe UI differs from its verified artwork family.")
+    if verification["expansion_manifest_sha256"] != catalog["expansion_manifest_sha256"]:
+        raise ValueError("The APK clearance artwork differs from the verified native frames.")
+    if verification["exhibition_ui_manifest_sha256"] != catalog["exhibition_ui_manifest_sha256"]:
+        raise ValueError("The APK exhibition artwork differs from the approved illustration.")
     digest = sha(output)
     metadata = branding | {
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,

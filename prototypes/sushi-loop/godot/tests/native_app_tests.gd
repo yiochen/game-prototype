@@ -149,8 +149,9 @@ func _test_geometry(app) -> void:
 	_expect(canvas.encloses(portrait) and is_equal_approx(portrait.get_center().x, canvas.get_center().x), "Portrait content is centered and contained in phone and wider windows")
 	var clip = app.world.get_parent()
 	_expect(clip is Control and clip.clip_contents and clip.get_global_rect().is_equal_approx(portrait), "The real parent clips adjoining restaurant floor to exactly the portrait rectangle")
-	_expect(portrait.size.x <= portrait.size.y * 9.0 / 16.0 + 0.01, "Wider windows preserve the supported portrait composition")
-	_expect(app.world.floor_origin.is_equal_approx(app.world.hud_area().position) and is_equal_approx(app.world.cell * float(app.session.snapshot().floor.viewport_columns), portrait.size.x), "Restaurant fills both phone sides below its camera-clearance sky")
+	var minimum_width: float = 320.0 / app.get_viewport_transform().get_scale().x
+	_expect(portrait.size.x <= maxf(minimum_width,portrait.size.y * 9.0 / 16.0) + 0.01, "Wider windows preserve the supported composition with readable landscape controls")
+	_expect(app.world.floor_origin.is_equal_approx(app.world.hud_area().position) and app.world.cell * float(app.session.snapshot().floor.viewport_columns) >= portrait.size.x - 0.01, "Restaurant fills both phone sides below its camera-clearance sky")
 	_expect(app.world.sky_height >= 80.0 * portrait.size.x / 720.0 and app.coin_panel.position.y >= app.world.hud_area().position.y, "Generated night sky reserves a quiet top strip and all HUD content starts below it")
 	var base: Vector2 = app.world.cell_base(0, 0)
 	_expect(base.is_equal_approx(app.world.floor_origin + Vector2(0.5, 0.5) * app.world.cell), "Feet register at the actual center of the occupied square tile")
@@ -196,7 +197,7 @@ func _test_geometry(app) -> void:
 
 func _test_camera_clearance(app) -> void:
 	var before: Dictionary = app.session.save_data()
-	var footer: Vector2 = app.edit.position
+	var edit_x: float = app.edit.position.x
 	var physical := Transform2D(Vector2(0.5, 0), Vector2(0, 0.5), Vector2.ZERO)
 	var layout = load("res://scripts/screen_layout.gd")
 	_expect(is_equal_approx(layout.top_inset(Rect2(0, 40, 390, 804), [], physical, 844), 80.0), "Physical safe-area pixels convert to logical canvas units")
@@ -209,7 +210,7 @@ func _test_camera_clearance(app) -> void:
 		clear = clear and control.get_global_rect().position.y >= sky_bottom
 	_expect(clear and app.world.sky_texture != null, "A large simulated camera clears Coins, Editing, Live and Shop over the generated sky")
 	_expect(not app._floor_drop(Vector2(app.world.portrait.get_center().x, sky_bottom * 0.5)) and app.world.object_at(Vector2(app.world.portrait.get_center().x, sky_bottom * 0.5)).is_empty(), "The quiet sky cannot select sprites or accept an editor drop")
-	_expect(app.edit.position.is_equal_approx(footer) and _same(before, app.session.save_data()), "Camera clearance preserves bottom controls and the exact saved restaurant")
+	_expect(is_equal_approx(app.edit.position.x,edit_x) and app.edit.position.y >= sky_bottom and _same(before, app.session.save_data()), "Camera clearance keeps the top-right Edit action below the safe area and preserves the exact saved restaurant")
 	app._layout()
 
 func _test_configured_camera(app) -> void:
@@ -395,6 +396,8 @@ func _button_ink_pair(button: Button) -> Dictionary:
 
 func _test_optical_pairs(app, pairs: Array, stock_cards: Array = []) -> void:
 	if DisplayServer.get_name() == "headless": return
+	# Shop is Edit-only; hidden controls have no rendered ink to measure.
+	pairs = pairs.filter(func(pair):return pair.icon.is_visible_in_tree() and pair.caption.is_visible_in_tree())
 	# Freeze only this isolated scene during two GPU captures. Taking the real
 	# foreground away gives an exact ink mask independent of generated color,
 	# antialiasing, transparent padding, shadows, and disabled-state opacity.

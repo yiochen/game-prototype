@@ -1,0 +1,12 @@
+{
+  "blender": "/opt/homebrew/bin/blender 5.2.2 LTS",
+  "recipe": "source/recipe-round-01.py",
+  "sourceProject": "backups/original.blend",
+  "commands": [
+    "/opt/homebrew/bin/blender -b --python source/recipe-round-01.py -- --round reproduced-round-01",
+    "/opt/homebrew/bin/blender -b --python source/audit.py -- --round reproduced-round-01",
+    "python source/prepare-evidence.py --round reproduced-round-01",
+    "node source/capture-consumer.mjs reproduced-round-01"
+  ],
+  "notes": "Run from experiment folder. Pillow/cloth/tears are editable native geometry. Recipes load only the byte-exact backup and procedural materials. Original scene cameras/lights/world reused exactly. Static delivery excludes old animation actions."
+}

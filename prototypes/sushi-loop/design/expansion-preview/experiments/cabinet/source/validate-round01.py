@@ -1,0 +1,23 @@
+import bpy,bmesh,json,math,hashlib
+from pathlib import Path
+from bpy_extras.object_utils import world_to_camera_view
+from mathutils import Vector
+E=Path(__file__).resolve().parent.parent;O=E/'candidates/round-01';S=json.loads((E/'source/independent-inspection.json').read_text());M=json.loads((O/'native-measurements.json').read_text());brief=json.loads((E/'brief.json').read_text());scene=bpy.context.scene;cam=scene.camera;root=bpy.data.objects['garbage-shelving__root']
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+checks={};checks['sourceAndBackupUnchanged']=sha(brief['source']['project'])==sha(E/'backups/original.blend')==brief['source']['projectSHA256']
+checks['cameraWorldMatrixExact']=[list(r) for r in cam.matrix_world]==S['camera']['matrix'];checks['orthoAndShiftExact']=[cam.data.ortho_scale,cam.data.shift_x,cam.data.shift_y,cam.data.sensor_fit]==[S['camera']['ortho'],*S['camera']['shift'],S['camera']['sensor_fit']];checks['frameAndPixelAspectExact']=[scene.render.resolution_x,scene.render.resolution_y,scene.render.resolution_percentage,scene.render.pixel_aspect_x,scene.render.pixel_aspect_y]==[896,1344,100,*S['render']['pixel_aspect']]
+lights=[{'name':o.name,'energy':o.data.energy,'size':o.data.size,'shape':o.data.shape,'matrix':[list(r) for r in o.matrix_world]} for o in scene.objects if o.type=='LIGHT'];checks['sourceBalancedLightsExact']=lights==S['lights'];checks['sourceColorManagementExact']=[scene.view_settings.view_transform,scene.view_settings.look,scene.view_settings.exposure,scene.view_settings.gamma]==[S['render']['view_transform'],S['render']['look'],S['render']['exposure'],S['render']['gamma']]
+checks['transparentNoGroundPlane']=scene.render.film_transparent and not any('floor' in o.name.lower() or 'plane' in o.name.lower() for o in scene.objects)
+checks['rootRegistrationExact']=list(root.location)==[0,0,0] and list(root.scale)==[1,1,1];checks['nativeEditableMeshesOnly']=all(o.type in ['EMPTY','MESH','CAMERA','LIGHT'] for o in scene.objects);checks['resourceClosure']=len(bpy.data.libraries)==0 and all(im.packed_file or im.source=='GENERATED' for im in bpy.data.images)
+checks['noImageOrEmissionOrTargetNodes']=not any(n.type in ['TEX_IMAGE','EMISSION'] for ma in bpy.data.materials if ma.use_nodes for n in ma.node_tree.nodes)
+checks['noObjectsWithAnimation']=all(o.animation_data is None for o in scene.objects)
+meshes=[]
+for o in scene.objects:
+ if o.type!='MESH':continue
+ bm=bmesh.new();bm.from_mesh(o.data);meshes.append({'name':o.name,'vertices':len(bm.verts),'faces':len(bm.faces),'boundaryEdges':sum(e.is_boundary for e in bm.edges),'nonmanifoldEdges':sum(not e.is_manifold for e in bm.edges),'materials':[ma.name for ma in o.data.materials]});bm.free()
+alpha=json.loads((O/'alpha-report.json').read_text());checks['nativePNGFrameAndUnclippedAlpha']=all(r['frame']==[896,1344] and r['edgeAlphaMax']==0 for r in alpha.values())
+checks['closedNativeMeshes']=all(m['nonmanifoldEdges']==0 for m in meshes)
+checks['withinLocal2x1Envelope']=all(v['localMin'][0]>=-1 and v['localMin'][1]>=-.5 and v['localMax'][0]<=1 and v['localMax'][1]<=.5 for v in M['views'].values())
+checks['groundContactAndHeight']=all(abs(v['worldMin'][2])<.0000001 and v['worldMax'][2]<=1.5 for v in M['views'].values());checks['allProjectedGeometryInsideFrame']=all(v['projectedBounds'][0]>0 and v['projectedBounds'][1]>0 and v['projectedBounds'][2]<896 and v['projectedBounds'][3]<1344 for v in M['views'].values())
+D={'status':'pass' if all(checks.values()) else 'fail','checks':checks,'sourceIntegrity':{'original':brief['source']['project'],'originalSHA256':sha(brief['source']['project']),'backupSHA256':sha(E/'backups/original.blend')},'candidateBlendSHA256':sha(E/'source/round-01.blend'),'sourceCamera':S['camera'],'nativeMeasurements':M,'renderSettings':S['render'],'nativeMeshes':meshes,'consumerEvidence':json.loads((O/'consumer-report.json').read_text()),'alphaReport':alpha,'alphaBounds':json.loads((O/'alpha-bounds.json').read_text()),'scope':'Four static native facings. No native animation created or approved; deferred until UI approval. Packet binding covers render/preview exact bytes.','notes':['Envelope measured in root-local coordinates; E/W world footprint rotates to 1x2.','No source library linking, image textures, generated target card or external resources.','Camera/lighting inherited exactly from byte-exact original. All bevels/weighted normals applied into native editable mesh geometry.']}
+(O/'validation.json').write_text(json.dumps(D,indent=2)+'\n');print(json.dumps({'checks':checks,'status':D['status'],'meshCount':len(meshes)}));assert all(checks.values())

@@ -7,9 +7,15 @@ const EntranceCurtain = preload("res://scripts/entrance_curtain.gd")
 const ArtBook = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
 const GroundShadows = preload("res://scripts/ground_shadows.gd")
+const Expansion = preload("res://scripts/expansion_book.gd")
+var clearance_selected := ""
+var clearance_removals: Array = []
+var dock_reveal_started := -1.0
 const INK := Color("253b3b")
 const NIGHT := Color("103d4b")
 const PAPER := Color("ffefcf")
+const LOCKED_TRASH_TINT := Color(0.58,0.58,0.58,1.0)
+const COVER_FADE_SECONDS := .18
 const DIRECTIONS := {"north": Vector2.UP, "south": Vector2.DOWN, "east": Vector2.RIGHT, "west": Vector2.LEFT}
 const BELT_FACING := {"east": "S", "north": "E", "west": "N", "south": "W"}
 const CORNER_FACING := {
@@ -84,7 +90,8 @@ func _process(_delta: float) -> void:
 		_native_world_layer.sync()
 
 func update_layout() -> void:
-	var width := minf(size.x, size.y * 9.0 / 16.0)
+	var physical := maxf(.001,get_viewport_transform().get_scale().x)
+	var width := minf(size.x,maxf(320.0/physical,size.y * 9.0 / 16.0))
 	portrait = Rect2((size.x - width) * 0.5, 0, width, size.y)
 	var floor_data: Dictionary = state.get("floor", {})
 	cell = width / float(floor_data.get("viewport_columns", floor_data.get("columns", 7)))
@@ -92,6 +99,7 @@ func update_layout() -> void:
 	var unit := width / 720.0
 	sky_height = 0.0 if show_gallery else maxf(80.0 * unit, safe_top + maxf(12.0 * unit, diagnostic_header_height))
 	floor_origin = portrait.position + Vector2(0, sky_height)
+	if state.get("expansion",{}).get("enabled",false): cell = maxf(cell,(portrait.size.y-sky_height)/float(floor_data.rows))
 	queue_redraw()
 
 func hud_area() -> Rect2:
@@ -112,6 +120,7 @@ func cell_base(x: float, y: float) -> Vector2:
 
 func sprite(identity: String, base: Vector2, clip := "static", direction := "S", seconds := 0.0, tile_pixels := -1.0, tint := Color.WHITE) -> void:
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
+	if not art.registered_rect(identity,base,pitch,clip,direction).intersects(portrait): return
 	if _collect_ground_shadows:
 		# Shadow proxies need neither an animation atlas lookup nor a sprite rect.
 		if _shadow_kind in ["belt", "seat", "chef", "customer", "board", "sprite"] and not identity.begins_with("dish-") and not identity.begins_with("wall-") and art.objects.has(identity):
@@ -165,16 +174,23 @@ func _room() -> void:
 	var columns := int(state.floor.world_columns)
 	# One continuous authored floor extends into the adjoining restaurant. Tile
 	# borders are part of the approved native art, not a realistic floor texture.
-	for y in range(int(state.floor.get("backdrop_rows", 3)), rows + 6):
+	for y in range(int(state.floor.get("backdrop_rows", 3)), rows):
 		for x in range(columns):
 			var base := cell_base(x, y)
 			if not portrait.intersects(Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)):
 				continue
-			var tint := Color.WHITE if x < int(state.floor.columns) else Color("b2aaa0")
-			var identity := "floor-blue-wave" if y == rows - 1 else "floor-cream"
+			var open: bool = Expansion.usable({"expansion":state.get("expansion",{})},state.floor,Vector2i(x,y))
+			# Clearance availability is indicated on the object, never its tile.
+			var tint := Color.WHITE if open or state.get("expansion",{}).get("enabled",false) else Color("e8e3d9")
+			var identity := "floor-cream" if state.get("expansion",{}).get("enabled",false) else ("floor-blue-wave" if y == rows - 1 else "floor-cream")
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
 	for piece in backdrop_plan():
 		sprite(piece.key, piece.base)
+	if not clearance_selected.is_empty():
+		var selected := Expansion.patch(clearance_selected,state.floor)
+		if not selected.is_empty():
+			var top := cell_base(float(selected.x)-0.5,float(selected.y)-0.5)
+			draw_rect(Rect2(top,Vector2(float(selected.w),float(selected.h))*cell),Color(.80,.90,.62,.55))
 	var items := render_plan()
 	if ground_shadows_enabled and _ground_shadows != null:
 		var floor_start := cell_base(0, float(state.floor.get("backdrop_rows", 3)) - 0.5).y
@@ -221,7 +237,7 @@ func _render_room_items(items: Array = []) -> void:
 		match item.kind:
 			"belt": _belt(item.value)
 			"dish": _dish(item.value)
-			"sprite": sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
+			"sprite": sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), float(item.get("seconds",0.0 if reduced_motion else float(state.elapsed))), -1.0, item.get("tint",Color.WHITE))
 			"chef": _chef(item.value)
 			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
 			"board": _board(item.value)
@@ -282,6 +298,12 @@ func object_at(point: Vector2, pickup := false) -> Dictionary:
 		if identity.is_empty(): return {}
 		for object in state.get("objects", []):
 			if str(object.get("id", "")) == identity: return object
+		for trash in state.get("expansion",{}).get("patches",[]):
+			if str(trash.id) == identity:
+				var selected: Dictionary = trash.duplicate(true)
+				selected.kind = "trash"
+				return selected
+		if identity in ["landmark-submarine","landmark-workshop"]: return {"id":identity,"kind":"landmark","destination":"Workshop" if identity.ends_with("workshop") else "Submarine"}
 		for guest in state.get("customers", []):
 			if guest.id != identity: continue
 			if state.get("mode") != "edit": return {}
@@ -298,7 +320,7 @@ func object_at(point: Vector2, pickup := false) -> Dictionary:
 func _editor_ground() -> void:
 	if state.get("mode", "live") != "edit" or editor_preview.has("lifted_id"): return
 	for target: Dictionary in state.get("editor", {}).get("belt_targets", []):
-		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
+		if target.x < 0 or target.y < 0 or target.x >= Expansion.columns(state.floor) or target.y >= state.floor.rows: continue
 		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
 		var tone := Color("cea04c") if target.kind == "close" else Color("587e59") if target.valid else Color("7c8790")
 		draw_rect(bounds, Color(tone, 0.25 if target.valid else 0.12))
@@ -341,7 +363,7 @@ func _belt_target_overlay() -> void:
 	# Keep grid targets legible over the raised fronts of the real furniture.
 	if state.get("mode", "live") != "edit" or editor_preview.has("lifted_id") or state.get("editor", {}).get("belt_path", []).is_empty(): return
 	for target: Dictionary in state.editor.get("belt_targets", []):
-		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
+		if target.x < 0 or target.y < 0 or target.x >= Expansion.columns(state.floor) or target.y >= state.floor.rows: continue
 		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
 		var tone := Color("b77c27") if target.kind == "close" else Color("426d47") if target.valid else Color("7c8790")
 		draw_rect(bounds, Color(PAPER, 0.8 if target.valid else 0.3), false, 4 * _native_screen_pixel_scale)
@@ -427,22 +449,56 @@ func render_plan() -> Array:
 func _prop(key: String, x: float, y: float, clip := "static", direction := "S") -> Dictionary:
 	return {"kind": "sprite", "key": key, "base": cell_base(x, y), "clip": clip, "direction": direction, "depth": y, "priority": 0}
 
+func dock_reveal_duration() -> float:
+	var clip := art.clip_data("dock-cover","uncover")
+	return float(clip.get("frames",12))/float(clip.get("fps",12))
+
+func dock_revealing() -> bool:
+	return state.get("expansion",{}).get("dock_open",false) and not reduced_motion and dock_reveal_started >= 0.0 and time < dock_reveal_started+dock_reveal_duration()+COVER_FADE_SECONDS
+
+func dock_cover_seconds() -> float:
+	# Loaded saves show the completed pose. Only the accepted final clearance
+	# starts the transient presentation clock; it never enters restaurant saves.
+	if reduced_motion or dock_reveal_started < 0.0: return dock_reveal_duration()
+	return maxf(0.0,time-dock_reveal_started)
+
 func _decor_plan() -> Array:
 	if state.is_empty():
 		return []
-	var rows := int(state.floor.rows)
-	var columns := int(state.floor.world_columns)
 	var result: Array = []
-	for y in range(3, rows - 1):
-		result.append(_prop("wall-middle", -0.5, float(y), "static", "E"))
-	result.append(_prop("barrel-wood", 0.0, float(rows) - 1.0))
-	result.append(_prop("plant-angular", float(columns) - 1.0, float(rows) - 1.0, "idle"))
-	for x in range(1, columns, 5):
-		result.append(_prop("crate-wood", float(x), float(rows) - 1.0))
-	# Adjoining space stays visibly present but unavailable in the starter. These
-	# are complete approved garbage assemblies, not repeated decoration patches.
-	for pile in [["garbage-sofa", 9.5, 5.5], ["garbage-shelving", 13.5, 8.5], ["garbage-car", 18.0, 5.5]]:
-		result.append(_prop(str(pile[0]), float(pile[1]), float(pile[2]), "idle"))
+	if not state.get("expansion",{}).get("enabled",false): return result
+	var dock_x := float(state.expansion.offset_x)
+	# These are permanent layers. Openings in the cloth reveal the actual
+	# deck and its objects before access unlocks, rather than empty floor.
+	var deck := _prop("dock-floor",8.0+dock_x,7.0);deck.depth = -1.0;result.append(deck)
+	var sub := _prop("submarine-yellow",7.5+dock_x,7.2);sub.owner_id = "landmark-submarine";result.append(sub)
+	var hut := _prop("workshop-hut",8.8+dock_x,7.2);hut.owner_id = "landmark-workshop";result.append(hut)
+	for trash in state.expansion.patches:
+		var entry := _prop(str(trash.art_id),float(trash.x)+float(trash.w)/2.0-0.5,float(trash.y)+float(trash.h)/2.0-0.5,"clearance-static",str(trash.facing))
+		entry.owner_id = str(trash.id)
+		if not trash.available: entry.tint = LOCKED_TRASH_TINT
+		result.append(entry)
+	if not reduced_motion:
+		for removal in clearance_removals:
+			var progress := clampf((time-float(removal.started))/.26,0,1)
+			if progress >= 1: continue
+			var trash: Dictionary = removal.patch
+			var entry := _prop(str(trash.art_id),float(trash.x)+float(trash.w)/2.0-.5,float(trash.y)+float(trash.h)/2.0-.5,"clearance-static",str(trash.facing))
+			var eased := 1-pow(1-progress,3)
+			entry.base.y -= cell*.18*eased
+			entry.tint = Color(1,1,1,1-eased)
+			result.append(entry)
+	var cover := _prop("dock-cover",8.0+dock_x,7.8)
+	if state.expansion.dock_open:
+		if not dock_revealing(): return result
+		var seconds := dock_cover_seconds()
+		cover.clip = "uncover" if seconds < dock_reveal_duration() else "uncovered"
+		cover.seconds = seconds
+		if seconds >= dock_reveal_duration(): cover.tint = Color(1,1,1,1-clampf((seconds-dock_reveal_duration())/COVER_FADE_SECONDS,0,1))
+	else:
+		cover.owner_id = "landmark-submarine"
+		if not state.expansion.dock_ready: cover.tint = LOCKED_TRASH_TINT
+	result.append(cover)
 	return result
 
 func backdrop_plan() -> Array:

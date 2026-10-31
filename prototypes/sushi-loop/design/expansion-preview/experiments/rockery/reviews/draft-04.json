@@ -1,0 +1,96 @@
+{
+  "round": "draft-04",
+  "verdict": "revise",
+  "provisional": true,
+  "reviewSequence": 2,
+  "submissionType": "draft",
+  "candidatePacketSHA256": null,
+  "comparedAgainst": "candidates/draft-03",
+  "inspectedFiles": [
+    "candidates/draft-04/static-N.png",
+    "candidates/draft-04/static-E.png",
+    "candidates/draft-04/static-S.png",
+    "candidates/draft-04/static-W.png",
+    "candidates/draft-04/four-view-sheet.png",
+    "candidates/draft-04/phone-consumer.png"
+  ],
+  "inspectedFileSHA256": {
+    "candidates/draft-04/static-N.png": "374337e001eccd69c5de4fe80eaf39a311f83ab0b7d4bc06cce07e3a27a6a0dd",
+    "candidates/draft-04/static-E.png": "9172e5dd4002a93fa426d8d681cfe82e7e6df73901bbbcd783fff560c77281f6",
+    "candidates/draft-04/static-S.png": "583775bfd84cb8e86d70142bd3843480325effae340f588da348d277b3420eed",
+    "candidates/draft-04/static-W.png": "e49daf391491a6deb9eaa1e348ef6a44b8030eda20f338665f9067cf4593a59b",
+    "candidates/draft-04/four-view-sheet.png": "abe7b9ebfefa889669e79553a5d8fc576866b4b5a53f3301088d9f51f73e5fcf",
+    "candidates/draft-04/phone-consumer.png": "0d00df7fe2246bde2a549f4e0f38098ba169b9bab08739938213f87a8b024f0c"
+  },
+  "scores": {
+    "shapeVolume": 4,
+    "color": 7,
+    "lightingHighlights": 7,
+    "materialDetail": 6,
+    "artifactFreeReadability": 6
+  },
+  "observations": [
+    "The draft-04 logical-size four-view sheet and direct native images retain the useful cool violet crown/slate side palette and vivid folded green accents from draft-03.",
+    "Increasing height while retaining similar XY outlines lengthens the upright sidewalls. N and W particularly read as long chamfered columns, and E reads as two tall cylinders; this is a regression against broad uneven boulder volume. S preserves three crown steps but is also more vertical.",
+    "The wider phone pan now exposes more violet crowns and outer silhouettes. Existing separate potted plants still dominate the left edge; raising the model does not provide an appropriate substitute for the intended consumer composition.",
+    "Coordinator has accepted the plant density and occlusion as a consumer layout issue and is revising actual spacing/depth lanes. This will be assessed on recaptured real page evidence, without demanding greater model height.",
+    "Crevice foliage still contains isolated vertical blades/slivers and small flat triangular-looking flaps, particularly on foreground W and E crevices. The larger A clump reads better than the smaller B clump."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "category": "visual",
+      "location": "static-N.png, static-E.png, static-W.png, principal boulder silhouette and sidewall proportions",
+      "materialEffect": "Tall regular sidewalls dominate the whole form, further reducing the target broad clustered boulder reading.",
+      "desiredOutcome": "Resolve the broad boulder volume through irregular shoulders, exposed staggered crowns and shorter/varied sidewall reading within the unchanged capture and footprint. Do not raise height solely to counter consumer occlusion."
+    },
+    {
+      "rank": 2,
+      "category": "visual",
+      "location": "Foreground crevice leaves in E/W and small right crevice in S",
+      "materialEffect": "Several leaves reduce to separate spear blades and triangular flaps rather than compact thick folded clusters at logical scale.",
+      "desiredOutcome": "Make two attached coherent foliage clumps with compact crown volume, varied folded planes and fewer isolated slivers, while keeping the principal rock masses exposed."
+    }
+  ],
+  "remainingDifferences": [
+    "A matching target camera or exact unseen-side geometry is not required.",
+    "Restrained faceted rough material and symmetric source illumination remain appropriate."
+  ],
+  "technicalEvidence": {
+    "nativeRenderHashesMatchValidation": {
+      "N": true,
+      "E": true,
+      "S": true,
+      "W": true
+    },
+    "candidateProjectHashMatchesValidation": true,
+    "cameraRecordMatchesReportedSource": true,
+    "reportedBounds": {
+      "min": [
+        -0.4557616710662842,
+        -0.4733979105949402,
+        0.0
+      ],
+      "max": [
+        0.49000000953674316,
+        0.45678672194480896,
+        1.2799999713897705
+      ]
+    },
+    "reportedChecks": {
+      "cameraExact": true,
+      "sourceIntact": true,
+      "withinEnvelope": true,
+      "closedNativeMeshes": true,
+      "noGroundPlane": true,
+      "noRasterCardsOrTargetsInScene": true,
+      "noPerViewFitOrRecolor": true
+    },
+    "validationSHA256": "c2ad635d4fb42d52c8c2b80a1f036f7c03c4307cf7227139bc10b1dbaa7544b3",
+    "limits": [
+      "Provisional draft comparison without a sealed final packet.",
+      "Judge read validation and checked supplied hashes rather than reopening native scene.",
+      "Phone consumer layout remains pending coordinator correction and recapture."
+    ]
+  }
+}

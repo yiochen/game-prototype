@@ -1,0 +1,70 @@
+{
+  "round": "round-01",
+  "reviewSequence": 2,
+  "submissionType": "art-change",
+  "verdict": "needs_evidence",
+  "candidatePacketSHA256": "d1c7b4f0c1153b8a6d942da106ee2d019ddd4e3f264acf6dfc89d52a56e5d56a",
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "four-view-sheet.png",
+    "phone-consumer.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "All four 896x1152 native images and the exact four-view/390x844 phone consumer previews were inspected. The three-row sheet establishes transparent-edge appearance against light, gray and dark backgrounds.",
+    "The model now reads clearly as one compact upholstered mustard armchair with a broad puffy back, single sagged seat, two substantial arms and short brown feet. N/E/S/W form a consistent whole object without lingering sofa proportions.",
+    "Compared with draft-02, the back now has a broad asymmetric trough across its lit upper surface and a bowed lower front/recess. This gives visible worn padding under the fixed high source camera rather than a symmetric rectangular block.",
+    "The arm opening now exposes coherent brown slats behind thick irregular attached mustard folds and a ragged sleeve. In S the opening is plainly visible; E shows actual depth and folded cloth; N/W show plausible rear/side continuation. The thin outlined-box impression is materially improved.",
+    "The seat slit and three pale attached stuffing lobes remain readable in S/E, with a dark/folded lip leading into the pale cluster. The pale marking remains useful at phone size without becoming detached noise.",
+    "Broad warm highlights and ochre self shading describe rounded padding. No blown highlight, featureless black patch, ground shadow, clipping, distracting coplanar seam or material edge defect was visible in the required views.",
+    "At 390px phone width, all four chairs retain clear cushion/arm separation and single-chair identity among neighboring barrels. The S tear/tuft is still a useful contrast cue. The alpha-fitted gallery and clearance cards show matching undistorted native art.",
+    "Native visual work meets the frozen aesthetic criteria. Formal approval is held only because the shared brief changed after sealing the packet; the final integrity check fails on ../../brief.json, although qualityCriteria remains unchanged."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "category": "evidence",
+      "location": "packet.json files.brief -> ../../brief.json",
+      "materialEffect": "The exact reviewed packet no longer verifies against its bound brief bytes; therefore it cannot receive immutable-candidate approval. No art defect is identified.",
+      "desiredOutcome": "Seal a new evidence-only packet against the stable current brief while retaining exactly the reviewed .blend, N/E/S/W and preview bytes. Confirm the criteria and capture contract are unchanged. No art rerender or geometry revision is requested."
+    }
+  ],
+  "remainingDifferences": [
+    "The native source projection is higher than the ImageGen target, as required by the frozen contract. The front-back proportions are consequently seen from above rather than copied from the target camera.",
+    "Back sag is a broad asymmetric trough instead of the target's deeper central crescent. Torn fabric/wood construction is simpler and more faceted, while remaining coherent and soft within the current native family.",
+    "Stuffing uses three smooth chunky lobes rather than target fiber detail; small stains and rear repair are interpreted coherently rather than matching the single-view reference exactly."
+  ],
+  "technicalEvidence": {
+    "packetIntegrityInitial": "Passed candidate_packet.py verify at review start; all supplied records and PNG dimensions matched.",
+    "packetIntegrityFinal": "Failed after shared brief changed: bound 31ad9942257f5b91ec9ba50c71cbc33cb5d41475afc11d695aa0d0053ce66164; current 0a11ba76367536cf628eccb5c3032d307850901f4a4706889bceecad09127c6b. Frozen qualityCriteria remains equal.",
+    "nativeAudit": "Read recipe-round-01.py, audit.py, native-measurements.json summaries, readback-audit.json, validation.json, settings.json, consumer settings/check and preview construction script.",
+    "cameraAndRoot": "Source/current camera matrix, ortho=3.5, shift=[0,0.11703243851661682], pixel aspect=[1.2206555604934692,1], frame=896x1152 and root identity match. Recorded projection max error is 0.0000923157 native px; ground root projects [448,704.0000267].",
+    "bounds": {
+      "min": [
+        -0.4886660873889923,
+        -0.48529505729675293,
+        0.0
+      ],
+      "max": [
+        0.4846477806568146,
+        0.46466416120529175,
+        1.128596544265747
+      ]
+    },
+    "lightingAndResources": "Read-back source/current equal broad cardinal fills, overhead and world compare exactly. All nine materials are opaque procedural BSDFs, no external image nodes or libraries; 42 native mesh/curve parts. Recipe deletes prior furniture, retains source root/camera/lights, and uses real mesh apertures, folded cloth and solid stuffing. No target image or impostor card.",
+    "topology": "No null-material faces. Read-back records 16 zero-area facets on hidden underside dust cover and 4 on rear repair; none produces a visible defect in required facings. No remeshing demanded for invisible zero-area bevel artifacts.",
+    "consumer": "Browser consumer reports no errors and all native images loaded at 896x1152. 195px native-frame CSS width at 390/7px per cell yields declared physical sprite scale. Gallery/clear SVG fit uses the same S image with uniform meet fit over exact alpha bounds.",
+    "repeatability": "Editor read-back evidence records exact reopened S pixel equivalence. No numerical appearance tolerance was invented or needed for this approval decision.",
+    "limits": "Technical validation scripts/evidence were inspected; judge did not independently rerender. No native animation, Godot or production integration is in this asset approval scope."
+  },
+  "createdAt": "2026-10-29T20:31:41.351385+00:00"
+}

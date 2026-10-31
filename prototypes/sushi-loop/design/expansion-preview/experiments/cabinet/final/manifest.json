@@ -1,0 +1,111 @@
+{
+  "asset": "garbage-cabinet",
+  "finalizedAt": "2026-10-29T20:34:39.066163+00:00",
+  "verdict": "approve",
+  "candidatePacket": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/evidence-02/packet.json",
+  "candidatePacketSHA256": "6a139b35bbe8ffd656584ad24048b176965e113b14b522f238ce5642a678e727",
+  "independentReview": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/reviews/evidence-02.json",
+  "independentReviewSHA256": "bbb31dc5ad965a7c78a109a767ac123603ea857d7d775c7b8248e2aa321d2655",
+  "files": {
+    "cabinet.blend": {
+      "sha256": "a5ece9d0d00971b30a2fa786ca8de1bbe0c608bb4df20bcc900a941a475d2fe9",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/source/round-01.blend",
+      "bytes": 223496
+    },
+    "static-N.png": {
+      "sha256": "520666824cac4c5ab95b378e8f7c5827c210bf44cf117d38b41990e0882efa4c",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/N.png",
+      "bytes": 208198
+    },
+    "static-E.png": {
+      "sha256": "9c80fce969a1a19b617f0f82397bd09edfd84a2fbf908da7cf9f09e8f481c9ce",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/E.png",
+      "bytes": 187646
+    },
+    "static-S.png": {
+      "sha256": "ff44589634470e2068a4c8a62b3ed3d88795dc1b81640ec1bd82dd5cf6baccf5",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/S.png",
+      "bytes": 243091
+    },
+    "static-W.png": {
+      "sha256": "669a79da2b64183727ec40c6114d882c8a1b2cfcf40c9fa292d2d29b06733402",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/W.png",
+      "bytes": 187302
+    },
+    "four-view-sheet.png": {
+      "sha256": "547c1bb037b009f2a3e968c225436f57c570aed9c4c61d6b47403a511912cacd",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/four-view-sheet.png",
+      "bytes": 340159
+    },
+    "phone-consumer.png": {
+      "sha256": "07a1bd5317fea75f5a551c7a36e253d06d6aab7362aaa855f96155ef432d442a",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/phone-consumer.png",
+      "bytes": 262460
+    },
+    "alpha-edges.png": {
+      "sha256": "2d58e3f3f3be354f21ce47ed2f506bbb59b82e6c70b2f35ce989f3c6a58cc1f0",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/alpha-edges.png",
+      "bytes": 308236
+    },
+    "validation.json": {
+      "sha256": "dba64c974ac2e129e3a7a3fc52b7b295c0c7ef0304e1b21a149fc00becee9fa8",
+      "source": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/candidates/round-01/validation.json",
+      "bytes": 41122
+    }
+  },
+  "capture": {
+    "frame": [
+      896,
+      1344
+    ],
+    "logicalFrame": [
+      448,
+      672
+    ],
+    "logicalRoot": [
+      224,
+      448
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "phone-consumer"
+    ],
+    "cameraRecord": "inputs/source-camera.json",
+    "footprint": [
+      2,
+      1
+    ],
+    "registration": "Preserve source camera matrix, ortho/pixel aspect/shift. New physical model fits declared footprint; no alpha fitting or per-view camera changes."
+  },
+  "physicalEnvelope": {
+    "x": [
+      -1,
+      1
+    ],
+    "y": [
+      -0.5,
+      0.5
+    ],
+    "heightMaximum": 1.5,
+    "ground": 0
+  },
+  "resourceClosure": {
+    "nativeBlend": "Standalone, no linked libraries or image dependencies. All wood and metal procedural/native materials and all58 editable meshes included.",
+    "recipe": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/expansion-preview/experiments/cabinet/source/recipe-round01.py"
+  },
+  "remainingDifferences": [
+    "The fixed source camera exposes more top area and less front area than the target; this is required capture fidelity.",
+    "Both doors are framed crooked leaves, with less front-panel asymmetry and fewer prominently exposed parcels than the target. Their damage, attachment and exposed cubby read clearly, so this simplification is accepted.",
+    "The side and rear construction are restrained native interpretations because the single target view does not define those faces.",
+    "Wood surface treatment follows the existing source family and is slightly more regular than the target, without material loss of readability."
+  ],
+  "scope": "Only the exact four static native captures and inspected previews are approved. Native animation remains deferred; original production assets unchanged."
+}

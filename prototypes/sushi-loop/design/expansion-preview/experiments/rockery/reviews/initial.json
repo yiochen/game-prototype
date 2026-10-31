@@ -1,0 +1,48 @@
+{
+  "asset": "perimeter-rockery",
+  "reviewStage": "independent-initial-calibration",
+  "editorProposalRead": false,
+  "inspectedFiles": [
+    "inputs/original.png",
+    "targets/target-v01.png",
+    "inputs/source-camera.json",
+    "brief.json",
+    "prompts/judge.txt",
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/review/19/revision-2/targets/left-edge-imagegen.png"
+  ],
+  "sourceSnapshotSHA256": "008250ff288dd9c6027c902b65e58507de7994e916472a03359754a4bb47c6b6",
+  "fixedTargetSHA256": "672fd7036ae5ea4f313a930436df29982d427f271988642861e020a929769f74",
+  "baselineScores": {
+    "shapeVolume": 3,
+    "color": 3,
+    "lightingHighlights": 5,
+    "materialDetail": 4,
+    "artifactFreeReadability": 5
+  },
+  "baselineObservations": [
+    "The native snapshot is a single pale blue-gray, regular chamfered slab with a broad near-flat crown, straight lower body and one narrow dark crown mark. It has a clear top/side value break but little layered or organic mass.",
+    "The fixed rockery target establishes three chunky interlocked boulder masses, staggered crown heights, irregular broad shoulders and large bevel/facet planes. Slate-blue/violet crown faces are lighter than the lower sides.",
+    "Folded thick green leaves emerge from two rock crevices. Their lime upper faces and darker green folds create a legible foliage accent while preserving the large exposed rock masses.",
+    "The full left-edge scene reference uses closely packed cool rocks and green foliage between warm wood, barrels and lanterns. Broad rock facets and distinct green clumps remain readable among the props.",
+    "The target camera and apparent vertical arrangement drift from the native snapshot. Target pixels are aesthetic evidence only; the source camera and physical envelope remain exact requirements."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Replace the slab reading with a broad, coherent rockery cluster: low, middle and high crowns, uneven shoulders and visible breaks between the three boulder masses."
+    },
+    {
+      "rank": 2,
+      "outcome": "Make the large planes read as cool dark slate-blue/violet rock, with lighter desaturated crowns and dark but readable side facets, plus attached folded green crevice foliage."
+    },
+    {
+      "rank": 3,
+      "outcome": "Keep the silhouette, plane hierarchy and foliage accents clear in all four native facings and in the dense real phone edge/corner composition."
+    }
+  ],
+  "reviewLimits": [
+    "No editor proposal, candidate or implementation rationale has been read.",
+    "Only the original exported image and source camera record were inspected for baseline; native candidate validation is required for dimensions, topology and capture locks.",
+    "A single target view does not define unseen-side geometry. Coherent volume and material language, rather than exact unshown target geometry, will be required."
+  ]
+}

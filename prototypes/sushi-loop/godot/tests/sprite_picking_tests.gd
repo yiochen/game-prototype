@@ -215,19 +215,7 @@ func _test_painter_order_and_blockers(world) -> void:
 	opaque = _overlap(world, back, front, true)
 	_expect(opaque.is_finite() and world.object_at(opaque).is_empty(), "An opaque noneditable customer's body blocks the stool hidden behind it")
 	probes.guest_blocker = str(opaque)
-	# A deliberately hidden owned seat at the fixed border is a renderer fixture,
-	# never persisted as a legal edit; room props must block it just like guests.
-	seat.x = -0.5
-	seat.y = 3
-	_fixture(world, [seat])
-	back = _record(world, "back-seat", "stool-wood")
-	var room_point := Vector2(INF, INF)
-	for candidate in world.sprite_hits():
-		if str(candidate.owner_id).is_empty() and str(candidate.art_id) == "wall-middle":
-			var point := _overlap(world, back, candidate, true)
-			if point.is_finite(): room_point = point; break
-	_expect(room_point.is_finite() and world.object_at(room_point).is_empty(), "Opaque fixed wall art blocks selection of an owned object hidden behind it")
-	probes.room_blocker = str(room_point)
+	_expect(not world.sprite_hits().any(func(record):return str(record.art_id).begins_with("wall-")), "The approved edge-to-edge room has no perimeter wall intercepting scene selection")
 
 func _test_attachments(world) -> void:
 	var chef := _object(Session.new_session(41).snapshot(), "chef-1").duplicate(true)
@@ -314,6 +302,9 @@ func _test_app_gestures() -> void:
 	await _touch(app, head, false)
 	await _capture(app, "02-hat-selected")
 	_expect(app.session.snapshot().editor.selected_id == "chef-1", "A short tap on the same visible hat selects the actual chef")
+	# Selection places context controls from the current camera. Pick exposed
+	# hat ink again so this gesture does not hit a newly visible native control.
+	head = _point(app.world, "chef-1", "chef-lena", ground.y - app.world.cell * 0.5, app)
 	var finish: Vector2 = head + Vector2(app.world.cell, 0)
 	await _touch(app, head, true)
 	_expect(app.gesture_kind == "object" and app.gesture_grab_offset.y < -0.5, "Beginning a selected head drag captures its above-ground grab offset in tile units")
