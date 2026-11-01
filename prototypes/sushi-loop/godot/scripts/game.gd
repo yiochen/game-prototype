@@ -1,5 +1,9 @@
 extends Control
 
+const FloorPresentation = preload("res://scripts/floor_presentation.gd")
+const FloorBook = preload("res://scripts/floor_book.gd")
+var floor_ui: FloorPresentation
+var show_floor_gallery := false
 const RecipePicker = preload("res://scripts/recipe_picker.gd")
 var recipe_ui: RecipePicker
 const StaffPresentation = preload("res://scripts/staff_presentation.gd")
@@ -23,6 +27,7 @@ const ClearancePresentation = preload("res://scripts/clearance_presentation.gd")
 var clearance_ui: ClearancePresentation
 var clearance_toast: Label
 var clearance_toast_seconds := 0.0
+var floor_unlock_notice := false
 var show_clearance_gallery := false
 var show_exhibition_gallery := false
 var dock_unlock_pending := false
@@ -91,13 +96,14 @@ func _ready() -> void:
 	get_tree().quit_on_go_back = false
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	show_floor_gallery = "--floor-gallery" in OS.get_cmdline_user_args()
 	show_shop_gallery = "--shop-gallery" in OS.get_cmdline_user_args()
 	show_exhibition_gallery = "--exhibition-gallery" in OS.get_cmdline_user_args()
 	show_clearance_gallery = show_exhibition_gallery or "--clearance-gallery" in OS.get_cmdline_user_args()
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
 	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
 	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery
-	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
+	show_editor_gallery = show_editor_gallery or show_floor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
 	if not show_gallery and not show_editor_gallery:
@@ -193,6 +199,10 @@ func _ready() -> void:
 	clearance_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;clearance_toast.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	clearance_toast.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;clearance_toast.accessibility_live = AccessibilityServer.LIVE_POLITE
 	add_child(clearance_toast);clearance_toast.hide()
+	floor_ui = FloorPresentation.new();add_child(floor_ui)
+	floor_ui.brush_exited.connect(func(): _floor_select(""))
+	floor_ui.pan_requested.connect(func(direction:Vector2):
+		if not save_blocked and not backgrounded: _pan(-direction*world.cell))
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -217,6 +227,12 @@ func _ready() -> void:
 	resized.connect(_layout)
 	_layout()
 	_refresh()
+	if show_floor_gallery:
+		var fixture:Dictionary=session.save_data()
+		fixture.state.floor_styles.owned=FloorBook.definition().styles.map(func(entry):return entry.id)
+		fixture.state.floor_styles.purchase_sequence=fixture.state.floor_styles.owned.size()-1
+		session.restore(fixture)
+		session.command({"type":"editor_layer","layer":"floor"});_refresh()
 	if show_staff_gallery:staff_ui.open_applicants()
 	if show_chef_gallery:
 		for button in gallery_buttons:button.hide()
@@ -414,16 +430,6 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	var unit: float = area.size.x / 720.0
 	if clearance_ui != null:
 		clearance_ui.layout(area)
-	if clearance_toast != null:
-		var toast_unit := area.size.x/390.0
-		clearance_toast.position = area.position+Vector2(area.size.x*.07,80*toast_unit)
-		clearance_toast.size = Vector2(area.size.x*.86,64*toast_unit)
-		clearance_toast.add_theme_font_size_override("font_size",maxi(1,int(13*toast_unit)))
-		var toast_style = preload("res://scripts/maple_popup_skin.gd").flat(Color("fff4dc"),15*toast_unit)
-		toast_style.shadow_color = Color("bc905d");toast_style.shadow_offset = Vector2(0,3)*toast_unit
-		for side in [SIDE_LEFT,SIDE_RIGHT]: toast_style.set_content_margin(side,16*toast_unit)
-		for side in [SIDE_TOP,SIDE_BOTTOM]: toast_style.set_content_margin(side,12*toast_unit)
-		clearance_toast.add_theme_stylebox_override("normal",toast_style)
 	_layout_hud(area, unit)
 	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
 	_place_native_button(edit, Rect2(Vector2(area.end.x-190*unit,area.position.y+32*unit),Vector2(166,100)*unit),unit,32,38)
@@ -437,6 +443,7 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	if staff_ui != null:staff_ui.layout(world.portrait)
 	if shop_ui != null:
 		shop_ui.layout(world.portrait,maxf(top_inset,world.diagnostic_header_height))
+	_layout_notice(area)
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = area.position + Vector2(34 * unit, area.size.y * 0.28)
@@ -497,6 +504,7 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 func _refresh() -> void:
 	world.state = session.snapshot()
 	_clamp_camera()
+	world.floor_visuals_active = not save_blocked and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible and not clearance_ui.visible
 	if dock_unlock_pending and not save_blocked and not backgrounded and not world.dock_revealing():
 		dock_unlock_pending = false
 		clearance_ui.open_unlock(world.state)
@@ -514,6 +522,7 @@ func _refresh() -> void:
 	editing_icon.visible = editing_cue.visible
 	shop.visible = show_gallery and not show_shop_gallery and not show_exhibition_gallery
 	edit.visible = not show_gallery and not editing
+	if world.state.editor.layer == "floor": editor_ui.active_item = str(world.state.editor.get("floor_brush",""))
 	editor_ui.reduced_motion = world.reduced_motion
 	editor_ui.pickup_active = gesture_lifted
 	editor_ui.set_state(world.state, world.hud_area())
@@ -559,6 +568,7 @@ func _refresh() -> void:
 		shop_ui.refresh(world.state)
 		if shop_ui.visible: editor_ui.hide()
 	_sync_clearance_targets()
+	_refresh_floor_ui()
 	world.queue_redraw()
 
 func save_now() -> bool:
@@ -624,6 +634,8 @@ func _block_edit_save() -> void:
 
 func _arm_item(item: Dictionary) -> void:
 	if gesture_dragged: return
+	if item.get("kind")=="floor":
+		_floor_select(str(item.get("style_id",item.id)));return
 	if item.get("kind") == "belt" and int(item.get("count", 0)) <= 0:
 		editor_ui.reject("no_belt_tiles")
 		return
@@ -723,6 +735,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			tap_object = str(hit.id) if hit.get("kind") in ["chef","trash","landmark"] else ""
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
+		if _painting_floor():
+			gesture_kind="floor_paint";tap_object="";_paint_floor_segment(local,local);get_viewport().set_input_as_handled();return
 		if armed_item.is_empty(): _arm_long_press(local)
 		var hit := _object_at(local)
 		if armed_item.is_empty() and hit.get("kind") in ["trash","landmark"]:
@@ -753,6 +767,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
+	# A keyboard activation starts a new selection after a completed swipe.
+	if pointer == -1 and event is InputEventKey and event.pressed and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: gesture_dragged = false
 	if clearance_ui != null and clearance_ui.visible: return
 	var inverse := get_global_transform_with_canvas().affine_inverse()
 	if event is InputEventScreenTouch and event.pressed:
@@ -761,11 +777,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag and event.index == pointer:
 		var local: Vector2 = inverse * event.position
 		var change := local - previous_pointer
+		var last := previous_pointer
 		previous_pointer = local
+		if gesture_kind == "floor_paint":
+			_paint_floor_segment(last,local);get_viewport().set_input_as_handled();return
 		var displacement := local-pointer_start
 		var threshold := DRAG_SLOP_PIXELS/maxf(0.001,get_viewport_transform().get_scale().x)
 		if gesture_kind == "inventory_pending" and displacement.length() >= threshold:
-			if absf(displacement.x)>absf(displacement.y)*1.3:
+			if gesture_item.get("kind")=="floor" or absf(displacement.x)>absf(displacement.y)*1.3:
 				gesture_kind = "inventory_scroll"
 			elif displacement.y<0 and absf(displacement.y)>absf(displacement.x)*1.3:
 				gesture_kind = "inventory" if _pickup_allowed() else "inventory_cancel"
@@ -830,6 +849,9 @@ func _floor_drop(at: Vector2) -> bool:
 		return false
 	if (shop_ui != null and shop_ui.visible) or staff_ui.modal.visible or editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
 		return false
+	if floor_ui != null:
+		for blocked:Rect2 in floor_ui.blocked_rects():
+			if blocked.has_point(at):return false
 	for blocked: Rect2 in editor_ui.blocked_rects():
 		if blocked.has_point(at): return false
 	return true
@@ -890,6 +912,7 @@ func _cancel_gesture() -> void:
 	tap_object = ""
 	gesture_started_in_tray = false
 	world.editor_preview.clear()
+	if floor_ui != null: floor_ui.cancel()
 	world.queue_redraw()
 
 func _pan(change: Vector2) -> void:
@@ -899,7 +922,7 @@ func _pan(change: Vector2) -> void:
 	var visible_columns := world.portrait.size.x/world.cell
 	var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
 	var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
-	var visible_bottom := world.portrait.end.y
+	var visible_bottom := minf(world.portrait.end.y,editor_ui.occlusion_top()) if session.snapshot().mode=="edit" and session.snapshot().editor.layer=="floor" else world.portrait.end.y
 	# Include the rendered floor origin so the final tile can reach the rail.
 	var floor_bottom := world.floor_origin.y + float(floor_data.rows) * world.cell
 	var vertical_limit := maxf(0.0, (floor_bottom - visible_bottom) / world.cell)
@@ -953,6 +976,8 @@ func _notification(what: int) -> void:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and editor_ui != null and editor_ui.inspection.visible:
 			editor_ui.close_inspection()
 			return
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and _painting_floor():
+			_floor_select("");return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and session != null and not session.snapshot().editor.get("belt_path", []).is_empty():
 			_editor_command({"type": "editor_belt_end"})
 			return
@@ -979,6 +1004,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		recipe_ui.dismiss()
 		get_viewport().set_input_as_handled()
 		return
+	if event.is_action_pressed("ui_cancel") and _painting_floor():
+		_floor_select("");get_viewport().set_input_as_handled();return
 	if event.is_action_pressed("ui_cancel") and session != null:
 		if not session.snapshot().editor.get("belt_path", []).is_empty():
 			_editor_command({"type": "editor_belt_end"})
@@ -995,7 +1022,7 @@ func _clamp_camera() -> void:
 	if world == null or world.show_gallery or world.cell <= 0 or world.state.is_empty() or not world.state.get("expansion",{}).get("enabled",false): return
 	var camera: Dictionary = world.state.camera
 	var x := clampf(float(camera.x),0,maxf(0,float(world.state.floor.world_columns)-world.portrait.size.x/world.cell))
-	var y := clampf(float(camera.y),0,maxf(0,float(world.state.floor.rows)-(world.portrait.size.y-world.sky_height)/world.cell))
+	var y := clampf(float(camera.y),0,maxf(0,float(world.state.floor.rows)-(minf(world.portrait.end.y,editor_ui.occlusion_top())-world.floor_origin.y)/world.cell if world.state.mode=="edit" and world.state.editor.layer=="floor" else float(world.state.floor.rows)-(world.portrait.size.y-world.sky_height)/world.cell))
 	if not is_equal_approx(x,float(camera.x)) or not is_equal_approx(y,float(camera.y)):
 		session.command({"type":"set_camera","x":x,"y":y});world.state = session.snapshot()
 
@@ -1010,10 +1037,12 @@ func _open_clearance(identity: String) -> void:
 	clearance_ui.open(value,session.snapshot());_refresh()
 
 func _show_clearance_notice(message: String) -> void:
+	floor_unlock_notice = false
 	clearance_toast.text = message
 	clearance_toast.accessibility_name = message
 	clearance_toast_seconds = 3.2
 	clearance_toast.show()
+	_layout_notice(world.hud_area())
 
 func _confirm_clearance(identity: String) -> void:
 	if save_blocked or backgrounded or clearance_ui.busy: return
@@ -1057,7 +1086,7 @@ func _open_landmark(destination: String) -> void:
 
 func _sync_clearance_targets() -> void:
 	if clearance_ui == null: return
-	var visible_world: bool = not show_gallery and not save_blocked and not backgrounded and not clearance_ui.visible and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible
+	var visible_world: bool = not _painting_floor() and not show_gallery and not save_blocked and not backgrounded and not clearance_ui.visible and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible
 	var entries: Array = world.state.get("expansion",{}).get("patches",[]).duplicate()
 	var scene: Dictionary = world.state.get("expansion",{})
 	var dock_x := 7.0+float(scene.get("offset_x",0))
@@ -1210,6 +1239,7 @@ func _open_shop() -> Dictionary:
 	if recipe_ui.visible or staff_ui.modal.visible or editor_ui.inspection.visible: return {"ok":false,"reason":"modal_open"}
 	if shop_ui.visible: return {"ok":true,"changed":false}
 	_cancel_gesture()
+	clearance_toast.hide();floor_unlock_notice=false
 	shop_ui.interaction_blocked = false
 	shop_ui.reduced_motion = world.reduced_motion
 	if not shop_ui.open(session.snapshot()): return {"ok":false,"reason":"edit_required"}
@@ -1219,6 +1249,7 @@ func _open_shop() -> Dictionary:
 
 func _shop_closed() -> void:
 	_refresh()
+	_layout_notice(world.hud_area())
 	if is_instance_valid(shop_ui.focused_before) and shop_ui.focused_before.is_visible_in_tree():
 		shop_ui.focused_before.call_deferred("grab_focus")
 	elif editor_ui.shop.is_visible_in_tree(): editor_ui.shop.call_deferred("grab_focus")
@@ -1227,7 +1258,7 @@ func _shop_purchase(request: Dictionary, source: Rect2) -> Dictionary:
 	if save_blocked or backgrounded or not shop_ui.visible: return {"ok":false,"reason":"shop_closed"}
 	var result: Dictionary = session.command(request)
 	if result.get("ok",false):
-		pending_shop_receipt = {"offer_id":request.offer_id,"source":source}
+		pending_shop_receipt = {"offer_id":request.offer_id,"source":source,"name":result.get("name","")}
 		if not save_now(): _block_edit_save()
 		_refresh()
 		if not save_blocked: _resume_shop_receipt()
@@ -1240,4 +1271,69 @@ func _resume_shop_receipt() -> void:
 	pending_shop_receipt.clear()
 	if shop_ui.visible and not backgrounded:
 		audio.play_cue("click")
-		shop_ui.purchased(str(receipt.offer_id),receipt.source)
+		if str(receipt.offer_id).begins_with("floor:"):
+			_show_clearance_notice(str(receipt.name)+" unlocked")
+			floor_unlock_notice=true;clearance_toast_seconds=2.2;_layout_notice(world.hud_area())
+		else: shop_ui.purchased(str(receipt.offer_id),receipt.source)
+
+func _painting_floor() -> bool:
+	return world != null and world.state.get("mode")=="edit" and world.state.get("editor",{}).get("layer")=="floor" and not str(world.state.get("editor",{}).get("floor_brush","")).is_empty()
+
+func _floor_select(id: String) -> void:
+	if save_blocked: return
+	var restore_focus:bool=get_viewport().gui_get_focus_owner() in editor_ui.cards
+	_cancel_gesture()
+	var result: Dictionary = session.command({"type":"floor_select","style_id":id})
+	if result.get("ok",false):
+		armed_item.clear();editor_ui.active_item=id
+		if not save_now(): _block_edit_save()
+	_refresh()
+	if restore_focus and id!="":
+		for card in editor_ui.cards:
+			if card.get_meta("entry").id==id:card.call_deferred("grab_focus");break
+
+func _paint_floor_segment(start: Vector2, finish: Vector2) -> void:
+	if save_blocked or not _painting_floor(): return
+	var scene:Dictionary=session.snapshot()
+	var data:Dictionary=scene.floor
+	var camera:Vector2=Vector2(float(scene.camera.x),float(scene.camera.y))
+	var cells: Array=[]
+	var seen: Dictionary={}
+	var first:=(_world_position(start)-world.floor_origin)/world.cell+camera
+	var last:=(_world_position(finish)-world.floor_origin)/world.cell+camera
+	for t:float in FloorBook.stroke_samples(first,last):
+		var at:=start.lerp(finish,t)
+		if not _floor_drop(at):continue
+		var local:=(_world_position(at)-world.floor_origin)/world.cell+camera
+		var coordinate:=Vector2i(floori(local.x),floori(local.y))
+		if coordinate.x<0 or coordinate.x>=Expansion.columns(data) or coordinate.y<int(data.get("backdrop_rows",0)) or coordinate.y>=data.rows:continue
+		if not seen.has(coordinate):
+			seen[coordinate]=true;cells.append({"x":coordinate.x,"y":coordinate.y})
+	if cells.is_empty():return
+	var result:Dictionary=session.command({"type":"floor_paint","cells":cells})
+	if result.get("blocked",false):_show_clearance_notice("Clear trash before painting here.")
+	if result.get("changed",false) and not save_now():_block_edit_save()
+	_refresh()
+
+func _refresh_floor_ui() -> void:
+	if floor_ui==null:return
+	var camera_limits:=Vector2(maxf(0,float(world.state.floor.world_columns)-world.portrait.size.x/world.cell),maxf(0,float(world.state.floor.rows)-(editor_ui.occlusion_top()-world.floor_origin.y)/world.cell))
+	var blocked:=save_blocked or backgrounded or shop_ui.visible or recipe_ui.visible or staff_ui.modal.visible or clearance_ui.visible
+	floor_ui.refresh(world.state,world.hud_area(),editor_ui.tray.get_global_rect(),editor_ui.occlusion_top(),camera_limits,blocked)
+
+func _layout_notice(area:Rect2) -> void:
+	if clearance_toast == null:return
+	var toast_unit := area.size.x/390.0
+	clearance_toast.position = area.position+Vector2(area.size.x*.07,80*toast_unit)
+	clearance_toast.size = Vector2(area.size.x*.86,64*toast_unit)
+	clearance_toast.add_theme_font_size_override("font_size",maxi(1,int(13*toast_unit)))
+	var toast_style = preload("res://scripts/maple_popup_skin.gd").flat(Color("fff4dc"),15*toast_unit)
+	toast_style.shadow_color = Color("bc905d");toast_style.shadow_offset = Vector2(0,3)*toast_unit
+	if floor_unlock_notice and shop_ui != null and shop_ui.visible:
+		var shop_unit:float=shop_ui.unit
+		clearance_toast.position=shop_ui.panel.get_global_rect().position+Vector2(230,20)*shop_unit
+		clearance_toast.size=Vector2(312,56)*shop_unit
+		clearance_toast.add_theme_font_size_override("font_size",maxi(1,int(22*shop_unit)))
+	for side in [SIDE_LEFT,SIDE_RIGHT]: toast_style.set_content_margin(side,16*toast_unit)
+	for side in [SIDE_TOP,SIDE_BOTTOM]: toast_style.set_content_margin(side,12*toast_unit)
+	clearance_toast.add_theme_stylebox_override("normal",toast_style)

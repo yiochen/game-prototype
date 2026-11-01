@@ -467,10 +467,10 @@ func set_state(value: Dictionary, portrait: Rect2) -> void:
 	# Hidden controls still follow safe-area/layout changes. Camera motion and
 	# the Live clock do not require rebuilding the hidden inventory dock.
 	var presentation := [visible, area, reduced_motion]
-	if visible: presentation.append_array([state.get("editor", {}), state.get("inventory", []), state.get("objects", []), active_item])
+	if visible: presentation.append_array([state.get("editor", {}), state.get("inventory", []), state.get("objects", []), state.get("floor_styles",{}).get("owned",[]), active_item])
 	if presentation == _presentation_signature: return
 	_presentation_signature = presentation
-	var signature := JSON.stringify([state.get("editor", {}).get("layer"), state.get("editor", {}).get("page"), state.get("inventory", []), active_item])
+	var signature := JSON.stringify([state.get("editor", {}).get("layer"), state.get("editor", {}).get("page"), state.get("inventory", []), state.get("floor_styles",{}).get("owned",[]), active_item])
 	if signature != current_signature:
 		current_signature = signature
 		_rebuild_cards()

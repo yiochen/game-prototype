@@ -1,4 +1,6 @@
 extends Control
+const FloorPattern = preload("res://scripts/floor_pattern.gd")
+var floor_visuals_active := true
 ## Shared scene/gallery renderer for the approved Faceted #33 asset library.
 ## Ground cells are square; every full sprite uses its authored 128px root/pitch.
 
@@ -119,6 +121,8 @@ func cell_base(x: float, y: float) -> Vector2:
 	return floor_origin + Vector2(x + 0.5 - float(camera.x), y + 0.5 - float(camera.y)) * cell
 
 func sprite(identity: String, base: Vector2, clip := "static", direction := "S", seconds := 0.0, tile_pixels := -1.0, tint := Color.WHITE) -> void:
+	if _capture_hits and painting_floor():
+		tint.a *= .65 if identity.begins_with("garbage-") else .28
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
 	if not art.registered_rect(identity,base,pitch,clip,direction).intersects(portrait): return
 	if _collect_ground_shadows:
@@ -183,7 +187,9 @@ func _room() -> void:
 			# Clearance availability is indicated on the object, never its tile.
 			var tint := Color.WHITE if open or state.get("expansion",{}).get("enabled",false) else Color("e8e3d9")
 			var identity := "floor-cream" if state.get("expansion",{}).get("enabled",false) else ("floor-blue-wave" if y == rows - 1 else "floor-cream")
-			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
+			var pattern: String = state.get("floor_styles",{}).get("painted",{}).get("%s,%s"%[x,y],"cream")
+			if pattern == "cream": sprite(identity, base, "static", "S", 0.0, -1.0, tint)
+			else: draw_texture_rect(FloorPattern.texture(pattern),Rect2(base-Vector2.ONE*cell*.5,Vector2.ONE*cell),false)
 	for piece in backdrop_plan():
 		sprite(piece.key, piece.base)
 	if not clearance_selected.is_empty():
@@ -192,7 +198,7 @@ func _room() -> void:
 			var top := cell_base(float(selected.x)-0.5,float(selected.y)-0.5)
 			draw_rect(Rect2(top,Vector2(float(selected.w),float(selected.h))*cell),Color(.80,.90,.62,.55))
 	var items := render_plan()
-	if ground_shadows_enabled and _ground_shadows != null:
+	if ground_shadows_enabled and _ground_shadows != null and not painting_floor():
 		var floor_start := cell_base(0, float(state.floor.get("backdrop_rows", 3)) - 0.5).y
 		_ground_shadows.begin(size, cell, floor_start)
 		_collect_ground_shadows = true
@@ -255,7 +261,7 @@ func _lifted_item(item: Dictionary) -> bool:
 	return item.kind == "customer" and value.get("seat_id") == identity and (value.get("phase") in ["waiting", "eating"] or value.get("visual_phase") == "stand-up")
 
 func _geometry_signature() -> Array:
-	return [state.hash(), editor_preview.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
+	return [state.hash(), floor_visuals_active, editor_preview.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
 
 func _ensure_sprite_hits() -> void:
 	if _hit_signature == _geometry_signature(): return
@@ -791,6 +797,7 @@ func _paper_style() -> StyleBoxFlat:
 func _draw_recipe(identity: String, bounds: Rect2, tint := Color.WHITE) -> void:
 	if _record_only or _collect_ground_shadows: return
 	var recipe: Dictionary = state.get("recipes", {}).get(identity, {"tier":"White", "food_cell":3 if identity == "cucumber_maki" else 2})
+	if painting_floor(): tint.a *= .28
 	RecipeArt.draw_dish(self, recipe, bounds, false, tint)
 
 func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: String, loading: bool, identity := "") -> void:
@@ -854,3 +861,6 @@ func _draw_dish_flights() -> void:
 		var recipe: Dictionary = state.recipes[flight.recipe_id]
 		var edge := lerpf(cell*0.76,cell*landing.z/RecipeArt.plate_visible_width(recipe),t)
 		_draw_recipe_centered(str(flight.recipe_id),center,edge)
+
+func painting_floor() -> bool:
+	return floor_visuals_active and state.get("mode")=="edit" and state.get("editor",{}).get("layer")=="floor" and not str(state.get("editor",{}).get("floor_brush","")).is_empty()
