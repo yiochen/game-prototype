@@ -43,6 +43,7 @@ func sync() -> void:
 	native_view.dish_flights = source_view.dish_flights
 	native_view.recipe_shakes = source_view.recipe_shakes
 	native_view.state = source_view.state
+	native_view.floor_visuals_active = source_view.floor_visuals_active
 	native_view.time = source_view.time
 	native_view.sale_pops = source_view.sale_pops
 	native_view.reduced_motion = source_view.reduced_motion

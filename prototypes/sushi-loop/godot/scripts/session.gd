@@ -12,6 +12,7 @@ const StaffBook = preload("res://scripts/staff_book.gd")
 const STAFF_VERSION := 1
 const Development = preload("res://scripts/chef_development.gd")
 const CHEF_DEVELOPMENT_VERSION := 1
+const FloorBook = preload("res://scripts/floor_book.gd")
 const ShopBook = preload("res://scripts/shop_book.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
 const SHOP_VERSION := 1
@@ -65,6 +66,7 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if str(request.get("type", "")).begins_with("floor_"): return FloorBook.command(_configuration,_state,request)
 	if request.get("type") in ["clear_trash","dock_access","reveal_dock"]:
 		var result := Expansion.command(_configuration,_state,request)
 		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
@@ -117,6 +119,7 @@ func command(request: Dictionary) -> Dictionary:
 				return {"ok": false, "reason": "invalid_mode"}
 			_state.mode = request.mode
 			if request.mode == "live":
+				_state.editor.erase("floor_brush")
 				_state.editor.belt_path = []
 				if not _customer_by_id(_state.editor.selected_id).is_empty(): _state.editor.selected_id = ""
 			return {"ok": true}
@@ -175,11 +178,14 @@ func snapshot() -> Dictionary:
 		"recipe_book": _state.recipe_book.duplicate(true),
 		"staff": StaffBook.snapshot(_state,_configuration),
 		"shop": ShopBook.snapshot(_state),
+		"floor_styles": FloorBook.snapshot(_state),
 		"expansion": _expansion_view(),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
 	}
+	var floor_offer := FloorBook.offer(_state)
+	if not floor_offer.is_empty(): result.shop.offers.push_front(floor_offer)
 	for original in _state.objects:
 		var object: Dictionary = original.duplicate(true)
 		if object.kind in ["chef", "seat"]:
@@ -252,6 +258,7 @@ func save_data() -> Dictionary:
 		"staff_version": STAFF_VERSION,
 		"chef_development_version": CHEF_DEVELOPMENT_VERSION,
 		"shop_version": SHOP_VERSION,
+		"floor_styles_version": FloorBook.VERSION,
 		"expansion_version": Expansion.VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
@@ -261,6 +268,7 @@ func save_data() -> Dictionary:
 	}
 
 func restore(data: Dictionary) -> bool:
+	if not _nonnegative_integer(data.get("floor_styles_version",0)) or int(data.get("floor_styles_version",0)) > FloorBook.VERSION: return false
 	if not _nonnegative_integer(data.get("expansion_version",0)) or int(data.get("expansion_version",0)) > Expansion.VERSION: return false
 	if not _nonnegative_integer(data.get("shop_version",0)) or int(data.get("shop_version",0)) > SHOP_VERSION: return false
 	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
@@ -339,6 +347,12 @@ func restore(data: Dictionary) -> bool:
 	if int(data.get("shop_version",0)) == 0:
 		if restored_state.has("shop"): return false
 		ShopBook.initialize(restored_state)
+	if int(data.get("floor_styles_version",0)) == 0:
+		if restored_state.has("floor_styles"): return false
+		if not _finite_number(restored_state.get("elapsed")): return false
+		FloorBook.initialize(restored_state,posmod(int(data.random_state),2147483647))
+	if not FloorBook.valid(restored_configuration,restored_state): return false
+	if not restored_state.editor.get("floor_brush","") is String or (restored_state.editor.get("floor_brush","") != "" and restored_state.editor.floor_brush not in restored_state.floor_styles.owned): return false
 	if not ShopBook.valid(restored_state): return false
 	if int(data.get("expansion_version",0)) == 0:
 		if restored_state.has("expansion"): return false
@@ -363,6 +377,7 @@ func restore(data: Dictionary) -> bool:
 		_migrate_belt_motion(restored_state)
 	_configuration = restored_configuration
 	_state = restored_state
+	_state.editor.erase("floor_brush")
 	_normalize_restored_numbers()
 	_remainder = float(data.remainder)
 	_random.state = int(data.random_state)
@@ -495,6 +510,7 @@ func _start() -> void:
 	StaffBook.initialize(_configuration,_state,_staff_seed)
 	Development.initialize(_state)
 	ShopBook.initialize(_state)
+	FloorBook.initialize(_state,_staff_seed)
 	Expansion.initialize(_configuration,_state)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
@@ -2003,6 +2019,7 @@ func _editor_command(request: Dictionary) -> Dictionary:
 		"editor_layer":
 			if not request.get("layer") in EDITOR_LAYERS:
 				return _editor_fail("invalid_layer")
+			_state.editor.erase("floor_brush")
 			_state.editor.layer = request.layer
 			_state.editor.page = _state.editor.pages[request.layer]
 			_state.editor.tray_open = true

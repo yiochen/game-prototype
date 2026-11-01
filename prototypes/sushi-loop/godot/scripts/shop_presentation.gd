@@ -1,5 +1,6 @@
 extends Control
 ## Approved issue 18 composition, shared by gameplay and --shop-gallery.
+const FloorPattern = preload("res://scripts/floor_pattern.gd")
 const Book = preload("res://scripts/shop_book.gd")
 const Wood = preload("res://scripts/wood_skin.gd")
 const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
@@ -134,13 +135,17 @@ func open(value: Dictionary) -> bool:
 	return true
 
 func _build_rows() -> void:
+	for row in rows.values():
+		content.remove_child(row.row);row.row.queue_free()
+	rows.clear()
 	for offer in state.shop.offers:
 		var row := Control.new()
 		row.mouse_filter = Control.MOUSE_FILTER_PASS
 		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		content.add_child(row)
-		var preview = EditorUI.ItemPreview.new()
-		preview.art = art;preview.entry = offer;preview.trim_goods = true;preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var preview: Control = FloorPattern.new() if offer.kind=="floor" else EditorUI.ItemPreview.new()
+		if offer.kind!="floor":preview.art = art;preview.trim_goods = true
+		preview.entry = offer;preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(preview)
 		var name_label := _label(row);name_label.text = offer.name
 		var description := _label(row)
@@ -163,13 +168,16 @@ func _build_rows() -> void:
 		buy.button_up.connect(func(): _price_visual(str(offer.id),false))
 		buy.focus_entered.connect(func(): _price_visual(str(offer.id)))
 		buy.focus_exited.connect(func(): _price_visual(str(offer.id)))
+		var owned := _label(row);owned.text="Owned";owned.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		var line := ColorRect.new();line.color = Color(.65,.47,.28,.20);line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(line)
-		rows[offer.id] = {"row":row,"preview":preview,"name":name_label,"description":description,"stock":stock,"buy":buy,"face":cost_face,"visual":visual,"surface":surface,"cost_coin":cost_coin,"cost_label":cost_label,"line":line,"offer":offer}
+		rows[offer.id] = {"row":row,"preview":preview,"name":name_label,"description":description,"stock":stock,"buy":buy,"face":cost_face,"visual":visual,"surface":surface,"cost_coin":cost_coin,"cost_label":cost_label,"line":line,"offer":offer,"owned":owned}
 
 func refresh(value: Dictionary) -> void:
 	if not visible: return
 	state = value
+	if rows.keys() != value.shop.offers.map(func(o):return o.id):
+		_build_rows();layout(area,safe_top)
 	var next_signature := JSON.stringify([value.coins,value.shop,interaction_blocked])
 	if signature == next_signature: return
 	signature = next_signature
@@ -179,8 +187,10 @@ func refresh(value: Dictionary) -> void:
 		var row: Dictionary = rows[offer.id]
 		row.offer = offer
 		var sold: bool = offer.remaining != null and int(offer.remaining) == 0
-		row.stock.text = "Always available" if offer.remaining == null else "Sold out" if sold else "%s remaining" % int(offer.remaining)
-		row.buy.disabled = interaction_blocked or sold or int(value.coins) < int(offer.cost)
+		row.stock.text = "" if offer.kind=="floor" else "Always available" if offer.remaining == null else "Sold out" if sold else "%s remaining" % int(offer.remaining)
+		row.owned.visible = offer.get("owned",false)
+		row.buy.visible = not offer.get("owned",false)
+		row.buy.disabled = interaction_blocked or offer.get("owned",false) or sold or int(value.coins) < int(offer.cost)
 		_price_visual(str(offer.id))
 		row.buy.accessibility_description = "Sold out" if sold else "Not enough coins" if int(value.coins) < int(offer.cost) else "Adds one to inventory"
 		row.preview.modulate.a = .45 if sold else 1.0
@@ -189,7 +199,9 @@ func refresh(value: Dictionary) -> void:
 
 func _request(id: String) -> void:
 	if interaction_blocked or not visible or not rows.has(id) or rows[id].buy.disabled: return
-	purchase_requested.emit({"type":"shop_purchase","offer_id":id,"expected_sequence":state.shop.purchase_sequence},rows[id].preview.get_global_rect())
+	var request := {"type":"shop_purchase","offer_id":id,"expected_sequence":state.shop.purchase_sequence}
+	if rows[id].offer.kind=="floor":request={"type":"floor_purchase","offer_id":id,"expected_sequence":state.floor_styles.purchase_sequence,"rotation":state.floor_styles.rotation}
+	purchase_requested.emit(request,rows[id].preview.get_global_rect())
 
 func _text(label: Label, bounds: Rect2, pixels: float) -> void:
 	label.add_theme_font_size_override("font_size",maxi(1,int(pixels*unit)))
@@ -243,6 +255,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		row.buy.add_theme_constant_override("icon_max_width",maxi(1,int(34*unit)))
 		row.buy.add_theme_constant_override("h_separation",maxi(1,int(6*unit)))
 		row.buy.position = Vector2(row_width-136,78)*unit;row.buy.size = Vector2(136,90)*unit
+		_text(row.owned,Rect2(row_width-136,78,136,90),27)
 		_price_visual(str(id))
 		for treatment in ["normal","hover","pressed","disabled","focus"]:row.buy.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
 		row.line.position = Vector2(0,229)*unit;row.line.size = Vector2(row_width,maxf(1,unit))

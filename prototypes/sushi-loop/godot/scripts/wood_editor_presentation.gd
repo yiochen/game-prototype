@@ -1,5 +1,6 @@
 extends "res://scripts/editor_presentation.gd"
 ## Approved HTML dock, with native controls, accessible labels and clipped goods.
+const FloorPattern = preload("res://scripts/floor_pattern.gd")
 const WoodSkin = preload("res://scripts/wood_skin.gd")
 const WOOD_INK := Color("592c10")
 signal recipes_requested(chef_id: String)
@@ -282,6 +283,10 @@ func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon
 		icon.position.y += 2*unit
 		caption.position.y += 2*unit
 
+func inventory_items() -> Array:
+	if state.get("editor",{}).get("layer")=="floor": return state.get("floor_styles",{}).get("entries",[])
+	return super.inventory_items()
+
 func _rebuild_cards() -> void:
 	for card in cards:
 		rail.remove_child(card)
@@ -294,14 +299,16 @@ func _rebuild_cards() -> void:
 		card.set_meta("entry",item)
 		card.button_pressed = active_item == str(item.id)
 		card.disabled = not item.get("available",true) or (int(item.get("count",0))<=0 and not item.get("assigned",false))
-		card.accessibility_description = "Current floor" if layer == "floor" else "Assigned. Inspect or drag upward to move." if item.get("assigned",false) else "%s available. Swipe sideways to browse; drag upward or select then tap a free floor tile." % int(item.get("count",0))
+		card.accessibility_description = "Unlimited painting. Swipe sideways to browse; tap to select a brush." if layer == "floor" else "Assigned. Inspect or drag upward to move." if item.get("assigned",false) else "%s available. Swipe sideways to browse; drag upward or select then tap a free floor tile." % int(item.get("count",0))
 		if layer == "people":
 			var photo := PhotoFrame.new()
 			photo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			card.add_child(photo)
 			card.set_meta("photo_frame", photo)
 		var preview: Control
-		if layer == "people":
+		if layer == "floor":
+			var sample := FloorPattern.new();sample.entry=item;preview=sample
+		elif layer == "people":
 			var profile := PhotoPortrait.new()
 			profile.entry = item
 			preview = profile
@@ -394,13 +401,16 @@ func _layout_goods(layer: String) -> void:
 		var card: Button = cards[i]
 		card.position = Vector2(start+i*(width+10)-offset,35)*unit
 		card.custom_minimum_size = Vector2.ZERO
-		card.size = Vector2(width,214)*unit
+		card.size = Vector2(width,190 if layer == "floor" else 214)*unit
 		if card.get_meta("wood_unit",-1.0) != unit:
 			card.set_meta("wood_unit",unit)
 			for treatment in ["normal","hover","pressed","disabled","hover_pressed"]: card.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
 			var outline := StyleBoxFlat.new()
 			outline.bg_color = Color.TRANSPARENT
 			outline.border_color = WOOD_INK
+			if layer == "floor":
+				outline.bg_color = Color(1,.97,.86,.53)
+				outline.set_corner_radius_all(maxi(1,int(20*unit)))
 			outline.set_border_width_all(maxi(1,int(2*unit)))
 			card.add_theme_stylebox_override("focus",StyleBoxEmpty.new() if layer == "people" else outline)
 			card.add_theme_stylebox_override("pressed",StyleBoxEmpty.new() if layer == "people" else outline)
@@ -408,6 +418,11 @@ func _layout_goods(layer: String) -> void:
 		preview.position = Vector2(12,8)*unit
 		if card.button_pressed: preview.position.y -= 4*unit
 		preview.size = Vector2(width-24,126)*unit
+		if layer == "floor":
+			preview.position = Vector2(13,32)*unit
+			preview.size = Vector2(width-26,width-26)*unit
+			preview.selected = card.button_pressed
+			preview.queue_redraw()
 		if layer == "people":
 			var photo: Control = card.get_meta("photo_frame")
 			photo.position = Vector2.ZERO
@@ -418,7 +433,7 @@ func _layout_goods(layer: String) -> void:
 			preview.size = Vector2(160, 142)*unit
 		preview.modulate.a = 0.4 if card.disabled else 1.0
 		var caption: Label = card.get_meta("name_label")
-		caption.visible = true
+		caption.visible = layer != "floor"
 		caption.add_theme_color_override("font_color",Color("b83d2d") if layer == "people" and keyboard_navigation and card.has_focus() else WOOD_INK)
 		if wood_font != null: caption.add_theme_font_override("font",wood_font)
 		UISkin.layout_caption(caption,Rect2(0,154*unit,width*unit,30*unit),maxi(1,int(25*unit)))
@@ -429,7 +444,7 @@ func _layout_goods(layer: String) -> void:
 		badge.add_theme_stylebox_override("panel",wood.style("quantity-badge",unit))
 		badge.modulate.a = 0.7 if card.disabled else 1.0
 		var stock: Label = card.get_meta("stock")
-		stock.visible = layer != "people"
+		stock.visible = layer == "layout"
 		if layer == "people":
 			var assigned: Control = card.get_meta("assigned_stamp")
 			assigned.visible = bool(card.get_meta("entry").get("assigned",false))
