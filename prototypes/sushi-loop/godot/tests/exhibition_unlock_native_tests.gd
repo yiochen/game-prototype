@@ -95,9 +95,9 @@ func run() -> void:
 	ui.open_unlock(app.session.snapshot());await key(KEY_ESCAPE);check(not ui.visible and app.session.save_data() == accepted,"Escape closes without mutating the accepted reveal")
 	ui.open_unlock(app.session.snapshot());app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST);check(not ui.visible and app.session.save_data() == accepted,"Android Back closes without leaving the restaurant")
 	ui.open_unlock(app.session.snapshot());await tap(ui.clear_button)
-	check(ui.visible and not ui.unlock_popup and ui.destination == "Submarine" and ui.title.text == "Submarine","Let's go uses the existing native Submarine entry")
+	check(not ui.visible and app.expedition_ui.visible and app.expedition_ui.mode == "prep","Let's go opens the native Submarine entry: underwater preparation (#21)")
 	check(app.session.save_data() == accepted,"opening the entry never charges, moves the camera, or starts a journey")
-	await capture("05-submarine-entry");ui.dismiss()
+	await capture("05-submarine-entry");app.expedition_ui.mode = "hidden";app.expedition_ui.hide()
 	await prepare();app.world.reduced_motion = true;app._open_landmark("Submarine");await tap(ui.clear_button)
 	check(not cover_present() and not app.world.dock_revealing() and ui.unlock_popup and ui.visible,"reduced motion removes the cover immediately and still shows the unlock")
 	await capture("06-reduced-motion");ui.dismiss();app.world.reduced_motion = false

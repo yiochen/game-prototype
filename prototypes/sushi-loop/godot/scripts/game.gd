@@ -24,6 +24,10 @@ const PerformanceOverlay = preload("res://scripts/performance_overlay.gd")
 const ScreenLayout = preload("res://scripts/screen_layout.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
 const ClearancePresentation = preload("res://scripts/clearance_presentation.gd")
+const ExpeditionPresentation = preload("res://scripts/expedition/expedition_presentation.gd")
+const ExpeditionBook = preload("res://scripts/expedition/expedition_book.gd")
+var expedition_ui: ExpeditionPresentation
+var show_expedition_gallery := false
 var clearance_ui: ClearancePresentation
 var clearance_toast: Label
 var clearance_toast_seconds := 0.0
@@ -99,10 +103,11 @@ func _ready() -> void:
 	show_floor_gallery = "--floor-gallery" in OS.get_cmdline_user_args()
 	show_shop_gallery = "--shop-gallery" in OS.get_cmdline_user_args()
 	show_exhibition_gallery = "--exhibition-gallery" in OS.get_cmdline_user_args()
+	show_expedition_gallery = "--expedition-gallery" in OS.get_cmdline_user_args()
 	show_clearance_gallery = show_exhibition_gallery or "--clearance-gallery" in OS.get_cmdline_user_args()
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
 	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery or show_expedition_gallery
 	show_editor_gallery = show_editor_gallery or show_floor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -203,6 +208,11 @@ func _ready() -> void:
 	floor_ui.brush_exited.connect(func(): _floor_select(""))
 	floor_ui.pan_requested.connect(func(direction:Vector2):
 		if not save_blocked and not backgrounded: _pan(-direction*world.cell))
+	expedition_ui = ExpeditionPresentation.new(); add_child(expedition_ui)
+	expedition_ui.commander = func(request: Dictionary) -> Dictionary: return session.command(request)
+	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state)
+	expedition_ui.save_requested.connect(func(): save_now())
+	expedition_ui.returned_to_restaurant.connect(_return_from_expedition)
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -251,6 +261,16 @@ func _ready() -> void:
 			session.command({"type":"reveal_dock"});session.command({"type":"set_camera","x":4,"y":0})
 			_refresh();_layout();clearance_ui.open_unlock(session.snapshot())
 		else: _refresh();_layout();_open_clearance("dock-access")
+	if show_expedition_gallery:
+		# Shared expedition presentation: a travelling run reopened behind Paused.
+		for button in gallery_buttons: button.hide()
+		session = Session.new_session(21)
+		session.command({"type": "expedition_start", "now": 0.0, "seed": 21})
+		for step in range(80): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+		_layout()
+	if not show_gallery and not show_editor_gallery or show_expedition_gallery:
+		var opening: Dictionary = session.snapshot()
+		if opening.expedition.run != null or opening.expedition.result != null: expedition_ui.resume_suspended(opening)
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -430,6 +450,9 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	var unit: float = area.size.x / 720.0
 	if clearance_ui != null:
 		clearance_ui.layout(area)
+	if expedition_ui != null:
+		expedition_ui.safe_top = maxf(top_inset, world.diagnostic_header_height)
+		expedition_ui.layout(scene_area)
 	_layout_hud(area, unit)
 	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
 	_place_native_button(edit, Rect2(Vector2(area.end.x-190*unit,area.position.y+32*unit),Vector2(166,100)*unit),unit,32,38)
@@ -481,6 +504,9 @@ func _process(delta: float) -> void:
 			autosave_elapsed = 0.0
 	else:
 		world.time += delta
+	if expedition_ui != null and expedition_ui.visible:
+		expedition_ui.reduced_motion = world.reduced_motion
+		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state)}, delta)
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
 	world.clearance_removals = world.clearance_removals.filter(func(item: Dictionary): return world.time-float(item.started) < .26)
 	_refresh()
@@ -716,6 +742,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if clearance_ui != null and clearance_ui.visible: return
+	if expedition_ui != null and expedition_ui.visible: return
 	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible or (shop_ui != null and shop_ui.visible): return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
@@ -770,6 +797,7 @@ func _input(event: InputEvent) -> void:
 	# A keyboard activation starts a new selection after a completed swipe.
 	if pointer == -1 and event is InputEventKey and event.pressed and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: gesture_dragged = false
 	if clearance_ui != null and clearance_ui.visible: return
+	if expedition_ui != null and expedition_ui.visible: return
 	var inverse := get_global_transform_with_canvas().affine_inverse()
 	if event is InputEventScreenTouch and event.pressed:
 		last_screen_press = inverse * event.position
@@ -951,6 +979,7 @@ func _cancel_native_button_presses() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED:
 		backgrounded = true
+		if expedition_ui != null: expedition_ui.suspend()
 		_cancel_native_button_presses()
 		if is_instance_valid(world): _cancel_gesture()
 		save_now()
@@ -962,6 +991,9 @@ func _notification(what: int) -> void:
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and expedition_ui != null and expedition_ui.back():
+			save_now();return
+		if expedition_ui != null: expedition_ui.suspend()
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and clearance_ui != null and clearance_ui.visible:
 			clearance_ui.dismiss();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and shop_ui != null and shop_ui.visible:
@@ -993,6 +1025,7 @@ func _exit_tree() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if clearance_ui != null and clearance_ui.visible: return
+	if expedition_ui != null and expedition_ui.visible: return
 	if event is InputEventKey and event.pressed and event.keycode in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN] and not show_gallery and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible:
 		var direction: Vector2 = {KEY_LEFT:Vector2.LEFT,KEY_RIGHT:Vector2.RIGHT,KEY_UP:Vector2.UP,KEY_DOWN:Vector2.DOWN}[event.keycode]
 		_pan(-direction*world.cell);get_viewport().set_input_as_handled();return
@@ -1082,7 +1115,22 @@ func _open_landmark(destination: String) -> void:
 	var result := session.command({"type":"dock_access","destination":destination})
 	if not result.get("ok",false):
 		_show_clearance_notice("Clear all surrounding trash first.");return
+	if destination == "Submarine":
+		_cancel_gesture()
+		var charge := ExpeditionBook.charge(session._state, Time.get_unix_time_from_system())
+		var pending: Dictionary = session.snapshot().expedition
+		if pending.run != null or pending.result != null: expedition_ui.resume_suspended(session.snapshot());return
+		if not charge.ready:
+			# Charging tap: local message with the actual time remaining.
+			var seconds := int(ceil(float(charge.remaining)))
+			_show_clearance_notice("Charging · ready in %d:%02d" % [seconds / 60, seconds % 60]);return
+		clearance_toast.hide();expedition_ui.open_prep(session.snapshot());return
 	_cancel_gesture();clearance_toast.hide();clearance_ui.open_destination(destination,session.snapshot());_refresh()
+
+## Back at the bar: recentre the starter restaurant floor.
+func _return_from_expedition() -> void:
+	session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
+	_clamp_camera();_refresh();world.grab_focus()
 
 func _sync_clearance_targets() -> void:
 	if clearance_ui == null: return

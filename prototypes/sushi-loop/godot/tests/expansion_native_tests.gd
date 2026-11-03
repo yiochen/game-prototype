@@ -96,7 +96,7 @@ func run() -> void:
 	await create_timer(app.world.dock_reveal_duration()+app.world.COVER_FADE_SECONDS+.1).timeout;await frames()
 	await capture("06-dock-revealed")
 	check(app.clearance_ui.unlock_popup and app.clearance_ui.title.text == "Exhibition Unlocked","complete reveal shows the approved unlock popup")
-	await tap(app.clearance_ui.clear_button);check(app.clearance_ui.visible and app.clearance_ui.title.text == "Submarine","Let's go opens the native submarine entry after full cleanup");await capture("07-submarine");app.clearance_ui.dismiss()
+	await tap(app.clearance_ui.clear_button);check(app.expedition_ui.visible and app.expedition_ui.mode == "prep","Let's go opens the native submarine entry (#21 preparation) after full cleanup");await capture("07-submarine");app.expedition_ui.mode = "hidden";app.expedition_ui.hide()
 	app._open_landmark("Workshop");check(app.clearance_ui.visible and app.clearance_ui.title.text == "Workshop","Workshop shares the same prerequisite");app.clearance_ui.dismiss()
 	app.session = Session.new_session(19,{"starting_coins":0});app._refresh();app._layout();app._open_clearance("dock-access");await frames()
 	check(app.clearance_ui.clear_button.disabled and app.clearance_ui.price_label.text == "180" and not app.clearance_ui.cancel.disabled,"disabled Clear keeps its readable cost and Cancel")

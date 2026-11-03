@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Sushi Loop · Underwater kit review</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+<header class="bar">
+  <h1>Expedition routes · issue #21 review</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="play" aria-selected="true">Travel</button>
+    <button role="tab" data-view="compare">Compare with mock</button>
+    <button role="tab" data-view="overview">Whole route</button>
+    <button role="tab" data-view="kit">Kit pieces</button>
+  </nav>
+  <div class="seed"><label>Seed <input id="seed" type="number" min="1" inputmode="numeric"></label><button id="reroll">New seed</button></div>
+</header>
+<main>
+  <section id="play" class="view">
+    <div class="stage" id="stage"><canvas id="travel" aria-label="Animated expedition preview"></canvas></div>
+    <div id="chunks" class="chunks" aria-label="Chunks in this run, start first"></div>
+    <div class="controls">
+      <button id="toggle" aria-pressed="true">Pause</button>
+      <label>Row <input id="row" type="range" min="1" max="80" value="1"><output id="row-out">1</output></label>
+      <label>Width <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="wide">Wider window</option></select></label>
+      <label><input id="grid" type="checkbox"> Collision grid</label>
+    </div>
+  </section>
+  <section id="compare" class="view" hidden>
+    <figure><img src="./reference-mock.jpg" alt="Reference mock supplied for issue 21"><figcaption>Reference mock</figcaption></figure>
+    <figure><canvas id="compare-canvas" aria-label="Kit rendering at the same framing"></canvas><figcaption>Generated run · <output id="compare-chunk"></output></figcaption></figure>
+  </section>
+  <section id="overview" class="view" hidden><p class="note">One strip per chunk, start on the left; read each strip bottom to top. The full 11-column world is shown; the game screen shows 7 columns and follows the ship.</p><div id="strips"></div></section>
+  <section id="kit" class="view" hidden><div id="pieces"></div></section>
+</main>
+<script type="module" src="./app.js"></script>
+</body></html>
