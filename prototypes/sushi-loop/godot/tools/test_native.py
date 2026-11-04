@@ -27,6 +27,7 @@ def main() -> int:
     parser.add_argument("--gallery", action="store_true", help="Open the production-component gallery")
     parser.add_argument("--godot", default=os.environ.get("GODOT_BIN", "godot"))
     parser.add_argument("--timeout", type=int, default=120)
+    parser.add_argument("--fixed-fps", type=int, help="Step every frame by 1/N s regardless of wall time (video capture)")
     parser.add_argument("args", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     if not re.fullmatch(r"[1-9][0-9]*x[1-9][0-9]*", args.resolution):
@@ -78,6 +79,8 @@ def main() -> int:
             for script in scripts:
                 command = [args.godot, "--path", str(project), "--resolution", args.resolution]
                 command += ["--windowed", "--audio-driver", "Dummy"] if args.visible else ["--headless"]
+                if args.fixed_fps:
+                    command += ["--fixed-fps", str(args.fixed_fps)]
                 command += ["--script", f"res://{script}"]
                 extra = args.args[1:] if args.args[:1] == ["--"] else args.args
                 if args.output:

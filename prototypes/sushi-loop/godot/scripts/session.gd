@@ -15,6 +15,7 @@ const CHEF_DEVELOPMENT_VERSION := 1
 const FloorBook = preload("res://scripts/floor_book.gd")
 const ShopBook = preload("res://scripts/shop_book.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
+const ExpeditionBook = preload("res://scripts/expedition/expedition_book.gd")
 const SHOP_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const BELT_ROUTE_VERSION := 1
@@ -67,6 +68,7 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 
 func command(request: Dictionary) -> Dictionary:
 	if str(request.get("type", "")).begins_with("floor_"): return FloorBook.command(_configuration,_state,request)
+	if str(request.get("type", "")).begins_with("expedition_"): return ExpeditionBook.command(_configuration,_state,request)
 	if request.get("type") in ["clear_trash","dock_access","reveal_dock"]:
 		var result := Expansion.command(_configuration,_state,request)
 		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
@@ -180,6 +182,7 @@ func snapshot() -> Dictionary:
 		"shop": ShopBook.snapshot(_state),
 		"floor_styles": FloorBook.snapshot(_state),
 		"expansion": _expansion_view(),
+		"expedition": ExpeditionBook.snapshot(_state),
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
@@ -260,6 +263,7 @@ func save_data() -> Dictionary:
 		"shop_version": SHOP_VERSION,
 		"floor_styles_version": FloorBook.VERSION,
 		"expansion_version": Expansion.VERSION,
+		"expedition_version": ExpeditionBook.VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -270,6 +274,7 @@ func save_data() -> Dictionary:
 func restore(data: Dictionary) -> bool:
 	if not _nonnegative_integer(data.get("floor_styles_version",0)) or int(data.get("floor_styles_version",0)) > FloorBook.VERSION: return false
 	if not _nonnegative_integer(data.get("expansion_version",0)) or int(data.get("expansion_version",0)) > Expansion.VERSION: return false
+	if not _nonnegative_integer(data.get("expedition_version",0)) or int(data.get("expedition_version",0)) > ExpeditionBook.VERSION: return false
 	if not _nonnegative_integer(data.get("shop_version",0)) or int(data.get("shop_version",0)) > SHOP_VERSION: return false
 	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
 	# Validate before changing anything. Restoring is a state replacement, never
@@ -360,6 +365,11 @@ func restore(data: Dictionary) -> bool:
 	elif int(data.expansion_version) == 1 and Expansion.enabled(restored_configuration.floor):
 		if not Expansion.migrate_v1(restored_state): return false
 	if not Expansion.valid(restored_configuration,restored_state): return false
+	if int(data.get("expedition_version",0)) == 0:
+		# Saves from before #21 begin with one full battery and no salvage.
+		if restored_state.has("expedition"): return false
+		ExpeditionBook.initialize(restored_state,posmod(int(data.random_state),2147483647))
+	if not ExpeditionBook.valid(restored_state): return false
 	if not Development.valid(restored_state):return false
 	if not StaffBook.valid(restored_configuration,restored_state): return false
 	if not RecipeBook.valid(restored_configuration, restored_state): return false
@@ -450,6 +460,7 @@ func _upgrade_restaurant_backdrop() -> void:
 
 func _normalize_restored_numbers() -> void:
 	ShopBook.normalize(_state)
+	ExpeditionBook.normalize(_state)
 	# JSON represents integers and floats with the same number type. Normalize
 	# counters before future ID creation, and cell coordinates before rendering.
 	_configuration.starting_coins = int(_configuration.starting_coins)
@@ -512,6 +523,7 @@ func _start() -> void:
 	ShopBook.initialize(_state)
 	FloorBook.initialize(_state,_staff_seed)
 	Expansion.initialize(_configuration,_state)
+	ExpeditionBook.initialize(_state,_staff_seed)
 	BeltRoutes.initialize(_state.objects)
 	_remainder = 0.0
 	_rebuild_access()
