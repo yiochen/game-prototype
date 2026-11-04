@@ -124,6 +124,19 @@ class RuntimeBoundaryTests(unittest.TestCase):
         feedback_verification = patch.object(build.feedback_contract, "verify_feedback_variants", return_value={"objects": 1, "atlases": 1})
         self.feedback_verifier = feedback_verification.start()
         self.addCleanup(feedback_verification.stop)
+        # Later art families (#17-#19) carry their own independently tested
+        # verifiers; stub manifests keep these cases on the packaging boundary.
+        self.write("assets/expansion/manifest.json", '{"fixture": "expansion verifier is independently tested"}')
+        for family in ("recipes", "staff", "exhibition"):
+            self.write(f"assets/ui/{family}/manifest.json", '{"fixture": "UI family verifier is independently tested"}')
+        for contract, verifier, result in [
+                (build.expansion_contract, "verify_expansion", {"objects": 1, "atlases": 0}),
+                (build.recipe_ui_contract, "verify_recipe_ui", {"runtime_images": []}),
+                (build.staff_ui_contract, "verify_staff_ui", {"runtime_images": []}),
+                (build.exhibition_ui_contract, "verify_exhibition_ui", {"runtime_images": []})]:
+            verification = patch.object(contract, verifier, return_value=result)
+            verification.start()
+            self.addCleanup(verification.stop)
         self.write("assets/ui/app_icon.png", b"wordless icon")
         # Exercise the actual coordinated B atlas, complete ImageGen sheets,
         # accepted composition and references; no UI verifier mocks hide drift.
@@ -204,11 +217,16 @@ class RuntimeBoundaryTests(unittest.TestCase):
                      "assets/audio/audio-verification.json", "assets/catalog/source-provenance.json"):
             self.write(name, b"must not ship")
         audio = self.write("assets/audio/click.wav", b"runtime audio")
+        self.write("assets/expedition/pieces.json", '{"fixture": "expedition pieces"}')
+        self.write("assets/expedition/pieces/kelp/idle-S.png", b"expedition fixture")
         selected, catalog = build.stage_runtime(self.project, self.root / "staged")
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 48)
+        self.assertEqual(len(selected), 54)
+        # The expedition loads its own manifest and pieces at runtime.
+        self.assertIn("assets/expedition/pieces.json", selected)
+        self.assertIn("assets/expedition/pieces/kelp/idle-S.png", selected)
         self.assertEqual(catalog["editor_ui"]["images"], 1)
         source_record = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
         self.assertEqual(catalog["editor_ui"]["imagegen_sources"], len(source_record['generations']))
@@ -835,7 +853,12 @@ class ApkBoundaryTests(unittest.TestCase):
                                "assets/assets/feedback-variants/manifest.json": b'{}',
                                "assets/assets/ui/editor-goods/manifest.json": b'{}',
                                "assets/assets/ui/editor/manifest.json": b'{}',
-                               "assets/assets/ui/wood-editor/manifest.json": b'{}', **(extra or {})}.items():
+                               "assets/assets/ui/wood-editor/manifest.json": b'{}',
+                               "assets/assets/expansion/manifest.json": b'{}',
+                               "assets/assets/ui/recipes/manifest.json": b'{}',
+                               "assets/assets/ui/exhibition/manifest.json": b'{}',
+                               **{f"assets/{Path(tree).parent.as_posix()}/runtime_pack.json": b'{}' for tree in build.PACKED_SPRITE_TREES},
+                               **(extra or {})}.items():
                 archive.writestr(name, data)
 
     def audit(self):
