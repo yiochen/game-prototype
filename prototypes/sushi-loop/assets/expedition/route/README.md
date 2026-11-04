@@ -12,12 +12,16 @@ Runs are assembled from **chunks**: short hand-made maps joined at random under 
 | `decor` on rock | Growth mark: `decor-kelp`, `decor-foreground-coral`, `decor-midground-coral` |
 | `decor` on water | Seabed dressing (starfish / sunken boat silhouettes) |
 | `pickups` | `salvage-gold`, open water only |
+| `currents` | `current-east` / `current-west` per open cell: a lateral push (issue #22) |
+| `features` | `boost` (the shield pickup) or `portal-ring` (entry to the bonus passage), open water only |
+
+`route.js` / `route.gd` read only obstacles, decor and pickups; the expedition book reads `currents` and `features`. Feature chunks are authored by `design/expedition-currents-preview/author-chunks.mjs`.
 
 ```json
 "chunk": { "kind": "fork", "difficulty": null, "source": "authored (wide)" }
 ```
 
-`kind` is `launch`, `start`, `normal`, `rest`, `fork` or `finish`. `difficulty` is `null` (computed) or a 1–5 override.
+`kind` is `launch`, `start`, `normal`, `rest`, `fork`, `finish`, or an issue #22 feature kind: `current`, `portal` or `boost` (offered only by its own plan slot). `difficulty` is `null` (computed) or a 1–5 override.
 
 `launch` chunks are the open-water lead-in the preparation screen cruises through before the player presses: keep a straight clear lane down the middle (the ship holds the start column) and no gold. Only another launch chunk or the start chunk may follow one.
 
@@ -37,7 +41,7 @@ An invalid chunk is reported (browser console, Godot warning) and left out of ru
 - **The real hull flies it:** steering is a joystick with a finite sideways speed, so validation also flies the ship's collider (0.64 × 0.88 cells) through the chunk at quarter-column, sixth-of-a-row resolution, sliding at most 1.5 columns per row (full stick). The exit must be reachable, every gold must be collectable without getting stuck, and no lane may be enterable but not leavable (**trap lane**). One-cell lanes that step diagonally every row fail this: give a lane two rows at a column before it shifts, or make it two cells wide.
 - **Seams fly too:** a chunk may follow another only if their shared open run is at least two cells wide and the hull flies the four rows either side of the seam without new problems.
 - **Difficulty:** 1–5 from narrowness, required swerving and rock density inside the passage.
-- **Runs:** `launch, launch, start, 1.5, 2, rest, 2.5, fork, 3, 3.5, rest, fork, 4, finish` (balance: `godot/content/expedition.json`). Each slot picks a compatible chunk weighted toward the target difficulty and away from repeats. Same seed → same route.
+- **Runs:** `launch, launch, start, 1.5, current, 2, portal, 2.5, fork, boost, 3, rest, current, 4, finish` (balance: `godot/content/expedition.json`). Runs saved before issue #22 keep route version 1, the earlier plan without feature slots (`legacy_plans`). Each slot picks a compatible chunk weighted toward the target difficulty and away from repeats. Same seed → same route.
 - **Scene:** rock cells become one standalone production or same-recipe piece over the ground layer; growth marks become coral/kelp about 40% of the time; landmarks (ruined arches, bridges) span 1–3 cell passages with legs on the bordering rock.
 
 `route.js` is the reference shared by the review and designer. `godot/scripts/expedition/route.gd` is a line-for-line port; `godot/tests/expedition_route_tests.gd` checks it against `parity-fixture.mjs` output for fixed seeds (hash, RNG, library analysis, sequences, grids and every placed piece). Regenerate the fixture after changing either side:

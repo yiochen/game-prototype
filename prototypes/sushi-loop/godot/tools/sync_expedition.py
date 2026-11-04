@@ -4,7 +4,7 @@
     python3 prototypes/sushi-loop/godot/tools/sync_expedition.py [--check]
 
 Sources stay outside the runtime tree: approved production clips
-(assets/production), same-recipe v2 variants (assets/expedition/v2) and the
+(assets/production), same-recipe v2 variants (assets/expedition/v2), the v3 portal ring and the
 v1 kit's ground-layer beds and gold (assets/expedition/v1). Images are copied
 byte for byte; `assets/expedition/pieces.json` records each clip's frame,
 root, footprint and atlas rects so the renderer registers sprites exactly
@@ -65,6 +65,9 @@ def plan() -> tuple[dict, list[tuple[Path, Path]]]:
     for entry in v2:
         add(entry, SUSHI / "assets/expedition/v2", ["static"], entry["family"])
         objects[entry["id"]].update({k: entry[k] for k in ("height", "span", "solidCells") if k in entry})
+    # Issue #22 feature pieces (the portal ring) from the v3 Blender capture.
+    for entry in json.loads((SUSHI / "assets/expedition/v3/library.json").read_text())["objects"]:
+        add(entry, SUSHI / "assets/expedition/v3", ["static"], entry["family"])
 
     kit = json.loads((SUSHI / "assets/expedition/v1/manifest.json").read_text())
     sprites = {}
@@ -76,7 +79,7 @@ def plan() -> tuple[dict, list[tuple[Path, Path]]]:
         sprites[name] = {"image": target, "origin": entry["origin"], "size": entry["size"]}
     manifest = {"format": "sushi-loop-expedition-pieces", "version": 1, "cellSize": 128, "kitCellPixels": kit["cell_pixels"],
                 "objects": objects, "kit": sprites,
-                "sources": {"production": "assets/production/library.json", "v2": "assets/expedition/v2/library.json", "kit": "assets/expedition/v1/manifest.json"}}
+                "sources": {"production": "assets/production/library.json", "v2": "assets/expedition/v2/library.json", "v3": "assets/expedition/v3/library.json", "kit": "assets/expedition/v1/manifest.json"}}
     return manifest, copies
 
 

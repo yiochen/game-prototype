@@ -211,7 +211,8 @@ export function validateChunk(chunk) {
   const problems = [];
   const { rows } = chunk;
   if (!rows.length || !rows.every((r) => r.length === COLUMNS)) return [`rows must be ${COLUMNS} cells wide`];
-  if (!['launch', 'start', 'normal', 'rest', 'fork', 'finish'].includes(chunk.kind ?? 'normal')) problems.push(`unknown kind ${chunk.kind}`);
+  // Issue #22 feature chunks (current, portal, boost) are offered only by their own plan slots.
+  if (!['launch', 'start', 'normal', 'rest', 'fork', 'finish', 'current', 'portal', 'boost'].includes(chunk.kind ?? 'normal')) problems.push(`unknown kind ${chunk.kind}`);
   const reach = reachable(rows);
   if (!openSet(rows[0]).some((x) => reach.has(`${x},0`))) problems.push('exit unreachable at steering speed');
   const dead = deadEnds(rows);

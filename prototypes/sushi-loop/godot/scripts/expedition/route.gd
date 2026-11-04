@@ -20,7 +20,8 @@ const QY := 6
 const SHIP_LO := 2
 const SHIP_HI := COLUMNS * QX - 2
 const CHUNK_DIR := "res://content/expedition/chunks"
-const KINDS := ["launch", "start", "normal", "rest", "fork", "finish"]
+## Issue #22 feature chunks (current, portal, boost) are offered only by their own plan slots.
+const KINDS := ["launch", "start", "normal", "rest", "fork", "finish", "current", "portal", "boost"]
 const DEFAULT_PLAN := ["launch", "launch", "start", 1.5, 2.0, "rest", 2.5, "fork", 3.0, 3.5, "rest", "fork", 4.0, "finish"]
 const MASK := 0xFFFFFFFF
 const DIRS := ["N", "E", "S", "W"]
