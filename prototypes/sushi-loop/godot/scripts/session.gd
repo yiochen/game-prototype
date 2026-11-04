@@ -189,10 +189,11 @@ func snapshot() -> Dictionary:
 	}
 	var floor_offer := FloorBook.offer(_state)
 	if not floor_offer.is_empty(): result.shop.offers.push_front(floor_offer)
+	var index := _service_index()
 	for original in _state.objects:
 		var object: Dictionary = original.duplicate(true)
 		if object.kind in ["chef", "seat"]:
-			var service := _chef_service(original) if object.kind == "chef" else _seat_service(original)
+			var service := _chef_service(original, index) if object.kind == "chef" else _seat_service(original, index)
 			object.active = service.active
 			object.inactive_reason = service.reason
 		if object.kind == "chef":
@@ -201,7 +202,7 @@ func snapshot() -> Dictionary:
 			object.erase("preparation_elapsed")
 		elif object.kind == "belt":
 			object.travel_progress = clampf(float(object.travel_elapsed) / float(_configuration.service.belt_seconds_per_cell), 0.0, 1.0)
-			object.incoming_id = str(BeltRoutes.incoming(_state.objects, object.id).get("id", ""))
+			object.incoming_id = str(index.upstream.get(object.id, [{}])[0].get("id", ""))
 			object.erase("travel_elapsed")
 		result.objects.append(object)
 	result.editor.belt_targets = _belt_targets()
@@ -634,59 +635,81 @@ func _entrance_lanes() -> Array[Vector2i]:
 		if _object_at(cell).is_empty(): result.append(cell)
 	return result
 
-func _entrance_path(entrance: Vector2i, seat: Dictionary) -> Array:
+func _entrance_path(entrance: Vector2i, seat: Dictionary, cells := {}) -> Array:
 	# Prefer walking straight off this side of the threshold before turning
 	# toward the seat. Furniture may require a valid sideways alternative.
+	if cells.is_empty(): cells = _occupancy()
 	if Doorway.enabled(_configuration.floor):
 		var apron := entrance + Vector2i.DOWN
-		if _object_at(apron).is_empty():
-			var onward := _walk_path(apron, _point(seat), seat.id)
+		if not cells.has(apron):
+			var onward := _walk_path(apron, _point(seat), seat.id, cells)
 			if not onward.is_empty():
 				onward.push_front({"x": apron.x, "y": apron.y})
 				return onward
-	return _walk_path(entrance, _point(seat), seat.id)
+	return _walk_path(entrance, _point(seat), seat.id, cells)
 
 func _rebuild_access() -> void:
 	_access_paths.clear()
+	var cells := _occupancy()
 	for object in _state.objects:
 		if object.kind != "seat": continue
 		_access_paths[object.id] = []
 		for entrance in _entrance_lanes():
-			var route := _entrance_path(entrance, object)
+			var route := _entrance_path(entrance, object, cells)
 			if not route.is_empty():
 				_access_paths[object.id] = route
 				break
 
-func _chef_service(chef: Dictionary) -> Dictionary:
+func _chef_service(chef: Dictionary, index := {}) -> Dictionary:
 	if str(chef.get("recipe_id", "")).is_empty(): return {"active":false, "reason":"no_recipe"}
-	if _facing_object(chef).get("kind") != "belt":
+	var front := _facing_object(chef) if index.is_empty() else _indexed_facing(chef, index)
+	if front.get("kind") != "belt":
 		return {"active": false, "reason": "no_belt"}
 	return {"active": true, "reason": ""}
 
-func _belt_reaches(source: Dictionary, target_id: String) -> bool:
-	var seen := {}
-	var tile := source
-	while tile.get("kind") == "belt" and not seen.has(tile.id):
-		if tile.id == target_id:
-			return true
-		seen[tile.id] = true
-		tile = BeltRoutes.by_id(_state.objects, tile.next_id)
-	return false
+func _service_index() -> Dictionary:
+	# One pass serves a batch of read-only service queries: cell occupancy and
+	# reverse belt links, replacing a linear lookup per cell and route step.
+	var upstream := {}
+	for object in _state.objects:
+		if object.kind == "belt" and not str(object.get("next_id", "")).is_empty():
+			if not upstream.has(object.next_id): upstream[object.next_id] = []
+			upstream[object.next_id].append(object)
+	return {"cells": _occupancy(), "upstream": upstream}
 
-func _seat_service(seat: Dictionary) -> Dictionary:
+func _indexed_facing(object: Dictionary, index: Dictionary) -> Dictionary:
+	if object.is_empty(): return {}
+	return index.cells.get(_point(object) + DIRECTIONS[object.facing], {})
+
+func _upstream_belts(target_id: String, index: Dictionary) -> Dictionary:
+	# Belts whose route reaches target_id, including the target itself.
+	var reached := {target_id: true}
+	var queue: Array = [target_id]
+	var cursor := 0
+	while cursor < queue.size():
+		for tile in index.upstream.get(queue[cursor], []):
+			if not reached.has(tile.id):
+				reached[tile.id] = true
+				queue.append(tile.id)
+		cursor += 1
+	return reached
+
+func _seat_service(seat: Dictionary, index := {}) -> Dictionary:
 	var result := {"active": false, "reason": "no_belt", "ready": [], "menu": [], "front": ""}
-	var front := _facing_object(seat)
+	if index.is_empty(): index = _service_index()
+	var front := _indexed_facing(seat, index)
 	if front.get("kind") != "belt":
 		return result
 	result.front = front.dish.recipe_id if front.dish != null else ""
 	if _access_paths.get(seat.id, []).is_empty():
 		result.reason = "no_access"
 		return result
+	var reaching := _upstream_belts(front.id, index)
 	for object in _state.objects:
-		if object.kind == "belt" and object.dish != null and _belt_reaches(object, front.id):
+		if object.kind == "belt" and object.dish != null and reaching.has(object.id):
 			if not result.ready.has(object.dish.recipe_id):
 				result.ready.append(object.dish.recipe_id)
-		elif object.kind == "chef" and _chef_service(object).active and _belt_reaches(_facing_object(object), front.id):
+		elif object.kind == "chef" and _chef_service(object, index).active and reaching.has(_indexed_facing(object, index).id):
 			if not result.menu.has(object.recipe_id):
 				result.menu.append(object.recipe_id)
 	result.active = not result.ready.is_empty() or not result.menu.is_empty()
@@ -743,11 +766,12 @@ func _new_visit_fields(customer: Dictionary) -> void:
 
 func _arrival_seat_choices(customer: Dictionary = {}) -> Array:
 	var choices: Array = []
+	var index := _service_index()
 	for seat in _state.objects:
 		if seat.kind != "seat" or _seat_reserved(seat.id):
 			continue
-		var path: Array = _entrance_path(Doorway.anchor(customer, _configuration.floor), seat) if customer.has("door_lane") else _access_paths.get(seat.id, [])
-		var service := _seat_service(seat)
+		var path: Array = _entrance_path(Doorway.anchor(customer, _configuration.floor), seat, index.cells) if customer.has("door_lane") else _access_paths.get(seat.id, [])
+		var service := _seat_service(seat, index)
 		if not path.is_empty() and service.active:
 			choices.append({"seat": seat, "path": path, "service": service})
 	return choices
@@ -1313,7 +1337,8 @@ func _walk_customer(customer: Dictionary, delta: float) -> bool:
 			distance = 0.0
 	return int(customer.path_index) >= customer.path.size()
 
-func _walk_path(start: Vector2i, goal: Vector2i, goal_object_id: String = "") -> Array:
+func _walk_path(start: Vector2i, goal: Vector2i, goal_object_id: String = "", cells := {}) -> Array:
+	if cells.is_empty(): cells = _occupancy()
 	var frontier: Array[Vector2i] = [start]
 	var previous: Dictionary = {start: start}
 	var cursor := 0
@@ -1331,7 +1356,7 @@ func _walk_path(start: Vector2i, goal: Vector2i, goal_object_id: String = "") ->
 			var neighbor: Vector2i = position + offset
 			if not _inside(neighbor, _configuration.floor) or previous.has(neighbor):
 				continue
-			var occupant := _object_at(neighbor)
+			var occupant: Dictionary = cells.get(neighbor, {})
 			if not occupant.is_empty() and not (neighbor == goal and occupant.id == goal_object_id):
 				continue
 			previous[neighbor] = position
@@ -1352,6 +1377,14 @@ func _object_by_id(object_id: String) -> Dictionary:
 		if object.id == object_id:
 			return object
 	return {}
+
+func _occupancy() -> Dictionary:
+	# The first object per cell, as _object_at finds it.
+	var cells := {}
+	for object in _state.objects:
+		var cell := _point(object)
+		if not cells.has(cell): cells[cell] = object
+	return cells
 
 func _object_at(cell: Vector2i) -> Dictionary:
 	for object in _state.objects:

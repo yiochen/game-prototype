@@ -73,10 +73,14 @@ func _run() -> void:
 	_expect(art.objects["backdrop-entrance"].footprint == [4.0, 3.0], "The entrance preserves the approved four-by-three-tile backdrop plane")
 	_expect(art.objects["chef-blackboard"].facingPolicy == "single-player-facing" and art.objects["chef-blackboard"].clips.idle.directions.keys() == ["S"], "The blank front-band board has only its player-facing direction")
 	_expect(world.texture_filter == CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, "The shared renderer requests smooth mipmapped sampling at phone scale")
+	var resident := 0
+	for path in art.sources: resident += int(art.source_bytes[path])
+	_expect(art.sources.size() > 1 and resident <= art.budget_bytes, "Recently drawn atlases stay resident within the decoded-texture budget")
+	art.budget_bytes = 0
 	art.begin_frame()
 	art.frame_data("floor-cream")
 	art.end_frame()
-	_expect(art.sources.size() == 1, "Unused animation sources are released instead of keeping every atlas in mobile memory")
+	_expect(art.sources.size() == 1, "Over budget, unused atlases are released while the current frame's atlas stays")
 	world.queue_free()
 	await process_frame
 	if failures.is_empty():

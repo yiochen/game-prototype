@@ -39,6 +39,7 @@ RUNTIME_TREES = {
     "assets/chef-variants/sprites": {".png"},
     "assets/feedback-variants/sprites": {".png"},
     "assets/expansion/sprites": {".png"},
+    "assets/expedition": {".png", ".json"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},
@@ -190,6 +191,42 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     editor_ui_contract.verify_editor_ui(project, source_project=source)
     editor_goods_contract.verify_editor_goods(project, source_project=source)
     return hashes, catalog
+
+
+# ArtBook sprite atlases: the packer rewrites these to trimmed phone-resolution
+# frames, drawn 1:1 into the native world layer, so they need no mipmaps.
+PACKED_SPRITE_TREES = ("assets/catalog/sprites", "assets/recipe-variants/sprites", "assets/chef-variants/sprites",
+                       "assets/feedback-variants/sprites", "assets/expansion/sprites")
+SPRITE_PACKER = "tools/pack_runtime_sprites.gd"
+LOSSY_QUALITY = 0.9
+
+
+def optimize_runtime_art(source: Path, project: Path, godot: str, environment: dict[str, str]) -> dict:
+    """Pack sprite atlases and choose phone texture imports in the staged copy only."""
+    packer = project / SPRITE_PACKER
+    packer.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source / SPRITE_PACKER, packer)
+    try:
+        output = run([godot, "--headless", "--path", str(project), "--script", f"res://{SPRITE_PACKER}"], environment)
+    finally:
+        shutil.rmtree(packer.parent)
+    summary = re.search(r"Packed runtime sprites: ([\d.]+) -> ([\d.]+) Mpx", output)
+    if not summary:
+        raise RuntimeError("The runtime sprite packer did not report a result.")
+    # Lossy WebP keeps the APK small; packed sprites skip mipmaps, while UI art
+    # is drawn at many scales and keeps them.
+    images = 0
+    for image in project.joinpath("assets").rglob("*"):
+        if image.suffix.lower() not in {".png", ".webp"}:
+            continue
+        relative = image.relative_to(project).as_posix()
+        mipmaps = "false" if relative.startswith(PACKED_SPRITE_TREES) else "true"
+        image.with_name(image.name + ".import").write_text(
+            '[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n'
+            f"compress/mode=1\ncompress/lossy_quality={LOSSY_QUALITY}\nmipmaps/generate={mipmaps}\n")
+        images += 1
+    return {"sprite_megapixels": [float(summary.group(1)), float(summary.group(2))], "lossy_quality": LOSSY_QUALITY,
+            "lossy_images": images}
 
 
 def replace(config: str, key: str, value) -> str:
@@ -350,6 +387,9 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if manifest_path not in names:
             raise ValueError("The current runtime catalog manifest is missing from the APK.")
         manifest_hash = hashlib.sha256(apk.read(manifest_path)).hexdigest()
+        for tree in PACKED_SPRITE_TREES:
+            if f"assets/{Path(tree).parent.as_posix()}/runtime_pack.json" not in names:
+                raise ValueError(f"The packed sprite layout is missing from the APK: {tree}")
         recipe_manifest_path = "assets/assets/recipe-variants/manifest.json"
         if recipe_manifest_path not in names:
             raise ValueError("The verified native meal-variant manifest is missing from the APK.")
@@ -460,6 +500,8 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="sushi-loop-android-") as temporary:
         project = Path(temporary) / "project"
         source_files, staged_files, catalog = stage_build(source, project, branding)
+        print("Packing runtime sprites for phone resolution", flush=True)
+        runtime_art = optimize_runtime_art(source, project, args.godot, environment)
         print(f"Importing current runtime catalog with Godot {engine}", flush=True)
         run([args.godot, "--headless", "--path", str(project), "--editor", "--import"], environment, [credentials["password"]])
         print(f"Exporting signed Android {args.mode} APK", flush=True)
@@ -491,7 +533,8 @@ def main() -> int:
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,
         "build_variant": variant, "runtime_source_fingerprint": fingerprint(source_files),
         "staged_source_fingerprint": fingerprint(staged_files),
-        "source_files": source_files, "staged_source_files": staged_files, "catalog": catalog, **verification,
+        "source_files": source_files, "staged_source_files": staged_files, "catalog": catalog,
+        "runtime_art": runtime_art, **verification,
     }
     output.with_suffix(".build.json").write_text(json.dumps(metadata, indent=2) + "\n")
     output.with_suffix(".apk.sha256").write_text(f"{digest}  {output.name}\n")

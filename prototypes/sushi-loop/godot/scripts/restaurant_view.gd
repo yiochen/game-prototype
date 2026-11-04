@@ -63,6 +63,10 @@ var _hit_records: Array[Dictionary] = []
 var _hit_signature: Array = []
 var _capture_hits := false
 var _record_only := false
+## Belt links are linear scans of every object. State cannot change within one
+## draw or picking pass, so each belt resolves its links once per pass.
+var _belt_links: Dictionary = {}
+var _belt_links_active := false
 var _current_owner := ""
 var ground_shadows_enabled := true
 var _collect_ground_shadows := false
@@ -124,7 +128,8 @@ func sprite(identity: String, base: Vector2, clip := "static", direction := "S",
 	if _capture_hits and painting_floor():
 		tint.a *= .65 if identity.begins_with("garbage-") else .28
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
-	if not art.registered_rect(identity,base,pitch,clip,direction).intersects(portrait): return
+	var registered: Rect2 = art.registered_rect(identity,base,pitch,clip,direction)
+	if not registered.intersects(portrait): return
 	if _collect_ground_shadows:
 		# Shadow proxies need neither an animation atlas lookup nor a sprite rect.
 		if _shadow_kind in ["belt", "seat", "chef", "customer", "board", "sprite"] and not identity.begins_with("dish-") and not identity.begins_with("wall-") and art.objects.has(identity):
@@ -132,7 +137,7 @@ func sprite(identity: String, base: Vector2, clip := "static", direction := "S",
 		return
 	var data: Dictionary = art.frame_data(identity, clip, direction, seconds)
 	if not data.is_empty():
-		var destination: Rect2 = art.registered_rect(identity, base, pitch, clip, direction)
+		var destination: Rect2 = art.trimmed_rect(data, registered)
 		if _capture_hits:
 			_hit_records.append({"owner_id": _current_owner, "art_id": identity, "clip": clip, "direction": direction, "frame": data.frame, "frames": data.frames, "texture": data.texture, "source_path": data.source_path, "region": data.region, "rect": destination, "tint": tint})
 		if not _record_only:
@@ -159,12 +164,14 @@ func _draw() -> void:
 	art.begin_frame()
 	_hit_records.clear()
 	_hit_signature.clear()
+	_begin_belt_links()
 	draw_rect(Rect2(Vector2.ZERO, size), NIGHT)
 	if show_gallery:
 		_gallery()
 	else:
 		_room()
 		_sky()
+	_end_belt_links()
 	art.end_frame()
 	if _native_world_clone:
 		_native_world_controller.end_native_frame()
@@ -178,16 +185,18 @@ func _room() -> void:
 	var columns := int(state.floor.world_columns)
 	# One continuous authored floor extends into the adjoining restaurant. Tile
 	# borders are part of the approved native art, not a realistic floor texture.
+	var expanded: bool = state.get("expansion",{}).get("enabled",false)
+	var usable_state := {"expansion":state.get("expansion",{})}
+	var painted: Dictionary = state.get("floor_styles",{}).get("painted",{})
 	for y in range(int(state.floor.get("backdrop_rows", 3)), rows):
 		for x in range(columns):
 			var base := cell_base(x, y)
 			if not portrait.intersects(Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)):
 				continue
-			var open: bool = Expansion.usable({"expansion":state.get("expansion",{})},state.floor,Vector2i(x,y))
 			# Clearance availability is indicated on the object, never its tile.
-			var tint := Color.WHITE if open or state.get("expansion",{}).get("enabled",false) else Color("e8e3d9")
-			var identity := "floor-cream" if state.get("expansion",{}).get("enabled",false) else ("floor-blue-wave" if y == rows - 1 else "floor-cream")
-			var pattern: String = state.get("floor_styles",{}).get("painted",{}).get("%s,%s"%[x,y],"cream")
+			var tint := Color.WHITE if expanded or Expansion.usable(usable_state,state.floor,Vector2i(x,y)) else Color("e8e3d9")
+			var identity := "floor-cream" if expanded else ("floor-blue-wave" if y == rows - 1 else "floor-cream")
+			var pattern: String = "cream" if painted.is_empty() else painted.get("%s,%s"%[x,y],"cream")
 			if pattern == "cream": sprite(identity, base, "static", "S", 0.0, -1.0, tint)
 			else: draw_texture_rect(FloorPattern.texture(pattern),Rect2(base-Vector2.ONE*cell*.5,Vector2.ONE*cell),false)
 	for piece in backdrop_plan():
@@ -273,7 +282,9 @@ func _ensure_sprite_hits() -> void:
 	# after camera/layout/state changed but before the next rendered frame.
 	# Resolve the same item pass without invoking any drawing primitives.
 	_record_only = true
+	_begin_belt_links()
 	_render_room_items()
+	_end_belt_links()
 	_record_only = false
 
 func sprite_hits() -> Array[Dictionary]:
@@ -526,7 +537,27 @@ func _has_belt(at: Vector2) -> bool:
 			return true
 	return false
 
+func _begin_belt_links() -> void:
+	_belt_links.clear()
+	_belt_links_active = true
+
+func _end_belt_links() -> void:
+	_belt_links.clear()
+	_belt_links_active = false
+
+func _belt_link(belt: Dictionary, outgoing: bool) -> Dictionary:
+	if not _belt_links_active: return _find_belt_next(belt) if outgoing else _find_belt_input(belt)
+	var key := "%s|%s|%s|%s|%s|%s" % [outgoing, belt.get("id"), belt.get("x"), belt.get("y"), belt.get("facing"), belt.get("next_id")]
+	if not _belt_links.has(key): _belt_links[key] = _find_belt_next(belt) if outgoing else _find_belt_input(belt)
+	return _belt_links[key]
+
 func _belt_next(belt: Dictionary) -> Dictionary:
+	return _belt_link(belt, true)
+
+func _belt_input(belt: Dictionary) -> Dictionary:
+	return _belt_link(belt, false)
+
+func _find_belt_next(belt: Dictionary) -> Dictionary:
 	for tile in state.get("objects", []):
 		if tile.kind != "belt": continue
 		if belt.has("next_id"):
@@ -534,7 +565,7 @@ func _belt_next(belt: Dictionary) -> Dictionary:
 		elif Vector2(float(tile.x - belt.x), float(tile.y - belt.y)) == DIRECTIONS[belt.facing]: return tile
 	return {}
 
-func _belt_input(belt: Dictionary) -> Dictionary:
+func _find_belt_input(belt: Dictionary) -> Dictionary:
 	for tile in state.get("objects", []):
 		if tile.kind != "belt" or tile.id == belt.id: continue
 		if tile.has("next_id"):
@@ -558,7 +589,8 @@ func belt_direction(belt: Dictionary) -> String:
 	return str(_belt_shape(belt)[1])
 
 func _belt(belt: Dictionary) -> void:
-	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", belt_direction(belt), 0.0 if reduced_motion else float(state.elapsed))
+	var shape := _belt_shape(belt)
+	sprite(str(shape[0]), cell_base(float(belt.x), float(belt.y)), "running", str(shape[1]), 0.0 if reduced_motion else float(state.elapsed))
 
 func dish_base(belt: Dictionary) -> Vector2:
 	var following := _belt_next(belt)
@@ -571,7 +603,8 @@ func dish_base(belt: Dictionary) -> Vector2:
 			offset = belt_path_point(belt, 0.5 + distance / own_length)
 		else:
 			offset = Vector2(float(following.x - belt.x), float(following.y - belt.y)) + belt_path_point(following, (distance - own_length * 0.5) / next_length)
-	return cell_base(float(belt.x), float(belt.y)) + offset * cell + art.socket(belt_clip(belt), "deck", belt_direction(belt)) * cell / art.cell_size
+	var shape := _belt_shape(belt)
+	return cell_base(float(belt.x), float(belt.y)) + offset * cell + art.socket(str(shape[0]), "deck", str(shape[1])) * cell / art.cell_size
 
 func belt_path_length(belt: Dictionary) -> float:
 	return PI * 0.25 if belt_clip(belt).begins_with("belt-corner-") else 1.0
