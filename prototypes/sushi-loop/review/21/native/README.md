@@ -42,6 +42,6 @@ It shows the ship cruising the launch lead-in behind the preparation text, press
 
 ## Not yet done
 
-- **Android:** no APK exported or installed for this ticket yet. Not measured on a phone GPU yet.
+- **Android:** release 0.13.0 (code 81) is exported with the original release signer and audited in `release-audit.json`; it has not been installed or measured on a phone GPU yet.
 - **UI art:** HUD, Paused, confirm, preparation and results reuse the approved shared family. The ART-10 ImageGen pass, including the three distinct outcome backgrounds, is pending. Outcomes use tinted scrims until then.
 - **Restaurant earnings:** coins earned while away are credited live. The spec's separate pending-coins credit on return belongs to the concurrent-earnings ticket.
