@@ -13,13 +13,33 @@ const FEEDBACK_DIRECTORY := "res://assets/feedback-variants/"
 const EXPANSION_MANIFEST := "res://assets/expansion/manifest.json"
 const EXPANSION_DIRECTORY := "res://assets/expansion/"
 const PICK_ALPHA := 0.1
+## Android builds trim, downscale and repack every frame (tools/pack_runtime_sprites.gd)
+## and describe the result here. Approved manifests stay byte-identical.
+const RUNTIME_PACK := "runtime_pack.json"
+## Decoded RGBA bytes kept for recently drawn atlases. Reloading an atlas is a
+## synchronous decode and upload, so clips that end and replay must stay resident.
+const CACHE_BUDGET_BYTES := 512 * 1024 * 1024
+static var _pack_cache: Dictionary = {}
 var objects: Dictionary = {}
 var sources: Dictionary = {}
 var used_sources: Dictionary = {}
+var source_bytes: Dictionary = {}
+var last_used: Dictionary = {}
 var metadata: Dictionary = {}
 var cell_size := 128.0
 var revision := 0
 var alpha_masks: Dictionary = {}
+var budget_bytes := CACHE_BUDGET_BYTES
+## Loads per atlas path; a repeat within budget means an atlas was dropped early.
+var load_counts: Dictionary = {}
+var frame_serial := 0
+## Atlas pixels per authored source pixel; 1.0 when sprites are unpacked.
+var texture_scale := 1.0
+var packs: Dictionary = {}
+## Registration and clip records are immutable manifest data, read for every
+## drawn sprite.
+var _registrations: Dictionary = {}
+var _clips: Dictionary = {}
 
 func reload() -> void:
 	revision += 1
@@ -27,7 +47,15 @@ func reload() -> void:
 	used_sources.clear()
 	objects.clear()
 	sources.clear()
+	source_bytes.clear()
+	last_used.clear()
 	metadata.clear()
+	packs.clear()
+	_registrations.clear()
+	_clips.clear()
+	texture_scale = 1.0
+	for directory in [DIRECTORY, MEAL_DIRECTORY, CHEF_DIRECTORY, FEEDBACK_DIRECTORY, EXPANSION_DIRECTORY]:
+		_load_pack(directory)
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST))
 	if data is Dictionary:
 		objects = data.get("objects", {})
@@ -58,16 +86,48 @@ func _merge_variants(path: String, directory: String) -> void:
 				entry["_directory"] = directory
 			objects[identity].clips[clip] = record
 
+func _load_pack(directory: String) -> void:
+	var path := directory + RUNTIME_PACK
+	if not _pack_cache.has(path):
+		var parsed := {}
+		if FileAccess.file_exists(path):
+			var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+			if data is Dictionary:
+				parsed.scale = float(data.get("scale", 1.0))
+				parsed.images = {}
+				for image in data.get("images", {}):
+					var frames := {}
+					var records: Dictionary = data.images[image].frames
+					for key in records:
+						var r: Array = records[key]
+						var frame := Vector2(float(r[8]), float(r[9]))
+						frames[key] = [Rect2(r[0], r[1], r[2], r[3]), Rect2(Vector2(r[4], r[5]) / frame, Vector2(r[6], r[7]) / frame)]
+					parsed.images[directory + str(image)] = frames
+		_pack_cache[path] = parsed
+	var pack: Dictionary = _pack_cache[path]
+	if pack.is_empty(): return
+	packs.merge(pack.images)
+	if directory == DIRECTORY: texture_scale = pack.scale
+
 func begin_frame() -> void:
+	frame_serial += 1
 	used_sources.clear()
 
 func end_frame() -> void:
-	# Release old action atlases after drawing. Mobile only keeps the actions
-	# actually visible, rather than every facing of the full character library.
-	for path in sources.keys():
-		if not used_sources.has(path):
+	# Keep every atlas drawn this frame, then release the least recently drawn
+	# ones until the decoded set fits the budget.
+	var total := 0
+	for path in sources: total += int(source_bytes.get(path, 0))
+	if total > budget_bytes:
+		var order: Array = sources.keys()
+		order.sort_custom(func(a, b): return int(last_used.get(a, 0)) < int(last_used.get(b, 0)))
+		for path in order:
+			if total <= budget_bytes: break
+			if used_sources.has(path): continue
+			total -= int(source_bytes.get(path, 0))
 			sources.erase(path)
-			alpha_masks.erase(path)
+			source_bytes.erase(path)
+			last_used.erase(path)
 	for path in alpha_masks.keys():
 		if not sources.has(path): alpha_masks.erase(path)
 
@@ -82,34 +142,67 @@ func direction_data(identity: String, clip := "static", direction := "S") -> Dic
 	return directions.get(direction, directions.get("S", {}))
 
 func registration(identity: String, clip := "static", direction := "S") -> Dictionary:
+	var key := identity + "|" + clip + "|" + direction
+	if _registrations.has(key): return _registrations[key]
 	var object: Dictionary = objects.get(identity, {})
 	var action := clip_data(identity, clip)
 	var entry := direction_data(identity, clip, direction)
-	return {
+	var result := {
 		"frame_size": entry.get("frameSize", action.get("frameSize", object.get("frameSize", [192, 320]))),
 		"root": entry.get("root", action.get("root", object.get("root", [96, 248]))),
 		"source_scale": float(entry.get("sourceScale", action.get("sourceScale", object.get("sourceScale", 2)))),
 	}
+	result.make_read_only()
+	_registrations[key] = result
+	return result
 
-func frame_data(identity: String, clip := "static", direction := "S", seconds := 0.0) -> Dictionary:
+func _clip_record(identity: String, clip: String, direction: String) -> Dictionary:
+	var key := identity + "|" + clip + "|" + direction
+	if _clips.has(key): return _clips[key]
 	var action := clip_data(identity, clip)
 	var entry := direction_data(identity, clip, direction)
-	if entry.is_empty():
+	var record := {}
+	if not entry.is_empty():
+		var path: String = str(entry.get("_directory", DIRECTORY)) + str(entry.image)
+		# A packed frame is the opaque part of the whole frame; trim places it
+		# within the registered frame rectangle in normalized units.
+		var regions: Array[Rect2] = []
+		var trims: Array[Rect2] = []
+		var packed_frames: Dictionary = packs.get(path, {})
+		for rect in entry.rects:
+			var packed: Array = packed_frames.get("%d,%d,%d,%d" % [rect[0], rect[1], rect[2], rect[3]], [])
+			regions.append(packed[0] if not packed.is_empty() else Rect2(float(rect[0]), float(rect[1]), float(rect[2]), float(rect[3])))
+			trims.append(packed[1] if not packed.is_empty() else Rect2(0, 0, 1, 1))
+		record = {"path": path, "count": int(entry.get("frames", action.get("frames", 1))), "fps": float(action.get("fps", 12)),
+			"loop": action.get("loop", true) != false, "regions": regions, "trims": trims}
+	_clips[key] = record
+	return record
+
+func frame_data(identity: String, clip := "static", direction := "S", seconds := 0.0) -> Dictionary:
+	var record := _clip_record(identity, clip, direction)
+	if record.is_empty():
 		return {}
-	var path: String = str(entry.get("_directory", DIRECTORY)) + str(entry.image)
+	var path: String = record.path
 	used_sources[path] = true
+	last_used[path] = frame_serial
 	if not sources.has(path):
 		if not ResourceLoader.exists(path):
 			push_error("Missing approved catalog texture: " + path)
 			return {}
-		sources[path] = ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE)
-	var count := int(entry.get("frames", action.get("frames", 1)))
-	var index := maxi(0, int(floor(maxf(0.0, seconds) * float(action.get("fps", 12)) + 0.0000001)))
-	index = mini(index, count - 1) if action.get("loop", true) == false else index % count
-	var rect: Array = entry.rects[index]
-	var result := registration(identity, clip, direction)
-	result.merge({"texture": sources[path], "source_path": path, "region": Rect2(float(rect[0]), float(rect[1]), float(rect[2]), float(rect[3])), "frame": index, "frames": count})
+		var texture: Texture2D = ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE)
+		load_counts[path] = int(load_counts.get(path, 0)) + 1
+		sources[path] = texture
+		source_bytes[path] = texture.get_width() * texture.get_height() * 4 if texture != null else 0
+	var count: int = record.count
+	var index := maxi(0, int(floor(maxf(0.0, seconds) * float(record.fps) + 0.0000001)))
+	index = index % count if record.loop else mini(index, count - 1)
+	var result := registration(identity, clip, direction).duplicate()
+	result.merge({"texture": sources[path], "source_path": path, "region": record.regions[index], "trim": record.trims[index], "frame": index, "frames": count})
 	return result
+
+func trimmed_rect(frame: Dictionary, registered: Rect2) -> Rect2:
+	var trim: Rect2 = frame.get("trim", Rect2(0, 0, 1, 1))
+	return Rect2(registered.position + trim.position * registered.size, trim.size * registered.size)
 
 func frame_has_ink(frame: Dictionary, atlas_pixel: Vector2) -> bool:
 	# Keep one compact CPU alpha mask beside each currently loaded atlas. The
@@ -146,6 +239,9 @@ func get_texture(identity: String, clip := "static", direction := "S", seconds :
 	var texture := AtlasTexture.new()
 	texture.atlas = data.texture
 	texture.region = data.region
+	var trim: Rect2 = data.trim
+	var full: Vector2 = data.region.size / trim.size
+	texture.margin = Rect2(trim.position * full, full - data.region.size)
 	texture.filter_clip = true
 	return texture
 

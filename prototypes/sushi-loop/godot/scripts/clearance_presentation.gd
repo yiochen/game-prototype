@@ -46,6 +46,8 @@ class Preview extends Control:
 		var direction: Dictionary = art_book.direction_data(str(entry.art_id),clip,str(entry.get("facing","S")))
 		var visible: Array = direction.get("visibleBounds",[0,0,frame.region.size.x,frame.region.size.y])
 		var region := Rect2(float(visible[0]),float(visible[1]),float(visible[2]),float(visible[3]))
+		# Packed runtime frames are already cropped to their visible pixels.
+		if frame.trim != Rect2(0,0,1,1): region = frame.region
 		var scale_value := minf(size.x/region.size.x,size.y/region.size.y)
 		draw_texture_rect_region(frame.texture,Rect2((size-region.size*scale_value)*.5,region.size*scale_value),region)
 

@@ -30,7 +30,9 @@ func sync() -> void:
 		if native_view._ground_shadows != null:
 			native_view._ground_shadows.set_active(false)
 		return
-	var native_factor: float = NativePixelComposer.NATIVE_CELL / source_view.cell
+	# Draw sprites 1:1: packed Android atlases carry fewer pixels per cell.
+	var native_cell: float = NativePixelComposer.NATIVE_CELL * source_view.art.texture_scale
+	var native_factor: float = native_cell / source_view.cell
 	var screen_transform: Transform2D = source_view.get_viewport_transform() * source_view.get_global_transform()
 	var screen_scale := minf(screen_transform.x.length(), screen_transform.y.length())
 	native_pipeline.set_presentation_pixel_scale(screen_scale / native_factor)
@@ -57,7 +59,7 @@ func sync() -> void:
 	# Transform the authoritative layout once. Re-running its aspect-ratio min()
 	# at float native dimensions can turn a256px cell into255.99998px.
 	native_view.portrait = Rect2(Vector2.ZERO, native_view.size)
-	native_view.cell = NativePixelComposer.NATIVE_CELL
+	native_view.cell = native_cell
 	native_view.sky_height = source_view.sky_height * native_factor
 	native_view.floor_origin = (source_view.floor_origin - source_view.portrait.position) * native_factor
 	native_pipeline.resize_native(native_view.size)

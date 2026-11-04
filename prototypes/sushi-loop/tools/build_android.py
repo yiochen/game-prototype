@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import secrets
 import shutil
+import struct
 import subprocess
 import sys
 import tempfile
@@ -39,6 +40,7 @@ RUNTIME_TREES = {
     "assets/chef-variants/sprites": {".png"},
     "assets/feedback-variants/sprites": {".png"},
     "assets/expansion/sprites": {".png"},
+    "assets/expedition": {".png", ".json"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},
@@ -190,6 +192,114 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     editor_ui_contract.verify_editor_ui(project, source_project=source)
     editor_goods_contract.verify_editor_goods(project, source_project=source)
     return hashes, catalog
+
+
+# ArtBook sprite atlases: the packer rewrites these to trimmed phone-resolution
+# frames, drawn 1:1 into the native world layer, so they need no mipmaps.
+PACKED_SPRITE_TREES = ("assets/catalog/sprites", "assets/recipe-variants/sprites", "assets/chef-variants/sprites",
+                       "assets/feedback-variants/sprites", "assets/expansion/sprites")
+SPRITE_PACKER = "tools/pack_runtime_sprites.gd"
+LOSSY_QUALITY = 0.9
+# Art budgets, measured on the staged phone payload. Raise a limit only on
+# purpose, with the reason beside it, never just to make a build pass.
+MAX_APK_BYTES = 130 * 1024 * 1024
+MAX_PACKED_SPRITE_MEGAPIXELS = 320.0
+# Unpacked art (UI, illustrations) ships at authored size.
+MAX_UNPACKED_SIDE = 2304
+MAX_UNPACKED_MEGAPIXELS = 3.2
+# Unpacked trees exempt from the per-image limit, each with a total cap.
+UNPACKED_TREE_BUDGETS = {
+    # Expedition pieces use their own loader and pieces.json, not ArtBook,
+    # so the sprite packer does not cover them yet.
+    "assets/expedition/pieces": 130.0,
+}
+
+
+def image_size(path: Path) -> tuple[int, int]:
+    """Pixel size from a PNG or WebP header, without decoding."""
+    with path.open("rb") as stream:
+        header = stream.read(30)
+    if header[:8] == b"\x89PNG\r\n\x1a\n":
+        return struct.unpack(">II", header[16:24])
+    if header[:4] == b"RIFF" and header[8:12] == b"WEBP":
+        chunk = header[12:16]
+        if chunk == b"VP8X":
+            return 1 + int.from_bytes(header[24:27], "little"), 1 + int.from_bytes(header[27:30], "little")
+        if chunk == b"VP8L":
+            bits = int.from_bytes(header[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+        if chunk == b"VP8 ":
+            width, height = struct.unpack("<HH", header[26:30])
+            return width & 0x3FFF, height & 0x3FFF
+    raise ValueError(f"Unrecognized runtime image format: {path}")
+
+
+def check_art_budgets(project: Path) -> dict:
+    """Refuse oversized or unpacked runtime art in the staged phone payload."""
+    problems = []
+    packed = 0
+    trees = {tree: 0 for tree in UNPACKED_TREE_BUDGETS}
+    largest = []
+    assets = project / "assets"
+    for directory in sorted(assets.rglob("sprites")):
+        relative = directory.relative_to(project).as_posix()
+        if directory.is_dir() and relative not in PACKED_SPRITE_TREES:
+            problems.append(f"{relative} holds sprite atlases but is not in PACKED_SPRITE_TREES")
+    for image in sorted(assets.rglob("*")):
+        if image.suffix.lower() not in {".png", ".webp"}:
+            continue
+        relative = image.relative_to(project).as_posix()
+        width, height = image_size(image)
+        pixels = width * height
+        largest.append((pixels, relative, [width, height]))
+        if relative.startswith(PACKED_SPRITE_TREES):
+            packed += pixels
+            continue
+        tree = next((tree for tree in UNPACKED_TREE_BUDGETS if relative.startswith(tree + "/")), None)
+        if tree is not None:
+            trees[tree] += pixels
+        elif max(width, height) > MAX_UNPACKED_SIDE or pixels > MAX_UNPACKED_MEGAPIXELS * 1e6:
+            problems.append(f"{relative} is {width}x{height}; unpacked art is limited to {MAX_UNPACKED_SIDE} px "
+                            f"and {MAX_UNPACKED_MEGAPIXELS} Mpx. Resize it for a phone or pack it.")
+    if packed > MAX_PACKED_SPRITE_MEGAPIXELS * 1e6:
+        problems.append(f"Packed sprites total {packed / 1e6:.1f} Mpx, over the {MAX_PACKED_SPRITE_MEGAPIXELS} Mpx budget")
+    for tree, pixels in trees.items():
+        if pixels > UNPACKED_TREE_BUDGETS[tree] * 1e6:
+            problems.append(f"{tree} totals {pixels / 1e6:.1f} Mpx, over its {UNPACKED_TREE_BUDGETS[tree]} Mpx budget")
+    if problems:
+        raise ValueError("Runtime art exceeds its phone budget:\n  " + "\n  ".join(problems))
+    largest.sort(reverse=True)
+    return {"packed_sprite_megapixels": round(packed / 1e6, 1),
+            "unpacked_tree_megapixels": {tree: round(pixels / 1e6, 1) for tree, pixels in trees.items()},
+            "largest_images": [{"path": path, "size": size} for _, path, size in largest[:10]]}
+
+
+def optimize_runtime_art(source: Path, project: Path, godot: str, environment: dict[str, str]) -> dict:
+    """Pack sprite atlases and choose phone texture imports in the staged copy only."""
+    packer = project / SPRITE_PACKER
+    packer.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source / SPRITE_PACKER, packer)
+    try:
+        output = run([godot, "--headless", "--path", str(project), "--script", f"res://{SPRITE_PACKER}"], environment)
+    finally:
+        shutil.rmtree(packer.parent)
+    summary = re.search(r"Packed runtime sprites: ([\d.]+) -> ([\d.]+) Mpx", output)
+    if not summary:
+        raise RuntimeError("The runtime sprite packer did not report a result.")
+    # Lossy WebP keeps the APK small; packed sprites skip mipmaps, while UI art
+    # is drawn at many scales and keeps them.
+    images = 0
+    for image in project.joinpath("assets").rglob("*"):
+        if image.suffix.lower() not in {".png", ".webp"}:
+            continue
+        relative = image.relative_to(project).as_posix()
+        mipmaps = "false" if relative.startswith(PACKED_SPRITE_TREES) else "true"
+        image.with_name(image.name + ".import").write_text(
+            '[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n'
+            f"compress/mode=1\ncompress/lossy_quality={LOSSY_QUALITY}\nmipmaps/generate={mipmaps}\n")
+        images += 1
+    return {"sprite_megapixels": [float(summary.group(1)), float(summary.group(2))], "lossy_quality": LOSSY_QUALITY,
+            "lossy_images": images, "budgets": check_art_budgets(project)}
 
 
 def replace(config: str, key: str, value) -> str:
@@ -350,6 +460,9 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if manifest_path not in names:
             raise ValueError("The current runtime catalog manifest is missing from the APK.")
         manifest_hash = hashlib.sha256(apk.read(manifest_path)).hexdigest()
+        for tree in PACKED_SPRITE_TREES:
+            if f"assets/{Path(tree).parent.as_posix()}/runtime_pack.json" not in names:
+                raise ValueError(f"The packed sprite layout is missing from the APK: {tree}")
         recipe_manifest_path = "assets/assets/recipe-variants/manifest.json"
         if recipe_manifest_path not in names:
             raise ValueError("The verified native meal-variant manifest is missing from the APK.")
@@ -460,12 +573,22 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="sushi-loop-android-") as temporary:
         project = Path(temporary) / "project"
         source_files, staged_files, catalog = stage_build(source, project, branding)
+        print("Packing runtime sprites for phone resolution", flush=True)
+        runtime_art = optimize_runtime_art(source, project, args.godot, environment)
         print(f"Importing current runtime catalog with Godot {engine}", flush=True)
         run([args.godot, "--headless", "--path", str(project), "--editor", "--import"], environment, [credentials["password"]])
         print(f"Exporting signed Android {args.mode} APK", flush=True)
         run([args.godot, "--headless", "--path", str(project), f"--export-{args.mode}", "Android", str(output)],
             environment, [credentials["password"]])
     verification = audit_apk(output, branding, args.mode, build_tools, environment, credentials["password"])
+    size = output.stat().st_size
+    previous = sorted((record for record in output.parent.glob("*.build.json") if record != output.with_suffix(".build.json")),
+                      key=lambda record: record.stat().st_mtime)
+    if previous:
+        before = json.loads(previous[-1].read_text()).get("bytes", 0)
+        print(f"APK size {size / 1e6:.1f} MB ({(size - before) / 1e6:+.1f} MB since {previous[-1].stem})", flush=True)
+    if size > MAX_APK_BYTES:
+        raise ValueError(f"The APK is {size / 1e6:.1f} MB, over the {MAX_APK_BYTES / 1e6:.0f} MB budget.")
     if verification["runtime_manifest_sha256"] != catalog["runtime_manifest_sha256"]:
         raise ValueError("The APK catalog differs from the staged approved catalog.")
     if verification["recipe_manifest_sha256"] != catalog["recipe_manifest_sha256"]:
@@ -491,7 +614,8 @@ def main() -> int:
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,
         "build_variant": variant, "runtime_source_fingerprint": fingerprint(source_files),
         "staged_source_fingerprint": fingerprint(staged_files),
-        "source_files": source_files, "staged_source_files": staged_files, "catalog": catalog, **verification,
+        "source_files": source_files, "staged_source_files": staged_files, "catalog": catalog,
+        "runtime_art": runtime_art, **verification,
     }
     output.with_suffix(".build.json").write_text(json.dumps(metadata, indent=2) + "\n")
     output.with_suffix(".apk.sha256").write_text(f"{digest}  {output.name}\n")

@@ -153,9 +153,21 @@ func _test_mask_frames_and_cache() -> void:
 	art.sources[path] = ImageTexture.create_from_image(replacement)
 	var reloaded: Dictionary = art.frame_data("fixture", "move", "S", 0.0)
 	_expect(not art.frame_has_ink(reloaded, Vector2(1.5, 1.5)) and art.frame_has_ink(reloaded, Vector2(2.5, 2.5)) and art.alpha_masks[path].mask != mask, "Replacing a texture at the same path invalidates its old alpha mask")
+	art.source_bytes[path] = 8 * 4 * 4
+	art.begin_frame()
+	art.end_frame()
+	_expect(art.sources.size() == 1, "Atlases within the budget stay resident after frames that do not draw them")
+	art.budget_bytes = 0
 	art.begin_frame()
 	art.end_frame()
 	_expect(art.sources.is_empty() and art.alpha_masks.is_empty(), "Atlas eviction releases its CPU alpha mask with the texture")
+	art.budget_bytes = art.CACHE_BUDGET_BYTES
+	art.sources[path] = texture
+	art.packs[path] = {"4,0,4,4": [Rect2(2, 1, 2, 3), Rect2(0.25, 0.25, 0.5, 0.75)]}
+	art._clips.clear()
+	var packed: Dictionary = art.frame_data("fixture", "move", "S", 0.6)
+	_expect(packed.region == Rect2(2, 1, 2, 3) and art.trimmed_rect(packed, Rect2(10, 20, 40, 40)) == Rect2(20, 30, 20, 30), "Packed frames draw their cropped region at the trimmed place inside the registered frame")
+	_expect(art.frame_data("fixture", "move", "S", 0.0).trim == Rect2(0, 0, 1, 1), "Unpacked frames keep the whole registered frame")
 	art.reload()
 	_expect(art.alpha_masks.is_empty(), "Catalog reload cannot retain stale hit masks")
 
