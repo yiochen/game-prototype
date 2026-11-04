@@ -45,8 +45,8 @@ func run() -> void:
 	var v2 := v2_list()
 	for expected in fixture.runs:
 		var seed_value := int(expected.seed)
-		var sequence := Route.generate(seed_value, library)
-		check(sequence.map(func(c): return c.id) == expected.sequence, "seed %d chunk sequence matches" % seed_value)
+		var sequence := Route.generate(seed_value, library, expected.get("plan", Route.DEFAULT_PLAN))
+		check(sequence.map(func(c): return c.id) == expected.sequence, "seed %d%s chunk sequence matches" % [seed_value, " (feature plan)" if expected.has("plan") else ""])
 		var assembled := Route.assemble(sequence)
 		check(assembled.rows == expected.rows, "seed %d grid matches" % seed_value)
 		var scene := Route.compose_scene(assembled.rows, v2, seed_value)

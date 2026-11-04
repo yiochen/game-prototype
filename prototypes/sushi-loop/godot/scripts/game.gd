@@ -267,6 +267,7 @@ func _ready() -> void:
 		session = Session.new_session(21)
 		session.command({"type": "expedition_start", "now": 0.0, "seed": 21})
 		for step in range(80): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+		_gallery_feature()
 		_layout()
 	if not show_gallery and not show_editor_gallery or show_expedition_gallery:
 		var opening: Dictionary = session.snapshot()
@@ -425,6 +426,28 @@ func _place_native_button(button: Button, bounds: Rect2, unit: float, font_size:
 func _display_safe_top() -> float:
 	if OS.get_name() not in ["Android", "iOS"]: return 0.0
 	return ScreenLayout.top_inset(Rect2(DisplayServer.get_display_safe_area()), DisplayServer.get_display_cutouts(), get_viewport_transform(), float(get_window().size.y))
+
+## Issue #22 gallery states: --expedition-feature=current|shield|portal|passage
+## moves the gallery run onto that feature of its route (seed 22).
+func _gallery_feature() -> void:
+	var wanted := ""
+	for arg in OS.get_cmdline_user_args(): if arg.begins_with("--expedition-feature="): wanted = arg.get_slice("=", 1)
+	if wanted.is_empty(): return
+	session = Session.new_session(22)
+	session.command({"type": "expedition_start", "now": 0.0, "seed": 22})
+	var run: Dictionary = session._state.expedition.run
+	var path: Dictionary = ExpeditionBook.run_route(run)
+	match wanted:
+		"current":
+			var crossing: Dictionary = path.spans.filter(func(span): return span.kind == "current")[0]
+			run.y = float(crossing.y1) - 1.5; run.x = 5.5
+		"shield":
+			run.y = path.shields[0].y + 0.3; run.x = path.shields[0].x
+		"portal":
+			run.y = float(path.portals[0].y) + 3.5; run.x = float(path.portals[0].x) + 1.5
+		"passage":
+			run.y = float(path.portals[0].y) + 0.3; run.x = float(path.portals[0].x)
+	for step in range(30 if wanted == "passage" else 6): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
 
 func _layout() -> void:
 	_layout_for_safe_top(_display_safe_top())

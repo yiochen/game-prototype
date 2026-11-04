@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Sushi Loop · Currents, shields and bonus passage</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+<header class="bar">
+  <h1>Currents, shields &amp; bonus passage · issue #22 review</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="play" aria-selected="true">Play</button>
+    <button role="tab" data-view="elements" aria-selected="false">Elements &amp; states</button>
+  </nav>
+</header>
+<main>
+  <section id="play" class="view">
+    <div class="layout">
+      <div class="stage" id="stage">
+        <div class="phone" id="phone">
+          <canvas id="travel" aria-label="Expedition playfield"></canvas>
+          <div class="hud">
+            <div class="pill hull" role="img" id="hull" aria-label="Hull 100%"><span class="ship-icon"></span><span class="track"><span class="fill" id="hull-fill"></span></span></div>
+            <div class="pill salvage" role="img" id="salvage" aria-label="0 salvage this expedition"><span class="gold-icon"></span><b id="salvage-value">0</b></div>
+            <button class="pause" id="pause" aria-label="Pause"><span></span><span></span></button>
+          </div>
+          <div class="zone left" id="zone-left" role="button" aria-label="Steer left"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <div class="zone right" id="zone-right" role="button" aria-label="Steer right"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <div class="ride-note" id="ride-note" hidden>The current carries you</div>
+          <div class="scrim" id="scrim" hidden>
+            <div class="card" id="paused-card" role="dialog" aria-label="Paused" hidden>
+              <h2>Paused</h2>
+              <div class="actions"><button class="cream" id="return-early">Return early</button><button class="primary" id="resume">Resume</button></div>
+            </div>
+            <div class="countdown" id="countdown" hidden><b></b><span>Returning to ship...</span></div>
+            <div class="card" id="results-card" role="dialog" aria-label="Results" hidden>
+              <h2 id="results-title">Expedition complete</h2>
+              <dl>
+                <dt>Pickups</dt><dd id="r-pickups">0</dd>
+                <dt>Completion bonus</dt><dd id="r-bonus">0</dd>
+                <dt class="total">Total salvage</dt><dd class="total" id="r-total">0</dd>
+              </dl>
+              <div class="actions"><button class="primary" id="again">Dive again</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Review controls">
+        <h2>Try it</h2>
+        <p>Hold <kbd>←</kbd>/<kbd>→</kbd> or press either half of the playfield. Letting go stops your steering; a current keeps pushing.</p>
+        <div class="row jumps" role="group" aria-label="Jump to">
+          <button data-jump="current">Current field</button>
+          <button data-jump="boost">Shield</button>
+          <button data-jump="portal">Portal</button>
+          <button data-jump="encounter">Shield near the end</button>
+        </div>
+        <fieldset>
+          <legend>Inside the bonus passage</legend>
+          <label><input type="radio" name="ride" value="auto" checked> Automatic ride (arrows dimmed)</label>
+          <label><input type="radio" name="ride" value="steer"> Steerable inside the passage (no damage)</label>
+        </fieldset>
+        <div class="row">
+          <button id="save-reload">Save &amp; reopen</button>
+          <button id="restart">Restart</button>
+        </div>
+        <div class="row">
+          <label>Screen <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="wide">Wider window</option><option value="landscape">Landscape 844×390</option></select></label>
+          <label><input type="checkbox" id="autopilot"> Review autopilot</label>
+          <label><input type="checkbox" id="grid"> Collision grid</label>
+        </div>
+        <label class="seed">Seed <input id="seed" type="number" min="1" inputmode="numeric"></label>
+        <h2>Run state</h2>
+        <dl class="state" id="state"></dl>
+        <h2>Rules in this prototype</h2>
+        <ul class="rules">
+          <li><b>Currents</b> push sideways at <span data-rule="current_columns_per_second"></span> columns/s, on top of steering (<span data-rule="lateral_columns_per_second"></span>). Letting go eases your steering to zero; the push continues.</li>
+          <li><b>Shield</b>: ×<span data-rule="boost_forward_multiplier"></span> forward speed for <span data-rule="boost_seconds"></span> s and no collision damage. No pickup multiplier. It ends at the encounter edge (the finish chunk stands in for the creature encounter: no shields or portals there).</li>
+          <li><b>Portal</b> (optional): steer onto the stone ring to enter a separate safe passage. A strong current carries you through salvage and you rejoin the main route one chunk later. Used once per run; reopening a save never repeats it.</li>
+        </ul>
+        <ol class="chunks" id="chunks" aria-label="Chunks in this run, start first"></ol>
+      </aside>
+    </div>
+  </section>
+  <section id="elements" class="view" hidden>
+    <p class="note">The new pieces in each state, drawn by the same renderer as Play. Gold and the submarine are shown for contrast.</p>
+    <div id="gallery"></div>
+  </section>
+</main>
+<script type="module" src="./app.js"></script>
+</body></html>

@@ -3,9 +3,14 @@ extends Control
 ## early-return confirmation, resume countdown and the results receipt.
 ## Preparation is on-screen text while the ship cruises the route's launch
 ## lead-in (easing into a hover at its end), with a Sushi Bar exit; pressing
-## anywhere else starts the dive from there and that touch becomes the stick.
+## anywhere else starts the dive (and steers when it lands on an arrow).
 ## Gameplay and --expedition-gallery share this presentation. Commands go
 ## through `commander` (session.command); this node never edits state itself.
+##
+## Issue #22: shield pickups, shield bumps and portal rides arrive as advance
+## events; a portal transition holds travel until the view's whirlpool iris
+## finishes. During the passage ride the arrows dim and a quiet label says the
+## current is steering.
 ##
 ## Surfaces reuse the approved shared family (maple popup face, cream capsules,
 ## vermilion primary, round cream control). Outcome backgrounds are tinted
@@ -59,6 +64,9 @@ var prep_title: Label
 var prep_text: Label
 var prep_hint: Label
 var exit_button: Button
+var ride_note: Label
+var toast: Label
+var _toast_left := 0.0
 var _hull_pulse := 0.0
 var _hit_flash := 0.0
 var _salvage_pop := 0.0
@@ -95,7 +103,7 @@ func _ready() -> void:
 	_card("paused", "Paused", "", [["Return early", false, func(): _show_overlay("confirm")], ["Resume", true, resume]])
 	_card("confirm", "Return early?", "Keep your haul. No completion bonus.", [["Stay paused", false, func(): _show_overlay("paused")], ["Return", true, return_early]])
 	prep_title = _label(self, 950); prep_title.text = "Submarine ready"
-	prep_text = _label(self, 750); prep_text.text = "Hold and slide left or right to steer. Let go to run straight."
+	prep_text = _label(self, 750); prep_text.text = "Hold the left or right arrow to steer. Let go to run straight."
 	prep_hint = _label(self, 900); prep_hint.text = "Touch anywhere to dive"
 	for label in [prep_title, prep_text, prep_hint]:
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -104,6 +112,13 @@ func _ready() -> void:
 	exit_button = Button.new(); exit_button.text = "Sushi Bar"; exit_button.accessibility_name = "Back to the Sushi Bar"
 	exit_button.add_theme_font_override("font", _font(850)); exit_button.set_meta("primary", false); exit_button.focus_mode = Control.FOCUS_ALL
 	exit_button.pressed.connect(close_prep); add_child(exit_button)
+	ride_note = _label(self, 850); ride_note.text = "The current carries you"; ride_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	toast = _label(self, 850); toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	for label in [ride_note, toast]:
+		label.add_theme_color_override("font_color", Color("eafcff"))
+		var pill := PopupSkin.flat(Color(.016, .094, .227, .5), 999)
+		pill.content_margin_left = 14; pill.content_margin_right = 14
+		label.add_theme_stylebox_override("normal", pill)
 	_card("results", "", "", [["Restaurant", true, finish_results]])
 	for row in ["pickups", "bonus", "total"]:
 		var name_label := _label(cards.results.panel, 800); var value_label := _label(cards.results.panel, 900); value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -189,7 +204,7 @@ func open_prep(value: Dictionary) -> void:
 	_prep_y = float(_prep_lead.bottom)
 	_sync_prep(0.0)
 	view.snap_camera()
-	view.accessibility_name = "Underwater preparation. Touch anywhere to dive, then drag sideways to steer."
+	view.accessibility_name = "Underwater preparation. Touch anywhere to dive, then hold the left or right arrow to steer."
 	show(); _refresh_visibility(); layout(area)
 	# No focused control: Enter/Space starts, Back returns to the Sushi Bar.
 	if get_viewport().gui_get_focus_owner() != null: get_viewport().gui_get_focus_owner().release_focus()
@@ -197,14 +212,15 @@ func open_prep(value: Dictionary) -> void:
 func close_prep() -> void:
 	mode = "hidden"; hide(); returned_to_restaurant.emit()
 
-## `by_touch`: the starting press stays held and steers from where it landed.
+## `by_touch`: the starting press stays held (and steers if it is on an arrow).
 func start(by_touch := false) -> void:
 	if mode != "prep": return
 	var outcome := _command({"type": "expedition_start", "now": _now(), "y": _prep_y})
 	if not outcome.get("ok", false): close_prep(); return
 	mode = "travel"; overlay = "none"
-	if not by_touch: view.cancel_drag()
-	view.accessibility_name = "Expedition. Drag sideways anywhere to steer."
+	if not by_touch: view.release_controls()
+	view.steering_enabled = true; view.resume_controls()
+	view.accessibility_name = "Expedition. Hold the left or right arrow to steer."
 	departed.emit(); save_requested.emit(); _refresh_visibility()
 
 ## Reopen after close/background: unfinished travel waits behind Paused.
@@ -212,21 +228,21 @@ func resume_suspended(value: Dictionary) -> void:
 	snapshot = value
 	if value.expedition.run != null:
 		mode = "travel"; _command({"type": "expedition_pause"}); _show_overlay("paused")
-		view.accessibility_name = "Expedition. Drag sideways anywhere to steer."
+		view.accessibility_name = "Expedition. Hold the left or right arrow to steer."
 		_sync_view(0.0); view.snap_camera(); show()
 	elif value.expedition.result != null:
 		show_results(value.expedition.result)
 
 func pause() -> void:
 	if mode != "travel" or overlay != "none": return
-	_command({"type": "expedition_pause"}); view.cancel_drag(); _keys.clear()
+	_command({"type": "expedition_pause"}); view.release_controls(); _keys.clear(); view.key_input = 0.0
 	_show_overlay("paused"); save_requested.emit()
 
 ## App backgrounded or closed: freeze behind Paused (not an early return).
 func suspend() -> void:
 	if mode == "travel" and overlay in ["none", "countdown"]:
 		_command({"type": "expedition_pause"}); _show_overlay("paused")
-	view.cancel_drag()
+	view.release_controls()
 
 func resume() -> void:
 	# The countdown keeps movement and timers frozen; the engine resumes after it.
@@ -235,7 +251,7 @@ func resume() -> void:
 	if countdown <= 0.0: _finish_countdown()
 
 func _finish_countdown() -> void:
-	_command({"type": "expedition_resume"}); view.reanchor(); _show_overlay("none")
+	_command({"type": "expedition_resume"}); view.resume_controls(); _show_overlay("none")
 
 func return_early() -> void:
 	var outcome := _command({"type": "expedition_return_early", "now": _now()})
@@ -280,7 +296,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	# Keyboard fallback for the stick: held arrow keys steer, release runs straight.
 	elif mode == "travel" and overlay == "none" and event is InputEventKey and event.keycode in [KEY_LEFT, KEY_RIGHT] and not event.echo:
 		_keys[event.keycode] = event.pressed
-		_command({"type": "expedition_steer", "input": (1.0 if _keys.get(KEY_RIGHT, false) else 0.0) - (1.0 if _keys.get(KEY_LEFT, false) else 0.0)})
+		view.key_input = (1.0 if _keys.get(KEY_RIGHT, false) else 0.0) - (1.0 if _keys.get(KEY_LEFT, false) else 0.0)
+		_command({"type": "expedition_steer", "input": view.key_input})
 		get_viewport().set_input_as_handled()
 
 # ------------------------------------------------------------ frame
@@ -295,13 +312,20 @@ func update(value: Dictionary, delta: float) -> void:
 		if overlay == "countdown" and not gallery:
 			countdown -= delta
 			if countdown <= 0.0: _finish_countdown()
-		if overlay == "none" and not gallery:
+		# A portal transition holds travel until the iris opens on the far side.
+		if overlay == "none" and not gallery and not view.transitioning():
 			var outcome := _command({"type": "expedition_advance", "elapsed": delta, "now": _now()})
 			for event in outcome.get("events", []):
 				match event.type:
 					"pickup": view.burst(Vector2(float(event.x), float(event.y))); _salvage_pop = 1.0
 					"impact":
 						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit()
+					"shield":
+						view.shield_burst(Vector2(float(event.x), float(event.y))); _show_toast("Shield! No collision damage")
+					"shield_bump": view.shield_bump(Vector2(float(event.x), float(event.y)))
+					"passage_enter", "passage_exit":
+						view.begin_transition("enter" if event.type == "passage_enter" else "exit", Vector2(float(event.from_x), float(event.from_y)))
+						save_requested.emit()
 					"ended":
 						show_results(event.result); save_requested.emit(); return
 			if state_provider.is_valid(): snapshot.expedition = state_provider.call()
@@ -316,23 +340,34 @@ func update(value: Dictionary, delta: float) -> void:
 	_refresh_hud(delta)
 
 func _sync_prep(delta: float) -> void:
-	view.steering_enabled = false; view.reduced_motion = reduced_motion
+	view.steering_enabled = false; view.controls_visible = true; view.reduced_motion = reduced_motion
 	view.sync({"seed": _prep_seed, "x": _prep_lead.x, "y": _prep_y, "protection": 0.0, "collected": []}, delta, not gallery)
 
 func _sync_view(delta: float) -> void:
 	var run = snapshot.expedition.run
 	if run == null: return
-	view.steering_enabled = overlay == "none"
+	view.steering_enabled = overlay == "none"; view.controls_visible = overlay == "none"
+	# The passage current steers: the arrows dim and steering input is ignored.
+	view.controls_disabled = run.get("passage") != null or view.transitioning()
+	ride_note.visible = mode == "travel" and overlay == "none" and run.get("passage") != null and not view.transitioning()
 	view.reduced_motion = reduced_motion
 	view.sync(run, delta, overlay == "none" and not gallery)
 
+func _show_toast(text: String) -> void:
+	toast.text = text; _toast_left = 1.6; layout(area)
+
 func _refresh_hud(delta: float) -> void:
+	_toast_left = maxf(0.0, _toast_left - delta)
+	toast.visible = _toast_left > 0.0 and mode == "travel"
+	toast.modulate.a = minf(1.0, _toast_left * 2.0)
 	var run = snapshot.get("expedition", {}).get("run")
 	if run == null: return
+	# The hull icon glows while the shield or the passage protects it.
+	hull_icon.modulate = Color(.8, 1.15, 1.3) if float(run.get("shield", 0.0)) > 0.0 or run.get("passage") != null else Color.WHITE
 	salvage_label.text = str(int(run.salvage)); salvage_pill.accessibility_description = "%d salvage this expedition" % int(run.salvage)
 	var fraction := float(run.get("hull_fraction", 1.0))
 	var low: bool = run.get("low_hull", false)
-	hull_pill.accessibility_description = "Hull %d%%%s" % [int(round(fraction * 100)), ", low" if low else ""]
+	hull_pill.accessibility_description = "Hull %d%%%s%s" % [int(round(fraction * 100)), ", low" if low else "", ", shield" if float(run.get("shield", 0.0)) > 0.0 else ""]
 	_hull_pulse = maxf(0.0, _hull_pulse - delta * 2.5)
 	_hit_flash = maxf(0.0, _hit_flash - delta * 2.2)
 	damage_flash.modulate.a = _hit_flash * (.6 if reduced_motion else 1.0)
@@ -362,6 +397,7 @@ func _refresh_visibility() -> void:
 	cards.paused.panel.visible = travelling and overlay == "paused"
 	cards.confirm.panel.visible = travelling and overlay == "confirm"
 	for node in [prep_title, prep_text, prep_hint, exit_button]: node.visible = mode == "prep"
+	if not travelling: ride_note.visible = false; toast.visible = false
 	cards.results.panel.visible = mode == "results"
 	countdown_number.visible = travelling and overlay == "countdown"
 	countdown_caption.visible = countdown_number.visible
@@ -394,6 +430,12 @@ func layout(value: Rect2) -> void:
 	PopupSkin.close_button(pause_button, unit * 390.0 / 720.0 * 1.04, physical)
 	pause_button.position = Vector2(area.end.x - 12 * unit - pause_button.size.x, top)
 	pause_button.add_theme_constant_override("icon_max_width", int(30 * unit))
+	for label in [ride_note, toast]:
+		label.add_theme_font_size_override("font_size", maxi(1, int(15 * unit)))
+		label.size = Vector2(0, 0); label.reset_size()
+	var edge := minf(area.size.x / 7.0 * 1.6, area.size.y * .18)
+	ride_note.position = Vector2(area.get_center().x - ride_note.size.x / 2, area.end.y - edge * .22 * 1.6 - edge / 2 - ride_note.size.y / 2)
+	toast.position = Vector2(area.get_center().x - toast.size.x / 2, area.position.y + area.size.y * .2)
 	_layout_card(cards.paused, unit, physical, 150)
 	_layout_card(cards.confirm, unit, physical, 186)
 	_layout_prep(unit, physical, top)

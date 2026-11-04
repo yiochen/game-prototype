@@ -10,8 +10,57 @@
 	"low_hull_fraction": 0.35,
 	"salvage_per_pickup": 2,
 	"completion_bonus": 20,
-	"ship_collider": [0.64, 0.88],
+	"ship_collider": [
+		0.64,
+		0.88
+	],
 	"pickup_radius": 0.6,
 	"resume_countdown_seconds": 3,
-	"plan": ["launch", "launch", "start", 1.5, 2.0, "rest", 2.5, "fork", 3.0, 3.5, "rest", "fork", 4.0, "finish"]
+	"current_columns_per_second": 1.4,
+	"shield_forward_multiplier": 1.8,
+	"shield_seconds": 3.5,
+	"shield_radius": 0.55,
+	"portal_radius": 0.45,
+	"passage_rows": 28,
+	"passage_forward_rows_per_second": 3.4,
+	"passage_gold_every_rows": 2,
+	"passage_ride_rows": 3.2,
+	"passage_rejoin_skips_chunks": 1,
+	"portal_transition_seconds": 1.1,
+	"route_version": 2,
+	"plan": [
+		"launch",
+		"launch",
+		"start",
+		1.5,
+		"current",
+		2.0,
+		"portal",
+		2.5,
+		"fork",
+		"boost",
+		3.0,
+		"rest",
+		"current",
+		4.0,
+		"finish"
+	],
+	"legacy_plans": {
+		"1": [
+			"launch",
+			"launch",
+			"start",
+			1.5,
+			2.0,
+			"rest",
+			2.5,
+			"fork",
+			3.0,
+			3.5,
+			"rest",
+			"fork",
+			4.0,
+			"finish"
+		]
+	}
 }
