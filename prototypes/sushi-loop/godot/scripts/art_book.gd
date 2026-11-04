@@ -30,6 +30,8 @@ var cell_size := 128.0
 var revision := 0
 var alpha_masks: Dictionary = {}
 var budget_bytes := CACHE_BUDGET_BYTES
+## Loads per atlas path; a repeat within budget means an atlas was dropped early.
+var load_counts: Dictionary = {}
 var frame_serial := 0
 ## Atlas pixels per authored source pixel; 1.0 when sprites are unpacked.
 var texture_scale := 1.0
@@ -188,6 +190,7 @@ func frame_data(identity: String, clip := "static", direction := "S", seconds :=
 			push_error("Missing approved catalog texture: " + path)
 			return {}
 		var texture: Texture2D = ResourceLoader.load(path, "Texture2D", ResourceLoader.CACHE_MODE_IGNORE)
+		load_counts[path] = int(load_counts.get(path, 0)) + 1
 		sources[path] = texture
 		source_bytes[path] = texture.get_width() * texture.get_height() * 4 if texture != null else 0
 	var count: int = record.count
