@@ -55,6 +55,8 @@ func travel(s, now: float, seconds: float, steer := true) -> Array:
 		t += 0.05
 	return events
 
+func types_of(events: Array) -> Array: return events.map(func(e): return e.type)
+
 func run() -> void:
 	var s = Session.new_session(21)
 	var start_random: String = s.save_data().random_state
@@ -88,7 +90,33 @@ func run() -> void:
 
 	var rules: Dictionary = Book.definition()
 	check(float(rules.lateral_columns_per_second) / float(rules.forward_rows_per_second) >= float(Route.QY) / Route.QX, "full stick covers the sideways slide chunk validation assumes per row")
-	check(float(rules.ship_collider[0]) == 2 * Route.SHIP_HALF[0] and float(rules.ship_collider[1]) == 2 * Route.SHIP_HALF[1], "chunk validation flies the same hull collider as travel")
+	check(float(rules.ship_radius) <= minf(Route.SHIP_HALF[0], Route.SHIP_HALF[1]), "the travel hull circle fits inside the box chunk validation flies, so validated routes stay passable")
+	# Round collision: a glancing pass by a rock's corner is forgiven; a head-on touch still hits.
+	var reach := float(rules.ship_radius) + float(rules.rock_radius)
+	var lone := ["...", ".#.", "..."]
+	check(Book._overlaps(lone, 2.25, 2.3, Vector2(.32, .44)) and not Book._collides(lone, 2.25, 2.3, reach), "brushing a rock's corner no longer dents the hull")
+	check(Book._collides(lone, 1.5, 2.1, reach) and Book._collides(lone, 2.15, 1.5, reach), "touching a rock's face still does")
+	# Rock is solid: a hit knocks the ship back to the nearest clear water, once per dent.
+	var k = Session.new_session(11)
+	k.command({"type": "expedition_start", "now": 10.0, "seed": 21})
+	var krows: Array = Book.route(21).rows
+	var rock := Vector2(-1, -1)
+	for ry in range(krows.size() - 30, 40, -1):
+		for rx in range(2, 9):
+			if Route.is_rock(str(krows[ry])[rx]) and not Route.is_rock(str(krows[ry + 1])[rx]) and not Route.is_rock(str(krows[ry + 2])[rx]): rock = Vector2(rx + .5, ry + .5); break
+		if rock.x > 0: break
+	var kr: Dictionary = k._state.expedition.run
+	kr.x = rock.x; kr.y = rock.y + .65; kr.vx = 0.0; kr.steer = 0.0
+	var kres: Dictionary = k.command({"type": "expedition_advance", "elapsed": 0.05, "now": 11.0})
+	var knocked: Array = kres.get("events", []).filter(func(e): return e.type == "impact")
+	check(knocked.size() == 1 and float(kr.hull) == 75.0, "running into rock dents the hull once")
+	check(not Book._collides(krows, float(kr.x), float(kr.y), reach), "and knocks the ship out to clear water")
+	var moved := Vector2(float(kr.x), float(kr.y)).distance_to(Vector2(float(knocked[0].from_x), float(knocked[0].from_y)))
+	check(moved > 0.0 and moved < 1.0 and float(kr.y) >= float(knocked[0].from_y) - .001, "the knock-back is the shortest way out, never ahead (%.2f cells)" % moved)
+	kr.x = rock.x; kr.y = rock.y + .65
+	var bumped: Array = k.command({"type": "expedition_advance", "elapsed": 0.05, "now": 11.1}).events
+	check(types_of(bumped) == ["bump"] and float(exp_state(k).run.hull) == 75.0 and not Book._collides(krows, float(exp_state(k).run.x), float(exp_state(k).run.y), reach), "during hit protection rock still pushes the ship out, without damage")
+
 	# Joystick (own run): a held stick keeps the ship moving sideways; letting go runs straight.
 	var j = Session.new_session(9)
 	j.command({"type": "expedition_start", "now": 10.0, "seed": 21})
@@ -108,21 +136,22 @@ func run() -> void:
 	check(j.command({"type": "expedition_steer", "input": -5.0}).ok and float(exp_state(j).run.steer) == -1.0, "stick input is clamped to full deflection")
 	var edge_guard := 0
 	while exp_state(j).run != null and float(exp_state(j).run.x) > 0.4 and edge_guard < 200:
+		# Hit protection held on, so leaning on the wall never wrecks the hull.
+		j._state.expedition.run.protection = 5.0
 		j.command({"type": "expedition_advance", "elapsed": 0.05, "now": 13.0}); edge_guard += 1
-	check(exp_state(j).run != null and float(exp_state(j).run.x) == 0.4 and float(exp_state(j).run.vx) == 0.0, "steering clamps at the world edge")
+	var jx := float(exp_state(j).run.x) if exp_state(j).run != null else -1.0
+	check(jx >= 0.4 and not Book._collides(Book.route(21).rows, jx, float(exp_state(j).run.y), float(rules.ship_radius) + float(rules.rock_radius)), "steering stops at the canyon wall or the world edge, never inside rock")
 
 	# Push into the canyon wall until the first contact, then hold the stick still.
 	s.command({"type": "expedition_steer", "input": -1.0})
 	var approach := 0
 	while approach < 200 and not s.command({"type": "expedition_advance", "elapsed": 0.05, "now": 1008.0}).events.any(func(e): return e.type == "impact"): approach += 1
-	s.command({"type": "expedition_steer", "input": 0.0})
-	s.command({"type": "expedition_advance", "elapsed": 0.25, "now": 1008.5})
 
-	# Impacts: damage, brief protection, steering preserved without knockback.
-	var hits := 0
-	var x_before := float(exp_state(s).run.x)
+	# Impacts: damage, brief protection, and a knock-back out of the rock.
+	# Keep pushing into the wall: later dents wait for hit protection.
+	var hits := 1 if approach < 200 else 0
 	var t := 0.0
-	var first_hit := -1.0
+	var first_hit := 0.0 if hits else -1.0
 	var second_hit := -1.0
 	while t < 3.0 and exp_state(s).run != null:
 		var result: Dictionary = s.command({"type": "expedition_advance", "elapsed": 0.05, "now": 1010.0 + t})
@@ -134,7 +163,8 @@ func run() -> void:
 		t += 0.05
 	check(first_hit >= 0.0 and float(exp_state(s).run.hull) < 100.0, "running into rock damages the hull")
 	check(second_hit < 0 or second_hit - first_hit >= 1.15, "hit protection prevents repeated damage from one collision")
-	check(exp_state(s).run == null or float(exp_state(s).run.x) == x_before, "impacts never push the ship sideways")
+	s.command({"type": "expedition_steer", "input": 0.0})
+	check(exp_state(s).run == null or not Book._collides(Book.route(21).rows, float(exp_state(s).run.x), float(exp_state(s).run.y), float(rules.ship_radius) + float(rules.rock_radius)), "impacts push the ship out of the rock")
 	check(exp_state(s).run == null or exp_state(s).run.low_hull == (exp_state(s).run.hull_fraction <= 0.35), "low hull flag follows the configured threshold")
 
 	# Keep crashing to deplete the hull.

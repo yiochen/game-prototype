@@ -266,6 +266,20 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			encounter.cooldown = float(definition().encounter.cooldown_seconds)
 			encounter.shots = int(encounter.shots) + 1
 			return {"ok": true, "shot": int(encounter.shots)}
+		# Debug cheats: the presentation offers these only behind the single
+		# `cheats` flag (branding.json or --cheats); the rules stay deterministic.
+		"expedition_cheat_shield":
+			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
+			if float(run.y) <= float(run_route(run).encounter_edge) + 0.5: return {"ok": false, "reason": "no_shields_here"}
+			run.shield = float(definition().shield_seconds)
+			return {"ok": true, "events": [{"type": "shield", "index": -1, "x": run.x, "y": run.y}]}
+		"expedition_cheat_encounter":
+			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
+			var arena = run_route(run).arena
+			if not arena is Dictionary or run.encounter != null: return {"ok": false, "reason": "no_encounter"}
+			if float(run.y) <= float(arena.y1) + 0.5: return {"ok": false, "reason": "already_there"}
+			run.y = float(arena.y1) + 0.5; run.x = 5.5; run.vx = 0.0; run.shield = 0.0; run.protection = 0.0
+			return {"ok": true}
 		"expedition_pause":
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			# A paused ship lets go of the stick; it resumes running straight.
@@ -301,7 +315,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 	if run.paused or elapsed <= 0.0: return events
 	var rules := definition()
 	var path := run_route(run)
-	var half := Vector2(float(rules.ship_collider[0]), float(rules.ship_collider[1])) * 0.5
+	var reach := float(rules.ship_radius) + float(rules.rock_radius)
 	var radius := float(rules.pickup_radius)
 	var per := int(rules.salvage_per_pickup)
 	# Sub-steps keep a frame hitch from tunnelling through a one-cell rock.
@@ -376,20 +390,28 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				run.passage = {"portal": i, "y": start_y, "x": passage_centre(info, start_y), "collected": []}
 				events.append({"type": "passage_enter", "portal": i, "from_x": portal.x, "from_y": portal.y, "x": run.passage.x, "y": start_y})
 				return events
-		if _overlaps(path.rows, float(run.x), float(run.y), half):
+		if _collides(path.rows, float(run.x), float(run.y), reach):
 			if float(run.shield) > 0.0:
 				# Rocks only bump the shield; a short guard keeps the feedback from repeating every step.
 				if float(run.protection) <= 0.0:
 					run.protection = 0.3
 					events.append({"type": "shield_bump", "x": run.x, "y": run.y})
-			elif float(run.protection) <= 0.0:
-				run.hull = maxf(0.0, float(run.hull) - float(rules.impact_damage))
-				run.protection = float(rules.hit_protection_seconds)
-				run.impacts = int(run.impacts) + 1
-				events.append({"type": "impact", "x": run.x, "y": run.y, "hull": run.hull})
-				if float(run.hull) <= 0.0:
-					events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now)})
-					return events
+			else:
+				# Rock is solid: the hull is knocked back to the closest clear water.
+				# Only the first touch dents it; hit protection keeps later bumps free.
+				var from := Vector2(float(run.x), float(run.y))
+				var to := _nearest_clear(path.rows, from, reach + float(rules.knockback_clearance))
+				run.x = to.x; run.y = to.y; run.vx = 0.0
+				if float(run.protection) <= 0.0:
+					run.hull = maxf(0.0, float(run.hull) - float(rules.impact_damage))
+					run.protection = float(rules.hit_protection_seconds)
+					run.impacts = int(run.impacts) + 1
+					events.append({"type": "impact", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y, "hull": run.hull})
+					if float(run.hull) <= 0.0:
+						events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now)})
+						return events
+				else:
+					events.append({"type": "bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
 		if float(run.y) <= 0.5:
 			events.append({"type": "ended", "result": _end(config, state, "complete", now)})
 			return events
@@ -473,6 +495,35 @@ static func strike_point(run: Dictionary, rows: float) -> Variant:
 			return Vector2(float(encounter.harpoon.x), float(run.y) - float(definition().encounter.nose_rows) - d - step)
 		step += 0.2
 	return null
+
+## Travel collision: the hull is a circle and each rock cell a circle at its
+## centre, so corners and glancing passes are forgiven. `reach` is the sum of
+## the two radii; it stays inside the box chunk validation flies (`_overlaps`).
+static func _collides(rows: Array, x: float, y: float, reach: float) -> bool:
+	for cy in range(int(floor(y - reach)), int(floor(y + reach)) + 1):
+		if cy < 0 or cy >= rows.size(): continue
+		var row: String = rows[cy]
+		for cx in range(int(floor(x - reach)), int(floor(x + reach)) + 1):
+			if cx >= 0 and cx < row.length() and Route.is_rock(row[cx]) and Vector2(cx + 0.5 - x, cy + 0.5 - y).length() < reach: return true
+	return false
+
+## The clear spot nearest `at`: sideways or back down the route (never ahead,
+## which would skip travel), inside the route's side margins.
+static func _nearest_clear(rows: Array, at: Vector2, reach: float) -> Vector2:
+	for offset: Vector2 in _knock_offsets():
+		var p := at + offset
+		if p.x < 0.4 or p.x > Route.COLUMNS - 0.4: continue
+		if not _collides(rows, p.x, p.y, reach): return p
+	return at
+
+## Knock-back candidates (up to 3 columns aside, 2 rows back), nearest first.
+static var _offsets: Array = []
+static func _knock_offsets() -> Array:
+	if _offsets.is_empty():
+		for iy in range(0, 21):
+			for ix in range(-60, 61): _offsets.append(Vector2(ix * 0.05, iy * 0.1))
+		_offsets.sort_custom(func(a: Vector2, b: Vector2): return a.length_squared() < b.length_squared())
+	return _offsets
 
 static func _overlaps(rows: Array, x: float, y: float, half: Vector2) -> bool:
 	for cy in range(int(floor(y - half.y)), int(floor(y + half.y)) + 1):

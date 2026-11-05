@@ -527,6 +527,7 @@ def main() -> int:
     parser.add_argument("--version-code", type=int)
     parser.add_argument("--package-id")
     parser.add_argument("--review-scene", choices=sorted(REVIEW_SCENES), help="Build the same runtime in a separate Android package with fresh isolated app data.")
+    parser.add_argument("--cheats", action="store_true", help="Turn on the single debug flag (on-screen cheat buttons) in this APK only.")
     parser.add_argument("--godot", default=os.environ.get("GODOT_BIN", "godot"))
     parser.add_argument("--check", action="store_true", help="Validate runtime selection/pixels and SDK; do not import, build or install.")
     args = parser.parse_args()
@@ -534,6 +535,10 @@ def main() -> int:
     branding, variant = resolve_branding(json.loads((source / "branding.json").read_text()),
         title=args.title, version_name=args.version_name, version_code=args.version_code,
         package_id=args.package_id, review_scene=args.review_scene)
+    if args.cheats:
+        branding["cheats"] = True
+        variant["cheats"] = True
+        variant["staged_branding_overrides"]["cheats"] = True
     if not branding["title"].strip() or not branding["version_name"].strip() or int(branding["version_code"]) < 1:
         parser.error("Title, version name and a positive version code are required.")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*(?:\.[A-Za-z][A-Za-z0-9_]*)+", branding["android_package"]):
@@ -567,7 +572,7 @@ def main() -> int:
     environment[f"{prefix}_PATH"] = str(keystore)
     environment[f"{prefix}_USER"] = credentials["alias"]
     environment[f"{prefix}_PASSWORD"] = credentials["password"]
-    variant_name = f"{args.review_scene}-review-" if args.review_scene else ""
+    variant_name = (f"{args.review_scene}-review-" if args.review_scene else "") + ("cheats-" if args.cheats else "")
     output = (args.output or source / "build" / f"sushi-loop-{variant_name}{args.mode}-v{branding['version_name']}.apk").resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="sushi-loop-android-") as temporary:

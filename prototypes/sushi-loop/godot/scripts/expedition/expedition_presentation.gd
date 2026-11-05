@@ -29,6 +29,7 @@ const Wood = preload("res://scripts/wood_skin.gd")
 const Typography = preload("res://scripts/typography.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const HarpoonButton = preload("res://scripts/expedition/harpoon_button.gd")
+const Cheats = preload("res://scripts/cheats.gd")
 
 signal returned_to_restaurant
 signal save_requested
@@ -94,6 +95,8 @@ var _prep_seed := 0
 var _prep_lead: Dictionary = {}
 var _prep_y := 0.0
 var _keys := {}
+## Debug shortcuts, shown only with the cheats flag.
+var cheat_buttons: Array[Button] = []
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -159,8 +162,18 @@ func _ready() -> void:
 		label.add_theme_color_override("font_outline_color", Color("0b2f63"))
 		label.add_theme_color_override("font_shadow_color", Color(.02, .1, .2, .45))
 		label.add_theme_constant_override("shadow_offset_y", 5); label.add_theme_constant_override("shadow_offset_x", 0)
+	if Cheats.enabled():
+		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter]]:
+			var button := Button.new(); button.text = "DEBUG · " + entry[0]; button.focus_mode = Control.FOCUS_NONE
+			button.add_theme_font_override("font", _font(850)); button.pressed.connect(entry[1])
+			for treatment in ["normal", "hover", "pressed"]:
+				var style := PopupSkin.flat(Color(.35, .05, .4, .72 if treatment != "pressed" else .9), 10)
+				style.set_border_width_all(2); style.border_color = Color("ff7ae0")
+				button.add_theme_stylebox_override(treatment, style)
+			for key in ["font_color", "font_hover_color", "font_pressed_color"]: button.add_theme_color_override(key, Color("ffe6fa"))
+			add_child(button); cheat_buttons.append(button)
 	# Encounter pieces stay under the Pause scrim and cards, like the rest of the HUD.
-	for node in [resistance_pill, harpoon_button, callout_title, callout_text]: move_child(node, scrim.get_index())
+	for node in [resistance_pill, harpoon_button, callout_title, callout_text] + cheat_buttons: move_child(node, scrim.get_index())
 	countdown_number = _label(self, 950); countdown_number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; countdown_number.add_theme_color_override("font_color", Color("fff6df"))
 	countdown_caption = _label(self, 850); countdown_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; countdown_caption.text = "Returning to ship..."
 	countdown_caption.add_theme_color_override("font_color", Color("fff6df"))
@@ -281,6 +294,21 @@ func fire() -> void:
 	if mode != "travel" or overlay != "none": return
 	_command({"type": "expedition_fire"})
 
+## Debug: a shield right now.
+func cheat_shield() -> void:
+	if mode != "travel" or overlay != "none": return
+	var result := _command({"type": "expedition_cheat_shield"})
+	if result.ok: view.shield_burst(view.ship); _show_toast("Shield! No collision damage")
+	else: _show_toast("Debug: no shield here")
+
+## Debug: skip the route to the creature arena's entry.
+func cheat_encounter() -> void:
+	if mode != "travel" or overlay != "none": return
+	if _command({"type": "expedition_cheat_encounter"}).ok:
+		if state_provider.is_valid(): snapshot.expedition = state_provider.call()
+		_sync_view(0.0); view.snap_camera(); save_requested.emit()
+	else: _show_toast("Debug: the encounter is behind you")
+
 func _callout(title: String, text: String) -> void:
 	callout_title.text = title; callout_text.text = text
 	_callout_left = 2.6; _callout_age = 0.0; layout(area)
@@ -372,7 +400,8 @@ func update(value: Dictionary, delta: float) -> void:
 				match event.type:
 					"pickup": view.burst(Vector2(float(event.x), float(event.y))); _salvage_pop = 1.0
 					"impact":
-						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit()
+						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit(); view.damage(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
+					"bump": view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"shield":
 						view.shield_burst(Vector2(float(event.x), float(event.y))); _show_toast("Shield! No collision damage")
 					"shield_bump": view.shield_bump(Vector2(float(event.x), float(event.y)))
@@ -495,6 +524,7 @@ func _refresh_visibility() -> void:
 		ride_note.visible = false; toast.visible = false; harpoon_button.visible = false; resistance_pill.visible = false
 		callout_title.visible = false; callout_text.visible = false
 	cards.results.panel.visible = mode == "results"
+	for button in cheat_buttons: button.visible = travelling and overlay == "none"
 	countdown_number.visible = travelling and overlay == "countdown"
 	countdown_caption.visible = countdown_number.visible
 
@@ -550,6 +580,11 @@ func layout(value: Rect2) -> void:
 	callout_text.add_theme_constant_override("outline_size", maxi(1, int(7 * unit)))
 	callout_title.position = Vector2(area.position.x, area.position.y + area.size.y * .52 - 40 * unit); callout_title.size = Vector2(area.size.x, 56 * unit)
 	callout_text.position = Vector2(area.position.x, callout_title.position.y + 54 * unit); callout_text.size = Vector2(area.size.x, 26 * unit)
+	for i in range(cheat_buttons.size()):
+		var button := cheat_buttons[i]
+		button.add_theme_font_size_override("font_size", maxi(1, int(13 * unit)))
+		button.size = Vector2(118, 40) * unit
+		button.position = Vector2(area.position.x + 10 * unit, area.position.y + area.size.y * .36 + i * 48 * unit)
 	_layout_card(cards.paused, unit, physical, 150)
 	_layout_card(cards.confirm, unit, physical, 186)
 	_layout_prep(unit, physical, top)

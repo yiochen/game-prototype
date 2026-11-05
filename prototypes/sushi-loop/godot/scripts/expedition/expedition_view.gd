@@ -39,6 +39,7 @@ var world: Dictionary = {}
 var run_state: Dictionary = {}
 ## Arrows dim while the passage current steers.
 var controls_disabled := false
+const MAX_TILT := 0.3
 var _tr: Dictionary = {}
 var _outflow: Dictionary = {}
 var _bump := 0.0
@@ -64,6 +65,12 @@ var _prev_x := 5.5
 var _side := 0.0
 var _turn := 0.0
 var _hit := 0.0
+## Hull hit: the damage wobble/red flash (1 -> 0), and the knock-back still to
+## slide out (cells, from where the rules put the ship back to where it struck).
+var _hurt := 0.0
+var _knock := Vector2.ZERO
+## Banking into a turn (radians, eased toward the steering velocity).
+var _tilt := 0.0
 var _bubble: Texture2D
 var _glow: Texture2D
 var _shade: Texture2D
@@ -190,6 +197,11 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	time += delta
 	_hit = maxf(0.0, _hit - delta * 3.0)
 	_bump = maxf(0.0, _bump - delta * 4.0)
+	_hurt = maxf(0.0, _hurt - delta * 1.8)
+	_knock *= exp(-delta * 14.0)
+	var lateral := float(Book.definition().lateral_columns_per_second)
+	var bank := clampf(float(run.get("vx", 0.0)) / lateral, -1.0, 1.0) * MAX_TILT if ride == null else 0.0
+	_tilt = lerpf(_tilt, bank, minf(1.0, delta * 10.0))
 	protection = float(run.protection)
 	if _tr.is_empty():
 		_use(target)
@@ -341,7 +353,7 @@ func burst(at: Vector2) -> void:
 ## Bubbles freeze with the run; pickup sparkles and sparks always finish.
 func _step_particles(dt: float, effect_dt: float) -> void:
 	for p in particles:
-		var step := effect_dt if p.kind in ["collect", "spark"] else dt
+		var step := effect_dt if p.kind in ["collect", "spark", "chip"] else dt
 		p.age = float(p.age) + step
 		p.v = p.v * exp(-float(p.drag) * step)
 		if p.kind == "bubble": p.v = Vector2(p.v.x, p.v.y - float(p.rise) * step * 1.6)
@@ -359,7 +371,7 @@ func _top_row() -> float:
 func _origin() -> Vector2: return Vector2(size.x * .5 - cam_x * _cell(), -_top_row() * _cell()) + _shake()
 
 ## Draw a clip frame with its ground root at the footprint centre (or at `at` when `at_root`).
-func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt := 0.0, at_root := false, scale := 1.0, alpha := 1.0) -> void:
+func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt := 0.0, at_root := false, scale := 1.0, alpha := 1.0, tint := Color.WHITE) -> void:
 	var o: Dictionary = pieces.objects.get(id, {})
 	if o.is_empty(): return
 	var c: Dictionary = o.clips[clip]
@@ -370,7 +382,7 @@ func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt :=
 	var s := cell / 128.0 * scale
 	var root := at if at_root else at + Vector2(float(o.footprint[0]), float(o.footprint[1])) * cell * .5
 	var dest := Rect2(root - Vector2(float(o.root[0]), float(o.root[1])) * s, Vector2(float(o.frameSize[0]), float(o.frameSize[1])) * s)
-	draw_texture_rect_region(texture(str(d.image)), dest, Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3])), Color(1, 1, 1, alpha))
+	draw_texture_rect_region(texture(str(d.image)), dest, Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3])), Color(tint.r, tint.g, tint.b, alpha * tint.a))
 
 func kit(name: String, at: Vector2, cell: float) -> void:
 	var entry: Dictionary = pieces.kit.get(name, {})
@@ -566,12 +578,15 @@ func _draw_ship(o: Vector2, cell: float) -> void:
 	# shield bumps and the passage ride never do.
 	var hurt: bool = protection > 0.0 and not _shielded() and world.kind == "main" and _tr.is_empty()
 	var alpha := 1.0 if not hurt or reduced_motion else (.45 if int(time * 12) % 2 else 1.0)
-	var root := o + shown * cell
-	if shrink < 1.0:
-		var pivot := root - Vector2(0, cell * .25)
-		var spin := 0.0 if reduced_motion else (1.0 - shrink) * PI * (2.5 if _tr.kind == "enter" else -2.0)
-		draw_set_transform_matrix(Transform2D(spin, Vector2(shrink, shrink), 0.0, pivot) * Transform2D(0.0, -pivot))
-	piece("submarine-yellow", "S", root, cell, 1 if hurt else 0, 0.0, true, 1.0, alpha)
+	var root := o + (shown + _knock) * cell
+	# Banks into turns, and wobbles after a hit; the whirlpool spins it down.
+	var pivot := root - Vector2(0, cell * .35)
+	var spin := _tilt
+	if shrink < 1.0 and not reduced_motion: spin += (1.0 - shrink) * PI * (2.5 if _tr.kind == "enter" else -2.0)
+	if not reduced_motion: spin += sin(_hurt * 26.0) * _hurt * _hurt * .35
+	draw_set_transform_matrix(Transform2D(spin, Vector2(shrink, shrink), 0.0, pivot) * Transform2D(0.0, -pivot))
+	var red := _hurt * _hurt
+	piece("submarine-yellow", "S", root, cell, 1 if hurt else 0, 0.0, true, 1.0, alpha, Color(1, 1 - .55 * red, 1 - .6 * red))
 	draw_set_transform(Vector2.ZERO)
 	if _shielded() and _tr.is_empty():
 		Art.shield_bubble(self, root, cell, float(run_state.shield) / float(Book.definition().shield_seconds), time, _bump)
@@ -592,6 +607,13 @@ func _draw_particles(o: Vector2, cell: float) -> void:
 			draw_line(at - tail, at + tail * .3, Color(.94, 1, 1, .85 * (1 - t)), maxf(1.5, cell * .04))
 		elif p.kind == "collect":
 			_draw_collect(o + p.p * cell, cell, t, int(p.frame))
+		elif p.kind == "chip":
+			# Hull chips: small yellow-paint flakes tumbling away from the dent.
+			var at: Vector2 = o + p.p * cell
+			var r := float(p.r) * cell
+			var a := float(p.age) * float(p.spin)
+			var flake := PackedVector2Array([at + Vector2.from_angle(a) * r, at + Vector2.from_angle(a + 2.3) * r * .7, at + Vector2.from_angle(a + 3.9) * r * .9])
+			draw_colored_polygon(flake, Color(1, .78, .2, 1 - t * t))
 		else:
 			_star(o + p.p * cell, float(p.r) * cell * 1.6 * (1 - t * .5), float(p.age) * 6.0, Color(p.get("color", Color(1, .93, .6)), 1 - t))
 
@@ -630,6 +652,30 @@ func _star(at: Vector2, radius: float, angle: float, color: Color) -> void:
 ## Impact: a short, decaying shake of the playfield (skipped for reduced motion).
 func hit() -> void:
 	_hit = 1.0
+
+## Hull damage: the ship slides back from `from` (where it struck) to where the
+## rules left it, wobbles and flashes red, and sparks, hull chips and bubbles
+## burst at the contact point.
+func damage(from: Vector2, to: Vector2) -> void:
+	_hurt = 1.0
+	knock(from, to)
+	var away := (from - to).normalized() if from.distance_to(to) > .01 else Vector2.UP
+	var at := from + away * .35 - Vector2(0, .2)
+	if reduced_motion: return
+	for i in range(14):
+		var a := away.angle() + _rng.randf_range(-1.3, 1.3)
+		var speed := 1.6 + _rng.randf() * 2.6
+		particles.append({"kind": "spark", "p": at, "v": Vector2.from_angle(a) * speed, "r": .03 + _rng.randf() * .03, "life": .3 + _rng.randf() * .25, "age": 0.0, "drag": 5.0, "color": Color(1, .55 + _rng.randf() * .35, .25)})
+	for i in range(6):
+		var a := (-away).angle() + _rng.randf_range(-1.1, 1.1)
+		particles.append({"kind": "chip", "p": at, "v": Vector2.from_angle(a) * (1.0 + _rng.randf() * 1.4) + Vector2(0, -.4), "r": .05 + _rng.randf() * .04, "life": .6 + _rng.randf() * .3, "age": 0.0, "drag": 2.5, "spin": _rng.randf_range(-12.0, 12.0)})
+	for i in range(8):
+		_bubble_at(at.x + _rng.randf_range(-.2, .2), at.y + _rng.randf_range(-.1, .2), _rng.randf_range(-.6, .6), _rng.randf_range(-.5, .3), .025 + _rng.randf() * .04, .8 + _rng.randf() * .5, .45)
+
+## A bump without damage (rock touched during hit protection): only the slide.
+func knock(from: Vector2, to: Vector2) -> void:
+	if reduced_motion: return
+	_knock += from - to
 
 func _shake() -> Vector2:
 	if reduced_motion or _hit <= 0.0: return Vector2.ZERO

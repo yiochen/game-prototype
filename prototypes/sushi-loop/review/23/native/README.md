@@ -56,3 +56,14 @@ Balance lives in `godot/content/expedition.json` → `encounter`.
 - `tests/expedition_encounter_tests.gd`: 46 rule checks through the command/time/save boundary.
 - `tests/expedition_features_tests.gd` is updated for the arena edge.
 - `tests/capture_expedition_encounter.gd` asserts the button, reload, slow motion, hook, dimmed arrows, restless and escape while capturing.
+
+## Handling follow-up (2026-11-05)
+
+User feedback: the hull ran out before the eel. Changes:
+- **Round collision.** A `ship_radius` circle against a `rock_radius` circle per rock cell; corners and glancing passes no longer dent the hull. It stays inside the box chunk validation flies, so validated routes stay passable.
+- **Solid rock.** A hit knocks the ship to the nearest clear water (sideways or back, never ahead). The hull is dented once per hit protection; later touches only push the ship out.
+- **Hit animation.** A wobble, a red tint, sparks, yellow hull chips and bubbles, with the knock-back sliding out.
+- **Banking.** The ship banks into turns.
+- **Cheats flag.** One `cheats` flag (`--cheats`, or `tools/build_android.py --cheats`) shows DEBUG · Shield and DEBUG · To Eel.
+
+`handling/` (390 × 844, with `--cheats`) is from `tests/capture_expedition_handling.gd`: 01–02 banking right and left, 03–04 a rock hit, 05 the Shield cheat, 06 the To Eel cheat.

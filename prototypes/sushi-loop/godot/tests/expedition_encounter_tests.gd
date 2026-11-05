@@ -38,6 +38,27 @@ func same(a: Variant, b: Variant) -> bool:
 	if (a is float or a is int) and (b is float or b is int): return absf(float(a) - float(b)) < 1e-9
 	return a == b
 
+## Advance while steering clear of rock like a careful player (rock is solid).
+func advance_steering(s, seconds: float) -> Array:
+	var events: Array = []
+	var t := 0.0
+	var reach := float(Book.definition().ship_radius) + float(Book.definition().rock_radius) + .1
+	while t < seconds - 0.0001 and run_of(s) != null:
+		var r: Dictionary = live(s)
+		var rows: Array = Book.run_route(r).rows
+		var best := float(r.x)
+		var best_score := INF
+		for i in range(1, 22):
+			var x := i * 0.5
+			var score := absf(x - float(r.x)) * 0.01
+			for ahead in [0.0, 0.5, 1.0, 1.6, 2.2]:
+				if Book._collides(rows, x, float(r.y) - ahead, reach): score += 10.0 / (1.0 + ahead)
+			if score < best_score: best_score = score; best = x
+		s.command({"type": "expedition_steer", "input": clampf((best - float(r.x)) * 3.0, -1.0, 1.0)})
+		events.append_array(s.command({"type": "expedition_advance", "elapsed": 0.05, "now": 2000.0 + t}).get("events", []))
+		t += 0.05
+	return events
+
 func types(events: Array) -> Array: return events.map(func(e): return e.type)
 
 func roundtrip(s):
@@ -159,7 +180,7 @@ func run() -> void:
 	events = advance(s, float(rules.restless_seconds))
 	check("creature_escaped" in types(events) and run_of(s).encounter.state == "escaped", "the window expires and the creature escapes")
 	check(s.command({"type": "expedition_fire"}).reason == "no_target", "no shots after the escape")
-	events = advance(s, 40.0)
+	events = advance_steering(s, 40.0)
 	var ended: Array = events.filter(func(e): return e.type == "ended")
 	check(ended.size() == 1 and ended[0].result.outcome == "complete" and not ended[0].result.has("recipe"), "the route finishes without awarding a recipe")
 
@@ -171,6 +192,16 @@ func run() -> void:
 	s.command({"type": "expedition_fire"})
 	events = advance(s, 1.0)
 	check("hooked" in types(events) and not "creature_escaped" in types(events), "a harpoon in flight at expiry can still hook")
+
+	# Debug cheats (offered only behind the cheats flag): a shield now, and a skip to the arena.
+	s = started()
+	check(s.command({"type": "expedition_cheat_shield"}).ok and float(run_of(s).shield) == float(Book.definition().shield_seconds), "the shield cheat raises a shield")
+	check(s.command({"type": "expedition_cheat_encounter"}).ok, "the encounter cheat skips ahead")
+	check(float(run_of(s).shield) == 0.0 and float(run_of(s).y) == float(path.arena.y1) + 0.5, "it lands at the arena's entry with no shield")
+	check(s.command({"type": "expedition_cheat_shield"}).reason == "no_shields_here", "no shield cheat inside the encounter")
+	events = advance(s, 3.0)
+	check("encounter_start" in types(events), "the encounter then starts as usual")
+	check(s.command({"type": "expedition_cheat_encounter"}).reason == "no_encounter", "and the skip cannot repeat")
 
 	# Invalid saves are rejected.
 	s = started(); at_encounter(s)

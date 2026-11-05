@@ -22,9 +22,10 @@ export const MIN_SEAM = 2;
 export const MAX_SHIFT = 2;
 // Ship physics model (joystick steering): the hull's collider half-size in
 // cells; positions every quarter column and sixth of a row, sliding at most
-// one quarter column per sixth row (1.5 columns per row). Must match
-// godot/content/expedition.json: ship_collider = 2 × SHIP_HALF and lateral
-// speed ≥ 1.5 × forward speed (rules tests check both).
+// one quarter column per sixth row (1.5 columns per row). Travel in
+// godot/content/expedition.json collides a smaller hull circle (ship_radius ≤
+// SHIP_HALF) against round rocks, so this box is the conservative bound; lateral
+// speed must stay ≥ 1.5 × forward speed (rules tests check both).
 export const SHIP_HALF = [0.32, 0.44];
 const QX = 4, QY = 6, SHIP_LO = 2, SHIP_HI = COLUMNS * QX - 2;
 
