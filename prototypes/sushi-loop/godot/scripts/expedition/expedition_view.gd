@@ -14,9 +14,17 @@ extends Control
 ## main route; a portal ride switches to that portal's bonus passage (its own
 ## grid) through a whirlpool transition, during which `transitioning()` holds
 ## the presentation's travel. Feature drawing lives in feature_art.gd.
+##
+## Issue #23: the encounter creature is live 3D (creature_view.gd) drawn after
+## the seabed and pickups, with soft shadows along its spine. The harpoon and
+## its rope draw over the world from the ship's nose; a hook pins the harpoon
+## to the struck body part so it rides every animation. `focus_amount` (set by
+## the presentation's slow motion) dims the scene outside a closing circle.
 const Route = preload("res://scripts/expedition/route.gd")
 const Book = preload("res://scripts/expedition/expedition_book.gd")
 const Art = preload("res://scripts/expedition/feature_art.gd")
+const Harpoon = preload("res://scripts/expedition/harpoon_art.gd")
+const CreatureView = preload("res://scripts/expedition/creature_view.gd")
 
 signal steered(input: float)
 signal pressed_down
@@ -61,6 +69,12 @@ var _glow: Texture2D
 var _shade: Texture2D
 var _v2: Array = []
 var _rng := RandomNumberGenerator.new()
+var creature: CreatureView
+## Slow-motion focus 0..1 and where it closes (view coordinates).
+var focus_amount := 0.0
+var focus_at := Vector2.ZERO
+var _creature_shown := false
+var _hooked_at := -1.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -77,6 +91,7 @@ func _ready() -> void:
 	_bubble = _make_bubble()
 	_glow = _radial([Color(1, .89, .47, .55), Color(1, .75, .24, .22), Color(1, .67, .16, 0)], [0.0, .45, 1.0])
 	_shade = _radial([Color(.016, .118, .275, .5), Color(.016, .118, .275, .3), Color(.016, .118, .275, 0)], [0.0, .55, 1.0])
+	creature = CreatureView.new(self)
 
 static func _radial(colors: Array, offsets: Array) -> Texture2D:
 	var gradient := Gradient.new()
@@ -195,7 +210,45 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	cam_x += (clampf(want, half, Route.COLUMNS - half) - cam_x) * minf(1.0, delta * 4.0)
 	if travelling and _tr.is_empty() and not reduced_motion: _emit(delta)
 	_step_particles(delta if travelling else 0.0, delta)
+	_sync_creature(run, delta if travelling else 0.0)
 	queue_redraw()
+
+## Encounter creature: clip from the rules state, camera on its route cell.
+func _sync_creature(run: Dictionary, delta: float) -> void:
+	var encounter = run.get("encounter")
+	if encounter == null: _hooked_at = -1.0
+	_creature_shown = encounter is Dictionary and world.get("kind") == "main" and _tr.is_empty()
+	if _creature_shown and encounter.state == "escaped":
+		# The escape clip carries it off north; then it is gone.
+		_creature_shown = float(encounter.t) - float(encounter.get("escaped_at", encounter.t)) < 1.6
+	if not _creature_shown:
+		creature.stop_rendering(); return
+	var rules: Dictionary = Book.definition().encounter
+	match str(encounter.state):
+		"aiming": creature.play("restless" if float(encounter.t) >= float(rules.window_seconds) - float(rules.restless_seconds) else "swim")
+		"hooked":
+			if creature.clip not in ["hit", "hooked"]:
+				# A hook restored from a save starts straight in the hooked loop.
+				creature.play("hit" if _hooked_at >= 0.0 else "hooked", 0.1)
+			elif creature.clip == "hit" and creature.finished(): creature.play("hooked")
+		"escaped": creature.play("escape", 0.15)
+	var cell := _cell()
+	var centre := Book.creature_centre(run)
+	var root := _origin() + Vector2(centre.x, centre.y + CreatureView.BODY_ROW_OFFSET) * cell
+	creature.frame(delta, root, size, cell, maxf(.001, get_viewport_transform().get_scale().x * get_global_transform().get_scale().x))
+
+## The presentation reports a fresh hook (the hit reaction and flash ring play).
+func hooked() -> void:
+	_hooked_at = time
+
+## Where the ship's harpoon leaves the hull (view coordinates).
+func muzzle() -> Vector2:
+	return _origin() + (_shown_ship() - Vector2(0, float(Book.definition().encounter.nose_rows))) * _cell()
+
+## The pinned harpoon on the creature (view coordinates).
+func hook_point() -> Vector2:
+	var hook: Dictionary = run_state.encounter.hook
+	return creature.hook_point(float(hook.along), float(hook.across))
 
 static func _index_set(values: Array) -> Dictionary:
 	var out := {}
@@ -378,6 +431,7 @@ func _draw() -> void:
 			var b: Vector2 = world.path.shields[i]
 			if i in taken or b.y < top or b.y > bottom + 1: continue
 			Art.shield_pickup(self, o + b * cell, cell, 0.0 if reduced_motion else time, i * 1.3)
+	if _creature_shown: _draw_creature()
 	var ship_drawn := false
 	for y in range(top, bottom + 1):
 		if not ship_drawn and y >= int(floor(shown.y)) and by_row[y].any(func(item): return int(item.get("w", 1)) > 1):
@@ -387,8 +441,42 @@ func _draw() -> void:
 	if not ship_drawn: _draw_ship(o, cell)
 	for s in scene.shafts:
 		if s.y >= top - 2 and s.y <= bottom: piece(s.id, s.dir, o + Vector2(s.x, s.y) * cell, cell * 1.6, 0, float(s.y))
+	Harpoon.focus(self, focus_at, size, cell, focus_amount)
+	_draw_harpoon(cell)
 	_draw_iris(o, cell)
 	_draw_controls()
+
+## Creature: soft blobs under its spine, then the live 3D render.
+func _draw_creature() -> void:
+	var cell := _cell()
+	for p in creature.ground_points():
+		draw_texture_rect(_shade, Rect2(p - Vector2.ONE * cell * .55, Vector2.ONE * cell * 1.1), false, Color(1, 1, 1, .6))
+	draw_texture_rect(creature.texture(), Rect2(Vector2.ZERO, size), false)
+
+## The harpoon in flight, reeling back, or pinned to the creature, with its rope.
+func _draw_harpoon(cell: float) -> void:
+	var encounter = run_state.get("encounter")
+	if not encounter is Dictionary or not encounter.harpoon is Dictionary or world.get("kind") != "main": return
+	var shot: Dictionary = encounter.harpoon
+	var nose := muzzle()
+	var rules: Dictionary = Book.definition().encounter
+	if shot.state == "attached":
+		if not _creature_shown: return
+		var pin := hook_point()
+		var angle := (pin - nose).angle()
+		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * cell * .95, cell, .06, time)
+		Harpoon.harpoon(self, pin, angle, cell, false)
+		if _hooked_at >= 0.0: Harpoon.hook_ring(self, pin, cell, time - _hooked_at)
+		return
+	var o := _origin()
+	var d := float(shot.d)
+	# Reeling drifts the harpoon back over to the ship's column as it comes home.
+	var x := float(shot.x) if shot.state == "flying" else lerpf(_shown_ship().x, float(shot.x), clampf(d / float(rules.harpoon_range_rows), 0.0, 1.0))
+	var tip := o + Vector2(x, _shown_ship().y - float(rules.nose_rows) - d) * cell
+	var angle := -PI / 2 if shot.state == "flying" else (tip - nose).angle()
+	var tail := tip - Vector2.from_angle(angle) * cell * .95
+	Harpoon.rope(self, nose, tail, cell, .35 if shot.state == "flying" else .9, time)
+	Harpoon.harpoon(self, tip, angle, cell)
 
 ## Portals (whirlpool under the stone ring), passage end whirlpools, the rejoin
 ## outflow, current flow lines and the passage's forward flow.

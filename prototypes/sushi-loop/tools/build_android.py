@@ -40,7 +40,7 @@ RUNTIME_TREES = {
     "assets/chef-variants/sprites": {".png"},
     "assets/feedback-variants/sprites": {".png"},
     "assets/expansion/sprites": {".png"},
-    "assets/expedition": {".png", ".json"},
+    "assets/expedition": {".png", ".json", ".glb", ".svg"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},

@@ -20,6 +20,17 @@ extends RefCounted
 ## automatically through salvage, then it rejoins the main route further on.
 ## A run keeps the route version it started with, so older saves fly the
 ## route they began.
+##
+## Issue #23: route version 3 adds an open-water arena before the finish. When
+## the ship is a few rows in, a creature arrives ahead and the shooting window
+## opens (no countdown; the last seconds are "restless"). `expedition_fire`
+## launches one harpoon straight up from the ship on a fresh press; a miss
+## reels back and the cooldown must finish before the next shot. The creature
+## swims forward with the ship, weaving sideways, and its hit area is a fixed
+## ellipse whatever its animation does. A hit records the hook and enters a
+## held handoff: travel and the creature hold still until the pursuit (#24)
+## lands, and Pause → Return early leaves. Window expiry without a hook lets
+## the creature escape, awards nothing and the route finishes as usual.
 ## Balance lives in res://content/expedition.json; routes in route.gd.
 const VERSION := 1
 const Route = preload("res://scripts/expedition/route.gd")
@@ -52,6 +63,7 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 		var plan: Array = definition().plan if version == int(definition().route_version) else definition().legacy_plans[str(version)]
 		var sequence := Route.generate(seed_value, library(), plan)
 		var assembled := Route.assemble(sequence)
+		if version >= 3: assembled = _with_arena(assembled, seed_value)
 		var pickups: Array = []
 		for y in range(assembled.rows.size()):
 			var row: String = assembled.rows[y]
@@ -59,16 +71,21 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 				if row[x] == "$": pickups.append(Vector2(x + 0.5, y + 0.5))
 		var launch_top := float(assembled.rows.size()) - 0.5
 		var encounter_edge := 0.0
+		var arena = null
 		for span in assembled.spans:
 			if span.kind == "launch": launch_top = minf(launch_top, float(span.y0))
-			# The finish chunk stands in for the creature encounter: no shields reach it.
-			if span.kind == "finish": encounter_edge = float(span.y1) + 1.0
+			# Shields never reach the encounter: the arena (v3) or the finish chunk (older routes).
+			if span.kind == "finish" and arena == null: encounter_edge = float(span.y1) + 1.0
+			if span.kind == "encounter":
+				arena = {"y0": int(span.y0), "y1": int(span.y1)}
+				encounter_edge = float(span.y1) + 1.0
 		var currents := {}
 		var shields: Array = []
 		var portals: Array = []
 		var spans: Array = assembled.spans
 		for i in range(spans.size()):
 			var span: Dictionary = spans[i]
+			if span.kind == "encounter": continue
 			for p in _doc(str(span.id)).get("placements", []):
 				var x := int(p.x)
 				var y := int(span.y0) + int(p.y)
@@ -82,8 +99,34 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 						var row := int(rejoin.y1)
 						portals.append({"x": x + 0.5, "y": y + 0.5, "rejoin": Vector2(_centre_of(assembled.rows[row]), row + 0.5)})
 		_routes[cache_key] = {"rows": assembled.rows, "spans": spans, "pickups": pickups, "columns": Route.COLUMNS, "launch_top": launch_top,
-			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version}
+			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version,
+			"arena": arena, "encounter_start": (float(arena.y1) + 1.0 - float(definition().encounter.window_opens_rows_into_arena)) if arena != null else null}
 	return _routes[cache_key]
+
+## Open water between the last challenge and the finish where the creature
+## encounter plays out: seven open columns (the finish chunk's width), quiet
+## decor along the walls, narrowing into the finish's three-wide entry.
+static func _with_arena(assembled: Dictionary, seed_value: int) -> Dictionary:
+	var spans: Array = assembled.spans
+	var finish: Dictionary = spans[spans.size() - 1]
+	var count := int(definition().encounter.arena_rows)
+	var rng := Route.Mulberry32.new(seed_value * 53 + 23)
+	var arena: Array = []
+	for y in range(count):
+		var row := "###.....###" if y == 0 else "##.......##"
+		if y > 1:
+			for x in [2, 8]:
+				if rng.next() < 0.12: row = row.substr(0, x) + "," + row.substr(x + 1)
+		arena.append(row)
+	var at := int(finish.y1) + 1
+	var rows: Array = assembled.rows.slice(0, at) + arena + assembled.rows.slice(at)
+	var shifted: Array = []
+	for span in spans:
+		var copy: Dictionary = span.duplicate()
+		if int(copy.y0) >= at: copy.y0 = int(copy.y0) + count; copy.y1 = int(copy.y1) + count
+		shifted.append(copy)
+	shifted.insert(shifted.size() - 1, {"id": "arena", "kind": "encounter", "difficulty": null, "y0": at, "y1": at + count - 1})
+	return {"rows": rows, "spans": shifted}
 
 ## Raw chunk document, for the feature layers route.gd does not read.
 static func _doc(id: String) -> Dictionary:
@@ -201,7 +244,8 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			data.sequence = int(data.sequence) + 1
 			data.run = {"id": int(data.sequence), "seed": seed_value, "y": start_y, "x": start_x, "steer": 0.0, "vx": 0.0,
 				"hull": float(definition().hull_max), "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
-				"route_version": int(definition().route_version), "shield": 0.0, "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0}
+				"route_version": int(definition().route_version), "shield": 0.0, "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
+				"encounter": null}
 			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id}
 		"expedition_steer":
 			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
@@ -212,6 +256,16 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			if not _finite(request.get("elapsed")) or float(request.elapsed) < 0.0 or not _finite(request.get("now")): return {"ok": false, "reason": "invalid_time"}
 			return {"ok": true, "events": _advance(config, state, float(request.elapsed), float(request.now))}
+		"expedition_fire":
+			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
+			var encounter = run.get("encounter")
+			if not encounter is Dictionary or encounter.state != "aiming": return {"ok": false, "reason": "no_target"}
+			if encounter.harpoon != null or float(encounter.cooldown) > 0.0: return {"ok": false, "reason": "reloading"}
+			# Straight up from the ship's nose; the shot keeps its column.
+			encounter.harpoon = {"state": "flying", "x": float(run.x), "d": 0.0}
+			encounter.cooldown = float(definition().encounter.cooldown_seconds)
+			encounter.shots = int(encounter.shots) + 1
+			return {"ok": true, "shot": int(encounter.shots)}
 		"expedition_pause":
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			# A paused ship lets go of the stick; it resumes running straight.
@@ -281,6 +335,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				# The rest of this step belongs to the exit transition.
 				return events
 			continue
+		if _encounter_step(run, path, dt, events): continue
 		var shielded := float(run.shield) > 0.0
 		run.y = float(run.y) - float(rules.forward_rows_per_second) * (float(rules.shield_forward_multiplier) if shielded else 1.0) * dt
 		if shielded:
@@ -340,6 +395,85 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			return events
 	return events
 
+# ------------------------------------------------------------ encounter (#23)
+
+## Advance the encounter by one step. Returns true while the hooked handoff
+## holds the run still (no travel, steering or collisions this step).
+static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events: Array) -> bool:
+	var rules: Dictionary = definition().encounter
+	var encounter = run.get("encounter")
+	if encounter == null:
+		if path.get("encounter_start") == null or float(run.y) > float(path.encounter_start): return false
+		encounter = {"state": "aiming", "t": 0.0, "cooldown": 0.0, "harpoon": null, "shots": 0, "x": Route.COLUMNS / 2.0, "hook": null}
+		run.encounter = encounter
+		run.shield = 0.0
+		events.append({"type": "encounter_start"})
+	if encounter.state == "hooked": return true
+	encounter.t = float(encounter.t) + dt
+	if encounter.state == "aiming": encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
+	encounter.cooldown = maxf(0.0, float(encounter.cooldown) - dt)
+	var shot = encounter.harpoon
+	if shot is Dictionary:
+		if shot.state == "flying":
+			var from := float(shot.d)
+			shot.d = from + float(rules.harpoon_rows_per_second) * dt
+			if encounter.state == "aiming":
+				# Sample the swept segment so a long frame cannot pass through the body.
+				var steps := maxi(1, int(ceil((float(shot.d) - from) / 0.25)))
+				for i in range(1, steps + 1):
+					var d := lerpf(from, float(shot.d), float(i) / steps)
+					var hit = _hit_point(run, float(shot.x), d)
+					if hit != null:
+						shot.d = d; shot.state = "attached"
+						encounter.state = "hooked"; encounter.hook = hit
+						events.append({"type": "hooked", "along": hit.along, "across": hit.across})
+						return true
+			if float(shot.d) >= float(rules.harpoon_range_rows):
+				shot.state = "reeling"; events.append({"type": "harpoon_missed"})
+		elif shot.state == "reeling":
+			shot.d = float(shot.d) - float(rules.reel_rows_per_second) * dt
+			if float(shot.d) <= 0.0: encounter.harpoon = null
+	# The window closes once nothing is in flight; a shot on its way still counts.
+	if encounter.state == "aiming" and float(encounter.t) >= float(rules.window_seconds) and encounter.harpoon == null:
+		encounter.state = "escaped"; encounter.escaped_at = float(encounter.t)
+		events.append({"type": "creature_escaped"})
+	return false
+
+## Creature body centre on the route: ahead of the ship by the lead (arriving
+## from further north as the window opens), at its weaving column.
+static func creature_centre(run: Dictionary) -> Vector2:
+	var encounter = run.get("encounter")
+	if not encounter is Dictionary: return Vector2(Route.COLUMNS / 2.0, float(run.y) - float(definition().encounter.lead_rows))
+	var rules: Dictionary = definition().encounter
+	var k := clampf(float(encounter.t) / float(rules.arrive_seconds), 0.0, 1.0)
+	var arrive := float(rules.arrive_rows) * (1.0 - k * k * (3.0 - 2.0 * k))
+	return Vector2(float(encounter.x), float(run.y) - float(rules.lead_rows) - arrive)
+
+## Where a harpoon `d` rows past the nose meets the fixed hit ellipse, or null.
+## `along` runs -1 (snout, north) to 1 (tail); `across` -1 (west) to 1 (east).
+static func _hit_point(run: Dictionary, x: float, d: float) -> Variant:
+	var rules: Dictionary = definition().encounter
+	var centre := creature_centre(run)
+	var tip := float(run.y) - float(rules.nose_rows) - d
+	var u := (x - centre.x) / float(rules.hit_half_columns)
+	var v := (tip - centre.y) / float(rules.hit_half_rows)
+	if u * u + v * v > 1.0: return null
+	return {"along": v, "across": u}
+
+## Where a flying harpoon will first reach the hit area within `rows` more
+## travel (route coordinates), or null. The presentation slows the game and
+## focuses on this point for the strike.
+static func strike_point(run: Dictionary, rows: float) -> Variant:
+	var encounter = run.get("encounter")
+	if not encounter is Dictionary or encounter.state != "aiming" or not encounter.harpoon is Dictionary or encounter.harpoon.state != "flying": return null
+	var d := float(encounter.harpoon.d)
+	var step := 0.0
+	while step <= rows:
+		if _hit_point(run, float(encounter.harpoon.x), d + step) != null:
+			return Vector2(float(encounter.harpoon.x), float(run.y) - float(definition().encounter.nose_rows) - d - step)
+		step += 0.2
+	return null
+
 static func _overlaps(rows: Array, x: float, y: float, half: Vector2) -> bool:
 	for cy in range(int(floor(y - half.y)), int(floor(y + half.y)) + 1):
 		if cy < 0 or cy >= rows.size(): continue
@@ -386,6 +520,7 @@ static func valid(state: Dictionary) -> bool:
 		if not run.get("paused") is bool or not run.get("collected") is Array: return false
 		if float(run.hull) <= 0.0 or float(run.hull) > float(definition().hull_max): return false
 		if not _features_valid(run): return false
+		if not _encounter_valid(run): return false
 		var pickups: int = run_route(run).pickups.size()
 		var seen := {}
 		for index in run.collected:
@@ -417,6 +552,13 @@ static func normalize(state: Dictionary) -> void:
 			run.passage.portal = int(run.passage.portal); run.passage.y = float(run.passage.y); run.passage.x = float(run.passage.x)
 			run.passage.collected = run.passage.collected.map(func(i): return int(i))
 		else: run.passage = null
+		# Saves from before issue #23 have not reached an encounter.
+		var encounter = run.get("encounter")
+		if encounter is Dictionary:
+			encounter.shots = int(encounter.shots); encounter.t = float(encounter.t); encounter.cooldown = float(encounter.cooldown); encounter.x = float(encounter.x)
+			if encounter.harpoon is Dictionary: encounter.harpoon.x = float(encounter.harpoon.x); encounter.harpoon.d = float(encounter.harpoon.d)
+			if encounter.hook is Dictionary: encounter.hook.along = float(encounter.hook.along); encounter.hook.across = float(encounter.hook.across)
+		else: run.encounter = null
 	if data.result is Dictionary:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
 			if data.result.has(field): data.result[field] = int(data.result[field])
@@ -436,6 +578,29 @@ static func _features_valid(run: Dictionary) -> bool:
 		if not ride is Dictionary or not _integer(ride.get("portal")) or not _finite(ride.get("y")) or not _finite(ride.get("x")): return false
 		if int(ride.portal) >= path.portals.size() or not run.get("portals_used", []).any(func(i): return int(i) == int(ride.portal)): return false
 		if not _unique_indices(ride.get("collected"), passage(int(run.seed), int(ride.portal)).pickups.size()): return false
+	return true
+
+## Issue #23 encounter (optional; null until the window opens). A hook needs
+## an attached harpoon and vice versa; only v3 routes have an arena.
+static func _encounter_valid(run: Dictionary) -> bool:
+	var encounter = run.get("encounter")
+	if encounter == null: return true
+	if not encounter is Dictionary or run_route(run).get("arena") == null: return false
+	if str(encounter.get("state")) not in ["aiming", "hooked", "escaped"]: return false
+	for field in ["t", "cooldown", "x"]:
+		if not _finite(encounter.get(field)) or float(encounter[field]) < 0.0: return false
+	if float(encounter.cooldown) > float(definition().encounter.cooldown_seconds) or float(encounter.x) > Route.COLUMNS: return false
+	if not _integer(encounter.get("shots")): return false
+	var shot = encounter.get("harpoon")
+	if shot != null:
+		if not shot is Dictionary or str(shot.get("state")) not in ["flying", "reeling", "attached"] or not _finite(shot.get("x")) or not _finite(shot.get("d")): return false
+		if int(encounter.shots) < 1: return false
+	var hooked: bool = encounter.state == "hooked"
+	var attached: bool = shot is Dictionary and shot.state == "attached"
+	if hooked != attached: return false
+	var hook = encounter.get("hook")
+	if hooked != (hook is Dictionary): return false
+	if hook is Dictionary and (not _finite(hook.get("along")) or not _finite(hook.get("across")) or absf(float(hook.along)) > 1.001 or absf(float(hook.across)) > 1.001): return false
 	return true
 
 static func _unique_indices(values: Variant, count: int) -> bool:

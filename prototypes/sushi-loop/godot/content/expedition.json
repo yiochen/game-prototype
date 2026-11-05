@@ -27,7 +27,7 @@
 	"passage_ride_rows": 3.2,
 	"passage_rejoin_skips_chunks": 1,
 	"portal_transition_seconds": 1.1,
-	"route_version": 2,
+	"route_version": 3,
 	"plan": [
 		"launch",
 		"launch",
@@ -61,6 +61,46 @@
 			"fork",
 			4.0,
 			"finish"
+		],
+		"2": [
+			"launch",
+			"launch",
+			"start",
+			1.5,
+			"current",
+			2.0,
+			"portal",
+			2.5,
+			"fork",
+			"boost",
+			3.0,
+			"rest",
+			"current",
+			4.0,
+			"finish"
 		]
+	},
+	"encounter": {
+		"creature": "storm-eel",
+		"arena_rows": 44,
+		"window_opens_rows_into_arena": 3,
+		"lead_rows": 5.6,
+		"arrive_rows": 7.0,
+		"arrive_seconds": 1.4,
+		"window_seconds": 16,
+		"restless_seconds": 4,
+		"cooldown_seconds": 1.6,
+		"harpoon_rows_per_second": 15,
+		"reel_rows_per_second": 22,
+		"harpoon_range_rows": 12,
+		"nose_rows": 1.0,
+		"hit_half_columns": 0.75,
+		"hit_half_rows": 2.1,
+		"weave_columns": 1.4,
+		"weave_period_seconds": 7,
+		"resistance": 100,
+		"slow_motion_scale": 0.2,
+		"slow_motion_lookahead_rows": 2.4,
+		"slow_motion_hold_seconds": 0.5
 	}
 }

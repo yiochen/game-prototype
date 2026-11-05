@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Harpoon</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header class="bar">
+  <h1>Harpoon · issue #23 review</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="play" aria-selected="true">Play</button>
+    <button role="tab" data-view="elements" aria-selected="false">Button states</button>
+  </nav>
+</header>
+<main>
+  <section id="play" class="view">
+    <div class="layout">
+      <div class="stage" id="stage">
+        <div class="phone" id="phone">
+          <canvas id="world" aria-label="Expedition playfield"></canvas>
+          <canvas id="eel" aria-hidden="true"></canvas>
+          <canvas id="fx" aria-hidden="true"></canvas>
+          <div class="hud">
+            <div class="pill hull" role="img" aria-label="Hull 100%"><span class="ship-icon"></span><span class="track"><span class="fill"></span></span></div>
+            <div class="pill salvage" role="img" aria-label="36 salvage this expedition"><span class="gold-icon"></span><b class="salvage-value">36</b></div>
+            <button class="pause" id="pause" aria-label="Pause"><span></span><span></span></button>
+            <div class="pill resistance" role="img" id="resistance" aria-label="Storm Eel resistance full"><span class="eel-icon"></span><span class="track"><span class="fill"></span></span></div>
+          </div>
+          <div class="zone left" id="zone-left" role="button" aria-label="Steer left"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <div class="zone right" id="zone-right" role="button" aria-label="Steer right"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <button class="harpoon-btn" id="harpoon" aria-label="Harpoon" data-state="ready">
+            <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring-track" cx="50" cy="50" r="45"/><circle class="ring-fill" cx="50" cy="50" r="45" pathLength="100"/></svg>
+            <svg class="glyph" viewBox="0 0 48 48" aria-hidden="true"><use href="#harpoon-glyph"/></svg>
+          </button>
+          <div class="banner" id="banner" role="status" hidden></div>
+          <div class="scrim" id="scrim" hidden>
+            <div class="card" id="paused-card" role="dialog" aria-label="Paused" hidden>
+              <h2>Paused</h2>
+              <div class="actions"><button class="cream" id="return-early">Return early</button><button class="primary" id="resume">Resume</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Review controls">
+        <h2>Try it</h2>
+        <p>Steer by holding <kbd>←</kbd>/<kbd>→</kbd> or either half of the playfield. Fire with the Harpoon button or <kbd>Space</kbd>. Each fresh press fires once; holding never repeats. A miss reels back in and the ring fills before the next shot.</p>
+        <p>The shooting window has no countdown. Shortly before it closes the eel turns restless (twitchier, flickering), and then it escapes.</p>
+        <div class="row">
+          <button id="restart">Restart encounter</button>
+          <button id="jump-restless">Skip to restless</button>
+        </div>
+        <div class="row">
+          <label>Screen <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="wide">Wider window</option></select></label>
+          <label><input type="checkbox" id="opt-hit"> Show hit area</label>
+        </div>
+        <h2>Encounter state</h2>
+        <dl class="state" id="state"></dl>
+        <h2>Rules in this prototype</h2>
+        <ul class="rules" id="rules"></ul>
+      </aside>
+    </div>
+  </section>
+  <section id="elements" class="view" hidden>
+    <p class="note">The Harpoon button in each state, using the same component and size as Play (phone scale).</p>
+    <div class="gallery" id="gallery"></div>
+  </section>
+</main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Harpoon glyph: barbed head pointing up, shaft, rope loop. Same brown ink as the pause bars. -->
+  <symbol id="harpoon-glyph" viewBox="0 0 48 48">
+    <path d="M24 4 L33 17 L27.5 16 L27.5 34 L20.5 34 L20.5 16 L15 17 Z" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M24 33 C24 40 17 39 17 43 C17 46.5 22 46.5 24 44 C26 46.5 31 46.5 31 43 C31 39 24 40 24 33" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
