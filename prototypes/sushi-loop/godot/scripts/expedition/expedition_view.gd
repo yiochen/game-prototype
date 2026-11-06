@@ -25,6 +25,7 @@ const Book = preload("res://scripts/expedition/expedition_book.gd")
 const Art = preload("res://scripts/expedition/feature_art.gd")
 const Harpoon = preload("res://scripts/expedition/harpoon_art.gd")
 const CreatureView = preload("res://scripts/expedition/creature_view.gd")
+const DischargeArt = preload("res://scripts/expedition/discharge_art.gd")
 
 signal steered(input: float)
 signal pressed_down
@@ -90,6 +91,12 @@ var escape_t := -1.0
 var _catch_from := Vector2.ZERO
 const RETRACT_START := 0.4
 const RETRACT_SECONDS := 1.0
+## Issue #25 discharge: the last strike's afterglow, live bolts and screen flash.
+var _afterglow := {}
+var _last_strike = null
+var _bolts: Array = []
+var _bolt_t := 0.0
+var _strike_flash := 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -237,6 +244,7 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 			if was < RETRACT_START and catch_t >= RETRACT_START: _release_burst()
 		if escape_t >= 0.0: escape_t += delta
 	_step_particles(delta if travelling or ending else 0.0, delta)
+	_sync_discharge(delta if travelling else 0.0)
 	_sync_creature(run, delta if travelling or ending else 0.0)
 	queue_redraw()
 
@@ -256,8 +264,10 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 		"hooked":
 			# Pursuit: straining forward, thrashing once resistance runs low.
 			var low := float(encounter.get("resistance", rules.resistance)) < float(rules.resistance) * .3
+			var strike = encounter.get("discharge")
 			if catch_t >= 0.0: creature.play("exhausted", .35)
 			elif escape_t >= 0.0: creature.play("escape", .15)
+			elif strike is Dictionary: creature.play("windup" if strike.phase == "windup" else "attack", .15)
 			elif creature.clip == "hit":
 				if creature.finished(): creature.play("struggle" if low else "hooked")
 			elif creature.clip not in ["hooked", "struggle"]:
@@ -281,6 +291,45 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 	creature.pose(grow, turn)
 	creature.frame(delta, root, size, cell, maxf(.001, get_viewport_transform().get_scale().x * get_global_transform().get_scale().x))
 
+## The creature's current discharge, while the chase is on (a catch or escape removes it).
+func discharge() -> Variant:
+	if not _pursuit() or world.get("kind") != "main": return null
+	return run_state.encounter.get("discharge")
+
+func _sync_discharge(delta: float) -> void:
+	var strike = discharge()
+	# A finished strike leaves a short afterglow; a catch or escape clears everything.
+	if strike == null and _last_strike is Dictionary and _last_strike.phase == "strike" and _pursuit():
+		_afterglow = {"x0": _last_strike.x0, "w": _last_strike.w, "t": 0.0}
+	if not _pursuit(): _afterglow = {}; _bolts = []; _strike_flash = 0.0
+	_last_strike = strike.duplicate() if strike is Dictionary else null
+	if not _afterglow.is_empty():
+		_afterglow.t = float(_afterglow.t) + delta
+		if float(_afterglow.t) >= .3: _afterglow = {}
+	_strike_flash = maxf(0.0, _strike_flash - delta * 6.0)
+	_bolt_t += delta
+	if strike is Dictionary and strike.phase == "strike" and (_bolts.is_empty() or _bolt_t > (.2 if reduced_motion else .06)) and delta > 0.0:
+		_bolt_t = 0.0
+		var cell := _cell()
+		var x0 := _origin().x + float(strike.x0) * cell
+		var w := float(strike.w) * cell
+		var from := clampf(creature.to_view(creature.bone_world("head")).y, 0.0, size.y) if _creature_shown else 0.0
+		_bolts = [DischargeArt.bolt_path(_rng, x0, w, from, size.y, cell), DischargeArt.bolt_path(_rng, x0, w, from, size.y, cell), DischargeArt.bolt_path(_rng, x0, w, -10.0, from, cell)]
+	elif not (strike is Dictionary and strike.phase == "strike"): _bolts = []
+
+## The strike goes live: a soft screen flash and a small shake.
+func discharge_strike() -> void:
+	_strike_flash = 1.0; _bolts = []
+	_hit = maxf(_hit, .6)
+
+## Lightning hit: the red hull tint and electric sparks, without knock-back.
+func zap(at: Vector2) -> void:
+	_hurt = 1.0
+	if reduced_motion: return
+	for i in range(18):
+		var a := _rng.randf() * TAU
+		particles.append({"kind": "spark", "p": at + Vector2(_rng.randf_range(-.25, .25), -.3 - _rng.randf() * .4), "v": Vector2(cos(a), sin(a)) * (1.2 + _rng.randf() * 2.4), "r": .03 + _rng.randf() * .03, "life": .35 + _rng.randf() * .3, "age": 0.0, "drag": 4.0, "color": Color(.75, .96, 1) if i % 3 else Color(1, .96, .72)})
+
 ## The presentation reports a fresh hook (the hit reaction and flash ring play).
 func hooked() -> void:
 	_hooked_at = time
@@ -292,6 +341,7 @@ func _pursuit() -> bool:
 ## Issue #24 endings over the frozen last run (the rules have already ended it).
 func start_catch() -> void:
 	catch_t = 0.0; _catch_from = Vector2.ZERO
+	_clear_discharge()
 	var c := Book.creature_centre(run_state)
 	if reduced_motion: return
 	for i in range(26):
@@ -299,6 +349,11 @@ func start_catch() -> void:
 
 func start_escape() -> void:
 	escape_t = 0.0
+	_clear_discharge()
+
+## A catch or escape removes any warned strip, lightning or afterglow at once (#25).
+func _clear_discharge() -> void:
+	_afterglow = {}; _bolts = []; _strike_flash = 0.0; _last_strike = null
 
 func end_outro() -> void:
 	catch_t = -1.0; escape_t = -1.0; _catch_from = Vector2.ZERO
@@ -512,13 +567,41 @@ func _draw() -> void:
 	if not ship_drawn: _draw_ship(o, cell)
 	# The creature swims above the terrain, so the chase always reads.
 	if catch_t >= 0.0: _draw_catch_rays()
+	_draw_strip(o, cell)
 	if _creature_shown: _draw_creature()
 	for s in scene.shafts:
 		if s.y >= top - 2 and s.y <= bottom: piece(s.id, s.dir, o + Vector2(s.x, s.y) * cell, cell * 1.6, 0, float(s.y))
 	Harpoon.focus(self, focus_at, size, cell, focus_amount)
 	_draw_harpoon(cell)
+	_draw_discharge_marks(o, cell)
 	_draw_iris(o, cell)
 	_draw_controls()
+
+## Issue #25: the warned or live strip over the terrain, under the creature.
+func _draw_strip(o: Vector2, cell: float) -> void:
+	var strike = discharge()
+	var d: Dictionary = Book.definition().encounter.discharge
+	if strike is Dictionary:
+		var x0 := o.x + float(strike.x0) * cell
+		var w := float(strike.w) * cell
+		if strike.phase == "windup": DischargeArt.warning(self, x0, w, size.y, cell, float(strike.t), d, time, reduced_motion)
+		else: DischargeArt.live(self, x0, w, size.y, cell, 1.0 - .4 * (float(strike.t) - float(d.warn_seconds)) / float(d.active_seconds))
+	elif not _afterglow.is_empty():
+		DischargeArt.live(self, o.x + float(_afterglow.x0) * cell, float(_afterglow.w) * cell, size.y, cell, .6 * (1.0 - float(_afterglow.t) / .3))
+
+## Over the creature: lightning badges while warned, bolts and flash while live.
+func _draw_discharge_marks(o: Vector2, cell: float) -> void:
+	var strike = discharge()
+	if not strike is Dictionary: return
+	var centre := o.x + (float(strike.x0) + float(strike.w) / 2.0) * cell
+	if strike.phase == "windup":
+		var pop := 1.0 if reduced_motion else minf(1.0, float(strike.t) / .18) * (1.0 + .15 * sin(minf(1.0, float(strike.t) / .3) * PI))
+		# Clear of the HUD row, and again just below the ship.
+		DischargeArt.badge(self, Vector2(centre, cell * 2.5), cell * .32 * pop, cell)
+		DischargeArt.badge(self, Vector2(centre, minf(size.y - cell * .55, o.y + (_shown_ship().y + 1.5) * cell)), cell * .26 * pop, cell)
+		return
+	DischargeArt.bolts(self, _bolts, cell)
+	if _strike_flash > 0.0 and not reduced_motion: draw_rect(Rect2(Vector2.ZERO, size), Color(1, .96, .84, .18 * _strike_flash))
 
 ## Catch cutscene backdrop: the scene dims and warm rays turn slowly behind the
 ## creature (code-drawn, as in design/pursuit-preview).

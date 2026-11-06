@@ -164,7 +164,10 @@ export function chunkFromMap(doc, id) {
     else if (decor.has(key)) cells[y][x] = ',';
   }
   const meta = doc.chunk ?? {};
-  return { id, name: doc.name, kind: meta.kind ?? 'normal', source: meta.source ?? '', difficultyOverride: meta.difficulty ?? null, rows: cells.map((r) => r.join('')) };
+  const chunk = { id, name: doc.name, kind: meta.kind ?? 'normal', source: meta.source ?? '', difficultyOverride: meta.difficulty ?? null, rows: cells.map((r) => r.join('')) };
+  // Issue #25 creature chunks: one species, and the rows where its attacks may be live.
+  if (chunk.kind === 'creature') Object.assign(chunk, { creature: meta.creature, attackRows: meta.attack_rows });
+  return chunk;
 }
 
 /** Rows → designer document (used to migrate text chunks and by tests). */
@@ -213,7 +216,7 @@ export function validateChunk(chunk) {
   const { rows } = chunk;
   if (!rows.length || !rows.every((r) => r.length === COLUMNS)) return [`rows must be ${COLUMNS} cells wide`];
   // Issue #22 feature chunks (current, portal, boost) are offered only by their own plan slots.
-  if (!['launch', 'start', 'normal', 'rest', 'fork', 'finish', 'current', 'portal', 'boost'].includes(chunk.kind ?? 'normal')) problems.push(`unknown kind ${chunk.kind}`);
+  if (!['launch', 'start', 'normal', 'rest', 'fork', 'finish', 'current', 'portal', 'boost', 'creature'].includes(chunk.kind ?? 'normal')) problems.push(`unknown kind ${chunk.kind}`);
   const reach = reachable(rows);
   if (!openSet(rows[0]).some((x) => reach.has(`${x},0`))) problems.push('exit unreachable at steering speed');
   const dead = deadEnds(rows);
@@ -221,6 +224,11 @@ export function validateChunk(chunk) {
   problems.push(...shipProblems(rows));
   for (let y = 0; y < rows.length; y++) for (let x = 0; x < rows[y].length; x++) {
     if (rows[y][x] === '$' && !reach.has(`${x},${y}`)) problems.push(`unreachable gold ${x},${y}`);
+  }
+  if (chunk.kind === 'creature') {
+    const [a, b] = chunk.attackRows ?? [];
+    if (typeof chunk.creature !== 'string' || !chunk.creature) problems.push('creature chunks name their creature');
+    if (!Number.isInteger(a) || !Number.isInteger(b) || a < 0 || a >= b || b >= rows.length) problems.push('creature chunks need attack_rows [first, last] inside the chunk');
   }
   // Launch: the preparation cruise runs straight up the middle without steering.
   if (chunk.kind === 'launch') {
