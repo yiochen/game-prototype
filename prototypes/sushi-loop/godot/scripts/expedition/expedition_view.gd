@@ -746,6 +746,10 @@ func _star(at: Vector2, radius: float, angle: float, color: Color) -> void:
 func hit() -> void:
 	_hit = 1.0
 
+## A new dive: drop any shake, hit wobble or knock-back left from the last one.
+func clear_feedback() -> void:
+	_hit = 0.0; _hurt = 0.0; _knock = Vector2.ZERO
+
 ## Hull damage: the ship slides back from `from` (where it struck) to where the
 ## rules left it, wobbles and flashes red, and sparks, hull chips and bubbles
 ## burst at the contact point.

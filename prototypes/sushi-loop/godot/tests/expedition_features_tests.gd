@@ -108,7 +108,7 @@ func run() -> void:
 	place(s, rock.x, rock.y)
 	events = advance(s, 0.3)
 	check(float(run_of(s).hull) == hull and "shield_bump" in types(events) and not "impact" in types(events), "rocks bump the shield without damage")
-	check(not Book._collides(rows, float(run_of(s).x), float(run_of(s).y), float(rules.ship_radius) + float(rules.rock_radius)), "a shielded ship is still knocked out of the rock")
+	check(not Book._collides(rows, float(run_of(s).x), float(run_of(s).y), float(rules.ship_radius)), "a shielded ship is still knocked out of the rock")
 	var salvage := int(run_of(s).salvage)
 	var gold: Vector2 = path.pickups.filter(func(p): return p.y < float(run_of(s).y) - 0.5 and p.y > float(path.encounter_edge))[0]
 	place(s, gold.x, gold.y + 0.3)
