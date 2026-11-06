@@ -332,7 +332,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 	if run.paused or elapsed <= 0.0: return events
 	var rules := definition()
 	var path := run_route(run)
-	var reach := float(rules.ship_radius) + float(rules.rock_radius)
+	var reach := float(rules.ship_radius)
 	var radius := float(rules.pickup_radius)
 	var per := int(rules.salvage_per_pickup)
 	# Sub-steps keep a frame hitch from tunnelling through a one-cell rock.
@@ -411,7 +411,10 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			# Rock is solid, shield or not: the ship is knocked back to the closest clear water.
 			var from := Vector2(float(run.x), float(run.y))
 			var to := _nearest_clear(path.rows, from, reach + float(rules.knockback_clearance))
-			run.x = to.x; run.y = to.y; run.vx = 0.0
+			run.x = to.x; run.y = to.y
+			# Only a sideways knock against the ship's motion stops it: pressed into a
+			# wall ahead, steering keeps its speed and slides along, even against a current.
+			if absf(to.x - from.x) > 0.001 and signf(to.x - from.x) != signf(float(run.vx)): run.vx = 0.0
 			if float(run.shield) > 0.0:
 				# The shield takes the knock without damage; a short guard keeps the feedback from repeating every step.
 				if float(run.protection) <= 0.0:
@@ -551,16 +554,41 @@ static func strike_point(run: Dictionary, rows: float) -> Variant:
 		step += 0.2
 	return null
 
-## Travel collision: the hull is a circle and each rock cell a circle at its
-## centre, so corners and glancing passes are forgiven. `reach` is the sum of
-## the two radii; it stays inside the box chunk validation flies (`_overlaps`).
+## Travel collision: the hull is a circle of radius `reach`; each rock cell is
+## a rounded square. Faces open to water sit `rock_inset` inside the cell and
+## exposed corners are rounded, so glancing passes are forgiven. Faces shared
+## with a neighbouring rock reach across the seam, so a wall of rocks is one
+## flat face the ship slides along instead of a row of notches to catch in.
+## It stays inside the box chunk validation flies (`_overlaps`).
 static func _collides(rows: Array, x: float, y: float, reach: float) -> bool:
-	for cy in range(int(floor(y - reach)), int(floor(y + reach)) + 1):
+	var p := Vector2(x, y)
+	for cy in range(int(floor(y - reach - 1.0)), int(floor(y + reach + 1.0)) + 1):
 		if cy < 0 or cy >= rows.size(): continue
-		var row: String = rows[cy]
-		for cx in range(int(floor(x - reach)), int(floor(x + reach)) + 1):
-			if cx >= 0 and cx < row.length() and Route.is_rock(row[cx]) and Vector2(cx + 0.5 - x, cy + 0.5 - y).length() < reach: return true
+		for cx in range(int(floor(x - reach - 1.0)), int(floor(x + reach + 1.0)) + 1):
+			if cx >= 0 and cx < str(rows[cy]).length() and _rock_at(rows, cx, cy) and _rock_distance(rows, cx, cy, p) < reach: return true
 	return false
+
+## Rock for collision shapes; beyond the side columns the canyon wall continues.
+static func _rock_at(rows: Array, cx: int, cy: int) -> bool:
+	if cy < 0 or cy >= rows.size(): return false
+	var row: String = rows[cy]
+	if cx < 0 or cx >= row.length(): return true
+	return Route.is_rock(row[cx])
+
+## Signed distance from `p` to rock cell (cx, cy)'s rounded-square shape.
+static func _rock_distance(rows: Array, cx: int, cy: int, p: Vector2) -> float:
+	var rules := definition()
+	var inset := float(rules.rock_inset)
+	var corner := float(rules.rock_corner_radius)
+	# Open faces pull in; faces against another rock overlap it by the corner radius.
+	var x0 := cx + (inset if not _rock_at(rows, cx - 1, cy) else -corner)
+	var x1 := cx + 1.0 - (inset if not _rock_at(rows, cx + 1, cy) else -corner)
+	var y0 := cy + (inset if not _rock_at(rows, cx, cy - 1) else -corner)
+	var y1 := cy + 1.0 - (inset if not _rock_at(rows, cx, cy + 1) else -corner)
+	var centre := Vector2(x0 + x1, y0 + y1) * 0.5
+	var half := Vector2(x1 - x0, y1 - y0) * 0.5
+	var q := (p - centre).abs() - (half - Vector2.ONE * corner)
+	return Vector2(maxf(q.x, 0.0), maxf(q.y, 0.0)).length() + minf(maxf(q.x, q.y), 0.0) - corner
 
 ## The clear spot nearest `at`: sideways or back down the route (never ahead,
 ## which would skip travel), inside the route's side margins.

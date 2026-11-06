@@ -42,7 +42,7 @@ func same(a: Variant, b: Variant) -> bool:
 func advance_steering(s, seconds: float) -> Array:
 	var events: Array = []
 	var t := 0.0
-	var reach := float(Book.definition().ship_radius) + float(Book.definition().rock_radius) + .1
+	var reach := float(Book.definition().ship_radius) + .1
 	while t < seconds - 0.0001 and run_of(s) != null:
 		var r: Dictionary = live(s)
 		var rows: Array = Book.run_route(r).rows

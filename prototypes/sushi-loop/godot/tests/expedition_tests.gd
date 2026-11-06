@@ -92,10 +92,45 @@ func run() -> void:
 	check(float(rules.lateral_columns_per_second) / float(rules.forward_rows_per_second) >= float(Route.QY) / Route.QX, "full stick covers the sideways slide chunk validation assumes per row")
 	check(float(rules.ship_radius) <= minf(Route.SHIP_HALF[0], Route.SHIP_HALF[1]), "the travel hull circle fits inside the box chunk validation flies, so validated routes stay passable")
 	# Round collision: a glancing pass by a rock's corner is forgiven; a head-on touch still hits.
-	var reach := float(rules.ship_radius) + float(rules.rock_radius)
+	var reach := float(rules.ship_radius)
 	var lone := ["...", ".#.", "..."]
 	check(Book._overlaps(lone, 2.25, 2.3, Vector2(.32, .44)) and not Book._collides(lone, 2.25, 2.3, reach), "brushing a rock's corner no longer dents the hull")
 	check(Book._collides(lone, 1.5, 2.1, reach) and Book._collides(lone, 2.15, 1.5, reach), "touching a rock's face still does")
+	# A straight wall is one flat face: no notches at the seams between rocks.
+	var wall := ["...........", "..######...", "...........", "...........", "..........."]
+	var r_ship := float(rules.ship_radius)
+	var face := 2.0 - float(rules.rock_inset)
+	var flat := true
+	for i in range(0, 41):
+		var wx := 2.6 + i * 0.1
+		flat = flat and Book._collides(wall, wx, face + r_ship - 0.01, r_ship) and not Book._collides(wall, wx, face + r_ship + 0.01, r_ship)
+	check(flat, "a wall of rocks presents one flat face, seams included")
+	# Pressed into it while steering, the ship slides along instead of catching in a seam.
+	var slide := Vector2(3.0, 2.6)
+	for i in range(30):
+		slide += Vector2(float(rules.lateral_columns_per_second), -float(rules.forward_rows_per_second)) * 0.05
+		if Book._collides(wall, slide.x, slide.y, r_ship): slide = Book._nearest_clear(wall, slide, r_ship + float(rules.knockback_clearance))
+	check(slide.x > 7.5, "steering along a wall slides past its seams (reached x %.2f)" % slide.x)
+
+	# Against a current pushing the other way, steering still slides along a wall and out of its gap.
+	var rows_cw: Array = []
+	for row in range(40): rows_cw.append("##########." if row == 20 else "...........")
+	var currents_cw := {}
+	for row in range(20, 26):
+		for col in range(11): currents_cw[Vector2i(col, row)] = -1
+	Book._routes["9999:%d" % int(rules.route_version)] = {"rows": rows_cw, "spans": [], "pickups": [], "columns": 11, "launch_top": 39.5, "currents": currents_cw,
+		"shields": [], "portals": [], "encounter_edge": 0.0, "version": int(rules.route_version), "arena": null, "encounter_start": null}
+	var cw = Session.new_session(5)
+	cw.command({"type": "expedition_start", "now": 10.0, "seed": 9999})
+	var cr: Dictionary = cw._state.expedition.run
+	cr.x = 5.5; cr.y = 21.6; cr.vx = 0.0
+	cw.command({"type": "expedition_steer", "input": 1.0})
+	for i in range(100):
+		cr.protection = 5.0
+		cw.command({"type": "expedition_advance", "elapsed": 0.05, "now": 11.0})
+	check(float(cr.y) < 20.0, "steering against a current slides along a wall and escapes through its gap (x %.2f, y %.2f)" % [float(cr.x), float(cr.y)])
+	Book._routes.erase("9999:%d" % int(rules.route_version))
+
 	# Rock is solid: a hit knocks the ship back to the nearest clear water, once per dent.
 	var k = Session.new_session(11)
 	k.command({"type": "expedition_start", "now": 10.0, "seed": 21})
@@ -140,7 +175,7 @@ func run() -> void:
 		j._state.expedition.run.protection = 5.0
 		j.command({"type": "expedition_advance", "elapsed": 0.05, "now": 13.0}); edge_guard += 1
 	var jx := float(exp_state(j).run.x) if exp_state(j).run != null else -1.0
-	check(jx >= 0.4 and not Book._collides(Book.route(21).rows, jx, float(exp_state(j).run.y), float(rules.ship_radius) + float(rules.rock_radius)), "steering stops at the canyon wall or the world edge, never inside rock")
+	check(jx >= 0.4 and not Book._collides(Book.route(21).rows, jx, float(exp_state(j).run.y), float(rules.ship_radius)), "steering stops at the canyon wall or the world edge, never inside rock")
 
 	# Push into the canyon wall until the first contact, then hold the stick still.
 	s.command({"type": "expedition_steer", "input": -1.0})
@@ -164,7 +199,7 @@ func run() -> void:
 	check(first_hit >= 0.0 and float(exp_state(s).run.hull) < 100.0, "running into rock damages the hull")
 	check(second_hit < 0 or second_hit - first_hit >= 1.15, "hit protection prevents repeated damage from one collision")
 	s.command({"type": "expedition_steer", "input": 0.0})
-	check(exp_state(s).run == null or not Book._collides(Book.route(21).rows, float(exp_state(s).run.x), float(exp_state(s).run.y), float(rules.ship_radius) + float(rules.rock_radius)), "impacts push the ship out of the rock")
+	check(exp_state(s).run == null or not Book._collides(Book.route(21).rows, float(exp_state(s).run.x), float(exp_state(s).run.y), float(rules.ship_radius)), "impacts push the ship out of the rock")
 	check(exp_state(s).run == null or exp_state(s).run.low_hull == (exp_state(s).run.hull_fraction <= 0.35), "low hull flag follows the configured threshold")
 
 	# Keep crashing to deplete the hull.
