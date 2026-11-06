@@ -287,6 +287,8 @@ func start(by_touch := false) -> void:
 	var outcome := _command({"type": "expedition_start", "now": _now(), "y": _prep_y})
 	if not outcome.get("ok", false): close_prep(); return
 	mode = "travel"; overlay = "none"
+	# A fresh dive starts with no leftover hit feedback from the last one.
+	_hit_flash = 0.0; _hull_pulse = 0.0; damage_flash.modulate.a = 0.0; view.clear_feedback()
 	if not by_touch: view.release_controls()
 	view.steering_enabled = true; view.resume_controls()
 	view.accessibility_name = "Expedition. Hold the left or right arrow to steer."
@@ -608,6 +610,11 @@ func _refresh_hud(delta: float) -> void:
 	_toast_left = maxf(0.0, _toast_left - delta)
 	toast.visible = _toast_left > 0.0 and mode == "travel"
 	toast.modulate.a = minf(1.0, _toast_left * 2.0)
+	# Hit feedback fades whatever the state, so a run that ends on a hit never
+	# carries a red flash into the next dive.
+	_hull_pulse = maxf(0.0, _hull_pulse - delta * 2.5)
+	_hit_flash = maxf(0.0, _hit_flash - delta * 2.2)
+	damage_flash.modulate.a = _hit_flash * (.6 if reduced_motion else 1.0)
 	var run = snapshot.get("expedition", {}).get("run")
 	if run == null: return
 	# The hull icon glows while the shield or the passage protects it.
@@ -616,9 +623,6 @@ func _refresh_hud(delta: float) -> void:
 	var fraction := float(run.get("hull_fraction", 1.0))
 	var low: bool = run.get("low_hull", false)
 	hull_pill.accessibility_description = "Hull %d%%%s%s" % [int(round(fraction * 100)), ", low" if low else "", ", shield" if float(run.get("shield", 0.0)) > 0.0 else ""]
-	_hull_pulse = maxf(0.0, _hull_pulse - delta * 2.5)
-	_hit_flash = maxf(0.0, _hit_flash - delta * 2.2)
-	damage_flash.modulate.a = _hit_flash * (.6 if reduced_motion else 1.0)
 	# Salvage pill pops when a pickup lands.
 	_salvage_pop = maxf(0.0, _salvage_pop - delta * 4.0)
 	salvage_pill.pivot_offset = salvage_pill.size / 2
