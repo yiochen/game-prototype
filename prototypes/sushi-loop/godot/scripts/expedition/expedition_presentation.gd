@@ -404,7 +404,8 @@ func update(value: Dictionary, delta: float) -> void:
 					"bump": view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"shield":
 						view.shield_burst(Vector2(float(event.x), float(event.y))); _show_toast("Shield! No collision damage")
-					"shield_bump": view.shield_bump(Vector2(float(event.x), float(event.y)))
+					"shield_bump":
+						view.shield_bump(Vector2(float(event.x), float(event.y))); view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"hooked":
 						view.hooked(); _slow_hold = float(Book.definition().encounter.slow_motion_hold_seconds)
 						_callout("Hooked!", "The chase begins next"); save_requested.emit()

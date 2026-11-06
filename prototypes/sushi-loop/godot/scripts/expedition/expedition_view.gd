@@ -315,7 +315,7 @@ func _emit(delta: float) -> void:
 		if _rng.randf() < .7 and particles.size() < 260:
 			particles.append({"kind": "streak", "p": at, "v": Vector2(away * (2.6 + _rng.randf() * 1.2), _rng.randf_range(-.1, .2)), "r": .16 + _rng.randf() * .16, "life": .35 + _rng.randf() * .2, "age": 0.0, "drag": 4.0})
 	# Speed lines while shielded or riding the passage current.
-	if (_shielded() or world.kind == "passage") and _rng.randf() < delta * 30.0 and particles.size() < 260:
+	if world.kind == "passage" and _rng.randf() < delta * 30.0 and particles.size() < 260:
 		var side := -1.0 if _rng.randf() < .5 else 1.0
 		particles.append({"kind": "line", "p": Vector2(ship.x + side * (.7 + _rng.randf() * 1.6), ship.y - 3.0 - _rng.randf() * 3.0), "v": Vector2(0, 7 + _rng.randf() * 3), "len": .5 + _rng.randf() * .5, "life": .35, "age": 0.0, "drag": 0.0})
 	var top := _top_row()

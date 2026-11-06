@@ -80,7 +80,7 @@ func run() -> void:
 	advance(s, 0.4)
 	check(float(run_of(s).vx) == 0.0 and signf(float(run_of(s).x) - before) == dir, "releasing stops the player's part without cancelling the current")
 
-	# Shield: faster travel, no collision damage, no pickup multiplier, ends on time.
+	# Shield: normal speed, no collision damage, still solid rock, no pickup multiplier, ends on time.
 	var shield: Vector2 = path.shields[0]
 	s = started()
 	place(s, shield.x, shield.y + 0.5)
@@ -88,7 +88,7 @@ func run() -> void:
 	check("shield" in types(events) and float(run_of(s).shield) > 0.0, "flying over the shield picks it up")
 	var y0 := float(run_of(s).y)
 	advance(s, 1.0)
-	check(absf((y0 - float(run_of(s).y)) - float(rules.forward_rows_per_second) * float(rules.shield_forward_multiplier)) < 0.01, "the shield raises forward speed")
+	check(absf((y0 - float(run_of(s).y)) - float(rules.forward_rows_per_second)) < 0.01, "the shield keeps normal forward speed")
 	var hull := float(run_of(s).hull)
 	var rock := Vector2(-1, -1)
 	var rows: Array = path.rows
@@ -98,6 +98,7 @@ func run() -> void:
 	place(s, rock.x, rock.y)
 	events = advance(s, 0.3)
 	check(float(run_of(s).hull) == hull and "shield_bump" in types(events) and not "impact" in types(events), "rocks bump the shield without damage")
+	check(not Book._collides(rows, float(run_of(s).x), float(run_of(s).y), float(rules.ship_radius) + float(rules.rock_radius)), "a shielded ship is still knocked out of the rock")
 	var salvage := int(run_of(s).salvage)
 	var gold: Vector2 = path.pickups.filter(func(p): return p.y < float(run_of(s).y) - 0.5 and p.y > float(path.encounter_edge))[0]
 	place(s, gold.x, gold.y + 0.3)
