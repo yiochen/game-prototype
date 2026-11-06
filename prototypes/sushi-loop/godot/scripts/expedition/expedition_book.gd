@@ -14,7 +14,7 @@ extends RefCounted
 ##
 ## Issue #22: lateral current fields push the ship on top of steering (letting
 ## go removes only the player's part). A shield pickup (the spec's travel
-## boost) speeds the ship up and blocks collision damage for a few seconds,
+## boost) blocks collision damage for a few seconds at normal speed,
 ## ending before the finish encounter. Steering onto an optional portal spends
 ## it and enters a separate safe passage: a current carries the ship
 ## automatically through salvage, then it rejoins the main route further on.
@@ -351,7 +351,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			continue
 		if _encounter_step(run, path, dt, events): continue
 		var shielded := float(run.shield) > 0.0
-		run.y = float(run.y) - float(rules.forward_rows_per_second) * (float(rules.shield_forward_multiplier) if shielded else 1.0) * dt
+		run.y = float(run.y) - float(rules.forward_rows_per_second) * dt
 		if shielded:
 			run.shield = maxf(0.0, float(run.shield) - dt)
 			# The shield always ends before the encounter.
@@ -391,17 +391,19 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				events.append({"type": "passage_enter", "portal": i, "from_x": portal.x, "from_y": portal.y, "x": run.passage.x, "y": start_y})
 				return events
 		if _collides(path.rows, float(run.x), float(run.y), reach):
+			# Rock is solid, shield or not: the ship is knocked back to the closest clear water.
+			var from := Vector2(float(run.x), float(run.y))
+			var to := _nearest_clear(path.rows, from, reach + float(rules.knockback_clearance))
+			run.x = to.x; run.y = to.y; run.vx = 0.0
 			if float(run.shield) > 0.0:
-				# Rocks only bump the shield; a short guard keeps the feedback from repeating every step.
+				# The shield takes the knock without damage; a short guard keeps the feedback from repeating every step.
 				if float(run.protection) <= 0.0:
 					run.protection = 0.3
-					events.append({"type": "shield_bump", "x": run.x, "y": run.y})
+					events.append({"type": "shield_bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
+				else:
+					events.append({"type": "bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
 			else:
-				# Rock is solid: the hull is knocked back to the closest clear water.
-				# Only the first touch dents it; hit protection keeps later bumps free.
-				var from := Vector2(float(run.x), float(run.y))
-				var to := _nearest_clear(path.rows, from, reach + float(rules.knockback_clearance))
-				run.x = to.x; run.y = to.y; run.vx = 0.0
+				# Only the first touch dents the hull; hit protection keeps later bumps free.
 				if float(run.protection) <= 0.0:
 					run.hull = maxf(0.0, float(run.hull) - float(rules.impact_damage))
 					run.protection = float(rules.hit_protection_seconds)
