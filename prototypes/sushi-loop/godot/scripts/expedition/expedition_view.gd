@@ -14,9 +14,17 @@ extends Control
 ## main route; a portal ride switches to that portal's bonus passage (its own
 ## grid) through a whirlpool transition, during which `transitioning()` holds
 ## the presentation's travel. Feature drawing lives in feature_art.gd.
+##
+## Issue #23: the encounter creature is live 3D (creature_view.gd) drawn after
+## the seabed and pickups, with soft shadows along its spine. The harpoon and
+## its rope draw over the world from the ship's nose; a hook pins the harpoon
+## to the struck body part so it rides every animation. `focus_amount` (set by
+## the presentation's slow motion) dims the scene outside a closing circle.
 const Route = preload("res://scripts/expedition/route.gd")
 const Book = preload("res://scripts/expedition/expedition_book.gd")
 const Art = preload("res://scripts/expedition/feature_art.gd")
+const Harpoon = preload("res://scripts/expedition/harpoon_art.gd")
+const CreatureView = preload("res://scripts/expedition/creature_view.gd")
 
 signal steered(input: float)
 signal pressed_down
@@ -31,6 +39,7 @@ var world: Dictionary = {}
 var run_state: Dictionary = {}
 ## Arrows dim while the passage current steers.
 var controls_disabled := false
+const MAX_TILT := 0.3
 var _tr: Dictionary = {}
 var _outflow: Dictionary = {}
 var _bump := 0.0
@@ -56,11 +65,23 @@ var _prev_x := 5.5
 var _side := 0.0
 var _turn := 0.0
 var _hit := 0.0
+## Hull hit: the damage wobble/red flash (1 -> 0), and the knock-back still to
+## slide out (cells, from where the rules put the ship back to where it struck).
+var _hurt := 0.0
+var _knock := Vector2.ZERO
+## Banking into a turn (radians, eased toward the steering velocity).
+var _tilt := 0.0
 var _bubble: Texture2D
 var _glow: Texture2D
 var _shade: Texture2D
 var _v2: Array = []
 var _rng := RandomNumberGenerator.new()
+var creature: CreatureView
+## Slow-motion focus 0..1 and where it closes (view coordinates).
+var focus_amount := 0.0
+var focus_at := Vector2.ZERO
+var _creature_shown := false
+var _hooked_at := -1.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -77,6 +98,7 @@ func _ready() -> void:
 	_bubble = _make_bubble()
 	_glow = _radial([Color(1, .89, .47, .55), Color(1, .75, .24, .22), Color(1, .67, .16, 0)], [0.0, .45, 1.0])
 	_shade = _radial([Color(.016, .118, .275, .5), Color(.016, .118, .275, .3), Color(.016, .118, .275, 0)], [0.0, .55, 1.0])
+	creature = CreatureView.new(self)
 
 static func _radial(colors: Array, offsets: Array) -> Texture2D:
 	var gradient := Gradient.new()
@@ -175,6 +197,11 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	time += delta
 	_hit = maxf(0.0, _hit - delta * 3.0)
 	_bump = maxf(0.0, _bump - delta * 4.0)
+	_hurt = maxf(0.0, _hurt - delta * 1.8)
+	_knock *= exp(-delta * 14.0)
+	var lateral := float(Book.definition().lateral_columns_per_second)
+	var bank := clampf(float(run.get("vx", 0.0)) / lateral, -1.0, 1.0) * MAX_TILT if ride == null else 0.0
+	_tilt = lerpf(_tilt, bank, minf(1.0, delta * 10.0))
 	protection = float(run.protection)
 	if _tr.is_empty():
 		_use(target)
@@ -195,7 +222,45 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	cam_x += (clampf(want, half, Route.COLUMNS - half) - cam_x) * minf(1.0, delta * 4.0)
 	if travelling and _tr.is_empty() and not reduced_motion: _emit(delta)
 	_step_particles(delta if travelling else 0.0, delta)
+	_sync_creature(run, delta if travelling else 0.0)
 	queue_redraw()
+
+## Encounter creature: clip from the rules state, camera on its route cell.
+func _sync_creature(run: Dictionary, delta: float) -> void:
+	var encounter = run.get("encounter")
+	if encounter == null: _hooked_at = -1.0
+	_creature_shown = encounter is Dictionary and world.get("kind") == "main" and _tr.is_empty()
+	if _creature_shown and encounter.state == "escaped":
+		# The escape clip carries it off north; then it is gone.
+		_creature_shown = float(encounter.t) - float(encounter.get("escaped_at", encounter.t)) < 1.6
+	if not _creature_shown:
+		creature.stop_rendering(); return
+	var rules: Dictionary = Book.definition().encounter
+	match str(encounter.state):
+		"aiming": creature.play("restless" if float(encounter.t) >= float(rules.window_seconds) - float(rules.restless_seconds) else "swim")
+		"hooked":
+			if creature.clip not in ["hit", "hooked"]:
+				# A hook restored from a save starts straight in the hooked loop.
+				creature.play("hit" if _hooked_at >= 0.0 else "hooked", 0.1)
+			elif creature.clip == "hit" and creature.finished(): creature.play("hooked")
+		"escaped": creature.play("escape", 0.15)
+	var cell := _cell()
+	var centre := Book.creature_centre(run)
+	var root := _origin() + Vector2(centre.x, centre.y + CreatureView.BODY_ROW_OFFSET) * cell
+	creature.frame(delta, root, size, cell, maxf(.001, get_viewport_transform().get_scale().x * get_global_transform().get_scale().x))
+
+## The presentation reports a fresh hook (the hit reaction and flash ring play).
+func hooked() -> void:
+	_hooked_at = time
+
+## Where the ship's harpoon leaves the hull (view coordinates).
+func muzzle() -> Vector2:
+	return _origin() + (_shown_ship() - Vector2(0, float(Book.definition().encounter.nose_rows))) * _cell()
+
+## The pinned harpoon on the creature (view coordinates).
+func hook_point() -> Vector2:
+	var hook: Dictionary = run_state.encounter.hook
+	return creature.hook_point(float(hook.along), float(hook.across))
 
 static func _index_set(values: Array) -> Dictionary:
 	var out := {}
@@ -288,7 +353,7 @@ func burst(at: Vector2) -> void:
 ## Bubbles freeze with the run; pickup sparkles and sparks always finish.
 func _step_particles(dt: float, effect_dt: float) -> void:
 	for p in particles:
-		var step := effect_dt if p.kind in ["collect", "spark"] else dt
+		var step := effect_dt if p.kind in ["collect", "spark", "chip"] else dt
 		p.age = float(p.age) + step
 		p.v = p.v * exp(-float(p.drag) * step)
 		if p.kind == "bubble": p.v = Vector2(p.v.x, p.v.y - float(p.rise) * step * 1.6)
@@ -306,7 +371,7 @@ func _top_row() -> float:
 func _origin() -> Vector2: return Vector2(size.x * .5 - cam_x * _cell(), -_top_row() * _cell()) + _shake()
 
 ## Draw a clip frame with its ground root at the footprint centre (or at `at` when `at_root`).
-func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt := 0.0, at_root := false, scale := 1.0, alpha := 1.0) -> void:
+func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt := 0.0, at_root := false, scale := 1.0, alpha := 1.0, tint := Color.WHITE) -> void:
 	var o: Dictionary = pieces.objects.get(id, {})
 	if o.is_empty(): return
 	var c: Dictionary = o.clips[clip]
@@ -317,7 +382,7 @@ func piece(id: String, dir: String, at: Vector2, cell: float, clip := 0, salt :=
 	var s := cell / 128.0 * scale
 	var root := at if at_root else at + Vector2(float(o.footprint[0]), float(o.footprint[1])) * cell * .5
 	var dest := Rect2(root - Vector2(float(o.root[0]), float(o.root[1])) * s, Vector2(float(o.frameSize[0]), float(o.frameSize[1])) * s)
-	draw_texture_rect_region(texture(str(d.image)), dest, Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3])), Color(1, 1, 1, alpha))
+	draw_texture_rect_region(texture(str(d.image)), dest, Rect2(float(r[0]), float(r[1]), float(r[2]), float(r[3])), Color(tint.r, tint.g, tint.b, alpha * tint.a))
 
 func kit(name: String, at: Vector2, cell: float) -> void:
 	var entry: Dictionary = pieces.kit.get(name, {})
@@ -378,6 +443,7 @@ func _draw() -> void:
 			var b: Vector2 = world.path.shields[i]
 			if i in taken or b.y < top or b.y > bottom + 1: continue
 			Art.shield_pickup(self, o + b * cell, cell, 0.0 if reduced_motion else time, i * 1.3)
+	if _creature_shown: _draw_creature()
 	var ship_drawn := false
 	for y in range(top, bottom + 1):
 		if not ship_drawn and y >= int(floor(shown.y)) and by_row[y].any(func(item): return int(item.get("w", 1)) > 1):
@@ -387,8 +453,42 @@ func _draw() -> void:
 	if not ship_drawn: _draw_ship(o, cell)
 	for s in scene.shafts:
 		if s.y >= top - 2 and s.y <= bottom: piece(s.id, s.dir, o + Vector2(s.x, s.y) * cell, cell * 1.6, 0, float(s.y))
+	Harpoon.focus(self, focus_at, size, cell, focus_amount)
+	_draw_harpoon(cell)
 	_draw_iris(o, cell)
 	_draw_controls()
+
+## Creature: soft blobs under its spine, then the live 3D render.
+func _draw_creature() -> void:
+	var cell := _cell()
+	for p in creature.ground_points():
+		draw_texture_rect(_shade, Rect2(p - Vector2.ONE * cell * .55, Vector2.ONE * cell * 1.1), false, Color(1, 1, 1, .6))
+	draw_texture_rect(creature.texture(), Rect2(Vector2.ZERO, size), false)
+
+## The harpoon in flight, reeling back, or pinned to the creature, with its rope.
+func _draw_harpoon(cell: float) -> void:
+	var encounter = run_state.get("encounter")
+	if not encounter is Dictionary or not encounter.harpoon is Dictionary or world.get("kind") != "main": return
+	var shot: Dictionary = encounter.harpoon
+	var nose := muzzle()
+	var rules: Dictionary = Book.definition().encounter
+	if shot.state == "attached":
+		if not _creature_shown: return
+		var pin := hook_point()
+		var angle := (pin - nose).angle()
+		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * cell * .95, cell, .06, time)
+		Harpoon.harpoon(self, pin, angle, cell, false)
+		if _hooked_at >= 0.0: Harpoon.hook_ring(self, pin, cell, time - _hooked_at)
+		return
+	var o := _origin()
+	var d := float(shot.d)
+	# Reeling drifts the harpoon back over to the ship's column as it comes home.
+	var x := float(shot.x) if shot.state == "flying" else lerpf(_shown_ship().x, float(shot.x), clampf(d / float(rules.harpoon_range_rows), 0.0, 1.0))
+	var tip := o + Vector2(x, _shown_ship().y - float(rules.nose_rows) - d) * cell
+	var angle := -PI / 2 if shot.state == "flying" else (tip - nose).angle()
+	var tail := tip - Vector2.from_angle(angle) * cell * .95
+	Harpoon.rope(self, nose, tail, cell, .35 if shot.state == "flying" else .9, time)
+	Harpoon.harpoon(self, tip, angle, cell)
 
 ## Portals (whirlpool under the stone ring), passage end whirlpools, the rejoin
 ## outflow, current flow lines and the passage's forward flow.
@@ -478,12 +578,15 @@ func _draw_ship(o: Vector2, cell: float) -> void:
 	# shield bumps and the passage ride never do.
 	var hurt: bool = protection > 0.0 and not _shielded() and world.kind == "main" and _tr.is_empty()
 	var alpha := 1.0 if not hurt or reduced_motion else (.45 if int(time * 12) % 2 else 1.0)
-	var root := o + shown * cell
-	if shrink < 1.0:
-		var pivot := root - Vector2(0, cell * .25)
-		var spin := 0.0 if reduced_motion else (1.0 - shrink) * PI * (2.5 if _tr.kind == "enter" else -2.0)
-		draw_set_transform_matrix(Transform2D(spin, Vector2(shrink, shrink), 0.0, pivot) * Transform2D(0.0, -pivot))
-	piece("submarine-yellow", "S", root, cell, 1 if hurt else 0, 0.0, true, 1.0, alpha)
+	var root := o + (shown + _knock) * cell
+	# Banks into turns, and wobbles after a hit; the whirlpool spins it down.
+	var pivot := root - Vector2(0, cell * .35)
+	var spin := _tilt
+	if shrink < 1.0 and not reduced_motion: spin += (1.0 - shrink) * PI * (2.5 if _tr.kind == "enter" else -2.0)
+	if not reduced_motion: spin += sin(_hurt * 26.0) * _hurt * _hurt * .35
+	draw_set_transform_matrix(Transform2D(spin, Vector2(shrink, shrink), 0.0, pivot) * Transform2D(0.0, -pivot))
+	var red := _hurt * _hurt
+	piece("submarine-yellow", "S", root, cell, 1 if hurt else 0, 0.0, true, 1.0, alpha, Color(1, 1 - .55 * red, 1 - .6 * red))
 	draw_set_transform(Vector2.ZERO)
 	if _shielded() and _tr.is_empty():
 		Art.shield_bubble(self, root, cell, float(run_state.shield) / float(Book.definition().shield_seconds), time, _bump)
@@ -504,6 +607,13 @@ func _draw_particles(o: Vector2, cell: float) -> void:
 			draw_line(at - tail, at + tail * .3, Color(.94, 1, 1, .85 * (1 - t)), maxf(1.5, cell * .04))
 		elif p.kind == "collect":
 			_draw_collect(o + p.p * cell, cell, t, int(p.frame))
+		elif p.kind == "chip":
+			# Hull chips: small yellow-paint flakes tumbling away from the dent.
+			var at: Vector2 = o + p.p * cell
+			var r := float(p.r) * cell
+			var a := float(p.age) * float(p.spin)
+			var flake := PackedVector2Array([at + Vector2.from_angle(a) * r, at + Vector2.from_angle(a + 2.3) * r * .7, at + Vector2.from_angle(a + 3.9) * r * .9])
+			draw_colored_polygon(flake, Color(1, .78, .2, 1 - t * t))
 		else:
 			_star(o + p.p * cell, float(p.r) * cell * 1.6 * (1 - t * .5), float(p.age) * 6.0, Color(p.get("color", Color(1, .93, .6)), 1 - t))
 
@@ -542,6 +652,30 @@ func _star(at: Vector2, radius: float, angle: float, color: Color) -> void:
 ## Impact: a short, decaying shake of the playfield (skipped for reduced motion).
 func hit() -> void:
 	_hit = 1.0
+
+## Hull damage: the ship slides back from `from` (where it struck) to where the
+## rules left it, wobbles and flashes red, and sparks, hull chips and bubbles
+## burst at the contact point.
+func damage(from: Vector2, to: Vector2) -> void:
+	_hurt = 1.0
+	knock(from, to)
+	var away := (from - to).normalized() if from.distance_to(to) > .01 else Vector2.UP
+	var at := from + away * .35 - Vector2(0, .2)
+	if reduced_motion: return
+	for i in range(14):
+		var a := away.angle() + _rng.randf_range(-1.3, 1.3)
+		var speed := 1.6 + _rng.randf() * 2.6
+		particles.append({"kind": "spark", "p": at, "v": Vector2.from_angle(a) * speed, "r": .03 + _rng.randf() * .03, "life": .3 + _rng.randf() * .25, "age": 0.0, "drag": 5.0, "color": Color(1, .55 + _rng.randf() * .35, .25)})
+	for i in range(6):
+		var a := (-away).angle() + _rng.randf_range(-1.1, 1.1)
+		particles.append({"kind": "chip", "p": at, "v": Vector2.from_angle(a) * (1.0 + _rng.randf() * 1.4) + Vector2(0, -.4), "r": .05 + _rng.randf() * .04, "life": .6 + _rng.randf() * .3, "age": 0.0, "drag": 2.5, "spin": _rng.randf_range(-12.0, 12.0)})
+	for i in range(8):
+		_bubble_at(at.x + _rng.randf_range(-.2, .2), at.y + _rng.randf_range(-.1, .2), _rng.randf_range(-.6, .6), _rng.randf_range(-.5, .3), .025 + _rng.randf() * .04, .8 + _rng.randf() * .5, .45)
+
+## A bump without damage (rock touched during hit protection): only the slide.
+func knock(from: Vector2, to: Vector2) -> void:
+	if reduced_motion: return
+	_knock += from - to
 
 func _shake() -> Vector2:
 	if reduced_motion or _hit <= 0.0: return Vector2.ZERO

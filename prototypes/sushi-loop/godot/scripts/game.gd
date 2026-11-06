@@ -447,7 +447,20 @@ func _gallery_feature() -> void:
 			run.y = float(path.portals[0].y) + 3.5; run.x = float(path.portals[0].x) + 1.5
 		"passage":
 			run.y = float(path.portals[0].y) + 0.3; run.x = float(path.portals[0].x)
+		"encounter", "reloading", "hooked":
+			# Issue #23: the open shooting window, a shot reloading, or the held hook.
+			run.y = float(path.encounter_start) + 0.2; run.x = 5.5
 	for step in range(30 if wanted == "passage" else 6): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+	if wanted in ["encounter", "reloading", "hooked"]:
+		for step in range(40): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+		var centre := ExpeditionBook.creature_centre(run).x
+		run.x = centre + ((1.8 if centre < 5.5 else -1.8) if wanted == "reloading" else 0.0)
+		if wanted != "encounter": session.command({"type": "expedition_fire"})
+		var guard := 0
+		while wanted == "hooked" and run.encounter.state != "hooked" and guard < 60:
+			session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0}); guard += 1
+		if wanted == "reloading":
+			for step in range(5): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
 
 func _layout() -> void:
 	_layout_for_safe_top(_display_safe_top())

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Storm Eel boss</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header class="bar">
+  <h1>Storm Eel boss · issue #23 model &amp; animation review (v2, low-poly fish)</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="map" aria-selected="true">On the map</button>
+    <button role="tab" data-view="inspect" aria-selected="false">Inspect model</button>
+  </nav>
+</header>
+<main class="layout">
+  <div class="stage">
+    <div class="phone" id="phone">
+      <canvas id="world" aria-hidden="true"></canvas>
+      <canvas id="view" aria-label="Storm Eel preview"></canvas>
+    </div>
+  </div>
+  <aside class="panel" aria-label="Review controls">
+    <h2>Encounter flow</h2>
+    <div class="row">
+      <button id="flow-attack">Swim ahead, turn &amp; discharge (repeats)</button>
+      <button id="flow-catch">Harpoon hit → hooked → discharges → exhausted</button>
+      <button id="flow-escape">Window expires → restless → escape</button>
+    </div>
+    <h2>Clips</h2>
+    <p class="hint">Live 3D: one GLB, flat-shaded low-poly, crossfaded in the browser. Loops are marked ↻. The world scrolls under both the eel and the ship.</p>
+    <div class="clips" id="clips" role="group" aria-label="Play clip"></div>
+    <h2>Options</h2>
+    <label><input type="checkbox" id="opt-grade" checked> 135% contrast grade (ART-05)</label>
+    <label><input type="checkbox" id="opt-scroll" checked> Scroll the seabed (swimming forward)</label>
+    <label><input type="checkbox" id="opt-hit"> Show hit area</label>
+    <label>Speed <input type="range" id="opt-speed" min="0.25" max="1.5" step="0.25" value="1"> <output id="speed-out">1×</output></label>
+    <p class="now">Playing: <b id="now">swim</b></p>
+  </aside>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

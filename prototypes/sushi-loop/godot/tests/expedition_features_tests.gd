@@ -50,7 +50,12 @@ func run() -> void:
 	check(not path.currents.is_empty() and path.shields.size() >= 1 and path.portals.size() == 1, "the route carries current fields, a shield and one portal")
 	var finish: Dictionary = path.spans.filter(func(span): return span.kind == "finish")[0]
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "the encounter (finish) holds neither shields nor portals")
-	check(float(path.encounter_edge) == float(finish.y1) + 1.0, "the encounter edge is the finish chunk's entry")
+	# Issue #23: the encounter arena now precedes the finish; route version 2 still ends at the finish chunk.
+	var arena: Dictionary = path.spans.filter(func(span): return span.kind == "encounter")[0]
+	check(float(path.encounter_edge) == float(arena.y1) + 1.0 and int(arena.y0) == int(finish.y1) + 1, "the encounter edge is the arena's entry, right before the finish")
+	var v2 := Book.route(SEED, 2)
+	var v2_finish: Dictionary = v2.spans.filter(func(span): return span.kind == "finish")[0]
+	check(float(v2.encounter_edge) == float(v2_finish.y1) + 1.0, "route version 2 keeps the finish chunk as its encounter edge")
 	var legacy := Book.route(SEED, 1)
 	check(legacy.currents.is_empty() and legacy.shields.is_empty() and legacy.portals.is_empty() and not legacy.spans.any(func(span): return span.kind in ["current", "portal", "boost"]), "route version 1 keeps the issue #21 plan without features")
 
