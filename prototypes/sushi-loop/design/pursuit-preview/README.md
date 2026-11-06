@@ -24,6 +24,21 @@ Interactive HTML prototype for approval before Godot work, per the game-ui-proto
 
 A repeat catch (review toggle) goes from the cutscene straight to the results.
 
+## Versus HUD revision (2026-11-05)
+
+On short 16:9 screens the eel's head sat under the second HUD row. The user proposed removing the gold count and merging the hull bar, and chose the mirrored "versus" layout used by fighting-game health bars and fishing fights.
+
+- From the encounter onward, the top row holds the hull bar on the left (submarine icon) and the eel's resistance on the right (eel icon, draining toward the middle). Pause stays at the right end.
+- The gold count hides during the encounter. Gold picked up during the chase still counts, and the results show it.
+- The second row is gone, so the eel's head stays clear on 405×720.
+- **Arrival transition** (when the creature arrives; here, 0.6 s after Restart or **Replay HUD transition**):
+  - the gold count lifts and fades (250 ms);
+  - the empty eel bar slides in from the right into its slot with a small overshoot (380 ms, 180 ms delay);
+  - its fill sweeps from empty to full (600 ms), like a boss bar.
+
+  Reduced motion uses plain fades.
+- Review controls: **16:9 phone 405×720**, and **Previous HUD (compare)** for a side-by-side.
+
 ## Asset map
 
 | Surface | Source |
