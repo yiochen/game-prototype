@@ -1,0 +1,42 @@
+{
+  "_note": "Issue #25 review balance. Chase values mirror godot/content/expedition.json; the discharge block joins the Storm Eel's encounter definition on approval.",
+  "forward_rows_per_second": 2.1,
+  "pursuit_speed_multiplier": 1.4,
+  "pursuit_ramp_seconds": 1.0,
+  "lateral_columns_per_second": 3.3,
+  "lateral_acceleration": 18,
+  "hull_max": 100,
+  "impact_damage": 25,
+  "hit_protection_seconds": 1.2,
+  "ship_radius": 0.3,
+  "rock_inset": 0.08,
+  "rock_corner_radius": 0.35,
+  "knockback_clearance": 0.12,
+  "salvage_per_pickup": 2,
+  "pickup_radius": 0.6,
+  "completion_bonus": 20,
+  "resistance": 100,
+  "resistance_drain_per_second": 4.5,
+  "lead_rows": 5.6,
+  "weave_columns": 1.6,
+  "weave_period_seconds": 6,
+  "catch_cutscene_seconds": 2.8,
+  "escape_seconds": 1.6,
+  "pursuit_plan": [3.0, "creature", 3.5, "creature", 4.0],
+  "discharge": {
+    "width_columns": [2, 3],
+    "warn_seconds": 1.4,
+    "active_seconds": 0.5,
+    "cooldown_seconds": [1.6, 2.4],
+    "damage": 25,
+    "aim_spread_columns": 1.6,
+    "fairness": {
+      "reaction_seconds": 0.3,
+      "reach_margin": 0.7,
+      "lane_slack_columns": 0.25,
+      "min_open_columns": 1.5,
+      "min_choices": 2,
+      "row_step": 0.5
+    }
+  }
+}

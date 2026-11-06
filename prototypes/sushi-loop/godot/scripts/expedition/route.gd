@@ -21,7 +21,9 @@ const SHIP_LO := 2
 const SHIP_HI := COLUMNS * QX - 2
 const CHUNK_DIR := "res://content/expedition/chunks"
 ## Issue #22 feature chunks (current, portal, boost) are offered only by their own plan slots.
-const KINDS := ["launch", "start", "normal", "rest", "fork", "finish", "current", "portal", "boost"]
+## Issue #25 creature chunks belong to one species (`creature`) and mark the
+## rows where its attacks may be live (`attack_rows`); see discharge.gd.
+const KINDS := ["launch", "start", "normal", "rest", "fork", "finish", "current", "portal", "boost", "creature"]
 const DEFAULT_PLAN := ["launch", "launch", "start", 1.5, 2.0, "rest", 2.5, "fork", 3.0, 3.5, "rest", "fork", 4.0, "finish"]
 const MASK := 0xFFFFFFFF
 const DIRS := ["N", "E", "S", "W"]
@@ -169,7 +171,8 @@ static func difficulty(rows: Array) -> float:
 
 # ------------------------------------------------------------ chunk files
 
-## Designer document → {id, name, kind, source, difficulty_override, rows}.
+## Designer document → {id, name, kind, source, difficulty_override, rows}
+## (creature chunks add creature and attack_rows).
 static func chunk_from_map(doc: Dictionary, id: String) -> Dictionary:
 	var columns := int(doc.grid.columns)
 	var height := int(doc.grid.rows)
@@ -193,8 +196,10 @@ static func chunk_from_map(doc: Dictionary, id: String) -> Dictionary:
 			else: row += "."
 		rows.append(row)
 	var meta: Dictionary = doc.get("chunk", {}) if doc.get("chunk") is Dictionary else {}
-	return {"id": id, "name": str(doc.get("name", id)), "kind": str(meta.get("kind", "normal")), "source": str(meta.get("source", "")),
+	var chunk := {"id": id, "name": str(doc.get("name", id)), "kind": str(meta.get("kind", "normal")), "source": str(meta.get("source", "")),
 		"difficulty_override": meta.get("difficulty"), "rows": rows}
+	if chunk.kind == "creature": chunk.creature = meta.get("creature"); chunk.attack_rows = meta.get("attack_rows")
+	return chunk
 
 static func load_chunks(dir: String = CHUNK_DIR) -> Array:
 	var out: Array = []
@@ -221,6 +226,11 @@ static func validate_chunk(chunk: Dictionary) -> Array:
 	for y in range(rows.size()):
 		for x in range(str(rows[y]).length()):
 			if str(rows[y])[x] == "$" and not reach.has(_key(x, y)): problems.append("unreachable gold %d,%d" % [x, y])
+	if chunk.get("kind") == "creature":
+		var attack = chunk.get("attack_rows")
+		if not chunk.get("creature") is String or str(chunk.creature).is_empty(): problems.append("creature chunks name their creature")
+		if not attack is Array or attack.size() != 2 or not attack.all(func(v): return (v is int or v is float) and v == floor(v)) or int(attack[0]) < 0 or int(attack[0]) >= int(attack[1]) or int(attack[1]) >= rows.size():
+			problems.append("creature chunks need attack_rows [first, last] inside the chunk")
 	# Launch: the preparation cruise runs straight up the middle without steering.
 	if chunk.get("kind") == "launch":
 		if rows.any(func(r): return "$" in str(r)): problems.append("launch chunks carry no gold")

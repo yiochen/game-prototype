@@ -104,6 +104,9 @@ func _glow() -> float:
 		"struggle": return 1.1 + 0.5 * maxf(0.0, sin(t * 10.0))
 		"exhausted": return 0.35 + 0.1 * sin(t * 2.0)
 		"escape": return 1.4
+		# Issue #25 discharge: charging up, then crackling while it strikes.
+		"windup": return 1.0 + minf(1.0, t / 1.4) * 1.6 + 0.4 * sin(t * 22.0)
+		"attack": return 2.6 + 0.8 * sin(t * 40.0)
 	return 1.0
 
 ## Advance the animation and place the camera so the ground root lands on

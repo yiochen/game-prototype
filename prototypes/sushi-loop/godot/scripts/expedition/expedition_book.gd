@@ -41,11 +41,20 @@ extends RefCounted
 ## finishes on its own; hazards are over). Zero hull ends it as hull depleted:
 ## the creature escapes, with no recipe and no second attempt. Reaching the
 ## finish while still hooked also lands the catch.
+##
+## Issue #25: route version 5 alternates the pursuit's ordinary chunks with the
+## creature's own chunks (wide open water). Only there, and only while hooked,
+## the creature discharges: it picks one fixed strip from the chunk's table of
+## fair strikes (discharge.gd), leaning towards the ship but never tracking
+## it, warns for a moment, then the strip goes live. A ship inside it loses
+## hull (hit protection applies; no knock-back, no resistance change). A catch
+## or escape ends the run, which removes any warning or strike with it.
 ## Balance lives in res://content/expedition.json; routes in route.gd.
 const VERSION := 1
 const Route = preload("res://scripts/expedition/route.gd")
 const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
+const Discharge = preload("res://scripts/expedition/discharge.gd")
 const OUTCOMES := ["complete", "returned_early", "hull_depleted"]
 const MAX_INTEGER := 9007199254740991
 static var _content: Dictionary = {}
@@ -60,10 +69,25 @@ static func definition() -> Dictionary:
 
 static func library() -> Array:
 	if _library.is_empty():
-		var analysis := Route.analyze_library(Route.load_chunks())
+		var chunks: Array = []
+		for chunk in Route.load_chunks():
+			# A creature chunk joins only with an up-to-date, accepted discharge table.
+			if chunk.kind == "creature":
+				var table = _doc(str(chunk.id)).get("chunk", {}).get("discharge")
+				var problems := Discharge.table_problems(chunk, table, definition()) if Route.validate_chunk(chunk).is_empty() else []
+				if not problems.is_empty():
+					push_warning("Expedition chunk %s left out: %s" % [chunk.id, "; ".join(problems)]); continue
+				# JSON numbers come back as floats: strips are whole cells.
+				chunk.discharge = {"strikes": table.strikes.map(func(e): return {"row": float(e.row), "fair": e.fair.map(func(p): return [int(p[0]), int(p[1])])})}
+			chunks.append(chunk)
+		var analysis := Route.analyze_library(chunks)
 		for id in analysis.problems: push_warning("Expedition chunk %s left out: %s" % [id, "; ".join(analysis.problems[id])])
 		_library = analysis.chunks
 	return _library
+
+## Library for one creature's route: its own creature chunks, no other species'.
+static func _library_for(creature: String) -> Array:
+	return library().filter(func(c): return c.kind != "creature" or str(c.get("creature")) == creature)
 
 ## Assembled grid, spans, gold and features for a seed (cached). Version 1
 ## is the issue #21 plan (no feature slots); newer runs use the current plan.
@@ -72,7 +96,7 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 	var cache_key := "%d:%d" % [seed_value, version]
 	if not _routes.has(cache_key):
 		var plan: Array = definition().plan if version == int(definition().route_version) else definition().legacy_plans[str(version)]
-		var sequence := Route.generate(seed_value, library(), plan)
+		var sequence := Route.generate(seed_value, _library_for(str(definition().encounter.creature)), plan)
 		var assembled := Route.assemble(sequence)
 		if version >= 3: assembled = _with_arena(assembled, seed_value, int(definition().encounter.pursuit_chunks) if version >= 4 else 0)
 		var pickups: Array = []
@@ -94,6 +118,12 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 		var shields: Array = []
 		var portals: Array = []
 		var spans: Array = assembled.spans
+		# Issue #25: where the creature may discharge, with each chunk's fair strikes.
+		var zones: Array = []
+		var by_id := {}
+		for c in library(): by_id[c.id] = c
+		for i in range(spans.size()):
+			if spans[i].kind == "creature": zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "strikes": by_id[spans[i].id].discharge.strikes})
 		for i in range(spans.size()):
 			var span: Dictionary = spans[i]
 			if span.kind == "encounter": continue
@@ -110,7 +140,7 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 						var row := int(rejoin.y1)
 						portals.append({"x": x + 0.5, "y": y + 0.5, "rejoin": Vector2(_centre_of(assembled.rows[row]), row + 0.5)})
 		_routes[cache_key] = {"rows": assembled.rows, "spans": spans, "pickups": pickups, "columns": Route.COLUMNS, "launch_top": launch_top,
-			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version,
+			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version, "zones": zones,
 			"arena": arena, "encounter_start": (float(arena.y1) + 1.0 - float(definition().encounter.window_opens_rows_into_arena)) if arena != null else null}
 	return _routes[cache_key]
 
@@ -293,6 +323,16 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			if float(run.y) <= float(arena.y1) + 0.5: return {"ok": false, "reason": "already_there"}
 			run.y = float(arena.y1) + 0.5; run.x = 5.5; run.vx = 0.0; run.shield = 0.0; run.protection = 0.0
 			return {"ok": true}
+		"expedition_cheat_zone":
+			# Debug: skip ahead to the entry of the next creature chunk while hooked.
+			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
+			var ahead: Array = run_route(run).zones.filter(func(z): return float(z.y0) < float(run.y) - 1.0)
+			if ahead.is_empty(): return {"ok": false, "reason": "no_zone_ahead"}
+			var zone: Dictionary = ahead.reduce(func(a, b): return a if int(a.y0) > int(b.y0) else b)
+			var rows: Array = run_route(run).rows
+			run.y = float(zone.y1) + 0.6; run.x = _centre_of(str(rows[int(zone.y1)])); run.vx = 0.0; run.protection = 0.0
+			run.encounter.discharge = null; run.encounter.discharge_cooldown = 0.0
+			return {"ok": true}
 		"expedition_cheat_catch":
 			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
 			run.encounter.resistance = minf(float(run.encounter.resistance), 1.0)
@@ -437,6 +477,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 						return events
 				else:
 					events.append({"type": "bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
+		if _hooked(run) and _discharge_step(config, state, run, path, dt, events, now): return events
 		if _hooked(run) and (float(run.encounter.resistance) <= 0.0 or float(run.y) <= 0.5):
 			events.append_array(_catch(config, state, now))
 			return events
@@ -487,7 +528,11 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 		# Pursuit: resistance is the creature's health and only drains.
 		encounter.chase_t = float(encounter.chase_t) + dt
 		encounter.resistance = maxf(0.0, float(encounter.resistance) - float(rules.resistance_drain_per_second) * dt)
-		encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
+		# It weaves, but holds over its strip while discharging (#25).
+		var weave := Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
+		var strike = encounter.get("discharge")
+		var goal := float(strike.x0) + float(strike.w) / 2.0 if strike is Dictionary else weave
+		encounter.x = move_toward(float(encounter.x), goal, float(rules.discharge.glide_columns_per_second) * dt)
 		return false
 	if encounter.state == "aiming": encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
 	encounter.cooldown = maxf(0.0, float(encounter.cooldown) - dt)
@@ -506,6 +551,7 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 						shot.d = d; shot.state = "attached"
 						encounter.state = "hooked"; encounter.hook = hit
 						encounter.resistance = float(rules.resistance); encounter.chase_t = 0.0
+						encounter.discharge = null; encounter.discharge_cooldown = 0.0; encounter.strikes = 0
 						events.append({"type": "hooked", "along": hit.along, "across": hit.across})
 						return false
 			if float(shot.d) >= float(rules.harpoon_range_rows):
@@ -517,6 +563,65 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 	if encounter.state == "aiming" and float(encounter.t) >= float(rules.window_seconds) and encounter.harpoon == null:
 		encounter.state = "escaped"; encounter.escaped_at = float(encounter.t)
 		events.append({"type": "creature_escaped"})
+	return false
+
+# ------------------------------------------------------------ discharge (#25)
+
+## The hooked creature's discharge for one step. Returns true when a strike
+## ended the run (zero hull). A windup starts only inside a creature chunk, at
+## full chase speed, when the coming strike row is in the chunk's table.
+static func _discharge_step(config: Dictionary, state: Dictionary, run: Dictionary, path: Dictionary, dt: float, events: Array, now: float) -> bool:
+	var rules := definition()
+	var d: Dictionary = rules.encounter.discharge
+	var encounter: Dictionary = run.encounter
+	encounter.discharge_cooldown = maxf(0.0, float(encounter.get("discharge_cooldown", 0.0)) - dt)
+	var strike = encounter.get("discharge")
+	if strike is Dictionary:
+		strike.t = float(strike.t) + dt
+		if strike.phase == "windup" and float(strike.t) >= float(d.warn_seconds):
+			strike.phase = "strike"; events.append({"type": "discharge_strike", "x0": int(strike.x0), "w": int(strike.w)})
+		if strike.phase == "strike":
+			var centre := float(strike.x0) + float(strike.w) / 2.0
+			if float(run.protection) <= 0.0 and absf(float(run.x) - centre) < float(strike.w) / 2.0 + float(d.hit_slack_columns):
+				# Lightning: hull only, with the usual hit protection; no knock-back.
+				run.hull = maxf(0.0, float(run.hull) - float(d.damage))
+				run.protection = float(rules.hit_protection_seconds)
+				run.impacts = int(run.impacts) + 1
+				events.append({"type": "zapped", "x": run.x, "y": run.y, "hull": run.hull})
+				if float(run.hull) <= 0.0:
+					events.append({"type": "creature_lost"})
+					events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, {"id": str(rules.encounter.creature), "outcome": "escaped"})})
+					return true
+			if float(strike.t) >= float(d.warn_seconds) + float(d.active_seconds):
+				encounter.discharge = null
+				encounter.strikes = int(encounter.get("strikes", 0)) + 1
+				var cooldown: Array = d.cooldown_seconds
+				encounter.discharge_cooldown = lerpf(float(cooldown[0]), float(cooldown[1]), Route.cell_hash(int(run.seed), int(encounter.strikes), 26))
+				events.append({"type": "discharge_end"})
+		return false
+	if float(encounter.discharge_cooldown) > 0.0 or pursuit_speed(run) < float(rules.encounter.pursuit_speed_multiplier) - 1e-6: return false
+	var zone = null
+	for z in path.get("zones", []):
+		if float(run.y) >= float(z.y0) and float(run.y) < float(z.y1) + 1.0: zone = z
+	if zone == null: return false
+	var strike_row := float(run.y) - float(zone.y0) - float(d.warn_seconds) * Discharge.chase_rows_per_second(rules)
+	var entry = null
+	for s in zone.strikes:
+		if absf(float(s.row) - strike_row) <= float(d.fairness.row_step) / 2.0: entry = s
+	if entry == null: return false
+	# One fixed strip from the fair choices near the ship, leaning towards it.
+	var x := float(run.x)
+	var pool: Array = entry.fair.filter(func(s): return absf(float(s[0]) + float(s[1]) / 2.0 - x) <= float(d.aim_reach_columns))
+	if pool.is_empty(): return false
+	var spread := float(d.aim_spread_columns)
+	var weights: Array = pool.map(func(s): return exp(-pow(float(s[0]) + float(s[1]) / 2.0 - x, 2) / (2.0 * spread * spread)))
+	var r: float = Route.cell_hash(int(run.seed), int(encounter.get("strikes", 0)), 25) * float(weights.reduce(func(a, b): return a + b, 0.0))
+	var pick: Array = pool[pool.size() - 1]
+	for i in range(pool.size()):
+		r -= float(weights[i])
+		if r <= 0.0: pick = pool[i]; break
+	encounter.discharge = {"phase": "windup", "t": 0.0, "x0": int(pick[0]), "w": int(pick[1]), "zone": int(zone.span), "row": float(entry.row)}
+	events.append({"type": "discharge_windup", "x0": int(pick[0]), "w": int(pick[1])})
 	return false
 
 ## Creature body centre on the route: ahead of the ship by the lead (arriving
@@ -700,6 +805,12 @@ static func normalize(state: Dictionary) -> void:
 			# A #23 hooked handoff resumes as a fresh pursuit.
 			if encounter.state == "hooked":
 				encounter.resistance = float(encounter.get("resistance", definition().encounter.resistance)); encounter.chase_t = float(encounter.get("chase_t", 0.0))
+				# Hooks saved before #25 carry no discharge.
+				encounter.discharge_cooldown = float(encounter.get("discharge_cooldown", 0.0)); encounter.strikes = int(encounter.get("strikes", 0))
+				var strike = encounter.get("discharge")
+				if strike is Dictionary:
+					strike.t = float(strike.t); strike.x0 = int(strike.x0); strike.w = int(strike.w); strike.zone = int(strike.zone); strike.row = float(strike.row)
+				else: encounter.discharge = null
 		else: run.encounter = null
 	if data.result is Dictionary:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
@@ -749,7 +860,23 @@ static func _encounter_valid(run: Dictionary) -> bool:
 			if encounter.has(field) and (not _finite(encounter.get(field)) or float(encounter[field]) < 0.0): return false
 		if not encounter.has("resistance"): return true
 		if float(encounter.resistance) > float(definition().encounter.resistance): return false
+		if not _discharge_valid(run, encounter): return false
 	return true
+
+## Issue #25 discharge fields on a hooked encounter (optional in older saves).
+static func _discharge_valid(run: Dictionary, encounter: Dictionary) -> bool:
+	var d: Dictionary = definition().encounter.discharge
+	var cooldown = encounter.get("discharge_cooldown", 0.0)
+	if not _finite(cooldown) or float(cooldown) < 0.0 or float(cooldown) > float(d.cooldown_seconds[1]): return false
+	if not _integer(encounter.get("strikes", 0)): return false
+	var strike = encounter.get("discharge")
+	if strike == null: return true
+	if not strike is Dictionary or str(strike.get("phase")) not in ["windup", "strike"]: return false
+	if not _finite(strike.get("t")) or float(strike.t) < 0.0 or float(strike.t) > float(d.warn_seconds) + float(d.active_seconds) + 0.001: return false
+	if not _integer(strike.get("x0")) or not _integer(strike.get("w")) or not d.width_columns.any(func(w): return int(w) == int(strike.w)): return false
+	if int(strike.x0) < 1 or int(strike.x0) + int(strike.w) > Route.COLUMNS - 1: return false
+	if not _integer(strike.get("zone")) or not _finite(strike.get("row")): return false
+	return run_route(run).zones.any(func(z): return int(z.span) == int(strike.zone))
 
 static func _unique_indices(values: Variant, count: int) -> bool:
 	if not values is Array: return false

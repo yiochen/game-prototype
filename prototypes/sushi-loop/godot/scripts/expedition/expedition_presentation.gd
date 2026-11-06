@@ -99,6 +99,7 @@ var _keys := {}
 ## Debug shortcuts, shown only with the cheats flag.
 var cheat_buttons: Array[Button] = []
 var cheat_catch_button: Button
+var cheat_zone_button: Button
 ## Issue #24 ending over the frozen last run: {kind: catch|escape, t, first, result}.
 var _outro: Dictionary = {}
 var _callout_low := false
@@ -189,7 +190,7 @@ func _ready() -> void:
 		label.add_theme_color_override("font_shadow_color", Color(.02, .1, .2, .45))
 		label.add_theme_constant_override("shadow_offset_y", 5); label.add_theme_constant_override("shadow_offset_x", 0)
 	if Cheats.enabled():
-		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter], ["Catch", cheat_catch]]:
+		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter], ["Eel zone", cheat_zone], ["Catch", cheat_catch]]:
 			var button := Button.new(); button.text = "DEBUG · " + entry[0]; button.focus_mode = Control.FOCUS_NONE
 			button.add_theme_font_override("font", _font(850)); button.pressed.connect(entry[1])
 			for treatment in ["normal", "hover", "pressed"]:
@@ -199,6 +200,7 @@ func _ready() -> void:
 			for key in ["font_color", "font_hover_color", "font_pressed_color"]: button.add_theme_color_override(key, Color("ffe6fa"))
 			add_child(button); cheat_buttons.append(button)
 			if entry[0] == "Catch": cheat_catch_button = button
+			if entry[0] == "Eel zone": cheat_zone_button = button
 	# Encounter pieces stay under the Pause scrim and cards, like the rest of the HUD.
 	for node in [resistance_pill, harpoon_button, callout_title, callout_text] + cheat_buttons: move_child(node, scrim.get_index())
 	countdown_number = _label(self, 950); countdown_number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; countdown_number.add_theme_color_override("font_color", Color("fff6df"))
@@ -338,6 +340,14 @@ func cheat_encounter() -> void:
 		if state_provider.is_valid(): snapshot.expedition = state_provider.call()
 		_sync_view(0.0); view.snap_camera(); save_requested.emit()
 	else: _show_toast("Debug: the encounter is behind you")
+
+## Debug: skip ahead to the next creature chunk, where the discharge happens (#25).
+func cheat_zone() -> void:
+	if mode != "travel" or overlay != "none": return
+	if _command({"type": "expedition_cheat_zone"}).ok:
+		if state_provider.is_valid(): snapshot.expedition = state_provider.call()
+		_sync_view(0.0); view.snap_camera(); save_requested.emit()
+	else: _show_toast("Debug: no eel zone ahead")
 
 ## Debug: drain the hooked creature's resistance to its last moment.
 func cheat_catch() -> void:
@@ -507,6 +517,9 @@ func update(value: Dictionary, delta: float) -> void:
 					"pickup": view.burst(Vector2(float(event.x), float(event.y))); _salvage_pop = 1.0
 					"impact":
 						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit(); view.damage(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
+					"discharge_strike": view.discharge_strike()
+					"zapped":
+						_hull_pulse = 1.0; _hit_flash = 1.0; view.zap(Vector2(float(event.x), float(event.y)))
 					"bump": view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"shield":
 						view.shield_burst(Vector2(float(event.x), float(event.y))); _show_toast("Shield! No collision damage")
@@ -604,6 +617,7 @@ func _sync_view(delta: float) -> void:
 	elif harpoon_button.held: harpoon_button.release()
 	resistance_pill.visible = mode == "travel" and overlay != "outro" and overlay != "award" and encounter is Dictionary and encounter.state != "escaped"
 	if cheat_catch_button != null: cheat_catch_button.visible = mode == "travel" and overlay == "none" and hooked
+	if cheat_zone_button != null: cheat_zone_button.visible = mode == "travel" and overlay == "none" and hooked
 	ride_note.visible = mode == "travel" and overlay == "none" and run.get("passage") != null and not view.transitioning()
 	view.reduced_motion = reduced_motion
 	view.sync(run, delta, overlay == "none" and not gallery)
