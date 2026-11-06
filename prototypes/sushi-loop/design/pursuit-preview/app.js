@@ -170,6 +170,7 @@ function restart() {
   bone.getWorldPosition(tmp); tmp.y += 0.38; bone.add(anchor); anchor.position.copy(bone.worldToLocal(tmp.clone()));
   hideOverlays(); banner.hidden = true; setPhase('pursuit');
   showBanner('Hooked!<small>Reel it in. Dodge the rocks!</small>', 'pursuit', 1800);
+  hudIntro();
 }
 function setPhase(p) { run.phase = p; run.phaseT = 0; phone.dataset.phase = p; }
 const reach = rules.ship_radius + rules.rock_radius;
@@ -311,6 +312,19 @@ $('restart').addEventListener('click', restart);
 $('skip-catch').addEventListener('click', () => { if (run.phase === 'pursuit') run.resistance = Math.min(run.resistance, 3); });
 $('low-hull').addEventListener('click', () => { if (run.phase === 'pursuit') run.hull = Math.min(run.hull, 25); });
 $('opt-reduced').addEventListener('change', () => phone.classList.toggle('reduced', reduced()));
+// Encounter HUD: one mirrored "versus" row (hull left, eel right); the gold count hides.
+// The travel HUD (gold count) gives way to the versus row when the creature arrives.
+let hudAt = 0;
+function hudIntro() {
+  if ($('opt-old-hud').checked) { phone.dataset.hud = 'stacked'; hudAt = -1e9; return; }
+  phone.dataset.hud = 'travel'; hudAt = Infinity;
+  void phone.offsetWidth;
+  setTimeout(() => { if (phone.dataset.hud === 'travel') { phone.dataset.hud = 'versus'; hudAt = performance.now(); } }, 600);
+}
+// The eel bar fills from empty once it has slid into place, like a boss bar.
+const hudFill = () => { const k = Math.max(0, Math.min(1, (performance.now() - hudAt - 450) / 600)); return reduced() ? (performance.now() >= hudAt ? 1 : 0) : 1 - (1 - k) ** 3; };
+$('opt-old-hud').addEventListener('change', hudIntro);
+$('replay-hud').addEventListener('click', hudIntro);
 for (const tab of document.querySelectorAll('[role="tab"]')) tab.addEventListener('click', () => {
   for (const t of document.querySelectorAll('[role="tab"]')) t.setAttribute('aria-selected', String(t === tab));
   for (const v of document.querySelectorAll('.view')) v.hidden = v.id !== tab.dataset.view;
@@ -524,7 +538,8 @@ function syncUi() {
   $('hull-fill').style.background = run.hull <= 35 ? '#f0603b' : '#6cbf4b';
   $('hull').setAttribute('aria-label', `Hull ${hull}%`);
   $('salvage-value').textContent = run.salvage; $('salvage').setAttribute('aria-label', `${run.salvage} salvage this expedition`);
-  $('resistance-fill').style.width = `calc(${res}% - 6 * var(--u) * ${res / 100})`;
+  const shown = res * hudFill();
+  $('resistance-fill').style.width = `calc(${shown}% - 6 * var(--u) * ${shown / 100})`;
   $('resistance').setAttribute('aria-label', `Storm Eel resistance ${Math.ceil(res)}%`);
   phone.dataset.low = res < 25 ? '1' : '0';
   const rows = {

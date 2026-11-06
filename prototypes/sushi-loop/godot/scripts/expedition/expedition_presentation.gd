@@ -102,6 +102,14 @@ var cheat_catch_button: Button
 ## Issue #24 ending over the frozen last run: {kind: catch|escape, t, first, result}.
 var _outro: Dictionary = {}
 var _callout_low := false
+## Versus HUD (design/pursuit-preview): from the creature's arrival, hull and its
+## resistance share the top row and the gold count steps aside. `_versus_t` is
+## the time since the layout last switched; restored states start settled.
+var _versus := false
+var _versus_t := 99.0
+var _versus_animate := false
+var _salvage_home := Vector2.ZERO
+var _resistance_home := Vector2.ZERO
 ## Recipe award card pieces (see design/pursuit-preview).
 var award: Dictionary = {}
 
@@ -289,6 +297,7 @@ func start(by_touch := false) -> void:
 	mode = "travel"; overlay = "none"
 	# A fresh dive starts with no leftover hit feedback from the last one.
 	_hit_flash = 0.0; _hull_pulse = 0.0; damage_flash.modulate.a = 0.0; view.clear_feedback()
+	_versus = false; _versus_t = 99.0; _versus_animate = false
 	if not by_touch: view.release_controls()
 	view.steering_enabled = true; view.resume_controls()
 	view.accessibility_name = "Expedition. Hold the left or right arrow to steer."
@@ -516,7 +525,10 @@ func update(value: Dictionary, delta: float) -> void:
 						_outro = {"kind": "escape", "t": 0.0, "first": false}
 						view.start_escape(); view.release_controls(); _keys.clear(); view.key_input = 0.0
 						_callout("It got away", "Hull depleted", float(Book.definition().encounter.escape_seconds) + .3)
-					"creature_escaped": _callout("It got away", "No recipe this time"); save_requested.emit()
+					"encounter_start": _versus_animate = true
+					"creature_escaped":
+						_versus_animate = true
+						_callout("It got away", "No recipe this time"); save_requested.emit()
 					"passage_enter", "passage_exit":
 						view.begin_transition("enter" if event.type == "passage_enter" else "exit", Vector2(float(event.from_x), float(event.from_y)))
 						save_requested.emit()
@@ -625,12 +637,13 @@ func _refresh_hud(delta: float) -> void:
 	hull_pill.accessibility_description = "Hull %d%%%s%s" % [int(round(fraction * 100)), ", low" if low else "", ", shield" if float(run.get("shield", 0.0)) > 0.0 else ""]
 	# Salvage pill pops when a pickup lands.
 	_salvage_pop = maxf(0.0, _salvage_pop - delta * 4.0)
+	var unit := area.size.x / 390.0
+	var arrival := _refresh_versus(run, delta, unit)
 	salvage_pill.pivot_offset = salvage_pill.size / 2
-	salvage_pill.scale = Vector2.ONE * (1.0 + (0.0 if reduced_motion else .14 * sin(_salvage_pop * PI)))
+	salvage_pill.scale *= Vector2.ONE * (1.0 + (0.0 if reduced_motion else .14 * sin(_salvage_pop * PI)))
 	# Low hull: warning colour and a gentle pulse inside the meter only.
 	var pulse := 0.0 if reduced_motion else (.5 + .5 * sin(view.time * 5.0) if low else 0.0)
 	var color := Color("e2563d").lerp(Color("ff8a5c"), pulse) if low else Color("49b85a")
-	var unit := area.size.x / 390.0
 	hull_fill.size = Vector2(maxf(0.0, (hull_track.size.x - 6 * unit) * fraction), hull_track.size.y - 6 * unit)
 	hull_fill.position = Vector2(3, 3) * unit
 	hull_fill.add_theme_stylebox_override("panel", PopupSkin.flat(color.lerp(Color.WHITE, _hull_pulse * .5), 8 * unit))
@@ -638,10 +651,46 @@ func _refresh_hud(delta: float) -> void:
 	var encounter = run.get("encounter")
 	var rules: Dictionary = Book.definition().encounter
 	var share := clampf(float(encounter.get("resistance", rules.resistance)) / float(rules.resistance), 0.0, 1.0) if encounter is Dictionary else 1.0
-	resistance_fill.position = Vector2(3, 3) * unit
-	resistance_fill.size = Vector2(maxf(0.0, (resistance_track.size.x - 6 * unit) * share), resistance_track.size.y - 6 * unit)
+	# Mirrored: the fill is anchored at the eel's (right) end and drains toward the middle.
+	resistance_fill.size = Vector2(maxf(0.0, (resistance_track.size.x - 6 * unit) * share * arrival), resistance_track.size.y - 6 * unit)
+	resistance_fill.position = Vector2(resistance_track.size.x - 3 * unit - resistance_fill.size.x, 3 * unit)
 	resistance_fill.add_theme_stylebox_override("panel", PopupSkin.flat(Color("ffb02e") if share < .25 else Color("4f8fe6"), 5 * unit))
 	resistance_pill.accessibility_description = "%s resistance %d%%" % [str(rules.get("creature_name", "Creature")), int(ceil(share * 100))]
+
+## Versus HUD transition. On the creature's arrival the gold count lifts and
+## fades (0.25 s), then the empty eel bar slides in from the right with a small
+## overshoot (0.38 s after 0.18 s) and fills (0.6 s); an escape fades back.
+## Reduced motion fades only. Returns how much of the eel bar's fill to show.
+func _refresh_versus(run: Dictionary, delta: float, unit: float) -> float:
+	var encounter = run.get("encounter")
+	var want: bool = mode == "travel" and encounter is Dictionary and encounter.state != "escaped"
+	if want != _versus:
+		_versus = want; _versus_t = 0.0 if _versus_animate else 99.0
+	_versus_animate = false
+	_versus_t += delta
+	var t := _versus_t
+	salvage_pill.position = _salvage_home; salvage_pill.scale = Vector2.ONE
+	resistance_pill.position = _resistance_home; resistance_pill.scale = Vector2.ONE
+	resistance_pill.pivot_offset = resistance_pill.size / 2
+	var shown: bool = mode == "travel" and overlay not in ["outro", "award"]
+	if not _versus:
+		salvage_pill.modulate.a = clampf(t / .25, 0.0, 1.0)
+		resistance_pill.modulate.a = 1.0 - clampf(t / .2, 0.0, 1.0)
+		salvage_pill.visible = shown
+		return 1.0
+	var out := clampf(t / .25, 0.0, 1.0)
+	salvage_pill.modulate.a = 1.0 - out
+	salvage_pill.visible = shown and out < 1.0
+	var come := clampf((t - .18) / .38, 0.0, 1.0)
+	resistance_pill.modulate.a = clampf((t - .18) / .2, 0.0, 1.0)
+	if not reduced_motion:
+		salvage_pill.position.y -= 30 * unit * out; salvage_pill.scale = Vector2.ONE * (1.0 - .15 * out)
+		# Back-out ease: a small overshoot as it settles into its slot.
+		var c := 1.70158 * 1.3
+		var settle := 1.0 + (c + 1.0) * pow(come - 1.0, 3) + c * pow(come - 1.0, 2)
+		resistance_pill.position.x += 120 * unit * (1.0 - settle); resistance_pill.scale = Vector2.ONE * lerpf(.9, 1.0, come)
+	var fill := clampf((t - .45) / .6, 0.0, 1.0)
+	return 1.0 - pow(1.0 - fill, 3) if not reduced_motion else (1.0 if t >= .2 else 0.0)
 
 func _refresh_visibility() -> void:
 	var travelling := mode == "travel"
@@ -704,11 +753,13 @@ func layout(value: Rect2) -> void:
 	ride_note.position = Vector2(area.get_center().x - ride_note.size.x / 2, area.end.y - edge * .22 * 1.6 - edge / 2 - ride_note.size.y / 2)
 	toast.position = Vector2(area.get_center().x - toast.size.x / 2, area.position.y + area.size.y * .2)
 	# Encounter: a wide resistance pill under the HUD row; Harpoon between the arrows.
-	resistance_pill.size = Vector2(250, 50) * unit
-	resistance_pill.position = Vector2(area.get_center().x - resistance_pill.size.x / 2, top + 60 * unit)
+	# Versus row: the eel's resistance mirrors the hull pill beside it, icon at its outer end.
+	resistance_pill.size = Vector2(146, 50) * unit
+	resistance_pill.position = Vector2(hull_pill.position.x + hull_pill.size.x + 8 * unit, top)
+	_salvage_home = salvage_pill.position; _resistance_home = resistance_pill.position
 	skin.apply_panel(resistance_pill, "coin-panel", unit * 390.0 / 720.0)
-	resistance_icon.position = Vector2(10, 9) * unit; resistance_icon.size = Vector2(36, 32) * unit
-	resistance_track.position = Vector2(52, 17) * unit; resistance_track.size = Vector2(178, 16) * unit
+	resistance_icon.position = Vector2(146 - 10 - 36, 9) * unit; resistance_icon.size = Vector2(36, 32) * unit; resistance_icon.flip_h = true
+	resistance_track.position = Vector2(12, 17) * unit; resistance_track.size = Vector2(86, 16) * unit
 	resistance_track.add_theme_stylebox_override("panel", PopupSkin.flat(Color("6b4a2c"), 8 * unit))
 	resistance_fill.position = Vector2(3, 3) * unit; resistance_fill.size = resistance_track.size - Vector2(6, 6) * unit
 	resistance_fill.add_theme_stylebox_override("panel", PopupSkin.flat(Color("4f8fe6"), 5 * unit))

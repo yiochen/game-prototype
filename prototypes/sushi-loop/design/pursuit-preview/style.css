@@ -155,3 +155,21 @@ kbd { background: #0a2238; border: 1px solid #2c6aa0; border-radius: 6px; paddin
 #fx { z-index: 2; }
 /* During the catch the eel fills the upper middle; the callout sits between it and the ship. */
 .phone[data-phase="caught"] .banner { top: 63%; }
+
+/* Versus HUD during the encounter (user, 2026-11-05): hull and the creature's resistance share
+   the top row, mirrored like a fighting-game health bar; the gold count hides; Pause stays.
+   The second row is gone, so the eel has room on short 16:9 screens.
+   Transition when the creature arrives (data-hud travel → versus): the gold count lifts and fades
+   (250 ms), then the eel bar slides in from the right into its slot with a small overshoot
+   (380 ms, 180 ms delay) and its fill sweeps from empty to full (JS, 600 ms). */
+.phone:is([data-hud="travel"], [data-hud="versus"]) .pill.hull { width: calc(148 * var(--u)); }
+.phone:is([data-hud="travel"], [data-hud="versus"]) .pill.resistance { left: calc(168 * var(--u)); top: calc(14 * var(--u)); width: calc(148 * var(--u)); }
+.phone:is([data-hud="travel"], [data-hud="versus"]) .pill.resistance .track { left: calc(-10.2 * var(--u)); width: calc(86 * var(--u)); }
+.phone:is([data-hud="travel"], [data-hud="versus"]) .pill.resistance .fill { left: auto; right: calc(3 * var(--u)); }
+.phone:is([data-hud="travel"], [data-hud="versus"]) .pill.resistance .eel-icon { left: auto; right: calc(-14 * var(--u)); top: calc(-14 * var(--u)); transform: scaleX(-1); }
+.phone .pill.salvage { transition: opacity .25s ease-in, transform .25s ease-in, visibility 0s linear 0s; }
+.phone[data-hud="travel"] .pill.resistance { opacity: 0; transform: translateX(calc(120 * var(--u))) scale(.9); visibility: hidden; transition: none; }
+.phone[data-hud="versus"] .pill.salvage { opacity: 0; transform: translateY(calc(-30 * var(--u))) scale(.85); visibility: hidden; transition: opacity .25s ease-in, transform .25s ease-in, visibility 0s linear .25s; }
+.phone[data-hud="versus"] .pill.resistance { opacity: 1; transform: none; visibility: visible; transition: transform .38s cubic-bezier(.2, 1.45, .45, 1) .18s, opacity .2s ease-out .18s; }
+.reduced[data-hud="versus"] .pill.salvage { transform: none; transition: opacity .2s, visibility 0s linear .2s; }
+.reduced[data-hud="versus"] .pill.resistance { transform: none; transition: opacity .2s .2s; }

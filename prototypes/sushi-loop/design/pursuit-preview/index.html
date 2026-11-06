@@ -24,7 +24,7 @@
   <section id="play" class="view">
     <div class="layout">
       <div class="stage" id="stage">
-        <div class="phone" id="phone" data-phase="pursuit">
+        <div class="phone" id="phone" data-phase="pursuit" data-hud="versus">
           <canvas id="world" aria-label="Expedition playfield"></canvas>
           <div class="catch-rays" id="rays" aria-hidden="true"></div>
           <canvas id="eel" aria-hidden="true"></canvas>
@@ -63,12 +63,14 @@
           <button id="restart">Restart chase</button>
           <button id="skip-catch">Skip to the catch</button>
           <button id="low-hull">Hull to 25%</button>
+          <button id="replay-hud">Replay HUD transition</button>
         </div>
         <p>Restaurant on the results returns to the restaurant (here it restarts the chase). There, Eel roll waits NEW in every chef's picker until inspected: <a id="picker-link" target="_blank" rel="noopener">see the #15 picker's NEW state</a>.</p>
         <div class="row">
-          <label>Screen <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="wide">Wider window</option></select></label>
+          <label>Screen <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="405x720">16:9 phone 405×720</option><option value="wide">Wider window</option></select></label>
           <label><input type="checkbox" id="opt-repeat"> Already discovered (repeat catch)</label>
           <label><input type="checkbox" id="opt-reduced"> Reduced motion</label>
+          <label><input type="checkbox" id="opt-old-hud"> Previous HUD (compare)</label>
         </div>
         <h2>Chase state</h2>
         <dl class="state" id="state"></dl>
