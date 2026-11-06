@@ -101,6 +101,8 @@ func _glow() -> float:
 		"restless": return 1.1 + 0.9 * maxf(0.0, sin(t * 14.0))
 		"hit": return 0.15 if t < 0.25 else 0.8
 		"hooked": return 0.9 + 0.3 * sin(t * 8.0)
+		"struggle": return 1.1 + 0.5 * maxf(0.0, sin(t * 10.0))
+		"exhausted": return 0.35 + 0.1 * sin(t * 2.0)
 		"escape": return 1.4
 	return 1.0
 
@@ -123,6 +125,11 @@ func frame(delta: float, root: Vector2, view_size: Vector2, cell: float, physica
 	var glow := _glow()
 	for material in spot_materials: material.emission_energy_multiplier = glow
 	for material in body_materials: material.emission_energy_multiplier = 0.04 if flash > 0.0 else 0.0
+
+## Catch cutscene pose: grown and turned about its ground root (1, 0 at rest).
+func pose(scale_value: float, yaw: float) -> void:
+	model.scale = Vector3.ONE * scale_value
+	model.rotation.y = yaw
 
 func stop_rendering() -> void:
 	viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED

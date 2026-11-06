@@ -83,7 +83,9 @@ func run() -> void:
 	var rules: Dictionary = Book.definition().encounter
 	var path := Book.route(SEED)
 	var kinds: Array = path.spans.map(func(span): return span.kind)
-	check(kinds.slice(-2) == ["encounter", "finish"], "route version 3 puts an open-water arena right before the finish: %s" % [kinds.slice(-3)])
+	var chase := int(rules.pursuit_chunks)
+	check(kinds[kinds.size() - 2 - chase] == "encounter" and kinds.slice(-1 - chase, -1).all(func(k): return k == "normal") and kinds[-1] == "finish", "route version 4 puts the arena %d ordinary chunks before the finish: %s" % [chase, kinds.slice(-2 - chase)])
+	check(Book.route(SEED, 3).spans.map(func(span): return span.kind).slice(-2) == ["encounter", "finish"], "route version 3 (saves from #23) keeps its arena right before the finish")
 	check(path.arena != null and int(path.arena.y1) - int(path.arena.y0) + 1 == int(rules.arena_rows), "the arena has the configured length")
 	check(float(path.encounter_edge) == float(path.arena.y1) + 1.0, "shields end at the arena's entry")
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "no shield or portal reaches the encounter")
@@ -157,18 +159,17 @@ func run() -> void:
 	enc = run_of(s).encounter
 	check(enc.state == "hooked" and enc.harpoon.state == "attached" and enc.hook is Dictionary, "the hook pins the harpoon where it struck")
 	check(absf(float(enc.hook.along)) <= 1.0 and absf(float(enc.hook.across)) <= 1.0, "the hook position lies on the hit area")
+	check(float(run_of(s).encounter.resistance) == float(rules.resistance), "a hook starts the pursuit at full resistance")
 	var held: Dictionary = run_of(s).duplicate(true)
-	live(s).steer = 1.0
-	advance(s, 3.0)
-	check(float(run_of(s).y) == float(held.y) and float(run_of(s).x) == float(held.x), "the hooked handoff holds the ship and creature still")
-	check(run_of(s).encounter == held.encounter, "the hook awards nothing and never turns into a catch or escape by itself")
+	advance(s, 1.0)
+	check(float(run_of(s).y) < float(held.y) and float(run_of(s).encounter.resistance) < float(rules.resistance), "the hook starts the chase: travel continues and resistance drains")
 	check(s.command({"type": "expedition_fire"}).reason == "no_target", "only one harpoon: the button is gone once hooked")
 	check(float(run_of(s).y) < y_before + 0.001, "the hook happened on the way forward")
 	restored = roundtrip(s)
-	check(same(run_of(restored).encounter, run_of(s).encounter), "the hooked handoff is saveable")
+	check(same(run_of(restored).encounter, run_of(s).encounter), "the pursuit is saveable")
 	restored.command({"type": "expedition_pause"})
 	var returned: Dictionary = restored.command({"type": "expedition_return_early", "now": 3000.0})
-	check(returned.ok and returned.result.outcome == "returned_early" and not returned.result.has("recipe"), "Return early leaves the hooked handoff without a recipe")
+	check(returned.ok and returned.result.outcome == "returned_early" and not returned.result.has("creature"), "Return early leaves the pursuit without a recipe")
 
 	# Expiry: no hook in time -> the creature escapes; the route then finishes as usual.
 	s = started(); at_encounter(s)
@@ -180,7 +181,7 @@ func run() -> void:
 	events = advance(s, float(rules.restless_seconds))
 	check("creature_escaped" in types(events) and run_of(s).encounter.state == "escaped", "the window expires and the creature escapes")
 	check(s.command({"type": "expedition_fire"}).reason == "no_target", "no shots after the escape")
-	events = advance_steering(s, 40.0)
+	events = advance_steering(s, 90.0)
 	var ended: Array = events.filter(func(e): return e.type == "ended")
 	check(ended.size() == 1 and ended[0].result.outcome == "complete" and not ended[0].result.has("recipe"), "the route finishes without awarding a recipe")
 

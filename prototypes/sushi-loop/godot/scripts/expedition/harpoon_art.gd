@@ -40,7 +40,7 @@ static func harpoon(canvas: CanvasItem, tip: Vector2, angle: float, cell: float,
 
 ## Braided rope from `from` to `to`. `slack` 0 is taut; flying shots trail a
 ## little wave, reeling ones sag.
-static func rope(canvas: CanvasItem, from: Vector2, to: Vector2, cell: float, slack: float, time: float) -> void:
+static func rope(canvas: CanvasItem, from: Vector2, to: Vector2, cell: float, slack: float, time: float, alpha := 1.0) -> void:
 	var u := cell / 55.7
 	var delta := to - from
 	var distance := maxf(delta.length(), 0.001)
@@ -54,9 +54,9 @@ static func rope(canvas: CanvasItem, from: Vector2, to: Vector2, cell: float, sl
 		points.append(from.lerp(control, t).lerp(control.lerp(to, t), t))
 	var shadow := PackedVector2Array()
 	for p in points: shadow.append(p + Vector2(0, 2.5 * u))
-	canvas.draw_polyline(shadow, Color(.02, .12, .27, .25), 7.0 * u)
-	canvas.draw_polyline(points, ROPE_OUT, 5.0 * u)
-	canvas.draw_polyline(points, ROPE, 2.8 * u)
+	canvas.draw_polyline(shadow, Color(.02, .12, .27, .25 * alpha), 7.0 * u)
+	canvas.draw_polyline(points, Color(ROPE_OUT, alpha), 5.0 * u)
+	canvas.draw_polyline(points, Color(ROPE, alpha), 2.8 * u)
 	# Braid ticks drift along the rope.
 	var spacing := 6.6 * u
 	var walked := fposmod(time * 40.0 * u, spacing)
@@ -66,7 +66,7 @@ static func rope(canvas: CanvasItem, from: Vector2, to: Vector2, cell: float, sl
 		while walked < piece:
 			var at := a.lerp(b, walked / piece)
 			var along := (b - a) / piece
-			canvas.draw_line(at - along * 1.1 * u, at + along * 1.1 * u, ROPE_TICK, 2.8 * u)
+			canvas.draw_line(at - along * 1.1 * u, at + along * 1.1 * u, Color(ROPE_TICK, alpha), 2.8 * u)
 			walked += spacing
 		walked -= piece
 
