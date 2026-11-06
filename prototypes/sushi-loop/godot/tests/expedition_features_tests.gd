@@ -13,6 +13,15 @@ func check(value: bool, message: String) -> void:
 	count += 1
 	if not value: failures.append(message); printerr("FAIL: " + message)
 
+## Equal after a JSON round trip (floats may differ in the last bit).
+func same(a: Variant, b: Variant) -> bool:
+	if a is Dictionary and b is Dictionary:
+		return a.size() == b.size() and a.keys().all(func(k): return b.has(k) and same(a[k], b[k]))
+	if a is Array and b is Array:
+		return a.size() == b.size() and range(a.size()).all(func(i): return same(a[i], b[i]))
+	if (a is float or a is int) and (b is float or b is int): return absf(float(a) - float(b)) < 1e-9
+	return a == b
+
 func _initialize() -> void: call_deferred("run")
 
 func run_of(s) -> Dictionary: return s.snapshot().expedition.run
@@ -52,7 +61,8 @@ func run() -> void:
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "the encounter (finish) holds neither shields nor portals")
 	# Issue #23: the encounter arena now precedes the finish; route version 2 still ends at the finish chunk.
 	var arena: Dictionary = path.spans.filter(func(span): return span.kind == "encounter")[0]
-	check(float(path.encounter_edge) == float(arena.y1) + 1.0 and int(arena.y0) == int(finish.y1) + 1, "the encounter edge is the arena's entry, right before the finish")
+	var arena_at: int = path.spans.find(arena)
+	check(float(path.encounter_edge) == float(arena.y1) + 1.0 and path.spans[arena_at + 1 + int(Book.definition().encounter.pursuit_chunks)] == finish, "the encounter edge is the arena's entry, the pursuit chunks before the finish")
 	var v2 := Book.route(SEED, 2)
 	var v2_finish: Dictionary = v2.spans.filter(func(span): return span.kind == "finish")[0]
 	check(float(v2.encounter_edge) == float(v2_finish.y1) + 1.0, "route version 2 keeps the finish chunk as its encounter edge")
@@ -140,7 +150,7 @@ func run() -> void:
 	check(run_of(s).passage.collected.size() > 0 and float(run_of(s).hull) == hull, "the ride collects salvage and takes no damage")
 	s.command({"type": "expedition_pause"})
 	reopened = roundtrip(s)
-	check(reopened.snapshot().expedition.run == run_of(s), "save and reopen keep passage progress and its pickups")
+	check(same(reopened.snapshot().expedition.run, run_of(s)), "save and reopen keep passage progress and its pickups")
 	var mid_salvage := int(run_of(s).salvage)
 	for session in [s, reopened]:
 		session.command({"type": "expedition_resume"})

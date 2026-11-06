@@ -31,10 +31,21 @@ extends RefCounted
 ## held handoff: travel and the creature hold still until the pursuit (#24)
 ## lands, and Pause → Return early leaves. Window expiry without a hook lets
 ## the creature escape, awards nothing and the route finishes as usual.
+##
+## Issue #24: route version 4 moves the arena a few ordinary chunks before the
+## finish. A hook starts the pursuit: ship and creature speed up together
+## through that terrain, the cable stretches freely (no range limit) and the
+## creature's resistance, its health, drains steadily and never refills.
+## Collisions cost hull only. Zero resistance commits the catch and the
+## species' recipe discovery at once and ends the run as complete (the ship
+## finishes on its own; hazards are over). Zero hull ends it as hull depleted:
+## the creature escapes, with no recipe and no second attempt. Reaching the
+## finish while still hooked also lands the catch.
 ## Balance lives in res://content/expedition.json; routes in route.gd.
 const VERSION := 1
 const Route = preload("res://scripts/expedition/route.gd")
 const FloorBook = preload("res://scripts/floor_book.gd")
+const RecipeBook = preload("res://scripts/recipe_book.gd")
 const OUTCOMES := ["complete", "returned_early", "hull_depleted"]
 const MAX_INTEGER := 9007199254740991
 static var _content: Dictionary = {}
@@ -63,7 +74,7 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 		var plan: Array = definition().plan if version == int(definition().route_version) else definition().legacy_plans[str(version)]
 		var sequence := Route.generate(seed_value, library(), plan)
 		var assembled := Route.assemble(sequence)
-		if version >= 3: assembled = _with_arena(assembled, seed_value)
+		if version >= 3: assembled = _with_arena(assembled, seed_value, int(definition().encounter.pursuit_chunks) if version >= 4 else 0)
 		var pickups: Array = []
 		for y in range(assembled.rows.size()):
 			var row: String = assembled.rows[y]
@@ -106,14 +117,16 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 ## Open water between the last challenge and the finish where the creature
 ## encounter plays out: seven open columns (the finish chunk's width), quiet
 ## decor along the walls, narrowing into the finish's three-wide entry.
-static func _with_arena(assembled: Dictionary, seed_value: int) -> Dictionary:
+## From version 4 the arena sits `pursuit_chunks` ordinary chunks before the
+## finish, so a hooked chase runs through real terrain, and it opens fully.
+static func _with_arena(assembled: Dictionary, seed_value: int, pursuit_chunks := 0) -> Dictionary:
 	var spans: Array = assembled.spans
-	var finish: Dictionary = spans[spans.size() - 1]
+	var finish: Dictionary = spans[spans.size() - 1 - pursuit_chunks]
 	var count := int(definition().encounter.arena_rows)
 	var rng := Route.Mulberry32.new(seed_value * 53 + 23)
 	var arena: Array = []
 	for y in range(count):
-		var row := "###.....###" if y == 0 else "##.......##"
+		var row := "###.....###" if y == 0 and pursuit_chunks == 0 else "##.......##"
 		if y > 1:
 			for x in [2, 8]:
 				if rng.next() < 0.12: row = row.substr(0, x) + "," + row.substr(x + 1)
@@ -125,7 +138,7 @@ static func _with_arena(assembled: Dictionary, seed_value: int) -> Dictionary:
 		var copy: Dictionary = span.duplicate()
 		if int(copy.y0) >= at: copy.y0 = int(copy.y0) + count; copy.y1 = int(copy.y1) + count
 		shifted.append(copy)
-	shifted.insert(shifted.size() - 1, {"id": "arena", "kind": "encounter", "difficulty": null, "y0": at, "y1": at + count - 1})
+	shifted.insert(shifted.size() - 1 - pursuit_chunks, {"id": "arena", "kind": "encounter", "difficulty": null, "y0": at, "y1": at + count - 1})
 	return {"rows": rows, "spans": shifted}
 
 ## Raw chunk document, for the feature layers route.gd does not read.
@@ -280,6 +293,10 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			if float(run.y) <= float(arena.y1) + 0.5: return {"ok": false, "reason": "already_there"}
 			run.y = float(arena.y1) + 0.5; run.x = 5.5; run.vx = 0.0; run.shield = 0.0; run.protection = 0.0
 			return {"ok": true}
+		"expedition_cheat_catch":
+			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
+			run.encounter.resistance = minf(float(run.encounter.resistance), 1.0)
+			return {"ok": true}
 		"expedition_pause":
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			# A paused ship lets go of the stick; it resumes running straight.
@@ -351,7 +368,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			continue
 		if _encounter_step(run, path, dt, events): continue
 		var shielded := float(run.shield) > 0.0
-		run.y = float(run.y) - float(rules.forward_rows_per_second) * dt
+		run.y = float(run.y) - float(rules.forward_rows_per_second) * pursuit_speed(run) * dt
 		if shielded:
 			run.shield = maxf(0.0, float(run.shield) - dt)
 			# The shield always ends before the encounter.
@@ -410,19 +427,49 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 					run.impacts = int(run.impacts) + 1
 					events.append({"type": "impact", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y, "hull": run.hull})
 					if float(run.hull) <= 0.0:
-						events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now)})
+						# A hooked creature gets away for good: the cable snaps.
+						var lost := {"id": str(definition().encounter.creature), "outcome": "escaped"} if _hooked(run) else {}
+						if not lost.is_empty(): events.append({"type": "creature_lost"})
+						events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, lost)})
 						return events
 				else:
 					events.append({"type": "bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
+		if _hooked(run) and (float(run.encounter.resistance) <= 0.0 or float(run.y) <= 0.5):
+			events.append_array(_catch(config, state, now))
+			return events
 		if float(run.y) <= 0.5:
 			events.append({"type": "ended", "result": _end(config, state, "complete", now)})
 			return events
 	return events
 
+## Pursuit travel speed: ramps from 1 to the multiplier after the hook.
+static func pursuit_speed(run: Dictionary) -> float:
+	if not _hooked(run): return 1.0
+	var rules: Dictionary = definition().encounter
+	var k := clampf(float(run.encounter.chase_t) / float(rules.pursuit_ramp_seconds), 0.0, 1.0)
+	return lerpf(1.0, float(rules.pursuit_speed_multiplier), k)
+
+static func _hooked(run: Dictionary) -> bool:
+	var encounter = run.get("encounter")
+	return encounter is Dictionary and encounter.state == "hooked"
+
+## Zero resistance: the catch and the recipe discovery commit before anything
+## is presented, then the run ends as complete (hazards are over).
+static func _catch(config: Dictionary, state: Dictionary, now: float) -> Array:
+	var run: Dictionary = state.expedition.run
+	var rules: Dictionary = definition().encounter
+	var recipe := str(rules.recipe)
+	var first: bool = not recipe in state.recipe_book.discovered
+	RecipeBook.command(config, state, {"type": "discover_recipe", "recipe_id": recipe})
+	var centre := creature_centre(run)
+	var caught := {"id": str(rules.creature), "outcome": "caught", "recipe": recipe, "first": first}
+	return [{"type": "caught", "x": centre.x, "y": centre.y, "first": first, "recipe": recipe},
+		{"type": "ended", "result": _end(config, state, "complete", now, caught)}]
+
 # ------------------------------------------------------------ encounter (#23)
 
-## Advance the encounter by one step. Returns true while the hooked handoff
-## holds the run still (no travel, steering or collisions this step).
+## Advance the encounter by one step. Always returns false: travel continues
+## (a hooked creature is chased, at pursuit speed).
 static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events: Array) -> bool:
 	var rules: Dictionary = definition().encounter
 	var encounter = run.get("encounter")
@@ -432,8 +479,13 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 		run.encounter = encounter
 		run.shield = 0.0
 		events.append({"type": "encounter_start"})
-	if encounter.state == "hooked": return true
 	encounter.t = float(encounter.t) + dt
+	if encounter.state == "hooked":
+		# Pursuit: resistance is the creature's health and only drains.
+		encounter.chase_t = float(encounter.chase_t) + dt
+		encounter.resistance = maxf(0.0, float(encounter.resistance) - float(rules.resistance_drain_per_second) * dt)
+		encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
+		return false
 	if encounter.state == "aiming": encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
 	encounter.cooldown = maxf(0.0, float(encounter.cooldown) - dt)
 	var shot = encounter.harpoon
@@ -450,8 +502,9 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 					if hit != null:
 						shot.d = d; shot.state = "attached"
 						encounter.state = "hooked"; encounter.hook = hit
+						encounter.resistance = float(rules.resistance); encounter.chase_t = 0.0
 						events.append({"type": "hooked", "along": hit.along, "across": hit.across})
-						return true
+						return false
 			if float(shot.d) >= float(rules.harpoon_range_rows):
 				shot.state = "reeling"; events.append({"type": "harpoon_missed"})
 		elif shot.state == "reeling":
@@ -537,7 +590,7 @@ static func _overlaps(rows: Array, x: float, y: float, half: Vector2) -> bool:
 
 ## Commit once: bank salvage (+ completion bonus), start the night recharge,
 ## refresh cosmetic stock, and leave a receipt for the results screen.
-static func _end(config: Dictionary, state: Dictionary, outcome: String, now: float) -> Dictionary:
+static func _end(config: Dictionary, state: Dictionary, outcome: String, now: float, creature := {}) -> Dictionary:
 	var data: Dictionary = state.expedition
 	var run: Dictionary = data.run
 	var bonus := int(definition().completion_bonus) if outcome == "complete" else 0
@@ -545,6 +598,7 @@ static func _end(config: Dictionary, state: Dictionary, outcome: String, now: fl
 	data.salvage = mini(MAX_INTEGER, int(data.salvage) + total)
 	data.result = {"id": int(run.id), "seed": int(run.seed), "outcome": outcome, "pickups": int(run.salvage), "bonus": bonus, "total": total,
 		"collected": run.collected.size(), "available": run_route(run).pickups.size()}
+	if not creature.is_empty(): data.result.creature = creature
 	data.run = null
 	data.charge = {"ready": false, "recharge_started": now}
 	if state.has("floor_styles"):
@@ -586,6 +640,10 @@ static func valid(state: Dictionary) -> bool:
 		for field in ["id", "pickups", "bonus", "total"]:
 			if not _integer(result.get(field)): return false
 		if int(result.total) != int(result.pickups) + int(result.bonus): return false
+		var creature = result.get("creature")
+		if creature != null:
+			if not creature is Dictionary or str(creature.get("outcome")) not in ["caught", "escaped"] or not creature.get("id") is String: return false
+			if creature.outcome == "caught" and (not creature.get("recipe") is String or not creature.get("first") is bool or result.outcome != "complete"): return false
 	return true
 
 static func normalize(state: Dictionary) -> void:
@@ -611,6 +669,9 @@ static func normalize(state: Dictionary) -> void:
 			encounter.shots = int(encounter.shots); encounter.t = float(encounter.t); encounter.cooldown = float(encounter.cooldown); encounter.x = float(encounter.x)
 			if encounter.harpoon is Dictionary: encounter.harpoon.x = float(encounter.harpoon.x); encounter.harpoon.d = float(encounter.harpoon.d)
 			if encounter.hook is Dictionary: encounter.hook.along = float(encounter.hook.along); encounter.hook.across = float(encounter.hook.across)
+			# A #23 hooked handoff resumes as a fresh pursuit.
+			if encounter.state == "hooked":
+				encounter.resistance = float(encounter.get("resistance", definition().encounter.resistance)); encounter.chase_t = float(encounter.get("chase_t", 0.0))
 		else: run.encounter = null
 	if data.result is Dictionary:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
@@ -654,6 +715,12 @@ static func _encounter_valid(run: Dictionary) -> bool:
 	var hook = encounter.get("hook")
 	if hooked != (hook is Dictionary): return false
 	if hook is Dictionary and (not _finite(hook.get("along")) or not _finite(hook.get("across")) or absf(float(hook.along)) > 1.001 or absf(float(hook.across)) > 1.001): return false
+	if hooked:
+		# A #23 hooked handoff has neither yet; normalize starts its pursuit.
+		for field in ["resistance", "chase_t"]:
+			if encounter.has(field) and (not _finite(encounter.get(field)) or float(encounter[field]) < 0.0): return false
+		if not encounter.has("resistance"): return true
+		if float(encounter.resistance) > float(definition().encounter.resistance): return false
 	return true
 
 static func _unique_indices(values: Variant, count: int) -> bool:

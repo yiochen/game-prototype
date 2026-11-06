@@ -25,7 +25,7 @@
 	"passage_ride_rows": 3.2,
 	"passage_rejoin_skips_chunks": 1,
 	"portal_transition_seconds": 1.1,
-	"route_version": 3,
+	"route_version": 4,
 	"plan": [
 		"launch",
 		"launch",
@@ -41,9 +41,15 @@
 		"rest",
 		"current",
 		4.0,
+		3.0,
+		3.5,
+		3.0,
+		3.5,
+		4.0,
 		"finish"
 	],
 	"legacy_plans": {
+		"3": ["launch", "launch", "start", 1.5, "current", 2.0, "portal", 2.5, "fork", "boost", 3.0, "rest", "current", 4.0, "finish"],
 		"1": [
 			"launch",
 			"launch",
@@ -80,6 +86,14 @@
 	},
 	"encounter": {
 		"creature": "storm-eel",
+		"creature_name": "Storm Eel",
+		"catch_cutscene_seconds": 2.8,
+		"escape_seconds": 1.6,
+		"recipe": "eel_roll",
+		"pursuit_chunks": 5,
+		"pursuit_speed_multiplier": 1.4,
+		"pursuit_ramp_seconds": 1.0,
+		"resistance_drain_per_second": 4.5,
 		"arena_rows": 44,
 		"window_opens_rows_into_arena": 3,
 		"lead_rows": 5.6,

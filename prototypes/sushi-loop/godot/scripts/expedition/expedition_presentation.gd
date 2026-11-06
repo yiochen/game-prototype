@@ -30,6 +30,7 @@ const Typography = preload("res://scripts/typography.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const HarpoonButton = preload("res://scripts/expedition/harpoon_button.gd")
 const Cheats = preload("res://scripts/cheats.gd")
+const RecipeBook = preload("res://scripts/recipe_book.gd")
 
 signal returned_to_restaurant
 signal save_requested
@@ -43,7 +44,7 @@ var commander: Callable
 var state_provider: Callable
 var safe_top := 0.0
 var mode := "hidden"          # hidden | prep | travel | results
-var overlay := "none"         # none | paused | confirm | countdown
+var overlay := "none"         # none | paused | confirm | countdown | outro | award
 var countdown := 0.0
 var snapshot: Dictionary = {}
 var result: Dictionary = {}
@@ -97,6 +98,22 @@ var _prep_y := 0.0
 var _keys := {}
 ## Debug shortcuts, shown only with the cheats flag.
 var cheat_buttons: Array[Button] = []
+var cheat_catch_button: Button
+## Issue #24 ending over the frozen last run: {kind: catch|escape, t, first, result}.
+var _outro: Dictionary = {}
+var _callout_low := false
+## Recipe award card pieces (see design/pursuit-preview).
+var award: Dictionary = {}
+
+## Small clock glyph for the award's base-prep chip.
+class Clock extends Control:
+	func _draw() -> void:
+		var r := minf(size.x, size.y) * .5 - 1.5
+		var c := size * .5
+		draw_circle(c, r, Color("fff8e6"))
+		draw_arc(c, r, 0, TAU, 32, Color("592c10"), maxf(1.5, r * .24), true)
+		draw_line(c, c + Vector2(0, -r * .58), Color("592c10"), maxf(1.5, r * .22), true)
+		draw_line(c, c + Vector2(r * .45, r * .3), Color("592c10"), maxf(1.5, r * .22), true)
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -147,6 +164,7 @@ func _ready() -> void:
 		var name_label := _label(cards.results.panel, 800); var value_label := _label(cards.results.panel, 900); value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		receipt[row] = [name_label, value_label]
 	receipt.note = [_label(cards.results.panel, 700)]
+	_build_award()
 	resistance_pill = _pill("Creature resistance")
 	resistance_icon = TextureRect.new(); resistance_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE; resistance_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	resistance_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; resistance_icon.texture = load("res://assets/expedition/creature/eel-icon.svg"); resistance_pill.add_child(resistance_icon)
@@ -163,7 +181,7 @@ func _ready() -> void:
 		label.add_theme_color_override("font_shadow_color", Color(.02, .1, .2, .45))
 		label.add_theme_constant_override("shadow_offset_y", 5); label.add_theme_constant_override("shadow_offset_x", 0)
 	if Cheats.enabled():
-		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter]]:
+		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter], ["Catch", cheat_catch]]:
 			var button := Button.new(); button.text = "DEBUG · " + entry[0]; button.focus_mode = Control.FOCUS_NONE
 			button.add_theme_font_override("font", _font(850)); button.pressed.connect(entry[1])
 			for treatment in ["normal", "hover", "pressed"]:
@@ -172,6 +190,7 @@ func _ready() -> void:
 				button.add_theme_stylebox_override(treatment, style)
 			for key in ["font_color", "font_hover_color", "font_pressed_color"]: button.add_theme_color_override(key, Color("ffe6fa"))
 			add_child(button); cheat_buttons.append(button)
+			if entry[0] == "Catch": cheat_catch_button = button
 	# Encounter pieces stay under the Pause scrim and cards, like the rest of the HUD.
 	for node in [resistance_pill, harpoon_button, callout_title, callout_text] + cheat_buttons: move_child(node, scrim.get_index())
 	countdown_number = _label(self, 950); countdown_number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; countdown_number.add_theme_color_override("font_color", Color("fff6df"))
@@ -309,9 +328,78 @@ func cheat_encounter() -> void:
 		_sync_view(0.0); view.snap_camera(); save_requested.emit()
 	else: _show_toast("Debug: the encounter is behind you")
 
-func _callout(title: String, text: String) -> void:
+## Debug: drain the hooked creature's resistance to its last moment.
+func cheat_catch() -> void:
+	if mode != "travel" or overlay != "none": return
+	if not _command({"type": "expedition_cheat_catch"}).ok: _show_toast("Debug: nothing hooked")
+
+func _callout(title: String, text: String, seconds := 2.6, low := false) -> void:
 	callout_title.text = title; callout_text.text = text
-	_callout_left = 2.6; _callout_age = 0.0; layout(area)
+	_callout_left = seconds; _callout_age = 0.0; _callout_low = low; layout(area)
+
+# ------------------------------------------------------------ recipe award (#24)
+
+func _build_award() -> void:
+	_card("award", "New recipe!", "", [["Continue", true, _award_continue]])
+	var panel: Panel = cards.award.panel
+	var art := TextureRect.new(); art.texture = load("res://assets/ui/awards/eel-roll-backdrop.webp")
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	var rounded := ShaderMaterial.new(); rounded.shader = load("res://scripts/rounded_image.gdshader"); art.material = rounded
+	panel.add_child(art)
+	var glow := TextureRect.new(); glow.texture = ExpeditionView._radial([Color(1, .965, .84, .85), Color(1, .9, .63, .35), Color(1, .86, .55, 0)], [0.0, .55, 1.0])
+	glow.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; glow.stretch_mode = TextureRect.STRETCH_SCALE; glow.mouse_filter = Control.MOUSE_FILTER_IGNORE; art.add_child(glow)
+	var plate := TextureRect.new(); var food := TextureRect.new()
+	for layer in [plate, food]:
+		layer.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; layer.stretch_mode = TextureRect.STRETCH_SCALE; layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS; art.add_child(layer)
+	var name_label := _label(panel, 950); name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; name_label.add_theme_color_override("font_color", Color("592c10"))
+	var from := _label(panel, 800); from.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; from.add_theme_color_override("font_color", Color("8a5a33"))
+	var chips: Array = []
+	for caption in ["Price", "Base prep"]:
+		var chip := Panel.new(); chip.mouse_filter = Control.MOUSE_FILTER_IGNORE; panel.add_child(chip)
+		var top := _label(chip, 850); top.text = caption; top.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; top.add_theme_color_override("font_color", Color("8a5a33"))
+		var value := _label(chip, 950); value.add_theme_color_override("font_color", Color("592c10"))
+		var icon: Control
+		if caption == "Price":
+			var coin := TextureRect.new(); coin.texture = load("res://assets/ui/coin.svg"); coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; icon = coin
+		else: icon = Clock.new()
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE; chip.add_child(icon)
+		chips.append({"panel": chip, "caption": top, "value": value, "icon": icon})
+	award = {"art": art, "glow": glow, "plate": plate, "food": food, "name": name_label, "from": from, "chips": chips, "recipe": ""}
+
+## Fill the award from a catch result (recipe facts come from the catalog).
+func _fill_award(caught: Dictionary) -> void:
+	var catalog := RecipeBook.catalog()
+	var id := str(caught.get("recipe", ""))
+	var recipe: Dictionary = catalog.recipes.get(id, {})
+	var tier := str(recipe.get("tier", "White"))
+	var tier_at: int = maxi(0, catalog.tiers.find(tier))
+	var sheet := func(path: String, cell: int) -> AtlasTexture:
+		var tex: Texture2D = load(path)
+		var w := tex.get_width() / 3.0; var h := tex.get_height() / 2.0
+		var atlas := AtlasTexture.new(); atlas.atlas = tex; atlas.region = Rect2((cell % 3) * w, (cell / 3) * h, w, h)
+		return atlas
+	award.plate.texture = sheet.call("res://assets/ui/recipes/plates.png", tier_at)
+	award.food.texture = sheet.call("res://assets/ui/recipes/food.png", int(recipe.get("food_cell", 0)))
+	award.recipe = id
+	award.name.text = str(recipe.get("name", id))
+	award.from.text = "From the %s" % str(Book.definition().encounter.get("creature_name", "creature"))
+	award.chips[0].value.text = str(int(recipe.get("price", 0)))
+	award.chips[1].value.text = "%s sec" % String.num(float(recipe.get("preparation_seconds", 0.0)), 1)
+	award.art.accessibility_name = "%s on a %s plate with a %s rim. %s plates need a chef at level %d or above." % [award.name.text, tier.to_lower(), str(catalog.rim_patterns[tier_at]), tier, int(catalog.required_levels[tier_at])]
+	cards.award.panel.accessibility_name = "New recipe! %s" % award.name.text
+
+func _open_award(value: Dictionary) -> void:
+	result = value
+	_fill_award(value.creature)
+	_show_overlay("award")
+	cards.award.buttons[0].grab_focus()
+
+func _award_continue() -> void:
+	if overlay != "award": return
+	view.end_outro(); _outro = {}
+	show_results(result)
 
 ## App backgrounded or closed: freeze behind Paused (not an early return).
 func suspend() -> void:
@@ -340,6 +428,8 @@ func show_results(value: Dictionary) -> void:
 	receipt.bonus[0].text = "Completion bonus"; receipt.bonus[1].text = ("+%d" % int(value.bonus)) if int(value.bonus) > 0 else "0"
 	receipt.total[0].text = "Total salvage"; receipt.total[1].text = str(int(value.total))
 	receipt.note[0].text = "" if outcome == "complete" else ("Finish the route to earn the completion bonus." if outcome == "returned_early" else "The hull gave out before the finish.")
+	var creature = value.get("creature")
+	if creature is Dictionary and creature.get("outcome") == "escaped": receipt.note[0].text = "The hull gave out and the %s got away." % str(Book.definition().encounter.get("creature_name", "creature"))
 	scrim.color = SCRIMS[outcome]
 	_refresh_visibility(); layout(area)
 	cards.results.buttons[0].grab_focus()
@@ -361,6 +451,7 @@ func back() -> bool:
 		"results": finish_results()
 		"travel":
 			if overlay == "none": pause()
+			elif overlay == "award": _award_continue()
 			elif overlay == "confirm": _show_overlay("paused")
 	return true
 
@@ -385,6 +476,10 @@ func update(value: Dictionary, delta: float) -> void:
 	snapshot = value
 	if not visible: return
 	var run = value.expedition.run
+	if mode == "travel" and overlay == "outro":
+		_update_outro(delta); _refresh_hud(delta); return
+	if mode == "travel" and overlay == "award":
+		view.sync(view.run_state, delta, false); _refresh_hud(delta); return
 	if mode == "travel" and run == null and value.expedition.result != null:
 		show_results(value.expedition.result); return
 	if mode == "travel" and run != null:
@@ -408,13 +503,27 @@ func update(value: Dictionary, delta: float) -> void:
 						view.shield_bump(Vector2(float(event.x), float(event.y))); view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"hooked":
 						view.hooked(); _slow_hold = float(Book.definition().encounter.slow_motion_hold_seconds)
-						_callout("Hooked!", "The chase begins next"); save_requested.emit()
+						_callout("Hooked!", "Reel it in. Dodge the rocks!"); save_requested.emit()
+					"caught":
+						# Already committed by the rules; this only presents it.
+						var name := str(Book.definition().encounter.get("creature_name", ""))
+						_outro = {"kind": "catch", "t": 0.0, "first": bool(event.first)}
+						view.start_catch(); harpoon_button.release(); view.release_controls(); _keys.clear(); view.key_input = 0.0
+						_callout("Caught!", name + (" · first catch" if event.first else ""), float(Book.definition().encounter.catch_cutscene_seconds), true)
+					"creature_lost":
+						_outro = {"kind": "escape", "t": 0.0, "first": false}
+						view.start_escape(); view.release_controls(); _keys.clear(); view.key_input = 0.0
+						_callout("It got away", "Hull depleted", float(Book.definition().encounter.escape_seconds) + .3)
 					"creature_escaped": _callout("It got away", "No recipe this time"); save_requested.emit()
 					"passage_enter", "passage_exit":
 						view.begin_transition("enter" if event.type == "passage_enter" else "exit", Vector2(float(event.from_x), float(event.from_y)))
 						save_requested.emit()
 					"ended":
-						show_results(event.result); save_requested.emit(); return
+						save_requested.emit()
+						if not _outro.is_empty():
+							# The catch or escape plays over the frozen last run, then the award/results.
+							_outro.result = event.result; _show_overlay("outro"); return
+						show_results(event.result); return
 			if state_provider.is_valid(): snapshot.expedition = state_provider.call()
 		_sync_view(game_delta)
 	elif mode == "prep":
@@ -425,6 +534,20 @@ func update(value: Dictionary, delta: float) -> void:
 		_sync_prep(delta)
 		prep_hint.modulate.a = 1.0 if reduced_motion else .55 + .45 * (.5 + .5 * sin(view.time * 3.2))
 	_refresh_hud(delta)
+
+## Catch cutscene or escape over the frozen last run; no Skip. Then the award
+## (first catch only) or the results.
+func _update_outro(delta: float) -> void:
+	_outro.t = float(_outro.t) + delta
+	view.sync(view.run_state, delta, false)
+	var rules: Dictionary = Book.definition().encounter
+	var length := float(rules.catch_cutscene_seconds if _outro.kind == "catch" else rules.escape_seconds)
+	if float(_outro.t) < length: return
+	var value: Dictionary = _outro.result
+	if _outro.kind == "catch" and _outro.first: _open_award(value)
+	else:
+		view.end_outro(); _outro = {}
+		show_results(value)
 
 ## Strike slow motion: ease down while a shot is about to hit, hold briefly
 ## after the hook, then ease back. Real time drives it, so it never stalls.
@@ -453,10 +576,10 @@ func _sync_view(delta: float) -> void:
 	var run = snapshot.expedition.run
 	if run == null: return
 	view.steering_enabled = overlay == "none"; view.controls_visible = overlay == "none"
-	# The passage current steers, and a hooked creature holds the ship: the arrows dim.
+	# The passage current steers: the arrows dim. A hooked creature is chased, so they stay live.
 	var encounter = run.get("encounter")
 	var hooked: bool = encounter is Dictionary and encounter.state == "hooked"
-	view.controls_disabled = run.get("passage") != null or view.transitioning() or hooked
+	view.controls_disabled = run.get("passage") != null or view.transitioning()
 	var aiming: bool = encounter is Dictionary and encounter.state == "aiming"
 	harpoon_button.visible = mode == "travel" and aiming
 	if aiming:
@@ -465,7 +588,8 @@ func _sync_view(delta: float) -> void:
 		harpoon_button.state = "paused" if overlay != "none" else ("ready" if ready else "reloading")
 		harpoon_button.progress = 1.0 if ready else clampf(1.0 - float(encounter.cooldown) / cooldown, 0.0, 1.0)
 	elif harpoon_button.held: harpoon_button.release()
-	resistance_pill.visible = mode == "travel" and encounter is Dictionary and encounter.state != "escaped"
+	resistance_pill.visible = mode == "travel" and overlay != "outro" and overlay != "award" and encounter is Dictionary and encounter.state != "escaped"
+	if cheat_catch_button != null: cheat_catch_button.visible = mode == "travel" and overlay == "none" and hooked
 	ride_note.visible = mode == "travel" and overlay == "none" and run.get("passage") != null and not view.transitioning()
 	view.reduced_motion = reduced_motion
 	view.sync(run, delta, overlay == "none" and not gallery)
@@ -506,13 +630,25 @@ func _refresh_hud(delta: float) -> void:
 	hull_fill.size = Vector2(maxf(0.0, (hull_track.size.x - 6 * unit) * fraction), hull_track.size.y - 6 * unit)
 	hull_fill.position = Vector2(3, 3) * unit
 	hull_fill.add_theme_stylebox_override("panel", PopupSkin.flat(color.lerp(Color.WHITE, _hull_pulse * .5), 8 * unit))
+	# Creature resistance is its health: full while aiming, draining through the pursuit.
+	var encounter = run.get("encounter")
+	var rules: Dictionary = Book.definition().encounter
+	var share := clampf(float(encounter.get("resistance", rules.resistance)) / float(rules.resistance), 0.0, 1.0) if encounter is Dictionary else 1.0
+	resistance_fill.position = Vector2(3, 3) * unit
+	resistance_fill.size = Vector2(maxf(0.0, (resistance_track.size.x - 6 * unit) * share), resistance_track.size.y - 6 * unit)
+	resistance_fill.add_theme_stylebox_override("panel", PopupSkin.flat(Color("ffb02e") if share < .25 else Color("4f8fe6"), 5 * unit))
+	resistance_pill.accessibility_description = "%s resistance %d%%" % [str(rules.get("creature_name", "Creature")), int(ceil(share * 100))]
 
 func _refresh_visibility() -> void:
 	var travelling := mode == "travel"
-	hull_pill.visible = travelling; salvage_pill.visible = travelling; pause_button.visible = travelling
+	var ending := travelling and overlay in ["outro", "award"]
+	hull_pill.visible = travelling and not ending; salvage_pill.visible = travelling and not ending; pause_button.visible = travelling and not ending
+	if ending:
+		view.controls_visible = false; view.steering_enabled = false; harpoon_button.visible = false; resistance_pill.visible = false
+	cards.award.panel.visible = travelling and overlay == "award"
 	pause_button.disabled = overlay != "none"
 	view.visible = mode in ["prep", "travel", "results"]
-	scrim.visible = mode == "results" or overlay in ["paused", "confirm"] or mode == "prep"
+	scrim.visible = mode == "results" or overlay in ["paused", "confirm", "award"] or mode == "prep"
 	# Preparation's light scrim lets the press reach the playfield.
 	scrim.mouse_filter = Control.MOUSE_FILTER_IGNORE if mode == "prep" else Control.MOUSE_FILTER_STOP
 	if mode == "prep": scrim.color = Color(.03, .12, .22, .3)
@@ -579,13 +715,15 @@ func layout(value: Rect2) -> void:
 	callout_title.add_theme_constant_override("outline_size", maxi(1, int(10 * unit)))
 	callout_text.add_theme_font_size_override("font_size", maxi(1, int(18 * unit)))
 	callout_text.add_theme_constant_override("outline_size", maxi(1, int(7 * unit)))
-	callout_title.position = Vector2(area.position.x, area.position.y + area.size.y * .52 - 40 * unit); callout_title.size = Vector2(area.size.x, 56 * unit)
+	# During the catch the eel fills the upper middle; the callout sits between it and the ship.
+	callout_title.position = Vector2(area.position.x, area.position.y + area.size.y * (.63 if _callout_low else .52) - 40 * unit); callout_title.size = Vector2(area.size.x, 56 * unit)
 	callout_text.position = Vector2(area.position.x, callout_title.position.y + 54 * unit); callout_text.size = Vector2(area.size.x, 26 * unit)
 	for i in range(cheat_buttons.size()):
 		var button := cheat_buttons[i]
 		button.add_theme_font_size_override("font_size", maxi(1, int(13 * unit)))
 		button.size = Vector2(118, 40) * unit
 		button.position = Vector2(area.position.x + 10 * unit, area.position.y + area.size.y * .36 + i * 48 * unit)
+	_layout_award(unit, physical)
 	_layout_card(cards.paused, unit, physical, 150)
 	_layout_card(cards.confirm, unit, physical, 186)
 	_layout_prep(unit, physical, top)
@@ -647,6 +785,65 @@ func _layout_card(card: Dictionary, unit: float, physical: float, height: float,
 		button.custom_minimum_size = Vector2.ONE * 44.01 / physical
 		button.add_theme_font_size_override("font_size", maxi(1, int(17 * unit)))
 		_style_button(button, unit)
+
+## Award card: title, 3:2 illustration with the plated dish centred on its
+## spotlight, name, origin line, two fact chips and Continue (as the HTML review).
+func _layout_award(unit: float, physical: float) -> void:
+	var card: Dictionary = cards.award
+	var panel: Panel = card.panel
+	var width := minf(area.size.x - 28 * unit, 362 * unit)
+	var inset := 16 * unit
+	var art_w := width - 2 * inset
+	var art_h := art_w * 2.0 / 3.0
+	var action_height := maxf(52.0 * unit, 44.01 / physical)
+	var y := 18 * unit
+	card.title.position = Vector2(inset, y); card.title.size = Vector2(art_w, 36 * unit); card.title.add_theme_font_size_override("font_size", maxi(1, int(27 * unit)))
+	y += 50 * unit
+	award.art.position = Vector2(inset, y); award.art.size = Vector2(art_w, art_h)
+	award.art.material.set_shader_parameter("surface_size", award.art.size); award.art.material.set_shader_parameter("corner_radius", 16 * unit)
+	var dish := art_w * .47
+	var centre := Vector2(art_w * .5, art_h * .58)
+	award.glow.size = Vector2(art_w * .7, art_w * .7 / 1.9); award.glow.position = Vector2(art_w * .5, art_h * .61) - award.glow.size * .5
+	award.plate.size = Vector2.ONE * dish; award.plate.position = centre - award.plate.size * .5
+	# The dish sits at its calibrated inset over the plate (assets/ui/recipes manifest).
+	award.food.size = Vector2.ONE * dish * .76; award.food.position = award.plate.position + Vector2(dish * .12, dish * .01)
+	y += art_h + 14 * unit
+	award.name.position = Vector2(inset, y); award.name.size = Vector2(art_w, 34 * unit); award.name.add_theme_font_size_override("font_size", maxi(1, int(26 * unit)))
+	y += 34 * unit
+	award.from.position = Vector2(inset, y); award.from.size = Vector2(art_w, 20 * unit); award.from.add_theme_font_size_override("font_size", maxi(1, int(14 * unit)))
+	y += 34 * unit
+	var gap := 12 * unit
+	var chip_w := minf((art_w - gap) / 2.0, 150 * unit)
+	var chip_h := 62 * unit
+	var chip_x := (width - (chip_w * 2 + gap)) / 2.0
+	for i in range(2):
+		var chip: Dictionary = award.chips[i]
+		chip.panel.position = Vector2(chip_x + i * (chip_w + gap), y); chip.panel.size = Vector2(chip_w, chip_h)
+		var face := PopupSkin.flat(Color("fff0cf"), 16 * unit); face.border_color = Color("e9c189"); face.set_border_width_all(maxi(1, int(unit)))
+		face.shadow_color = Color("d5a669"); face.shadow_size = 0; face.shadow_offset = Vector2(0, 2 * unit)
+		chip.panel.add_theme_stylebox_override("panel", face)
+		chip.caption.position = Vector2(0, 7 * unit); chip.caption.size = Vector2(chip_w, 16 * unit); chip.caption.add_theme_font_size_override("font_size", maxi(1, int(12 * unit)))
+		var value: Label = chip.value
+		value.add_theme_font_size_override("font_size", maxi(1, int(21 * unit)))
+		value.size = Vector2.ZERO; value.reset_size()
+		var icon_size := 23 * unit
+		var row_w := icon_size + 6 * unit + value.size.x
+		chip.icon.size = Vector2.ONE * icon_size; chip.icon.position = Vector2((chip_w - row_w) / 2.0, 26 * unit + (28 * unit - icon_size) / 2.0)
+		value.position = Vector2(chip.icon.position.x + icon_size + 6 * unit, 26 * unit); value.size.y = 28 * unit; value.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		chip.icon.queue_redraw()
+	y += chip_h + 18 * unit
+	var button: Button = card.buttons[0]
+	button.position = Vector2(inset, y); button.size = Vector2(art_w, action_height)
+	button.custom_minimum_size = Vector2.ONE * 44.01 / physical
+	button.add_theme_font_size_override("font_size", maxi(1, int(20 * unit)))
+	_style_button(button, unit)
+	y += action_height + 20 * unit
+	panel.size = Vector2(width, y)
+	panel.position = Vector2(area.get_center().x - width / 2.0, area.get_center().y - y / 2.0)
+	var shadow := PopupSkin.flat(Color.TRANSPARENT, 25 * unit); shadow.shadow_color = Color(.35, .18, .05, .24); shadow.shadow_size = int(7 * unit); shadow.shadow_offset = Vector2(0, 5) * unit
+	panel.add_theme_stylebox_override("panel", shadow)
+	PopupSkin.layout_face(card.face, panel.size, unit * 390.0 / 720.0); card.face.material.set_shader_parameter("corner_radius", 25 * unit)
+	card.text.visible = false
 
 func _layout_receipt(unit: float) -> void:
 	var panel: Panel = cards.results.panel

@@ -82,6 +82,14 @@ var focus_amount := 0.0
 var focus_at := Vector2.ZERO
 var _creature_shown := false
 var _hooked_at := -1.0
+## Issue #24 endings, played over the frozen last run: seconds since the catch
+## (the eel drawn in, rays, the harpoon reeled home) or the escape (cable
+## snaps, the eel bursts away north). -1 when not playing.
+var catch_t := -1.0
+var escape_t := -1.0
+var _catch_from := Vector2.ZERO
+const RETRACT_START := 0.4
+const RETRACT_SECONDS := 1.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -221,8 +229,15 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	var want := shown.x - signf(offset) * .7 if absf(offset) > .7 else cam_x
 	cam_x += (clampf(want, half, Route.COLUMNS - half) - cam_x) * minf(1.0, delta * 4.0)
 	if travelling and _tr.is_empty() and not reduced_motion: _emit(delta)
-	_step_particles(delta if travelling else 0.0, delta)
-	_sync_creature(run, delta if travelling else 0.0)
+	var ending := catch_t >= 0.0 or escape_t >= 0.0
+	if ending:
+		if catch_t >= 0.0:
+			var was := catch_t
+			catch_t += delta
+			if was < RETRACT_START and catch_t >= RETRACT_START: _release_burst()
+		if escape_t >= 0.0: escape_t += delta
+	_step_particles(delta if travelling or ending else 0.0, delta)
+	_sync_creature(run, delta if travelling or ending else 0.0)
 	queue_redraw()
 
 ## Encounter creature: clip from the rules state, camera on its route cell.
@@ -239,19 +254,64 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 	match str(encounter.state):
 		"aiming": creature.play("restless" if float(encounter.t) >= float(rules.window_seconds) - float(rules.restless_seconds) else "swim")
 		"hooked":
-			if creature.clip not in ["hit", "hooked"]:
-				# A hook restored from a save starts straight in the hooked loop.
+			# Pursuit: straining forward, thrashing once resistance runs low.
+			var low := float(encounter.get("resistance", rules.resistance)) < float(rules.resistance) * .3
+			if catch_t >= 0.0: creature.play("exhausted", .35)
+			elif escape_t >= 0.0: creature.play("escape", .15)
+			elif creature.clip == "hit":
+				if creature.finished(): creature.play("struggle" if low else "hooked")
+			elif creature.clip not in ["hooked", "struggle"]:
+				# A hook restored from a save starts straight in the chase loop.
 				creature.play("hit" if _hooked_at >= 0.0 else "hooked", 0.1)
-			elif creature.clip == "hit" and creature.finished(): creature.play("hooked")
+			else: creature.play("struggle" if low else "hooked")
 		"escaped": creature.play("escape", 0.15)
 	var cell := _cell()
 	var centre := Book.creature_centre(run)
 	var root := _origin() + Vector2(centre.x, centre.y + CreatureView.BODY_ROW_OFFSET) * cell
+	var grow := 1.0
+	var turn := 0.0
+	if catch_t >= 0.0:
+		# The caught eel is drawn into the upper middle, grows and turns a little.
+		if _catch_from == Vector2.ZERO: _catch_from = root
+		var k := 1.0 if reduced_motion else smoothstep(0.0, 1.0, catch_t / .9)
+		root = _catch_from.lerp(Vector2(size.x * .5, size.y * .4), k)
+		grow = 1.0 + .45 * k; turn = -.45 * k
+	elif escape_t >= 0.0:
+		root.y -= escape_t * escape_t * 6.0 * cell
+	creature.pose(grow, turn)
 	creature.frame(delta, root, size, cell, maxf(.001, get_viewport_transform().get_scale().x * get_global_transform().get_scale().x))
 
 ## The presentation reports a fresh hook (the hit reaction and flash ring play).
 func hooked() -> void:
 	_hooked_at = time
+
+func _pursuit() -> bool:
+	var encounter = run_state.get("encounter")
+	return encounter is Dictionary and encounter.state == "hooked" and catch_t < 0.0 and escape_t < 0.0
+
+## Issue #24 endings over the frozen last run (the rules have already ended it).
+func start_catch() -> void:
+	catch_t = 0.0; _catch_from = Vector2.ZERO
+	var c := Book.creature_centre(run_state)
+	if reduced_motion: return
+	for i in range(26):
+		_bubble_at(c.x + _rng.randf_range(-1.0, 1.0), c.y + _rng.randf_range(-.6, 1.4), _rng.randf_range(-.6, .6), -.6 - _rng.randf(), .04 + _rng.randf() * .05, 1.6 + _rng.randf(), .6)
+
+func start_escape() -> void:
+	escape_t = 0.0
+
+func end_outro() -> void:
+	catch_t = -1.0; escape_t = -1.0; _catch_from = Vector2.ZERO
+	creature.pose(1.0, 0.0)
+
+## The harpoon pulls free of the caught eel: a small spark and bubble puff.
+func _release_burst() -> void:
+	if reduced_motion or not _creature_shown: return
+	var at := (hook_point() - _origin()) / _cell()
+	for i in range(8):
+		var a := _rng.randf() * TAU
+		particles.append({"kind": "spark", "color": Color(1, .95, .77), "p": at, "v": Vector2(cos(a), sin(a)) * (.8 + _rng.randf() * 1.4), "r": .035 + _rng.randf() * .03, "life": .45 + _rng.randf() * .3, "age": 0.0, "drag": 3.5})
+	for i in range(6): _bubble_at(at.x + _rng.randf_range(-.15, .15), at.y, _rng.randf_range(-.5, .5), -.4 - _rng.randf() * .4, .03 + _rng.randf() * .03, 1.0, .5)
 
 ## Where the ship's harpoon leaves the hull (view coordinates).
 func muzzle() -> Vector2:
@@ -315,7 +375,7 @@ func _emit(delta: float) -> void:
 		if _rng.randf() < .7 and particles.size() < 260:
 			particles.append({"kind": "streak", "p": at, "v": Vector2(away * (2.6 + _rng.randf() * 1.2), _rng.randf_range(-.1, .2)), "r": .16 + _rng.randf() * .16, "life": .35 + _rng.randf() * .2, "age": 0.0, "drag": 4.0})
 	# Speed lines while shielded or riding the passage current.
-	if world.kind == "passage" and _rng.randf() < delta * 30.0 and particles.size() < 260:
+	if (world.kind == "passage" or _pursuit()) and _rng.randf() < delta * 30.0 and particles.size() < 260:
 		var side := -1.0 if _rng.randf() < .5 else 1.0
 		particles.append({"kind": "line", "p": Vector2(ship.x + side * (.7 + _rng.randf() * 1.6), ship.y - 3.0 - _rng.randf() * 3.0), "v": Vector2(0, 7 + _rng.randf() * 3), "len": .5 + _rng.randf() * .5, "life": .35, "age": 0.0, "drag": 0.0})
 	var top := _top_row()
@@ -443,7 +503,6 @@ func _draw() -> void:
 			var b: Vector2 = world.path.shields[i]
 			if i in taken or b.y < top or b.y > bottom + 1: continue
 			Art.shield_pickup(self, o + b * cell, cell, 0.0 if reduced_motion else time, i * 1.3)
-	if _creature_shown: _draw_creature()
 	var ship_drawn := false
 	for y in range(top, bottom + 1):
 		if not ship_drawn and y >= int(floor(shown.y)) and by_row[y].any(func(item): return int(item.get("w", 1)) > 1):
@@ -451,6 +510,9 @@ func _draw() -> void:
 		for item in by_row[y]: piece(item.id, item.dir, o + Vector2(item.x, item.y) * cell, cell, 0, item.x * 5 + item.y * 3)
 	_draw_particles(o, cell)
 	if not ship_drawn: _draw_ship(o, cell)
+	# The creature swims above the terrain, so the chase always reads.
+	if catch_t >= 0.0: _draw_catch_rays()
+	if _creature_shown: _draw_creature()
 	for s in scene.shafts:
 		if s.y >= top - 2 and s.y <= bottom: piece(s.id, s.dir, o + Vector2(s.x, s.y) * cell, cell * 1.6, 0, float(s.y))
 	Harpoon.focus(self, focus_at, size, cell, focus_amount)
@@ -458,11 +520,25 @@ func _draw() -> void:
 	_draw_iris(o, cell)
 	_draw_controls()
 
+## Catch cutscene backdrop: the scene dims and warm rays turn slowly behind the
+## creature (code-drawn, as in design/pursuit-preview).
+func _draw_catch_rays() -> void:
+	var k := 1.0 if reduced_motion else clampf(catch_t / .5, 0.0, 1.0)
+	var centre := creature.to_view(creature.bone_world("spine_04")) if _creature_shown else size * Vector2(.5, .4)
+	draw_rect(Rect2(Vector2.ZERO, size), Color(.016, .08, .19, .5 * k))
+	var far := size.length()
+	var spin := 0.0 if reduced_motion else catch_t * deg_to_rad(12.0)
+	for i in range(16):
+		var a := spin + i * TAU / 16.0
+		draw_colored_polygon(PackedVector2Array([centre, centre + Vector2.from_angle(a) * far, centre + Vector2.from_angle(a + deg_to_rad(8.0)) * far]), Color(1, .94, .75, .2 * k))
+	draw_texture_rect(_glow, Rect2(centre - Vector2.ONE * size.x * .55, Vector2.ONE * size.x * 1.1), false, Color(1, 1, 1, .9 * k))
+
 ## Creature: soft blobs under its spine, then the live 3D render.
 func _draw_creature() -> void:
 	var cell := _cell()
-	for p in creature.ground_points():
-		draw_texture_rect(_shade, Rect2(p - Vector2.ONE * cell * .55, Vector2.ONE * cell * 1.1), false, Color(1, 1, 1, .6))
+	if catch_t < 0.0:
+		for p in creature.ground_points():
+			draw_texture_rect(_shade, Rect2(p - Vector2.ONE * cell * .55, Vector2.ONE * cell * 1.1), false, Color(1, 1, 1, .6))
 	draw_texture_rect(creature.texture(), Rect2(Vector2.ZERO, size), false)
 
 ## The harpoon in flight, reeling back, or pinned to the creature, with its rope.
@@ -473,8 +549,25 @@ func _draw_harpoon(cell: float) -> void:
 	var nose := muzzle()
 	var rules: Dictionary = Book.definition().encounter
 	if shot.state == "attached":
+		if escape_t >= 0.0:
+			# The cable parts in the middle; the ship's half falls slack and fades.
+			var fade := maxf(0.0, 1.0 - escape_t / .9)
+			if fade <= 0.0 or not _creature_shown: return
+			var mid := nose.lerp(hook_point(), .5) + Vector2(-cell * .6 * escape_t, cell * 2.0 * escape_t)
+			Harpoon.rope(self, nose, mid, cell, .9, time, fade)
+			return
 		if not _creature_shown: return
 		var pin := hook_point()
+		if catch_t >= 0.0:
+			# Caught: the harpoon pulls free and reels home into the nose, then is stowed.
+			var k := clampf((catch_t - RETRACT_START) / RETRACT_SECONDS, 0.0, 1.0)
+			if k >= 1.0: return
+			var at := pin.lerp(nose, smoothstep(0.0, 1.0, k))
+			var away := (at - nose).angle()
+			var tail := at - Vector2.from_angle(away) * cell * .95
+			if tail.distance_to(nose) > 2.0: Harpoon.rope(self, nose, tail, cell, .5 * (1.0 - k), time)
+			Harpoon.harpoon(self, at, away, cell, k > 0.0)
+			return
 		var angle := (pin - nose).angle()
 		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * cell * .95, cell, .06, time)
 		Harpoon.harpoon(self, pin, angle, cell, false)

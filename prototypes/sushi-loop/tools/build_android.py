@@ -79,6 +79,7 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/ui/staff/manifest.json")
     paths.append(source / "assets/ui/editor-goods/manifest.json")
     paths.append(source / "assets/ui/exhibition/manifest.json")
+    paths.append(source / "assets/ui/awards/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
                      if path.is_file() and path.suffix.lower() in suffixes)
@@ -118,6 +119,13 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     expected_exhibition = set(exhibition_ui['runtime_images']) | {'assets/ui/exhibition/manifest.json'}
     if {name for name in files if name.startswith('assets/ui/exhibition/')} != expected_exhibition:
         raise ValueError('Unexpected or missing exhibition runtime artwork')
+    awards = json.loads((source / "assets/ui/awards/manifest.json").read_text())
+    expected_awards = {f"assets/ui/awards/{name}" for name in awards["artwork"]} | {"assets/ui/awards/manifest.json"}
+    if {name for name in files if name.startswith("assets/ui/awards/")} != expected_awards:
+        raise ValueError("Unexpected or missing recipe award artwork")
+    for name, entry in awards["artwork"].items():
+        if sha(source / "assets/ui/awards" / name) != entry["sha256"]:
+            raise ValueError(f"Recipe award artwork changed without updating its manifest: {name}")
     editor_ui = editor_ui_contract.verify_editor_ui(source)
     staff_ui = staff_ui_contract.verify_staff_ui(source)
     expected_staff = set(staff_ui['runtime_images']) | {'assets/ui/staff/manifest.json'}

@@ -272,6 +272,9 @@ func _ready() -> void:
 	if not show_gallery and not show_editor_gallery or show_expedition_gallery:
 		var opening: Dictionary = session.snapshot()
 		if opening.expedition.run != null or opening.expedition.result != null: expedition_ui.resume_suspended(opening)
+		var result = opening.expedition.result
+		if show_expedition_gallery and result is Dictionary and result.get("creature") is Dictionary and result.creature.get("first", false):
+			expedition_ui.mode = "travel"; expedition_ui._open_award(result)
 	if not show_gallery and not show_editor_gallery:
 		save_now()
 
@@ -428,7 +431,9 @@ func _display_safe_top() -> float:
 	return ScreenLayout.top_inset(Rect2(DisplayServer.get_display_safe_area()), DisplayServer.get_display_cutouts(), get_viewport_transform(), float(get_window().size.y))
 
 ## Issue #22 gallery states: --expedition-feature=current|shield|portal|passage
-## moves the gallery run onto that feature of its route (seed 22).
+## moves the gallery run onto that feature of its route (seed 22). Issues
+## #23/#24 add encounter|reloading|hooked, pursuit (two seconds into the chase)
+## and award (the recipe award after a first catch).
 func _gallery_feature() -> void:
 	var wanted := ""
 	for arg in OS.get_cmdline_user_args(): if arg.begins_with("--expedition-feature="): wanted = arg.get_slice("=", 1)
@@ -447,20 +452,25 @@ func _gallery_feature() -> void:
 			run.y = float(path.portals[0].y) + 3.5; run.x = float(path.portals[0].x) + 1.5
 		"passage":
 			run.y = float(path.portals[0].y) + 0.3; run.x = float(path.portals[0].x)
-		"encounter", "reloading", "hooked":
+		"encounter", "reloading", "hooked", "pursuit", "award":
 			# Issue #23: the open shooting window, a shot reloading, or the held hook.
 			run.y = float(path.encounter_start) + 0.2; run.x = 5.5
 	for step in range(30 if wanted == "passage" else 6): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
-	if wanted in ["encounter", "reloading", "hooked"]:
+	if wanted in ["encounter", "reloading", "hooked", "pursuit", "award"]:
 		for step in range(40): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
 		var centre := ExpeditionBook.creature_centre(run).x
 		run.x = centre + ((1.8 if centre < 5.5 else -1.8) if wanted == "reloading" else 0.0)
 		if wanted != "encounter": session.command({"type": "expedition_fire"})
 		var guard := 0
-		while wanted == "hooked" and run.encounter.state != "hooked" and guard < 60:
+		while wanted in ["hooked", "pursuit", "award"] and run.encounter.state != "hooked" and guard < 60:
 			session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0}); guard += 1
 		if wanted == "reloading":
 			for step in range(5): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+		if wanted == "pursuit":
+			for step in range(40): session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
+		if wanted == "award":
+			run.encounter.resistance = 0.1
+			session.command({"type": "expedition_advance", "elapsed": 0.05, "now": 0.0})
 
 func _layout() -> void:
 	_layout_for_safe_top(_display_safe_top())
