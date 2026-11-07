@@ -9,10 +9,10 @@ const WORLD := "restaurant"
 static func define(store) -> void:
 	# Removing a belt clears every link to it. Chef stations and seat claims
 	# refer to layout rows by id as well; their owners handle those removals.
-	# Saved as `state.objects` until the save format changes (migration step 9).
-	store.define_component("layout", {"owner": "layout", "persist": false, "refs": {"next_id": {"to": "layout", "on_delete": "clear"}}})
+	# Placement order decides junction inputs, so rows are saved in order.
+	store.define_component("layout", {"owner": "layout", "ordered": true, "refs": {"next_id": {"to": "layout", "on_delete": "clear"}}})
 
-## Live rows in placement order; the order decides legacy junction inputs.
+## Live rows in placement order; the order decides junction inputs.
 static func rows(store) -> Array:
 	return store.table(WORLD, "layout").values()
 

@@ -12,15 +12,9 @@ func check(value:bool,message:String)->void:
 func _initialize()->void:call_deferred("run")
 ## The chef as the rules see it: one record in the store, speed calculated.
 func chef(session,id:String)->Dictionary:return Chefs.record(session._store,session._configuration,id)
-## A save as versions before the store wrote it: full chef records in the layout.
-func legacy_save(data:Dictionary)->Dictionary:
-	var store:=Store.new();Chefs.define(store);store.load_saved(data.engine)
-	var old:=data.duplicate(true);old.erase("engine");old.erase("engine_version")
-	Chefs.hydrate(old.state,store,old.configuration)
-	return old
 func run()->void:
 	var session=Session.new_session(81,{"starting_coins":10000})
-	var initial:Dictionary=session.save_data()
+	var initial:Dictionary=GameSession.flat_view(session.save_data())
 	var id:String=session.snapshot().objects.filter(func(c):return c.kind=="chef")[0].id
 	var actor:=chef(session,id)
 	var start:int=actor.level
@@ -62,8 +56,8 @@ func run()->void:
 	while int(actor.level)<int(actor.level_cap):
 		check(session.command({"type":"level_up_chef","chef_id":id,"expected_level":actor.level}).ok,"development to cap")
 		actor=chef(session,id)
-	var maximum:Dictionary=session.save_data()
-	check(not session.command({"type":"level_up_chef","chef_id":id,"expected_level":actor.level}).ok and session.save_data()==maximum,"MAX cannot exceed cap or debit")
+	var maximum:Dictionary=GameSession.flat_view(session.save_data())
+	check(not session.command({"type":"level_up_chef","chef_id":id,"expected_level":actor.level}).ok and GameSession.flat_view(session.save_data())==maximum,"MAX cannot exceed cap or debit")
 	check(Development.tier(3)=="Yellow" and Development.tier(5)=="Red" and Development.tier(8)=="Blue" and Development.tier(12)=="Black","shared tier thresholds")
 	for assigned in [true,false]:
 		var firing=Session.new();check(firing.restore(maximum),"restore fire fixture")
@@ -78,19 +72,12 @@ func run()->void:
 	var hire_result:Dictionary=hire.command({"type":"hire_applicant","offer_id":hire.snapshot().staff.offers[0].id})
 	check(hire_result.ok and hire.command({"type":"fire_chef","chef_id":hire_result.chef_id}).ok,"hired chef can be permanently fired")
 	check(Session.new().restore(JSON.parse_string(JSON.stringify(hire.save_data()))),"fired hired mapping restores")
-	var legacy:Dictionary=legacy_save(initial);legacy.erase("chef_development_version");legacy.state.staff.erase("dismissed")
-	for c in legacy.state.objects+legacy.state.inventory:
-		c.erase("growth_rate");c.erase("base_cooking_speed")
-		if c.get("stored_object") is Dictionary:c.stored_object.erase("growth_rate");c.stored_object.erase("base_cooking_speed")
-	var migrated=Session.new();check(migrated.restore(legacy),"old shipped save migrates")
-	check(migrated.snapshot().coins==initial.state.coins and migrated.save_data().random_state==initial.random_state,"migration retains coins/RNG")
-	check(chef(migrated,id).cooking_speed==speed,"migration retains current speed")
+	var migrated=Session.new_session(1)
 	var corrupt:Dictionary=maximum.duplicate(true);corrupt.engine.worlds.restaurant.tables.development.rows[id].level=0
 	var guard:Dictionary=migrated.save_data();check(not migrated.restore(corrupt) and migrated.save_data()==guard,"inconsistent development rejected atomically")
 	var derived:Dictionary=maximum.duplicate(true);derived.engine.worlds.restaurant.tables.development.rows[id].cooking_speed=9.0
 	check(not migrated.restore(derived) and migrated.save_data()==guard,"a save storing a calculated speed is rejected")
 	check(not maximum.engine.worlds.restaurant.tables.development.rows[id].has("cooking_speed") and not maximum.state.objects.any(func(o):return o.has("level")),"chef speed and records are saved once, in the store")
-	var upgraded_save=Session.new();check(upgraded_save.restore(legacy_save(maximum)) and chef(upgraded_save,id).level==chef(upgraded_save,id).level_cap and upgraded_save.save_data().engine==maximum.engine,"a pre-store save at MAX upgrades to the same chef records")
 	var poor=Session.new_session(9,{"starting_coins":0});var before:Dictionary=poor.save_data()
 	check(poor.command({"type":"level_up_chef","chef_id":id,"expected_level":1}).reason=="not_enough_coins" and poor.save_data()==before,"unaffordable purchase atomic")
 	# A finished dish clamps elapsed to the in-memory duration; after JSON the

@@ -14,9 +14,13 @@ func decoded(value: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value))
 
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	return JSON.parse_string(JSON.stringify(a, "", true, true)) == JSON.parse_string(JSON.stringify(b, "", true, true))
 
 func same_continuation(a: Dictionary, b: Dictionary) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	# JSON may round the legacy arrival countdown by one ULP. Visits, portal
 	# positions, RNG, meal clocks and public events must remain exactly equal.
 	if absf(float(a.state.arrival_remaining) - float(b.state.arrival_remaining)) > 0.000000001: return false
@@ -31,7 +35,7 @@ func _initialize() -> void:
 
 func reach_exit_motion(game: GameSession) -> bool:
 	for index in range(80):
-		var guests: Array = game.save_data().state.customers
+		var guests: Array = GameSession.flat_view(game.save_data()).state.customers
 		if not guests.is_empty() and guests[0].get("door_motion", {}).get("direction") == "exit": return true
 		game.advance(0.05)
 	return false
@@ -42,39 +46,31 @@ func _test_random_width() -> void:
 	var any_fractional := false
 	var distinct_directions := false
 	var all_valid := true
-	var legacy := true
 	for seed_value in range(1, 33):
 		var game = Session.new_session(seed_value, {"objects": [], "service": {"first_arrival_seconds": 0.1, "arrival_seconds": 1000.0, "arrival_jitter_seconds": 0.0}})
 		game.advance(0.1)
-		var saved: Dictionary = decoded(game.save_data())
+		var saved: Dictionary = GameSession.flat_view(decoded(game.save_data()))
 		var entry: Dictionary = saved.state.customers[0].door_motion
 		entry_samples.append(float(entry.offset_x))
 		any_fractional = any_fractional or (float(entry.offset_x) > 0.1 and float(entry.offset_x) < 0.9)
-		# Existing in-progress APK saves have no offset: preserve their exact path.
-		var old := saved.duplicate(true)
-		old.state.customers[0].door_motion.erase("offset_x")
-		old.state.customers[0].erase("door_lane")
-		old.state.customers[0].x = 4.0
-		old.state.customers[0].path_origin.x = 4.0
 		var peer = Session.new_session(9)
-		legacy = legacy and peer.restore(old) and peer.snapshot().customers[0].x == 4.0
 		game.advance(4.5)
 		if not reach_exit_motion(game):
 			check(false, "The unseated visitor reaches a doorway exit")
 			return
-		saved = decoded(game.save_data())
+		saved = GameSession.flat_view(decoded(game.save_data()))
 		var outward: Dictionary = saved.state.customers[0].door_motion
 		exit_samples.append(float(outward.offset_x))
 		distinct_directions = distinct_directions or not is_equal_approx(float(entry.offset_x), float(outward.offset_x))
 		all_valid = all_valid and peer.restore(saved)
 		for invalid_offset in [-0.01, 1.01, "right", null]:
-			var bad := saved.duplicate(true)
+			var bad := GameSession.flat_view(saved.duplicate(true))
 			bad.state.customers[0].door_motion.offset_x = invalid_offset
 			all_valid = all_valid and not peer.restore(bad)
 	check(entry_samples.min() < 0.15 and entry_samples.max() > 0.85, "Arrivals span both tiles of the doorway")
 	check(exit_samples.min() < 0.15 and exit_samples.max() > 0.85, "Departures independently span both tiles of the doorway")
 	check(any_fractional and distinct_directions, "Door crossings use continuous random positions and resample the departure")
-	check(all_valid and legacy, "Random positions validate strictly and old in-progress crossings remain compatible")
+	check(all_valid, "Random positions validate strictly")
 	var guest := {"x": 4.0, "y": 3.0, "door_motion": {"direction": "enter", "distance": 0.0, "offset_x": 1.0}}
 	var previous := Vector2(5.0, 3.0 - Doorway.TRAVEL)
 	var continuous := true
@@ -119,7 +115,7 @@ func run() -> void:
 		var events: Array = game.advance(0.05)
 		deterministic = deterministic and same(events, peer.advance(0.05)) and same_continuation(decoded(game.save_data()), decoded(peer.save_data()))
 		departures += events.filter(func(event): return event.type == "departed").size()
-		var saved: Dictionary = decoded(game.save_data())
+		var saved: Dictionary = GameSession.flat_view(decoded(game.save_data()))
 		var restored = Session.new_session(9)
 		valid = valid and restored.restore(saved) and same(saved, decoded(restored.save_data()))
 		var guests: Array = game.snapshot().customers
@@ -138,7 +134,7 @@ func run() -> void:
 	check(empty.snapshot().customers[0].phase == "entrance_wait" and empty.snapshot().customers[0].entrance_wait_elapsed < 0.1, "The four-second no-seat wait starts after walking inside")
 	empty.advance(4.0)
 	check(reach_exit_motion(empty), "The unseated visitor walks to its selected exit lane")
-	var leaving: Dictionary = decoded(empty.save_data())
+	var leaving: Dictionary = GameSession.flat_view(decoded(empty.save_data()))
 	check(leaving.state.customers[0].departure_reason == "no_seat" and leaving.state.customers[0].door_motion.direction == "exit", "An unseated visitor walks back out after the full admission wait")
 	check(peer.restore(leaving), "No-seat doorway departures are valid saved visits")
 	empty.command({"type": "set_mode", "mode": "edit"})
@@ -149,7 +145,7 @@ func run() -> void:
 	var no_seat_events: Array = empty.advance(1.0)
 	check(empty.snapshot().customers.is_empty() and no_seat_events.filter(func(event): return event.type == "departed" and event.reason == "no_seat").size() == 1 and empty.snapshot().coins == 120, "The no-seat exit emits one departure without money")
 	for bad in [{"direction": "sideways", "distance": 0.2}, {"direction": "exit", "distance": -1.0}, {"direction": "exit", "distance": 1.15}, null]:
-		var invalid := leaving.duplicate(true)
+		var invalid := GameSession.flat_view(leaving.duplicate(true))
 		invalid.state.customers[0].door_motion = bad
 		check(not peer.restore(invalid), "Malformed doorway motion is rejected atomically")
 	var world = View.new()
@@ -182,7 +178,7 @@ func run() -> void:
 	rescued.command({"type": "set_mode", "mode": "edit"})
 	var identity: String = rescued.snapshot().customers[0].id
 	check(rescued.command({"type": "editor_pickup", "id": identity}).ok and rescued.command({"type": "editor_move", "id": identity, "x": 3, "y": 5}).ok, "A guest crossing the doorway retains the existing People rescue behavior")
-	check(not rescued.save_data().state.customers[0].has("door_motion") and peer.restore(decoded(rescued.save_data())), "A deliberate rescue cancels doorway movement and saves the dropped visit")
+	check(not GameSession.flat_view(rescued.save_data()).state.customers[0].has("door_motion") and peer.restore(decoded(rescued.save_data())), "A deliberate rescue cancels doorway movement and saves the dropped visit")
 	if failures.is_empty():
 		print("PASS: %s doorway checks" % checks)
 		quit(0)

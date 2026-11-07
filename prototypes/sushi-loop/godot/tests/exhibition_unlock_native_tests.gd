@@ -114,7 +114,7 @@ func run() -> void:
 	check(not ui.visible and app.dock_unlock_pending,"unlock waits for the accepted reveal to be saved")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(obstacle));await tap(app.recovery_retry);await frames()
 	check(not app.save_blocked and app.recovery == null and ui.unlock_popup and ui.visible,"a real native Retry tap saves the reveal then opens its one-time popup")
-	check(app.store.load_session().state.expansion.revealed and app.session.snapshot().coins == 9180,"Retry saves the exact reveal with no extra charge")
+	check(GameSession.flat_view(app.store.load_session()).state.expansion.revealed and app.session.snapshot().coins == 9180,"Retry saves the exact reveal with no extra charge")
 	await capture("08-retry-unlocked");ui.dismiss();app.store = original_store
 	var report := {"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"checks":checks,"failures":failures}
 	if not output.is_empty(): FileAccess.open(output.path_join("renderer.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")

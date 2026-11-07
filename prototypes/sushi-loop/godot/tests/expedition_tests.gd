@@ -15,14 +15,6 @@ func _initialize() -> void: call_deferred("run")
 
 func exp_state(s) -> Dictionary: return s.snapshot().expedition
 
-## The saved run dictionary, wherever the save nests the expedition state.
-func _find_run(value: Variant) -> Dictionary:
-	if value is Dictionary:
-		if value.has("run") and value.has("charge") and value.run is Dictionary: return value.run
-		for key in value:
-			var found := _find_run(value[key])
-			if not found.is_empty(): return found
-	return {}
 func roundtrip(s):
 	var restored = Session.new()
 	check(restored.restore(JSON.parse_string(JSON.stringify(s.save_data(), "", true, true))), "JSON save restores")
@@ -249,11 +241,6 @@ func run() -> void:
 	var reopened = roundtrip(s)
 	check(reopened.snapshot().expedition.run == exp_state(s).run, "background/close saves the unfinished run exactly")
 	check(not Book.charge(reopened._state, 1e9).ready, "a suspended expedition does not recharge")
-	var joystick_save: Dictionary = JSON.parse_string(JSON.stringify(s.save_data(), "", true, true))
-	var legacy_run: Dictionary = _find_run(joystick_save)
-	legacy_run.erase("steer"); legacy_run.erase("vx")
-	var straight = Session.new()
-	check(straight.restore(joystick_save) and float(straight.snapshot().expedition.run.steer) == 0.0 and float(straight.snapshot().expedition.run.vx) == 0.0, "unfinished runs saved before joystick steering reopen running straight")
 	for session in [s, reopened]:
 		session.command({"type": "expedition_resume"})
 		session.command({"type": "expedition_advance", "elapsed": 1.0, "now": 100010.0})
@@ -273,10 +260,10 @@ func run() -> void:
 	travel(s, 200000.0, 3.0)
 	var good: Dictionary = JSON.parse_string(JSON.stringify(s.save_data()))
 	for kind in ["future", "zero_hull", "duplicate_pickup", "salvage_mismatch", "charge_during_run", "bad_seed"]:
-		var corrupt: Dictionary = good.duplicate(true)
+		var corrupt: Dictionary = GameSession.flat_view(good.duplicate(true))
 		var run_data: Dictionary = corrupt.state.expedition.run
 		match kind:
-			"future": corrupt.expedition_version = 99
+			"future": corrupt.version = 99
 			"zero_hull": run_data.hull = 0
 			"duplicate_pickup": run_data.collected = [0, 0]; run_data.salvage = 4
 			"salvage_mismatch": run_data.salvage = int(run_data.salvage) + 1
@@ -285,12 +272,6 @@ func run() -> void:
 		var target = Session.new_session(9)
 		var before: Dictionary = target.save_data()
 		check(not target.restore(corrupt) and target.save_data() == before, "corrupt %s save rejected without mutating the session" % kind)
-
-	# Saves from before #21 migrate with a full battery and no salvage.
-	var legacy: Dictionary = JSON.parse_string(JSON.stringify(Session.new_session(4).save_data()))
-	legacy.erase("expedition_version"); legacy.state.erase("expedition")
-	var migrated = Session.new()
-	check(migrated.restore(legacy) and Book.charge(migrated._state, 0).ready and migrated.snapshot().expedition.salvage == 0, "legacy saves gain one full battery")
 
 	print("Expedition rules: %s checks, %s failures" % [count, failures.size()])
 	quit(0 if failures.is_empty() else 1)

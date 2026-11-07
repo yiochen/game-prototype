@@ -17,7 +17,6 @@ func _initialize() -> void:
 	_test_default_service_stays_healthy()
 	_test_saved_visit_phases()
 	_test_default_save_continuation()
-	_test_issue10_save_upgrade()
 	_test_invalid_visit_saves()
 	if failures.is_empty():
 		print("PASS: %s customer visit checks" % checks)
@@ -58,21 +57,10 @@ func _json_copy(value: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value, "", true, true))
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
-# Later systems add their own migrated state; a legacy upgrade must keep every
-# field the old save had, so compare only the shape the legacy data defines.
-func _legacy_fields(observed: Variant, legacy: Variant) -> Variant:
-	if observed is Dictionary and legacy is Dictionary:
-		var kept := {}
-		for key in observed:
-			if legacy.has(key): kept[key] = _legacy_fields(observed[key], legacy[key])
-		return kept
-	if observed is Array and legacy is Array and observed.size() == legacy.size():
-		var kept := []
-		for index in observed.size(): kept.append(_legacy_fields(observed[index], legacy[index]))
-		return kept
-	return observed
 
 func _object(scene: Dictionary, identity: String) -> Dictionary:
 	for object in scene.objects:
@@ -94,7 +82,7 @@ func _first(scene: Dictionary) -> Dictionary:
 	return scene.customers[0] if not scene.customers.is_empty() else {}
 
 func _seed_food(game: GameSession, belt_id: String, recipe: String) -> bool:
-	var data := _json_copy(game.save_data())
+	var data := GameSession.flat_view(_json_copy(game.save_data()))
 	for object in data.state.objects:
 		if object.id == belt_id:
 			if object.dish != null:
@@ -262,7 +250,7 @@ func _test_unfed_departure() -> void:
 	var events: Array = game.advance(10.0)
 	_check(_events(events, "customer_restless").size() == 1 and _events(events, "visit_abandoned").size() == 1 and _events(events, "departed").size() == 1, "an unfed customer visibly becomes restless and then leaves autonomously")
 	_check(game.snapshot().coins == 120 and game.snapshot().stats.sales == 0 and _events(events, "sale").is_empty(), "abandonment applies no fine, recurring fee, sales reward or reputation penalty")
-	_check(not game.save_data().state.has("reputation"), "failed service stores no lasting reputation damage")
+	_check(not GameSession.flat_view(game.save_data()).state.has("reputation"), "failed service stores no lasting reputation damage")
 
 func _feet_are_clear(scene: Dictionary) -> bool:
 	for customer in scene.customers:
@@ -283,7 +271,7 @@ func _corner_traffic_save() -> Dictionary:
 	objects.append({"id": "obstacle", "kind": "decor", "art_id": "crate-wood", "x": 5, "y": 1, "facing": "south"})
 	var game := Session.new_session(1, _base({"floor": {"entrance": {"x": 1, "y": 0}}, "objects": objects}))
 	game.advance(0.1)
-	var saved := _json_copy(game.save_data())
+	var saved := GameSession.flat_view(_json_copy(game.save_data()))
 	var turning: Dictionary = saved.state.customers[0].duplicate(true)
 	turning.seat_id = "s4"
 	turning.x = 4.0
@@ -317,13 +305,15 @@ func _movement(customer: Dictionary) -> Dictionary:
 func _test_guests_pass_through_each_other() -> void:
 	# Two valid saved routes cross at a bend, with both guests already yielding.
 	# Each guest must make exactly the same progress as when walking alone.
-	var saved := _corner_traffic_save()
+	var saved := GameSession.flat_view(_corner_traffic_save())
 	var game := Session.new_session(1)
 	var alone: Array = []
 	_check(game.restore(saved), "a saved pair stuck across each other's lanes remains loadable")
-	_check(_same(game.save_data(), saved), "loading an older yielding pair preserves its positions and visit clocks")
+	var expected: Dictionary = GameSession.flat_view(saved.duplicate(true))
+	expected.state.erase("next_customer_id")  # derived from arrivals; no longer saved
+	_check(_same(game.save_data(), expected), "loading an older yielding pair preserves its positions and visit clocks")
 	for customer in saved.state.customers:
-		var single := _json_copy(saved)
+		var single := GameSession.flat_view(_json_copy(saved))
 		single.state.customers = [customer.duplicate(true)]
 		var peer := Session.new_session(1)
 		_check(peer.restore(single), "the independent walking comparison starts from the same saved guest")
@@ -436,64 +426,28 @@ func _test_default_save_continuation() -> void:
 	_check(restored_all, "nine actual-demo save points preserve mixed visit phases and sampled eating durations exactly")
 	_check(identical_all, "mixed seeded demo saves continue with identical dishes, reactions, sales and future visitor choices")
 
-func _test_issue10_save_upgrade() -> void:
-	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/legacy-0.2.0-session.json"))
-	var game := Session.new_session(91)
-	_check(fixture.source_commit == "d30f3cbe" and game.restore(fixture.save_data), "the actual merged #10 save upgrades into the new visit engine")
-	var observed: Dictionary = game.snapshot()
-	for key in ["mode", "editor", "inventory", "staff"]:
-		observed.erase(key)
-	for object in observed.objects:
-		object.erase("active")
-		object.erase("inactive_reason")
-		# #13 adds explicit route descriptors; the legacy fixture predates them.
-		for key in ["next_id", "input_facing", "incoming_id"]: object.erase(key)
-	for index in range(observed.customers.size()):
-		var previous: Dictionary = fixture.snapshot.customers[index]
-		for key in observed.customers[index].keys():
-			if not previous.has(key):
-				observed.customers[index].erase(key)
-	var expected: Dictionary = fixture.snapshot.duplicate(true)
-	expected.floor.backdrop_rows = 3
-	expected.floor.entrance = {"x": 4, "y": 3}
-	for index in range(expected.customers.size()):
-		if float(expected.customers[index].y) < 3:
-			_check(float(observed.customers[index].y) >= 3, "A visitor crossing the retired doorway moves onto clear floor below the new backdrop")
-			expected.customers[index].x = observed.customers[index].x
-			expected.customers[index].y = observed.customers[index].y
-	_check(_same(_legacy_fields(observed, expected), expected), "backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock")
-	_check(game.save_data().random_state == fixture.save_data.random_state, "upgrade does not reroll old visitors or advance the random generator")
-	game.command({"type": "set_entrance_open", "open": false})
-	var events: Array = game.advance(60.0)
-	var counts := {}
-	for event in _events(events, "sale"):
-		counts[event.customer_id] = int(counts.get(event.customer_id, 0)) + 1
-	_check(counts.values().all(func(count): return count <= 1) and _events(events, "preference_matched").is_empty(), "existing #10 visitors finish their saved single-meal visits without a replayed preference or bonus plate")
-	game.command({"type": "set_entrance_open", "open": true})
-	_check(_wait(game, func(scene): return not scene.customers.is_empty() and _first(scene).preference_phase == "pending"), "new visitors after an old-save upgrade receive the current one-time preference cycle")
-
 func _test_invalid_visit_saves() -> void:
 	var game := Session.new_session(41, _base())
 	game.advance(0.4)
 	var valid := _json_copy(game.save_data())
 	for field in ["preference_elapsed", "appetite_target", "meal_duration"]:
-		var bad := _json_copy(valid)
+		var bad := GameSession.flat_view(_json_copy(valid))
 		bad.state.customers[0][field] = -1.0
 		_check(not game.restore(bad) and _same(game.save_data(), valid), "invalid " + field + " cannot replace a valid saved visit")
-	var missing := _json_copy(valid)
+	var missing := GameSession.flat_view(_json_copy(valid))
 	missing.state.customers[0].erase("first_dish_received")
 	_check(not game.restore(missing), "a malformed current-format visit cannot masquerade as a legacy migration")
-	var bad_offset := _json_copy(valid)
+	var bad_offset := GameSession.flat_view(_json_copy(valid))
 	bad_offset.state.customers[0].render_offset_x = INF
 	_check(not game.restore(bad_offset), "nonfinite saved passing offsets cannot enter the live renderer")
-	bad_offset = _json_copy(valid)
+	bad_offset = GameSession.flat_view(_json_copy(valid))
 	bad_offset.state.customers[0].render_offset_y = 0.9
 	_check(not game.restore(bad_offset), "saved passing offsets cannot exceed the safe within-cell range")
-	var finished_timer := _json_copy(valid)
+	var finished_timer := GameSession.flat_view(_json_copy(valid))
 	finished_timer.state.customers[0].preference_phase = "active"
 	finished_timer.state.customers[0].preference_elapsed = finished_timer.configuration.customers.preference_seconds
 	_check(not game.restore(finished_timer), "a completed saved timer cannot masquerade as a still-active preference and replay its expiry")
-	var duplicate_preference := _json_copy(valid)
+	var duplicate_preference := GameSession.flat_view(_json_copy(valid))
 	duplicate_preference.state.customers[0].first_dish_received = true
 	duplicate_preference.state.customers[0].preference_phase = "active"
 	_check(not game.restore(duplicate_preference), "a received first dish cannot restart its one-time preference cycle")

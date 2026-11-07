@@ -33,6 +33,8 @@ func advance(s, seconds: float) -> Array:
 
 ## Equal after a JSON round trip (floats may differ in the last bit).
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	if a is Dictionary and b is Dictionary:
 		return a.size() == b.size() and a.keys().all(func(k): return b.has(k) and same(a[k], b[k]))
 	if (a is float or a is int) and (b is float or b is int): return absf(float(a) - float(b)) < 1e-9
@@ -85,9 +87,6 @@ func run() -> void:
 	var kinds: Array = path.spans.map(func(span): return span.kind)
 	var chase := int(rules.pursuit_chunks)
 	check(kinds[kinds.size() - 2 - chase] == "encounter" and kinds.slice(-1 - chase, -1) == ["normal", "creature", "normal", "creature", "normal"] and kinds[-1] == "finish", "route version 5 puts the arena %d chunks before the finish, ordinary and creature chunks alternating: %s" % [chase, kinds.slice(-2 - chase)])
-	var v4: Array = Book.route(SEED, 4).spans.map(func(span): return span.kind)
-	check(v4.slice(-1 - chase, -1).all(func(k): return k == "normal"), "a version 4 run keeps its all-ordinary pursuit: %s" % [v4.slice(-1 - chase)])
-	check(Book.route(SEED, 3).spans.map(func(span): return span.kind).slice(-2) == ["encounter", "finish"], "route version 3 (saves from #23) keeps its arena right before the finish")
 	check(path.arena != null and int(path.arena.y1) - int(path.arena.y0) + 1 == int(rules.arena_rows), "the arena has the configured length")
 	check(float(path.encounter_edge) == float(path.arena.y1) + 1.0, "shields end at the arena's entry")
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "no shield or portal reaches the encounter")
@@ -95,15 +94,10 @@ func run() -> void:
 	for y in range(int(path.arena.y0) + 1, int(path.arena.y1) + 1):
 		for x in range(2, 9): open = open and not str(path.rows[y])[x] in ["#"]
 	check(open, "the arena keeps seven open columns for aiming")
-	check(Book.route(SEED, 2).arena == null, "route version 2 (saves from #22) keeps its route without an arena")
 
-	# Before the window: no target, and older runs never open one.
+	# Before the window: no target.
 	var s = started()
 	check(s.command({"type": "expedition_fire"}).reason == "no_target", "the harpoon is unavailable before the encounter")
-	var old = started()
-	live(old).route_version = 2
-	live(old).y = 20.0
-	check(not "encounter_start" in types(advance(old, 0.5)) and run_of(old).encounter == null, "a route version 2 run never starts an encounter")
 
 	# Aiming: resistance stays full, the creature weaves ahead of the ship.
 	s = started(); at_encounter(s)
@@ -208,13 +202,13 @@ func run() -> void:
 
 	# Invalid saves are rejected.
 	s = started(); at_encounter(s)
-	var data: Dictionary = s.save_data()
+	var data: Dictionary = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.encounter.state = "hooked"
 	check(not Session.new().restore(data), "a hook without an attached harpoon is rejected")
-	data = s.save_data()
+	data = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.encounter.cooldown = 99.0
 	check(not Session.new().restore(data), "an impossible reload time is rejected")
-	data = s.save_data()
+	data = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.route_version = 2
 	check(not Session.new().restore(data), "an encounter on a route without an arena is rejected")
 

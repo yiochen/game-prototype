@@ -1,6 +1,6 @@
 # State architecture
 
-**Status: in progress (2026-11-06).** Steps 1–8 of the [migration plan](#migration-plan) are implemented: the engine (`godot/scripts/engine/`), features in `godot/scripts/features/`, and `dispatch()`. Step 9 (the new save format) is not started. The first section describes the code before the migration; everything after it is the target design. [Feature walkthroughs](state-architecture-walkthroughs.md) test the design against planned features. The decision is recorded in [ADR 0005](adr/0005-entities-and-component-tables.md).
+**Status: in progress (2026-11-06).** Steps 1–8 of the [migration plan](#migration-plan) are implemented: the engine (`godot/scripts/engine/`), features in `godot/scripts/features/`, and `dispatch()`. Step 9 is done as decided on 2026-11-06 (JSON stays; derived values are not saved; game rules are checked on load). The first section describes the code before the migration; everything after it is the target design. [Feature walkthroughs](state-architecture-walkthroughs.md) test the design against planned features. The decision is recorded in [ADR 0005](adr/0005-entities-and-component-tables.md).
 
 ## Today
 
@@ -258,7 +258,7 @@ const STATION := {
 - **Validate = structure only:** types, ranges, references that resolve, machine states that exist. No recalculated-value comparisons, because calculated values are never saved.
 - **Derived fields** are declared per component; the engine rejects a save that contains one, so the chef bug class cannot return.
 - **Save:** serialize, run the same structural checks on the serialized data, write. No full reload. `save_store.gd` keeps its pending file, backup and verified promote.
-- **Legacy saves:** a one-time upgrade turns today's single dictionary into worlds and slices. Chef copies in inventory collapse into one entity. The existing fixtures (`legacy-0.1.1-session.json`, `legacy-0.2.0-session.json`) plus a real 0.16.1 save become its tests.
+- **Older saves:** none are upgraded; the game is unreleased and its data was reset when the store format shipped.
 
 ## Rendering
 
@@ -332,7 +332,14 @@ Move one feature at a time behind the existing `GameSession` API. Every step shi
 6. **Layout. Done, as one table.** Placed objects are rows of one `layout` table in placement order (`features/layout.gd`), with O(1) lookup by id. Editor commands roll back through the store. Removing a seat, belt or decor deletes the entity, and declared references follow their policies. **Follow-up:** split the row into `placement`, `belt`, `seat` and `item` tables; belt routing and dish contents still share the belt's row, so layout caches cannot yet be keyed by revision (the row changes every step).
 7. **Customers. Done.** Guests are rows of a `customer` table (`features/customers.gd`). A guest's stool is the `seat_id` reference with an on-delete `notify` policy, which stands the guest up; stools are first come, first served (`Customers.holds_seat`). Path search is pure (`features/navigation.gd`: multi-goal breadth-first search and flood fill over a usable-floor set cached by expansion revision); movement and destination choice stay in the session. The `VISIT` machine defines phases and their animations, and validation uses it. **Follow-up:** split rows into `body`, `navigation` and `visit`; "trapped" remains the navigation's `wander` mode rather than its own visit state; move destination choice and movement out of `session.gd`.
 8. **Expedition. Done, for the shield.** The expedition record is a slice. Each run gets a transient `run` world, created at launch and dropped when the run ends; the ship's shield is a timed effect there, counted down by the engine and saved in the `engine` section. Older saves' `run.shield` is adopted on load. **Follow-up:** move the rest of the run (ship, creature, harpoon) into the world when the next expedition feature needs it.
-9. **Retire the bridge.** Save everything through `store.save()`, validate new saves structurally, and keep the old pipeline only to upgrade older saves. Decide first which consistency checks the old validators make (clock and step agreement, dish accounting) stay as feature validation, and the file format (see below). Saved tables must not rely on row order: Godot's JSON writer sorts keys, which reordered the layout once during this work.
+9. **Saving and validation. Done.** Decided with the user: JSON stays the format.
+   - **Not saved:** `elapsed` (from `step_index`), the guest counter `next_customer_id` (from arrivals), `stats.served` (equal to sales) and the chefs' `assigned` flag (from the layout). They are recalculated on load (`_derive_saved`), and a stale copy in an older save is replaced rather than rejected. Their cross-checks, and the dish-count equation, are gone.
+   - **Checked on load:** rules about the restaurant (no shared cells, valid belt routes, unique dish ids below the counter, ids that resolve, visit and station states) and types and ranges.
+   - **Saving** never runs the game rules on the data being written, so it can never block. It verifies the file's checksum and that it parses. The previous generation becomes the backup only if it passes the rules (cached per file); otherwise the old backup stays. A full save went from 6.6 ms to 4.5 ms; most of what is left is that backup check, which autosaves run on the worker thread.
+   - **One store save (version 3).** A save is `{version, configuration, engine, remainder, random_state}`; `engine` is `store.save()` with every slice (including the session's own `core` slice) and every table. The layout and guest tables are saved as ordered lists, since JSON writers sort keys. There is no upgrade code for older saves: the game is unreleased, so data was reset (2026-11-06) and files in an older envelope format are discarded on load.
+   - **One validator.** `_valid_store` checks every feature's rules directly on store data: chefs in `Chefs.valid` and `Chefs.valid_recipes`, staff and recipe book through store-aware `valid(..., store)`, layout, editor, inventory and guests in the existing validators run in store mode. It runs on load and after each edit, with no rebuilt copy.
+   - **`GameSession.flat_view(save)`** shows a save as one dictionary (`state` plus the chef tables) for tools and tests; `restore()` accepts it through a pure conversion.
+   - **Remaining cost.** Loading and validation take about 2.4 ms on desktop, mostly guest path checks and the editor's inventory accounting.
 
 ## Profile
 

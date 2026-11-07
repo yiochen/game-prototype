@@ -22,9 +22,8 @@ static func direction(delta: Vector2i) -> String:
 	return ""
 
 static func initialize(objects: Array) -> void:
-	# Shipped pre-route saves used facing + adjacency. Preserve those links;
-	# a legacy junction keeps the first input in saved object order. No tile,
-	# dish, stock, coin or service clock is removed by this upgrade.
+	# A new game's belts are listed by facing alone. Link each tile to the belt
+	# it faces; a junction keeps the first input in layout order.
 	for tile in objects:
 		if tile.get("kind") == "belt":
 			tile.next_id = ""

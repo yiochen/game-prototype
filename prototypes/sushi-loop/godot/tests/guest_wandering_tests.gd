@@ -10,7 +10,6 @@ func _initialize() -> void:
 	_test_alternative_route()
 	_test_blocked_walking_continuation()
 	_test_seated_history_and_paid_departure()
-	_test_legacy_navigation()
 	_test_invalid_navigation_saves()
 	_test_cut_off_guest_frees_stool()
 	if failures.is_empty():
@@ -26,6 +25,8 @@ func _check(value: bool, description: String) -> void:
 	if not value: failures.append(description)
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
 func _copy(value: Dictionary) -> Dictionary:
@@ -59,7 +60,7 @@ func _first(game: GameSession) -> Dictionary:
 	return guests[0] if not guests.is_empty() else {}
 
 func _guest_save(game: GameSession) -> Dictionary:
-	var guests: Array = game.save_data().state.customers
+	var guests: Array = GameSession.flat_view(game.save_data()).state.customers
 	return guests[0].duplicate(true) if not guests.is_empty() else {}
 
 func _visit_fields(customer: Dictionary) -> Dictionary:
@@ -71,7 +72,7 @@ func _edit(game: GameSession) -> void:
 	_check(game.command({"type": "set_mode", "mode": "edit"}).ok, "public Edit pauses the blocked-guest scenario")
 
 func _seal(game: GameSession) -> String:
-	var before := game.save_data()
+	var before := GameSession.flat_view(game.save_data())
 	var result := game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3})
 	_check(result.ok, "a furnishing may close the only future guest route")
 	_check(_same(_visit_fields(before.state.customers[0]), _visit_fields(_guest_save(game))), "route-blocking placement keeps the same guest, position, meal, preference, animation and visit clocks")
@@ -177,7 +178,7 @@ func _test_blocked_walking_continuation() -> void:
 	_check(clear and no_jump and moving and positions.size() >= 3, "wandering uses multiple real free-floor cells at the ordinary walking speed, without furniture clipping or teleporting")
 	_check(events.filter(func(event): return event.type in ["sale", "departed", "visit_abandoned", "eating_started"]).is_empty() and game.snapshot().coins == 120 and game.snapshot().stats.sales == 0, "a blocked guest never disappears, abandons, steals food, pays or changes coins")
 	_edit(game)
-	var before := _guest_save(game)
+	var before := GameSession.flat_view(_guest_save(game))
 	_check(game.command({"type": "editor_remove", "id": blocked_id}).ok, "the player can reopen the doorway after arbitrarily long wandering")
 	_check(_first(game).navigation_mode == "goal" and _same(_visit_fields(before), _visit_fields(_guest_save(game))), "unblocking restores the same guest's intended seat without resetting their visit or position")
 	_check(game.command({"type": "editor_remove", "id": entry_barrier.get("id", "")}).ok, "the entrance behind the resumed guest can also be reopened")
@@ -188,7 +189,7 @@ func _test_seated_history_and_paid_departure() -> void:
 	var game := Session.new_session(7, _configuration(false, 1000.0))
 	_check(_wait(game, func(session): return not _first(session).is_empty() and _first(session).phase == "waiting"), "historic-path fixture seats an ordinary unfed guest")
 	_edit(game)
-	var before := _guest_save(game)
+	var before := GameSession.flat_view(_guest_save(game))
 	var historic := game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 3, "y": 1})
 	_check(historic.ok and _same(_visit_fields(before), _visit_fields(_guest_save(game))), "furniture may occupy the aisle a seated guest already walked without forcing that guest to stand or resetting hunger")
 	var reopened := Session.new_session(1)
@@ -213,24 +214,6 @@ func _test_seated_history_and_paid_departure() -> void:
 	_live(paid)
 	_check(_wait(paid, func(session): return session.snapshot().customers.is_empty()) and paid.snapshot().coins == 134 and paid.snapshot().stats.sales == 1, "restoring the exit departs the same guest without replaying a sale")
 
-func _test_legacy_navigation() -> void:
-	var current := Session.new_session(41, _configuration())
-	current.advance(0.625)
-	var legacy := _copy(current.save_data())
-	legacy.erase("customer_navigation_version")
-	legacy.configuration.customers.erase("wander_retry_seconds")
-	legacy.configuration.customers.erase("wander_speed_multiplier")
-	for customer in legacy.state.customers:
-		for field in ["navigation_mode", "path_origin", "navigation_retry_elapsed", "wander_cursor"]: customer.erase(field)
-	var reopened := Session.new_session(99)
-	_check(reopened.restore(legacy), "a real pre-navigation walking save migrates through the public restore boundary")
-	_check(_same(_visit_fields(current.save_data().state.customers[0]), _visit_fields(_guest_save(reopened))) and reopened.save_data().random_state == legacy.random_state and reopened.save_data().remainder == legacy.remainder, "navigation migration retains old guest positions, visits, animation, RNG and fractional time")
-	_check(_same(current.advance(12.0), reopened.advance(12.0)) and _same(current.save_data(), reopened.save_data()), "an unedited legacy restaurant continues identically to the new navigation schema")
-	var corrupt := _copy(legacy)
-	corrupt.state.customers[0].path[0] = {"x": 0, "y": 3}
-	var before := reopened.save_data()
-	_check(not reopened.restore(corrupt) and _same(before, reopened.save_data()), "legacy migration validates the old route before adding navigation fields")
-
 func _test_invalid_navigation_saves() -> void:
 	var game := Session.new_session(41, _pocket_configuration())
 	game.advance(1.1)
@@ -239,27 +222,26 @@ func _test_invalid_navigation_saves() -> void:
 	_seal(game)
 	_live(game)
 	game.advance(0.35)
-	var pristine := _copy(game.save_data())
-	_check(pristine.get("customer_navigation_version") == 1, "the save declares the blocked-route navigation schema")
+	var pristine := GameSession.flat_view(_copy(game.save_data()))
 	for field_and_value in [["navigation_mode", "teleport"], ["navigation_retry_elapsed", -0.1], ["navigation_retry_elapsed", "0"], ["wander_cursor", -1], ["wander_cursor", 0.5], ["path_origin", {"x": -100, "y": 0}], ["path_origin", {"x": 0, "y": "0"}]]:
-		var corrupt := _copy(pristine)
+		var corrupt := GameSession.flat_view(_copy(pristine))
 		corrupt.state.customers[0][field_and_value[0]] = field_and_value[1]
 		_check(not game.restore(corrupt) and _same(pristine, game.save_data()), "malformed saved navigation is rejected atomically: %s" % field_and_value[0])
 	for field in ["navigation_mode", "navigation_retry_elapsed", "wander_cursor", "path_origin"]:
-		var missing := _copy(pristine)
+		var missing := GameSession.flat_view(_copy(pristine))
 		missing.state.customers[0].erase(field)
 		_check(not game.restore(missing) and _same(pristine, game.save_data()), "current navigation saves require every declared field atomically: %s" % field)
 	for setting in [["wander_retry_seconds", 0.0], ["wander_retry_seconds", -0.8], ["wander_speed_multiplier", 0.0], ["wander_speed_multiplier", 1.1]]:
 		var bad_configuration := _copy(pristine)
 		bad_configuration.configuration.customers[setting[0]] = setting[1]
 		_check(not game.restore(bad_configuration) and _same(pristine, game.save_data()), "invalid wandering tuneables are rejected without altering the running guest")
-	var illegal_path := _copy(pristine)
+	var illegal_path := GameSession.flat_view(_copy(pristine))
 	illegal_path.state.customers[0].path = [{"x": 0, "y": 3}]
 	illegal_path.state.customers[0].path_index = 0
 	_check(not game.restore(illegal_path) and _same(pristine, game.save_data()), "saved wandering cannot cross a solid crate barrier")
-	var version := _copy(pristine)
-	version.customer_navigation_version = 999
-	_check(not game.restore(version) and _same(pristine, game.save_data()), "future navigation schema is rejected without changing the current restaurant")
+	var version := GameSession.flat_view(_copy(pristine))
+	version.version = 999
+	_check(not game.restore(version) and _same(pristine, game.save_data()), "a future save version is rejected without changing the current restaurant")
 
 ## Stools are first come, first served: a walking guest dragged into a sealed
 ## pocket keeps their visit, but their stool serves other guests meanwhile.
@@ -305,12 +287,14 @@ func _holds(customer: Dictionary) -> bool:
 	return customer.phase in ["walking", "waiting", "eating"] and customer.get("navigation_mode") != "wander"
 
 func _same_continuation(left: Dictionary, right: Dictionary) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	# The unchanged arrival clock subtracts binary floats each fixed step. A
 	# 1000-second isolated arrival interval may round-trip through JSON with
 	# sub-picosecond drift; no other persisted field receives this tolerance.
 	if absf(float(left.state.arrival_remaining) - float(right.state.arrival_remaining)) > 0.000000001: return false
-	var a := left.duplicate(true)
-	var b := right.duplicate(true)
+	var a := GameSession.flat_view(left.duplicate(true))
+	var b := GameSession.flat_view(right.duplicate(true))
 	a.state.erase("arrival_remaining")
 	b.state.erase("arrival_remaining")
 	return _same(a, b)

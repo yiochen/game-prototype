@@ -84,7 +84,7 @@ func run(app, scene_tree: SceneTree, destination := "") -> void:
 	var saved: Dictionary = app.session.save_data()
 	var reopened = Session.new()
 	expect(reopened.restore(saved) and reopened.snapshot().editor.scrolls.layout==ui.scroll_offsets.layout,"Per-category scroll offsets survive the public save/restore boundary")
-	var malformed := saved.duplicate(true)
+	var malformed := GameSession.flat_view(saved.duplicate(true))
 	malformed.state.editor.scrolls.layout = -1
 	expect(not Session.new().restore(malformed),"A malformed negative saved scroll offset is rejected")
 	expect(not app.session.command({"type":"editor_scroll","offset":NAN}).ok,"Nonfinite scroll commands are rejected without altering state")

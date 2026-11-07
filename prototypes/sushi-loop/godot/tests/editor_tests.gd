@@ -14,7 +14,6 @@ func _initialize() -> void:
 	_unassigned_chef_continuation()
 	_customer_protection()
 	_persistence_and_migration()
-	_four_slot_page_migration()
 	_invalid_commands_and_saves()
 	if failures.is_empty():
 		print("PASS: %s restaurant editor checks" % checks)
@@ -30,6 +29,8 @@ func _check(value: bool, description: String) -> void:
 		failures.append(description)
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
 func _json(data: Dictionary) -> Dictionary:
@@ -81,7 +82,6 @@ func _layers_and_selection() -> void:
 	var game := Session.new_session(3)
 	var content: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://content/editor.json"))
 	_check(_same(content.page_sizes, {"people": 3, "layout": 4, "floor": 3}), "the drawer content has four Layout goods while People and Floor retain three slots")
-	_check(game.save_data().editor_version == 3, "new saves declare editor version 3 for four-item Layout paging")
 	_edit(game)
 	_check(game.command({"type": "editor_select", "id": "chef-1"}).ok and game.snapshot().editor.layer == "people", "selecting an existing chef activates People")
 	_check(game.command({"type": "editor_toggle_tray"}).ok and not game.snapshot().editor.tray_open and game.snapshot().editor.selected_id == "chef-1", "collapsing the selected layer tray retains selection and the named layer")
@@ -140,7 +140,7 @@ func _loaded_belt_ownership() -> void:
 	_check(game.command({"type": "editor_move", "id": identity, "x": 0, "y": 10}).ok and _object(game.snapshot(), identity).dish == dish and _object(game.snapshot(), identity).travel_progress == 0.0, "moving a loaded belt carries its exact owned dish at the new tile root")
 	_reopen(game)
 	_check(game.command({"type": "editor_remove", "id": identity}).ok and _stock(game.snapshot(), "belt-tile").count == stock + 1, "removing a loaded belt returns the tile but discards its plate exactly once")
-	_check(game.snapshot().coins == coins and game.save_data().state.discarded_dishes == 1, "discarded food produces no sale, bonus or coin refund")
+	_check(game.snapshot().coins == coins and GameSession.flat_view(game.save_data()).state.discarded_dishes == 1, "discarded food produces no sale, bonus or coin refund")
 	var reopened := _reopen(game)
 	game.command({"type": "set_mode", "mode": "live"})
 	reopened.command({"type": "set_mode", "mode": "live"})
@@ -179,7 +179,7 @@ func _customer_protection() -> void:
 	var walking := Session.new_session(41)
 	walking.advance(0.85)
 	_edit(walking)
-	var path: Array = walking.save_data().state.customers[0].path
+	var path: Array = GameSession.flat_view(walking.save_data()).state.customers[0].path
 	var blocked_a_future_cell := false
 	for point in path:
 		var current: Dictionary = walking.snapshot().customers[0]
@@ -191,8 +191,8 @@ func _customer_protection() -> void:
 			blocked_a_future_cell = result.ok
 			break
 	_check(blocked_a_future_cell, "a paused visitor no longer reserves every tile of their remaining aisle path")
-	var before: Array = _customer_visit_values(game.save_data().state.customers)
-	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 6, "y": 12}).ok and _same(before, _customer_visit_values(game.save_data().state.customers)), "a safe edit leaves every customer's preference, meal, position and visit progress intact while navigation may replan")
+	var before: Array = _customer_visit_values(GameSession.flat_view(game.save_data()).state.customers)
+	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 6, "y": 12}).ok and _same(before, _customer_visit_values(GameSession.flat_view(game.save_data()).state.customers)), "a safe edit leaves every customer's preference, meal, position and visit progress intact while navigation may replan")
 	_reopen(game)
 	game.command({"type": "set_mode", "mode": "live"})
 	_check(not game.advance(20.0).is_empty(), "Live service resumes normally with customer-safe changed arrangements")
@@ -227,71 +227,6 @@ func _persistence_and_migration() -> void:
 		_check(reopened.restore(store.load_session(validator)) and _same(reopened.save_data(), game.save_data()), "the latest accepted change, including selection/tray/camera, is the durable primary generation")
 	store.clear_session()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
-	var legacy := _pre_store(_json(game.save_data()))
-	legacy.erase("editor_version")
-	legacy.erase("staff_version");legacy.state.erase("staff")
-	for key in ["mode", "editor", "inventory", "next_object_id", "discarded_dishes"]:
-		legacy.state.erase(key)
-	var migrated := Session.new_session(99)
-	_check(migrated.restore(legacy) and migrated.snapshot().mode == "live", "pre-editor saves receive a one-time compatible Live editor-state migration")
-	_check(_same(migrated.snapshot().objects, game.snapshot().objects) and _same(migrated.snapshot().stats, game.snapshot().stats) and migrated.snapshot().coins == game.snapshot().coins and _same(migrated.snapshot().camera, game.snapshot().camera), "migration retains every previous arrangement, service clock, sale, coin and camera")
-
-func _four_slot_page_migration() -> void:
-	var game := Session.new_session(115)
-	game.advance(4.025)
-	_edit(game)
-	game.command({"type": "editor_select", "id": "seat-5"})
-	game.command({"type": "editor_toggle_tray"})
-	game.command({"type": "set_camera", "x": 4.375, "y": 0.125})
-	var restored := Session.new_session(99)
-	for example in [
-		[1, 0, 0, "layout"],
-		[1, 1, 0, "layout"],
-		[1, 2, 1, "layout"],
-		[2, 0, 0, "layout"],
-		[2, 1, 0, "layout"],
-		[1, 2, 1, "people"],
-		[2, 1, 0, "floor"],
-	]:
-		var legacy := _json(game.save_data())
-		legacy.editor_version = example[0]
-		legacy.state.editor.layer = example[3]
-		legacy.state.editor.pages.layout = example[1]
-		legacy.state.editor.page = legacy.state.editor.pages[example[3]]
-		var expected := _json(legacy)
-		expected.editor_version = 3
-		expected.state.editor.pages.layout = example[2]
-		expected.state.editor.page = expected.state.editor.pages[example[3]]
-		_check(restored.restore(legacy) and _same(restored.save_data(), expected), "v%s Layout page %s migrates to page %s with %s active; every other saved field is preserved" % example)
-		_reopen(restored)
-	_check(restored.command({"type": "editor_layer", "layer": "layout"}).ok and not restored.command({"type": "editor_page", "page": 2}).ok and restored.command({"type": "editor_page", "page": 1}).ok, "four-item Layout paging accepts its second page and rejects a third page")
-	for old_version in [1, 2]:
-		var legacy := _json(game.save_data())
-		legacy.editor_version = old_version
-		legacy.state.editor.page = 1
-		legacy.state.editor.pages.layout = 1
-		var before := restored.save_data()
-		for layer in ["people", "layout", "floor"]:
-			var old_page_count := (3 if old_version == 1 else 2) if layer == "layout" else 1
-			for bad_page in [-1, old_page_count, 999, 0.5, "0", true, null]:
-				var invalid := _json(legacy)
-				invalid.state.editor.pages[layer] = bad_page
-				if layer == "layout": invalid.state.editor.page = bad_page
-				_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v%s rejects malformed or out-of-range old %s pages atomically" % [old_version, layer])
-			var missing := _json(legacy)
-			missing.state.editor.pages.erase(layer)
-			_check(not restored.restore(missing) and _same(before, restored.save_data()), "v%s rejects a missing remembered %s page" % [old_version, layer])
-		var mismatched := _json(legacy)
-		mismatched.state.editor.page = 0
-		_check(not restored.restore(mismatched) and _same(before, restored.save_data()), "v%s rejects an active page that disagrees with its remembered layer before both could map to zero" % old_version)
-		for corruption in ["tray", "selection", "inventory", "mode"]:
-			var invalid := _json(legacy)
-			match corruption:
-				"tray": invalid.state.editor.tray_open = "yes"
-				"selection": invalid.state.editor.selected_id = "missing"
-				"inventory": invalid.state.inventory[0].count += 1
-				"mode": invalid.state.mode = "shop"
-			_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v%s paging migration still rejects corrupt %s data without changing the session" % [old_version, corruption])
 
 func _invalid_commands_and_saves() -> void:
 	var game := Session.new_session(19)
@@ -311,47 +246,37 @@ func _invalid_commands_and_saves() -> void:
 		_reject_unchanged(game, request)
 	var saved := _json(game.save_data())
 	var corruptions: Array = []
-	var invalid := _json(saved)
+	var invalid := GameSession.flat_view(_json(saved))
 	invalid.state.mode = "shop"
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.editor.tray_open = "yes"
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.editor.selected_id = "missing"
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.editor.pages.layout = 999
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.inventory[0].count = -1
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.inventory[0].count += 1
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.inventory.append(invalid.state.inventory[0].duplicate(true))
 	corruptions.append(invalid)
-	invalid = _json(saved)
+	invalid = GameSession.flat_view(_json(saved))
 	invalid.state.inventory.pop_front()
 	corruptions.append(invalid)
-	invalid = _json(saved)
-	invalid.state.discarded_dishes = 100
+	invalid = GameSession.flat_view(_json(saved))
+	# The dish-accounting cross-check is gone (stale counters no longer block
+	# loading); a negative counter is still a range error.
+	invalid.state.discarded_dishes = -1
 	corruptions.append(invalid)
-	invalid = _json(saved)
-	invalid.editor_version = 999
+	invalid = GameSession.flat_view(_json(saved))
+	invalid.version = 999
 	corruptions.append(invalid)
-	for damaged in corruptions:
-		_check(not game.restore(damaged) and _same(game.save_data(), saved), "invalid editor saves are rejected atomically without damaging a playable restaurant")
-
-## A save as versions before the store wrote it: full chef records in the layout.
-func _pre_store(data: Dictionary) -> Dictionary:
-	var engine := preload("res://scripts/engine/store.gd").new()
-	var chefs := preload("res://scripts/features/chefs.gd")
-	chefs.define(engine)
-	engine.load_saved(data.engine)
-	var old := data.duplicate(true)
-	old.erase("engine")
-	old.erase("engine_version")
-	chefs.hydrate(old.state, engine, old.configuration)
-	return old
+	for index in range(corruptions.size()):
+		_check(not game.restore(corruptions[index]) and _same(game.save_data(), saved), "invalid editor saves are rejected atomically without damaging a playable restaurant (%s)" % index)

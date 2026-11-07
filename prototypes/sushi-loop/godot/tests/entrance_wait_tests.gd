@@ -13,7 +13,6 @@ func _initialize() -> void:
 	_test_exact_timeout_and_exit_accounting()
 	_test_pause_save_and_closed_door()
 	_test_saved_admission_validation()
-	_test_legacy_46_continuation()
 	_test_existing_trapped_guests()
 	_test_production_feedback()
 	if failures.is_empty():
@@ -32,6 +31,8 @@ func _copy(value: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value, "", true, true))
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
 func _configuration() -> Dictionary:
@@ -219,49 +220,29 @@ func _test_saved_admission_validation() -> void:
 	config.objects = []
 	var game := Session.new_session(107, config)
 	game.advance(1.375)
-	var pristine := _copy(game.save_data())
-	_check(pristine.get("customer_admission_version") == 1, "the save explicitly declares its admission-state schema")
+	var pristine := GameSession.flat_view(_copy(game.save_data()))
 	for mutation in [["entrance_wait_elapsed", -0.05], ["entrance_wait_elapsed", "1.25"], ["entrance_wait_elapsed", 4.0], ["seat_id", "fake-seat"], ["preferred_recipe_id", "salmon_nigiri"], ["phase", "walking"], ["navigation_mode", "wander"], ["visual_phase", "walk"], ["x", 2.0], ["render_offset_y", 0.2], ["waiting_elapsed", 0.1], ["first_dish_received", true], ["wander_elapsed", -0.1], ["wander_elapsed", "0"], ["wander_elapsed", 0.1]]:
-		var corrupt := _copy(pristine)
+		var corrupt := GameSession.flat_view(_copy(pristine))
 		corrupt.state.customers[0][mutation[0]] = mutation[1]
 		_check(not game.restore(corrupt) and _same(pristine, game.save_data()), "malformed doorstep state is rejected atomically: %s = %s" % [mutation[0], str(mutation[1])])
 	for field in ["entrance_wait_elapsed", "wander_elapsed"]:
-		var missing := _copy(pristine)
+		var missing := GameSession.flat_view(_copy(pristine))
 		missing.state.customers[0].erase(field)
 		_check(not game.restore(missing) and _same(pristine, game.save_data()), "current admission saves cannot silently reset a missing reaction clock: %s" % field)
 	for value in [-1, 0, "4"]:
 		var tune := _copy(pristine)
 		tune.configuration.customers.entrance_wait_seconds = value
 		_check(not game.restore(tune) and _same(pristine, game.save_data()), "invalid admission patience tuning is rejected atomically: %s" % str(value))
-	var future := _copy(pristine)
-	future.customer_admission_version = 999
-	_check(not game.restore(future) and _same(pristine, game.save_data()), "a future admission schema cannot overwrite the running restaurant")
-	var duplicate := _copy(pristine)
+	var future := GameSession.flat_view(_copy(pristine))
+	future.version = 999
+	_check(not game.restore(future) and _same(pristine, game.save_data()), "a future save version cannot overwrite the running restaurant")
+	var duplicate := GameSession.flat_view(_copy(pristine))
 	var second: Dictionary = duplicate.state.customers[0].duplicate(true)
 	second.id = "customer-2"
 	duplicate.state.customers.append(second)
 	duplicate.state.next_customer_id = 3
 	duplicate.state.stats.arrivals = 2
 	_check(not game.restore(duplicate) and _same(pristine, game.save_data()), "saved restaurants cannot hide two waiting visitors in the same entrance cell")
-
-func _test_legacy_46_continuation() -> void:
-	var current := Session.new_session(118, _configuration())
-	current.advance(0.625)
-	var expected := _copy(current.save_data())
-	var old := _copy(expected)
-	old.erase("customer_admission_version")
-	old.configuration.customers.erase("entrance_wait_seconds")
-	for guest in old.state.customers:
-		guest.erase("entrance_wait_elapsed")
-		guest.erase("wander_elapsed")
-	var restored := Session.new_session(1)
-	_check(restored.restore(old), "a real 0.4.6 admitted walking save migrates without restarting its visit")
-	_check(_same(expected, restored.save_data()), "legacy migration only adds neutral admission metadata and retains the exact seat, route, animation, visit, RNG and fractional remainder")
-	_check(_same(current.advance(12.0), restored.advance(12.0)) and _same(current.save_data(), restored.save_data()), "a migrated admitted guest has identical subsequent service and departure behavior")
-	var corrupt := _copy(old)
-	corrupt.state.customers[0].path[0] = {"x": 0, "y": 6}
-	var baseline := restored.save_data()
-	_check(not restored.restore(corrupt) and _same(baseline, restored.save_data()), "legacy admission migration still validates the original walking route before accepting it")
 
 func _test_existing_trapped_guests() -> void:
 	var game := Session.new_session(129, _trapped_configuration())
@@ -315,12 +296,14 @@ func _test_production_feedback() -> void:
 	view.free()
 
 func _same_continuation(left: Dictionary, right: Dictionary) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	# The old arrival countdown subtracts binary floats. JSON round-tripping
 	# may move that unrelated 1000-second countdown by one IEEE-754 ULP. All
 	# admission/reaction clocks, RNG, events and other saved fields stay exact.
 	if absf(float(left.state.arrival_remaining) - float(right.state.arrival_remaining)) > 0.000000001: return false
-	var a := left.duplicate(true)
-	var b := right.duplicate(true)
+	var a := GameSession.flat_view(left.duplicate(true))
+	var b := GameSession.flat_view(right.duplicate(true))
 	a.state.erase("arrival_remaining")
 	b.state.erase("arrival_remaining")
 	return _same(a, b)

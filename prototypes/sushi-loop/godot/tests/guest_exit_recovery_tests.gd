@@ -30,15 +30,19 @@ func _copy(value: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value, "", true, true))
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
 func _same_continuation(left: Dictionary, right: Dictionary) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	# The existing 1000-second arrival countdown can round-trip one ULP away
 	# through JSON. Navigation, reactions, visit clocks, RNG and every other
 	# saved field still require an exact match, as do all public exit events.
 	if absf(float(left.state.arrival_remaining) - float(right.state.arrival_remaining)) > 0.000000001: return false
-	var a := left.duplicate(true)
-	var b := right.duplicate(true)
+	var a := GameSession.flat_view(left.duplicate(true))
+	var b := GameSession.flat_view(right.duplicate(true))
 	a.state.erase("arrival_remaining")
 	b.state.erase("arrival_remaining")
 	return _same(a, b)
@@ -61,7 +65,7 @@ func _configuration(pocket := false, preparation := 1000.0) -> Dictionary:
 	}
 
 func _guest(game: GameSession) -> Dictionary:
-	var guests: Array = game.save_data().state.customers
+	var guests: Array = GameSession.flat_view(game.save_data()).state.customers
 	return guests[0].duplicate(true) if not guests.is_empty() else {}
 
 func _snapshot_guest(game: GameSession) -> Dictionary:
@@ -100,7 +104,7 @@ func _test_clear_entrance_and_edit_freeze() -> void:
 	var game := Session.new_session(61, _configuration())
 	game.advance(0.675)
 	_edit(game)
-	var prior := game.save_data()
+	var prior := GameSession.flat_view(game.save_data())
 	_close(game, 3)
 	_check(_same(_visit(prior.state.customers[0]), _visit(_guest(game))), "Edit keeps the exact walking phase, fractional position, visit and animation while replanning a blocked seat")
 	var frozen := _copy(game.save_data())
@@ -137,7 +141,7 @@ func _test_old_wander_fractional_recovery() -> void:
 	source.advance(0.675)
 	_edit(source)
 	_close(source, 3)
-	var old := _copy(source.save_data())
+	var old := GameSession.flat_view(_copy(source.save_data()))
 	old.state.mode = "live"
 	old.state.customers[0].navigation_retry_elapsed = 0.35
 	old.state.customers[0].wander_elapsed = 7.25
@@ -180,7 +184,7 @@ func _test_original_seat_priority() -> void:
 	var barrier := _close(source, 3)
 	var old_guest := _guest(source)
 	_check(source.command({"type": "editor_remove", "id": barrier}).ok, "the seat-priority fixture restores both original seat and entrance access")
-	var old := _copy(source.save_data())
+	var old := GameSession.flat_view(_copy(source.save_data()))
 	old.state.mode = "live"
 	old.state.customers[0] = old_guest
 	var game := Session.new_session(7)
@@ -236,9 +240,9 @@ func _test_departure_validation() -> void:
 	var peer := Session.new_session(8)
 	_check(peer.restore(valid) and _same(valid, peer.save_data()), "the explicit seat_unreachable departure reason is supported by strict saved-state validation")
 	for reason in ["", "blocked", "no_seat", 1, null]:
-		var invalid := _copy(valid)
+		var invalid := GameSession.flat_view(_copy(valid))
 		invalid.state.customers[0].departure_reason = reason
 		_check(not peer.restore(invalid) and _same(valid, peer.save_data()), "a malformed or phase-incompatible departure reason is rejected atomically: %s" % str(reason))
-	var inconsistent := _copy(valid)
+	var inconsistent := GameSession.flat_view(_copy(valid))
 	inconsistent.state.customers[0].phase = "walking"
 	_check(not peer.restore(inconsistent) and _same(valid, peer.save_data()), "a walking guest cannot already have a departure reason")

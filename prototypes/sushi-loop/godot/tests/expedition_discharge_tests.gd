@@ -130,7 +130,6 @@ func run() -> void:
 		var path := Book.route(seed_value)
 		check(path.zones.size() == 2 and path.zones.all(func(z): return z.y1 < path.arena.y0) and path.zones[0].y0 > path.zones[1].y0, "seed %d: two eel zones in the pursuit, listed in the order the ship meets them" % seed_value)
 		check(Route.ship_problems(path.rows).is_empty(), "seed %d: the version 5 route flies" % seed_value)
-	check(Book.route(SEED, 4).zones.is_empty(), "version 4 routes have no eel zones")
 
 	# Aiming stays attack-free; a hooked chase through ordinary chunks too.
 	var s = Session.new_session(7)
@@ -210,7 +209,7 @@ func run() -> void:
 	events = advance(s, float(d.warn_seconds) + 0.2)
 	check("creature_lost" in types(events) and s.snapshot().expedition.result.outcome == "hull_depleted" and s.snapshot().expedition.result.creature.outcome == "escaped", "a lightning hit to zero hull snaps the cable: the eel escapes")
 
-	# Saves: bad discharge fields are rejected; hooks saved before #25 gain none.
+	# Saves: bad discharge fields are rejected.
 	s = at_zone(SEED, 0)
 	advance_until_windup(s)
 	var data: Dictionary = JSON.parse_string(JSON.stringify(s.save_data(), "", true, true))
@@ -220,11 +219,6 @@ func run() -> void:
 	bad = data.duplicate(true)
 	_encounter_in(bad).discharge.x0 = 9
 	check(not Session.new().restore(bad), "a save whose strip leaves the route is rejected")
-	var legacy: Dictionary = data.duplicate(true)
-	var old: Dictionary = _encounter_in(legacy)
-	for field in ["discharge", "discharge_cooldown", "strikes"]: old.erase(field)
-	restored = Session.new()
-	check(restored.restore(legacy) and run_of(restored).encounter.discharge == null and int(run_of(restored).encounter.strikes) == 0, "a hook saved before #25 restores with no discharge")
 
 	# Fair routes: at each windup in both eel chunks of several routes, from
 	# every clear position across the chunk, steering one way or the other after

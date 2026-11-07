@@ -24,15 +24,17 @@ var _undo = null
 var _touched: Dictionary = {}
 
 ## "persist": false keeps a table out of save(); its owner saves it elsewhere.
-## Saved tables must not depend on row order: JSON writers may sort keys.
+## JSON writers may sort keys, so a table whose row order matters declares
+## "ordered": true and is saved as a list of rows, each carrying its "id".
 func define_component(name: String, spec: Dictionary) -> void:
-	var full := {"owner": "", "durable": true, "version": 1, "fields": {}, "refs": {}, "derived": [], "migrations": [], "persist": true}
+	var full := {"owner": "", "durable": true, "version": 1, "fields": {}, "refs": {}, "derived": [], "migrations": [], "persist": true, "ordered": false}
 	full.merge(spec, true)
 	components[name] = full
 
 func define_slice(name: String, spec: Dictionary) -> void:
 	# "persist": false keeps a slice out of save(); its owner saves it elsewhere.
-	var full := {"owner": "", "version": 1, "initial": func(): return {}, "migrations": [], "validate": Callable(), "persist": true}
+	# "encode" and "decode" convert between the live value and its saved form.
+	var full := {"owner": "", "version": 1, "initial": func(): return {}, "migrations": [], "validate": Callable(), "persist": true, "encode": Callable(), "decode": Callable()}
 	full.merge(spec, true)
 	slice_specs[name] = full
 	if not slices.has(name): slices[name] = full.initial.call()
@@ -286,10 +288,13 @@ func save() -> Dictionary:
 			var rows: Dictionary = worlds[world].tables[component].duplicate(true)
 			for id in rows:
 				for field in spec.derived: rows[id].erase(field)
-			tables[component] = {"version": int(spec.version), "rows": rows}
+			tables[component] = {"version": int(spec.version), "rows": rows.values() if spec.get("ordered", false) else rows}
 		result.worlds[world] = {"next_id": int(worlds[world].next_id), "tables": tables}
 	for name in slice_specs:
-		if slice_specs[name].persist: result.slices[name] = {"version": int(slice_specs[name].version), "data": _copy(slices.get(name))}
+		var spec: Dictionary = slice_specs[name]
+		if not spec.persist: continue
+		var value: Variant = spec.encode.call(slices.get(name)) if spec.encode.is_valid() else _copy(slices.get(name))
+		result.slices[name] = {"version": int(spec.version), "data": value}
 	return result
 
 ## Loads saved data, migrating durable tables and slices. Transient tables
@@ -305,11 +310,18 @@ func load_saved(data: Dictionary) -> bool:
 		var tables := {}
 		for component in saved.tables:
 			var entry = saved.tables[component]
-			if not entry is Dictionary or not _whole(entry.get("version")) or not entry.get("rows") is Dictionary: return false
 			var spec: Dictionary = components.get(component, {})
 			if (spec.is_empty() and component != EFFECTS) or not spec.get("persist", true): return false
+			if not entry is Dictionary or not _whole(entry.get("version")): return false
+			var rows: Dictionary = {}
+			if spec.get("ordered", false):
+				if not entry.get("rows") is Array: return false
+				for item in entry.rows:
+					if not item is Dictionary or not item.get("id") is String or rows.has(item.id): return false
+					rows[item.id] = _copy(item)
+			elif entry.get("rows") is Dictionary: rows = _copy(entry.rows)
+			else: return false
 			var version := int(entry.version)
-			var rows: Dictionary = _copy(entry.rows)
 			if component != EFFECTS and version != int(spec.version):
 				if not spec.durable: continue
 				if version > int(spec.version) or version < 1: return false
@@ -340,6 +352,7 @@ func load_saved(data: Dictionary) -> bool:
 		var version := int(entry.version)
 		if version > int(spec.version) or version < 1: return false
 		for step in range(version, int(spec.version)): value = spec.migrations[step - 1].call(value)
+		if spec.decode.is_valid(): value = spec.decode.call(value)
 		if spec.validate.is_valid() and not spec.validate.call(value): return false
 		loaded_slices[name] = value
 	var previous := [worlds, slices]

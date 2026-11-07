@@ -161,24 +161,14 @@ func run() -> void:
 	check(not recipe in s.snapshot().recipe_book.discovered, "no discovery after an escape")
 	check(s.snapshot().expedition.run == null, "the only pursuit attempt is over: it cannot be rehooked")
 
-	# A #23 hooked handoff (route version 3, no resistance yet) resumes as a pursuit and lands at the finish.
-	s = hooked(13)
-	live(s).route_version = 3
-	var r3: Dictionary = live(s)
-	r3.y = float(Book.run_route(r3).encounter_start) - 1.0; r3.x = 5.5
-	r3.encounter.erase("resistance"); r3.encounter.erase("chase_t")
-	var data: Dictionary = JSON.parse_string(JSON.stringify(s.save_data()))
-	var old = Session.new()
-	check(old.restore(data) and float(run_of(old).encounter.resistance) == float(rules.resistance), "a saved #23 hook reopens as a fresh pursuit at full resistance")
-	events = advance(old, 30.0)
-	check("caught" in types(events) and old.snapshot().expedition.result.outcome == "complete", "on the short version 3 route, reaching the finish while hooked lands the catch")
+	var data: Dictionary
 
 	# Invalid saves are rejected.
 	s = hooked(17)
-	data = s.save_data()
+	data = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.encounter.resistance = 150.0
 	check(not Session.new().restore(data), "resistance above the creature's maximum is rejected")
-	data = s.save_data()
+	data = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.encounter.chase_t = -1.0
 	check(not Session.new().restore(data), "a negative pursuit clock is rejected")
 

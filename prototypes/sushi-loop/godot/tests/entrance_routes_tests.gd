@@ -14,7 +14,7 @@ func config() -> Dictionary:
 		"service": {"first_arrival_seconds": 0.1, "arrival_seconds": 1000.0, "arrival_jitter_seconds": 0.0, "eating_seconds": 0.5, "sitting_seconds": 0.1, "standing_seconds": 0.1, "loading_seconds": 0.1},
 		"customers": {"fullness_min": 1.0, "fullness_max": 1.0, "dish_fullness_min": 1.0, "dish_fullness_max": 1.0, "eating_jitter_seconds": 0.0}}
 func guest(game: GameSession) -> Dictionary:
-	var guests: Array = game.save_data().state.customers
+	var guests: Array = GameSession.flat_view(game.save_data()).state.customers
 	return guests[0] if not guests.is_empty() else {}
 func reopen(game: GameSession) -> bool:
 	var peer = Session.new_session(123)
@@ -93,7 +93,7 @@ func _test_blocked_admission() -> void:
 	var invalid_rejected := true
 	var peer = Session.new_session(123)
 	for lane in [3, 6, 4.5, "5", null]:
-		var invalid: Dictionary = JSON.parse_string(JSON.stringify(game.save_data(), "", true, true))
+		var invalid: Dictionary = GameSession.flat_view(JSON.parse_string(JSON.stringify(game.save_data(), "", true, true)))
 		invalid.state.customers[0].door_lane = lane
 		invalid_rejected = invalid_rejected and not peer.restore(invalid)
 	check(invalid_rejected, "Saved doorway lanes reject invalid types, fractions and out-of-opening values")

@@ -30,7 +30,7 @@ func _run() -> void:
 	var latest := Session.new_session()
 	_expect(latest.restore(store.load_session()) and _same(latest.snapshot(), original.snapshot()), "Reopen retains the latest committed sales")
 	var regressed: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(test_directory.path_join("session.json")))
-	var bad_ids := original.save_data()
+	var bad_ids := GameSession.flat_view(original.save_data())
 	bad_ids.state.next_dish_id = 1
 	regressed.payload = JSON.stringify(bad_ids, "", true, true)
 	regressed.sha256 = str(regressed.payload).sha256_text()
@@ -52,7 +52,9 @@ func _run() -> void:
 	envelope.sha256 = str(envelope.payload).sha256_text()
 	_write("session.json", JSON.stringify(envelope))
 	_expect(recovered.restore(store.load_session()) and _same(recovered.snapshot(), before), "A hash-valid incompatible session falls back to the playable backup")
-	_expect(not store.save_session(incompatible), "Game-invalid state cannot replace the saved session")
+	# Game rules are checked on load, so saving never blocks: the invalid state
+	# is written, and loading falls back to the last valid generation.
+	_expect(store.save_session(incompatible) and recovered.restore(store.load_session()) and _same(recovered.snapshot(), before) and store.source == "backup", "Game-invalid state is written but loading falls back to the playable backup")
 	_expect(store.save_session(original.save_data()), "A valid session can repair an incompatible primary")
 	_write("session.json", "{}")
 	_expect(recovered.restore(store.load_session()) and _same(recovered.snapshot(), before), "Domain-invalid primary data does not overwrite the valid backup")
@@ -65,6 +67,11 @@ func _run() -> void:
 	_write("session.backup.json", JSON.stringify(envelope))
 	_expect(store.load_session().is_empty() and not store.last_error.is_empty(), "Two invalid saves report failure without inventing progress")
 	_expect(not store.save_session(original.save_data()), "A failed restore preserves both files until deliberate recovery")
+	# Files from the unreleased earlier format are discarded: a fresh start, not damage.
+	_write("session.json", JSON.stringify({"format": "sushi-loop-session", "version": 1, "payload": "{}", "sha256": "{}".sha256_text()}))
+	_write("session.backup.json", JSON.stringify({"format": "sushi-loop-session", "version": 1, "payload": "{}", "sha256": "{}".sha256_text()}))
+	_expect(store.load_session().is_empty() and store.last_error.is_empty() and not FileAccess.file_exists(test_directory.path_join("session.json")), "Saves in an earlier unreleased format are discarded for a fresh start")
+	_expect(store.save_session(original.save_data()), "A fresh start saves normally after discarding old files")
 	_expect(store.clear_session(), "Clearing removes the saved generations")
 	_expect(store.load_session().is_empty() and store.last_error.is_empty(), "An explicitly cleared save is an ordinary fresh start")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(test_directory))
@@ -75,6 +82,8 @@ func _valid_session(data: Dictionary) -> bool:
 	return Session.new().restore(data)
 
 func _same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	# JSON has one numeric representation. Compare public numeric values rather
 	# than relying on GDScript's stricter Dictionary int/float equality.
 	if (a is int or a is float) and (b is int or b is float):

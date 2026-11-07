@@ -28,14 +28,14 @@ func run()->void:
 	check(not purchase(s).ok and s.save_data()==first,"Live rejects purchase without mutation")
 	s.command({"type":"set_mode","mode":"edit"});s.command({"type":"editor_layer","layer":"floor"})
 	var before_inventory:Array=s.snapshot().inventory
-	var before:Dictionary=s.save_data();var offered:String=s.snapshot().floor_styles.offer
+	var before:Dictionary=GameSession.flat_view(s.save_data());var offered:String=s.snapshot().floor_styles.offer
 	var request:Dictionary={"type":"floor_purchase","offer_id":"floor:"+offered,"expected_sequence":0,"rotation":0}
 	check(s.command(request).ok,"one affordable floor style unlock")
 	var data:Dictionary=s.snapshot()
 	check(data.coins==100000-Book.style(offered).cost and data.floor_styles.owned==[offered,"cream"],"single debit, newest first, original last")
 	check(data.inventory==before_inventory and data.shop.purchase_sequence==before.state.shop.purchase_sequence,"unlimited unlock never grants finite tile inventory")
-	var bought:Dictionary=s.save_data()
-	check(not s.command(request).ok and s.save_data()==bought,"replayed purchase does not debit twice")
+	var bought:Dictionary=GameSession.flat_view(s.save_data())
+	check(not s.command(request).ok and GameSession.flat_view(s.save_data())==bought,"replayed purchase does not debit twice")
 	check(data.shop.offers[0].owned and data.shop.offers[0].style_id==offered,"purchased offer stays Owned until rotation")
 	check(s.command({"type":"floor_select","style_id":offered}).ok,"select an owned brush")
 	var selected:Dictionary=s.save_data()
@@ -57,9 +57,9 @@ func run()->void:
 	s.command({"type":"floor_select","style_id":"cream"});s.command({"type":"floor_paint","cells":[{"x":2,"y":6}]})
 	check(not s.snapshot().floor_styles.painted.has("2,6"),"free original brush restores original tile")
 	for kind in ["future","unknown","duplicate","bad_cell","unowned","brush"]:
-		var corrupt:Dictionary=s.save_data()
+		var corrupt:Dictionary=GameSession.flat_view(s.save_data())
 		match kind:
-			"future":corrupt.floor_styles_version=99
+			"future":corrupt.version=99
 			"unknown":corrupt.state.floor_styles.owned[0]="missing"
 			"duplicate":corrupt.state.floor_styles.owned.append("cream")
 			"bad_cell":corrupt.state.floor_styles.painted["-1,3"]=offered
@@ -67,10 +67,6 @@ func run()->void:
 			"brush":corrupt.state.editor.floor_brush="missing"
 		var guard:Dictionary=restored.save_data()
 		check(not restored.restore(corrupt) and restored.save_data()==guard,"invalid "+kind+" restore is atomic")
-	var legacy:Dictionary=first.duplicate(true);legacy.erase("floor_styles_version");legacy.state.erase("floor_styles")
-	check(restored.restore(JSON.parse_string(JSON.stringify(legacy))),"legacy restaurant migrates once")
-	check(restored.snapshot().floor_styles.owned==["cream"] and restored.snapshot().floor_styles.painted.is_empty(),"migration grants original only")
-	check(restored.save_data().random_state==legacy.random_state and JSON.parse_string(JSON.stringify(restored.snapshot().objects))==JSON.parse_string(JSON.stringify(Session.new_session(selected_seed,{"starting_coins":100000}).snapshot().objects)),"migration preserves service RNG and objects")
 	var poor=Session.new_session(selected_seed,{"starting_coins":0});poor.command({"type":"set_mode","mode":"edit"})
 	var unchanged:Dictionary=poor.save_data();check(not purchase(poor).ok and poor.save_data()==unchanged,"unaffordable style changes nothing")
 	# The ended-expedition lifecycle invokes a replay-safe stock refresh.

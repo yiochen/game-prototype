@@ -145,11 +145,11 @@ func texture(path: String) -> Texture2D:
 	if not textures.has(path): textures[path] = load("res://assets/expedition/" + path)
 	return textures[path]
 
-func set_route(seed_value: int, version: int = -1) -> void:
-	_use(_main_world(seed_value, version))
+func set_route(seed_value: int) -> void:
+	_use(_main_world(seed_value))
 
-func _main_world(seed_value: int, version: int) -> Dictionary:
-	var path := Book.route(seed_value, version)
+func _main_world(seed_value: int) -> Dictionary:
+	var path := Book.route(seed_value)
 	var key := "main:%d:%d" % [seed_value, int(path.version)]
 	if not worlds.has(key):
 		var w := _make_world(path.rows, seed_value, "main")
@@ -199,7 +199,7 @@ func _transition_seconds() -> float:
 ## Called each frame by the presentation with the current run snapshot.
 func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	run_state = run
-	var main := _main_world(int(run.seed), int(run.get("route_version", -1)))
+	var main := _main_world(int(run.seed))
 	main.collected = _index_set(run.get("collected", []))
 	var ride = run.get("passage")
 	var target := main

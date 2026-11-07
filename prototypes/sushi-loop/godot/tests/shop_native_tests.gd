@@ -35,12 +35,12 @@ func run() -> void:
 	app._editor_command({"type":"set_mode","mode":"edit"});app._editor_command({"type":"editor_layer","layer":"layout"});await frames()
 	check(app.editor_ui.shop.is_visible_in_tree(),"only the Edit tray has Shop")
 	app.session.command({"type":"set_camera","x":.7,"y":.25});app.editor_ui.scroll_by(25*app.editor_ui.unit);app.editor_ui.commit_scroll();app._refresh();await frames()
-	var original: Dictionary = app.session.save_data();var scroll: float = app.editor_ui.scroll_offsets.layout
+	var original: Dictionary = GameSession.flat_view(app.session.save_data());var scroll: float = app.editor_ui.scroll_offsets.layout
 	app.editor_ui.shop.grab_focus();await tap(app.editor_ui.shop);await frames()
 	var shop = app.shop_ui
 	check(shop.visible and not app.editor_ui.is_visible_in_tree(),"Shop hides the whole inventory tray")
-	check(app.session.save_data()==original,"opening Shop preserves camera, coins, tray and clocks")
-	check(app.advance_time(30).is_empty() and app.session.save_data()==original,"Shop keeps Edit paused")
+	check(GameSession.flat_view(app.session.save_data())==original,"opening Shop preserves camera, coins, tray and clocks")
+	check(app.advance_time(30).is_empty() and GameSession.flat_view(app.session.save_data())==original,"Shop keeps Edit paused")
 	check(shop.rows.values().filter(func(row):return row.offer.kind!="floor").size()==5 and shop.rows.values().filter(func(row):return row.offer.kind=="floor").size()<=1 and shop.rows.belt.stock.text=="Always available","single mixed catalog includes unlimited goods")
 	var physical: float = app.get_viewport_transform().get_scale().x
 	for id in shop.rows:
@@ -63,7 +63,7 @@ func run() -> void:
 	await tap(shop.bag_button);await frames()
 	check(not shop.visible and app.editor_ui.is_visible_in_tree(),"bag tap closes Shop and returns inventory")
 	check(shop.flights.is_empty() and app.session.snapshot().coins==1200,"closing during flight keeps payment once")
-	check(app.session.snapshot().camera==original.state.camera and app.session.save_data().state.editor==original.state.editor,"camera and full tray state restored exactly")
+	check(app.session.snapshot().camera==original.state.camera and GameSession.flat_view(app.session.save_data()).state.editor==original.state.editor,"camera and full tray state restored exactly")
 	check(app.editor_ui.scroll_offsets.layout==scroll,"horizontal inventory scroll restored")
 	check(app.get_viewport().gui_get_focus_owner()==app.editor_ui.shop,"Shop opener focus restored")
 	await capture("04-returned-inventory")
@@ -111,7 +111,7 @@ func run() -> void:
 	check(app.session.snapshot().coins==1200,"failed storage retains one pending debit in memory")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(obstacle));app._retry_restore();await frames()
 	check(not app.save_blocked and app.pending_shop_receipt.is_empty() and shop.flights.size()==1,"Retry saves the same purchase before animation")
-	check(app.store.load_session().state.shop.purchase_sequence==1,"retried purchase is durable")
+	check(GameSession.flat_view(app.store.load_session()).state.shop.purchase_sequence==1,"retried purchase is durable")
 	app.store = original_store
 	# Interrupted touches and animation never commit another purchase on resume.
 	shop.cancel_interactions();var paused: Dictionary = app.session.save_data();point = shop.rows.stool.buy.get_global_rect().get_center();await touch(point,true);app.notification(Node.NOTIFICATION_APPLICATION_PAUSED);await touch(point,false);app.notification(Node.NOTIFICATION_APPLICATION_RESUMED);await frames()

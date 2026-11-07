@@ -15,6 +15,8 @@ func check(value: bool, message: String) -> void:
 
 ## Equal after a JSON round trip (floats may differ in the last bit).
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	if a is Dictionary and b is Dictionary:
 		return a.size() == b.size() and a.keys().all(func(k): return b.has(k) and same(a[k], b[k]))
 	if a is Array and b is Array:
@@ -59,15 +61,10 @@ func run() -> void:
 	check(not path.currents.is_empty() and path.shields.size() >= 1 and path.portals.size() == 1, "the route carries current fields, a shield and one portal")
 	var finish: Dictionary = path.spans.filter(func(span): return span.kind == "finish")[0]
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "the encounter (finish) holds neither shields nor portals")
-	# Issue #23: the encounter arena now precedes the finish; route version 2 still ends at the finish chunk.
+	# Issue #23: the encounter arena precedes the finish.
 	var arena: Dictionary = path.spans.filter(func(span): return span.kind == "encounter")[0]
 	var arena_at: int = path.spans.find(arena)
 	check(float(path.encounter_edge) == float(arena.y1) + 1.0 and path.spans[arena_at + 1 + int(Book.definition().encounter.pursuit_chunks)] == finish, "the encounter edge is the arena's entry, the pursuit chunks before the finish")
-	var v2 := Book.route(SEED, 2)
-	var v2_finish: Dictionary = v2.spans.filter(func(span): return span.kind == "finish")[0]
-	check(float(v2.encounter_edge) == float(v2_finish.y1) + 1.0, "route version 2 keeps the finish chunk as its encounter edge")
-	var legacy := Book.route(SEED, 1)
-	check(legacy.currents.is_empty() and legacy.shields.is_empty() and legacy.portals.is_empty() and not legacy.spans.any(func(span): return span.kind in ["current", "portal", "boost"]), "route version 1 keeps the issue #21 plan without features")
 
 	# Currents: the push adds to steering and continues after letting go.
 	var cell: Vector2i = path.currents.keys()[0]
@@ -171,7 +168,7 @@ func run() -> void:
 	advance(s, 0.4)
 	var good: Dictionary = JSON.parse_string(JSON.stringify(s.save_data()))
 	for kind in ["unspent_portal", "duplicate_passage_gold", "long_shield", "unknown_version"]:
-		var corrupt: Dictionary = good.duplicate(true)
+		var corrupt: Dictionary = GameSession.flat_view(good.duplicate(true))
 		var data: Dictionary = corrupt.state.expedition.run
 		match kind:
 			"unspent_portal": data.portals_used = []
@@ -180,16 +177,6 @@ func run() -> void:
 			"unknown_version": data.route_version = 99
 		var target = Session.new_session(9)
 		check(not target.restore(corrupt), "corrupt %s save is rejected" % kind)
-	var old = Session.new_session(7)
-	old.command({"type": "expedition_start", "now": 1000.0, "seed": SEED})
-	var legacy_save: Dictionary = JSON.parse_string(JSON.stringify(old.save_data()))
-	var legacy_run: Dictionary = legacy_save.state.expedition.run
-	for field in ["route_version", "shield", "shields_taken", "portals_used", "passage", "passage_pickups"]: legacy_run.erase(field)
-	legacy_run.y = float(legacy.rows.size()) - 0.5
-	var migrated = Session.new()
-	check(migrated.restore(legacy_save), "a run saved before #22 restores")
-	var mr: Dictionary = migrated.snapshot().expedition.run
-	check(int(mr.route_version) == 1 and Book.run_route(mr).rows == legacy.rows and mr.passage == null and float(mr.shield) == 0.0, "it keeps flying its original issue #21 route")
 
 	print("Expedition features: %s checks, %s failures" % [count, failures.size()])
 	quit(0 if failures.is_empty() else 1)

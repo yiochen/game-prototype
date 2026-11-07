@@ -57,9 +57,9 @@ func run() -> void:
 	check(item("dock-cover").clip == "static","closed dock uses its registered covered pose")
 	var root_before: Vector2 = item("dock-cover").base
 	var bounds: Rect2 = app.world.art.registered_rect("dock-cover",root_before,app.world.cell)
-	var before: Dictionary = app.session.save_data()
+	var before: Dictionary = GameSession.flat_view(app.session.save_data())
 	app._open_landmark("Workshop")
-	check(app.clearance_toast.visible and not app.clearance_ui.visible and app.session.save_data() == before,"visible objects through cloth gaps remain gated")
+	check(app.clearance_toast.visible and not app.clearance_ui.visible and GameSession.flat_view(app.session.save_data()) == before,"visible objects through cloth gaps remain gated")
 	await capture("01-covered-layers")
 	app._open_clearance("trash-10-9");app._confirm_clearance("trash-10-9")
 	check(app.session.snapshot().expansion.dock_ready and not app.session.snapshot().expansion.dock_open and not app.world.dock_revealing(),"last surrounding clearance only makes the cover ready")
@@ -88,7 +88,7 @@ func run() -> void:
 	check(app.session.snapshot().expansion.dock_open and app.world.dock_revealing(),"only a confirmed Reveal starts the opening")
 	check(is_equal_approx(app.world.dock_reveal_started,app.world.time),"confirmed reveal starts without a second trash-removal delay")
 	check(app.session.snapshot().coins == 9180 and app.session.snapshot().camera == before.state.camera,"reveal adds no charge and never moves the camera")
-	var accepted: Dictionary = app.session.save_data()
+	var accepted: Dictionary = GameSession.flat_view(app.session.save_data())
 	check(not accepted.state.has("dock_reveal_started"),"animation is transient and never enters the save")
 	app._open_landmark("Submarine")
 	check(app.clearance_ui.visible and app.clearance_ui.busy and not app.clearance_ui.panel.visible,"full-scene input shield prevents destinations from interrupting the rolling cloth")
@@ -108,7 +108,7 @@ func run() -> void:
 	await capture("cover-fading")
 	app.world.time += .10;app._refresh();await frames()
 	check(not app.world.dock_revealing() and item("dock-cover").is_empty(),"cloth, posts and frame are removed after opening")
-	check(app.session.save_data() == accepted,"presentation in Edit changes no visits, clocks, coins, layout or RNG")
+	check(GameSession.flat_view(app.session.save_data()) == accepted,"presentation in Edit changes no visits, clocks, coins, layout or RNG")
 	await capture("03-cover-removed")
 	check(app.clearance_ui.visible and app.clearance_ui.unlock_popup and app.clearance_ui.title.text == "Exhibition Unlocked","removed cover presents the approved unlock popup")
 	await tap(app.clearance_ui.close_button)
@@ -138,7 +138,7 @@ func run() -> void:
 	app._open_landmark("Submarine");await tap(app.clearance_ui.clear_button);await frames()
 	check(app.save_blocked and app.session.snapshot().expansion.dock_open,"save failure retains the accepted reveal behind Retry")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(obstacle));app._retry_restore();await frames()
-	check(not app.save_blocked and app.store.load_session().state.expansion.revealed and app.session.snapshot().coins == 9180,"Retry saves exactly the accepted reveal without a new debit")
+	check(not app.save_blocked and GameSession.flat_view(app.store.load_session()).state.expansion.revealed and app.session.snapshot().coins == 9180,"Retry saves exactly the accepted reveal without a new debit")
 	app.store = store
 	var report := {"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"checks":checks,"failures":failures}
 	if not output.is_empty(): FileAccess.open(output.path_join("renderer.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")

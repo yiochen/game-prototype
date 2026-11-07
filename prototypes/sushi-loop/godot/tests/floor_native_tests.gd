@@ -35,7 +35,7 @@ func run()->void:
 	app=load("res://main.tscn").instantiate();app.show_editor_gallery=true;app.simulation_enabled=false;root.add_child(app);await frames()
 	app.show_editor_gallery=false;app.show_gallery=false;app.world.show_gallery=false
 	app.session=Session.new_session(20,{"starting_coins":1240})
-	var fixture:Dictionary=app.session.save_data()
+	var fixture:Dictionary=GameSession.flat_view(app.session.save_data())
 	fixture.state.floor_styles.owned=["jade","terracotta","checker","petal","linen","cream"];fixture.state.floor_styles.purchase_sequence=5;fixture.state.floor_styles.offer="blue-wave"
 	check(app.session.restore(fixture),"gallery collection fixture uses valid save boundary")
 	app._editor_command({"type":"set_mode","mode":"edit"});app._editor_command({"type":"editor_layer","layer":"floor"});app._refresh();app._layout();await frames()
@@ -46,7 +46,7 @@ func run()->void:
 	for c in app.editor_ui.cards:
 		check(not c.disabled and not c.get_meta("name_label").visible and not c.get_meta("stock").visible,"thumbnail only, no captions/stock")
 	await capture("01-palette")
-	var original:Dictionary=app.session.save_data();var p:Vector2=card("petal").get_global_rect().get_center()
+	var original:Dictionary=GameSession.flat_view(app.session.save_data());var p:Vector2=card("petal").get_global_rect().get_center()
 	await touch(p,true);check(app.floor_ui.instruction.visible,"palette down keeps selection instruction visible")
 	await drag(p-Vector2(140*app.editor_ui.unit,0));check(app.floor_ui.instruction.visible,"palette scroll keeps instruction visible");await capture("02-scrolling-instruction");await touch(p-Vector2(140*app.editor_ui.unit,0),false)
 	check(app.session.snapshot().floor_styles.painted==original.state.floor_styles.painted and app.session.snapshot().floor_styles.owned==original.state.floor_styles.owned and app.session.snapshot().camera==original.state.camera,"palette scroll cannot paint or pan")
@@ -107,7 +107,7 @@ func run()->void:
 	await tap(app.editor_ui.shop);await frames();check(not app.world.painting_floor() and app.session.snapshot().editor.floor_brush=="blue-wave","Shop suspends translucency while retaining brush")
 	await tap(app.shop_ui.bag_button);await frames();check(app.world.painting_floor(),"Shop return restores brush translucency")
 	app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST);await frames();check(not app._painting_floor() and app.session.snapshot().mode=="edit","system Back exits brush rather than leaving editor")
-	var saved:Dictionary=app.session.save_data();check(app.save_now(),"native painted save persists")
+	var saved:Dictionary=GameSession.flat_view(app.session.save_data());check(app.save_now(),"native painted save persists")
 	var replay=Session.new();check(replay.restore(saved) and replay.snapshot().floor_styles.painted==saved.state.floor_styles.painted,"native floor save restores without repainting/redebit")
 	for button in app.floor_ui.carets.values()+[app.floor_ui.exit_button]+app.editor_ui.cards:
 		var scale_value:float=app.get_viewport_transform().get_scale().x

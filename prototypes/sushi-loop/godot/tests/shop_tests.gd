@@ -48,19 +48,15 @@ func run() -> void:
 	check(buy(poor,"belt").reason=="not_enough_coins" and poor.save_data()==poor_before,"unaffordable purchase is atomic")
 	check(not s.command({"type":"shop_purchase","offer_id":"belt"}).ok,"missing replay token rejected")
 	check(not buy(s,"unknown").ok,"unknown offer rejected")
-	var legacy: Dictionary = start.duplicate(true);legacy.erase("shop_version");legacy.state.erase("shop")
-	var migrated = Session.new();check(migrated.restore(JSON.parse_string(JSON.stringify(legacy))),"0.9.0 save migrates")
-	var next: Dictionary = migrated.save_data();next.erase("shop_version");next.state.erase("shop")
-	check(JSON.parse_string(JSON.stringify(next))==JSON.parse_string(JSON.stringify(legacy)),"migration retains exact original restaurant/configuration/RNG")
-	check(migrated.restore(JSON.parse_string(JSON.stringify(migrated.save_data()))),"migration is repeatable without granting goods")
+	var migrated = Session.new_session(1)
 	for kind in ["stock","purchased","sequence","inventory","future"]:
-		var corrupt: Dictionary = sold.duplicate(true)
+		var corrupt: Dictionary = GameSession.flat_view(sold.duplicate(true))
 		match kind:
 			"stock": corrupt.state.shop.stock.barrel=1
 			"purchased": corrupt.state.shop.purchased["stool-plain"]=-1
 			"sequence": corrupt.state.shop.purchase_sequence=0
 			"inventory": corrupt.state.inventory.filter(func(e):return e.id=="stool-plain")[0].count+=1
-			"future": corrupt.shop_version=99
+			"future": corrupt.version=99
 		var guard: Dictionary = migrated.save_data()
 		check(not migrated.restore(corrupt) and migrated.save_data()==guard,"corrupt "+kind+" rejected without mutating session")
 	print("Shop rules: %s checks, %s failures" % [count,failures.size()]);quit(0 if failures.is_empty() else 1)

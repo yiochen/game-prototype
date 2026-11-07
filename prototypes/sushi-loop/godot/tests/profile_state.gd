@@ -50,6 +50,13 @@ func run() -> void:
 	report.cases["save_data"] = time(func(): live.save_data(), 300)
 	report.cases["save_serialize"] = time(func(): JSON.stringify(live.save_data(), "", true, true), 100)
 	report.cases["save_validate"] = time(func(): Game._valid_saved_session(JSON.parse_string(text)), 60)
+	# A complete save through the save store: serialize, write, verify, rotate.
+	var SaveStoreScript = load("res://scripts/save_store.gd")
+	var disk = SaveStoreScript.new("user://profile-%s" % Time.get_ticks_usec())
+	disk.load_session(Game._valid_saved_session)
+	disk.save_session(saved)
+	report.cases["store_save"] = time(func(): disk.save_session(live.save_data()), 40)
+	disk.clear_session()
 	report.cases["load_restore"] = time(func(): Session.new().restore(JSON.parse_string(text)), 60)
 	var id := chef_id(base)
 	report.cases["command_level_up"] = time(func(session):

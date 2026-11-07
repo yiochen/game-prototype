@@ -12,7 +12,7 @@ func _initialize() -> void:
 	_reuse_and_return()
 	_simultaneous_loop()
 	_endpoint_and_consumption()
-	_validation_and_upgrade()
+	_route_validation()
 	_authored_turns()
 	if failures.is_empty():
 		print("PASS: %s conveyor route checks" % checks)
@@ -29,6 +29,8 @@ func json(data: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(data, "", true, true))
 
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	return JSON.parse_string(JSON.stringify(a, "", true, true)) == JSON.parse_string(JSON.stringify(b, "", true, true))
 
 func fresh(objects: Array = []) -> GameSession:
@@ -64,7 +66,7 @@ func build_loop() -> GameSession:
 	return game
 
 func seed_food(game: GameSession) -> void:
-	var data := game.save_data()
+	var data := GameSession.flat_view(game.save_data())
 	var index := 1
 	for tile in data.state.objects:
 		if tile.kind == "belt":
@@ -110,7 +112,7 @@ func _reuse_and_return() -> void:
 	check(object(game,"c").dish == before.objects[2].dish and object(game,"old-input").dish == before.objects[3].dish, "Disconnected old segments retain their exact food")
 	var coins: int = game.snapshot().coins
 	check(game.command({"type":"editor_remove","id":"d"}).ok and stock(game) == 7 and game.snapshot().editor.belt_path == ["b"], "Return stores the latest tile and restores the preceding path cursor")
-	check(game.snapshot().coins == coins and game.save_data().state.discarded_dishes == 1 and object(game,"b").next_id == "", "Returning an occupied tile discards one dish without a sale or refund")
+	check(game.snapshot().coins == coins and GameSession.flat_view(game.save_data()).state.discarded_dishes == 1 and object(game,"b").next_id == "", "Returning an occupied tile discards one dish without a sale or refund")
 	reopen(game)
 
 func _simultaneous_loop() -> void:
@@ -119,7 +121,7 @@ func _simultaneous_loop() -> void:
 	game.command({"type":"set_mode","mode":"live"})
 	var before := game.snapshot()
 	var peer := reopen(game)
-	var reordered := json(game.save_data())
+	var reordered := GameSession.flat_view(json(game.save_data()))
 	reordered.state.objects.reverse()
 	var reverse := Session.new()
 	check(reverse.restore(reordered), "Object storage order is independent of route topology")
@@ -157,29 +159,18 @@ func _endpoint_and_consumption() -> void:
 	check(events.any(func(event): return event.type == "sale") and events.any(func(event): return event.type == "belt_moved" and event.from_id == "a"), "Eating a stopped endpoint plate releases the local blockage automatically")
 	check(same(peer.save_data(), game.save_data()), "A released queue resumes the same sales, visits, RNG and remaining food after reopening")
 
-func _validation_and_upgrade() -> void:
+func _route_validation() -> void:
 	var game := build_loop()
 	var good := game.save_data()
 	for change in ["dangling", "merge", "nonneighbor", "cursor", "future"]:
-		var bad := json(good)
+		var bad := GameSession.flat_view(json(good))
 		match change:
 			"dangling": bad.state.objects[0].next_id = "absent"
 			"merge": bad.state.objects[2].next_id = bad.state.objects[0].next_id
 			"nonneighbor": bad.state.objects[0].facing = "west"
 			"cursor": bad.state.editor.belt_path = ["absent"]
-			"future": bad.belt_route_version = 2
+			"future": bad.version = 99
 		check(not game.restore(bad) and same(good, game.save_data()), "Malformed route save (%s) is rejected atomically" % change)
-	var legacy := fresh([{ "id":"a","kind":"belt","x":1,"y":3,"facing":"east" }, { "id":"b","kind":"belt","x":2,"y":3,"facing":"east" }])
-	seed_food(legacy)
-	var old := legacy.save_data()
-	old.erase("belt_route_version")
-	old.state.editor.erase("belt_path")
-	for tile in old.state.objects:
-		tile.erase("next_id")
-		tile.erase("input_facing")
-	var migrated := Session.new()
-	check(migrated.restore(json(old)) and object(migrated,"a").next_id == "b" and object(migrated,"b").next_id == "" and stock(migrated) == stock(legacy), "Pre-route saves acquire their existing adjacency links without spending stock")
-	check(object(migrated,"a").dish == object(legacy,"a").dish and migrated.snapshot().coins == legacy.snapshot().coins, "Legacy route migration preserves food and economy")
 
 func _authored_turns() -> void:
 	var view := View.new()

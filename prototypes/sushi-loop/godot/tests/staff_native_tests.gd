@@ -56,7 +56,7 @@ func run() -> void:
 	await create_timer(1.5).timeout
 	check(ui.hero==null and ui.modal.visible and ui.subtitle.text.contains("Roster full"),"After the stamp exit the same popup shows remaining offers and red capacity")
 	check(ui.cards.values().all(func(card):return card.hire_button.disabled),"Full roster disables remaining Hire actions")
-	var before:Dictionary=app.session.save_data()
+	var before:Dictionary=GameSession.flat_view(app.session.save_data())
 	await tap(ui.refresh_button)
 	check(app.session.snapshot().staff.offers.size()==3 and app.session.snapshot().coins==910 and ui.refresh_button.disabled,"Explicit Refresh is free and starts its persisted real-time cooldown")
 	var deadline:float=app.session.snapshot().staff.refresh_deadline
@@ -104,9 +104,9 @@ func run() -> void:
 	var recruit:Dictionary=app._staff_command({"type":"hire_applicant","offer_id":app.session.snapshot().staff.offers[1].id})
 	id=str(recruit.chef_id);app._refresh();app._layout();app.editor_ui.reveal_card(app.editor_ui.cards[-1]);await frames()
 	start=app.editor_ui.cards[-1].get_global_rect().get_center()
-	before=app.session.save_data()
+	before=GameSession.flat_view(app.session.save_data())
 	await touch(start,true);await drag(start,start-Vector2(0,60)*app.editor_ui.unit);await touch(start-Vector2(0,60)*app.editor_ui.unit,false,true)
-	check(not stock(id).assigned and app.session.save_data().state.objects==before.state.objects and app.session.snapshot().coins==910,"Cancelled upward photo drag preserves staff, debit and arrangement")
+	check(not stock(id).assigned and GameSession.flat_view(app.session.save_data()).state.objects==before.state.objects and app.session.snapshot().coins==910,"Cancelled upward photo drag preserves staff, debit and arrangement")
 	app.armed_item.clear();app.editor_ui.active_item="";app._refresh();await frames()
 	start=app.editor_ui.cards[-1].get_global_rect().get_center()
 	var at:Vector2=app.world.cell_base(1,5)
