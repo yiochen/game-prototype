@@ -25,9 +25,9 @@ func run() -> void:
 	var ui = app.expedition_ui
 	app._open_landmark("Submarine"); ui.start()
 	await process_frame
-	# A hit lands, and the run ends at once (Pause → Return early).
+	# A hit lands, and the run ends at once (Pause → Give up).
 	ui._hit_flash = 1.0; ui._hull_pulse = 1.0; ui.view.damage(Vector2(5.5, 10.0), Vector2(5.5, 10.6))
-	ui.pause(); ui.return_early()
+	ui.pause(); ui.give_up()
 	await process_frame
 	check(ui.mode == "results", "the run ended on the hit")
 	for i in range(3): await process_frame

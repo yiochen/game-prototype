@@ -124,7 +124,7 @@ function App() {
 
   function dismiss() {
     const current = byId.get(viewRef.current.id), fixture = viewRef.current.fixture;
-    const destinations = { recipes: fixture.popupReturnStory, applicants: fixture.staffReturnStory, 'chef-detail': fixture.staffReturnStory, fire: 'staff-detail', expansion: fixture.popupReturnStory, 'early-return': 'expedition-pause' };
+    const destinations = { recipes: fixture.popupReturnStory, applicants: fixture.staffReturnStory, 'chef-detail': fixture.staffReturnStory, fire: 'staff-detail', expansion: fixture.popupReturnStory };
     if (destinations[current.overlay]) go(destinations[current.overlay]);
   }
 
@@ -156,7 +156,7 @@ function App() {
       case 'fire-confirm': fixture.removedChefs = [...fixture.removedChefs, fixture.selectedChef]; if (fixture.rosterPlacement?.chefId === fixture.selectedChef) fixture.rosterPlacement = null; navigate('staff-roster', 'Confirmed dismissal shown. Reset restores the example.'); break;
       case 'clear-confirm': fixture.demoPatchCleared = true; go(['restaurant-edit', 'restaurant-floor', 'restaurant-selected'].includes(fixture.popupReturnStory) ? fixture.popupReturnStory : 'restaurant-expanded', { fixture, panel: 1 }); break;
       case 'resume': navigate('expedition-resume'); break;
-      case 'confirm-return': navigate('results-early'); break;
+      case 'give-up': navigate('results-gave-up'); break;
       case 'place':
         if (value === 'belt' && fixture.beltCount === 0) { change(fixture, 'No belt tiles left'); break; }
         if (['omar', 'lena', 'ama', 'mateo', 'noor'].includes(value)) { fixture.selectedChef = value; fixture.placedChef = value; fixture.unassignedChefs = fixture.unassignedChefs.filter(id => id !== value); fixture.chefUnassigned = false; fixture.chefLevel = fixture.chefLevels[value] || chefFor(fixture).level; fixture.currentRecipe = null; fixture.selectedRecipe = null; navigate('recipe-idle'); }

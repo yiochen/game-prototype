@@ -68,7 +68,7 @@ func run() -> void:
 	await capture("03-chase")
 
 	# A second dive where the eel escapes: the gold count comes back.
-	ui.pause(); ui.return_early(); ui.finish_results()
+	ui.pause(); ui.give_up(); ui.finish_results()
 	app.session._state.expedition.charge = {"ready": true, "recharge_started": null}
 	await dive_to_arena()
 	guard = 0

@@ -489,23 +489,13 @@ export const stories = [
   },
   {
     id: 'expedition-pause', group: 'expedition', title: 'Pause card', scene: 'expedition', variant: 'pause', overlay: 'pause',
-    description: 'A minimal centered Paused card overlays the frozen saved expedition. Resume and Return early sit side by side without an eyebrow or explanatory paragraph.',
+    description: 'A minimal centered Paused card overlays the frozen saved expedition. Resume and Give up sit side by side without an eyebrow or explanatory paragraph.',
     elements: [
-      element('Paused card', 'Show only the Paused title and side-by-side Resume and Return early actions. Omit Expedition preserved and the explanatory sentence. Outside taps leave the card open and world frozen; reopening an unfinished expedition restores this same card.', popupEntrance),
+      element('Paused card', 'Show only the Paused title and side-by-side Resume and Give up actions. Omit Expedition preserved and the explanatory sentence. Outside taps leave the card open and world frozen; reopening an unfinished expedition restores this same card.', popupEntrance),
       element('Resume', 'Close the card and start a visible countdown; do not resume immediately or consume the menu tap as steering.', 'Card fades out for 160 ms; countdown appears in place with an opacity transition.'),
-      element('Return early', 'Open a concise confirmation stating the retained-reward and no-completion-bonus outcome in one sentence. Intended unfinished catches still earn no recipe.', 'Confirmation content replaces the card with a 180 ms crossfade.'),
+      element('Give up', 'End the mock journey at once and open Gave up results, with no confirmation. Intended gameplay retains earned salvage, gives no completion bonus or unfinished-catch recipe, and begins recharge.', 'Scene transitions over 220 ms; no reward subtraction or lost-cargo animation.'),
     ],
-    notes: ['In intended gameplay, restaurant service proceeds independently while expedition is paused. The prototype holds a static visual fixture.', motionNote],
-  },
-  {
-    id: 'expedition-return', group: 'expedition', title: 'Return early confirmation', scene: 'expedition', variant: 'return', overlay: 'early-return',
-    description: 'A short confirmation uses one sentence about keeping earned rewards without a completion bonus, followed by Stay paused and Return early.',
-    elements: [
-      element('Stay paused', 'Return to Paused without resuming the world.', 'Confirmation exits and pause card returns over 160 ms; restore focus to Return early.'),
-      element('Return early', 'End the mock journey and open Returned early results. Intended gameplay retains earned salvage and begins recharge.', 'Scene transitions over 220 ms; no reward subtraction or lost-cargo animation.'),
-      element('Retained-reward explanation', 'Use one short outcome sentence, without separate paragraphs about unfinished catches or recharge. Intended rules still retain earned rewards, omit completion bonus and unfinished-catch recipes, and begin recharge. Outside taps keep confirmation open.', 'Static readable text; no timed dismissal.'),
-    ],
-    notes: [motionNote, mockNote],
+    notes: ['In intended gameplay, the restaurant does not simulate during an expedition; its income for that time is estimated and credited on return. The prototype holds a static visual fixture.', motionNote],
   },
   {
     id: 'expedition-resume', group: 'expedition', title: 'Resume countdown', scene: 'expedition', variant: 'resume',
@@ -556,10 +546,10 @@ export const stories = [
     notes: ['Results omit a recipe recap. The neutral completion background is a wireframe placeholder for future art.', motionNote, mockNote],
   },
   {
-    id: 'results-early', group: 'rewards', title: 'Results · returned early', scene: 'results', variant: 'early',
-    description: 'Returned early has a distinct background and keeps already earned salvage in the same receipt structure.',
+    id: 'results-gave-up', group: 'rewards', title: 'Results · gave up', scene: 'results', variant: 'gave-up',
+    description: 'Gave up has a distinct background and keeps already earned salvage in the same receipt structure.',
     elements: [
-      element('Outcome title', 'Clearly identify voluntary early return.', 'Title fades in with the receipt over 160 ms; no failure alarm.'),
+      element('Outcome title', 'Clearly identify that the player gave up.', 'Title fades in with the receipt over 160 ms; no failure alarm.'),
       element('Completion bonus', 'Show zero with a short explanation that the route was unfinished. Do not subtract already earned salvage.', 'Static zero and explanatory text; no loss animation.'),
       element('Restaurant', 'Return to recentered restaurant and begin the intended recharge cycle.', '70 ms press, 220 ms crossfade.'),
     ],
@@ -728,9 +718,9 @@ export const stories = [
   },
   {
     id: 'component-receipt', group: 'components', title: 'Salvage result receipt', scene: 'component', variant: 'receipt', component: 'receipt',
-    description: 'The same salvage receipt renderer used in complete, early-return and hull-depleted result screens is shown here. Shared receipt changes update every outcome while their backgrounds and titles remain contextual.',
+    description: 'The same salvage receipt renderer used in complete, gave-up and hull-depleted result screens is shown here. Shared receipt changes update every outcome while their backgrounds and titles remain contextual.',
     elements: [
-      element('Pickup and bonus rows', 'Show this run’s pickups, repeat bonus only when earned, and completion bonus. Early return/hull depletion show zero completion bonus and an explanation.', 'Rows appear together with a 160 ms fade; avoid mandatory staggered receipt playback.'),
+      element('Pickup and bonus rows', 'Show this run’s pickups, repeat bonus only when earned, and completion bonus. Giving up/hull depletion show zero completion bonus and an explanation.', 'Rows appear together with a 160 ms fade; avoid mandatory staggered receipt playback.'),
       element('Total earned', 'Show the final run total, distinct from banked salvage or an earning rate. No recipe recap belongs inside this receipt.', 'Amount is final immediately; optional 180 ms emphasis does not gate Restaurant continuation.'),
       element('Outcome explanation', 'Clarify a zero completion bonus without suggesting lost salvage, repair charges or permanent hull damage.', 'Static readable text; no subtraction animation or failure flashing.'),
     ],

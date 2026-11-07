@@ -57,11 +57,7 @@ function Expansion({ story }) {
 }
 
 function Pause({ story }) {
-  return <Dialog story={story} title="Paused" className="pause-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="resume" className="primary-action">Resume</Target><Navigate story="expedition-return" className="quiet-action">Return early…</Navigate></div>}/>;
-}
-
-function EarlyReturn({ story }) {
-  return <Dialog story={story} title="Return early?" className="confirmation-dialog" showClose={false} footer={<div className="dialog-action-pair"><Navigate story="expedition-pause">Stay paused</Navigate><Target action="confirm-return" className="danger-action">Return early</Target></div>}><div className="dialog-scroll"><p>Keep your haul. No completion bonus.</p></div></Dialog>;
+  return <Dialog story={story} title="Paused" className="pause-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="resume" className="primary-action">Resume</Target><Target action="give-up" className="quiet-action">Give up</Target></div>}/>;
 }
 
 function RecipeAward({ story }) {
@@ -69,6 +65,6 @@ function RecipeAward({ story }) {
 }
 
 export function Overlay({ story, state }) {
-  const Component = { recipes: Recipes, applicants: Applicants, 'chef-detail': ChefDetail, fire: Fire, expansion: Expansion, pause: Pause, 'early-return': EarlyReturn, 'recipe-award': RecipeAward }[story.overlay];
+  const Component = { recipes: Recipes, applicants: Applicants, 'chef-detail': ChefDetail, fire: Fire, expansion: Expansion, pause: Pause, 'recipe-award': RecipeAward }[story.overlay];
   return Component ? <Component story={story} state={state}/> : null;
 }

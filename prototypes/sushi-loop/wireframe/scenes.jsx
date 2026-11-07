@@ -102,10 +102,10 @@ function Catch({ state }) {
   return <div className="phone-scene ocean-scene catch-scene"><SeaDecor /><div className="catch-focus"><span className="catch-rings" /><div className="sea-creature"><div className="creature-body"><span>•</span><i /></div></div><h2>Catch secured</h2><p>{repeat ? 'A familiar creature' : 'First discovery'}</p>{repeat && <span className="repeat-reward"><Money kind="salvage" amount={18} /><small>Repeat-catch bonus</small></span>}</div></div>;
 }
 function Results({ state }) {
-  const early = state._variant === 'early';
+  const gaveUp = state._variant === 'gave-up';
   const hull = state._variant === 'hull';
-  const completed = !early && !hull;
-  return <div className={`phone-scene results-scene ${completed ? 'complete-result' : early ? 'early-result' : 'hull-result'}`}><div className="result-background" aria-hidden="true"><Icon name="submarine" /><span>{completed ? '✦' : early ? '⌁' : '⚒'}</span></div><div className="result-content"><span className="outcome-icon"><Icon name={completed ? 'check' : early ? 'arrow-left' : 'submarine'} /></span><h2>{completed ? 'Expedition complete' : early ? 'Returned early' : 'Hull depleted'}</h2><p>{completed ? 'Your route is complete.' : early ? 'Collected salvage stays with you.' : 'The expedition ended. Collected salvage is safe.'}</p><SalvageReceipt completed={completed} repeatCatch={state.repeatCatch === true} /><Nav className="primary-action"><Icon name="arrow-left" /><span>Restaurant</span></Nav><small className="recharge-note">Submarine recharge begins after the run.</small></div></div>;
+  const completed = !gaveUp && !hull;
+  return <div className={`phone-scene results-scene ${completed ? 'complete-result' : gaveUp ? 'gave-up-result' : 'hull-result'}`}><div className="result-background" aria-hidden="true"><Icon name="submarine" /><span>{completed ? '✦' : gaveUp ? '⌁' : '⚒'}</span></div><div className="result-content"><span className="outcome-icon"><Icon name={completed ? 'check' : gaveUp ? 'arrow-left' : 'submarine'} /></span><h2>{completed ? 'Expedition complete' : gaveUp ? 'Gave up' : 'Hull depleted'}</h2><p>{completed ? 'Your route is complete.' : gaveUp ? 'Collected salvage stays with you.' : 'The expedition ended. Collected salvage is safe.'}</p><SalvageReceipt completed={completed} repeatCatch={state.repeatCatch === true} /><Nav className="primary-action"><Icon name="arrow-left" /><span>Restaurant</span></Nav><small className="recharge-note">Submarine recharge begins after the run.</small></div></div>;
 }
 
 export function Scene({ story, state = {} }) {

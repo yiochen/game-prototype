@@ -28,7 +28,7 @@ extends RefCounted
 ## swims forward with the ship, weaving sideways, and its hit area is a fixed
 ## ellipse whatever its animation does. A hit records the hook and enters a
 ## held handoff: travel and the creature hold still until the pursuit (#24)
-## lands, and Pause → Return early leaves. Window expiry without a hook lets
+## lands, and Pause → Give up leaves. Window expiry without a hook lets
 ## the creature escape, awards nothing and the route finishes as usual.
 ##
 ## Issue #24: route version 4 moves the arena a few ordinary chunks before the
@@ -54,7 +54,7 @@ const Route = preload("res://scripts/expedition/route.gd")
 const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const Discharge = preload("res://scripts/expedition/discharge.gd")
-const OUTCOMES := ["complete", "returned_early", "hull_depleted"]
+const OUTCOMES := ["complete", "gave_up", "hull_depleted"]
 const MAX_INTEGER := 9007199254740991
 static var _content: Dictionary = {}
 static var _library: Array = []
@@ -371,11 +371,11 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			run.paused = false
 			return {"ok": true}
-		"expedition_return_early":
+		"expedition_give_up":
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			if not run.paused: return {"ok": false, "reason": "pause_required"}
 			if not _finite(request.get("now")): return {"ok": false, "reason": "invalid_time"}
-			return {"ok": true, "result": _end(config, state, "returned_early", float(request.now))}
+			return {"ok": true, "result": _end(config, state, "gave_up", float(request.now))}
 		"expedition_acknowledge":
 			if data.result == null: return {"ok": true, "changed": false}
 			if request.get("id") != null and int(request.id) != int(data.result.id): return {"ok": false, "reason": "stale_result"}

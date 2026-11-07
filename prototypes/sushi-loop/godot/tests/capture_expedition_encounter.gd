@@ -92,7 +92,7 @@ func run() -> void:
 	await capture("07-hooked-paused")
 
 	# A second dive: never hook; the creature turns restless, then escapes.
-	ui.return_early(); ui.finish_results()
+	ui.give_up(); ui.finish_results()
 	app.session._state.expedition.charge = {"ready": true, "recharge_started": null}
 	app._open_landmark("Submarine"); ui.start()
 	to_encounter()

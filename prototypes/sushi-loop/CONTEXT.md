@@ -194,7 +194,7 @@ _Avoid_: Dock tap, resuming a paused expedition
 
 **Sushi-bar entrance**:
 The warm airlock doorway on the expedition preparation screen through which the player returns to the restaurant before departure.
-_Avoid_: Back-arrow button, travel portal, restaurant customer entrance, early return
+_Avoid_: Back-arrow button, travel portal, restaurant customer entrance, giving up
 
 **Coins**:
 The restaurant's currency, earned from dish sales and spent on restaurant development.
@@ -304,10 +304,14 @@ _Avoid_: Movement lane, submarine-tracking aim
 The persistent restaurant phase during which the submarine recharges for its next expedition.
 _Avoid_: Restaurant reset, real-world nighttime restriction
 
-**Early return**:
-A deliberate end to an unfinished expedition that retains earned rewards without awarding the completion bonus.
-_Avoid_: Paused expedition, successful journey finish
+**Giving up**:
+Ending an unfinished expedition from its Pause card. It ends the journey immediately like any other ended expedition: earned rewards are retained, the completion bonus is not awarded and recharge begins. There is no separate early-return outcome.
+_Avoid_: Early return, paused expedition, successful journey finish
+
+**Time-away income**:
+Estimated restaurant coins for an interval in which the restaurant did not simulate: from expedition Start until return, and while the app was closed. Credited once when the restaurant resumes.
+_Avoid_: Pending expedition-time sales, restaurant running during a dive
 
 **Paused expedition**:
 An unfinished submarine journey whose progress is stopped and state retained for later resumption. It does not begin night recharge.
-_Avoid_: Early return, new departure
+_Avoid_: Giving up, new departure

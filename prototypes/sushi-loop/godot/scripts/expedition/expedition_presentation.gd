@@ -1,6 +1,6 @@
 extends Control
 ## Expedition screen (issue #21): underwater preparation, travel HUD, Pause,
-## early-return confirmation, resume countdown and the results receipt.
+## Give up, resume countdown and the results receipt.
 ## Preparation is on-screen text while the ship cruises the route's launch
 ## lead-in (easing into a hover at its end), with a Sushi Bar exit; pressing
 ## anywhere else starts the dive (and steers when it lands on an arrow).
@@ -37,14 +37,14 @@ signal save_requested
 signal departed
 
 const INK := Color("633b21")
-const TITLES := {"complete": "Expedition complete", "returned_early": "Returned early", "hull_depleted": "Hull depleted"}
-const SCRIMS := {"complete": Color(.07, .32, .42, .55), "returned_early": Color(.10, .22, .36, .6), "hull_depleted": Color(.22, .12, .20, .6)}
+const TITLES := {"complete": "Expedition complete", "gave_up": "Gave up", "hull_depleted": "Hull depleted"}
+const SCRIMS := {"complete": Color(.07, .32, .42, .55), "gave_up": Color(.10, .22, .36, .6), "hull_depleted": Color(.22, .12, .20, .6)}
 
 var commander: Callable
 var state_provider: Callable
 var safe_top := 0.0
 var mode := "hidden"          # hidden | prep | travel | results
-var overlay := "none"         # none | paused | confirm | countdown | outro | award
+var overlay := "none"         # none | paused | countdown | outro | award
 var countdown := 0.0
 var snapshot: Dictionary = {}
 var result: Dictionary = {}
@@ -148,9 +148,8 @@ func _ready() -> void:
 	for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]: pause_button.add_theme_color_override(key, INK)
 	pause_button.pressed.connect(pause)
 	scrim = ColorRect.new(); scrim.mouse_filter = Control.MOUSE_FILTER_STOP; scrim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); add_child(scrim)
-	# Pause: title and side-by-side Resume / Return early only.
-	_card("paused", "Paused", "", [["Return early", false, func(): _show_overlay("confirm")], ["Resume", true, resume]])
-	_card("confirm", "Return early?", "Keep your haul. No completion bonus.", [["Stay paused", false, func(): _show_overlay("paused")], ["Return", true, return_early]])
+	# Pause: title and side-by-side Resume / Give up only. Give up ends the run at once.
+	_card("paused", "Paused", "", [["Give up", false, give_up], ["Resume", true, resume]])
 	prep_title = _label(self, 950); prep_title.text = "Submarine ready"
 	prep_text = _label(self, 750); prep_text.text = "Hold the left or right arrow to steer. Let go to run straight."
 	prep_hint = _label(self, 900); prep_hint.text = "Touch anywhere to dive"
@@ -422,7 +421,7 @@ func _award_continue() -> void:
 	view.end_outro(); _outro = {}
 	show_results(result)
 
-## App backgrounded or closed: freeze behind Paused (not an early return).
+## App backgrounded or closed: freeze behind Paused (not giving up).
 func suspend() -> void:
 	if mode == "travel" and overlay in ["none", "countdown"]:
 		_command({"type": "expedition_pause"}); _show_overlay("paused")
@@ -437,8 +436,8 @@ func resume() -> void:
 func _finish_countdown() -> void:
 	_command({"type": "expedition_resume"}); view.resume_controls(); _show_overlay("none")
 
-func return_early() -> void:
-	var outcome := _command({"type": "expedition_return_early", "now": _now()})
+func give_up() -> void:
+	var outcome := _command({"type": "expedition_give_up", "now": _now()})
 	if outcome.get("ok", false): show_results(outcome.result); save_requested.emit()
 
 func show_results(value: Dictionary) -> void:
@@ -448,7 +447,7 @@ func show_results(value: Dictionary) -> void:
 	receipt.pickups[0].text = "Pickups"; receipt.pickups[1].text = str(int(value.pickups))
 	receipt.bonus[0].text = "Completion bonus"; receipt.bonus[1].text = ("+%d" % int(value.bonus)) if int(value.bonus) > 0 else "0"
 	receipt.total[0].text = "Total salvage"; receipt.total[1].text = str(int(value.total))
-	receipt.note[0].text = "" if outcome == "complete" else ("Finish the route to earn the completion bonus." if outcome == "returned_early" else "The hull gave out before the finish.")
+	receipt.note[0].text = "" if outcome == "complete" else ("Finish the route to earn the completion bonus." if outcome == "gave_up" else "The hull gave out before the finish.")
 	var creature = value.get("creature")
 	if creature is Dictionary and creature.get("outcome") == "escaped": receipt.note[0].text = "The hull gave out and the %s got away." % str(Book.definition().encounter.get("creature_name", "creature"))
 	scrim.color = SCRIMS[outcome]
@@ -462,7 +461,6 @@ func finish_results() -> void:
 func _show_overlay(value: String) -> void:
 	overlay = value; _refresh_visibility(); layout(area)
 	if value == "paused": cards.paused.buttons[1].grab_focus()
-	elif value == "confirm": cards.confirm.buttons[0].grab_focus()
 
 ## Android Back: Pause while travelling; step back through cards otherwise.
 func back() -> bool:
@@ -473,7 +471,6 @@ func back() -> bool:
 		"travel":
 			if overlay == "none": pause()
 			elif overlay == "award": _award_continue()
-			elif overlay == "confirm": _show_overlay("paused")
 	return true
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -715,14 +712,13 @@ func _refresh_visibility() -> void:
 	cards.award.panel.visible = travelling and overlay == "award"
 	pause_button.disabled = overlay != "none"
 	view.visible = mode in ["prep", "travel", "results"]
-	scrim.visible = mode == "results" or overlay in ["paused", "confirm", "award"] or mode == "prep"
+	scrim.visible = mode == "results" or overlay in ["paused", "award"] or mode == "prep"
 	# Preparation's light scrim lets the press reach the playfield.
 	scrim.mouse_filter = Control.MOUSE_FILTER_IGNORE if mode == "prep" else Control.MOUSE_FILTER_STOP
 	if mode == "prep": scrim.color = Color(.03, .12, .22, .3)
 	elif mode == "travel": scrim.color = Color(.03, .12, .22, .45)
 	damage_flash.visible = travelling
 	cards.paused.panel.visible = travelling and overlay == "paused"
-	cards.confirm.panel.visible = travelling and overlay == "confirm"
 	for node in [prep_title, prep_text, prep_hint, exit_button]: node.visible = mode == "prep"
 	if not travelling:
 		ride_note.visible = false; toast.visible = false; harpoon_button.visible = false; resistance_pill.visible = false
@@ -794,7 +790,6 @@ func layout(value: Rect2) -> void:
 		button.position = Vector2(area.position.x + 10 * unit, area.position.y + area.size.y * .36 + i * 48 * unit)
 	_layout_award(unit, physical)
 	_layout_card(cards.paused, unit, physical, 150)
-	_layout_card(cards.confirm, unit, physical, 186)
 	_layout_prep(unit, physical, top)
 	_layout_card(cards.results, unit, physical, 330)
 	_layout_receipt(unit)

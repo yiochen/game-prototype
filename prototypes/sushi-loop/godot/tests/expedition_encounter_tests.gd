@@ -164,8 +164,8 @@ func run() -> void:
 	restored = roundtrip(s)
 	check(same(run_of(restored).encounter, run_of(s).encounter), "the pursuit is saveable")
 	restored.command({"type": "expedition_pause"})
-	var returned: Dictionary = restored.command({"type": "expedition_return_early", "now": 3000.0})
-	check(returned.ok and returned.result.outcome == "returned_early" and not returned.result.has("creature"), "Return early leaves the pursuit without a recipe")
+	var returned: Dictionary = restored.command({"type": "expedition_give_up", "now": 3000.0})
+	check(returned.ok and returned.result.outcome == "gave_up" and not returned.result.has("creature"), "Give up leaves the pursuit without a recipe")
 
 	# Expiry: no hook in time -> the creature escapes; the route then finishes as usual.
 	s = started(); at_encounter(s)

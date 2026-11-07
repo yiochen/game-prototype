@@ -1,6 +1,6 @@
 extends SceneTree
 ## Native issue #21 evidence: the real game flow from the dock through travel,
-## Pause, early return, results and the charging dock message. Run through
+## Pause, Give up, results and the charging dock message. Run through
 ## tools/test_native.py --visible with an output folder; headless runs only
 ## exercise the flow.
 const Session = preload("res://scripts/session.gd")
@@ -98,14 +98,12 @@ func run() -> void:
 	await capture("04-low-hull")
 	ui.pause()
 	await capture("05-paused")
-	ui._show_overlay("confirm")
-	await capture("06-return-early-confirm")
-	ui._show_overlay("paused"); ui.resume()
+	ui.resume()
 	await capture("07-resume-countdown")
 	ui._finish_countdown()
-	ui.pause(); ui.return_early()
-	check(ui.mode == "results" and ui.result.outcome == "returned_early", "confirmed early return shows Returned early")
-	await capture("08-results-returned-early")
+	ui.pause(); ui.give_up()
+	check(ui.mode == "results" and ui.result.outcome == "gave_up", "Give up ends the run at once and shows Gave up")
+	await capture("08-results-gave-up")
 	ui.finish_results()
 	check(not ui.visible and app.session.snapshot().camera.x == 0.0, "Restaurant returns to the recentred bar")
 	await capture("09-back-at-restaurant")

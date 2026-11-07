@@ -246,13 +246,13 @@ func run() -> void:
 		session.command({"type": "expedition_advance", "elapsed": 1.0, "now": 100010.0})
 	check(reopened.snapshot().expedition.run == exp_state(s).run, "resumed travel continues identically after reopening")
 
-	# Early return needs the pause card, keeps the haul and gives no bonus.
-	check(not s.command({"type": "expedition_return_early", "now": 100020.0}).ok, "early return is only offered while paused")
+	# Give up needs the pause card, keeps the haul and gives no bonus.
+	check(not s.command({"type": "expedition_give_up", "now": 100020.0}).ok, "Give up is only offered while paused")
 	s.command({"type": "expedition_pause"})
 	var haul: int = exp_state(s).run.salvage
-	var early: Dictionary = s.command({"type": "expedition_return_early", "now": 100020.0})
-	check(early.ok and early.result.outcome == "returned_early" and early.result.bonus == 0 and early.result.pickups == haul, "Return early keeps the haul without a completion bonus")
-	check(not Book.charge(s._state, 100020.0 + 100.0).ready and Book.charge(s._state, 100020.0 + 150.0).ready, "early return starts the night recharge")
+	var gave_up: Dictionary = s.command({"type": "expedition_give_up", "now": 100020.0})
+	check(gave_up.ok and gave_up.result.outcome == "gave_up" and gave_up.result.bonus == 0 and gave_up.result.pickups == haul, "Give up keeps the haul without a completion bonus")
+	check(not Book.charge(s._state, 100020.0 + 100.0).ready and Book.charge(s._state, 100020.0 + 150.0).ready, "Give up starts the night recharge")
 
 	# Corrupt or future saves are rejected without touching the session.
 	s.command({"type": "expedition_acknowledge"})

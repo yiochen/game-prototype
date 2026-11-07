@@ -176,7 +176,7 @@ test('floating Shop and scene landmarks navigate between editing, Workshop and r
   await expect.poll(() => floorPosition(page)).toBeCloseTo(1, 1);
 });
 
-test('expedition navigation preserves a deliberate start, pause/resume and confirmed early return', async ({ page }) => {
+test('expedition navigation preserves a deliberate start, pause/resume and giving up', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'restaurant-expanded');
   await panTo(page, 1);
@@ -192,14 +192,10 @@ test('expedition navigation preserves a deliberate start, pause/resume and confi
   await page.getByRole('button', { name: /Preview next event/ }).click();
   await at(page, 'expedition-travel');
   await stage(page).getByRole('button', { name: 'Pause', exact: true }).click();
-  await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).click();
-  await at(page, 'expedition-return');
-  await dialog(page).getByRole('button', { name: 'Stay paused', exact: true }).click();
   await at(page, 'expedition-pause');
-  await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).click();
-  await dialog(page).getByRole('button', { name: 'Return early', exact: true }).click();
-  await at(page, 'results-early');
-  await expect(stage(page).getByRole('heading', { name: 'Returned early', exact: true })).toBeVisible();
+  await dialog(page).getByRole('button', { name: 'Give up', exact: true }).click();
+  await at(page, 'results-gave-up');
+  await expect(stage(page).getByRole('heading', { name: 'Gave up', exact: true })).toBeVisible();
   await expect(stage(page).getByText('No completion bonus because the route was not finished.', { exact: true })).toBeVisible();
   await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
   await at(page, 'restaurant-live');
@@ -851,19 +847,17 @@ test('inventory edge carets browse objects without closing the editor or resetti
   await expect(stage(page).getByRole('button', { name: 'Live', exact: true })).toBeVisible();
 });
 
-test('pause, early-return, dismissal and recipe-award overlays keep only their essential copy', async ({ page }) => {
+test('pause, give-up, dismissal and recipe-award overlays keep only their essential copy', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 320, height: 740 });
   await open(page, 'expedition-pause');
   await expect(dialog(page).getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
   await expect(dialog(page).locator('.dialog-eyebrow, .dialog-scroll')).toHaveCount(0);
   const resume = await dialog(page).getByRole('button', { name: 'Resume', exact: true }).boundingBox();
-  const early = await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).boundingBox();
-  expect(resume.y).toBeCloseTo(early.y, 1);
-  expect(early.x).toBeGreaterThan(resume.x + resume.width);
-  for (const button of [resume, early]) { expect(button.width).toBeGreaterThanOrEqual(44); expect(button.height).toBeGreaterThanOrEqual(44); }
-  await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).click();
-  await expect(dialog(page).locator('.dialog-scroll')).toHaveText('Keep your haul. No completion bonus.');
+  const giveUp = await dialog(page).getByRole('button', { name: 'Give up', exact: true }).boundingBox();
+  expect(resume.y).toBeCloseTo(giveUp.y, 1);
+  expect(giveUp.x).toBeGreaterThan(resume.x + resume.width);
+  for (const button of [resume, giveUp]) { expect(button.width).toBeGreaterThanOrEqual(44); expect(button.height).toBeGreaterThanOrEqual(44); }
   await open(page, 'expedition-resume');
   await expect(stage(page).getByRole('status')).toHaveText(/3\s*Returning to ship\.\.\./);
   await expect(stage(page).getByText(/Resuming expedition|Scene remains frozen|Frozen scene|Paused · no steering/)).toHaveCount(0);

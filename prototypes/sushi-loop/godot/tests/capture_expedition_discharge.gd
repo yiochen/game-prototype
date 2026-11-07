@@ -122,7 +122,7 @@ func run() -> void:
 		await into_eel_chunk()
 		await wait_for(func(): return strike() != null and float(strike().t) >= flash_from + 0.01)
 		await capture("08-windup-%dx%d" % [size.x, size.y])
-		ui.pause(); ui.return_early(); await process_frame
+		ui.pause(); ui.give_up(); await process_frame
 	finish()
 
 func finish() -> void:
