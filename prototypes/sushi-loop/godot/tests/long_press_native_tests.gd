@@ -49,7 +49,7 @@ func run() -> void:
 	expect(app.session.snapshot().editor.selected_id == "seat" and ui.context_bubble.visible and ui.rotate.visible and ui.remove.visible, "A short tap opens the stool Rotate/Return menu")
 	point = pickup_point(id)
 	expect(point.x >= 0, "The selected stool menu leaves guest pixels exposed for a hold")
-	var before: Dictionary = app.session.save_data()
+	var before: Dictionary = GameSession.flat_view(app.session.save_data())
 	await touch(point, true)
 	app._advance_long_press(0.399)
 	expect(not app.gesture_lifted and app.world.editor_preview.is_empty(), "A subthreshold stationary press does not pick up the stool or guest")
@@ -58,7 +58,7 @@ func run() -> void:
 	await frames()
 	expect(app.gesture_lifted and app.gesture_object == id and app.session.snapshot().editor.layer == "people", "A 400ms guest hold picks up the guest directly from Layout")
 	expect(not ui.context_bubble.visible and not ui.rotate.visible and not ui.remove.visible, "Object actions hide during guest pickup")
-	expect(same(before.state.customers, app.session.save_data().state.customers) and same(before.state.objects, app.session.save_data().state.objects) and before.random_state == app.session.save_data().random_state, "Pickup has no position, visit, plate, clock or RNG side effects")
+	expect(same(before.state.customers, GameSession.flat_view(app.session.save_data()).state.customers) and same(before.state.objects, GameSession.flat_view(app.session.save_data()).state.objects) and before.random_state == app.session.save_data().random_state, "Pickup has no position, visit, plate, clock or RNG side effects")
 	expect(not app.world.sprite_hits().any(func(hit): return hit.owner_id == id), "The original guest silhouette is hidden during pickup")
 	expect(app.world.sprite_hits().any(func(hit): return hit.owner_id == "seat"), "Guest pickup leaves the stool in its original place")
 	await capture("02-seated-guest-picked-up")
@@ -73,7 +73,7 @@ func run() -> void:
 	expect(persisted() and app.world.editor_preview.is_empty(), "Only the accepted drop is persisted, with no lifted pose in the save")
 	await capture("04-guest-dropped-standing")
 	point = pickup_point(id)
-	before = app.session.save_data()
+	before = GameSession.flat_view(app.session.save_data())
 	await hold(point)
 	destination = point + app.world.cell_base(1,6) - app.world.cell_base(float(saved_guest().x),float(saved_guest().y))
 	await drag(point,destination)
@@ -118,14 +118,14 @@ func run() -> void:
 	expect(app._editor_command({"type":"editor_move","id":"chef","x":1,"y":5}).get("ok", false), "The chef moves above the editor dock")
 	app._editor_command({"type":"editor_select","id":null})
 	point = pickup_point("chef")
-	before = app.session.save_data()
+	before = GameSession.flat_view(app.session.save_data())
 	await touch(point,true)
 	destination = point+Vector2(-15.0/maxf(0.001,app.get_viewport_transform().get_scale().x),0)
 	await drag(point,destination)
 	app._advance_long_press(1.0)
 	expect(app.gesture_dragged and not app.gesture_lifted and app.long_press_candidate.is_empty(), "Movement before the hold threshold owns pan and cannot turn into a late pickup")
 	await touch(destination,false)
-	expect(same(before.state.objects,app.session.save_data().state.objects), "Early pan does not move the touched object")
+	expect(same(before.state.objects,GameSession.flat_view(app.session.save_data()).state.objects), "Early pan does not move the touched object")
 	point = pickup_point("chef")
 	await hold(point)
 	expect(app.gesture_lifted and app.gesture_object == "chef", "An unselected chef supports the same long-press pickup")
@@ -160,7 +160,7 @@ func run() -> void:
 	app._layout()
 	await frames()
 	var loaded := {}
-	for tile in app.session.save_data().state.objects:
+	for tile in GameSession.flat_view(app.session.save_data()).state.objects:
 		if tile.kind == "belt" and tile.dish != null and float(tile.travel_elapsed) > 0 and pickup_point(tile.id).x >= 0:
 			loaded = tile.duplicate(true)
 			break
@@ -173,7 +173,7 @@ func run() -> void:
 		await drag(point,destination)
 		await capture("11-loaded-belt-picked-up")
 		await touch(destination,false)
-		var dropped: Dictionary = app.session.save_data().state.objects.filter(func(tile): return tile.id == loaded.id)[0]
+		var dropped: Dictionary = GameSession.flat_view(app.session.save_data()).state.objects.filter(func(tile): return tile.id == loaded.id)[0]
 		expect(dropped.x == 0 and dropped.y == 6 and dropped.dish == loaded.dish and dropped.travel_elapsed == loaded.travel_elapsed, "The held belt drops with the same food and unfinished transfer clock")
 		expect(app.session.snapshot().editor.selected_id == loaded.id and ui.context_bubble.visible and ui.rotate.visible and ui.remove.visible, "A dropped belt retains selection and its Rotate/Return menu")
 		await capture("12-dropped-belt-context-menu")

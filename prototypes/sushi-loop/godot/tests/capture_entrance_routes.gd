@@ -12,7 +12,7 @@ func configuration() -> Dictionary:
 		"service": {"first_arrival_seconds": 0.1, "arrival_seconds": 1000.0, "arrival_jitter_seconds": 0.0, "eating_seconds": 0.5, "sitting_seconds": 0.1, "standing_seconds": 0.1, "loading_seconds": 0.1},
 		"customers": {"fullness_min": 1.0, "fullness_max": 1.0, "dish_fullness_min": 1.0, "dish_fullness_max": 1.0, "eating_jitter_seconds": 0.0}}
 func guest() -> Dictionary:
-	var guests: Array = app.session.save_data().state.customers
+	var guests: Array = GameSession.flat_view(app.session.save_data()).state.customers
 	return guests[0] if not guests.is_empty() else {}
 func _initialize() -> void:
 	call_deferred("run")
@@ -30,7 +30,7 @@ func run() -> void:
 	for seed_value in range(1, 40):
 		var probe = Session.new_session(seed_value, configuration())
 		probe.advance(0.1)
-		var lane := int(probe.save_data().state.customers[0].door_lane)
+		var lane := int(GameSession.flat_view(probe.save_data()).state.customers[0].door_lane)
 		if not selected.has(lane): selected[lane] = seed_value
 		if selected.size() == 2: break
 	for lane in [4, 5]:

@@ -47,7 +47,7 @@ static func valid(customer: Dictionary, floor_data: Dictionary) -> bool:
 	var motion: Variant = customer.door_motion
 	if not enabled(floor_data) or not motion is Dictionary: return false
 	if not motion.get("direction") in ["enter", "exit"]: return false
-	var lateral: Variant = motion.get("offset_x", 0.0)
+	var lateral: Variant = motion.get("offset_x")
 	if not (lateral is float or lateral is int) or not is_finite(float(lateral)) or float(lateral) < 0.0 or float(lateral) > 1.0: return false
 	var distance: Variant = motion.get("distance")
 	if not (distance is float or distance is int) or not is_finite(float(distance)) or float(distance) < 0.0 or float(distance) >= TRAVEL: return false

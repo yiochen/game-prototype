@@ -132,15 +132,6 @@ static func initialize(config: Dictionary, state: Dictionary) -> void:
 			if contains(physical,Vector2i(int(object.x),int(object.y))): preserve = true
 		if preserve: state.expansion.cleared.append(value.id)
 
-static func migrate_v1(state: Dictionary) -> bool:
-	# Version 1 automatically revealed the dock. Preserve that already-visible
-	# result without replaying it, while new clears now require confirmation.
-	var previous: Variant = state.get("expansion")
-	if not previous is Dictionary or previous.get("version") != 1 or not previous.get("cleared") is Array or previous.has("revealed"): return false
-	previous.version = VERSION
-	previous.revealed = dock_ready(state)
-	return true
-
 static func valid(config: Dictionary, state: Dictionary) -> bool:
 	if not enabled(config.floor): return not state.has("expansion")
 	if int(config.floor.world_columns) < columns(config.floor): return false

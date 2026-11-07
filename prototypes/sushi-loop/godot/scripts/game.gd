@@ -1119,10 +1119,10 @@ func _clamp_camera() -> void:
 
 func _open_clearance(identity: String) -> void:
 	if save_blocked or backgrounded or clearance_ui.visible: return
-	var saved: Dictionary = session.save_data()
-	var value := Expansion.patch(identity,saved.configuration.floor)
-	if value.is_empty() or not saved.state.has("expansion") or identity in saved.state.expansion.cleared: return
-	if not Expansion.neighboring(saved.state,saved.configuration.floor,value):
+	var floor_data: Dictionary = session._configuration.floor
+	var value := Expansion.patch(identity,floor_data)
+	if value.is_empty() or not session._state.has("expansion") or identity in session._state.expansion.cleared: return
+	if not Expansion.neighboring(session._state,floor_data,value):
 		_show_clearance_notice("Clear trash beside the open floor first.");return
 	_cancel_gesture();clearance_toast.hide();world.clearance_selected = identity
 	clearance_ui.open(value,session.snapshot());_refresh()

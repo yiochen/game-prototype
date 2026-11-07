@@ -18,8 +18,7 @@ extends RefCounted
 ## ending before the finish encounter. Steering onto an optional portal spends
 ## it and enters a separate safe passage: a current carries the ship
 ## automatically through salvage, then it rejoins the main route further on.
-## A run keeps the route version it started with, so older saves fly the
-## route they began.
+## A run records the route version it started with; only the current one loads.
 ##
 ## Issue #23: route version 3 adds an open-water arena before the finish. When
 ## the ship is a few rows in, a creature arrives ahead and the shooting window
@@ -79,13 +78,6 @@ static func set_shield(store, seconds: float) -> void:
 	if seconds > 0.0: store.add_effect(WORLD, SHIP, {"id": "shield", "stat": "shielded", "op": "add", "value": 1.0, "remaining": seconds})
 	else: store.remove_effect(WORLD, SHIP, "shield")
 
-## Saves from before the store kept the shield on the run itself.
-static func adopt_shield(state: Dictionary, store) -> void:
-	var run = state.get("expedition", {}).get("run")
-	if not run is Dictionary or not run.has("shield"): return
-	set_shield(store, float(run.shield))
-	run.erase("shield")
-
 static func shield_valid(store) -> bool:
 	var effects: Dictionary = store.table(WORLD, store.EFFECTS)
 	for owner in effects:
@@ -120,16 +112,14 @@ static func library() -> Array:
 static func _library_for(creature: String) -> Array:
 	return library().filter(func(c): return c.kind != "creature" or str(c.get("creature")) == creature)
 
-## Assembled grid, spans, gold and features for a seed (cached). Version 1
-## is the issue #21 plan (no feature slots); newer runs use the current plan.
-static func route(seed_value: int, version: int = -1) -> Dictionary:
-	if version < 0: version = int(definition().route_version)
+## Assembled grid, spans, gold and features for a seed (cached).
+static func route(seed_value: int) -> Dictionary:
+	var version := int(definition().route_version)
 	var cache_key := "%d:%d" % [seed_value, version]
 	if not _routes.has(cache_key):
-		var plan: Array = definition().plan if version == int(definition().route_version) else definition().legacy_plans[str(version)]
-		var sequence := Route.generate(seed_value, _library_for(str(definition().encounter.creature)), plan)
+		var sequence := Route.generate(seed_value, _library_for(str(definition().encounter.creature)), definition().plan)
 		var assembled := Route.assemble(sequence)
-		if version >= 3: assembled = _with_arena(assembled, seed_value, int(definition().encounter.pursuit_chunks) if version >= 4 else 0)
+		assembled = _with_arena(assembled, seed_value, int(definition().encounter.pursuit_chunks))
 		var pickups: Array = []
 		for y in range(assembled.rows.size()):
 			var row: String = assembled.rows[y]
@@ -140,7 +130,7 @@ static func route(seed_value: int, version: int = -1) -> Dictionary:
 		var arena = null
 		for span in assembled.spans:
 			if span.kind == "launch": launch_top = minf(launch_top, float(span.y0))
-			# Shields never reach the encounter: the arena (v3) or the finish chunk (older routes).
+			# Shields never reach the encounter arena.
 			if span.kind == "finish" and arena == null: encounter_edge = float(span.y1) + 1.0
 			if span.kind == "encounter":
 				arena = {"y0": int(span.y0), "y1": int(span.y1)}
@@ -246,9 +236,9 @@ static func passage_centre(info: Dictionary, y: float) -> float:
 	var count := float(info.rows_count)
 	return Route.COLUMNS / 2.0 + float(info.amp) * sin(y * 0.24 + float(info.phase)) * minf(1.0, minf(y, count - 1.0 - y) / 4.0)
 
-## The route a run flies (its own route version; saves before #22 are version 1).
+## The route a run flies.
 static func run_route(run: Dictionary) -> Dictionary:
-	return route(int(run.seed), int(run.get("route_version", 1)))
+	return route(int(run.seed))
 
 ## Preparation cruise: rows the ship may cover before Start, ending in a hover.
 static func launch(seed_value: int) -> Dictionary:
@@ -820,11 +810,9 @@ static func normalize(state: Dictionary) -> void:
 	if data.run is Dictionary:
 		for field in ["id", "seed", "salvage", "impacts"]: data.run[field] = int(data.run[field])
 		data.run.collected = data.run.collected.map(func(i): return int(i))
-		# Saves from before joystick steering hold no stick input.
-		data.run.steer = float(data.run.get("steer", 0.0)); data.run.vx = float(data.run.get("vx", 0.0))
-		# Saves from before issue #22 keep their original route and carry no features.
+		data.run.steer = float(data.run.steer); data.run.vx = float(data.run.vx)
 		var run: Dictionary = data.run
-		run.route_version = int(run.get("route_version", 1))
+		run.route_version = int(run.route_version)
 		if run.has("shield"): run.shield = float(run.shield)
 		run.passage_pickups = int(run.get("passage_pickups", 0))
 		for field in ["shields_taken", "portals_used"]: run[field] = run.get(field, []).map(func(i): return int(i))
@@ -832,16 +820,13 @@ static func normalize(state: Dictionary) -> void:
 			run.passage.portal = int(run.passage.portal); run.passage.y = float(run.passage.y); run.passage.x = float(run.passage.x)
 			run.passage.collected = run.passage.collected.map(func(i): return int(i))
 		else: run.passage = null
-		# Saves from before issue #23 have not reached an encounter.
 		var encounter = run.get("encounter")
 		if encounter is Dictionary:
 			encounter.shots = int(encounter.shots); encounter.t = float(encounter.t); encounter.cooldown = float(encounter.cooldown); encounter.x = float(encounter.x)
 			if encounter.harpoon is Dictionary: encounter.harpoon.x = float(encounter.harpoon.x); encounter.harpoon.d = float(encounter.harpoon.d)
 			if encounter.hook is Dictionary: encounter.hook.along = float(encounter.hook.along); encounter.hook.across = float(encounter.hook.across)
-			# A #23 hooked handoff resumes as a fresh pursuit.
 			if encounter.state == "hooked":
 				encounter.resistance = float(encounter.get("resistance", definition().encounter.resistance)); encounter.chase_t = float(encounter.get("chase_t", 0.0))
-				# Hooks saved before #25 carry no discharge.
 				encounter.discharge_cooldown = float(encounter.get("discharge_cooldown", 0.0)); encounter.strikes = int(encounter.get("strikes", 0))
 				var strike = encounter.get("discharge")
 				if strike is Dictionary:
@@ -852,12 +837,11 @@ static func normalize(state: Dictionary) -> void:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
 			if data.result.has(field): data.result[field] = int(data.result[field])
 
-## Issue #22 run fields (optional in older saves): shield time, spent shields
+## Issue #22 run fields: spent shields
 ## and portals, and the passage ride, which must belong to a spent portal.
 static func _features_valid(run: Dictionary) -> bool:
 	var rules := definition()
-	var version = run.get("route_version", 1)
-	if not _integer(version) or (int(version) != int(rules.route_version) and not rules.legacy_plans.has(str(int(version)))): return false
+	if not _integer(run.get("route_version")) or int(run.route_version) != int(rules.route_version): return false
 	if not _finite(run.get("shield", 0.0)) or float(run.get("shield", 0.0)) < 0.0 or float(run.get("shield", 0.0)) > float(rules.shield_seconds): return false
 	if not _integer(run.get("passage_pickups", 0)): return false
 	var path := run_route(run)
@@ -899,7 +883,7 @@ static func _encounter_valid(run: Dictionary) -> bool:
 		if not _discharge_valid(run, encounter): return false
 	return true
 
-## Issue #25 discharge fields on a hooked encounter (optional in older saves).
+## Issue #25 discharge fields on a hooked encounter.
 static func _discharge_valid(run: Dictionary, encounter: Dictionary) -> bool:
 	var d: Dictionary = definition().encounter.discharge
 	var cooldown = encounter.get("discharge_cooldown", 0.0)

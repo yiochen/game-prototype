@@ -60,6 +60,8 @@ static func required_level(recipe: Dictionary) -> int:
 static func eligible(config: Dictionary, state: Dictionary, actor: Dictionary, id: String) -> bool:
 	return not actor.is_empty() and config.recipes.has(id) and id in state.recipe_book.discovered and mini(int(actor.get("level", 1)), int(actor.get("level_cap", 12))) >= required_level(config.recipes[id])
 
+## Only the recipe book itself; chef levels and recipes are checked in
+## features/chefs.gd.
 static func valid(config: Dictionary, state: Dictionary) -> bool:
 	if not state.get("objects") is Array or not state.get("inventory") is Array: return false
 	for object in state.objects + state.inventory:
@@ -79,24 +81,6 @@ static func valid(config: Dictionary, state: Dictionary) -> bool:
 			unique[id] = true
 	for id in book.new:
 		if not id in book.discovered: return false
-	var actors: Array = state.objects.duplicate()
-	for stock in state.get("inventory", []):
-		if stock.get("kind") == "chef" and stock.get("stored_object") is Dictionary: actors.append(stock.stored_object)
-	for stock in state.get("inventory", []):
-		if stock.get("kind") != "chef": continue
-		var owner := chef(state, str(stock.get("id", "")))
-		if owner.is_empty() or stock.get("recipe_id") != owner.get("recipe_id"): return false
-		for field in ["level", "level_cap", "cooking_speed"]:
-			if stock.get(field) != owner.get(field): return false
-	for actor in actors:
-		if actor.get("kind") != "chef": continue
-		for key in ["level", "level_cap"]:
-			var value: Variant = actor.get(key)
-			if not (value is float or value is int) or not is_finite(float(value)) or float(value) != floor(float(value)) or float(value) < 1 or float(value) > 100: return false
-		if actor.level > actor.level_cap: return false
-		var speed: Variant = actor.get("cooking_speed")
-		if not (speed is float or speed is int) or not is_finite(float(speed)) or float(speed) <= 0: return false
-		if actor.recipe_id != "" and not eligible(config, state, actor, actor.recipe_id): return false
 	return true
 
 static func command(config: Dictionary, state: Dictionary, request: Dictionary) -> Dictionary:

@@ -20,7 +20,6 @@ func _initialize() -> void:
 	_test_camera_and_public_copies()
 	_test_invalid_input_and_save()
 	_test_saved_visual_transitions()
-	_test_legacy_save_migration()
 	_test_corrupt_progress_and_paths()
 	if failures.is_empty():
 		print("PASS: %s GameSession checks" % checks)
@@ -67,23 +66,12 @@ func _json_copy(value: Dictionary) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value, "", true, true))
 
 func _same(left: Variant, right: Variant) -> bool:
+	left = GameSession.flat_view(left) if left is Dictionary and left.has("engine") else left
+	right = GameSession.flat_view(right) if right is Dictionary and right.has("engine") else right
 	# Comparing parsed JSON also exercises the persistence-compatible public data
 	# without treating a JSON number's int/float representation as a difference.
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
-# Later systems add their own migrated state; a legacy upgrade must keep every
-# field the old save had, so compare only the shape the legacy data defines.
-func _legacy_fields(observed: Variant, legacy: Variant) -> Variant:
-	if observed is Dictionary and legacy is Dictionary:
-		var kept := {}
-		for key in observed:
-			if legacy.has(key): kept[key] = _legacy_fields(observed[key], legacy[key])
-		return kept
-	if observed is Array and legacy is Array and observed.size() == legacy.size():
-		var kept := []
-		for index in observed.size(): kept.append(_legacy_fields(observed[index], legacy[index]))
-		return kept
-	return observed
 
 func _single_visit_config() -> Dictionary:
 	return {"service": {"first_arrival_seconds": 0.1, "arrival_seconds": 1000.0, "arrival_jitter_seconds": 0.0}}
@@ -218,7 +206,7 @@ func _test_partial_crossing_blockage() -> void:
 		{"id": "target", "kind": "belt", "x": 2, "y": 3, "facing": "east"},
 	]})
 	game.command({"type": "set_entrance_open", "open": false})
-	var data := _json_copy(game.save_data())
+	var data := GameSession.flat_view(_json_copy(game.save_data()))
 	data.state.objects[0].dish = {"id": "dish-1", "recipe_id": "salmon_nigiri"}
 	data.state.objects[0].travel_elapsed = 0.4
 	data.state.objects[1].dish = {"id": "dish-2", "recipe_id": "salmon_nigiri"}
@@ -250,7 +238,7 @@ func _test_save_during_walk() -> void:
 	var original := _service_session(81)
 	original.advance(2.017)
 	_check(not _customer(original.snapshot(), "walking").is_empty(), "walk-save scenario captures a visitor between the entrance and their seat")
-	var saved := _json_copy(original.save_data())
+	var saved := GameSession.flat_view(_json_copy(original.save_data()))
 	var restored := _service_session(999)
 	_check(restored.restore(saved), "JSON save made while walking restores successfully")
 	_check(_same(original.snapshot(), restored.snapshot()), "restore preserves positions, preparation, layout, coins and elapsed time immediately")
@@ -265,7 +253,7 @@ func _test_save_during_meal() -> void:
 	var before: Dictionary = original.snapshot()
 	var meal := _customer(before, "eating")
 	_check(not meal.is_empty() and meal.meal_progress > 0.0 and meal.meal_progress < 1.0, "meal-save scenario contains a partly eaten dish")
-	var saved := _json_copy(original.save_data())
+	var saved := GameSession.flat_view(_json_copy(original.save_data()))
 	var restored := _service_session(1)
 	_check(restored.restore(saved) and _same(before, restored.snapshot()), "mid-meal restoration preserves the actual dish and eating progress")
 	var repeat_ok := true
@@ -285,7 +273,7 @@ func _test_save_held_and_belt_food() -> void:
 	var original := _service_session(109)
 	original.command({"type": "set_entrance_open", "open": false})
 	original.advance(40.017)
-	var saved := _json_copy(original.save_data())
+	var saved := GameSession.flat_view(_json_copy(original.save_data()))
 	var restored := _service_session(1)
 	_check(restored.restore(saved) and _same(original.snapshot(), restored.snapshot()), "full belt and the chef's held plate survive a JSON save round trip")
 	var original_snapshot: Dictionary = original.snapshot()
@@ -305,7 +293,7 @@ func _test_camera_and_public_copies() -> void:
 	var game := _service_session(88)
 	game.advance(5.0)
 	_check(game.command({"type": "set_camera", "x": -2.5, "y": 0.75}).ok, "camera changes are accepted at the public session boundary")
-	var saved := _json_copy(game.save_data())
+	var saved := GameSession.flat_view(_json_copy(game.save_data()))
 	var reopened := _service_session(1)
 	reopened.restore(saved)
 	_check(reopened.snapshot().camera == {"x": -2.5, "y": 0.75}, "saved restaurant reopens at the same camera position")
@@ -325,7 +313,7 @@ func _test_invalid_input_and_save() -> void:
 	_check(not game.command({"type": "set_entrance_open", "open": "yes"}).ok, "entrance command validates its value")
 	_check(game.advance(-5.0).is_empty() and game.advance(NAN).is_empty() and _same(before, game.snapshot()), "invalid elapsed time and rejected commands leave service unchanged")
 	_check(not game.restore({"version": 999}) and _same(before, game.snapshot()), "unsupported or incomplete saves do not replace a valid session")
-	var invalid := _json_copy(game.save_data())
+	var invalid := GameSession.flat_view(_json_copy(game.save_data()))
 	invalid.state.objects[0].x = invalid.state.objects[1].x
 	invalid.state.objects[0].y = invalid.state.objects[1].y
 	_check(not game.restore(invalid) and _same(before, game.snapshot()), "a malformed save with overlapping floor objects is rejected atomically")
@@ -351,66 +339,39 @@ func _test_saved_visual_transitions() -> void:
 		_check(_same(events, restored.advance(40.0)) and _same(original.snapshot(), restored.snapshot()), transition + " continues identically after reopening")
 		_check(_events(events, "sale").size() == (1 if transition == "sit-down" else 0), transition + " never replays an already completed sale")
 
-func _test_legacy_save_migration() -> void:
-	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/legacy-0.1.1-session.json"))
-	var legacy: Dictionary = fixture.save_data
-	_check(fixture.source_commit == "cdb2364b" and legacy.configuration.floor.viewport_columns == 9 and not legacy.configuration.service.has("loading_seconds"), "legacy fixture comes from the shipped 0.1.1 session and original nine-column content")
-	var reopened := _service_session(1)
-	_check(reopened.restore(legacy), "the real version 1 save without animation clocks migrates successfully")
-	var migrated := reopened.save_data()
-	var expected_configuration: Dictionary = legacy.configuration.duplicate(true)
-	expected_configuration.floor.viewport_columns = 7
-	expected_configuration.floor.backdrop_rows = 3
-	expected_configuration.floor.entrance = {"x":4,"y":3}
-	expected_configuration.content_version = 3
-	expected_configuration.customers = JSON.parse_string(FileAccess.get_file_as_string(Session.CONTENT_PATH)).customers
-	_check(_same(_legacy_fields(migrated.configuration, expected_configuration), expected_configuration), "seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact")
-	_check(_same(migrated.state.camera, legacy.state.camera) and _same(migrated.state.stats, legacy.state.stats) and migrated.state.coins == legacy.state.coins and migrated.state.elapsed == legacy.state.elapsed, "migration preserves camera, completed sales, coins and foreground time")
-	_check(migrated.random_state == legacy.random_state and migrated.remainder == legacy.remainder, "legacy migration preserves the seeded generator and fractional simulation clock")
-	var endpoint: Dictionary = migrated.state.objects.filter(func(object): return object.id == "belt-4")[0]
-	_check(endpoint.dish.id == "dish-3" and endpoint.travel_elapsed == 0.0, "legacy endpoint food keeps its identity at the center instead of retaining invisible charged movement")
-	var partial_legacy := _service_session(1)
-	var partial_restored := partial_legacy.restore(fixture.mid_crossing_save_data)
-	var partial := _object(partial_legacy.snapshot(), "belt-2")
-	_check(partial_restored and partial.dish.id == "dish-1" and absf(float(partial.travel_progress) - 0.5 / 1.1) < 0.000000001, "a genuine moving partial crossing from the old release retains its position during migration")
-	var pre_scaled := _json_copy(legacy)
-	pre_scaled.configuration.floor.viewport_columns = 7
-	var reference := _service_session(999)
-	_check(reference.restore(pre_scaled) and _same(reopened.snapshot(), reference.snapshot()), "a legacy save scaled by migration matches the same save already using the new presentation")
-	var expected: Array = reference.advance(90.0)
-	_check(_same(expected, reopened.advance(90.0)) and _same(reference.snapshot(), reopened.snapshot()), "seven-column presentation preserves exact seeded continuation of the legacy restaurant")
-	var repeated := _service_session(1)
-	_check(repeated.restore(_json_copy(migrated)) and _same(repeated.advance(90.0), expected) and _same(reference.snapshot(), repeated.snapshot()), "saving a migrated restaurant does not repeat migration effects or alter its future service")
-
 func _test_corrupt_progress_and_paths() -> void:
 	var game := _service_session(84)
 	game.advance(25.017)
 	var before: Dictionary = game.snapshot()
-	var original := _json_copy(game.save_data())
-	for counter in ["next_dish_id", "next_customer_id"]:
-		var regressed := _json_copy(original)
-		regressed.state[counter] = 1
-		_check(not game.restore(regressed) and _same(before, game.snapshot()), "regressed " + counter + " cannot reuse existing identities")
-	var bad_clock := _json_copy(original)
-	bad_clock.state.elapsed += 10.0
-	_check(not game.restore(bad_clock) and _same(before, game.snapshot()), "a saved elapsed clock must agree with completed fixed steps")
-	var bad_preparation := _json_copy(original)
+	var original := GameSession.flat_view(_json_copy(game.save_data()))
+	var regressed := GameSession.flat_view(_json_copy(original))
+	regressed.state.next_dish_id = 1
+	_check(not game.restore(regressed) and _same(before, game.snapshot()), "a regressed next_dish_id cannot reuse existing identities")
+	# Values that follow from others are not saved; a stale copy from an older
+	# save is recalculated rather than blocking the load.
+	var stale := GameSession.flat_view(_json_copy(original))
+	stale.state.elapsed = 999.0
+	stale.state.next_customer_id = 1
+	stale.state.stats.served = 0
+	_check(not original.state.has("elapsed") and not original.state.has("next_customer_id") and not original.state.stats.has("served"), "saves no longer store the elapsed clock, the next guest id or a second sales count")
+	_check(game.restore(stale) and _same(before, game.snapshot()), "stale copies of derived values are recalculated on load")
+	var bad_preparation := GameSession.flat_view(_json_copy(original))
 	bad_preparation.engine.worlds.restaurant.tables.station.rows[bad_preparation.state.objects[0].id].progress = 999.0
 	_check(not game.restore(bad_preparation) and _same(before, game.snapshot()), "impossible chef progress is rejected atomically")
 	_check(game.advance(1.0e300).is_empty() and _same(before, game.snapshot()), "finite elapsed input that would overflow the fixed clock is rejected without mutating service")
 	var walking := _service_session(85)
 	walking.advance(1.5)
-	var walk_save := _json_copy(walking.save_data())
+	var walk_save := GameSession.flat_view(_json_copy(walking.save_data()))
 	_check(not walk_save.state.customers.is_empty(), "path rejection fixture has a real walking visitor")
-	var through_belt := _json_copy(walk_save)
+	var through_belt := GameSession.flat_view(_json_copy(walk_save))
 	through_belt.state.customers[0].path[0] = {"x": 3, "y": 8}
 	_check(not walking.restore(through_belt), "saved paths cannot jump over cells or pass through a belt")
-	var off_path := _json_copy(walk_save)
+	var off_path := GameSession.flat_view(_json_copy(walk_save))
 	off_path.state.customers[0].x = 0.0
 	off_path.state.customers[0].y = 0.0
 	_check(not walking.restore(off_path) and _same(walking.save_data(), walk_save), "saved customers must remain on their current reachable path segment")
 	var eating := _service_session(86, _single_visit_config())
 	_advance_until(eating, func(scene): return not _customer(scene, "eating").is_empty())
-	var complete_meal := _json_copy(eating.save_data())
+	var complete_meal := GameSession.flat_view(_json_copy(eating.save_data()))
 	complete_meal.state.customers[0].meal_elapsed = complete_meal.configuration.service.eating_seconds
 	_check(not eating.restore(complete_meal), "a meal marked already complete cannot be restored as a pending sale")

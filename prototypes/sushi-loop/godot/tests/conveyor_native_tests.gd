@@ -46,6 +46,8 @@ func capture(name: String) -> void:
 	root.get_texture().get_image().save_png(output.path_join(name + ".png"))
 
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	return JSON.parse_string(JSON.stringify(a, "", true, true)) == JSON.parse_string(JSON.stringify(b, "", true, true))
 
 func count_stock() -> int:
@@ -192,7 +194,7 @@ func run() -> void:
 	# Filled-loop fixture for visible live plate motion and corner alignment.
 	app.session.restore(saved)
 	app.session.command({"type":"editor_belt_extend","x":1,"y":3})
-	var food: Dictionary = app.session.save_data()
+	var food: Dictionary = GameSession.flat_view(app.session.save_data())
 	var dish_index := 1
 	for tile in food.state.objects:
 		if tile.kind == "belt" and tile.id.begins_with("editor-object-"):

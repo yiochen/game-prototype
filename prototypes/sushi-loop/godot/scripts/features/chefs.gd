@@ -53,7 +53,7 @@ static func _duration(config: Dictionary, work: Dictionary, development: Diction
 	var recipe: Variant = config.recipes.get(work.recipe_id)
 	return (0.0 if recipe == null else float(recipe.get("preparation_seconds", 0.0))) / _speed(development)
 
-## The chef as screens and the remaining legacy rules see it, derived values included.
+## The chef as screens and recipe rules see it, derived values included.
 static func record(store, config: Dictionary, id: String) -> Dictionary:
 	if not exists(store, id): return {}
 	var identity: Dictionary = store.row(WORLD, "staff", id)
@@ -69,7 +69,7 @@ static func record(store, config: Dictionary, id: String) -> Dictionary:
 	if not str(identity.full_name).is_empty(): result.full_name = identity.full_name
 	return result
 
-## Adds a chef from a legacy-shaped record. `seconds` is the dish's full
+## Adds a chef from a configuration-style record. `seconds` is the dish's full
 ## preparation time at the record's speed, used to turn elapsed time into progress.
 static func add(store, id: String, actor: Dictionary, seconds := 0.0) -> void:
 	store.set_row(WORLD, "staff", id, {"name": str(actor.get("name", "Chef")), "full_name": str(actor.get("full_name", "")), "art_id": str(actor.get("art_id", "chef-lena"))})
@@ -151,10 +151,11 @@ static func prepare(store, config: Dictionary, state: Dictionary, request: Dicti
 	state.recipe_book.new.erase(id)
 	return {"ok": true, "changed": true}
 
-# --- Bridge with the single-dictionary state ---------------------------------
+# --- New games -----------------------------------------------------------------
 
-## Moves every chef record out of layout objects and inventory into the store,
-## leaving only grid placement and inventory bookkeeping behind.
+## A new game's chefs start as full records in the configuration's layout.
+## This moves them into the store, leaving only placement and inventory
+## bookkeeping behind.
 static func extract(state: Dictionary, store, config: Dictionary) -> void:
 	var actors := {}
 	for object in state.objects:
@@ -175,28 +176,12 @@ static func strip(state: Dictionary) -> void:
 		for field in stock.keys():
 			if not field in ["id", "kind", "count", "assigned", "facing", "staff_new"]: stock.erase(field)
 
-## Rebuilds the legacy chef records on a copy of the state, for the validators
-## of features that have not moved to the store yet.
-static func hydrate(state: Dictionary, store, config: Dictionary) -> void:
-	for object in state.objects:
-		if object.kind == "chef": object.merge(record(store, config, object.id), true)
-	for stock in state.inventory:
-		if stock.kind != "chef": continue
-		var actor := record(store, config, stock.id)
-		for field in ["name", "full_name", "art_id", "recipe_id", "level", "level_cap", "cooking_speed", "growth_rate", "base_cooking_speed"]:
-			if actor.has(field): stock[field] = actor[field]
-		stock.stored_object = null
-		if not stock.get("assigned", false) and not actor.is_empty():
-			var stored := actor.duplicate(true)
-			var cell := _stored_cell(config)
-			stored.merge({"id": stock.id, "kind": "chef", "x": cell.x, "y": cell.y, "facing": stock.get("facing", "south")}, true)
-			stock.stored_object = stored
-
-static func _stored_cell(config: Dictionary) -> Vector2i:
-	for y in range(int(config.floor.get("backdrop_rows", 0)), int(config.floor.rows)):
-		for x in range(int(config.floor.columns)):
-			if x != int(config.floor.entrance.x) or y != int(config.floor.entrance.y): return Vector2i(x, y)
-	return Vector2i.ZERO
+## A chef may only prepare a discovered recipe their level allows.
+static func valid_recipes(store, config: Dictionary, recipe_book: Dictionary) -> bool:
+	for id in ids(store):
+		var recipe: String = station(store, id).recipe_id
+		if recipe != "" and not RecipeBook.eligible(config, {"recipe_book": recipe_book}, record(store, config, id), recipe): return false
+	return true
 
 ## Every chef in the layout or inventory has store rows, and nothing else does.
 static func matches(state: Dictionary, store) -> bool:
@@ -228,7 +213,12 @@ static func valid(store, config: Dictionary) -> bool:
 		for field in ["growth", "base_speed"]:
 			if not (development.get(field) is float or development.get(field) is int) or not is_finite(float(development[field])): return false
 		if speed(store, id) <= 0.0 or not work.recipe_id is String or (work.recipe_id != "" and not config.recipes.has(work.recipe_id)): return false
-		if work.held_dish is Dictionary and float(work.progress) != 1.0: return false
+		if int(development.level) > int(development.level_cap) or int(development.level_cap) > 100: return false
+		if work.held_dish != null:
+			if not work.held_dish is Dictionary or not work.held_dish.get("id") is String or work.held_dish.get("recipe_id") != work.recipe_id: return false
+			if float(work.progress) != 1.0 or work.machine == "working": return false
+		elif not work.machine in ["working", "idle"]: return false
+		if work.machine == "loading" and (float(config.service.get("loading_seconds", 0.0)) <= 0.0 or float(work.elapsed) >= float(config.service.loading_seconds)): return false
 	for table in TABLES:
 		for id in store.table(WORLD, table):
 			if not exists(store, id): return false

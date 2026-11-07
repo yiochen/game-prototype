@@ -196,7 +196,7 @@ func _test_geometry(app) -> void:
 	_expect(all_loaded and anchored, "Catalog sprites preserve the complete frame, uniform tile scale and registered foot/deck/plate root")
 
 func _test_camera_clearance(app) -> void:
-	var before: Dictionary = app.session.save_data()
+	var before: Dictionary = GameSession.flat_view(app.session.save_data())
 	var edit_x: float = app.edit.position.x
 	var physical := Transform2D(Vector2(0.5, 0), Vector2(0, 0.5), Vector2.ZERO)
 	var layout = load("res://scripts/screen_layout.gd")
@@ -334,7 +334,7 @@ func _test_editor(app) -> void:
 
 func _test_large_balance_capsule(app) -> void:
 	var original: Dictionary = app.session.save_data()
-	var earned: Dictionary = original.duplicate(true)
+	var earned: Dictionary = GameSession.flat_view(original.duplicate(true))
 	earned.state.coins = 123456789
 	_expect(app.session.restore(earned), "The high-balance HUD probe uses a valid saved restaurant")
 	app._refresh()
@@ -505,7 +505,7 @@ func _test_rejected_overlay_release(app, source: Vector2, target: Vector2, regio
 	# not merely a renderer ghost or an in-memory object position.
 	app.save_now()
 	app.save_now()
-	var before: Dictionary = app.session.save_data()
+	var before: Dictionary = GameSession.flat_view(app.session.save_data())
 	var saved: Dictionary = _save_bytes()
 	var selected := _object(app.session.snapshot(), str(before.state.editor.selected_id))
 	var grab: Vector2 = source - app.world.cell_base(float(selected.x), float(selected.y))
@@ -753,6 +753,8 @@ func _drag(app, from: Vector2, to: Vector2, index: int = 0) -> void:
 	await _frames(2)
 
 func _same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	if (a is int or a is float) and (b is int or b is float):
 		return absf(float(a) - float(b)) < 0.000000001
 	if a is Dictionary and b is Dictionary:

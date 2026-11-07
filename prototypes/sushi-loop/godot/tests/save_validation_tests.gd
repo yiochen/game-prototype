@@ -21,12 +21,14 @@ func run() -> void:
 	var before := calls
 	check(store.save_session({"valid":true,"generation":2}),"a fresh generation still passes domain and file verification")
 	check(calls-before <= 2,"backup rotation does not repeatedly restore unchanged payloads during a frame")
-	check(not store.save_session({"valid":false,"generation":3}) and store.load_session().generation == 2,"every incoming invalid state still rejects without replacing progress")
+	# Game rules are checked on load: an invalid state is written, never kept as
+	# the backup, and loading falls back to the last valid generation.
+	check(store.save_session({"valid":false,"generation":3}) and store.load_session().generation == 2 and store.source == "backup","an invalid state never replaces the last valid generation on load")
 	var path := directory.path_join("session.json")
 	var envelope: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 	envelope.payload = JSON.stringify({"valid":false,"generation":4});envelope.sha256 = str(envelope.payload).sha256_text()
 	FileAccess.open(path,FileAccess.WRITE).store_string(JSON.stringify(envelope))
-	check(store.load_session().generation == 1 and store.source == "backup","changed hash-valid invalid bytes cannot reuse an older successful validation")
+	check(store.load_session().generation == 2 and store.source == "backup","changed hash-valid invalid bytes cannot reuse an older successful validation")
 	check(store.load_session(reject).is_empty(),"replacing the validator rechecks previously valid primary and backup bytes")
 	check(not store.save_session({"valid":true}),"failed recovery continues to preserve both files")
 	check(store.clear_session(),"explicit test reset succeeds")

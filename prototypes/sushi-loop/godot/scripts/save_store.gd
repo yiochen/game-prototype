@@ -4,13 +4,18 @@ extends RefCounted
 ## Loading never advances time, replays commands, or grants offline income.
 
 const FORMAT := "sushi-loop-session"
-const FORMAT_VERSION := 1
+## Version 2 holds the store-based session. Older files are unreleased
+## prototype data and are discarded on load, so the game starts fresh.
+const FORMAT_VERSION := 2
 const MAX_SAVE_BYTES := 16 * 1024 * 1024
 
 var last_error := ""
 var source := "none"
 var _directory: String
 var _validator: Callable = Callable()
+## Called on the writing thread with each session before it is written.
+## Tests use it to hold a write in progress; the game leaves it unset.
+var before_write: Callable = Callable()
 var _preserve_failed_load := false
 var _validated_payloads: Dictionary = {}
 var _autosave_thread: Thread
@@ -24,6 +29,7 @@ func _init(directory: String = "user://") -> void:
 
 func load_session(validator: Callable = Callable()) -> Dictionary:
 	finish_autosave()
+	_discard_outdated()
 	# Optional pure domain validation allows schema-invalid primary files to use
 	# a playable backup while keeping this storage class independent of rules.
 	if validator.is_valid():
@@ -95,9 +101,13 @@ func _save_session(session_data: Dictionary) -> bool:
 		return _fail("The existing save files are preserved because they could not be restored.")
 	if session_data.is_empty():
 		return _fail("An empty session cannot replace a saved game.")
-	if _validator.is_valid() and not _validator.call(session_data):
-		return _fail("The session did not pass game-state validation.")
+	if before_write.is_valid(): before_write.call(session_data)
+	# Game rules are checked when a save is loaded, never on the way out: a
+	# rejected save would block every later save (the 0.16.1 lock-up). Writing
+	# only proves the file reads back to exactly these bytes.
 	var payload := JSON.stringify(session_data, "", true, true)
+	if not JSON.parse_string(payload) is Dictionary:
+		return _fail("The session could not be serialized.")
 	# Hash the stored bytes, not a re-serialized dictionary with float conversions.
 	var serialized := JSON.stringify({
 		"format": FORMAT,
@@ -113,6 +123,9 @@ func _save_session(session_data: Dictionary) -> bool:
 		return _fail("Could not create the save directory (%s)." % mkdir_error)
 	if not _write_checked(_path("pending"), serialized):
 		return false
+	# The previous generation becomes the backup only if it passes the game's
+	# rules (cached per file); otherwise the existing backup stays. This never
+	# blocks the new write.
 	var previous := _read_valid(_path("primary"))
 	# Never replace a valid backup with a damaged primary. A first save creates
 	# its recovery copy before promotion, so interruption always leaves a valid file.
@@ -142,6 +155,17 @@ func clear_session() -> bool:
 	_validated_payloads.clear()
 	return true
 
+func _discard_outdated() -> void:
+	for kind in ["primary", "backup", "pending", "backup_pending"]:
+		var path := _path(kind)
+		if not FileAccess.file_exists(path): continue
+		var parser := JSON.new()
+		if parser.parse(FileAccess.get_file_as_string(path)) != OK: continue
+		var envelope: Variant = parser.data
+		var version: Variant = envelope.get("version") if envelope is Dictionary and envelope.get("format") == FORMAT else null
+		if (version is int or version is float) and int(version) < FORMAT_VERSION:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
 func _path(kind: String) -> String:
 	var filenames := {
 		"primary": "session.json",
@@ -151,7 +175,10 @@ func _path(kind: String) -> String:
 	}
 	return _directory.path_join(filenames[kind])
 
-func _read_valid(path: String) -> Dictionary:
+## A checksum-verified save; with `domain`, it must also pass the game's
+## validator (loading, and choosing what to keep as the backup). Verifying a
+## fresh write checks only the checksum.
+func _read_valid(path: String, domain := true) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {}
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -173,7 +200,7 @@ func _read_valid(path: String) -> Dictionary:
 		return {}
 	if parser.parse(payload) != OK or not parser.data is Dictionary or parser.data.is_empty():
 		return {}
-	if _validator.is_valid() and not _validated_payloads.has(envelope.sha256):
+	if domain and _validator.is_valid() and not _validated_payloads.has(envelope.sha256):
 		if not _validator.call(parser.data): return {}
 		# Domain validation is pure and belongs to these exact verified bytes.
 		# Atomic writes re-read pending, primary and backup files; do not rebuild
@@ -190,7 +217,7 @@ func _write_checked(path: String, text: String) -> bool:
 	file.flush()
 	var write_error := file.get_error()
 	file.close()
-	if write_error != OK or _read_valid(path).is_empty():
+	if write_error != OK or _read_valid(path, false).is_empty():
 		return _fail("Saved session verification failed (%s)." % write_error)
 	return true
 

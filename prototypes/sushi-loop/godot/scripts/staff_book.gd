@@ -91,7 +91,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			return {"ok":true,"chef_id":id,"offer_id":offer.id,"applicant_id":offer.applicant_id,"cost":int(data.cost)}
 	return {"ok":false,"reason":"unknown_command"}
 
-static func valid(config: Dictionary, state: Dictionary) -> bool:
+static func valid(config: Dictionary, state: Dictionary, store) -> bool:
 	if not state.get("staff") is Dictionary: return false
 	var staff: Dictionary = state.staff
 	if not staff.get("offers") is Array or staff.offers.size()>3 or not staff.get("hired") is Dictionary: return false
@@ -101,7 +101,7 @@ static func valid(config: Dictionary, state: Dictionary) -> bool:
 	if not staff.get("random_state") is String or not staff.random_state.is_valid_int() or str(int(staff.random_state))!=staff.random_state: return false
 	if not staff.get("dismissed") is Dictionary:return false
 	for id in staff.dismissed:
-		if not id is String or Book.chef(state,id)!={} or staff.hired.has(id):return false
+		if not id is String or not _actor(config,state,store,str(id)).is_empty() or staff.hired.has(id):return false
 		var original:Dictionary={}
 		for object in config.objects:
 			if object.id==id and object.kind=="chef":original=object
@@ -123,12 +123,15 @@ static func valid(config: Dictionary, state: Dictionary) -> bool:
 		var index := str(id).trim_prefix("hired-chef-")
 		if not index.is_valid_int() or int(index)<1 or int(index)>=int(staff.next_hire_id) or str(int(index))!=index: return false
 		identities[staff.hired[id]] = true
-		var actor := Book.chef(state,id)
+		var actor := _actor(config,state,store,id)
 		var data: Dictionary = definition().applicants[staff.hired[id]]
 		if actor.is_empty() or actor.get("art_id")!=data.art_id or actor.get("level_cap")!=data.level_cap or actor.get("growth_rate")!=data.growth_rate: return false
 	for entry in state.get("inventory",[]):
 		if entry.get("kind") == "chef" and not entry.get("staff_new") is bool: return false
 	return true
+
+static func _actor(config: Dictionary, _state: Dictionary, store, id: String) -> Dictionary:
+	return Chefs.record(store, config, id)
 
 static func _number(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value))

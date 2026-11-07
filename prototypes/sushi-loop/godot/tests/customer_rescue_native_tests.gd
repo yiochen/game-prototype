@@ -51,6 +51,8 @@ func capture(name: String) -> void:
 	root.get_texture().get_image().save_png(output.path_join(name + ".png"))
 
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	return JSON.parse_string(JSON.stringify(a, "", true, true)) == JSON.parse_string(JSON.stringify(b, "", true, true))
 
 func count_stock() -> int:
@@ -84,7 +86,7 @@ func configuration(trap := false) -> Dictionary:
 	return {"objects":objects,"service":{"first_arrival_seconds":0.1,"arrival_seconds":1000.0,"arrival_jitter_seconds":0.0,"eating_seconds":8.0},"customers":{"fullness_min":1.0,"fullness_max":1.0,"dish_fullness_min":1.0,"dish_fullness_max":1.0,"eating_jitter_seconds":0.0}}
 
 func saved_guest() -> Dictionary:
-	return app.session.save_data().state.customers[0] if not app.session.snapshot().customers.is_empty() else {}
+	return GameSession.flat_view(app.session.save_data()).state.customers[0] if not app.session.snapshot().customers.is_empty() else {}
 
 func load_scenario(trap := false) -> void:
 	app._cancel_gesture()
@@ -129,7 +131,7 @@ func run() -> void:
 	await tap(point)
 	expect(app.session.snapshot().editor.selected_id == "seat" and ui.context_bubble.visible,"Layout selects the occupied stool and shows its shared object controls")
 	await capture("01-occupied-seat-selected")
-	var before: Dictionary = app.session.save_data()
+	var before: Dictionary = GameSession.flat_view(app.session.save_data())
 	var press: Vector2 = ui.rotate.get_global_rect().get_center()
 	await touch(press,true)
 	expect(ui.rotate.get_meta("visual_pressed",false),"The occupied-seat Rotate control has actual pointer-down feedback")
@@ -189,7 +191,7 @@ func run() -> void:
 		Input.parse_input_event(key)
 		await frames()
 	expect(app.session.snapshot().editor.selected_id == guest_id, "Keyboard activation selects the same rescuable customer")
-	before = app.session.save_data()
+	before = GameSession.flat_view(app.session.save_data())
 	point = sprite_point(guest_id)
 	destination = point+app.world.cell_base(1,6)-app.world.cell_base(float(saved_guest().x),float(saved_guest().y))
 	await touch(point,true)
@@ -258,7 +260,7 @@ func run() -> void:
 	app._editor_command({"type":"editor_select","id":guest_id})
 	point = sprite_point(guest_id)
 	destination = point+app.world.cell_base(3,7)-app.world.cell_base(float(saved_guest().x),float(saved_guest().y))
-	before = app.session.save_data()
+	before = GameSession.flat_view(app.session.save_data())
 	await touch(point,true)
 	await drag(point,destination)
 	await touch(destination,false)

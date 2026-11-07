@@ -5,11 +5,13 @@ class Gate extends RefCounted:
 	var entered := Semaphore.new()
 	var release := Semaphore.new()
 	var block_next := false
-	func validate(data: Dictionary) -> bool:
+	# Holds the next write on the writer thread until released.
+	func hold(_data: Dictionary) -> void:
 		if block_next:
 			block_next = false
 			entered.post()
 			release.wait()
+	func validate(data: Dictionary) -> bool:
 		return Session.new().restore(data)
 var checks := 0
 var failures: Array[String] = []
@@ -18,6 +20,8 @@ func check(value: bool, message: String) -> void:
 	checks += 1
 	if not value: failures.append(message);printerr("FAIL: "+message)
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	if a is Dictionary and b is Dictionary:
 		if a.size()!=b.size():return false
 		for key in a:
@@ -51,30 +55,32 @@ func run() -> void:
 	var directory := "user://async-%s" % OS.get_process_id()
 	var store := Store.new(directory)
 	store.load_session(gate.validate)
+	store.before_write = gate.hold
 	check(store.save_session(initial),"the fixture begins with an authentic durably saved restaurant")
 	gate.block_next = true
-	var first := initial.duplicate(true);first.state.coins = 130
+	var first := GameSession.flat_view(initial.duplicate(true));first.state.coins = 130
 	store.request_autosave(first)
-	check(await wait_entered(gate),"autosave starts validation on the worker")
+	check(await wait_entered(gate),"autosave writes on the worker")
 	# The worker cannot finish until release. These calls therefore prove the
 	# simulation and newest-snapshot handoff do not wait for storage to complete.
-	var middle := initial.duplicate(true);middle.state.coins = 140
-	var newest := initial.duplicate(true);newest.state.coins = 150
+	var middle := GameSession.flat_view(initial.duplicate(true));middle.state.coins = 140
+	var newest := GameSession.flat_view(initial.duplicate(true));newest.state.coins = 150
 	store.request_autosave(middle);store.request_autosave(newest)
 	newest.state.coins = 999
 	for i in range(5): restaurant.advance(.05);await process_frame
 	check(restaurant.snapshot().elapsed>0 and store.poll_autosave().is_empty(),"foreground service and frames continue while a disk save is held")
 	gate.release.post()
-	check(store.finish_autosave() and int(store.load_session().state.coins)==150,"coalescing commits the newest independently owned snapshot")
-	var invalid := initial.duplicate(true);invalid.state.coins = -1
+	check(store.finish_autosave() and int(GameSession.flat_view(store.load_session()).state.coins)==150,"coalescing commits the newest independently owned snapshot")
+	var invalid := GameSession.flat_view(initial.duplicate(true));invalid.state.coins = -1
 	store.request_autosave(invalid)
 	var failed := await wait_completed(store)
-	check(not failed.is_empty() and not failed.ok and not failed.error.is_empty(),"worker validation failures return to the foreground")
-	check(int(store.load_session().state.coins)==150,"an invalid autosave cannot replace playable progress")
+	# Rules are checked on load, not on write, so a bad state can never block saving.
+	check(not failed.is_empty() and failed.ok,"an autosave is written without a game-rule check")
+	check(int(GameSession.flat_view(store.load_session()).state.coins)==150 and store.source=="backup","an invalid autosave cannot replace playable progress: loading falls back to the backup")
 	gate.block_next = true;store.request_autosave(first)
 	check(await wait_entered(gate),"a later write can be held for an explicit-action race")
 	store.request_autosave(middle)
-	var action := initial.duplicate(true);action.state.coins = 200
+	var action := GameSession.flat_view(initial.duplicate(true));action.state.coins = 200
 	gate.release.post()
 	check(store.save_session(action),"an explicit action joins the older writer and commits synchronously")
 	for i in range(5):store.poll_autosave();await process_frame
@@ -91,7 +97,7 @@ func run() -> void:
 	app.show_editor_gallery = true;app.simulation_enabled = false
 	root.add_child(app);await process_frame;app.set_process(false)
 	app.show_editor_gallery = false;app.session = Session.new_session(43)
-	app.store = Store.new(directory.path_join("app"));app.store.load_session(gate.validate)
+	app.store = Store.new(directory.path_join("app"));app.store.load_session(gate.validate);app.store.before_write = gate.hold
 	gate.block_next = true;app.simulation_enabled = true
 	app._process(.8)
 	check(await wait_entered(gate),"the actual Live frame hands off an arrival save without blocking")

@@ -36,7 +36,7 @@ func run()->void:
 	await tap(picker.manage_tab);await create_timer(.3).timeout
 	check(picker.tab=="manage" and picker.manage_view.visible and not picker.recipe_page.visible,"Manage slides into the fixed popup")
 	check(absf(picker.portrait.position.y+picker.portrait.size.y-picker.separator.position.y)<.01 and picker.separator.visible,"headshot touches the Manage separator")
-	var manage=picker.manage_view;var before:Dictionary=app.session.save_data()
+	var manage=picker.manage_view;var before:Dictionary=GameSession.flat_view(app.session.save_data())
 	await tap(manage.upgrade);check(app.session.snapshot().coins==int(before.state.coins)-60,"native upgrade pays one level")
 	check(manage.actor.level==2 and manage.actor.cooking_speed>1,"native stats update in place")
 	await capture("02-manage-unlock-preview")
@@ -96,7 +96,7 @@ func run()->void:
 	check(app.save_blocked and not picker.dismissal.fired,"failed save blocks the firing receipt until persistence succeeds")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(obstacle));app._retry_restore();await frames()
 	check(not app.save_blocked and picker.dismissal.fired,"Retry resumes the Fired receipt after saving the same removal")
-	check(app.store.load_session().state.staff.dismissed.has("chef-disconnected"),"retried firing is durable")
+	check(GameSession.flat_view(app.store.load_session()).state.staff.dismissed.has("chef-disconnected"),"retried firing is durable")
 	picker.dismissal.back();app.store=original_store
 	var record:={"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"checks":count,"failures":failures}
 	if not output.is_empty():var f:=FileAccess.open(output.path_join("renderer.json"),FileAccess.WRITE);f.store_string(JSON.stringify(record,"  "))

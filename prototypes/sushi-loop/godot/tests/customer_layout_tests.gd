@@ -26,9 +26,13 @@ func check(value: bool, message: String) -> bool:
 	return value
 
 func same(a: Variant, b: Variant) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	return JSON.parse_string(JSON.stringify(a, "", true, true)) == JSON.parse_string(JSON.stringify(b, "", true, true))
 
 func same_continuation(a: Dictionary, b: Dictionary) -> bool:
+	a = GameSession.flat_view(a) if a is Dictionary and a.has("engine") else a
+	b = GameSession.flat_view(b) if b is Dictionary and b.has("engine") else b
 	# Match the existing wandering suite's 1 ns tolerance only for the raw
 	# binary-float arrival countdown. Every visit/meal/navigation field is exact.
 	if absf(float(a.state.arrival_remaining)-float(b.state.arrival_remaining)) > 0.000000001: return false
@@ -39,7 +43,7 @@ func same_continuation(a: Dictionary, b: Dictionary) -> bool:
 	return same(a,b)
 
 func guest(game: GameSession) -> Dictionary:
-	return game.save_data().state.customers[0] if not game.snapshot().customers.is_empty() else {}
+	return GameSession.flat_view(game.save_data()).state.customers[0] if not game.snapshot().customers.is_empty() else {}
 
 func progress(customer: Dictionary) -> Dictionary:
 	var result := {}
@@ -105,7 +109,7 @@ func _carry_and_reseat() -> void:
 
 func _standing_placement() -> void:
 	var game := eating()
-	var old := guest(game).duplicate(true)
+	var old := GameSession.flat_view(guest(game).duplicate(true))
 	check(game.command({"type":"editor_remove","id":old.seat_id}).ok, "The placement fixture releases a seated guest")
 	check(game.command({"type":"editor_place","inventory_id":"stool-plain","x":old.x,"y":old.y,"facing":"south"}).ok, "A suitable stool can be placed on a standing guest")
 	check(guest(game).phase == "eating" and same(progress(old),progress(guest(game))), "Placement immediately seats the same customer and resumes the exact unfinished meal")
@@ -186,40 +190,33 @@ func _belt_clock() -> void:
 	game.command({"type":"set_entrance_open","open":false})
 	game.advance(4.55)
 	edit(game)
-	var tiles: Array = game.save_data().state.objects.filter(func(object): return object.kind == "belt" and object.dish != null and object.travel_elapsed > 0)
+	var tiles: Array = GameSession.flat_view(game.save_data()).state.objects.filter(func(object): return object.kind == "belt" and object.dish != null and object.travel_elapsed > 0)
 	if not check(not tiles.is_empty(), "The belt fixture has a partially transferred real dish"): return
 	var tile: Dictionary = tiles[0].duplicate(true)
 	check(game.command({"type":"editor_move","id":tile.id,"x":0,"y":10}).ok, "A loaded belt can move")
-	var after: Dictionary = game.save_data().state.objects.filter(func(object): return object.id == tile.id)[0]
+	var after: Dictionary = GameSession.flat_view(game.save_data()).state.objects.filter(func(object): return object.id == tile.id)[0]
 	check(after.dish == tile.dish and after.travel_elapsed == tile.travel_elapsed, "The moved tile carries its exact dish and frozen progress")
 	reopen(game)
 	game.command({"type":"set_mode","mode":"live"})
 	game.advance(0.2)
-	after = game.save_data().state.objects.filter(func(object): return object.id == tile.id)[0]
+	after = GameSession.flat_view(game.save_data()).state.objects.filter(func(object): return object.id == tile.id)[0]
 	check(after.dish == tile.dish and after.travel_elapsed == tile.travel_elapsed, "A disconnected loaded endpoint keeps its plate and clock when service resumes")
 	edit(game)
 	game.command({"type":"editor_select","id":tile.id})
 	check(game.command({"type":"editor_belt_extend","x":1,"y":10}).ok, "The carried tile can reconnect to a new neighboring belt")
-	after = game.save_data().state.objects.filter(func(object): return object.id == tile.id)[0]
+	after = GameSession.flat_view(game.save_data()).state.objects.filter(func(object): return object.id == tile.id)[0]
 	check(after.dish == tile.dish and after.travel_elapsed == tile.travel_elapsed, "Reconnection retains the carried dish's unfinished transfer clock")
 	reopen(game)
 
 func _migration_and_corruption() -> void:
 	var game := eating()
-	var old := game.save_data()
-	old.erase("customer_layout_version")
-	for customer in old.state.customers:
-		customer.erase("layout_pending")
-		customer.erase("standing_elapsed")
-	var migrated := Session.new()
-	check(migrated.restore(old) and same(progress(guest(migrated)),progress(guest(game))), "Earlier shipped saves acquire neutral layout fields without replaying a visit")
-	var corrupt := game.save_data()
+	var corrupt := GameSession.flat_view(game.save_data())
 	corrupt.state.customers[0].layout_pending = "yes"
 	var peer := Session.new()
 	check(not peer.restore(corrupt), "Malformed reaction state is rejected")
-	corrupt = game.save_data()
-	corrupt.customer_layout_version = 999
-	check(not peer.restore(corrupt), "Unknown future customer-layout versions are rejected")
+	corrupt = GameSession.flat_view(game.save_data())
+	corrupt.version = 999
+	check(not peer.restore(corrupt), "Unknown future save versions are rejected")
 
 func _direct_pickup() -> void:
 	var game := eating()

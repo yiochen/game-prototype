@@ -18,10 +18,10 @@ const VISIT := {"initial": "entrance_wait", "states": {
 }}
 
 static func define(store) -> void:
-	# Saved as `state.customers` until the save format changes (migration step 9).
-	# A guest's stool is a reference: removing the stool stands the guest up
-	# through GameSession._on_seat_removed.
-	store.define_component("customer", {"owner": "customers", "durable": false, "persist": false,
+	# Arrival order matters, so rows are saved in order. A guest's stool is a
+	# reference: removing the stool stands the guest up through
+	# GameSession._on_seat_removed.
+	store.define_component("customer", {"owner": "customers", "durable": false, "ordered": true,
 		"refs": {"seat_id": {"to": "layout", "on_delete": "notify"}}})
 
 static func rows(store) -> Array:

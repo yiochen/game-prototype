@@ -36,7 +36,7 @@ func run() -> void:
 			state.expansion.cleared = []
 			check(Book.area(state,floor_data)==initial,"restoring or resetting clearance reads current session state")
 	var session := Session.new_session(19,{"starting_coins":100000})
-	var original: Dictionary = session.save_data()
+	var original: Dictionary = GameSession.flat_view(session.save_data())
 	var first: Dictionary = session.snapshot().expansion
 	first.patches[0].price = -1
 	first.cleared.append("changed-by-renderer")
@@ -45,7 +45,7 @@ func run() -> void:
 	check(session.snapshot().expansion == Book.snapshot(original.configuration,original.state),"service clocks reuse the unchanged clearance map")
 	var available: Dictionary = session.snapshot().expansion.patches.filter(func(p):return p.available)[0]
 	check(session.command({"type":"clear_trash","id":available.id}).ok,"the clearance cache fixture uses a real paid command")
-	var cleared: Dictionary = session.save_data()
+	var cleared: Dictionary = GameSession.flat_view(session.save_data())
 	check(session.snapshot().expansion == Book.snapshot(cleared.configuration,cleared.state),"clearing immediately updates availability, capacity and shade data")
 	cleared.state.expansion.cleared = identities.duplicate()
 	check(session.restore(cleared),"an all-cleared restaurant restores through domain validation")

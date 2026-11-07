@@ -4,41 +4,28 @@ extends RefCounted
 ## Construction loads tuneable content; rules have no wall clock or persistence.
 ## A caller decides when time passes and where snapshots are stored.
 
-const SAVE_VERSION := 1
+## The only save format this game reads; there are no released saves to upgrade.
+const SAVE_VERSION := 3
 const Doorway = preload("res://scripts/doorway.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
-const RECIPE_BOOK_VERSION := 1
 const StaffBook = preload("res://scripts/staff_book.gd")
-const STAFF_VERSION := 1
 const Development = preload("res://scripts/chef_development.gd")
-const CHEF_DEVELOPMENT_VERSION := 1
 const FloorBook = preload("res://scripts/floor_book.gd")
 const ShopBook = preload("res://scripts/shop_book.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
 const ExpeditionBook = preload("res://scripts/expedition/expedition_book.gd")
-const SHOP_VERSION := 1
-const BELT_MOTION_VERSION := 1
-const BELT_ROUTE_VERSION := 1
 const Store = preload("res://scripts/engine/store.gd")
 const Chefs = preload("res://scripts/features/chefs.gd")
 const Layout = preload("res://scripts/features/layout.gd")
 const Customers = preload("res://scripts/features/customers.gd")
 const Navigation = preload("res://scripts/features/navigation.gd")
-## Saves without an "engine" section predate the store and are upgraded once.
-const ENGINE_VERSION := 1
-## Self-contained features whose records are store slices. Until the save
-## format changes (migration step 9), they are saved under `state` with their
-## version stamps, and `_state` refers to the same objects under these keys so
-## older code can read them; it never holds a copy.
-const SLICES := {"shop": SHOP_VERSION, "floor_styles": 1, "recipe_book": RECIPE_BOOK_VERSION, "staff": STAFF_VERSION, "expansion": 2, "inventory": 1, "editor": EDITOR_VERSION, "expedition": ExpeditionBook.VERSION}
+## Self-contained features whose records are store slices. `_state` is the
+## session's own `core` slice; it also refers to these slices under their
+## names so older code can read them, but never holds a copy.
+const SLICES := {"shop": 1, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 1, "editor": 1, "expedition": 1}
 ## Commands that may place, move or remove layout objects.
 const LAYOUT_COMMANDS := ["staff_place", "unassign_chef", "fire_chef"]
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
-const CUSTOMER_VISIT_VERSION := 1
-const CUSTOMER_NAVIGATION_VERSION := 1
-const CUSTOMER_ADMISSION_VERSION := 1
-const CUSTOMER_LAYOUT_VERSION := 2
-const EDITOR_VERSION := 3
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
 const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood"]
@@ -89,7 +76,9 @@ static func _new_store() -> Store:
 	Chefs.define(store)
 	Layout.define(store)
 	Customers.define(store)
-	for name in SLICES: store.define_slice(name, {"version": SLICES[name], "initial": func(): return null, "persist": false})
+	for name in SLICES: store.define_slice(name, {"version": SLICES[name], "initial": func(): return null})
+	# The session's own values: coins, clock, counters, camera, mode and stats.
+	store.define_slice("core", {"owner": "session", "initial": func(): return null, "encode": _encode_core})
 	store.create_world(Chefs.WORLD)
 	return store
 
@@ -127,6 +116,7 @@ static func _slices_written(type: String) -> Array:
 	return []
 
 func _bind_slices() -> void:
+	_store.slices["core"] = _state
 	for name in SLICES:
 		var value: Variant = _store.slice(name)
 		if value == null: _state.erase(name)
@@ -134,12 +124,24 @@ func _bind_slices() -> void:
 
 ## After a successful command the store adopts any record `_state` replaced.
 func _relink_slices() -> void:
+	_store.slices["core"] = _state
 	for name in SLICES:
 		if not is_same(_store.slice(name), _state.get(name)): _store.slices[name] = _state.get(name)
+
+## The saved form of the core slice: no slice references, nothing derived.
+static func _encode_core(core: Variant) -> Variant:
+	if not core is Dictionary: return null
+	var saved := {}
+	for key in core:
+		if SLICES.has(key) or key in ["elapsed", "next_customer_id"]: continue
+		saved[key] = core[key].duplicate(true) if (core[key] is Dictionary or core[key] is Array) else core[key]
+	if saved.get("stats") is Dictionary: saved.stats.erase("served")
+	return saved
 
 ## Moves feature records out of a single-dictionary state into slices.
 static func _extract_slices(state: Dictionary, store: Store) -> void:
 	for name in SLICES: store.set_slice(name, state.get(name))
+	store.set_slice("core", state)
 
 func _command(request: Dictionary) -> Dictionary:
 	if str(request.get("type", "")).begins_with("floor_"): return FloorBook.command(_configuration,_state,request)
@@ -337,164 +339,95 @@ func _expansion_view() -> Dictionary:
 func save_data() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
-		"belt_motion_version": BELT_MOTION_VERSION,
-		"belt_route_version": BELT_ROUTE_VERSION,
-		"customer_visit_version": CUSTOMER_VISIT_VERSION,
-		"customer_navigation_version": CUSTOMER_NAVIGATION_VERSION,
-		"customer_admission_version": CUSTOMER_ADMISSION_VERSION,
-		"customer_layout_version": CUSTOMER_LAYOUT_VERSION,
-		"editor_version": EDITOR_VERSION,
-		"recipe_book_version": RECIPE_BOOK_VERSION,
-		"staff_version": STAFF_VERSION,
-		"chef_development_version": CHEF_DEVELOPMENT_VERSION,
-		"shop_version": SHOP_VERSION,
-		"floor_styles_version": FloorBook.VERSION,
-		"expansion_version": Expansion.VERSION,
-		"expedition_version": ExpeditionBook.VERSION,
 		"configuration": _configuration.duplicate(true),
-		"state": _saved_state(),
-		"engine_version": ENGINE_VERSION,
 		"engine": _store.save(),
 		"remainder": _remainder,
 		# JSON numbers cannot exactly hold a 64-bit generator state.
 		"random_state": str(_random.state),
 	}
 
-## The single-dictionary save form: layout rows go back into `objects`.
-func _saved_state() -> Dictionary:
-	var state: Dictionary = _state.duplicate(true)
-	Layout.hydrate(state, _store)
-	Customers.hydrate(state, _store)
-	return state
+## A save in one flat dictionary, for tools, tests and inspection: `state`
+## holds the session's values, every slice, and the layout and guest lists;
+## `engine` keeps the chef tables and the run world. restore() accepts it.
+static func flat_view(data: Dictionary) -> Dictionary:
+	var store := _new_store()
+	if data.get("format") == "flat" or not data.get("engine") is Dictionary or not store.load_saved(data.engine) or not store.slice("core") is Dictionary:
+		return data.duplicate(true)
+	var state: Dictionary = store.slice("core").duplicate(true)
+	for name in SLICES:
+		if store.slice(name) != null: state[name] = store.slice(name).duplicate(true)
+	Layout.hydrate(state, store)
+	Customers.hydrate(state, store)
+	var engine: Dictionary = data.engine.duplicate(true)
+	engine.slices = {}
+	for component in ["layout", "customer"]: engine.get("worlds", {}).get(Chefs.WORLD, {}).get("tables", {}).erase(component)
+	return {"format": "flat", "version": data.get("version"), "configuration": data.get("configuration", {}).duplicate(true), "state": state,
+		"engine": engine, "remainder": data.get("remainder"), "random_state": data.get("random_state")}
 
-func restore(data: Dictionary) -> bool:
-	if not _nonnegative_integer(data.get("floor_styles_version",0)) or int(data.get("floor_styles_version",0)) > FloorBook.VERSION: return false
-	if not _nonnegative_integer(data.get("expansion_version",0)) or int(data.get("expansion_version",0)) > Expansion.VERSION: return false
-	if not _nonnegative_integer(data.get("expedition_version",0)) or int(data.get("expedition_version",0)) > ExpeditionBook.VERSION: return false
-	if not _nonnegative_integer(data.get("shop_version",0)) or int(data.get("shop_version",0)) > SHOP_VERSION: return false
-	if not _nonnegative_integer(data.get("chef_development_version",0)) or int(data.get("chef_development_version",0))>CHEF_DEVELOPMENT_VERSION:return false
-	# Validate before changing anything. Restoring is a state replacement, never
-	# elapsed-time simulation or event playback, even when called repeatedly.
-	if not _nonnegative_integer(data.get("recipe_book_version", 0)) or int(data.get("recipe_book_version", 0)) > RECIPE_BOOK_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("staff_version",0)) or int(data.get("staff_version",0))>STAFF_VERSION: return false
-	if data.get("version") != SAVE_VERSION or not data.get("configuration") is Dictionary:
-		return false
-	if not _valid_configuration(data.configuration) or not data.get("state") is Dictionary:
-		return false
-	if not _finite_number(data.get("remainder")) or float(data.remainder) < 0.0:
-		return false
-	if float(data.remainder) >= float(data.configuration.service.step_seconds):
-		return false
-	if not data.get("random_state") is String or not data.random_state.is_valid_int():
-		return false
-	if data.random_state != str(int(data.random_state)):
-		return false
-	if not _nonnegative_integer(data.get("belt_motion_version", 0)) or int(data.get("belt_motion_version", 0)) > BELT_MOTION_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("belt_route_version", 0)) or int(data.get("belt_route_version", 0)) > BELT_ROUTE_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("customer_visit_version", 0)) or int(data.get("customer_visit_version", 0)) > CUSTOMER_VISIT_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("customer_navigation_version", 0)) or int(data.get("customer_navigation_version", 0)) > CUSTOMER_NAVIGATION_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("customer_admission_version", 0)) or int(data.get("customer_admission_version", 0)) > CUSTOMER_ADMISSION_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("editor_version", 0)) or int(data.get("editor_version", 0)) > EDITOR_VERSION:
-		return false
-	if not _nonnegative_integer(data.get("customer_layout_version", 0)) or int(data.get("customer_layout_version", 0)) > CUSTOMER_LAYOUT_VERSION:
-		return false
+## The save a flat view describes. Pure conversion; restore() validates it.
+static func _from_flat(flat: Dictionary) -> Dictionary:
+	if not flat.get("state") is Dictionary or not flat.get("engine") is Dictionary: return {}
+	var state: Dictionary = flat.state.duplicate(true)
+	var engine: Dictionary = flat.engine.duplicate(true)
+	if not engine.get("worlds") is Dictionary: return {}
+	engine.slices = {}
+	for name in SLICES:
+		if state.has(name): engine.slices[name] = {"version": SLICES[name], "data": state[name]}
+		state.erase(name)
+	if not engine.worlds.get(Chefs.WORLD) is Dictionary: engine.worlds[Chefs.WORLD] = {"next_id": 1, "tables": {}}
+	var tables: Dictionary = engine.worlds[Chefs.WORLD].get("tables", {})
+	tables.layout = {"version": 1, "rows": state.get("objects", [])}
+	tables.customer = {"version": 1, "rows": state.get("customers", [])}
+	engine.worlds[Chefs.WORLD].tables = tables
+	state.erase("objects")
+	state.erase("customers")
+	engine.slices.core = {"version": 1, "data": state}
+	return {"version": flat.get("version"), "configuration": flat.get("configuration"), "engine": engine, "remainder": flat.get("remainder"), "random_state": flat.get("random_state")}
+
+## Values a save leaves out because they follow from others.
+func _derive(state: Dictionary, store: Store, config: Dictionary) -> bool:
+	if not _nonnegative_integer(state.get("step_index")) or not state.get("stats") is Dictionary or not _nonnegative_integer(state.stats.get("sales")) or not _nonnegative_integer(state.stats.get("arrivals")) or not state.get("inventory") is Array: return false
+	state.elapsed = int(state.step_index) * float(config.service.step_seconds)
+	state.stats.served = int(state.stats.sales)
+	state.next_customer_id = int(state.stats.arrivals) + 1
+	for stock in state.inventory:
+		if stock is Dictionary and stock.get("kind") == "chef": stock.assigned = store.has_row(Layout.WORLD, "layout", str(stock.get("id")))
+	return true
+
+## A saved configuration with the current content's cell scale, or {} if invalid.
+func _upgraded_configuration(saved: Dictionary) -> Dictionary:
 	var current_content: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTENT_PATH))
 	if not current_content is Dictionary or not current_content.get("floor") is Dictionary:
-		return false
+		return {}
 	var viewport_columns: Variant = current_content.floor.get("viewport_columns", current_content.floor.get("columns"))
 	if not _nonnegative_integer(viewport_columns) or int(viewport_columns) < 1:
-		return false
-	var restored_configuration: Dictionary = data.configuration.duplicate(true)
+		return {}
+	var configuration: Dictionary = saved.duplicate(true)
 	# Cell scale is presentation, independent of the saved restaurant footprint.
-	# Older 9-column saves keep every cell and economic rule at the new scale.
-	restored_configuration.floor.viewport_columns = int(viewport_columns)
-	if not restored_configuration.has("customers"):
-		restored_configuration.customers = current_content.get("customers", {}).duplicate(true)
-	if restored_configuration.get("customers") is Dictionary:
-		for key in ["wander_retry_seconds", "wander_speed_multiplier", "entrance_wait_seconds"]:
-			if not restored_configuration.customers.has(key):
-				restored_configuration.customers[key] = current_content.customers[key]
-	if not _valid_configuration(restored_configuration):
+	configuration.floor.viewport_columns = int(viewport_columns)
+	return configuration if _valid_configuration(configuration) else {}
+
+## Loads a save (or a flat view of one): everything comes from the store,
+## derived values are recalculated, and every feature's rules are checked
+## before anything changes. Any other format is rejected.
+func restore(data: Dictionary) -> bool:
+	if data.get("format") == "flat": data = _from_flat(data)
+	if data.get("version") != SAVE_VERSION or not data.get("configuration") is Dictionary or not _valid_configuration(data.configuration) or not data.get("engine") is Dictionary:
 		return false
-	var restored_state: Dictionary = data.state.duplicate(true)
+	if not _finite_number(data.get("remainder")) or float(data.remainder) < 0.0 or float(data.remainder) >= float(data.configuration.service.step_seconds):
+		return false
+	if not data.get("random_state") is String or not data.random_state.is_valid_int() or data.random_state != str(int(data.random_state)):
+		return false
+	var configuration := _upgraded_configuration(data.configuration)
+	if configuration.is_empty(): return false
 	var store := _new_store()
-	var engine: Variant = data.get("engine")
-	if data.has("engine"):
-		# Chefs live in the store. Rebuild their old records on this working copy
-		# so the validators of features not yet moved see a complete restaurant.
-		if data.get("engine_version") != ENGINE_VERSION or not engine is Dictionary or not store.load_saved(engine) or not Chefs.valid(store, restored_configuration): return false
-		if not Chefs.matches(restored_state, store) or not ExpeditionBook.shield_valid(store): return false
-		Chefs.hydrate(restored_state, store, restored_configuration)
-	if not restored_state.get("objects") is Array or not _valid_objects(restored_state.objects, restored_configuration): return false
-	_migrate_visual_state(restored_state)
-	if int(data.get("customer_visit_version", 0)) == 0:
-		_migrate_visit_state(restored_state, restored_configuration)
-	if int(data.get("editor_version", 0)) == 0:
-		_initialize_editor_state(restored_state)
-	elif int(data.get("editor_version", 0)) < EDITOR_VERSION:
-		if not _migrate_editor_paging(restored_state, int(data.editor_version)): return false
-	if int(data.get("belt_route_version", 0)) == 0:
-		BeltRoutes.initialize(restored_state.objects)
-		if not restored_state.get("editor") is Dictionary: return false
-		restored_state.editor.belt_path = []
-	var navigation_version := int(data.get("customer_navigation_version", 0))
-	var admission_version := int(data.get("customer_admission_version", 0))
-	if int(data.get("customer_layout_version", 0)) == 0:
-		for customer in restored_state.get("customers", []):
-			if not customer is Dictionary: return false
-			_initialize_customer_layout(customer)
-	if int(data.get("recipe_book_version", 0)) == 0:
-		if not RecipeBook.initialize(restored_configuration, restored_state): return false
-	if int(data.get("staff_version",0))==0: StaffBook.initialize(restored_configuration,restored_state)
-	if int(data.get("chef_development_version",0))==0 or int(data.get("staff_version",0))==0 or int(data.get("recipe_book_version",0))==0:Development.initialize(restored_state)
-	if int(data.get("shop_version",0)) == 0:
-		if restored_state.has("shop"): return false
-		ShopBook.initialize(restored_state)
-	if int(data.get("floor_styles_version",0)) == 0:
-		if restored_state.has("floor_styles"): return false
-		if not _finite_number(restored_state.get("elapsed")): return false
-		FloorBook.initialize(restored_state,posmod(int(data.random_state),2147483647))
-	if not FloorBook.valid(restored_configuration,restored_state): return false
-	if not restored_state.editor.get("floor_brush","") is String or (restored_state.editor.get("floor_brush","") != "" and restored_state.editor.floor_brush not in restored_state.floor_styles.owned): return false
-	if not ShopBook.valid(restored_state): return false
-	if int(data.get("expansion_version",0)) == 0:
-		if restored_state.has("expansion"): return false
-		Expansion.initialize(restored_configuration,restored_state)
-	elif int(data.expansion_version) == 1 and Expansion.enabled(restored_configuration.floor):
-		if not Expansion.migrate_v1(restored_state): return false
-	if not Expansion.valid(restored_configuration,restored_state): return false
-	if int(data.get("expedition_version",0)) == 0:
-		# Saves from before #21 begin with one full battery and no salvage.
-		if restored_state.has("expedition"): return false
-		ExpeditionBook.initialize(restored_state,posmod(int(data.random_state),2147483647))
-	if not ExpeditionBook.valid(restored_state): return false
-	if not Development.valid(restored_state):return false
-	if not StaffBook.valid(restored_configuration,restored_state): return false
-	if not RecipeBook.valid(restored_configuration, restored_state): return false
-	if not _valid_saved_state(restored_state, restored_configuration, navigation_version, admission_version):
-		return false
-	if navigation_version == 0:
-		_migrate_navigation(restored_state, restored_configuration)
-	if admission_version == 0:
-		for customer in restored_state.customers:
-			# Existing visits keep every action, route and random sample. Admission
-			# only adds neutral feedback clocks; old guests are never readmitted.
-			customer.entrance_wait_elapsed = 0.0
-			customer.wander_elapsed = 0.0
-	if int(data.get("belt_motion_version", 0)) == 0:
-		_migrate_belt_motion(restored_state)
-	if data.has("engine"): Chefs.strip(restored_state)
-	else: Chefs.extract(restored_state, store, restored_configuration)
-	_configuration = restored_configuration
-	Layout.extract(restored_state, store)
-	Customers.extract(restored_state, store)
-	_state = restored_state
+	if not store.load_saved(data.engine) or not store.slice("core") is Dictionary: return false
+	var state: Dictionary = store.slice("core")
+	for name in SLICES:
+		if store.slice(name) != null: state[name] = store.slice(name)
+	if not _derive(state, store, configuration) or not _valid_store(store, configuration, state): return false
+	_configuration = configuration
+	_state = state
 	_store = store
 	_bind_store()
 	_state.editor.erase("floor_brush")
@@ -502,82 +435,21 @@ func restore(data: Dictionary) -> bool:
 	_remainder = float(data.remainder)
 	_random.state = int(data.random_state)
 	_rebuild_access()
-	_upgrade_restaurant_backdrop()
-	_initialize_expansion()
-	_rebuild_access()
-	_extract_slices(_state, _store)
-	ExpeditionBook.adopt_shield(_state, _store)
-	if _state.expedition.run == null: _store.drop_world(ExpeditionBook.WORLD)
 	return true
 
-## Expansion still reads layout objects from a single-dictionary state.
-func _initialize_expansion() -> void:
-	var view := {"objects": _objects()}
-	if _state.has("expansion"): view.expansion = _state.expansion
-	Expansion.initialize(_configuration, view)
-	if view.has("expansion"): _state.expansion = view.expansion
-	_extract_slices(_state, _store)
-
-func _upgrade_restaurant_backdrop() -> void:
-	# Older shipped saves retain their economy, visits and edited furniture.
-	# Custom simulation layouts are not restaurant-content migrations.
-	var floor_data: Dictionary = _configuration.floor
-	if floor_data.has("backdrop_rows") or int(_configuration.get("content_version", 0)) > 2 or int(floor_data.columns) < 7 or int(floor_data.rows) < 13 or int(floor_data.world_columns) < 21:
-		return
-	var entrance := Vector2i(4, 3)
-	var offset := 0
-	for objects in [_configuration.objects, _objects()]:
-		for object in objects:
-			if int(object.y) < 3 or _point(object) == entrance: offset = 3
-	# A layout using the old top rows moves as a whole, preserving every belt
-	# connection and occupied seat. Add rows rather than discarding any cells.
-	if offset > 0:
-		floor_data.rows = int(floor_data.rows) + offset
-		for objects in [_configuration.objects, _objects()]:
-			for object in objects: object.y = int(object.y) + offset
-	for stock in _state.inventory:
-		if stock.get("stored_object") is Dictionary:
-			stock.stored_object.y = maxi(3, int(stock.stored_object.y) + offset)
-	floor_data.backdrop_rows = 3
-	floor_data.entrance = {"x": entrance.x, "y": entrance.y}
-	_configuration.content_version = 3
-	for customer in _customers():
-		customer.y = float(customer.y) + offset
-		if customer.phase == "entrance_wait":
-			customer.x = float(entrance.x)
-			customer.y = float(entrance.y)
-	# Rebuild routes during migration without turning a blocked visit into a
-	# departure before the first Live step (the released 0.4.8 contract).
-	var saved_mode: String = _state.mode
-	_state.mode = "edit"
-	for customer in _customers():
-		var waiting_overlap: bool = customer.phase != "entrance_wait" and _customers().any(func(other): return other.phase == "entrance_wait" and Vector2(float(customer.x),float(customer.y)).distance_to(Vector2(float(other.x),float(other.y))) < _customer_number("personal_space"))
-		if customer.phase != "entrance_wait" and (float(customer.y) < 3.0 or waiting_overlap):
-			# A visitor already crossing the retired doorway starts at the nearest
-			# free floor cell. No arrival, meal, payment or visit clock is replayed.
-			var nearest := Vector2(entrance)
-			var distance := INF
-			for y in range(3, int(floor_data.rows)):
-				for x in range(int(floor_data.columns)):
-					var point := Vector2(x, y)
-					if not _object_at(Vector2i(point)).is_empty(): continue
-					if _customers().any(func(other): return other.id != customer.id and point.distance_to(Vector2(float(other.x), float(other.y))) < 0.75): continue
-					var candidate := point.distance_squared_to(Vector2(float(customer.x), float(customer.y)))
-					if candidate < distance:
-						distance = candidate
-						nearest = point
-			customer.x = nearest.x
-			customer.y = nearest.y
-		customer.render_offset_x = 0.0
-		customer.render_offset_y = 0.0
-		if customer.phase in ["walking", "leaving"]:
-			var wander_elapsed: float = customer.wander_elapsed
-			_replan_navigation(customer)
-			if customer.navigation_mode == "wander": customer.wander_elapsed = wander_elapsed
-		else:
-			_clear_seated_route(customer)
-	_state.mode = saved_mode
-	_rebuild_access()
+## Every feature's rules on the store as it is: after loading, and after an
+## edit. Reads the live tables and slices; copies nothing.
+func _valid_store(store: Store, config: Dictionary, state: Dictionary = {}) -> bool:
+	var view: Dictionary = (_state if state.is_empty() else state).duplicate()
+	view.objects = Layout.rows(store)
+	view.customers = Customers.rows(store)
+	if not view.get("recipe_book") is Dictionary or not view.get("editor") is Dictionary: return false
+	if not Chefs.valid(store, config) or not Chefs.matches(view, store) or not Chefs.valid_recipes(store, config, view.recipe_book) or not ExpeditionBook.shield_valid(store): return false
+	if not FloorBook.valid(config, view) or not view.editor.get("floor_brush", "") is String: return false
+	if view.editor.get("floor_brush", "") != "" and not view.editor.floor_brush in view.floor_styles.owned: return false
+	if not ShopBook.valid(view) or not Expansion.valid(config, view) or not ExpeditionBook.valid(view): return false
+	if not StaffBook.valid(config, view, store) or not RecipeBook.valid(config, view): return false
+	return _valid_saved_state(view, config, store)
 
 func _normalize_restored_numbers() -> void:
 	ShopBook.normalize(_state)
@@ -656,8 +528,8 @@ func _start() -> void:
 	_rebuild_access()
 
 func _transition_seconds(key: String) -> float:
-	# Missing durations identify legacy v1 configurations, whose instant
-	# transitions keep their original timing when reopened.
+	# A configuration without a duration (small test fixtures) uses an
+	# instant transition.
 	return float(_configuration.service.get(key, 0.0))
 
 func _clock_advance(value: float, delta: float) -> float:
@@ -792,8 +664,6 @@ func _rebuild_access() -> void:
 				break
 
 func _chef_recipe(chef: Dictionary, index := {}) -> String:
-	# Legacy-shaped records (validated during restore) carry their own recipe.
-	if chef.has("recipe_id"): return str(chef.recipe_id)
 	if index.has("recipes"): return str(index.recipes.get(chef.id, ""))
 	return str(Chefs.station(_store, str(chef.id)).get("recipe_id", ""))
 
@@ -886,7 +756,6 @@ func _choose_useful_seat(choices: Array, preferred: String) -> Dictionary:
 
 func _new_visit_fields(customer: Dictionary) -> void:
 	_initialize_customer_layout(customer)
-	customer.visit_legacy = false
 	customer.first_dish_received = false
 	customer.preferred_recipe_id = ""
 	customer.preference_phase = "pending"
@@ -1108,7 +977,7 @@ func _step_customers(delta: float, events: Array) -> void:
 					_set_visual(customer, "seated-wait")
 				if customer.preference_phase == "pending":
 					# A manually admitted door guest chooses their preference only in Live.
-					if not customer.visit_legacy and customer.preferred_recipe_id.is_empty():
+					if customer.preferred_recipe_id.is_empty():
 						var service := _seat_service(_object_by_id(customer.seat_id))
 						var recipes: Array = service.ready + service.menu
 						if recipes.is_empty(): recipes = _state.recipe_book.discovered.duplicate()
@@ -1146,10 +1015,9 @@ func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events
 	customer.meal_elapsed = 0.0
 	customer.meal_duration = float(_configuration.service.eating_seconds)
 	customer.meal_fullness = 1.0
-	if not customer.visit_legacy:
-		var jitter := _customer_number("eating_jitter_seconds")
-		customer.meal_duration += _random.randf_range(-jitter, jitter)
-		customer.meal_fullness = _random.randf_range(_customer_number("dish_fullness_min"), _customer_number("dish_fullness_max"))
+	var jitter := _customer_number("eating_jitter_seconds")
+	customer.meal_duration += _random.randf_range(-jitter, jitter)
+	customer.meal_fullness = _random.randf_range(_customer_number("dish_fullness_min"), _customer_number("dish_fullness_max"))
 	customer.first_dish_received = true
 	customer.waiting_elapsed = 0.0
 	customer.restless = false
@@ -1185,7 +1053,7 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 	customer.meal_dish = null
 	customer.meal_elapsed = 0.0
 	customer.meal_fullness = 0.0
-	if customer.visit_legacy or float(customer.fullness) + 0.000000001 >= float(customer.appetite_target):
+	if float(customer.fullness) + 0.000000001 >= float(customer.appetite_target):
 		_begin_leaving(customer, "satisfied")
 	else:
 		customer.phase = "waiting"
@@ -1221,18 +1089,6 @@ func _initialize_navigation(customer: Dictionary, origin: Vector2) -> void:
 	customer.path_origin = {"x": origin.x, "y": origin.y}
 	customer.navigation_retry_elapsed = 0.0
 	customer.wander_cursor = 0
-
-func _migrate_navigation(state: Dictionary, config: Dictionary) -> void:
-	for customer in state.customers:
-		var origin := _point(config.floor.entrance)
-		if customer.phase == "leaving":
-			for object in state.objects:
-				if object.id == customer.seat_id:
-					origin = _point(object)
-					break
-		_initialize_navigation(customer, Vector2(origin))
-		if customer.phase in ["waiting", "eating"]:
-			_clear_seated_route(customer)
 
 func _clear_seated_route(customer: Dictionary) -> void:
 	customer.navigation_mode = "goal"
@@ -1580,7 +1436,8 @@ func _valid_configuration(config: Dictionary) -> bool:
 		return false
 	return _valid_objects(config.objects, config)
 
-func _valid_objects(objects: Array, config: Dictionary) -> bool:
+## `placements_only`: chef rows carry only their placement (store mode).
+func _valid_objects(objects: Array, config: Dictionary, placements_only := false) -> bool:
 	var ids: Dictionary = {}
 	var cells: Dictionary = {}
 	for object in objects:
@@ -1593,7 +1450,7 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 		var cell := _point(object)
 		if cells.has(cell) or (not Doorway.enabled(config.floor) and cell == _point(config.floor.entrance)):
 			return false
-		if object.kind == "chef" and (not object.get("recipe_id") is String or (object.recipe_id != "" and not config.recipes.has(object.recipe_id))):
+		if object.kind == "chef" and not placements_only and (not object.get("recipe_id") is String or (object.recipe_id != "" and not config.recipes.has(object.recipe_id))):
 			return false
 		if object.kind == "decor" and not object.get("art_id") in DECOR_ART_IDS:
 			return false
@@ -1607,58 +1464,6 @@ func _valid_point(value: Variant, floor_data: Dictionary) -> bool:
 	if not value is Dictionary or not _nonnegative_integer(value.get("x")) or not _nonnegative_integer(value.get("y")):
 		return false
 	return int(value.x) < Expansion.columns(floor_data) and int(value.y) >= int(floor_data.get("backdrop_rows",0)) and int(value.y) < int(floor_data.rows)
-
-func _migrate_visual_state(state: Dictionary) -> void:
-	# Version 1 saves predate explicit animation clocks. Their gameplay state
-	# stays authoritative; do not replay sitting, loading or completed sales.
-	var objects: Variant = state.get("objects")
-	var customers: Variant = state.get("customers")
-	if not objects is Array or not customers is Array:
-		return
-	var seats := {}
-	for object in objects:
-		if not object is Dictionary:
-			continue
-		if object.get("kind") == "seat":
-			seats[object.get("id", "")] = object
-		if object.get("kind") != "chef":
-			continue
-		if not object.has("loading_elapsed"):
-			object.loading_elapsed = 0.0
-		if not object.has("visual_phase"):
-			object.visual_phase = "hold" if object.get("held_dish") != null else "work"
-		if not object.has("visual_elapsed"):
-			object.visual_elapsed = object.get("preparation_elapsed", 0.0) if object.visual_phase == "work" else 0.0
-	for customer in customers:
-		if not customer is Dictionary:
-			continue
-		var phase: Variant = customer.get("phase")
-		if not customer.has("visual_phase"):
-			customer.visual_phase = "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
-		if not customer.has("visual_elapsed"):
-			customer.visual_elapsed = customer.get("meal_elapsed", 0.0) if phase == "eating" else 0.0
-		if not customer.has("facing"):
-			var seat: Dictionary = seats.get(customer.get("seat_id", ""), {})
-			customer.facing = seat.get("facing", "south")
-			if customer.visual_phase == "walk" and _finite_number(customer.get("x")) and _finite_number(customer.get("y")) and customer.get("path") is Array and _nonnegative_integer(customer.get("path_index")):
-				var index := int(customer.path_index)
-				if index < customer.path.size():
-					var target: Variant = customer.path[index]
-					if target is Dictionary and _finite_number(target.get("x")) and _finite_number(target.get("y")):
-						customer.facing = _direction_toward(Vector2(float(customer.x), float(customer.y)), Vector2(float(target.x), float(target.y)))
-
-func _migrate_belt_motion(state: Dictionary) -> void:
-	# Earlier saves charged blocked clocks while drawing those dishes at their
-	# source centers. Keep that visible position, but retain any real crossing
-	# toward an empty belt. The motion marker prevents repeating this migration.
-	var belts := {}
-	for object in state.objects:
-		if object.kind == "belt":
-			belts[_point(object)] = object
-	for tile in belts.values():
-		var destination: Dictionary = belts.get(_point(tile) + DIRECTIONS[tile.facing], {})
-		if destination.is_empty() or destination.dish != null:
-			tile.travel_elapsed = 0.0
 
 func _id_index(value: Variant, prefix: String) -> int:
 	if not value is String or not value.begins_with(prefix):
@@ -1682,12 +1487,12 @@ func _valid_dish(value: Variant, recipes: Dictionary, dish_ids: Dictionary) -> b
 ## Validates the live restaurant after an edit, with chef records rebuilt for
 ## the validators of features that have not moved to the store yet.
 func _valid_runtime_state() -> bool:
-	var state: Dictionary = _saved_state()
-	Chefs.hydrate(state, _store, _configuration)
-	return _valid_saved_state(state, _configuration)
+	return _valid_store(_store, _configuration)
 
-func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_version: int = CUSTOMER_NAVIGATION_VERSION, admission_version: int = CUSTOMER_ADMISSION_VERSION) -> bool:
-	if not _valid_editor_state(state, config):
+## Layout, guests and the session's own values. Chefs are read from the store;
+## layout rows carry only their placement.
+func _valid_saved_state(state: Dictionary, config: Dictionary, store: Store) -> bool:
+	if not _valid_editor_state(state, config, store):
 		return false
 	for field in ["coins", "step_index", "next_customer_id", "next_dish_id"]:
 		if not _nonnegative_integer(state.get(field)):
@@ -1696,8 +1501,6 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 		return false
 	if float(state.elapsed) < 0.0 or float(state.arrival_remaining) < 0.0:
 		return false
-	if absf(float(state.elapsed) - int(state.step_index) * float(config.service.step_seconds)) > 0.000001:
-		return false
 	if not state.get("camera") is Dictionary or not state.get("stats") is Dictionary or not state.get("entrance_open") is bool:
 		return false
 	if not _finite_number(state.camera.get("x")) or not _finite_number(state.camera.get("y")):
@@ -1705,46 +1508,20 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 	for field in ["sales", "served", "arrivals"]:
 		if not _nonnegative_integer(state.stats.get(field)):
 			return false
-	if int(state.stats.sales) != int(state.stats.served) or int(state.next_customer_id) != int(state.stats.arrivals) + 1:
-		return false
-	if not state.get("objects") is Array or not state.get("customers") is Array or not _valid_objects(state.objects, config):
+	if not state.get("objects") is Array or not state.get("customers") is Array or not _valid_objects(state.objects, config, true):
 		return false
 	if int(state.stats.arrivals) < state.customers.size():
 		return false
 	var dish_ids: Dictionary = {}
 	var seats: Dictionary = {}
 	var occupants: Dictionary = {}
-	var owned_objects: Array = state.objects.duplicate()
-	for entry in state.inventory:
-		if entry.kind == "chef" and not entry.assigned:
-			owned_objects.append(entry.stored_object)
-	for object in owned_objects:
-		if state.objects.has(object):
-			occupants[_point(object)] = object
-		if object.kind == "chef":
-			if not object.has("held_dish") or not _valid_dish(object.held_dish, config.recipes, dish_ids):
-				return false
-			var duration := RecipeBook.seconds(config.recipes.get(object.recipe_id, {}), object)
-			# Duration is recomputed from a JSON-parsed cooking speed, which can
-			# drift by an ulp from the value the finished timer was clamped to.
-			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0 or float(object.preparation_elapsed) > duration + 0.000001:
-				return false
-			if not object.get("visual_phase") in ["work", "hold", "load", "idle"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
-				return false
-			if not _finite_number(object.get("loading_elapsed")) or float(object.loading_elapsed) < 0.0:
-				return false
-			if object.held_dish != null:
-				if object.held_dish.recipe_id != object.recipe_id or absf(float(object.preparation_elapsed) - duration) > 0.000001 or object.visual_phase == "work":
-					return false
-			elif not object.visual_phase in ["work", "idle"]:
-				return false
-			if object.visual_phase == "load":
-				var load_seconds := float(config.service.get("loading_seconds", 0.0))
-				if load_seconds <= 0.0 or float(object.loading_elapsed) >= load_seconds or absf(float(object.visual_elapsed) - float(object.loading_elapsed)) > 0.000001:
-					return false
-			elif float(object.loading_elapsed) != 0.0:
-				return false
-		elif object.kind == "belt":
+	for id in Chefs.ids(store):
+		if not _valid_dish(Chefs.station(store, id).held_dish, config.recipes, dish_ids): return false
+	for object in state.objects:
+		occupants[_point(object)] = object
+		# Chef stations are checked by the chef feature.
+		if object.kind == "chef": continue
+		if object.kind == "belt":
 			if not object.has("dish") or not _valid_dish(object.dish, config.recipes, dish_ids):
 				return false
 			if not _finite_number(object.get("travel_elapsed")) or float(object.travel_elapsed) < 0.0 or float(object.travel_elapsed) > float(config.service.belt_seconds_per_cell):
@@ -1762,7 +1539,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 		if _id_index(customer.id, "customer-") >= int(state.next_customer_id):
 			return false
 		customer_ids[customer.id] = true
-		var entrance_wait: bool = admission_version > 0 and customer.get("phase") == "entrance_wait"
+		var entrance_wait: bool = customer.get("phase") == "entrance_wait"
 		if entrance_wait:
 			if entrance_wait_reserved or not _valid_entrance_wait(customer, config):
 				return false
@@ -1774,9 +1551,9 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 		elif not seats.has(customer.get("seat_id")) or not Customers.is_phase(customer.get("phase")) or customer.phase in ["standing", "entrance_wait"]:
 			return false
 		if not customer.get("layout_pending") is bool or not _finite_number(customer.get("standing_elapsed")) or float(customer.standing_elapsed) < 0.0: return false
-		if admission_version > 0 and (not _finite_number(customer.get("entrance_wait_elapsed")) or (not entrance_wait and float(customer.entrance_wait_elapsed) != 0.0)):
+		if (not _finite_number(customer.get("entrance_wait_elapsed")) or (not entrance_wait and float(customer.entrance_wait_elapsed) != 0.0)):
 			return false
-		if admission_version > 0 and (not _finite_number(customer.get("wander_elapsed")) or float(customer.wander_elapsed) < 0.0 or (customer.get("navigation_mode") != "wander" and float(customer.wander_elapsed) != 0.0)):
+		if (not _finite_number(customer.get("wander_elapsed")) or float(customer.wander_elapsed) < 0.0 or (customer.get("navigation_mode") != "wander" and float(customer.wander_elapsed) != 0.0)):
 			return false
 		if not _valid_visit(customer, config):
 			return false
@@ -1804,10 +1581,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 			if not _valid_point(point, config.floor) or not Expansion.usable(state,config.floor,_point(point),true):
 				return false
 		if entrance_wait:
-			if navigation_version == 0 or not _valid_customer_navigation(customer, {}, occupants, config):
-				return false
-		elif navigation_version == 0:
-			if not _valid_legacy_customer_path(customer, seats[customer.seat_id], occupants, config.floor):
+			if not _valid_customer_navigation(customer, {}, occupants, config):
 				return false
 		elif not _valid_customer_navigation(customer, seats.get(customer.seat_id, {}), occupants, config):
 			return false
@@ -1824,10 +1598,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary, navigation_versio
 				return false
 		elif float(customer.meal_elapsed) != 0.0:
 			return false
-	# Every produced plate is either still owned by one actor/tile or was sold.
-	# Counters must advance past all surviving IDs before new food/visitors spawn.
-	if int(state.next_dish_id) != int(state.stats.sales) + int(state.discarded_dishes) + dish_ids.size() + 1:
-		return false
+	# The counter must advance past every surviving ID before new food spawns.
 	for dish_id in dish_ids:
 		if _id_index(dish_id, "dish-") >= int(state.next_dish_id):
 			return false
@@ -1850,34 +1621,8 @@ func _valid_customer_rules(value: Variant, service: Dictionary) -> bool:
 			return false
 	return float(value.restless_seconds) < float(value.leave_seconds) and float(value.fullness_min) <= float(value.fullness_max) and float(value.dish_fullness_min) <= float(value.dish_fullness_max) and float(value.eating_jitter_seconds) < float(service.eating_seconds) and float(value.passing_offset) < 0.5 and float(value.personal_space) <= 2.0 * float(value.passing_offset)
 
-func _migrate_visit_state(state: Dictionary, config: Dictionary) -> void:
-	if not state.get("customers") is Array:
-		return
-	for customer in state.customers:
-		if not customer is Dictionary:
-			continue
-		# Existing visitors finish their original one-plate visit. No new random
-		# draws, preference replay, appetite reroll or sale occurs on migration.
-		customer.visit_legacy = true
-		customer.first_dish_received = customer.get("phase") in ["eating", "leaving"]
-		customer.preferred_recipe_id = ""
-		customer.preference_phase = "complete"
-		customer.preference_elapsed = 0.0
-		customer.preference_phase_elapsed = 0.0
-		customer.happy_elapsed = 0.0
-		customer.waiting_elapsed = 0.0
-		customer.restless = false
-		customer.yielding = false
-		customer.render_offset_x = 0.0
-		customer.render_offset_y = 0.0
-		customer.fullness = 1.0 if customer.get("phase") == "leaving" else 0.0
-		customer.appetite_target = 1.0
-		customer.meal_fullness = 1.0 if customer.get("phase") == "eating" else 0.0
-		customer.meal_duration = float(config.service.eating_seconds)
-		customer.departure_reason = "satisfied" if customer.get("phase") == "leaving" else ""
-
 func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
-	for key in ["visit_legacy", "first_dish_received", "restless", "yielding"]:
+	for key in ["first_dish_received", "restless", "yielding"]:
 		if not customer.get(key) is bool:
 			return false
 	for key in ["preference_elapsed", "preference_phase_elapsed", "happy_elapsed", "waiting_elapsed", "fullness", "meal_fullness"]:
@@ -1890,7 +1635,7 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 		if not _finite_number(customer.get(key)) or absf(float(customer[key])) > float(config.customers.passing_offset) * 2.0 + 0.000001:
 			return false
 	var pending_admission: bool = customer.get("preferred_recipe_id") == "" and not customer.first_dish_received and customer.get("preference_phase") == "pending" and customer.phase in ["standing", "walking", "waiting", "leaving"]
-	if not customer.get("preferred_recipe_id") is String or (not customer.visit_legacy and customer.phase != "entrance_wait" and not pending_admission and not config.recipes.has(customer.preferred_recipe_id)):
+	if not customer.get("preferred_recipe_id") is String or (customer.phase != "entrance_wait" and not pending_admission and not config.recipes.has(customer.preferred_recipe_id)):
 		return false
 	if not customer.get("preference_phase") in ["pending", "active", "satisfied", "expired", "complete"]:
 		return false
@@ -1915,8 +1660,6 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 			return false
 	elif float(customer.meal_fullness) != 0.0:
 		return false
-	if customer.visit_legacy:
-		return customer.appetite_target == 1.0 and customer.preference_phase == "complete" and customer.preferred_recipe_id == "" and float(customer.meal_duration) == float(config.service.eating_seconds)
 	if float(customer.appetite_target) < float(config.customers.fullness_min) or float(customer.appetite_target) > float(config.customers.fullness_max):
 		return false
 	if customer.phase != "leaving" and float(customer.fullness) + 0.000000001 >= float(customer.appetite_target):
@@ -1926,7 +1669,7 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 	return absf(float(customer.meal_duration) - float(config.service.eating_seconds)) <= float(config.customers.eating_jitter_seconds) + 0.000001
 
 func _valid_entrance_wait(customer: Dictionary, config: Dictionary) -> bool:
-	if customer.get("seat_id") != "" or customer.get("visit_legacy") != false or customer.get("first_dish_received") != false or customer.get("preferred_recipe_id") != "" or customer.get("preference_phase") != "pending":
+	if customer.get("seat_id") != "" or customer.get("first_dish_received") != false or customer.get("preferred_recipe_id") != "" or customer.get("preference_phase") != "pending":
 		return false
 	for key in ["x", "y"]:
 		if not _finite_number(customer.get(key)) or absf(float(customer[key]) - float(customer.get("door_lane", config.floor.entrance.x) if key == "x" else config.floor.entrance.y)) > 0.000001:
@@ -1994,30 +1737,6 @@ func _valid_customer_navigation(customer: Dictionary, seat: Dictionary, occupant
 		return false
 	return position.x >= minf(segment_start.x, segment_end.x) - 0.000001 and position.x <= maxf(segment_start.x, segment_end.x) + 0.000001 and position.y >= minf(segment_start.y, segment_end.y) - 0.000001 and position.y <= maxf(segment_start.y, segment_end.y) + 0.000001
 
-func _valid_legacy_customer_path(customer: Dictionary, seat: Dictionary, occupants: Dictionary, floor_data: Dictionary) -> bool:
-	var leaving: bool = customer.phase == "leaving"
-	var start := _point(seat) if leaving else _point(floor_data.entrance)
-	var goal := _point(floor_data.entrance) if leaving else _point(seat)
-	var previous := start
-	for point in customer.path:
-		var cell := _point(point)
-		if absi(cell.x - previous.x) + absi(cell.y - previous.y) != 1:
-			return false
-		if occupants.has(cell) and not (cell == goal and not leaving and occupants[cell].id == seat.id):
-			return false
-		previous = cell
-	if previous != goal:
-		return false
-	var index := int(customer.path_index)
-	if customer.phase in ["waiting", "eating"] and index != customer.path.size():
-		return false
-	if customer.phase == "walking" and index == customer.path.size():
-		return false
-	var segment_start := start if index == 0 else _point(customer.path[index - 1])
-	var segment_end := segment_start if index == customer.path.size() else _point(customer.path[index])
-	var position := Vector2(float(customer.x), float(customer.y))
-	return position.x >= minf(segment_start.x, segment_end.x) - 0.000001 and position.x <= maxf(segment_start.x, segment_end.x) + 0.000001 and position.y >= minf(segment_start.y, segment_end.y) - 0.000001 and position.y <= maxf(segment_start.y, segment_end.y) + 0.000001
-
 func _editor_definition() -> Dictionary:
 	if _editor_content.is_empty():
 		var loaded: Variant = JSON.parse_string(FileAccess.get_file_as_string(EDITOR_PATH))
@@ -2068,31 +1787,7 @@ func _editor_page_count(layer: String, inventory: Array) -> int:
 	var page_size := int(_editor_definition().get("page_sizes", {}).get(layer, 3))
 	return maxi(1, int(ceil(float(_editor_entries(layer, inventory).size()) / maxi(1, page_size))))
 
-func _migrate_editor_paging(state: Dictionary, old_version: int) -> bool:
-	# v1 used People 3 / Layout 2 / Floor 2; v2 used three in every layer.
-	# Preserve the page containing the prior first visible item. Validate every
-	# old page before conversion so malformed saves cannot become valid.
-	if not state.get("editor") is Dictionary or not state.get("inventory") is Array:
-		return false
-	var editor: Dictionary = state.editor
-	if not editor.get("layer") in EDITOR_LAYERS or not editor.get("pages") is Dictionary or not _nonnegative_integer(editor.get("page")):
-		return false
-	if not _nonnegative_integer(editor.pages.get(editor.layer)) or int(editor.page) != int(editor.pages[editor.layer]):
-		return false
-	for entry in state.inventory:
-		if not entry is Dictionary or not entry.get("kind") in ["chef", "belt", "seat", "decor", "floor"]: return false
-	for layer in EDITOR_LAYERS:
-		var old_size := 3 if old_version == 2 or layer == "people" else 2
-		var entry_count := _editor_entries(layer, state.inventory).size()
-		var old_count := maxi(1, int(ceil(float(entry_count) / old_size)))
-		if not _nonnegative_integer(editor.pages.get(layer)) or int(editor.pages[layer]) >= old_count:
-			return false
-		var page_size := maxi(1, int(_editor_definition().get("page_sizes", {}).get(layer, 3)))
-		editor.pages[layer] = mini(int(floor(float(int(editor.pages[layer]) * old_size) / page_size)), _editor_page_count(layer, state.inventory) - 1)
-	editor.page = editor.pages[editor.layer]
-	return true
-
-func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
+func _valid_editor_state(state: Dictionary, config: Dictionary, store: Store = null) -> bool:
 	if not state.get("mode") in ["live", "edit"] or not state.get("editor") is Dictionary or not state.get("inventory") is Array:
 		return false
 	if not _nonnegative_integer(state.get("next_object_id")) or int(state.next_object_id) < 1 or not _nonnegative_integer(state.get("discarded_dishes")):
@@ -2108,7 +1803,7 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	if not _nonnegative_integer(editor.get("page")):
 		return false
 	var objects: Variant = state.get("objects")
-	if not objects is Array or not _valid_objects(objects, config):
+	if not objects is Array or not _valid_objects(objects, config, store != null):
 		return false
 	if not BeltRoutes.valid(objects) or not editor.get("belt_path") is Array: return false
 	var placed: Dictionary = {}
@@ -2146,6 +1841,11 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 		if entry.get("kind") == "chef":
 			if not known_chefs.has(entry.id):
 				return false
+			if store != null:
+				# The chef's own records are checked by the chef feature.
+				if not entry.get("assigned") is bool or entry.assigned != placed.has(entry.id) or not Chefs.exists(store, entry.id) or not DIRECTIONS.has(entry.get("facing")): return false
+				if int(entry.count) != (0 if entry.assigned else 1) or (entry.assigned and placed[entry.id].get("kind") != "chef"): return false
+				continue
 			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not entry.get("recipe_id") is String or (entry.recipe_id != "" and not config.recipes.has(entry.recipe_id)) or not DIRECTIONS.has(entry.get("facing")):
 				return false
 			if entry.assigned:
