@@ -1,4 +1,5 @@
 extends SceneTree
+# native-args: --exhibition-gallery
 var app
 func _init() -> void: call_deferred("run")
 func run() -> void:

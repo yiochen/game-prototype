@@ -70,27 +70,47 @@ def main() -> int:
                     matches.add("review")
                 return matches
             shutil.copytree(source, project, ignore=test_ignored)
+            # Seed the editor import cache. Godot re-imports only sources whose
+            # recorded hashes changed, instead of every texture and model
+            # (minutes per run). Shader caches and editor layout stay behind.
+            cache = source / ".godot"
+            if cache.is_dir():
+                shutil.copytree(cache, project / ".godot", ignore=shutil.ignore_patterns("shader_cache", "editor_layout.cfg"))
             config_file = project / "project.godot"
             config = config_file.read_text()
             config = re.sub(r"^config/(?:use_custom_user_dir|custom_user_dir_name)=.*\n?", "", config, flags=re.M)
             config = config.replace("[application]\n", f'[application]\nconfig/use_custom_user_dir=true\nconfig/custom_user_dir_name="{identity}"\n', 1)
             config_file.write_text(config)
             run([args.godot, "--headless", "--path", str(project), "--editor", "--import"], args.timeout, environment)
+            failed = []
             for script in scripts:
                 command = [args.godot, "--path", str(project), "--resolution", args.resolution]
                 command += ["--windowed", "--audio-driver", "Dummy"] if args.visible else ["--headless"]
                 if args.fixed_fps:
                     command += ["--fixed-fps", str(args.fixed_fps)]
                 command += ["--script", f"res://{script}"]
-                extra = args.args[1:] if args.args[:1] == ["--"] else args.args
+                extra = list(args.args[1:] if args.args[:1] == ["--"] else args.args)
                 if args.output:
                     extra += ["--output", str(args.output)]
                 if args.gallery:
                     extra += ["--gallery"]
+                # A script may need launch flags (e.g. a gallery mode) to run
+                # in the default suite: "# native-args: --flag" on its first lines.
+                for line in (project / script).read_text().splitlines()[:5]:
+                    if line.startswith("# native-args:"):
+                        extra += [flag for flag in line.split(":", 1)[1].split() if flag not in extra]
                 if extra:
                     command += ["--", *extra]
                 print(f"Running {script} in isolated native session", flush=True)
-                run(command, args.timeout, environment)
+                # Keep going so one failure does not hide the rest of the suite.
+                try:
+                    run(command, args.timeout, environment)
+                except (SystemExit, subprocess.TimeoutExpired) as error:
+                    print(f"FAILED {script}: {error}", flush=True)
+                    failed.append(script)
+            if failed:
+                print(f"{len(failed)} of {len(scripts)} native scripts failed:\n  " + "\n  ".join(failed), flush=True)
+                return 1
     finally:
         if data.name == identity:
             shutil.rmtree(data, ignore_errors=True)

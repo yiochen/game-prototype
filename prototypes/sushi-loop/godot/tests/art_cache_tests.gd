@@ -34,6 +34,8 @@ func _measure() -> void:
 	var app = load("res://main.tscn").instantiate()
 	root.add_child(app)
 	app.set_process(false)
+	# Sales play coin sounds; a cue still playing at quit is reported as leaked.
+	app.audio.set_muted(true)
 	await process_frame
 	var world = app.world
 	var art = world.art

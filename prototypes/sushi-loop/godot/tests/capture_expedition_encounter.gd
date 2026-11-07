@@ -28,7 +28,7 @@ func revealed_session(seed_value: int):
 	s.command({"type": "reveal_dock"})
 	return s
 
-func run_state() -> Dictionary: return Book.snapshot(app.session._state).run
+func run_state() -> Dictionary: return Book.snapshot(app.session._state, app.session._store).run
 
 ## Let the running game advance for `seconds` of real time (the app drives
 ## the presentation every frame, slow motion included).
@@ -39,7 +39,7 @@ func play(seconds: float) -> void:
 func to_encounter() -> void:
 	var r: Dictionary = app.session._state.expedition.run
 	r.y = float(Book.run_route(r).encounter_start) + 1.2; r.x = 5.5; r.vx = 0.0; r.steer = 0.0; r.protection = 0.0
-	app.expedition_ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0)
+	app.expedition_ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0)
 	app.expedition_ui.view.snap_camera()
 
 ## Put the ship under the creature, or `offset` columns beside it toward the

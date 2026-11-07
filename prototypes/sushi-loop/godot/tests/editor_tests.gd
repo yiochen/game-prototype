@@ -227,7 +227,7 @@ func _persistence_and_migration() -> void:
 		_check(reopened.restore(store.load_session(validator)) and _same(reopened.save_data(), game.save_data()), "the latest accepted change, including selection/tray/camera, is the durable primary generation")
 	store.clear_session()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
-	var legacy := _json(game.save_data())
+	var legacy := _pre_store(_json(game.save_data()))
 	legacy.erase("editor_version")
 	legacy.erase("staff_version");legacy.state.erase("staff")
 	for key in ["mode", "editor", "inventory", "next_object_id", "discarded_dishes"]:
@@ -343,3 +343,15 @@ func _invalid_commands_and_saves() -> void:
 	corruptions.append(invalid)
 	for damaged in corruptions:
 		_check(not game.restore(damaged) and _same(game.save_data(), saved), "invalid editor saves are rejected atomically without damaging a playable restaurant")
+
+## A save as versions before the store wrote it: full chef records in the layout.
+func _pre_store(data: Dictionary) -> Dictionary:
+	var engine := preload("res://scripts/engine/store.gd").new()
+	var chefs := preload("res://scripts/features/chefs.gd")
+	chefs.define(engine)
+	engine.load_saved(data.engine)
+	var old := data.duplicate(true)
+	old.erase("engine")
+	old.erase("engine_version")
+	chefs.hydrate(old.state, engine, old.configuration)
+	return old

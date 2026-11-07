@@ -39,7 +39,7 @@ func hook() -> void:
 	app._open_landmark("Submarine"); ui.start()
 	var r: Dictionary = live()
 	r.y = float(Book.run_route(r).encounter_start) + 1.2; r.x = 5.5; r.vx = 0.0; r.steer = 0.0; r.protection = 0.0
-	ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0); ui.view.snap_camera()
+	ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0); ui.view.snap_camera()
 	await play(2.2)
 	live().x = Book.creature_centre(live()).x; live().vx = 0.0
 	ui.fire()

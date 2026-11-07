@@ -113,6 +113,9 @@ func run() -> void:
 	expect(persisted(), "The selected stool and carried guest survive save/reopen")
 	await capture("07-dropped-stool-context-menu")
 	# Long-press an unselected chef, then cancel; early movement must remain pan.
+	# The shared fixture's bottom-row chef sits behind the dock, where its
+	# selection menu is correctly hidden, so lift it into the open floor first.
+	expect(app._editor_command({"type":"editor_move","id":"chef","x":1,"y":5}).get("ok", false), "The chef moves above the editor dock")
 	app._editor_command({"type":"editor_select","id":null})
 	point = pickup_point("chef")
 	before = app.session.save_data()

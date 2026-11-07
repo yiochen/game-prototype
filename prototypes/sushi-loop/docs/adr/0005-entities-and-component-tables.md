@@ -1,0 +1,5 @@
+# Store game state as entities with component tables
+
+Status: proposed (2026-11-06).
+
+Restaurant state will move from one untyped dictionary, with `kind`-dependent records and copied chef data, to a store of entities whose data lives in component tables keyed by id. Each table has one owning feature, the only code that writes it; features change each other's data only through requests in the same transaction, and react to each other only through declared hooks. Behaviour lives in feature modules, not in components, which avoids both a pure entity-component-system's scattered, implicitly ordered systems and the hard-to-save object components of engines like Unity. New features add tables instead of reshaping existing records, transient tables such as customer visits are dropped rather than migrated on a version change, and reference fields declare deletion policies so removing an entity cannot leave dangling ids. The full design is in [state-architecture.md](../state-architecture.md), tested against planned features in [state-architecture-walkthroughs.md](../state-architecture-walkthroughs.md).

@@ -210,7 +210,7 @@ func _ready() -> void:
 		if not save_blocked and not backgrounded: _pan(-direction*world.cell))
 	expedition_ui = ExpeditionPresentation.new(); add_child(expedition_ui)
 	expedition_ui.commander = func(request: Dictionary) -> Dictionary: return session.command(request)
-	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state)
+	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state, session._store)
 	expedition_ui.save_requested.connect(func(): save_now())
 	expedition_ui.returned_to_restaurant.connect(_return_from_expedition)
 	staff_ui.tray_source=editor_ui
@@ -552,7 +552,7 @@ func _process(delta: float) -> void:
 		world.time += delta
 	if expedition_ui != null and expedition_ui.visible:
 		expedition_ui.reduced_motion = world.reduced_motion
-		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state)}, delta)
+		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state, session._store)}, delta)
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
 	world.clearance_removals = world.clearance_removals.filter(func(item: Dictionary): return world.time-float(item.started) < .26)
 	_refresh()
@@ -643,6 +643,20 @@ func _refresh() -> void:
 	_refresh_floor_ui()
 	world.queue_redraw()
 
+## The one path for a player's command: refuse while an accepted change is
+## waiting to be saved, run the command (all or nothing), then make an
+## accepted change durable once. `result.saved` is false if saving failed, in
+## which case further changes stay blocked until Retry succeeds.
+func dispatch(request: Dictionary, save_unchanged := true) -> Dictionary:
+	if save_blocked: return {"ok": false, "reason": "save_blocked"}
+	var result: Dictionary = session.command(request)
+	if not result.get("ok", false): return result
+	result.saved = true
+	if (save_unchanged or result.get("changed", false)) and not save_now():
+		result.saved = false
+		_block_edit_save()
+	return result
+
 func save_now() -> bool:
 	if save_blocked:
 		return false
@@ -669,7 +683,7 @@ func _editor_command(value: Dictionary) -> Dictionary:
 	if value.get("type") == "editor_shop":
 		return _open_shop()
 	if shop_ui != null and shop_ui.visible: return {"ok":false,"reason":"shop_open"}
-	var result: Dictionary = session.command(value)
+	var result := dispatch(value)
 	if result.get("ok", false):
 		if value.type in ["set_mode", "editor_layer", "editor_remove", "editor_belt_end"]:
 			armed_item.clear()
@@ -677,7 +691,6 @@ func _editor_command(value: Dictionary) -> Dictionary:
 		if value.type == "set_mode":
 			_cancel_gesture()
 		audio.play_cue("click")
-		if not save_now(): _block_edit_save()
 	else:
 		editor_ui.reject(str(result.get("reason", "invalid_position")))
 	_refresh()
@@ -685,9 +698,8 @@ func _editor_command(value: Dictionary) -> Dictionary:
 
 func _staff_command(request: Dictionary) -> Dictionary:
 	if save_blocked:return {"ok":false,"reason":"save_blocked"}
-	var result:Dictionary=session.command(request)
+	var result:=dispatch(request)
 	if result.get("ok",false):
-		if not save_now():_block_edit_save()
 		_refresh()
 		if request.type=="staff_place" and not save_blocked:
 			_open_recipes(str(request.inventory_id))
@@ -1127,24 +1139,22 @@ func _confirm_clearance(identity: String) -> void:
 	if save_blocked or backgrounded or clearance_ui.busy: return
 	if show_clearance_gallery:
 		clearance_ui.sample = "pressed";clearance_ui.layout(world.hud_area());return
-	var result := session.command({"type":"clear_trash","id":identity})
+	var result := dispatch({"type":"clear_trash","id":identity})
 	if not result.get("ok",false): clearance_ui.refresh(session.snapshot());return
 	if result.get("changed",false): world.clearance_removals.append({"patch":clearance_ui.patch.duplicate(true),"started":world.time})
 	clearance_ui.finish_clear()
-	if not save_now(): _block_edit_save()
 	_refresh()
 
 func _confirm_reveal() -> void:
 	if save_blocked or backgrounded or clearance_ui.busy: return
-	var result := session.command({"type":"reveal_dock"})
+	var result := dispatch({"type":"reveal_dock"})
 	if not result.get("ok",false): clearance_ui.refresh(session.snapshot());return
 	if result.get("changed",false):
 		world.dock_reveal_started = world.time;dock_unlock_pending = true
 		clearance_ui.hold_for_reveal()
 	else: clearance_ui.dismiss()
-	if not save_now():
-		# Recovery owns input while Retry makes this same accepted reveal durable.
-		clearance_ui.hide();_block_edit_save()
+	# Recovery owns input while Retry makes this same accepted reveal durable.
+	if not result.saved: clearance_ui.hide()
 	_refresh()
 
 func _enter_unlocked_submarine() -> void:
@@ -1280,18 +1290,11 @@ func _open_recipes(identity: String) -> void:
 	recipe_ui.open(session.snapshot(), identity)
 
 func _inspect_recipe(identity: String, recipe_id: String) -> void:
-	if save_blocked: return
-	var result := session.command({"type":"inspect_recipe", "chef_id":identity, "recipe_id":recipe_id})
-	if result.get("ok", false):
-		if not save_now(): _block_edit_save()
+	dispatch({"type":"inspect_recipe", "chef_id":identity, "recipe_id":recipe_id})
 
 func _prepare_recipe(identity: String, recipe_id: String) -> void:
-	if save_blocked: return
-	var result := session.command({"type":"prepare_recipe", "chef_id":identity, "recipe_id":recipe_id})
-	if not result.get("ok", false): return
-	if not save_now():
-		_block_edit_save()
-		return
+	var result := dispatch({"type":"prepare_recipe", "chef_id":identity, "recipe_id":recipe_id})
+	if not result.get("ok", false) or not result.saved: return
 	recipe_ui.dismiss()
 	if result.get("changed", false): world.recipe_shakes[identity] = world.time
 	audio.play_cue("click")
@@ -1307,11 +1310,10 @@ func _start_dish_flight(event: Dictionary, scene: Dictionary) -> void:
 	world.dish_flights.append({"customer_id":event.customer_id,"dish_id":event.dish_id,"recipe_id":event.recipe_id,"source_grid":source_grid,"started":world.time-age})
 
 func _manage_chef(request:Dictionary)->void:
-	if save_blocked:return
-	var result:=session.command(request)
+	var result:=dispatch(request)
 	if not result.get("ok",false):return
 	if request.type=="fire_chef":staff_ui.viewed_chefs.erase(str(request.chef_id))
-	if not save_now():_block_edit_save();return
+	if not result.saved:return
 	_refresh()
 	recipe_ui.management_result(request,result)
 func _place_managed_chef(identity:String)->void:
@@ -1350,10 +1352,9 @@ func _shop_closed() -> void:
 
 func _shop_purchase(request: Dictionary, source: Rect2) -> Dictionary:
 	if save_blocked or backgrounded or not shop_ui.visible: return {"ok":false,"reason":"shop_closed"}
-	var result: Dictionary = session.command(request)
+	var result := dispatch(request)
 	if result.get("ok",false):
 		pending_shop_receipt = {"offer_id":request.offer_id,"source":source,"name":result.get("name","")}
-		if not save_now(): _block_edit_save()
 		_refresh()
 		if not save_blocked: _resume_shop_receipt()
 	else: _refresh()
@@ -1377,10 +1378,9 @@ func _floor_select(id: String) -> void:
 	if save_blocked: return
 	var restore_focus:bool=get_viewport().gui_get_focus_owner() in editor_ui.cards
 	_cancel_gesture()
-	var result: Dictionary = session.command({"type":"floor_select","style_id":id})
+	var result := dispatch({"type":"floor_select","style_id":id})
 	if result.get("ok",false):
 		armed_item.clear();editor_ui.active_item=id
-		if not save_now(): _block_edit_save()
 	_refresh()
 	if restore_focus and id!="":
 		for card in editor_ui.cards:
@@ -1404,9 +1404,8 @@ func _paint_floor_segment(start: Vector2, finish: Vector2) -> void:
 		if not seen.has(coordinate):
 			seen[coordinate]=true;cells.append({"x":coordinate.x,"y":coordinate.y})
 	if cells.is_empty():return
-	var result:Dictionary=session.command({"type":"floor_paint","cells":cells})
+	var result:=dispatch({"type":"floor_paint","cells":cells},false)
 	if result.get("blocked",false):_show_clearance_notice("Clear trash before painting here.")
-	if result.get("changed",false) and not save_now():_block_edit_save()
 	_refresh()
 
 func _refresh_floor_ui() -> void:

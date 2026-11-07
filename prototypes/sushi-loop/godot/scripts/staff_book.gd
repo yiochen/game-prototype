@@ -3,6 +3,7 @@ extends RefCounted
 const PATH := "res://content/staff_catalog.json"
 const Development = preload("res://scripts/chef_development.gd")
 const Book = preload("res://scripts/recipe_book.gd")
+const Chefs = preload("res://scripts/features/chefs.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
 static var _definition: Dictionary = {}
 
@@ -35,13 +36,13 @@ static func snapshot(state: Dictionary, config: Dictionary = {}) -> Dictionary:
 	result.erase("random_state")
 	return result
 
-static func command(config: Dictionary, state: Dictionary, request: Dictionary) -> Dictionary:
+static func command(config: Dictionary, state: Dictionary, request: Dictionary, store = null) -> Dictionary:
 	var staff: Dictionary = state.staff
 	match request.get("type"):
 		"staff_seen":
 			if not request.get("ids") is Array: return {"ok":false,"reason":"invalid_staff"}
 			for id in request.ids:
-				if not id is String or Book.chef(state,id).is_empty(): return {"ok":false,"reason":"unknown_chef"}
+				if not id is String or not state.inventory.any(func(entry): return entry.get("kind") == "chef" and entry.get("id") == id): return {"ok":false,"reason":"unknown_chef"}
 			for entry in state.inventory:
 				if entry.kind == "chef" and entry.id in request.ids: entry.staff_new = false
 			return {"ok":true}
@@ -81,8 +82,8 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 				if point.x>=0:break
 			if point.x<0:return {"ok":false,"reason":"invalid_floor"}
 			var actor := {"id":id,"kind":"chef","name":str(data.name).get_slice(" ",0),"full_name":data.name,"art_id":data.art_id,"x":point.x,"y":point.y,"facing":"south","recipe_id":"","level":1,"level_cap":int(data.level_cap),"cooking_speed":float(data.cooking_speed),"growth_rate":float(data.growth_rate),"preparation_elapsed":0.0,"held_dish":null,"loading_elapsed":0.0,"visual_phase":"idle","visual_elapsed":0.0}
-			state.inventory.append({"id":id,"kind":"chef","name":actor.name,"full_name":data.name,"art_id":data.art_id,"recipe_id":"","level":1,"level_cap":actor.level_cap,"cooking_speed":actor.cooking_speed,"growth_rate":actor.growth_rate,"count":1,"assigned":false,"facing":"south","stored_object":actor,"staff_new":true})
-			Development.initialize(state)
+			state.inventory.append({"id":id,"kind":"chef","count":1,"assigned":false,"facing":"south","staff_new":true})
+			Chefs.add(store,id,actor)
 			state.coins = int(state.coins)-int(data.cost)
 			staff.hired[id] = offer.applicant_id
 			staff.next_hire_id = int(staff.next_hire_id)+1

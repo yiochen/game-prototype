@@ -27,7 +27,7 @@ func revealed_session(seed_value: int):
 	s.command({"type": "reveal_dock"})
 	return s
 
-func run_state() -> Dictionary: return Book.snapshot(app.session._state).run
+func run_state() -> Dictionary: return Book.snapshot(app.session._state, app.session._store).run
 
 ## Advance the real presentation by `seconds` in 1/30 s frames.
 func play(seconds: float, steer := 0.0) -> void:
@@ -35,13 +35,13 @@ func play(seconds: float, steer := 0.0) -> void:
 	for i in range(int(round(seconds * 30))):
 		if ui.mode != "travel": return
 		if run_state().passage == null: app.session.command({"type": "expedition_steer", "input": steer})
-		ui.update({"expedition": Book.snapshot(app.session._state)}, 1.0 / 30.0)
+		ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 1.0 / 30.0)
 
 ## Test-only cut: move the saved run onto a spot of its route.
 func place(x: float, y: float) -> void:
 	var r: Dictionary = app.session._state.expedition.run
 	r.x = x; r.y = y; r.vx = 0.0; r.steer = 0.0; r.protection = 0.0
-	app.expedition_ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0)
+	app.expedition_ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0)
 	app.expedition_ui.view.snap_camera()
 
 func run() -> void:
