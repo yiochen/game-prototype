@@ -16,6 +16,7 @@ func run() -> void:
 	counted._configuration = app.session._configuration
 	counted._editor_content = app.session._editor_content
 	counted._state = app.session._state
+	counted._store = app.session._store
 	counted._random = app.session._random
 	counted._access_paths = app.session._access_paths
 	app.session = counted

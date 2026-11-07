@@ -63,6 +63,37 @@ static var _routes: Dictionary = {}
 static var _passages: Dictionary = {}
 static var _docs: Dictionary = {}
 
+## A run's transient world in the state store. The ship's shield is a timed
+## effect there, counted down by the engine; screens see it as `run.shield`.
+const WORLD := "run"
+const SHIP := "ship"
+
+static func shield(store) -> float:
+	if store == null: return 0.0
+	for effect in store.table(WORLD, store.EFFECTS).get(SHIP, []):
+		if effect.id == "shield": return float(effect.remaining)
+	return 0.0
+
+static func set_shield(store, seconds: float) -> void:
+	store.create_world(WORLD)
+	if seconds > 0.0: store.add_effect(WORLD, SHIP, {"id": "shield", "stat": "shielded", "op": "add", "value": 1.0, "remaining": seconds})
+	else: store.remove_effect(WORLD, SHIP, "shield")
+
+## Saves from before the store kept the shield on the run itself.
+static func adopt_shield(state: Dictionary, store) -> void:
+	var run = state.get("expedition", {}).get("run")
+	if not run is Dictionary or not run.has("shield"): return
+	set_shield(store, float(run.shield))
+	run.erase("shield")
+
+static func shield_valid(store) -> bool:
+	var effects: Dictionary = store.table(WORLD, store.EFFECTS)
+	for owner in effects:
+		if owner != SHIP: return false
+		for effect in effects[owner]:
+			if effect.get("id") != "shield" or not _finite(effect.get("remaining")) or float(effect.remaining) <= 0.0 or float(effect.remaining) > float(definition().shield_seconds): return false
+	return true
+
 static func definition() -> Dictionary:
 	if _content.is_empty(): _content = JSON.parse_string(FileAccess.get_file_as_string("res://content/expedition.json"))
 	return _content
@@ -242,10 +273,11 @@ static func charge(state: Dictionary, now: float) -> Dictionary:
 	var elapsed := clampf(now - float(data.recharge_started), 0.0, total)
 	return {"ready": elapsed >= total, "remaining": total - elapsed, "fraction": elapsed / total}
 
-static func snapshot(state: Dictionary) -> Dictionary:
+static func snapshot(state: Dictionary, store = null) -> Dictionary:
 	var data: Dictionary = state.expedition.duplicate(true)
 	if data.run is Dictionary:
 		var run: Dictionary = data.run
+		run.shield = shield(store)
 		var hull_max := float(definition().hull_max)
 		run.hull_fraction = clampf(float(run.hull) / hull_max, 0.0, 1.0)
 		run.low_hull = run.hull_fraction <= float(definition().low_hull_fraction)
@@ -260,7 +292,7 @@ static func next_seed(state: Dictionary) -> int:
 
 # ------------------------------------------------------------ commands
 
-static func command(config: Dictionary, state: Dictionary, request: Dictionary) -> Dictionary:
+static func command(config: Dictionary, state: Dictionary, request: Dictionary, store = null) -> Dictionary:
 	var data: Dictionary = state.expedition
 	var run = data.run
 	match request.get("type"):
@@ -287,8 +319,11 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 			data.sequence = int(data.sequence) + 1
 			data.run = {"id": int(data.sequence), "seed": seed_value, "y": start_y, "x": start_x, "steer": 0.0, "vx": 0.0,
 				"hull": float(definition().hull_max), "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
-				"route_version": int(definition().route_version), "shield": 0.0, "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
+				"route_version": int(definition().route_version), "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
 				"encounter": null}
+			# Each run starts a fresh transient world.
+			store.drop_world(WORLD)
+			store.create_world(WORLD)
 			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id}
 		"expedition_steer":
 			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
@@ -298,7 +333,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 		"expedition_advance":
 			if run == null: return {"ok": false, "reason": "no_expedition"}
 			if not _finite(request.get("elapsed")) or float(request.elapsed) < 0.0 or not _finite(request.get("now")): return {"ok": false, "reason": "invalid_time"}
-			return {"ok": true, "events": _advance(config, state, float(request.elapsed), float(request.now))}
+			return {"ok": true, "events": _advance(config, state, float(request.elapsed), float(request.now), store)}
 		"expedition_fire":
 			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
 			var encounter = run.get("encounter")
@@ -314,14 +349,14 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary) 
 		"expedition_cheat_shield":
 			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
 			if float(run.y) <= float(run_route(run).encounter_edge) + 0.5: return {"ok": false, "reason": "no_shields_here"}
-			run.shield = float(definition().shield_seconds)
+			set_shield(store, float(definition().shield_seconds))
 			return {"ok": true, "events": [{"type": "shield", "index": -1, "x": run.x, "y": run.y}]}
 		"expedition_cheat_encounter":
 			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
 			var arena = run_route(run).arena
 			if not arena is Dictionary or run.encounter != null: return {"ok": false, "reason": "no_encounter"}
 			if float(run.y) <= float(arena.y1) + 0.5: return {"ok": false, "reason": "already_there"}
-			run.y = float(arena.y1) + 0.5; run.x = 5.5; run.vx = 0.0; run.shield = 0.0; run.protection = 0.0
+			run.y = float(arena.y1) + 0.5; run.x = 5.5; run.vx = 0.0; set_shield(store, 0.0); run.protection = 0.0
 			return {"ok": true}
 		"expedition_cheat_zone":
 			# Debug: skip ahead to the entry of the next creature chunk while hooked.
@@ -365,7 +400,7 @@ static func _start_x(rows: Array) -> float:
 		if absf((run[0] + run[1] + 1) / 2.0 - Route.COLUMNS / 2.0) < absf((best[0] + best[1] + 1) / 2.0 - Route.COLUMNS / 2.0): best = run
 	return (best[0] + best[1] + 1) / 2.0
 
-static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now: float) -> Array:
+static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now: float, store = null) -> Array:
 	var data: Dictionary = state.expedition
 	var run: Dictionary = data.run
 	var events: Array = []
@@ -406,14 +441,14 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				# The rest of this step belongs to the exit transition.
 				return events
 			continue
-		if _encounter_step(run, path, dt, events): continue
-		var shielded := float(run.shield) > 0.0
+		if _encounter_step(run, path, dt, events, store): continue
+		var shielded := shield(store) > 0.0
 		run.y = float(run.y) - float(rules.forward_rows_per_second) * pursuit_speed(run) * dt
 		if shielded:
-			run.shield = maxf(0.0, float(run.shield) - dt)
+			store.tick_effects(WORLD, dt)
 			# The shield always ends before the encounter.
-			if float(run.y) <= float(path.encounter_edge) + 0.5: run.shield = 0.0
-			if float(run.shield) <= 0.0: events.append({"type": "shield_end"})
+			if float(run.y) <= float(path.encounter_edge) + 0.5: set_shield(store, 0.0)
+			if shield(store) <= 0.0: events.append({"type": "shield_end"})
 		var want := float(run.steer) * float(rules.lateral_columns_per_second)
 		run.vx = move_toward(float(run.vx), want, float(rules.lateral_acceleration) * dt)
 		# A current adds to steering; letting go removes only the player's part.
@@ -433,7 +468,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			if i in run.shields_taken or float(run.y) <= float(path.encounter_edge) + 0.5: continue
 			if absf(b.x - float(run.x)) <= float(rules.shield_radius) and absf(b.y - float(run.y)) <= float(rules.shield_radius):
 				run.shields_taken.append(i)
-				run.shield = float(rules.shield_seconds)
+				set_shield(store, float(rules.shield_seconds))
 				events.append({"type": "shield", "index": i, "x": b.x, "y": b.y})
 		for i in range(path.portals.size()):
 			var portal: Dictionary = path.portals[i]
@@ -441,7 +476,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			if absf(float(portal.x) - float(run.x)) <= float(rules.portal_radius) and absf(float(portal.y) - float(run.y)) <= float(rules.portal_radius):
 				# Entering spends the portal first, so a save can never repeat it.
 				run.portals_used.append(i)
-				run.shield = 0.0; run.vx = 0.0
+				set_shield(store, 0.0); run.vx = 0.0
 				var info := passage(int(run.seed), i)
 				var start_y := float(info.rows_count) - float(rules.passage_ride_rows)
 				run.passage = {"portal": i, "y": start_y, "x": passage_centre(info, start_y), "collected": []}
@@ -455,7 +490,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			# Only a sideways knock against the ship's motion stops it: pressed into a
 			# wall ahead, steering keeps its speed and slides along, even against a current.
 			if absf(to.x - from.x) > 0.001 and signf(to.x - from.x) != signf(float(run.vx)): run.vx = 0.0
-			if float(run.shield) > 0.0:
+			if shield(store) > 0.0:
 				# The shield takes the knock without damage; a short guard keeps the feedback from repeating every step.
 				if float(run.protection) <= 0.0:
 					run.protection = 0.3
@@ -514,14 +549,14 @@ static func _catch(config: Dictionary, state: Dictionary, now: float) -> Array:
 
 ## Advance the encounter by one step. Always returns false: travel continues
 ## (a hooked creature is chased, at pursuit speed).
-static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events: Array) -> bool:
+static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events: Array, store = null) -> bool:
 	var rules: Dictionary = definition().encounter
 	var encounter = run.get("encounter")
 	if encounter == null:
 		if path.get("encounter_start") == null or float(run.y) > float(path.encounter_start): return false
 		encounter = {"state": "aiming", "t": 0.0, "cooldown": 0.0, "harpoon": null, "shots": 0, "x": Route.COLUMNS / 2.0, "hook": null}
 		run.encounter = encounter
-		run.shield = 0.0
+		set_shield(store, 0.0)
 		events.append({"type": "encounter_start"})
 	encounter.t = float(encounter.t) + dt
 	if encounter.state == "hooked":
@@ -790,7 +825,8 @@ static func normalize(state: Dictionary) -> void:
 		# Saves from before issue #22 keep their original route and carry no features.
 		var run: Dictionary = data.run
 		run.route_version = int(run.get("route_version", 1))
-		run.shield = float(run.get("shield", 0.0)); run.passage_pickups = int(run.get("passage_pickups", 0))
+		if run.has("shield"): run.shield = float(run.shield)
+		run.passage_pickups = int(run.get("passage_pickups", 0))
 		for field in ["shields_taken", "portals_used"]: run[field] = run.get(field, []).map(func(i): return int(i))
 		if run.get("passage") is Dictionary:
 			run.passage.portal = int(run.passage.portal); run.passage.y = float(run.passage.y); run.passage.x = float(run.passage.x)

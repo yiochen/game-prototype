@@ -828,13 +828,17 @@ func _paper_style() -> StyleBoxFlat:
 	return style
 
 func _draw_recipe(identity: String, bounds: Rect2, tint := Color.WHITE) -> void:
-	if _record_only or _collect_ground_shadows: return
+	if _collect_ground_shadows: return
 	var recipe: Dictionary = state.get("recipes", {}).get(identity, {"tier":"White", "food_cell":3 if identity == "cucumber_maki" else 2})
 	if painting_floor(): tint.a *= .28
-	RecipeArt.draw_dish(self, recipe, bounds, false, tint)
+	if _capture_hits:
+		# A plate selects its owning chef, belt or guest, like any attachment.
+		for layer in RecipeArt.dish_layers(recipe, bounds):
+			_hit_records.append(layer.merged({"owner_id": _current_owner, "art_id": DISHES.get(identity, "dish-" + identity), "clip": "static", "direction": "S", "frame": 0, "frames": 1, "tint": tint}))
+	if not _record_only: RecipeArt.draw_dish(self, recipe, bounds, false, tint)
 
 func _actor_recipe(actor: Dictionary, base: Vector2, pitch: float, recipe: String, loading: bool, identity := "") -> void:
-	if _record_only or _collect_ground_shadows: return
+	if _collect_ground_shadows: return
 	if identity.is_empty(): identity = str(actor.get("art_id", "chef-lena"))
 	var facing := str(actor.get("facing", "south"))
 	var direction := str(FACING.get(facing, "S"))

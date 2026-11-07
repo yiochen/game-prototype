@@ -52,17 +52,25 @@ static func plate_center(recipe: Dictionary) -> Vector2:
 	return Vector2(float(values[0]),float(values[1]))
 
 static func draw_dish(canvas: CanvasItem, recipe: Dictionary, target: Rect2, unknown := false, tint := Color.WHITE) -> void:
+	for layer in dish_layers(recipe, target, unknown):
+		canvas.draw_texture_rect_region(layer.texture, layer.rect, layer.region, tint)
+
+## Plate then food, as drawn. World picking records these exact rectangles.
+static func dish_layers(recipe: Dictionary, target: Rect2, unknown := false) -> Array[Dictionary]:
 	if plates == null: plates = load("res://assets/ui/recipes/plates.png")
 	if food == null: food = load("res://assets/ui/recipes/food.png")
 	var square := UISkin.fit_rect(Vector2.ONE, target)
 	var plate_cell := maxi(0, TIERS.find(str(recipe.get("tier", "White"))))
-	_draw_cell(canvas, plates, plate_cell, square, tint)
 	var food_target := Rect2(square.position + Vector2(square.size.x * 0.12, square.size.y * 0.01), square.size * 0.76)
-	_draw_cell(canvas, food, 4 if unknown else int(recipe.get("food_cell", 2)), food_target, tint)
+	return [_cell_layer(plates, plate_cell, square), _cell_layer(food, 4 if unknown else int(recipe.get("food_cell", 2)), food_target)]
 
 static func _draw_cell(canvas: CanvasItem, image: Texture2D, index: int, target: Rect2, tint: Color) -> void:
+	var layer := _cell_layer(image, index, target)
+	canvas.draw_texture_rect_region(image, target, layer.region, tint)
+
+static func _cell_layer(image: Texture2D, index: int, target: Rect2) -> Dictionary:
 	var cell := image.get_size() / Vector2(3, 2)
-	canvas.draw_texture_rect_region(image, target, Rect2(Vector2(index % 3, index / 3) * cell, cell), tint)
+	return {"texture": image, "source_path": image.resource_path, "region": Rect2(Vector2(index % 3, index / 3) * cell, cell), "rect": target}
 
 static func draw_assigned_stamp(canvas: CanvasItem, target: Rect2) -> void:
 	if stamp == null: stamp = load("res://assets/ui/chef-headshots/assigned-stamp.png")

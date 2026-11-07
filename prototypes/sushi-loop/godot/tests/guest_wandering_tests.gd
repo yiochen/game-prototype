@@ -12,6 +12,7 @@ func _initialize() -> void:
 	_test_seated_history_and_paid_departure()
 	_test_legacy_navigation()
 	_test_invalid_navigation_saves()
+	_test_cut_off_guest_frees_stool()
 	if failures.is_empty():
 		print("PASS: %s blocked guest wandering checks" % checks)
 		quit(0)
@@ -259,6 +260,49 @@ func _test_invalid_navigation_saves() -> void:
 	var version := _copy(pristine)
 	version.customer_navigation_version = 999
 	_check(not game.restore(version) and _same(pristine, game.save_data()), "future navigation schema is rejected without changing the current restaurant")
+
+## Stools are first come, first served: a walking guest dragged into a sealed
+## pocket keeps their visit, but their stool serves other guests meanwhile.
+func _test_cut_off_guest_frees_stool() -> void:
+	var game := Session.new_session(81, {"starting_coins": 1000})
+	game.command({"type": "set_mode", "mode": "live"})
+	var walker: Dictionary = {}
+	for step in range(600):
+		game.advance(0.1)
+		for customer in game._customers():
+			if customer.phase == "walking": walker = customer
+		if not walker.is_empty(): break
+	_check(not walker.is_empty(), "the starter restaurant sends a guest walking to a stool")
+	if walker.is_empty(): return
+	var stool: String = walker.seat_id
+	game.command({"type": "set_mode", "mode": "edit"})
+	var walls: Array = []
+	var stock := ["crate-wood", "crate-wood", "plant-angular", "plant-angular", "barrel-wood"]
+	for offset in [Vector2i.RIGHT, Vector2i.LEFT, Vector2i.DOWN, Vector2i.UP]:
+		var cell: Vector2i = Vector2i(1, 4) + offset
+		if not game._object_at(cell).is_empty(): continue
+		var placed: Dictionary = game.command({"type": "editor_place", "inventory_id": stock[walls.size()], "x": cell.x, "y": cell.y})
+		if placed.get("ok", false): walls.append(placed.id)
+	game.command({"type": "editor_layer", "layer": "people"})
+	_check(game.command({"type": "editor_move", "id": walker.id, "x": 1, "y": 4}).get("ok", false), "the walking guest can be dropped inside the sealed pocket")
+	_live(game)
+	var sealed: Dictionary = game._customer_by_id(walker.id)
+	_check(sealed.phase == "walking" and sealed.navigation_mode == "wander" and not game._seat_reserved(stool), "the cut-off guest keeps their visit but no longer holds the stool")
+	var taken := _wait(game, func(_g): return game._customers().any(func(c): return c.id != walker.id and c.seat_id == stool and c.phase in ["waiting", "eating"]), 60.0)
+	_check(taken, "another guest sits on the freed stool")
+	_check(Session.new().restore(_copy(game.save_data())), "a shared stool target with a cut-off guest saves and reopens")
+	_edit(game)
+	for wall in walls: game.command({"type": "editor_remove", "id": wall})
+	_live(game)
+	var resolved := _wait(game, func(_g):
+		var guest: Dictionary = game._customer_by_id(walker.id)
+		return guest.is_empty() or guest.navigation_mode == "goal", 20.0)
+	var guest: Dictionary = game._customer_by_id(walker.id)
+	var sharing: bool = not guest.is_empty() and guest.phase == "walking" and game._customers().any(func(c): return c.id != guest.id and c.seat_id == guest.seat_id and _holds(c))
+	_check(resolved and not sharing, "once released, the guest heads for a free stool or leaves instead of sharing a taken one")
+
+func _holds(customer: Dictionary) -> bool:
+	return customer.phase in ["walking", "waiting", "eating"] and customer.get("navigation_mode") != "wander"
 
 func _same_continuation(left: Dictionary, right: Dictionary) -> bool:
 	# The unchanged arrival clock subtracts binary floats each fixed step. A

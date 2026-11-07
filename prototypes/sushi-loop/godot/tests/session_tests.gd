@@ -71,6 +71,20 @@ func _same(left: Variant, right: Variant) -> bool:
 	# without treating a JSON number's int/float representation as a difference.
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
+# Later systems add their own migrated state; a legacy upgrade must keep every
+# field the old save had, so compare only the shape the legacy data defines.
+func _legacy_fields(observed: Variant, legacy: Variant) -> Variant:
+	if observed is Dictionary and legacy is Dictionary:
+		var kept := {}
+		for key in observed:
+			if legacy.has(key): kept[key] = _legacy_fields(observed[key], legacy[key])
+		return kept
+	if observed is Array and legacy is Array and observed.size() == legacy.size():
+		var kept := []
+		for index in observed.size(): kept.append(_legacy_fields(observed[index], legacy[index]))
+		return kept
+	return observed
+
 func _single_visit_config() -> Dictionary:
 	return {"service": {"first_arrival_seconds": 0.1, "arrival_seconds": 1000.0, "arrival_jitter_seconds": 0.0}}
 
@@ -350,7 +364,7 @@ func _test_legacy_save_migration() -> void:
 	expected_configuration.floor.entrance = {"x":4,"y":3}
 	expected_configuration.content_version = 3
 	expected_configuration.customers = JSON.parse_string(FileAccess.get_file_as_string(Session.CONTENT_PATH)).customers
-	_check(_same(migrated.configuration, expected_configuration), "seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact")
+	_check(_same(_legacy_fields(migrated.configuration, expected_configuration), expected_configuration), "seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact")
 	_check(_same(migrated.state.camera, legacy.state.camera) and _same(migrated.state.stats, legacy.state.stats) and migrated.state.coins == legacy.state.coins and migrated.state.elapsed == legacy.state.elapsed, "migration preserves camera, completed sales, coins and foreground time")
 	_check(migrated.random_state == legacy.random_state and migrated.remainder == legacy.remainder, "legacy migration preserves the seeded generator and fractional simulation clock")
 	var endpoint: Dictionary = migrated.state.objects.filter(func(object): return object.id == "belt-4")[0]
@@ -381,7 +395,7 @@ func _test_corrupt_progress_and_paths() -> void:
 	bad_clock.state.elapsed += 10.0
 	_check(not game.restore(bad_clock) and _same(before, game.snapshot()), "a saved elapsed clock must agree with completed fixed steps")
 	var bad_preparation := _json_copy(original)
-	bad_preparation.state.objects[0].preparation_elapsed = 999.0
+	bad_preparation.engine.worlds.restaurant.tables.station.rows[bad_preparation.state.objects[0].id].progress = 999.0
 	_check(not game.restore(bad_preparation) and _same(before, game.snapshot()), "impossible chef progress is rejected atomically")
 	_check(game.advance(1.0e300).is_empty() and _same(before, game.snapshot()), "finite elapsed input that would overflow the fixed clock is rejected without mutating service")
 	var walking := _service_session(85)

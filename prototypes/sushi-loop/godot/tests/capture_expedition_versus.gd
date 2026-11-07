@@ -28,7 +28,7 @@ func dive_to_arena() -> void:
 	app._open_landmark("Submarine"); ui.start()
 	var r: Dictionary = live()
 	r.y = float(Book.run_route(r).encounter_start) + 1.5; r.x = 5.5; r.vx = 0.0
-	ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0); ui.view.snap_camera()
+	ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0); ui.view.snap_camera()
 
 func run() -> void:
 	destination = OS.get_environment("SUSHI_LOOP_CAPTURE_OUTPUT")

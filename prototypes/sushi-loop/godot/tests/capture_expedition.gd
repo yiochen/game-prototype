@@ -30,7 +30,7 @@ func revealed_session(seed_value: int):
 	s.command({"type": "reveal_dock"})
 	return s
 
-func exp_view() -> Dictionary: return {"expedition": Book.snapshot(app.session._state)}
+func exp_view() -> Dictionary: return {"expedition": Book.snapshot(app.session._state, app.session._store)}
 
 func use(s) -> void:
 	app.session = s; app._refresh(); app._layout()
@@ -43,7 +43,7 @@ func travel(seconds: float, steer: Callable = Callable()) -> void:
 		t += 0.05
 
 func safe_steer() -> void:
-	var run = Book.snapshot(app.session._state).run
+	var run = Book.snapshot(app.session._state, app.session._store).run
 	if run == null: return
 	var rows: Array = Book.route(int(run.seed)).rows
 	var best := float(run.x); var best_score := INF

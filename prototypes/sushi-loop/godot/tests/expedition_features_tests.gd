@@ -124,7 +124,7 @@ func run() -> void:
 	events = advance(s, float(rules.shield_seconds))
 	check(float(run_of(s).shield) == 0.0 and "shield_end" in types(events), "the shield runs out after its time")
 	place(s, 5.5, float(path.encounter_edge) + 3.0)
-	s._state.expedition.run.shield = float(rules.shield_seconds)
+	Book.set_shield(s._store, float(rules.shield_seconds))
 	advance(s, 1.5)
 	check(float(run_of(s).shield) == 0.0 and float(run_of(s).y) < float(path.encounter_edge) + 0.6, "the shield ends before the encounter")
 	place(s, shield.x, shield.y + 0.5)

@@ -39,7 +39,7 @@ func into_eel_chunk() -> void:
 	app._open_landmark("Submarine"); ui.start()
 	var r: Dictionary = live()
 	r.y = float(Book.run_route(r).encounter_start) + 1.2; r.x = 5.5; r.vx = 0.0; r.steer = 0.0; r.protection = 0.0
-	ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0); ui.view.snap_camera()
+	ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0); ui.view.snap_camera()
 	await play(2.2)
 	for shot in range(5):
 		live().x = Book.creature_centre(live()).x; live().vx = 0.0
@@ -47,7 +47,7 @@ func into_eel_chunk() -> void:
 		if await wait_for(func(): return live().encounter.state == "hooked", 120): break
 	await play(1.2)
 	check(app.session.command({"type": "expedition_cheat_zone"}).ok, "the debug skip reaches an eel chunk")
-	ui.update({"expedition": Book.snapshot(app.session._state)}, 0.0); ui.view.snap_camera()
+	ui.update({"expedition": Book.snapshot(app.session._state, app.session._store)}, 0.0); ui.view.snap_camera()
 
 func run() -> void:
 	destination = OS.get_environment("SUSHI_LOOP_CAPTURE_OUTPUT")

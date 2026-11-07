@@ -60,6 +60,20 @@ func _json_copy(value: Dictionary) -> Dictionary:
 func _same(left: Variant, right: Variant) -> bool:
 	return JSON.parse_string(JSON.stringify(left, "", true, true)) == JSON.parse_string(JSON.stringify(right, "", true, true))
 
+# Later systems add their own migrated state; a legacy upgrade must keep every
+# field the old save had, so compare only the shape the legacy data defines.
+func _legacy_fields(observed: Variant, legacy: Variant) -> Variant:
+	if observed is Dictionary and legacy is Dictionary:
+		var kept := {}
+		for key in observed:
+			if legacy.has(key): kept[key] = _legacy_fields(observed[key], legacy[key])
+		return kept
+	if observed is Array and legacy is Array and observed.size() == legacy.size():
+		var kept := []
+		for index in observed.size(): kept.append(_legacy_fields(observed[index], legacy[index]))
+		return kept
+	return observed
+
 func _object(scene: Dictionary, identity: String) -> Dictionary:
 	for object in scene.objects:
 		if object.id == identity:
@@ -447,7 +461,7 @@ func _test_issue10_save_upgrade() -> void:
 			_check(float(observed.customers[index].y) >= 3, "A visitor crossing the retired doorway moves onto clear floor below the new backdrop")
 			expected.customers[index].x = observed.customers[index].x
 			expected.customers[index].y = observed.customers[index].y
-	_check(_same(observed, expected), "backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock")
+	_check(_same(_legacy_fields(observed, expected), expected), "backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock")
 	_check(game.save_data().random_state == fixture.save_data.random_state, "upgrade does not reroll old visitors or advance the random generator")
 	game.command({"type": "set_entrance_open", "open": false})
 	var events: Array = game.advance(60.0)
