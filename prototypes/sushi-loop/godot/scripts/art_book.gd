@@ -12,6 +12,9 @@ const FEEDBACK_MANIFEST := "res://assets/feedback-variants/manifest.json"
 const FEEDBACK_DIRECTORY := "res://assets/feedback-variants/"
 const EXPANSION_MANIFEST := "res://assets/expansion/manifest.json"
 const EXPANSION_DIRECTORY := "res://assets/expansion/"
+## #61 cash piles, tip jar and tip feedback, baked by tools/bake_tip_art.gd.
+const TIPS_MANIFEST := "res://assets/tips/manifest.json"
+const TIPS_DIRECTORY := "res://assets/tips/"
 const PICK_ALPHA := 0.1
 ## Android builds trim, downscale and repack every frame (tools/pack_runtime_sprites.gd)
 ## and describe the result here. Approved manifests stay byte-identical.
@@ -54,7 +57,7 @@ func reload() -> void:
 	_registrations.clear()
 	_clips.clear()
 	texture_scale = 1.0
-	for directory in [DIRECTORY, MEAL_DIRECTORY, CHEF_DIRECTORY, FEEDBACK_DIRECTORY, EXPANSION_DIRECTORY]:
+	for directory in [DIRECTORY, MEAL_DIRECTORY, CHEF_DIRECTORY, FEEDBACK_DIRECTORY, EXPANSION_DIRECTORY, TIPS_DIRECTORY]:
 		_load_pack(directory)
 	var data: Variant = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST))
 	if data is Dictionary:
@@ -71,6 +74,11 @@ func reload() -> void:
 		for identity in expansion.get("objects",{}):
 			if not objects.has(identity): objects[identity] = expansion.objects[identity].duplicate(true)
 	_merge_variants(EXPANSION_MANIFEST,EXPANSION_DIRECTORY)
+	var tips: Variant = JSON.parse_string(FileAccess.get_file_as_string(TIPS_MANIFEST))
+	if tips is Dictionary:
+		for identity in tips.get("objects", {}):
+			if not objects.has(identity): objects[identity] = tips.objects[identity].duplicate(true)
+	_merge_variants(TIPS_MANIFEST, TIPS_DIRECTORY)
 
 func _merge_variants(path: String, directory: String) -> void:
 	var variants: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))

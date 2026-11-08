@@ -56,7 +56,7 @@ func _ready() -> void:
 	hire_button.pressed.connect(func(): hire_requested.emit(str(offer.id)))
 	hire_word = label("Hire",hire_button)
 	budget = RichTextLabel.new();budget.bbcode_enabled = true;budget.scroll_active = false;budget.mouse_filter = MOUSE_FILTER_IGNORE;budget.add_theme_font_override("normal_font",font);hire_button.add_child(budget)
-	coin = TextureRect.new();var coin_image:=AtlasTexture.new();coin_image.atlas=wood.texture("coin-emblem");coin_image.region=Rect2(32,32,108,108);coin.texture=coin_image;coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter = MOUSE_FILTER_IGNORE;hire_button.add_child(coin)
+	coin = TextureRect.new();coin.texture=UISkin.cash_icon();coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter = MOUSE_FILTER_IGNORE;hire_button.add_child(coin)
 	imprint = Ink.new();imprint.mouse_filter = MOUSE_FILTER_IGNORE;add_child(imprint);stamp_text = label("Hired",imprint);stamp_text.add_theme_color_override("font_color",Color("c54632"));imprint.modulate.a = 0
 	stamp_prop = TextureRect.new();stamp_prop.texture = preload("res://assets/ui/staff/hiring-stamp.png");stamp_prop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;stamp_prop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;stamp_prop.mouse_filter = MOUSE_FILTER_IGNORE;add_child(stamp_prop);stamp_prop.modulate.a = 0
 	layout()

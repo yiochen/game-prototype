@@ -177,6 +177,10 @@ func apply_panel(panel: Panel, identity: String, unit := 1.0, state := "normal")
 	# does. Apply it explicitly so an undersized layout cannot pinch a pill.
 	panel.custom_minimum_size = surface.get_minimum_size()
 
+## The green cash note that stands for money everywhere (#61).
+static func cash_icon() -> Texture2D:
+	return load("res://assets/ui/cash.png")
+
 static func fit_rect(native_size: Vector2, target: Rect2) -> Rect2:
 	if native_size.x <= 0.0 or native_size.y <= 0.0 or not target.has_area():
 		return Rect2(target.get_center(), Vector2.ZERO)

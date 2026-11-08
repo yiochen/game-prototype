@@ -48,6 +48,7 @@ func sync() -> void:
 	native_view.floor_visuals_active = source_view.floor_visuals_active
 	native_view.time = source_view.time
 	native_view.sale_pops = source_view.sale_pops
+	native_view.tip_effects = source_view.tip_effects
 	native_view.reduced_motion = source_view.reduced_motion
 	native_view.ground_shadows_enabled = source_view.ground_shadows_enabled
 	native_view.editor_preview = source_view.editor_preview

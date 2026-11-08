@@ -127,6 +127,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         # Later art families (#17-#19) carry their own independently tested
         # verifiers; stub manifests keep these cases on the packaging boundary.
         self.write("assets/expansion/manifest.json", '{"fixture": "expansion verifier is independently tested"}')
+        self.write("assets/tips/manifest.json", '{"fixture": "tip art is audited by doodle_art_tests.gd"}')
         for family in ("recipes", "staff", "exhibition"):
             self.write(f"assets/ui/{family}/manifest.json", '{"fixture": "UI family verifier is independently tested"}')
         for contract, verifier, result in [
@@ -855,6 +856,7 @@ class ApkBoundaryTests(unittest.TestCase):
                                "assets/assets/ui/editor/manifest.json": b'{}',
                                "assets/assets/ui/wood-editor/manifest.json": b'{}',
                                "assets/assets/expansion/manifest.json": b'{}',
+                               "assets/assets/tips/manifest.json": b'{}',
                                "assets/assets/ui/recipes/manifest.json": b'{}',
                                "assets/assets/ui/exhibition/manifest.json": b'{}',
                                **{f"assets/{Path(tree).parent.as_posix()}/runtime_pack.json": b'{}' for tree in build.PACKED_SPRITE_TREES},

@@ -4,6 +4,7 @@ extends RefCounted
 ## (path search, movement, destination choice) is split out in
 ## features/navigation.gd. See docs/state-architecture.md.
 const Machine = preload("res://scripts/engine/machine.gd")
+const Tips = preload("res://scripts/features/tips.gd")
 const WORLD := "restaurant"
 
 ## Visit phases and the animation phases each allows. Transitions are driven
@@ -21,8 +22,9 @@ static func define(store) -> void:
 	# Arrival order matters, so rows are saved in order. A guest's stool is a
 	# reference: removing the stool stands the guest up through
 	# GameSession._on_seat_removed.
+	# Tip visit fields default for rows saved before tips existed.
 	store.define_component("customer", {"owner": "customers", "durable": false, "ordered": true,
-		"refs": {"seat_id": {"to": "layout", "on_delete": "notify"}}})
+		"fields": Tips.VISIT_FIELDS, "refs": {"seat_id": {"to": "layout", "on_delete": "notify"}}})
 
 static func rows(store) -> Array:
 	return store.table(WORLD, "customer").values()

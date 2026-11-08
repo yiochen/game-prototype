@@ -67,7 +67,7 @@ func _ready() -> void:
 	face = PopupSkin.make_face(panel,wood.texture("wood-grain"))
 	heading = _label(panel);heading.text = "Shop"
 	balance = _label(panel);balance.accessibility_name = "Shop coin balance"
-	coin = _image(panel,UISkin.new().icon_ink("coin"))
+	coin = _image(panel,UISkin.cash_icon())
 	catalog_backing = Panel.new()
 	catalog_backing.mouse_filter = Control.MOUSE_FILTER_STOP
 	catalog_backing.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
@@ -187,12 +187,12 @@ func refresh(value: Dictionary) -> void:
 		var row: Dictionary = rows[offer.id]
 		row.offer = offer
 		var sold: bool = offer.remaining != null and int(offer.remaining) == 0
-		row.stock.text = "" if offer.kind=="floor" else "Always available" if offer.remaining == null else "Sold out" if sold else "%s remaining" % int(offer.remaining)
+		row.stock.text = "" if offer.kind=="floor" else "Level %d → %d" % [int(offer.level) + 1, int(offer.level) + 2] if offer.kind=="tip_upgrade" else "Always available" if offer.remaining == null else "Sold out" if sold else "%s remaining" % int(offer.remaining)
 		row.owned.visible = offer.get("owned",false)
 		row.buy.visible = not offer.get("owned",false)
 		row.buy.disabled = interaction_blocked or offer.get("owned",false) or sold or int(value.coins) < int(offer.cost)
 		_price_visual(str(offer.id))
-		row.buy.accessibility_description = "Sold out" if sold else "Not enough coins" if int(value.coins) < int(offer.cost) else "Adds one to inventory"
+		row.buy.accessibility_description = "Sold out" if sold else "Not enough coins" if int(value.coins) < int(offer.cost) else "Upgrades the tip jar" if offer.kind=="tip_upgrade" else "Adds one to inventory"
 		row.preview.modulate.a = .45 if sold else 1.0
 	close_button.disabled = interaction_blocked
 	bag_button.disabled = interaction_blocked
@@ -201,6 +201,7 @@ func _request(id: String) -> void:
 	if interaction_blocked or not visible or not rows.has(id) or rows[id].buy.disabled: return
 	var request := {"type":"shop_purchase","offer_id":id,"expected_sequence":state.shop.purchase_sequence}
 	if rows[id].offer.kind=="floor":request={"type":"floor_purchase","offer_id":id,"expected_sequence":state.floor_styles.purchase_sequence,"rotation":state.floor_styles.rotation}
+	if rows[id].offer.kind=="tip_upgrade":request={"type":"tip_jar_upgrade","offer_id":id,"expected_level":int(rows[id].offer.level)}
 	purchase_requested.emit(request,rows[id].preview.get_global_rect())
 
 func _text(label: Label, bounds: Rect2, pixels: float) -> void:

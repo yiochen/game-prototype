@@ -67,7 +67,7 @@ func _ready() -> void:
 	cancel = _button("Cancel",panel);clear_button = _button("",panel)
 	clear_caption = Label.new();clear_caption.text = "Clear";clear_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(clear_caption)
 	price_label = Label.new();price_label.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(price_label)
-	price_coin = TextureRect.new();price_coin.texture = UISkin.new().icon_ink("coin");price_coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;price_coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;price_coin.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(price_coin)
+	price_coin = TextureRect.new();price_coin.texture = UISkin.cash_icon();price_coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;price_coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;price_coin.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(price_coin)
 	unlock_art = TextureRect.new();unlock_art.texture = load("res://assets/ui/exhibition/underwater.webp")
 	unlock_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;unlock_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;unlock_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unlock_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS

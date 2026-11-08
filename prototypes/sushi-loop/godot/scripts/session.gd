@@ -19,16 +19,18 @@ const Chefs = preload("res://scripts/features/chefs.gd")
 const Layout = preload("res://scripts/features/layout.gd")
 const Customers = preload("res://scripts/features/customers.gd")
 const Navigation = preload("res://scripts/features/navigation.gd")
+const Tips = preload("res://scripts/features/tips.gd")
 ## Self-contained features whose records are store slices. `_state` is the
 ## session's own `core` slice; it also refers to these slices under their
 ## names so older code can read them, but never holds a copy.
-const SLICES := {"shop": 1, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 1, "editor": 1, "expedition": 1}
+const SLICES := {"shop": 2, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 2, "editor": 1, "expedition": 1, "tips": 1}
 ## Commands that may place, move or remove layout objects.
 const LAYOUT_COMMANDS := ["staff_place", "unassign_chef", "fire_chef"]
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
-const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood"]
+const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood", "tip-jar"]
+const TIP_COMMANDS := ["serve_tea", "collect_cash", "collect_jar", "tip_jar_upgrade"]
 const CHEF_ART_IDS := ["chef-lena", "chef-omar", "chef-ama", "chef-mateo", "chef-noor", "chef-dalia", "chef-ellis", "chef-rowan"]
 const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
@@ -51,6 +53,10 @@ var _walkable_key: Array = []
 var _editor_content: Dictionary = {}
 var _expansion_view_state: Dictionary = {}
 var _expansion_view_cache: Dictionary = {}
+## Events decided outside a step's own event list (a tip on leaving); flushed
+## into the next advance() or command result.
+var _pending_events: Array = []
+var _swept_cash: Array = []
 
 static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> GameSession:
 	var session := GameSession.new()
@@ -76,11 +82,24 @@ static func _new_store() -> Store:
 	Chefs.define(store)
 	Layout.define(store)
 	Customers.define(store)
-	for name in SLICES: store.define_slice(name, {"version": SLICES[name], "initial": func(): return null})
+	# Version 2 of shop and inventory adds the tip jar (#61) to saves made before it.
+	var migrations := {"shop": [ShopBook.add_missing_offers], "inventory": [_add_missing_stock]}
+	for name in SLICES: store.define_slice(name, {"version": SLICES[name], "initial": func(): return null, "migrations": migrations.get(name, [])})
 	# The session's own values: coins, clock, counters, camera, mode and stats.
 	store.define_slice("core", {"owner": "session", "initial": func(): return null, "encode": _encode_core})
 	store.create_world(Chefs.WORLD)
 	return store
+
+## Inventory entries from content/editor.json that an older save lacks.
+static func _add_missing_stock(inventory: Variant) -> Variant:
+	if not inventory is Array: return inventory
+	var definition: Variant = JSON.parse_string(FileAccess.get_file_as_string(EDITOR_PATH))
+	var known := {}
+	for entry in inventory:
+		if entry is Dictionary: known[entry.get("id")] = true
+	for entry in definition.get("inventory", []):
+		if not known.has(entry.id): inventory.append(entry.duplicate(true))
+	return inventory
 
 ## Every command is all or nothing for state in the store.
 func command(request: Dictionary) -> Dictionary:
@@ -91,7 +110,17 @@ func command(request: Dictionary) -> Dictionary:
 		if type.begins_with("editor_") or type in LAYOUT_COMMANDS:
 			_store.write(Layout.WORLD, "layout")
 			_store.write(Customers.WORLD, "customer")
-		return _command(request))
+		if type == "serve_tea": _store.write(Customers.WORLD, "customer")
+		_swept_cash.clear()
+		var outcome := _command(request)
+		# Furniture never sits on cash: an edit that covers a pile collects it.
+		if outcome.get("ok", false) and (type.begins_with("editor_") or type in LAYOUT_COMMANDS):
+			_swept_cash.append_array(_sweep_cash())
+			if not _swept_cash.is_empty(): outcome.cash_collected = _swept_cash.duplicate(true)
+		_swept_cash.clear()
+		return outcome)
+	if result.get("ok", false) and not _pending_events.is_empty(): result.events = _pending_events.duplicate(true)
+	_pending_events.clear()
 	# A rollback replaces slices, and older code may replace a whole record.
 	if result.get("ok", false): _relink_slices()
 	else:
@@ -105,13 +134,15 @@ static func _slices_written(type: String) -> Array:
 	if type.begins_with("floor_"): return ["floor_styles", "editor"]
 	# Steering and advancing run every frame and never fail after a change.
 	if type.begins_with("expedition_"): return [] if type in ["expedition_advance", "expedition_steer"] else ["expedition", "floor_styles", "recipe_book"]
-	if type.begins_with("editor_"): return ["editor", "inventory"]
+	if type.begins_with("editor_"): return ["editor", "inventory", "tips"]
+	if type in TIP_COMMANDS: return ["tips"]
 	match type:
 		"shop_purchase": return ["shop", "inventory"]
 		"clear_trash", "reveal_dock", "dock_access": return ["expansion"]
 		"hire_applicant", "refresh_applicants", "staff_seen": return ["staff", "inventory"]
-		"fire_chef": return ["staff", "inventory", "editor"]
-		"staff_place", "unassign_chef", "set_mode": return ["editor", "inventory"]
+		"fire_chef": return ["staff", "inventory", "editor", "tips"]
+		"staff_place", "unassign_chef": return ["editor", "inventory", "tips"]
+		"set_mode": return ["editor", "inventory"]
 		"discover_recipe", "inspect_recipe", "prepare_recipe": return ["recipe_book"]
 	return []
 
@@ -155,6 +186,7 @@ func _command(request: Dictionary) -> Dictionary:
 		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
 		return result
 	if request.get("type") == "shop_purchase": return ShopBook.command(_state, request)
+	if request.get("type") in TIP_COMMANDS: return _tip_command(request)
 	if request.get("type") in ["level_up_chef","fire_chef"]:
 		var result:=Chefs.level_up(_store,_state,request) if request.type=="level_up_chef" else Chefs.fire(_store,_state,request)
 		# Only firing changes the layout and inventory; a level-up changes neither.
@@ -245,6 +277,8 @@ func advance(elapsed: float) -> Array:
 		_step_belts(step, events)
 		_step_chefs(step, events)
 		_step_arrivals(step, events)
+		events.append_array(_pending_events)
+		_pending_events.clear()
 	_store.settle()
 	return events
 
@@ -272,9 +306,12 @@ func snapshot() -> Dictionary:
 		"objects": [],
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
+		"tips": Tips.snapshot(_state, _objects()),
 	}
 	var floor_offer := FloorBook.offer(_state)
 	if not floor_offer.is_empty(): result.shop.offers.push_front(floor_offer)
+	var jar_offer := Tips.upgrade_offer(_state)
+	if not jar_offer.is_empty(): result.shop.offers.append(jar_offer)
 	var index := _service_index()
 	var chef_views := {}
 	for original in _objects():
@@ -321,6 +358,8 @@ func snapshot() -> Dictionary:
 			"wander_elapsed": customer.wander_elapsed,
 			"layout_pending": customer.layout_pending, "standing_elapsed": customer.standing_elapsed,
 			"render_offset_x": customer.render_offset_x, "render_offset_y": customer.render_offset_y,
+			"tea_phase": customer.tea_phase,
+			"tea_progress": clampf(1.0 - float(customer.tea_elapsed) / maxf(0.001, float(Tips.definition().tea.request_seconds)), 0.0, 1.0) if customer.tea_phase == "requested" else 0.0,
 		}
 		Doorway.present(visible, customer, float(_configuration.service.walking_cells_per_second))
 		result.customers.append(visible)
@@ -390,6 +429,9 @@ func _derive(state: Dictionary, store: Store, config: Dictionary) -> bool:
 	state.elapsed = int(state.step_index) * float(config.service.step_seconds)
 	state.stats.served = int(state.stats.sales)
 	state.next_customer_id = int(state.stats.arrivals) + 1
+	if state.get("tips") == null:
+		state.tips = Tips.initial(1)
+		store.set_slice("tips", state.tips)
 	for stock in state.inventory:
 		if stock is Dictionary and stock.get("kind") == "chef": stock.assigned = store.has_row(Layout.WORLD, "layout", str(stock.get("id")))
 	return true
@@ -448,12 +490,14 @@ func _valid_store(store: Store, config: Dictionary, state: Dictionary = {}) -> b
 	if not FloorBook.valid(config, view) or not view.editor.get("floor_brush", "") is String: return false
 	if view.editor.get("floor_brush", "") != "" and not view.editor.floor_brush in view.floor_styles.owned: return false
 	if not ShopBook.valid(view) or not Expansion.valid(config, view) or not ExpeditionBook.valid(view): return false
+	if not Tips.valid(view) or not _valid_cash(view, config): return false
 	if not StaffBook.valid(config, view, store) or not RecipeBook.valid(config, view): return false
 	return _valid_saved_state(view, config, store)
 
 func _normalize_restored_numbers() -> void:
 	ShopBook.normalize(_state)
 	ExpeditionBook.normalize(_state)
+	Tips.normalize(_state)
 	# JSON represents integers and floats with the same number type. Normalize
 	# counters before future ID creation, and cell coordinates before rendering.
 	_configuration.starting_coins = int(_configuration.starting_coins)
@@ -514,6 +558,7 @@ func _start() -> void:
 	StaffBook.initialize(_configuration,_state,_staff_seed)
 	Development.initialize(_state)
 	ShopBook.initialize(_state)
+	_state.tips = Tips.initial(_staff_seed)
 	FloorBook.initialize(_state,_staff_seed)
 	Expansion.initialize(_configuration,_state)
 	ExpeditionBook.initialize(_state,_staff_seed)
@@ -773,6 +818,7 @@ func _new_visit_fields(customer: Dictionary) -> void:
 	customer.meal_duration = float(_configuration.service.eating_seconds)
 	customer.departure_reason = ""
 	customer.entrance_wait_elapsed = 0.0
+	customer.merge(Tips.VISIT_FIELDS.duplicate(true), true)
 
 func _arrival_seat_choices(customer: Dictionary = {}) -> Array:
 	var choices: Array = []
@@ -990,6 +1036,7 @@ func _step_customers(delta: float, events: Array) -> void:
 					if float(customer.preference_elapsed) + 0.000000001 >= _customer_number("preference_seconds"):
 						_set_preference(customer, "expired")
 						events.append(_customer_event("preference_expired", customer))
+				_step_tea(customer, delta, events)
 				var seat := _object_by_id(customer.seat_id)
 				var tile := _facing_object(seat)
 				if tile.get("kind") == "belt" and tile.dish != null and (customer.preference_phase != "active" or tile.dish.recipe_id == customer.preferred_recipe_id):
@@ -1003,6 +1050,7 @@ func _step_customers(delta: float, events: Array) -> void:
 					_begin_leaving(customer, "unfed")
 					events.append(_customer_event("visit_abandoned", customer))
 			"eating":
+				_step_tea(customer, delta, events)
 				customer.meal_elapsed = _clock_advance(float(customer.meal_elapsed), delta)
 				if float(customer.meal_elapsed) + 0.000000001 >= float(customer.meal_duration):
 					_finish_meal(customer, events)
@@ -1024,6 +1072,7 @@ func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events
 	customer.phase = "eating"
 	_set_visual(customer, "eat")
 	if matched:
+		customer.requested_dish_id = str(customer.meal_dish.id)
 		_set_preference(customer, "satisfied")
 		customer.happy_elapsed = 0.0
 		events.append(_customer_event("preference_matched", customer))
@@ -1038,6 +1087,7 @@ func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events
 func _begin_leaving(customer: Dictionary, reason: String) -> void:
 	customer.phase = "leaving"
 	customer.departure_reason = reason
+	_decide_tip(customer)
 	customer.yielding = false
 	_set_visual(customer, "stand-up" if _transition_seconds("standing_seconds") > 0.0 else "walk")
 	_replan_navigation(customer)
@@ -1048,6 +1098,9 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 	_state.coins += price
 	_state.stats.sales += 1
 	_state.stats.served += 1
+	customer.bill = int(customer.bill) + price
+	# Eating the dish they asked for raises the tip chance; serving it is not enough.
+	if str(dish.id) == str(customer.requested_dish_id): customer.request_eaten = true
 	customer.fullness += customer.meal_fullness
 	# Consume and credit together: no reward is left pending in a save.
 	customer.meal_dish = null
@@ -1185,6 +1238,7 @@ func _try_reachable_exit(customer: Dictionary) -> bool:
 	customer.phase = "leaving"
 	customer.departure_reason = "seat_unreachable"
 	customer.yielding = false
+	_decide_tip(customer)
 	# The visitor is already on their feet, possibly between tile centers.
 	# Playing stand-up here would invent a seated pose and invalidate the save.
 	_apply_navigation_route(customer, route)
@@ -1486,7 +1540,10 @@ func _valid_dish(value: Variant, recipes: Dictionary, dish_ids: Dictionary) -> b
 
 ## Validates the live restaurant after an edit, with chef records rebuilt for
 ## the validators of features that have not moved to the store yet.
+## Checks the live state after an edit. Cash an edit covered is collected
+## first (furniture never sits on cash), and reported by command().
 func _valid_runtime_state() -> bool:
+	_swept_cash.append_array(_sweep_cash())
 	return _valid_store(_store, _configuration)
 
 ## Layout, guests and the session's own values. Chefs are read from the store;
@@ -1622,6 +1679,7 @@ func _valid_customer_rules(value: Variant, service: Dictionary) -> bool:
 	return float(value.restless_seconds) < float(value.leave_seconds) and float(value.fullness_min) <= float(value.fullness_max) and float(value.dish_fullness_min) <= float(value.dish_fullness_max) and float(value.eating_jitter_seconds) < float(service.eating_seconds) and float(value.passing_offset) < 0.5 and float(value.personal_space) <= 2.0 * float(value.passing_offset)
 
 func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
+	if not Tips.valid_visit(customer): return false
 	for key in ["first_dish_received", "restless", "yielding"]:
 		if not customer.get(key) is bool:
 			return false
@@ -2376,3 +2434,119 @@ func _owned_stock_id(object: Dictionary) -> String:
 		"decor":
 			return str(object.art_id)
 	return ""
+
+# ---------------------------------------------------------------- tips (#61)
+
+## Seated guests who have had a dish may ask for tea once. Serving it is
+## optional; ignoring it only lets the request lapse.
+func _step_tea(customer: Dictionary, delta: float, events: Array) -> void:
+	if not customer.first_dish_received or customer.tea_phase in ["served", "skipped", "missed"]: return
+	var tea: Dictionary = Tips.definition().tea
+	customer.tea_elapsed = _clock_advance(float(customer.tea_elapsed), delta)
+	if customer.tea_phase == "none":
+		var delay := lerpf(float(tea.delay_min_seconds), float(tea.delay_max_seconds), Tips.roll(_state, str(customer.id), "tea-delay"))
+		if float(customer.tea_elapsed) + 0.000000001 < delay: return
+		customer.tea_elapsed = 0.0
+		if Tips.roll(_state, str(customer.id), "tea") < float(tea.request_chance):
+			customer.tea_phase = "requested"
+			events.append(_customer_event("tea_requested", customer))
+		else:
+			customer.tea_phase = "skipped"
+	elif customer.tea_phase == "requested" and float(customer.tea_elapsed) + 0.000000001 >= float(tea.request_seconds):
+		customer.tea_phase = "missed"
+		customer.tea_elapsed = 0.0
+
+## Decided once, as a guest who bought food gets up to leave.
+func _decide_tip(customer: Dictionary) -> void:
+	if customer.tea_phase == "requested":
+		customer.tea_phase = "missed"
+		customer.tea_elapsed = 0.0
+	if customer.tip_evaluated or int(customer.bill) <= 0: return
+	customer.tip_evaluated = true
+	if Tips.roll(_state, str(customer.id), "tip") >= Tips.chance(customer): return
+	var value := Tips.amount(int(customer.bill))
+	var seat := _object_by_id(str(customer.seat_id))
+	var center := _point(seat) if not seat.is_empty() else Vector2i(roundi(float(customer.x)), roundi(float(customer.y)))
+	var event := {"type": "tip", "customer_id": customer.id, "amount": value, "from_x": float(customer.x), "from_y": float(customer.y)}
+	var open: Array[Vector2i] = []
+	for cell in Tips.around(center):
+		if _cash_cell_open(cell): open.append(cell)
+	if not open.is_empty():
+		var cell: Vector2i = open[mini(open.size() - 1, int(Tips.roll(_state, str(customer.id), "drop") * open.size()))]
+		_state.tips.cash.append({"x": cell.x, "y": cell.y, "amount": value})
+		event.merge({"destination": "floor", "accepted": value, "x": cell.x, "y": cell.y})
+	else:
+		var jar := Tips.jar_object(_objects())
+		var accepted := mini(value, Tips.jar_room(_state)) if not jar.is_empty() else 0
+		if accepted > 0:
+			_state.tips.jar.balance = int(_state.tips.jar.balance) + accepted
+			event.merge({"destination": "jar", "accepted": accepted, "x": int(jar.x), "y": int(jar.y), "full": Tips.jar_room(_state) == 0})
+		else:
+			event.merge({"destination": "lost", "accepted": 0})
+	_pending_events.append(event)
+
+## A floor tile that can hold a new pile: inside the open restaurant, not a
+## doorway, free of furniture, belts and other cash.
+func _cash_cell_open(cell: Vector2i) -> bool:
+	if not Expansion.usable(_state, _configuration.floor, cell, true): return false
+	if cell.y == int(_configuration.floor.entrance.y) and (cell == _point(_configuration.floor.entrance) or (Doorway.enabled(_configuration.floor) and cell.x in [4, 5])): return false
+	return _object_at(cell).is_empty() and Tips.pile_at(_state, cell) < 0
+
+## Collects piles a layout change has covered; returns them for presentation.
+func _sweep_cash() -> Array:
+	var covered: Array = []
+	var kept: Array = []
+	for pile in _state.tips.cash:
+		var cell := Vector2i(int(pile.x), int(pile.y))
+		if _object_at(cell).is_empty() and Expansion.usable(_state, _configuration.floor, cell, true): kept.append(pile)
+		else: covered.append(pile)
+	if covered.is_empty(): return []
+	_state.tips.cash = kept
+	_state.coins = int(_state.coins) + Tips.total(covered)
+	return covered
+
+func _valid_cash(state: Dictionary, config: Dictionary) -> bool:
+	var occupied := {}
+	for object in state.objects: occupied[_point(object)] = true
+	for pile in state.tips.cash:
+		var cell := Vector2i(int(pile.x), int(pile.y))
+		if occupied.has(cell) or not Expansion.usable(state, config.floor, cell, true): return false
+	return true
+
+func _tip_command(request: Dictionary) -> Dictionary:
+	match request.type:
+		"tip_jar_upgrade":
+			if _state.mode != "edit": return {"ok": false, "reason": "edit_required"}
+			if not Tips.jar_owned(_state): return {"ok": false, "reason": "no_tip_jar"}
+			var level := int(_state.tips.jar.level)
+			if request.get("expected_level") != level: return {"ok": false, "reason": "stale_upgrade"}
+			var cost := Tips.upgrade_cost(level)
+			if cost < 0: return {"ok": false, "reason": "max_level"}
+			if int(_state.coins) < cost: return {"ok": false, "reason": "not_enough_coins"}
+			_state.coins = int(_state.coins) - cost
+			_state.tips.jar.level = level + 1
+			return {"ok": true, "level": level + 1, "cost": cost, "capacity": Tips.capacity(level + 1)}
+	if _state.mode != "live": return {"ok": false, "reason": "live_required"}
+	match request.type:
+		"serve_tea":
+			var customer := _customer_by_id(str(request.get("customer_id", "")))
+			if customer.is_empty() or customer.tea_phase != "requested": return {"ok": false, "reason": "no_tea_request"}
+			customer.tea_phase = "served"
+			customer.tea_elapsed = 0.0
+			return {"ok": true, "customer_id": customer.id, "x": customer.x, "y": customer.y}
+		"collect_cash":
+			if not _finite_number(request.get("x")) or not _finite_number(request.get("y")): return {"ok": false, "reason": "invalid_cell"}
+			var taken := Tips.take_around(_state, Vector2i(int(request.x), int(request.y)))
+			if taken.is_empty(): return {"ok": false, "reason": "no_cash"}
+			var value := Tips.total(taken)
+			_state.coins = int(_state.coins) + value
+			return {"ok": true, "amount": value, "piles": taken}
+		"collect_jar":
+			var jar := Tips.jar_object(_objects())
+			if jar.is_empty(): return {"ok": false, "reason": "no_tip_jar"}
+			var value := int(_state.tips.jar.balance)
+			if value <= 0: return {"ok": false, "reason": "empty_jar"}
+			_state.tips.jar.balance = 0
+			_state.coins = int(_state.coins) + value
+			return {"ok": true, "amount": value, "x": int(jar.x), "y": int(jar.y)}
+	return {"ok": false, "reason": "unknown_command"}
