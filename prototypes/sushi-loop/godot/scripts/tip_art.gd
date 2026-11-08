@@ -92,6 +92,36 @@ static func tea_ack(view, customer: Dictionary) -> float:
 			if age >= 0.0 and age < TEA_ACK_SECONDS: return age
 	return -1.0
 
+static func tea_ack_grade(view, customer: Dictionary) -> String:
+	for effect in view.tip_effects:
+		if effect.kind == "tea_ack" and effect.customer_id == customer.get("id"): return str(effect.get("grade", "good"))
+	return ""
+
+## #62 tea request: a tea-green button bubble (baked `tea-ask`) that bobs, sends
+## out a tap ripple and drains its cream rim as patience runs out; the rim turns
+## orange and the bubble pulses near the end. Unlike the cream thought bubbles,
+## it reads as something to tap. Approved in design/tea-pour-preview/.
+const TEA_FACE_CELLS := Vector2(0, -44.0 / 64.0)
+const TEA_RIM_CELLS := 31.0 / 64.0
+const TEA_LOW := 0.3
+static func draw_tea_ask(view, base: Vector2, pitch: float, left: float, id: String) -> void:
+	var phase := float(hash(id) % 97) / 97.0
+	var time := float(view.time)
+	var bob := 0.0 if view.reduced_motion else -4.0 / 61.6 * pitch * (0.5 - 0.5 * cos(TAU * (time / 1.4 + phase)))
+	var low := left <= TEA_LOW
+	var pulse := 1.0 if view.reduced_motion or not low else 1.0 + 0.08 * (0.5 - 0.5 * cos(TAU * time / 0.9))
+	var lifted := base + Vector2(0, bob)
+	var face := lifted + TEA_FACE_CELLS * pitch
+	if not view.reduced_motion:
+		var t := fmod(time / 1.6 + phase, 1.0)
+		view.draw_arc(face, pitch * (25.0 / 64.0) * (1.0 + 0.55 * t), 0, TAU, 40, Color(1.0, 0.953, 0.863, 0.9 * (1.0 - t)), maxf(1.5, pitch * 3.0 / 64.0), true)
+	# Pulse about the face centre by drawing at a slightly larger pitch.
+	view.sprite("tea-ask", face - TEA_FACE_CELLS * pitch * pulse, "static", "S", 0.0, pitch * pulse)
+	var radius := pitch * TEA_RIM_CELLS
+	var width := maxf(2.0, pitch * 5.0 / 64.0)
+	view.draw_arc(face, radius, 0, TAU, 48, Color(0, 0, 0, 0.19), width, true)
+	if left > 0.001: view.draw_arc(face, radius, -PI * 0.5, -PI * 0.5 + TAU * left, 48, Color("ff8a3d") if low else LABEL, width, true)
+
 static func jar_squash(view) -> Vector2:
 	if view.reduced_motion: return Vector2.ONE
 	for effect in view.tip_effects:

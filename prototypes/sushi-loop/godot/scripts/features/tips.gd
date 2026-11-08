@@ -8,9 +8,12 @@ extends RefCounted
 ## draw from (or shift) the restaurant's shared generator.
 const PATH := "res://content/tips.json"
 const MAX_INTEGER := 9007199254740991
-const TEA_PHASES := ["none", "requested", "served", "skipped", "missed"]
+## Tea (#62): "requested" shows the tap bubble and pauses sushi; "pouring" is an
+## open pour sheet (patience stopped, never expires); "served" records the grade.
+const TEA_PHASES := ["none", "requested", "pouring", "served", "skipped", "missed"]
+const Tea = preload("res://scripts/features/tea.gd")
 ## Defaults for the visit fields, so rows saved before #61 load unchanged.
-const VISIT_FIELDS := {"bill": 0, "tea_phase": "none", "tea_elapsed": 0.0, "requested_dish_id": "", "request_eaten": false, "tip_evaluated": false}
+const VISIT_FIELDS := {"bill": 0, "tea_phase": "none", "tea_elapsed": 0.0, "tea_cup": "", "tea_grade": "", "tea_qualifies": false, "requested_dish_id": "", "request_eaten": false, "tip_evaluated": false}
 static var _definition: Dictionary = {}
 
 static func definition() -> Dictionary:
@@ -37,7 +40,9 @@ static func upgrade_cost(level: int) -> int:
 static func chance(customer: Dictionary) -> float:
 	var values: Dictionary = definition().chance
 	var result := float(values.base)
-	if customer.get("tea_phase") == "served": result = maxf(result, float(values.tea))
+	# Tea raises the chance once per visit, only for a qualifying pour; it never guarantees a tip.
+	if customer.get("tea_phase") == "served" and customer.get("tea_qualifies", false):
+		result = maxf(result, float(values.tea) + (float(values.get("tea_ideal_bonus", 0.0)) if customer.get("tea_grade") == "ideal" else 0.0))
 	if customer.get("request_eaten", false): result = maxf(result, float(values.requested_dish))
 	return result
 
@@ -142,6 +147,11 @@ static func valid(state: Dictionary) -> bool:
 static func valid_visit(customer: Dictionary) -> bool:
 	if not _integer(customer.get("bill")) or not customer.get("tea_phase") in TEA_PHASES or not customer.get("requested_dish_id") is String: return false
 	if not customer.get("request_eaten") is bool or not customer.get("tip_evaluated") is bool: return false
+	if not customer.get("tea_cup") is String or not customer.get("tea_grade") is String or not customer.get("tea_qualifies") is bool: return false
+	if not customer.tea_cup.is_empty() and not customer.tea_cup in Tea.cup_ids(): return false
+	if customer.tea_phase in ["requested", "pouring"] and customer.tea_cup.is_empty(): return false
+	# Only a served pour has a grade.
+	if not customer.tea_grade.is_empty() and (customer.tea_phase != "served" or not customer.tea_grade in Tea.GRADES): return false
 	var clock: Variant = customer.get("tea_elapsed")
 	if not (clock is float or clock is int) or not is_finite(float(clock)) or float(clock) < 0.0: return false
 	# A tip is decided only on leaving, and only food that was paid for earns one.

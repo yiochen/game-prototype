@@ -30,6 +30,10 @@ const Odometer = preload("res://scripts/odometer.gd")
 const CashFlights = preload("res://scripts/cash_flights.gd")
 const TipArt = preload("res://scripts/tip_art.gd")
 const Tips = preload("res://scripts/features/tips.gd")
+const TeaPour = preload("res://scripts/tea_pour.gd")
+## #62: the pour sheet over the live restaurant.
+var tea_ui: TeaPour
+const GUEST_NAMES := ["Rosa", "Ellis", "Samir", "June"]
 ## #61: the counter rolls instead of jumping, and collected cash flies to it.
 var odometer: Odometer
 var cash_flights: CashFlights
@@ -227,6 +231,13 @@ func _ready() -> void:
 	floor_ui.brush_exited.connect(func(): _floor_select(""))
 	floor_ui.pan_requested.connect(func(direction:Vector2):
 		if not save_blocked and not backgrounded: _pan(-direction*world.cell))
+	tea_ui = TeaPour.new(); add_child(tea_ui)
+	tea_ui.cancelled.connect(func(id: String):
+		dispatch({"type": "tea_pour_cancel", "customer_id": id});_refresh())
+	tea_ui.finished.connect(_tea_finished)
+	tea_ui.closed.connect(func(id: String, grade: Dictionary):
+		# The guest sips: happy for a good pour, surprised by a spill, otherwise no bubble.
+		if grade.id in ["ideal", "good", "overflow"]: world.tip_effects.append({"kind": "tea_ack", "customer_id": id, "grade": grade.id, "start": world.time}))
 	expedition_ui = ExpeditionPresentation.new(); add_child(expedition_ui)
 	expedition_ui.commander = func(request: Dictionary) -> Dictionary: return session.command(request)
 	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state, session._store)
@@ -519,6 +530,7 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	var unit: float = area.size.x / 720.0
 	if clearance_ui != null:
 		clearance_ui.layout(area)
+	if tea_ui != null: tea_ui.layout(area)
 	if expedition_ui != null:
 		expedition_ui.safe_top = maxf(top_inset, world.diagnostic_header_height)
 		expedition_ui.layout(scene_area)
@@ -573,6 +585,10 @@ func _process(delta: float) -> void:
 			autosave_elapsed = 0.0
 	else:
 		world.time += delta
+	if tea_ui.visible:
+		tea_ui.reduced_motion = world.reduced_motion
+		tea_ui.update(delta, audio)
+	else: audio.set_pour(0.0)
 	if expedition_ui != null and expedition_ui.visible:
 		expedition_ui.reduced_motion = world.reduced_motion
 		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state, session._store)}, delta)
@@ -829,6 +845,8 @@ func _object_at(position_value: Vector2) -> Dictionary:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if clearance_ui != null and clearance_ui.visible: return
+	if tea_ui != null and tea_ui.visible:
+		return
 	if expedition_ui != null and expedition_ui.visible: return
 	if session == null or show_gallery or save_blocked or pointer != -1 or recipe_ui.visible or staff_ui.modal.visible or (shop_ui != null and shop_ui.visible): return
 	if not event is InputEventScreenTouch or not event.pressed: return
@@ -886,6 +904,7 @@ func _input(event: InputEvent) -> void:
 	# A keyboard activation starts a new selection after a completed swipe.
 	if pointer == -1 and event is InputEventKey and event.pressed and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: gesture_dragged = false
 	if clearance_ui != null and clearance_ui.visible: return
+	if tea_ui != null and tea_ui.visible: return
 	if expedition_ui != null and expedition_ui.visible: return
 	var inverse := get_global_transform_with_canvas().affine_inverse()
 	if event is InputEventScreenTouch and event.pressed:
@@ -1071,11 +1090,13 @@ func _cancel_native_button_presses() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED:
 		backgrounded = true
+		if tea_ui != null: tea_ui.interrupt()
 		if expedition_ui != null: expedition_ui.suspend()
 		_cancel_native_button_presses()
 		if is_instance_valid(world): _cancel_gesture()
 		save_now()
 	elif what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		if tea_ui != null: tea_ui.interrupt()
 		_cancel_native_button_presses()
 		if is_instance_valid(world): _cancel_gesture()
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
@@ -1086,6 +1107,8 @@ func _notification(what: int) -> void:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and expedition_ui != null and expedition_ui.back():
 			save_now();return
 		if expedition_ui != null: expedition_ui.suspend()
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and tea_ui != null and tea_ui.visible:
+			tea_ui.cancel();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and clearance_ui != null and clearance_ui.visible:
 			clearance_ui.dismiss();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and shop_ui != null and shop_ui.visible:
@@ -1117,6 +1140,9 @@ func _exit_tree() -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if clearance_ui != null and clearance_ui.visible: return
+	if tea_ui != null and tea_ui.visible:
+		if event.is_action_pressed("ui_cancel"): tea_ui.cancel();get_viewport().set_input_as_handled()
+		return
 	if expedition_ui != null and expedition_ui.visible: return
 	if event is InputEventKey and event.pressed and event.keycode in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN] and not show_gallery and not shop_ui.visible and not recipe_ui.visible and not staff_ui.modal.visible:
 		var direction: Vector2 = {KEY_LEFT:Vector2.LEFT,KEY_RIGHT:Vector2.RIGHT,KEY_UP:Vector2.UP,KEY_DOWN:Vector2.DOWN}[event.keycode]
@@ -1504,9 +1530,22 @@ func _tip_tap(target: Dictionary) -> void:
 			world.tip_effects.append({"kind": "gain", "x": result.x, "y": result.y, "amount": int(result.amount), "lift": 1.6, "start": world.time})
 			world.tip_effects.append({"kind": "jar_bounce", "start": world.time})
 		"tea":
-			if dispatch({"type": "serve_tea", "customer_id": target.customer_id}).get("ok", false):
-				world.tip_effects.append({"kind": "tea_ack", "customer_id": target.customer_id, "start": world.time})
+			# Tapping the bubble dismisses it and opens the pour; the restaurant keeps running.
+			var opened := dispatch({"type": "tea_pour_open", "customer_id": target.customer_id})
+			if opened.get("ok", false):
+				var guest: Dictionary = {}
+				for customer in session.snapshot().customers:
+					if customer.id == target.customer_id: guest = customer
+				_cancel_gesture()
+				tea_ui.open(str(target.customer_id), str(opened.cup), GUEST_NAMES[clampi(int(guest.get("appearance", 0)), 0, GUEST_NAMES.size() - 1)])
+				tea_ui.layout(world.hud_area())
 				audio.play_cue("click")
+	_refresh()
+
+func _tea_finished(id: String, grade: Dictionary) -> void:
+	dispatch({"type": "tea_pour_finish", "customer_id": id, "grade": grade.id, "fill": grade.fill})
+	audio.set_pour(0.0)
+	audio.play_cue({"ideal": "tea_ideal", "good": "tea_good", "overflow": "tea_splash"}.get(grade.id, "tea_soft"))
 	_refresh()
 
 func _present_tip_event(event: Dictionary) -> void:

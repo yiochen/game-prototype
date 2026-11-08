@@ -20,6 +20,7 @@ const Layout = preload("res://scripts/features/layout.gd")
 const Customers = preload("res://scripts/features/customers.gd")
 const Navigation = preload("res://scripts/features/navigation.gd")
 const Tips = preload("res://scripts/features/tips.gd")
+const Tea = preload("res://scripts/features/tea.gd")
 ## Self-contained features whose records are store slices. `_state` is the
 ## session's own `core` slice; it also refers to these slices under their
 ## names so older code can read them, but never holds a copy.
@@ -30,7 +31,7 @@ const BeltRoutes = preload("res://scripts/belt_routes.gd")
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
 const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood", "tip-jar"]
-const TIP_COMMANDS := ["serve_tea", "collect_cash", "collect_jar", "tip_jar_upgrade"]
+const TIP_COMMANDS := ["tea_pour_open", "tea_pour_cancel", "tea_pour_finish", "collect_cash", "collect_jar", "tip_jar_upgrade"]
 const CHEF_ART_IDS := ["chef-lena", "chef-omar", "chef-ama", "chef-mateo", "chef-noor", "chef-dalia", "chef-ellis", "chef-rowan"]
 const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
@@ -110,7 +111,7 @@ func command(request: Dictionary) -> Dictionary:
 		if type.begins_with("editor_") or type in LAYOUT_COMMANDS:
 			_store.write(Layout.WORLD, "layout")
 			_store.write(Customers.WORLD, "customer")
-		if type == "serve_tea": _store.write(Customers.WORLD, "customer")
+		if type.begins_with("tea_pour_"): _store.write(Customers.WORLD, "customer")
 		_swept_cash.clear()
 		var outcome := _command(request)
 		# Furniture never sits on cash: an edit that covers a pile collects it.
@@ -358,7 +359,7 @@ func snapshot() -> Dictionary:
 			"wander_elapsed": customer.wander_elapsed,
 			"layout_pending": customer.layout_pending, "standing_elapsed": customer.standing_elapsed,
 			"render_offset_x": customer.render_offset_x, "render_offset_y": customer.render_offset_y,
-			"tea_phase": customer.tea_phase,
+			"tea_phase": customer.tea_phase, "tea_cup": customer.tea_cup,
 			"tea_progress": clampf(1.0 - float(customer.tea_elapsed) / maxf(0.001, float(Tips.definition().tea.request_seconds)), 0.0, 1.0) if customer.tea_phase == "requested" else 0.0,
 		}
 		Doorway.present(visible, customer, float(_configuration.service.walking_cells_per_second))
@@ -498,6 +499,9 @@ func _normalize_restored_numbers() -> void:
 	ShopBook.normalize(_state)
 	ExpeditionBook.normalize(_state)
 	Tips.normalize(_state)
+	# A pour sheet is not saved: a guest saved mid-pour is asking again.
+	for customer in Customers.rows(_store):
+		if customer.get("tea_phase") == "pouring": customer.tea_phase = "requested"
 	# JSON represents integers and floats with the same number type. Normalize
 	# counters before future ID creation, and cell coordinates before rendering.
 	_configuration.starting_coins = int(_configuration.starting_coins)
@@ -1037,6 +1041,8 @@ func _step_customers(delta: float, events: Array) -> void:
 						_set_preference(customer, "expired")
 						events.append(_customer_event("preference_expired", customer))
 				_step_tea(customer, delta, events)
+				# Waiting for tea: passing dishes stay on the belt and impatience pauses.
+				if customer.tea_phase in ["requested", "pouring"]: continue
 				var seat := _object_by_id(customer.seat_id)
 				var tile := _facing_object(seat)
 				if tile.get("kind") == "belt" and tile.dish != null and (customer.preference_phase != "active" or tile.dish.recipe_id == customer.preferred_recipe_id):
@@ -1050,7 +1056,6 @@ func _step_customers(delta: float, events: Array) -> void:
 					_begin_leaving(customer, "unfed")
 					events.append(_customer_event("visit_abandoned", customer))
 			"eating":
-				_step_tea(customer, delta, events)
 				customer.meal_elapsed = _clock_advance(float(customer.meal_elapsed), delta)
 				if float(customer.meal_elapsed) + 0.000000001 >= float(customer.meal_duration):
 					_finish_meal(customer, events)
@@ -2437,28 +2442,39 @@ func _owned_stock_id(object: Dictionary) -> String:
 
 # ---------------------------------------------------------------- tips (#61)
 
-## Seated guests who have had a dish may ask for tea once. Serving it is
-## optional; ignoring it only lets the request lapse.
+## Seated guests who have had a dish may ask for tea once, between dishes (a
+## dish already being eaten finishes first) and only once their other bubbles
+## are done. Ignoring it lets the request lapse; an open pour stops its clock.
 func _step_tea(customer: Dictionary, delta: float, events: Array) -> void:
-	if not customer.first_dish_received or customer.tea_phase in ["served", "skipped", "missed"]: return
+	if not customer.first_dish_received or customer.tea_phase in ["served", "skipped", "missed", "pouring"]: return
 	var tea: Dictionary = Tips.definition().tea
-	customer.tea_elapsed = _clock_advance(float(customer.tea_elapsed), delta)
 	if customer.tea_phase == "none":
+		# One bubble at a time: a happy or preference bubble finishes first.
+		if customer.preference_phase != "complete": return
+		customer.tea_elapsed = _clock_advance(float(customer.tea_elapsed), delta)
 		var delay := lerpf(float(tea.delay_min_seconds), float(tea.delay_max_seconds), Tips.roll(_state, str(customer.id), "tea-delay"))
 		if float(customer.tea_elapsed) + 0.000000001 < delay: return
 		customer.tea_elapsed = 0.0
 		if Tips.roll(_state, str(customer.id), "tea") < float(tea.request_chance):
+			var cups := Tea.cup_ids()
+			customer.tea_cup = str(cups[mini(cups.size() - 1, int(Tips.roll(_state, str(customer.id), "tea-cup") * cups.size()))])
 			customer.tea_phase = "requested"
 			events.append(_customer_event("tea_requested", customer))
 		else:
 			customer.tea_phase = "skipped"
-	elif customer.tea_phase == "requested" and float(customer.tea_elapsed) + 0.000000001 >= float(tea.request_seconds):
-		customer.tea_phase = "missed"
-		customer.tea_elapsed = 0.0
+		return
+	customer.tea_elapsed = _clock_advance(float(customer.tea_elapsed), delta)
+	if float(customer.tea_elapsed) + 0.000000001 >= float(tea.request_seconds): _miss_tea(customer, events)
+
+## An unanswered request lapses: the bubble goes and the guest eats again.
+func _miss_tea(customer: Dictionary, events: Array) -> void:
+	customer.tea_phase = "missed"
+	customer.tea_elapsed = 0.0
+	events.append(_customer_event("tea_missed", customer))
 
 ## Decided once, as a guest who bought food gets up to leave.
 func _decide_tip(customer: Dictionary) -> void:
-	if customer.tea_phase == "requested":
+	if customer.tea_phase in ["requested", "pouring"]:
 		customer.tea_phase = "missed"
 		customer.tea_elapsed = 0.0
 	if customer.tip_evaluated or int(customer.bill) <= 0: return
@@ -2528,12 +2544,29 @@ func _tip_command(request: Dictionary) -> Dictionary:
 			return {"ok": true, "level": level + 1, "cost": cost, "capacity": Tips.capacity(level + 1)}
 	if _state.mode != "live": return {"ok": false, "reason": "live_required"}
 	match request.type:
-		"serve_tea":
+		"tea_pour_open":
+			# Tapping the bubble dismisses it and stops its patience while the sheet is open.
 			var customer := _customer_by_id(str(request.get("customer_id", "")))
 			if customer.is_empty() or customer.tea_phase != "requested": return {"ok": false, "reason": "no_tea_request"}
+			if not _customers().filter(func(c): return c.tea_phase == "pouring").is_empty(): return {"ok": false, "reason": "pour_open"}
+			customer.tea_phase = "pouring"
+			return {"ok": true, "customer_id": customer.id, "cup": customer.tea_cup}
+		"tea_pour_cancel":
+			# Closed before any tea flowed: the bubble returns with the patience it had.
+			var customer := _customer_by_id(str(request.get("customer_id", "")))
+			if customer.is_empty() or customer.tea_phase != "pouring": return {"ok": false, "reason": "no_pour"}
+			customer.tea_phase = "requested"
+			return {"ok": true, "customer_id": customer.id}
+		"tea_pour_finish":
+			var customer := _customer_by_id(str(request.get("customer_id", "")))
+			if customer.is_empty() or customer.tea_phase != "pouring": return {"ok": false, "reason": "no_pour"}
+			var grade := str(request.get("grade", ""))
+			if not grade in Tea.GRADES or not _finite_number(request.get("fill")) or float(request.fill) < 0.0: return {"ok": false, "reason": "invalid_grade"}
 			customer.tea_phase = "served"
 			customer.tea_elapsed = 0.0
-			return {"ok": true, "customer_id": customer.id, "x": customer.x, "y": customer.y}
+			customer.tea_grade = grade
+			customer.tea_qualifies = Tea.qualifies(grade, float(request.fill))
+			return {"ok": true, "customer_id": customer.id, "grade": grade, "qualifies": customer.tea_qualifies, "x": customer.x, "y": customer.y}
 		"collect_cash":
 			if not _finite_number(request.get("x")) or not _finite_number(request.get("y")): return {"ok": false, "reason": "invalid_cell"}
 			var taken := Tips.take_around(_state, Vector2i(int(request.x), int(request.y)))

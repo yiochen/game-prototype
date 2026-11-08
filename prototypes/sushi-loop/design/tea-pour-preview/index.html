@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Tea pour</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="bar">
+  <h1>Tea requests &amp; pouring · issue #62 prototype</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="floor" aria-selected="true">Restaurant</button>
+    <button role="tab" data-view="cups" aria-selected="false">Cup shapes</button>
+  </nav>
+</header>
+<main>
+  <section id="floor" class="view">
+    <div class="layout">
+      <div class="stage">
+        <div class="phone" id="phone">
+          <div class="world" id="world">
+            <img class="backdrop" src="./assets/scene/restaurant-live.png" alt="Live restaurant: two conveyor belts, chefs and seated guests">
+            <img class="row-layer" data-depth="3" src="../cash-preview/assets/layers/row-03.png" alt="">
+            <img class="row-layer" data-depth="5" src="./assets/scene/row-05.png" alt="">
+            <img class="row-layer" data-depth="6" src="../cash-preview/assets/layers/row-06.png" alt="">
+            <img class="row-layer" data-depth="7" src="../cash-preview/assets/layers/row-07.png" alt="">
+            <img class="row-layer" data-depth="8" src="../cash-preview/assets/layers/row-08.png" alt="">
+            <img class="row-layer" data-depth="9" src="../cash-preview/assets/layers/row-09.png" alt="">
+            <img class="row-layer" data-depth="10" src="../cash-preview/assets/layers/row-10.png" alt="">
+          </div>
+          <div class="layer badges" id="badges"></div>
+          <div class="layer fx" id="fx"></div>
+          <div class="pill wallet" role="img" id="wallet" aria-label="9180 cash"><img class="cash-icon" src="../cash-preview/assets/cash-icon.svg" alt=""><b id="wallet-value">9180</b></div>
+
+          <div class="scrim" id="scrim" hidden></div>
+          <section class="sheet" id="sheet" role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="sheet-title" hidden>
+            <header class="sheet-head">
+              <div class="sheet-title"><b id="sheet-title">Tea for a guest</b><small id="sheet-cup">Yunomi</small></div>
+              <button class="round-x" id="cancel" aria-label="Cancel pouring">✕</button>
+            </header>
+            <svg class="pour" id="pour" viewBox="0 0 390 330" role="img" aria-label="Cup and teapot">
+              <defs>
+                <linearGradient id="tea" x2="0" y2="1"><stop offset="0" stop-color="#c5e47f"/><stop offset=".25" stop-color="#9fcb5c"/><stop offset="1" stop-color="#6c9c3c"/></linearGradient>
+                <linearGradient id="stream" x2="1"><stop offset="0" stop-color="#8dbb4d"/><stop offset=".45" stop-color="#d4ee98"/><stop offset="1" stop-color="#8dbb4d"/></linearGradient>
+                <linearGradient id="pot-glaze" x2="0" y2="1"><stop offset="0" stop-color="#fbf1dc"/><stop offset="1" stop-color="#dcc6a0"/></linearGradient>
+                                <clipPath id="interior-clip"><path id="interior-clip-path"/></clipPath>
+              </defs>
+              <g id="cup-layer"></g>
+              <g id="liquid-layer" clip-path="url(#interior-clip)">
+                <rect id="liquid" x="0" width="390" fill="url(#tea)"/>
+                <rect id="surface" x="0" width="390" height="2.5" fill="#e9f8c4"/>
+              </g>
+              <g id="marks"></g>
+              <path id="stream-path" fill="url(#stream)" stroke="none"/>
+              <g id="drips"></g>
+              <g id="spill"></g>
+              <g id="steam"></g>
+              <g id="pot"></g>
+              <g id="control" class="control">
+                <path id="arc-track" class="arc-track"/>
+                <path id="arc-fill" class="arc-fill"/>
+                <path id="arc-hit" class="arc-hit"/>
+                <g id="knob" class="knob"><circle r="25" class="knob-face"/><g id="knob-pot"></g></g>
+              </g>
+              <text id="verdict" class="verdict" x="150" y="96" text-anchor="middle"></text>
+            </svg>
+            <footer class="sheet-foot">
+              <p class="hint" id="hint">One pour: drag the handle down the arc</p>
+            </footer>
+          </section>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Review controls">
+        <h2>Try it</h2>
+        <p>Guests ask for tea between dishes. Tap a green tea bubble to pour. You get one pour: once tea flows, letting go or easing back to upright serves it. The restaurant keeps running behind the pour: belts move, other guests eat and other requests keep draining. An open pour never expires.</p>
+        <div class="row" id="request-buttons"></div>
+        <div class="row">
+          <button id="happy-tea">Requested dish, then tea</button>
+          <button id="two">Two requests at once</button>
+          <button id="new-visits">New visits (reset 1-per-visit)</button>
+        </div>
+        <div class="row">
+          <label><input type="checkbox" id="opt-auto" checked> Ambient requests</label>
+          <label><input type="checkbox" id="opt-sound" checked> Sound</label>
+          <label><input type="checkbox" id="opt-motion"> Reduced motion</label>
+        </div>
+        <h2>Next cup</h2>
+        <div class="row cup-picks" id="cup-picks" role="radiogroup" aria-label="Cup for the next request"></div>
+        <h2>Last pour</h2>
+        <p class="small">Liquid height over time. Steeper means faster rise: narrow sections climb quickly at the same flow.</p>
+        <canvas id="trace" width="400" height="150" aria-label="Fill level over time"></canvas>
+        <dl class="readout" id="readout"></dl>
+        <h2>Tuning</h2>
+        <div class="tune" id="tune"></div>
+        <h2>Event log</h2>
+        <ol class="log" id="log" aria-live="polite"></ol>
+      </aside>
+    </div>
+  </section>
+  <section id="cups" class="view" hidden>
+    <p class="note">The interior profile drives capacity: each height slice holds π·r². Bars show how fast the liquid rises at that height for the same flow (longer = faster). The dashed line is the fill target; handles and offsets add no capacity.</p>
+    <div class="cup-grid" id="cup-grid"></div>
+  </section>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "content_version": 1,
-  "note": "Tip balance (#61). Chances are final probabilities per eligible visit; the tip amount is a share of the visit's bill.",
-  "chance": {"base": 0.05, "tea": 0.2, "requested_dish": 0.5},
+  "note": "Tip balance (#61). Chances are final probabilities per eligible visit; the tip amount is a share of the visit's bill. Tea (#62): a qualifying pour raises the chance to tea (+ tea_ideal_bonus for an ideal pour), once per visit. A request waits for the guest's other bubbles and ends after request_seconds of unanswered patience; an open pour stops that clock. Pouring balance: tea.json.",
+  "chance": {"base": 0.05, "tea": 0.2, "tea_ideal_bonus": 0.05, "requested_dish": 0.5},
   "tip_share": 0.1,
   "tea": {
     "request_chance": 0.5,

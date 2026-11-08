@@ -770,6 +770,8 @@ func customer_feedback(customer: Dictionary) -> Dictionary:
 		var scared := maxf(0.0, float(customer.get("wander_elapsed", 0.0)))
 		return {"object": "bubble-panic", "clip": "appear" if scared < 1.0 else "idle", "seconds": scared if scared < 1.0 else scared - 1.0, "timer": -1.0}
 	var thanks := TipArt.tea_ack(self, customer)
+	if thanks >= 0.0 and TipArt.tea_ack_grade(self, customer) == "overflow":
+		return {"object": "bubble-puzzled", "clip": "idle" if reduced_motion or thanks >= 1.0 else "appear", "seconds": 0.0 if reduced_motion else thanks if thanks < 1.0 else thanks - 1.0, "timer": -1.0}
 	if thanks >= 0.0:
 		var clip := "happy-smile-transition" if thanks < 1.0 else "happy-smile-fade" if thanks >= TipArt.TEA_ACK_SECONDS - 1.0 else "happy-smile-idle"
 		return {"object": "bubble-happy", "clip": clip, "seconds": thanks if thanks < 1.0 else thanks - (TipArt.TEA_ACK_SECONDS - 1.0) if clip == "happy-smile-fade" else thanks - 1.0, "timer": -1.0}
@@ -788,7 +790,7 @@ func customer_feedback(customer: Dictionary) -> Dictionary:
 		var clip := "happy-smile-transition" if happy < 1.0 else "happy-smile-fade" if happy >= duration - 1.0 else "happy-smile-idle"
 		return {"object": "bubble-happy", "clip": clip, "seconds": happy if happy < 1.0 else happy - (duration - 1.0) if clip == "happy-smile-fade" else happy - 1.0, "timer": -1.0}
 	if customer.get("tea_phase") == "requested":
-		return {"object": "tea-bubble", "clip": "static", "seconds": 0.0, "timer": clampf(float(customer.get("tea_progress", 1)), 0, 1)}
+		return {"object": "tea-ask", "clip": "static", "seconds": 0.0, "timer": clampf(float(customer.get("tea_progress", 1)), 0, 1)}
 	return {}
 
 func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
@@ -796,6 +798,9 @@ func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 	if feedback.is_empty():
 		return
 	var bubble_base: Vector2 = base + customer_pose_offset(customer, pitch) + BUBBLE_ATTACHMENT * pitch / art.cell_size
+	if feedback.object == "tea-ask":
+		TipArt.draw_tea_ask(self, bubble_base, pitch, float(feedback.timer), str(customer.get("id", "")))
+		return
 	sprite(feedback.object, bubble_base, feedback.clip, "S", 0.0 if reduced_motion else float(feedback.seconds), pitch)
 	if float(feedback.timer) >= 0.0:
 		var center: Vector2 = bubble_base + Vector2(37, -84) * pitch / art.cell_size

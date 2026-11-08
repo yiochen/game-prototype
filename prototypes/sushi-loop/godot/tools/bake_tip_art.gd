@@ -9,6 +9,7 @@ extends SceneTree
 
 const SOURCE := "../design/cash-preview/assets/"
 const OUT := "res://assets/tips/"
+const TEA_SOURCE := "../../tea-pour-preview/assets/"
 const OUTLINE := Color("19e3ff")
 ## In 256 px-per-cell source pixels: the approved 2.5 px ring and 3 px glow on a
 ## 61.6 px phone cell.
@@ -40,6 +41,9 @@ func _init() -> void:
 	for entry in [["cash-pop", "cash-pop.svg", 2.0, [160, 120], [80, 104]], ["tea-bubble", "tea-bubble.svg", 1.5, [96, 96], [48, 96]], ["tip-check", "tip-check.svg", 1.5, [96, 96], [48, 96]]]:
 		save(svg(entry[1], entry[2]), entry[0] + ".png")
 		objects[entry[0]] = record(entry[0], {"static": entry[0] + ".png"}, entry[3], entry[4])
+	# #62 tea request: a tappable tea-green button bubble (its rim, ripple and bob are drawn live).
+	save(svg(TEA_SOURCE + "tea-ask.svg", 4.0), "tea-ask.png")
+	objects["tea-ask"] = record("tea-ask", {"static": "tea-ask.png"}, [128, 144], [64, 144])
 	var manifest := {"version": 1, "cellSize": 128, "source": "design/cash-preview (approved 2026-11-07)", "policy": "Baked by tools/bake_tip_art.gd; do not edit by hand.", "objects": objects}
 	var file := FileAccess.open(OUT + "manifest.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(manifest, "\t"))
