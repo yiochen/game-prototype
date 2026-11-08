@@ -594,7 +594,7 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 			_start_dish_flight(event,ending_scene)
 		if event.type == "sale":
 			world.sale_pops.append({"x": event.x, "y": event.y, "time": world.time})
-		if event.type in ["tip", "tip_secured"]: _present_tip_event(event)
+		if event.type == "tip": _present_tip_event(event)
 	if refresh_view: _refresh()
 	return events
 
@@ -1512,8 +1512,6 @@ func _tip_tap(target: Dictionary) -> void:
 func _present_tip_event(event: Dictionary) -> void:
 	TipArt.expire(world)
 	match event.type:
-		"tip_secured":
-			world.tip_effects.append({"kind": "check", "customer_id": event.customer_id, "start": world.time})
 		"tip":
 			var from := {"x": float(event.from_x), "y": float(event.from_y)}
 			match event.destination:

@@ -36,9 +36,10 @@ static func upgrade_cost(level: int) -> int:
 
 static func chance(customer: Dictionary) -> float:
 	var values: Dictionary = definition().chance
-	if customer.get("request_eaten", false): return float(values.requested_dish)
-	if customer.get("tea_phase") == "served": return minf(1.0, float(values.base) + float(values.tea_bonus))
-	return float(values.base)
+	var result := float(values.base)
+	if customer.get("tea_phase") == "served": result = maxf(result, float(values.tea))
+	if customer.get("request_eaten", false): result = maxf(result, float(values.requested_dish))
+	return result
 
 static func amount(bill: int) -> int:
 	return maxi(1, roundi(float(bill) * float(definition().tip_share)))

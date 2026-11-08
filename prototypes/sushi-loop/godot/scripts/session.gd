@@ -1099,10 +1099,8 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 	_state.stats.sales += 1
 	_state.stats.served += 1
 	customer.bill = int(customer.bill) + price
-	# Eating the dish they asked for secures a tip; serving it is not enough.
-	if str(dish.id) == str(customer.requested_dish_id) and not customer.request_eaten:
-		customer.request_eaten = true
-		events.append({"type": "tip_secured", "customer_id": customer.id, "x": customer.x, "y": customer.y})
+	# Eating the dish they asked for raises the tip chance; serving it is not enough.
+	if str(dish.id) == str(customer.requested_dish_id): customer.request_eaten = true
 	customer.fullness += customer.meal_fullness
 	# Consume and credit together: no reward is left pending in a save.
 	customer.meal_dish = null

@@ -12,7 +12,6 @@ const JAR_FLIGHT_SECONDS := 0.7
 const POPUP_SECONDS := 0.9
 const LOST_SECONDS := 1.2
 const TEA_ACK_SECONDS := 2.2
-const CHECK_SECONDS := 1.6
 const HINT_SECONDS := 1.4
 const JAR_STATES := [["static", 0.0], ["quarter", 0.375], ["half", 0.64], ["most", 1.0]]
 const LABEL := Color("fff3dc")
@@ -61,8 +60,6 @@ static func draw_overlay(view) -> void:
 	var tips: Dictionary = view.state.get("tips", {})
 	var jar: Dictionary = tips.get("jar", {})
 	if jar.get("placed", false): _jar_label(view, jar)
-	var guests := {}
-	for customer in view.state.get("customers", []): guests[customer.id] = customer
 	for effect in view.tip_effects:
 		var age := effect_age(view, effect)
 		if age < 0.0: continue
@@ -71,7 +68,6 @@ static func draw_overlay(view) -> void:
 			"jar_flight": _jar_flight(view, effect, age)
 			"gain": _gain(view, effect, age)
 			"lost": _lost(view, effect, age)
-			"check": if guests.has(effect.customer_id): _check(view, guests[effect.customer_id], age)
 			"hint": _hint(view, jar, age)
 
 static func expire(view) -> void:
@@ -83,7 +79,6 @@ static func _duration(effect: Dictionary) -> float:
 		"jar_flight": return JAR_FLIGHT_SECONDS
 		"gain": return POPUP_SECONDS
 		"lost": return LOST_SECONDS
-		"check": return CHECK_SECONDS
 		"hint": return HINT_SECONDS
 		"tea_ack": return TEA_ACK_SECONDS
 		"jar_bounce": return 0.32
@@ -138,12 +133,6 @@ static func _lost(view, effect: Dictionary, age: float) -> void:
 	var t := age / LOST_SECONDS
 	var at: Vector2 = view.cell_base(float(effect.x), float(effect.y)) - Vector2(0, view.cell * (1.35 + 0.25 * t))
 	view.sprite("tip-check", at, "static", "S", 0.0, view.cell * 0.8, Color(0.55, 0.55, 0.52, 0.75 * (1.0 - t)))
-
-static func _check(view, customer: Dictionary, age: float) -> void:
-	var t := age / CHECK_SECONDS
-	var pop := minf(1.0, age / 0.18)
-	var at: Vector2 = view.cell_base(float(customer.x) + float(customer.get("render_offset_x", 0)), float(customer.y) + float(customer.get("render_offset_y", 0))) - Vector2(0, view.cell * 1.5)
-	view.sprite("tip-check", at, "static", "S", 0.0, view.cell * (0.6 + 0.3 * pop), Color(1, 1, 1, 1.0 - maxf(0.0, t - 0.7) / 0.3))
 
 ## The jar is off screen: a small arrow at the scene edge points to where the
 ## tip went, so it does not read as wallet income.

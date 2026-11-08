@@ -6,7 +6,7 @@ const AUDIO_PATH := "res://assets/audio/"
 const VOICE_COUNT := 6
 const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140}
 const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -12.0}
-const ALIASES := {"ui": "click", "cooking": "cook", "prepared": "cook", "loading": "load", "loaded": "load", "sale": "coin", "tip": "coin", "tip_secured": "click"}
+const ALIASES := {"ui": "click", "cooking": "cook", "prepared": "cook", "loading": "load", "loaded": "load", "sale": "coin", "tip": "coin"}
 
 var music_volume_db := -16.0
 var effects_volume_db := 0.0

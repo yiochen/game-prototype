@@ -47,12 +47,14 @@ func roundtrip(s):
 
 func run() -> void:
 	# Balance rules.
-	check(is_equal_approx(Tips.chance({}), 0.1), "a normal visit tips 10% of the time")
-	check(is_equal_approx(Tips.chance({"tea_phase": "served"}), 0.4), "tea adds 30 percentage points once")
-	check(is_equal_approx(Tips.chance({"tea_phase": "served", "request_eaten": true}), 1.0) and is_equal_approx(Tips.chance({"request_eaten": true}), 1.0), "an eaten requested dish guarantees a tip")
+	check(is_equal_approx(Tips.chance({}), 0.05), "a normal visit tips 5% of the time")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served"}), 0.2), "served tea raises the chance to 20%")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served", "request_eaten": true}), 0.5) and is_equal_approx(Tips.chance({"request_eaten": true}), 0.5), "an eaten requested dish raises the chance to 50%")
 	check(Tips.amount(48) == 5 and Tips.amount(14) == 1 and Tips.amount(3) == 1 and Tips.amount(250) == 25, "tip is 10% of the bill, rounded, at least 1")
 	check(Tips.tier(10) == 0 and Tips.tier(11) == 1 and Tips.tier(50) == 1 and Tips.tier(51) == 2, "piles: one note to $10, three notes to $50, a bundle above")
 	check(Tips.capacity(0) < Tips.capacity(1) and Tips.capacity(1) < Tips.capacity(2), "upgrades raise jar capacity")
+	# Routing cases below need a tip every time: make an eaten request certain.
+	Tips.definition().chance.requested_dish = 1.0
 
 	var s = Session.new_session(41, {"starting_coins": 5000})
 	var seat := seat_of(s)
@@ -64,7 +66,7 @@ func run() -> void:
 	check(decide(s, unpaid).is_empty() and not unpaid.tip_evaluated, "a guest who bought nothing never tips")
 	var paid := guest(s, seat, 48, {"request_eaten": true})
 	var first := decide(s, paid)
-	check(first.get("destination") == "floor" and first.amount == 5 and paid.tip_evaluated, "an eaten request tips 10% of the bill onto the floor")
+	check(first.get("destination") == "floor" and first.amount == 5 and paid.tip_evaluated, "a tip is 10% of the bill and lands on the floor")
 	check(Tips.around(center).has(Vector2i(int(first.x), int(first.y))), "the pile lands on one of the eight tiles around the seat")
 	check(decide(s, paid).is_empty() and s.snapshot().tips.cash.size() == 1, "a visit is evaluated once")
 	check(s.snapshot().coins == coins, "a floor drop does not touch the wallet")
