@@ -40,7 +40,7 @@ func run() -> void:
 			break
 	app._refresh()
 	await capture("01-floor-cash-jar-tea")
-	# Tea served: the guest thanks with the shared happy bubble.
+	# Tapping the request opens the #62 pour sheet (this #61 capture predates it).
 	for customer in app.session.snapshot().customers:
 		if customer.tea_phase == "requested":
 			app._tip_tap({"kind": "tea", "customer_id": customer.id})

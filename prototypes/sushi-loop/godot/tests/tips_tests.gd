@@ -48,7 +48,9 @@ func roundtrip(s):
 func run() -> void:
 	# Balance rules.
 	check(is_equal_approx(Tips.chance({}), 0.05), "a normal visit tips 5% of the time")
-	check(is_equal_approx(Tips.chance({"tea_phase": "served"}), 0.2), "served tea raises the chance to 20%")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served", "tea_qualifies": true, "tea_grade": "good"}), 0.2), "a qualifying tea pour raises the chance to 20%")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served", "tea_qualifies": true, "tea_grade": "ideal"}), 0.25), "an ideal pour adds the small ideal bonus")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served", "tea_qualifies": false, "tea_grade": "under"}), 0.05), "too little tea gives no tea bonus")
 	check(is_equal_approx(Tips.chance({"tea_phase": "served", "request_eaten": true}), 0.5) and is_equal_approx(Tips.chance({"request_eaten": true}), 0.5), "an eaten requested dish raises the chance to 50%")
 	check(Tips.amount(48) == 5 and Tips.amount(14) == 1 and Tips.amount(3) == 1 and Tips.amount(250) == 25, "tip is 10% of the bill, rounded, at least 1")
 	check(Tips.tier(10) == 0 and Tips.tier(11) == 1 and Tips.tier(50) == 1 and Tips.tier(51) == 2, "piles: one note to $10, three notes to $50, a bundle above")
@@ -127,7 +129,7 @@ func run() -> void:
 	s.command({"type": "set_mode", "mode": "live"})
 
 	# Tea.
-	check(not s.command({"type": "serve_tea", "customer_id": "nobody"}).ok, "tea needs a request")
+	check(not s.command({"type": "tea_pour_open", "customer_id": "nobody"}).ok, "tea needs a request")
 	# Saves.
 	var copy = roundtrip(s)
 	check(copy != null, "tips survive a JSON save and reopen")
@@ -164,7 +166,8 @@ func run() -> void:
 			if event.type == "tip": outcomes[event.destination] = int(outcomes.get(event.destination, 0)) + 1
 			if event.type == "tea_requested":
 				requested += 1
-				if requested % 2 == 1: live.command({"type": "serve_tea", "customer_id": event.customer_id})
+				if requested % 2 == 1 and live.command({"type": "tea_pour_open", "customer_id": event.customer_id}).ok:
+					live.command({"type": "tea_pour_finish", "customer_id": event.customer_id, "grade": "good", "fill": 1.0})
 		if step % 400 == 0:
 			var reopened = roundtrip(live)
 			check(reopened != null, "service save %d reopens" % step)

@@ -1,0 +1,36 @@
+{
+  "content_version": 1,
+  "note": "Tea pouring (#62), approved from design/tea-pour-preview. Lengths are design px on a 390-wide phone (one cell = 61.6 px). Rules: scripts/features/tea.gd. Request timing and tip chances stay in tips.json.",
+  "pour": {
+    "max_tilt_degrees": 58,
+    "dead_zone": 0.12,
+    "flow_curve": 1.6,
+    "seconds_to_target_at_max": 2.2,
+    "drip_share": 0.025,
+    "drip_seconds": 0.35,
+    "return_seconds": 0.14
+  },
+  "grade": {
+    "ideal_band": 0.03,
+    "good_band": 0.085,
+    "min_qualifying_fill": 0.4,
+    "overflow_qualifies": true
+  },
+  "cups": [
+    {"id": "yunomi", "name": "Yunomi", "height": 132, "target": 0.8, "wall": 9, "base": 12, "foot": 6,
+     "radius": [[0, 30], [132, 35]], "glaze": ["#f4e7cf", "#d8c3a0"], "band": "#3a5c8c"},
+    {"id": "bowl", "name": "Tea bowl", "height": 104, "target": 0.82, "wall": 8, "base": 10, "foot": 10,
+     "radius": [[0, 13], [30, 26], [70, 45], [104, 52]], "glaze": ["#e7d6b8", "#b88d62"], "band": "#7a4b2c"},
+    {"id": "flask", "name": "Flask", "height": 148, "target": 0.84, "wall": 8, "base": 11, "foot": 0,
+     "radius": [[0, 44], [54, 47], [84, 30], [104, 11], [148, 10]], "glaze": ["#cfe1e8", "#7fa6b8"], "band": "#2d4f77",
+     "handles": [{"side": -1, "y0": 46, "y1": 82}, {"side": 1, "y0": 46, "y1": 82}]},
+    {"id": "hourglass", "name": "Hourglass", "height": 148, "target": 0.86, "wall": 8, "base": 10, "foot": 4,
+     "radius": [[0, 40], [40, 38], [70, 9], [83, 9], [113, 38], [148, 42]], "glaze": ["#f1d9d2", "#c98b7a"], "band": "#8a3b2c",
+     "knobs": [{"side": -1, "y": 76}, {"side": 1, "y": 76}]},
+    {"id": "bubbles", "name": "Stacked bubbles", "height": 150, "target": 0.88, "wall": 8, "base": 10, "foot": 0,
+     "chambers": {"count": 3, "height": 134, "wide": 32, "narrow": 8, "neck": 16}, "glaze": ["#e3ecd2", "#93ad74"], "band": "#4b6a35"},
+    {"id": "vase", "name": "Crooked vase", "height": 150, "target": 0.84, "wall": 8, "base": 11, "foot": 3,
+     "radius": [[0, 20], [31, 38], [64, 24], [95, 40], [128, 18], [150, 15]], "shift": [[0, 0], [46, 12], [92, -10], [150, 22]],
+     "glaze": ["#ede3f0", "#a68bb4"], "band": "#583b6c", "handles": [{"side": 1, "y0": 84, "y1": 124}]}
+  ]
+}

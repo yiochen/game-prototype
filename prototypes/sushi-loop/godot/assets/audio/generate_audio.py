@@ -77,5 +77,33 @@ for tick in range(16):
 write('harbor_cafe',music,2,peak=.44)
 metrics['harbor_cafe']['loop']=True
 metrics['harbor_cafe']['bpm']=100
+
+# Tea pouring (#62): result chimes after a pour, a soft pour stream, a splash.
+tea_ideal=[0.0]*round(1.0*RATE)
+for start,note,gain in [(0,79,.2),(.08,83,.17),(.16,86,.15),(.24,91,.13)]:tone(tea_ideal,start,.7,midi(note),gain,4,(1,.2,.04))
+write('tea_ideal',tea_ideal,peak=.38)
+tea_good=[0.0]*round(.75*RATE)
+for start,note,gain in [(0,79,.2),(.1,86,.16)]:tone(tea_good,start,.6,midi(note),gain,4,(1,.2,.04))
+write('tea_good',tea_good,peak=.36)
+tea_soft=[0.0]*round(.45*RATE)
+tone(tea_soft,0,.4,midi(72),.18,5,(1,.3,.1))
+write('tea_soft',tea_soft,peak=.3)
+splash=[0.0]*round(.45*RATE)
+tea_rng=random.Random(622026);filtered=0.0
+for i in range(len(splash)):
+    filtered=.7*filtered+.3*tea_rng.uniform(-1,1)
+    splash[i]+=filtered*.5*math.exp(-9*i/RATE)
+tone(splash,.05,.3,330,.12,5,(1,.3))
+write('tea_splash',splash,peak=.34)
+# A short, seamless burble of water for the stream; volume follows the flow.
+pour=[0.0]*round(.8*RATE)
+filtered=0.0
+for i in range(len(pour)):
+    filtered=.85*filtered+.15*tea_rng.uniform(-1,1)
+    pour[i]+=filtered*(.8+.2*math.sin(TAU*14*i/RATE))
+fade=round(.05*RATE)
+for i in range(fade):
+    pour[i]*=i/fade;pour[-1-i]*=i/fade
+write('tea_pour',pour,peak=.3)
 (OUT/'audio-verification.json').write_text(json.dumps(metrics,indent=2)+'\n')
 print(json.dumps(metrics,indent=2))
