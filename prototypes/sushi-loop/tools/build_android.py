@@ -40,6 +40,7 @@ RUNTIME_TREES = {
     "assets/chef-variants/sprites": {".png"},
     "assets/feedback-variants/sprites": {".png"},
     "assets/expansion/sprites": {".png"},
+    "assets/tips/sprites": {".png"},
     "assets/expedition": {".png", ".json", ".glb", ".svg"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
@@ -73,6 +74,7 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/chef-variants/manifest.json")
     paths.append(source / "assets/feedback-variants/manifest.json")
     paths.append(source / "assets/expansion/manifest.json")
+    paths.append(source / "assets/tips/manifest.json")
     paths.append(source / "assets/ui/editor/manifest.json")
     paths.append(source / "assets/ui/wood-editor/manifest.json")
     paths.append(source / "assets/ui/recipes/manifest.json")
@@ -205,7 +207,8 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
 # ArtBook sprite atlases: the packer rewrites these to trimmed phone-resolution
 # frames, drawn 1:1 into the native world layer, so they need no mipmaps.
 PACKED_SPRITE_TREES = ("assets/catalog/sprites", "assets/recipe-variants/sprites", "assets/chef-variants/sprites",
-                       "assets/feedback-variants/sprites", "assets/expansion/sprites")
+                       "assets/feedback-variants/sprites", "assets/expansion/sprites",
+                       "assets/tips/sprites")
 SPRITE_PACKER = "tools/pack_runtime_sprites.gd"
 LOSSY_QUALITY = 0.9
 # Art budgets, measured on the staged phone payload. Raise a limit only on

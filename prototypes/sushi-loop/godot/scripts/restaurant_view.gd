@@ -10,6 +10,7 @@ const ArtBook = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
 const GroundShadows = preload("res://scripts/ground_shadows.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
+const TipArt = preload("res://scripts/tip_art.gd")
 var clearance_selected := ""
 var clearance_removals: Array = []
 var dock_reveal_started := -1.0
@@ -49,6 +50,8 @@ var cell := 76.0
 var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
+## #61 presentation-only tip effects (tosses, jar flights, popups, reactions).
+var tip_effects: Array = []
 var recipe_shakes: Dictionary = {}
 const DISH_FLIGHT_SECONDS := 0.34
 var dish_flights: Array = []
@@ -232,9 +235,12 @@ func _room() -> void:
 	for pop in sale_pops:
 		var age := time - float(pop.time)
 		if age >= 0.0 and age < 0.9:
-			# Native pop frames already rise above this registered customer root.
-			# Keep its authored scale/motion and the existing quiet alpha fade.
-			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))
+			# Sales show the cash note rising above the guest with the same
+			# timing and quiet fade as the earlier coin.
+			var t := 0.0 if reduced_motion else age / 0.9
+			var grow := minf(1.0, 0.3 + 3.0 * t)
+			sprite("cash-pop", cell_base(float(pop.x), float(pop.y)) - Vector2(0, cell * (1.1 + 0.3 * t)), "static", "S", 0.0, cell * 0.75 * grow, Color(1, 1, 1, 1.0 - age / 0.9))
+	TipArt.draw_overlay(self)
 
 func _render_room_items(items: Array = []) -> void:
 	# Rendering and picking share this exact pass, including sprite frame,
@@ -258,6 +264,13 @@ func _render_room_items(items: Array = []) -> void:
 			"board": _board(item.value)
 			"customer": _customer(item.value)
 			"curtain": EntranceCurtain.draw_front(self, item.base)
+			"cash":
+				# Cash is tapped through its own hit test, never sprite picking,
+				# so a pile neither selects nor hides the furniture behind it.
+				if not _record_only and not _collect_ground_shadows:
+					_capture_hits = false
+					TipArt.draw_pile(self, item.value)
+					_capture_hits = true
 	_capture_hits = false
 	_current_owner = ""
 	_hit_signature = _geometry_signature()
@@ -297,6 +310,28 @@ func _curtain_hides_hit(item: Dictionary, point: Vector2) -> bool:
 		if guest.id == item.owner_id and float(guest.y) + float(guest.get("render_offset_y", 0)) < float(state.floor.entrance.y) + Doorway.CURTAIN_OFFSET:
 			return EntranceCurtain.covers(self, point, cell_base(4.5, 2.5))
 	return false
+
+## #61 Live tap targets, tested before sprite picking so furniture or guests
+## in front never make cash, the jar or a tea request unreachable. Cash first
+## (front rows first), then the jar, then a guest asking for tea.
+func tip_target_at(point: Vector2) -> Dictionary:
+	if show_gallery or state.is_empty() or not hud_area().has_point(point): return {}
+	var tips: Dictionary = state.get("tips", {})
+	var piles: Array = tips.get("cash", []).duplicate()
+	piles.sort_custom(func(a, b): return int(a.y) > int(b.y))
+	for pile in piles:
+		var base := cell_base(float(pile.x), float(pile.y))
+		if Rect2(base - Vector2(0.5, 0.72) * cell, Vector2(1.0, 1.0) * cell).has_point(point):
+			return {"kind": "cash", "x": int(pile.x), "y": int(pile.y)}
+	var jar: Dictionary = tips.get("jar", {})
+	if jar.get("placed", false) and int(jar.get("balance", 0)) > 0:
+		var base := cell_base(float(jar.x), float(jar.y))
+		if Rect2(base - Vector2(0.45, 1.5) * cell, Vector2(0.9, 1.95) * cell).has_point(point): return {"kind": "jar"}
+	for customer in state.get("customers", []):
+		if customer.get("tea_phase") != "requested": continue
+		var base := cell_base(float(customer.x) + float(customer.get("render_offset_x", 0)), float(customer.y) + float(customer.get("render_offset_y", 0)))
+		if Rect2(base - Vector2(0.5, 2.0) * cell, Vector2(1.0, 2.3) * cell).has_point(point): return {"kind": "tea", "customer_id": str(customer.id)}
+	return {}
 
 func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
@@ -451,12 +486,21 @@ func render_plan() -> Array:
 			"decor":
 				var prop := _prop(str(object.get("art_id", "plant-angular")), float(object.x), float(object.y), "idle" if object.get("art_id") == "plant-angular" else "static", str(FACING.get(object.get("facing", "south"), "S")))
 				prop["owner_id"] = str(object.get("id", ""))
+				if object.get("art_id") == "tip-jar":
+					# One south view; its fill follows the jar's balance.
+					prop.clip = TipArt.jar_clip(state.get("tips", {}).get("jar", {}))
+					prop.direction = "S"
+					var squash := TipArt.jar_squash(self)
+					prop.base -= Vector2(0, cell * 0.6 * (squash.x - 1.0))
 				result.append(prop)
 			"chef":
 				result.append({"kind": "chef", "value": object, "depth": float(object.y), "priority": 2})
 				result.append({"kind": "board", "value": object, "depth": float(object.y) + 0.4, "priority": 4})
 	for customer in state.get("customers", []):
 		result.append({"kind": "customer", "value": customer, "depth": float(customer.y) + float(customer.get("render_offset_y", 0)), "priority": 2})
+	# Floor cash sorts with its row, so furniture and guests in front hide it.
+	for pile in state.get("tips", {}).get("cash", []):
+		result.append({"kind": "cash", "value": pile, "depth": float(pile.y), "priority": 5})
 	result.sort_custom(func(a: Dictionary, b: Dictionary):
 		if not is_equal_approx(float(a.depth), float(b.depth)):
 			return float(a.depth) < float(b.depth)
@@ -725,6 +769,10 @@ func customer_feedback(customer: Dictionary) -> Dictionary:
 		if reduced_motion: return {"object": "bubble-panic", "clip": "idle", "seconds": 0.0, "timer": -1.0}
 		var scared := maxf(0.0, float(customer.get("wander_elapsed", 0.0)))
 		return {"object": "bubble-panic", "clip": "appear" if scared < 1.0 else "idle", "seconds": scared if scared < 1.0 else scared - 1.0, "timer": -1.0}
+	var thanks := TipArt.tea_ack(self, customer)
+	if thanks >= 0.0:
+		var clip := "happy-smile-transition" if thanks < 1.0 else "happy-smile-fade" if thanks >= TipArt.TEA_ACK_SECONDS - 1.0 else "happy-smile-idle"
+		return {"object": "bubble-happy", "clip": clip, "seconds": thanks if thanks < 1.0 else thanks - (TipArt.TEA_ACK_SECONDS - 1.0) if clip == "happy-smile-fade" else thanks - 1.0, "timer": -1.0}
 	var phase := str(customer.get("preference_phase", "pending"))
 	var prefix := "cucumber-" if customer.get("preferred_recipe_id") == "cucumber_maki" else ""
 	var age := maxf(0.0, float(customer.get("preference_phase_elapsed", float(customer.get("preference_total", 0)) - float(customer.get("preference_remaining", 0)))))
@@ -739,6 +787,8 @@ func customer_feedback(customer: Dictionary) -> Dictionary:
 			return {}
 		var clip := "happy-smile-transition" if happy < 1.0 else "happy-smile-fade" if happy >= duration - 1.0 else "happy-smile-idle"
 		return {"object": "bubble-happy", "clip": clip, "seconds": happy if happy < 1.0 else happy - (duration - 1.0) if clip == "happy-smile-fade" else happy - 1.0, "timer": -1.0}
+	if customer.get("tea_phase") == "requested":
+		return {"object": "tea-bubble", "clip": "static", "seconds": 0.0, "timer": clampf(float(customer.get("tea_progress", 1)), 0, 1)}
 	return {}
 
 func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:

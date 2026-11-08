@@ -55,7 +55,7 @@ func run(app, scene_tree: SceneTree, destination := "") -> void:
 	await tap(app,app.edit)
 	var ui = app.editor_ui
 	expect(app.session.snapshot().mode == "edit" and ui.visible,"Edit opens the native continuous wood dock")
-	expect(ui.cards.size()==5 and ui.rail.clip_contents and not ui.previous.visible and not ui.next.visible,"All five goods share a clipped horizontal strip without paging carets")
+	expect(ui.cards.size()==6 and ui.rail.clip_contents and not ui.previous.visible and not ui.next.visible,"All six goods share a clipped horizontal strip without paging carets")
 	expect(ui.wood.manifest.assets["shop-normal"].face_rect[3]==60 and ui.wood.manifest.assets["tab-normal"].face_rect[3]==60,"Shop and inactive tabs retain matching 60-unit faces")
 	var targets := true
 	for button: Button in [ui.layers.people,ui.layers.layout,ui.layers.floor,ui.shop]:

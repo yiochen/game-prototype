@@ -122,7 +122,7 @@ func _test_skin(app) -> void:
 	_expect(_skin_source(surfaces[0]) == _skin_source(editor.skin.style("control-wood", unit, "disabled")) and _skin_source(surfaces[1]) == _skin_source(editor.skin.style("control-wood", unit)), "Shop and Edit share the neutral ceramic family")
 	_expect(_skin_source(editor.live.get_meta("visual_surface").get_theme_stylebox("panel")) != _skin_source(_button_surface(app.edit)), "Live has the distinct generated vermilion primary surface")
 	_expect(not editor.previous.visible and not editor.next.visible and editor.rail.clip_contents, "The wood dock replaces carets with a clipped scroll viewport")
-	_expect(app.coin.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_CENTERED and app.coin.texture is AtlasTexture, "The generated coin preserves its aspect ratio in the transparent HUD")
+	_expect(app.coin.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_CENTERED and app.coin.texture.resource_path == "res://assets/ui/cash.png", "The cash note icon preserves its aspect ratio in the transparent HUD")
 	var full_pill_minimums := true
 	for role in ["control-wood", "control-pressed", "control-green", "control-green-pressed", "control-slate", "toast-error", "context-bubble", "coin-panel"]:
 		for treatment in ["normal", "pressed", "disabled"]:
@@ -640,7 +640,7 @@ func _test_editor_gallery() -> void:
 	root.add_child(gallery)
 	await _frames()
 	_expect(gallery.editor_ui.visible and gallery.editor_ui.get_script() == load("res://scripts/wood_editor_presentation.gd"), "Shared editor gallery instantiates the same native presentation used by gameplay")
-	_expect(gallery.editor_ui.cards.size()==5 and gallery.editor_ui.rail.clip_contents and not gallery.editor_ui.previous.visible and not gallery.editor_ui.next.visible, "Shared gallery renders the same native continuous dock and horizontally clipped five-good strip")
+	_expect(gallery.editor_ui.cards.size()==6 and gallery.editor_ui.rail.clip_contents and not gallery.editor_ui.previous.visible and not gallery.editor_ui.next.visible, "Shared gallery renders the same native continuous dock and horizontally clipped six-good strip")
 	gallery.queue_free()
 	await _frames()
 

@@ -59,7 +59,7 @@ func run() -> void:
 		for layer in ["people","floor","layout"]:
 			await tap(ui.layers[layer])
 			check(app.session.snapshot().editor.layer == layer and ui.tray.is_visible_in_tree(), "Touch opens the %s inventory tab" % layer)
-			check(ui.cards.size() == {"people":3,"floor":1,"layout":5}[layer], "The %s tab shows its own inventory" % layer)
+			check(ui.cards.size() == {"people":3,"floor":1,"layout":6}[layer], "The %s tab shows its own inventory" % layer)
 			await capture("%s-tab-%s" % [cycle,layer])
 		await tap(ui.layers.layout)
 		check(not ui.tray.visible, "The active tab can collapse its tray")

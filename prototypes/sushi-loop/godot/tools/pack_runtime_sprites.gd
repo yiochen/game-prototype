@@ -11,7 +11,7 @@ const SCALE := 0.875
 ## Transparent gutter keeps bilinear sampling from bleeding between frames.
 const GUTTER := 2
 const MAX_WIDTH := 4096
-const DIRECTORIES := ["res://assets/catalog/", "res://assets/recipe-variants/", "res://assets/chef-variants/", "res://assets/feedback-variants/", "res://assets/expansion/"]
+const DIRECTORIES := ["res://assets/catalog/", "res://assets/recipe-variants/", "res://assets/chef-variants/", "res://assets/feedback-variants/", "res://assets/expansion/", "res://assets/tips/"]
 ## EntranceCurtain samples this atlas by absolute authored coordinates.
 const UNPACKED := ["backdrop-entrance"]
 

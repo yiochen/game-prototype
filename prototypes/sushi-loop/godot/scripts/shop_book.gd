@@ -69,3 +69,11 @@ static func normalize(state: Dictionary) -> void:
 
 static func _integer(value: Variant) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value) >= 0 and float(value) == floor(float(value)) and float(value) <= MAX_INTEGER
+
+## Saves made before an offer existed gain its full stock and no purchases.
+static func add_missing_offers(shop: Variant) -> Variant:
+	if not shop is Dictionary or not shop.get("stock") is Dictionary or not shop.get("purchased") is Dictionary: return shop
+	for offer in definition().offers:
+		if not shop.stock.has(offer.id): shop.stock[offer.id] = offer.stock
+		if not shop.purchased.has(offer.inventory_id): shop.purchased[offer.inventory_id] = 0
+	return shop

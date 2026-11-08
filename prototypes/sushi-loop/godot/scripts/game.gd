@@ -26,6 +26,16 @@ const Expansion = preload("res://scripts/expansion_book.gd")
 const ClearancePresentation = preload("res://scripts/clearance_presentation.gd")
 const ExpeditionPresentation = preload("res://scripts/expedition/expedition_presentation.gd")
 const ExpeditionBook = preload("res://scripts/expedition/expedition_book.gd")
+const Odometer = preload("res://scripts/odometer.gd")
+const CashFlights = preload("res://scripts/cash_flights.gd")
+const TipArt = preload("res://scripts/tip_art.gd")
+const Tips = preload("res://scripts/features/tips.gd")
+## #61: the counter rolls instead of jumping, and collected cash flies to it.
+var odometer: Odometer
+var cash_flights: CashFlights
+## Wallet money still flying to the counter; the counter shows it on landing.
+var wallet_pending := 0
+var tap_tip: Dictionary = {}
 var expedition_ui: ExpeditionPresentation
 var show_expedition_gallery := false
 var clearance_ui: ClearancePresentation
@@ -141,7 +151,7 @@ func _ready() -> void:
 	editing_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(editing_panel)
 	coin = TextureRect.new()
-	coin.texture = skin.icon_ink("coin")
+	coin.texture = UISkin.cash_icon()
 	coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -155,6 +165,15 @@ func _ready() -> void:
 	money.accessibility_name = "Coins"
 	money.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(money)
+	# The label keeps layout, compact captions and accessibility; the odometer
+	# draws the visible digits over it.
+	money.self_modulate = Color(1, 1, 1, 0)
+	odometer = Odometer.new(money)
+	add_child(odometer)
+	cash_flights = CashFlights.new()
+	cash_flights.icon = UISkin.cash_icon()
+	cash_flights.landed.connect(_on_cash_landed)
+	add_child(cash_flights)
 	editing_cue = Label.new()
 	editing_cue.text = "Editing"
 	editing_cue.add_theme_font_override("font", body_font)
@@ -383,10 +402,14 @@ func _layout_hud(area: Rect2, unit: float) -> void:
 	var coin_fit := UISkin.fit_rect(coin.texture.get_size(), Rect2(coin_face.position.x + 10 * unit, coin_face.get_center().y - 27 * unit, 54 * unit, 54 * unit))
 	coin.position = coin_fit.position
 	coin.size = coin_fit.size
+	cash_flights.position = Vector2.ZERO
+	cash_flights.size = size
+	cash_flights.target = coin_fit.get_center()
+	cash_flights.set_meta("unit", unit)
 	var money_frame := Rect2(coin_face.position.x + 76 * unit, coin_face.position.y, coin_face.size.x - 90 * unit, coin_face.size.y)
 	# A larger earned balance must stay inside its own capsule without covering
 	# Editing or Live. Measure the actual typeface rather than counting digits.
-	var balance_text := str(session.snapshot().get("coins", 0))
+	var balance_text := str(maxi(0, int(session.snapshot().get("coins", 0)) - wallet_pending))
 	money.set_meta("full_balance", balance_text)
 	money.text = balance_text
 	money.accessibility_description = balance_text + " coins"
@@ -554,6 +577,7 @@ func _process(delta: float) -> void:
 		expedition_ui.reduced_motion = world.reduced_motion
 		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state, session._store)}, delta)
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
+	TipArt.expire(world)
 	world.clearance_removals = world.clearance_removals.filter(func(item: Dictionary): return world.time-float(item.started) < .26)
 	_refresh()
 
@@ -570,6 +594,7 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 			_start_dish_flight(event,ending_scene)
 		if event.type == "sale":
 			world.sale_pops.append({"x": event.x, "y": event.y, "time": world.time})
+		if event.type in ["tip", "tip_secured"]: _present_tip_event(event)
 	if refresh_view: _refresh()
 	return events
 
@@ -583,7 +608,8 @@ func _refresh() -> void:
 	if clearance_ui != null: clearance_ui.refresh(world.state)
 	world.prune_dish_flights()
 	if recipe_ui != null: recipe_ui.refresh(world.state)
-	var coins_text := str(int(world.state.coins))
+	odometer.reduced_motion = world.reduced_motion
+	var coins_text := str(_shown_coins())
 	if money.get_meta("full_balance", "") != coins_text:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
@@ -651,6 +677,9 @@ func dispatch(request: Dictionary, save_unchanged := true) -> Dictionary:
 	if save_blocked: return {"ok": false, "reason": "save_blocked"}
 	var result: Dictionary = session.command(request)
 	if not result.get("ok", false): return result
+	for pile in result.get("cash_collected", []):
+		_fly_cash(world.cell_base(float(pile.x), float(pile.y)), int(pile.amount), 1 + Tips.tier(int(pile.amount)) * 2)
+	for event in result.get("events", []): _present_tip_event(event)
 	result.saved = true
 	if (save_unchanged or result.get("changed", false)) and not save_now():
 		result.saved = false
@@ -816,8 +845,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not armed_item.is_empty() and armed_item.get("kind")=="chef":
 			gesture_kind="inventory";gesture_item=armed_item.duplicate(true);gesture_object=str(armed_item.id) if armed_item.get("assigned",false) else ""
 		else:
+			# Cash, the jar and tea requests take taps first, even behind furniture.
+			tap_tip = world.tip_target_at(_world_position(local))
 			var hit := _object_at(local)
-			tap_object = str(hit.id) if hit.get("kind") in ["chef","trash","landmark"] else ""
+			tap_object = "" if not tap_tip.is_empty() else str(hit.id) if hit.get("kind") in ["chef","trash","landmark"] else ""
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
 		if _painting_floor():
@@ -899,6 +930,8 @@ func _input(event: InputEvent) -> void:
 				editor_ui.reject("no_belt_tiles")
 			elif gesture_kind == "belt_path" and not gesture_dragged:
 				if _floor_drop(local): _editor_command({"type": "editor_belt_extend", "x": gesture_cell.x, "y": gesture_cell.y})
+			elif gesture_kind == "pan" and not gesture_dragged and not tap_tip.is_empty():
+				_tip_tap(tap_tip)
 			elif gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
 				if not Expansion.patch(tap_object).is_empty(): _open_clearance(tap_object)
 				elif tap_object.begins_with("landmark-"): _open_landmark("Workshop" if tap_object.ends_with("workshop") else "Submarine")
@@ -996,6 +1029,7 @@ func _cancel_gesture() -> void:
 	gesture_item.clear()
 	gesture_grab_offset = Vector2.ZERO
 	tap_object = ""
+	tap_tip = {}
 	gesture_started_in_tray = false
 	world.editor_preview.clear()
 	if floor_ui != null: floor_ui.cancel()
@@ -1366,7 +1400,10 @@ func _resume_shop_receipt() -> void:
 	pending_shop_receipt.clear()
 	if shop_ui.visible and not backgrounded:
 		audio.play_cue("click")
-		if str(receipt.offer_id).begins_with("floor:"):
+		if str(receipt.offer_id) == "tip-jar-upgrade":
+			_show_clearance_notice("Tip jar now holds $%d" % int(world.state.tips.jar.capacity))
+			clearance_toast_seconds=2.2;_layout_notice(world.hud_area())
+		elif str(receipt.offer_id).begins_with("floor:"):
 			_show_clearance_notice(str(receipt.name)+" unlocked")
 			floor_unlock_notice=true;clearance_toast_seconds=2.2;_layout_notice(world.hud_area())
 		else: shop_ui.purchased(str(receipt.offer_id),receipt.source)
@@ -1430,3 +1467,70 @@ func _layout_notice(area:Rect2) -> void:
 	for side in [SIDE_LEFT,SIDE_RIGHT]: toast_style.set_content_margin(side,16*toast_unit)
 	for side in [SIDE_TOP,SIDE_BOTTOM]: toast_style.set_content_margin(side,12*toast_unit)
 	clearance_toast.add_theme_stylebox_override("normal",toast_style)
+
+
+# ---------------------------------------------------------------- tips (#61)
+
+func _shown_coins() -> int:
+	return maxi(0, int(world.state.get("coins", 0)) - wallet_pending)
+
+func _on_cash_landed(amount: int) -> void:
+	wallet_pending = maxi(0, wallet_pending - amount)
+	audio.play_cue("coin")
+	_refresh()
+
+## Cash credited in the saved state flies from a world point to the counter.
+func _fly_cash(world_point: Vector2, amount: int, notes: int) -> void:
+	if amount <= 0: return
+	if world.reduced_motion:
+		_refresh()
+		return
+	wallet_pending += amount
+	var from: Vector2 = get_global_transform().affine_inverse() * world.get_global_transform() * world_point
+	cash_flights.launch(from, amount, notes, world.cell * 0.4)
+
+func _tip_tap(target: Dictionary) -> void:
+	match target.get("kind"):
+		"cash":
+			var result := dispatch({"type": "collect_cash", "x": target.x, "y": target.y})
+			if not result.get("ok", false): return
+			for pile in result.piles:
+				_fly_cash(world.cell_base(float(pile.x), float(pile.y)) - Vector2(0, world.cell * 0.1), int(pile.amount), 1 + Tips.tier(int(pile.amount)) * 2)
+			world.tip_effects.append({"kind": "gain", "x": target.x, "y": target.y, "amount": int(result.amount), "start": world.time})
+		"jar":
+			var result := dispatch({"type": "collect_jar"})
+			if not result.get("ok", false): return
+			_fly_cash(world.cell_base(float(result.x), float(result.y)) - Vector2(0, world.cell * 0.8), int(result.amount), mini(6, 2 + int(result.amount) / 40))
+			world.tip_effects.append({"kind": "gain", "x": result.x, "y": result.y, "amount": int(result.amount), "lift": 1.6, "start": world.time})
+			world.tip_effects.append({"kind": "jar_bounce", "start": world.time})
+		"tea":
+			if dispatch({"type": "serve_tea", "customer_id": target.customer_id}).get("ok", false):
+				world.tip_effects.append({"kind": "tea_ack", "customer_id": target.customer_id, "start": world.time})
+				audio.play_cue("click")
+	_refresh()
+
+func _present_tip_event(event: Dictionary) -> void:
+	TipArt.expire(world)
+	match event.type:
+		"tip_secured":
+			world.tip_effects.append({"kind": "check", "customer_id": event.customer_id, "start": world.time})
+		"tip":
+			var from := {"x": float(event.from_x), "y": float(event.from_y)}
+			match event.destination:
+				"floor":
+					world.tip_effects.append({"kind": "toss", "from": from, "to": {"x": event.x, "y": event.y}, "tier": Tips.tier(int(event.amount)), "start": world.time})
+				"jar":
+					# Flights started together are staggered; their popups merge.
+					var delay := 0.12 * world.tip_effects.filter(func(e): return e.kind == "jar_flight" and TipArt.effect_age(world, e) < 0.0).size()
+					world.tip_effects.append({"kind": "jar_flight", "from": from, "to": {"x": event.x, "y": event.y}, "tier": Tips.tier(int(event.accepted)), "start": world.time, "delay": delay})
+					world.tip_effects.append({"kind": "jar_bounce", "start": world.time, "delay": delay + TipArt.JAR_FLIGHT_SECONDS})
+					var merged := false
+					for effect in world.tip_effects:
+						if effect.kind == "gain" and effect.get("jar", false) and TipArt.effect_age(world, effect) < 0.3:
+							effect.amount = int(effect.amount) + int(event.accepted)
+							merged = true
+					if not merged:
+						world.tip_effects.append({"kind": "gain", "jar": true, "x": event.x, "y": event.y, "amount": int(event.accepted), "lift": 1.6, "start": world.time, "delay": delay + TipArt.JAR_FLIGHT_SECONDS})
+					world.tip_effects.append({"kind": "hint", "start": world.time})
+				"lost":
+					world.tip_effects.append({"kind": "lost", "x": from.x, "y": from.y, "start": world.time})

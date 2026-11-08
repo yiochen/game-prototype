@@ -41,7 +41,7 @@ func run() -> void:
 	check(shop.visible and not app.editor_ui.is_visible_in_tree(),"Shop hides the whole inventory tray")
 	check(GameSession.flat_view(app.session.save_data())==original,"opening Shop preserves camera, coins, tray and clocks")
 	check(app.advance_time(30).is_empty() and GameSession.flat_view(app.session.save_data())==original,"Shop keeps Edit paused")
-	check(shop.rows.values().filter(func(row):return row.offer.kind!="floor").size()==5 and shop.rows.values().filter(func(row):return row.offer.kind=="floor").size()<=1 and shop.rows.belt.stock.text=="Always available","single mixed catalog includes unlimited goods")
+	check(shop.rows.values().filter(func(row):return row.offer.kind!="floor").size()==6 and shop.rows.values().filter(func(row):return row.offer.kind=="floor").size()<=1 and shop.rows.belt.stock.text=="Always available","single mixed catalog includes unlimited goods")
 	var physical: float = app.get_viewport_transform().get_scale().x
 	for id in shop.rows:
 		var button: Button = shop.rows[id].buy

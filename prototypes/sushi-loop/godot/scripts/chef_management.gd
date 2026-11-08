@@ -58,7 +58,7 @@ func _ready()->void:
 		if not upgrade.disabled and Time.get_ticks_msec()-last_purchase_ms>=300:
 			last_purchase_ms=Time.get_ticks_msec();requested.emit({"type":"level_up_chef","chef_id":actor.id,"expected_level":expected_level}))
 	upgrade_word=label(upgrade);upgrade_word.text="Level up";upgrade_price=label(upgrade)
-	coin=TextureRect.new();var emblem:=AtlasTexture.new();emblem.atlas=wood.texture("coin-emblem");emblem.region=Rect2(32,32,108,108);coin.texture=emblem;coin.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter=MOUSE_FILTER_IGNORE;upgrade.add_child(coin)
+	coin=TextureRect.new();coin.texture=UISkin.cash_icon();coin.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter=MOUSE_FILTER_IGNORE;upgrade.add_child(coin)
 	unassign=button("Unassign",self);unassign.pressed.connect(func():
 		if placed():requested.emit({"type":"unassign_chef","chef_id":actor.id})
 		else:placement_requested.emit())

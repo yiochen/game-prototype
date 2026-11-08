@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Cash notes</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="bar">
+  <h1>Cash notes &amp; tip jar · issue #61 art review</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="floor" aria-selected="true">On the floor</button>
+    <button role="tab" data-view="tiers" aria-selected="false">Tip tiers</button>
+    <button role="tab" data-view="jar" aria-selected="false">Tip jar</button>
+    <button role="tab" data-view="hud" aria-selected="false">HUD &amp; sale pop</button>
+  </nav>
+</header>
+<main>
+  <section id="floor" class="view">
+    <div class="layout">
+      <div class="stage">
+        <div class="phone" id="phone">
+          <div class="world" id="world">
+            <img class="backdrop" src="./assets/restaurant-live.png" alt="Live restaurant: two conveyor belts, chefs and seated guests">
+            <img class="row-layer" data-depth="3" src="./assets/layers/row-03.png" alt="">
+            <img class="row-layer" data-depth="5" src="./assets/layers/row-05.png" alt="">
+            <img class="row-layer" data-depth="6" src="./assets/layers/row-06.png" alt="">
+            <img class="row-layer" data-depth="7" src="./assets/layers/row-07.png" alt="">
+            <img class="row-layer" data-depth="8" src="./assets/layers/row-08.png" alt="">
+            <img class="row-layer" data-depth="9" src="./assets/layers/row-09.png" alt="">
+            <img class="row-layer" data-depth="10" src="./assets/layers/row-10.png" alt="">
+          </div>
+          <div class="layer hits" id="hits"></div>
+          <div class="layer fx" id="fx"></div>
+          <div class="pill wallet" role="img" id="wallet" aria-label="9180 cash"><img class="cash-icon" src="./assets/cash-icon.svg" alt=""><b class="odo" id="wallet-value"></b></div>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Review controls">
+        <h2>Floor cash</h2>
+        <p>Tap a pile to collect it, plus any pile within one tile. Piles sort with the scene, so furniture and guests in front hide them, but taps still reach a hidden pile (try the one behind the guest at the lower belt).</p>
+        <div class="row">
+          <button data-tip="6">Tip $6</button>
+          <button data-tip="24">Tip $24</button>
+          <button data-tip="80">Tip $80</button>
+          <button id="tip-random">Random tip</button>
+        </div>
+        <div class="row">
+          <button id="reset">Reset</button>
+          <button id="spend">Spend $120</button>
+          <label><input type="checkbox" id="opt-sales" checked> Sale pops</label>
+          <label><input type="checkbox" id="opt-motion"> Reduced motion</label>
+        </div>
+        <h2>Tip jar</h2>
+        <p>Placed at the lower left. When no tile around the seat is free, the tip flies into the jar (only what fits). Tap the jar to collect its balance.</p>
+        <div class="row">
+          <button id="tip-jar">Tip into jar ($15)</button>
+          <label>Capacity <select id="jar-capacity"><option value="100">Level 1 · $100</option><option value="250">Level 2 · $250</option><option value="600">Level 3 · $600</option></select></label>
+        </div>
+        <div class="row" id="jar-presets"></div>
+        <h2>Outline</h2>
+        <div class="row swatches" id="swatches" role="radiogroup" aria-label="Outline colour"></div>
+        <div class="row">
+          <label>Width <input type="range" id="opt-width" min="0" max="5" step="0.5" value="2.5"> <output id="width-out">2.5 px</output></label>
+          <label><input type="checkbox" id="opt-glow" checked> Soft glow</label>
+        </div>
+        <h2>Tip tiers</h2>
+        <div class="row">
+          <label>3 notes above $<input type="number" id="t2" min="1" max="200" value="10"></label>
+          <label>Bundle above $<input type="number" id="t3" min="2" max="500" value="50"></label>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section id="tiers" class="view" hidden>
+    <p class="note">Each tier at in-game size (left) and enlarged (right), with the current outline.</p>
+    <div class="tier-grid" id="tier-grid"></div>
+  </section>
+  <section id="jar" class="view" hidden>
+    <p class="note">One south-facing view (the jar never rotates). Native Blender model rendered with the restaurant props' camera, lighting and matte finish. The balance label is UI, not part of the art. The outline appears once the jar holds money, marking it as tappable.</p>
+    <div class="jar-grid" id="jar-grid"></div>
+  </section>
+  <section id="hud" class="view" hidden>
+    <div class="compare">
+      <figure><figcaption>Current</figcaption><div class="pill wallet static"><img class="cash-icon" src="../../godot/assets/ui/coin.svg" alt="Coin"><b class="plain">9180</b></div><div class="pop-sample"><img src="../../godot/assets/catalog/sprites/coin-pop/pop-S.png" class="coin-pop-frame" alt="Coin sale pop"></div></figure>
+      <figure><figcaption>Proposed</figcaption><div class="pill wallet static" id="demo-wallet"><img class="cash-icon" src="./assets/cash-icon.svg" alt="Cash"><b class="odo" id="demo-value"></b></div><div class="pop-sample"><img src="./assets/cash-pop.svg" class="cash-pop-sample" alt="Cash sale pop"></div>
+        <div class="row"><button id="demo-up">+ $37</button><button id="demo-down">− $120</button></div></figure>
+    </div>
+    <p class="note">The counter rolls each changed digit (up when earning, down when spending) and pulses: green and larger for income, vermilion for spending.</p>
+  </section>
+</main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="outline" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <!-- Solid silhouette first, so translucent glass never shows the outline through itself. -->
+    <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="discrete" tableValues="0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"/></feComponentTransfer>
+    <feMorphology in="solid" operator="dilate" radius="2.5" result="grown"/>
+    <feFlood flood-color="#19e3ff" result="paint"/>
+    <feComposite in="paint" in2="grown" operator="in" result="ring"/>
+    <feGaussianBlur in="ring" stdDeviation="3" result="halo"/>
+    <feComponentTransfer in="halo" result="glow"><feFuncA type="linear" slope="0.9"/></feComponentTransfer>
+    <feMerge result="outer"><feMergeNode in="glow"/><feMergeNode in="ring"/></feMerge>
+    <feComposite in="outer" in2="solid" operator="out" result="outside"/>
+    <feMerge><feMergeNode in="outside"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</svg>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

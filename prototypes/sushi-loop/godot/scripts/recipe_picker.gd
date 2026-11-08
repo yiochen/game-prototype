@@ -559,10 +559,7 @@ func _notification(what: int) -> void:
 			button.disabled = disabled
 
 func _coin_texture() -> Texture2D:
-	var texture := AtlasTexture.new()
-	texture.atlas = wood.texture("coin-emblem")
-	texture.region = Rect2(32, 32, 108, 108)
-	return texture
+	return UISkin.cash_icon()
 
 func switch_tab(value:String,animate:=true)->void:
 	if value not in ["recipes","manage"]:return
