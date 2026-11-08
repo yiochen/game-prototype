@@ -47,8 +47,8 @@ func roundtrip(s):
 
 func run() -> void:
 	# Balance rules.
-	check(is_equal_approx(Tips.chance({}), 0.3), "a normal visit tips 30% of the time")
-	check(is_equal_approx(Tips.chance({"tea_phase": "served"}), 0.6), "tea adds 30 percentage points once")
+	check(is_equal_approx(Tips.chance({}), 0.1), "a normal visit tips 10% of the time")
+	check(is_equal_approx(Tips.chance({"tea_phase": "served"}), 0.4), "tea adds 30 percentage points once")
 	check(is_equal_approx(Tips.chance({"tea_phase": "served", "request_eaten": true}), 1.0) and is_equal_approx(Tips.chance({"request_eaten": true}), 1.0), "an eaten requested dish guarantees a tip")
 	check(Tips.amount(48) == 5 and Tips.amount(14) == 1 and Tips.amount(3) == 1 and Tips.amount(250) == 25, "tip is 10% of the bill, rounded, at least 1")
 	check(Tips.tier(10) == 0 and Tips.tier(11) == 1 and Tips.tier(50) == 1 and Tips.tier(51) == 2, "piles: one note to $10, three notes to $50, a bundle above")
