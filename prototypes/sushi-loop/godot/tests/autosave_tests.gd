@@ -47,6 +47,8 @@ func wait_completed(store: Store) -> Dictionary:
 		await process_frame
 	return {}
 func run() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name","")).begins_with("SushiLoopTicketsTest-"):
 		printerr("Autosave tests require isolated test storage.");quit(1);return
 	var restaurant := Session.new_session(19)
@@ -104,7 +106,9 @@ func run() -> void:
 	app._process(.1)
 	var before_pause: Dictionary = app.session.save_data()
 	gate.release.post();app.notification(Node.NOTIFICATION_APPLICATION_PAUSED)
-	check(same(app.store.load_session(),before_pause),"Android pause waits for the current exact restaurant, including newer foreground progress")
+	# Pausing also opens the time away (#29) in the same exact save.
+	var paused = Session.new();paused.restore(before_pause);paused.command({"type":"away_begin","now":1000.0})
+	check(same(app.store.load_session(),paused.save_data()),"Android pause waits for the current exact restaurant, including newer foreground progress")
 	app.notification(Node.NOTIFICATION_APPLICATION_RESUMED);app._process(120.0)
 	check(same(app.session.save_data(),before_pause),"resuming asynchronous persistence still grants no offline income")
 	app.queue_free();await process_frame

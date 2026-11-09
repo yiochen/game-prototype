@@ -45,6 +45,8 @@ func reveal() -> void:
 	app.world.time = app.world.dock_reveal_started+1.19;app._refresh();await frames()
 
 func run() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name","")).begins_with("SushiLoopTicketsTest-"): quit(1);return
 	var size := OS.get_environment("SUSHI_LOOP_TEST_SIZE").split("x")
 	if size.size() == 2: root.size = Vector2i(int(size[0]),int(size[1]))

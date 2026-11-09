@@ -33,6 +33,9 @@ var transition: SceneTransition
 var show_workshop_gallery := false
 const Odometer = preload("res://scripts/odometer.gd")
 const CashFlights = preload("res://scripts/cash_flights.gd")
+const AwayNotice = preload("res://scripts/away_notice.gd")
+const NewDot = preload("res://scripts/new_dot.gd")
+const Away = preload("res://scripts/features/away.gd")
 const TipArt = preload("res://scripts/tip_art.gd")
 const Tips = preload("res://scripts/features/tips.gd")
 const TeaPour = preload("res://scripts/tea_pour.gd")
@@ -45,6 +48,12 @@ var cash_flights: CashFlights
 ## Wallet money still flying to the counter; the counter shows it on landing.
 var wallet_pending := 0
 var tap_tip: Dictionary = {}
+## #29: the while-away cue under the balance, and the new-stock dot on Edit/Shop.
+var away_notice: AwayNotice
+var edit_dot: NewDot
+var shop_dot: NewDot
+## Wall clock for time away; tests freeze it (>= 0) so background/resume adds no time.
+static var frozen_clock := -1.0
 var expedition_ui: ExpeditionPresentation
 var show_expedition_gallery := false
 var clearance_ui: ClearancePresentation
@@ -184,6 +193,9 @@ func _ready() -> void:
 	cash_flights.icon = UISkin.cash_icon()
 	cash_flights.landed.connect(_on_cash_landed)
 	add_child(cash_flights)
+	away_notice = AwayNotice.new(UISkin.cash_icon(), body_font)
+	away_notice.hold_seconds = float(Away.definition().notice_seconds)
+	add_child(away_notice)
 	editing_cue = Label.new()
 	editing_cue.text = "Editing"
 	editing_cue.add_theme_font_override("font", body_font)
@@ -199,8 +211,10 @@ func _ready() -> void:
 	add_child(editing_icon)
 	shop = make_button("Shop", "shop", true)
 	edit = make_button("Edit", "edit", false)
+	edit_dot = NewDot.new(); edit.add_child(edit_dot)
 	editor_ui = EditorPresentation.new()
 	add_child(editor_ui)
+	shop_dot = NewDot.new(); editor_ui.shop.add_child(shop_dot)
 	editor_ui.command_requested.connect(_editor_command)
 	editor_ui.item_pointer.connect(_inventory_pointer)
 	editor_ui.item_armed.connect(_arm_item)
@@ -331,7 +345,14 @@ func _ready() -> void:
 		var result = opening.expedition.result
 		if show_expedition_gallery and result is Dictionary and result.get("creature") is Dictionary and result.creature.get("first", false):
 			expedition_ui.mode = "travel"; expedition_ui._open_award(result)
+	if "--away-gallery" in OS.get_cmdline_user_args():
+		# Shared while-away cue and new-stock dot over the starter restaurant.
+		session = Session.new_session(29, {"starting_coins": 1240})
+		session._state.shop.fresh = true
+		away_notice.hold_seconds = 3600.0
+		_refresh();_layout();away_notice.present(420)
 	if not show_gallery and not show_editor_gallery:
+		_resume_restaurant()
 		save_now()
 
 func make_button(text: String, icon_name: String, disabled := false) -> Button:
@@ -463,6 +484,8 @@ func _layout_hud(area: Rect2, unit: float) -> void:
 		if not decimal.is_empty() and decimal != "0": money.text += "." + decimal
 		money.text += ["", "K", "M", "B", "T", "Qa", "Qi"][magnitude]
 	UISkin.layout_caption(money, money_frame, font_size)
+	# The reserved earnings line under the balance, present even when empty.
+	away_notice.place(Rect2(coin_panel.position + Vector2(18 * unit, coin_panel.size.y + 2 * unit), Vector2(320, 44) * unit), unit)
 	editing_panel.position = Vector2(area.position.x + 280 * unit, top)
 	skin.apply_panel(editing_panel, "control-wood", unit)
 	editing_panel.size = Vector2(190, 100) * unit
@@ -630,8 +653,11 @@ func advance_time(elapsed: float, refresh_view := true) -> Array:
 	world.time += elapsed
 	var events: Array = session.advance(elapsed)
 	var ending_scene: Dictionary = {}
+	# Service keeps running behind the full-screen Workshop room, but its sound
+	# effects belong to the restaurant on screen (#29).
+	var audible := not _restaurant_covered()
 	for event in events:
-		audio.play_cue(str(event.type))
+		if audible: audio.play_cue(str(event.type))
 		if event.type == "eating_started" and not world.reduced_motion:
 			if ending_scene.is_empty(): ending_scene = session.snapshot()
 			_start_dish_flight(event,ending_scene)
@@ -668,6 +694,14 @@ func _refresh() -> void:
 	editing_icon.visible = editing_cue.visible
 	shop.visible = show_gallery and not show_shop_gallery and not show_exhibition_gallery
 	edit.visible = not show_gallery and not editing
+	var fresh := bool(world.state.get("shop", {}).get("fresh", false))
+	var hud_unit := world.portrait.size.x / 720.0
+	edit_dot.visible = fresh
+	edit_dot.place(edit.size.x, edit.size.y * 0.5, hud_unit)
+	shop_dot.visible = fresh and not shop_ui.visible
+	shop_dot.place(editor_ui.shop.size.x, 28 * hud_unit, hud_unit)
+	editor_ui.shop.accessibility_description = "New stock" if fresh else ""
+	edit.accessibility_description = "New Shop stock" if fresh else ""
 	if world.state.editor.layer == "floor": editor_ui.active_item = str(world.state.editor.get("floor_brush",""))
 	editor_ui.reduced_motion = world.reduced_motion
 	editor_ui.pickup_active = gesture_lifted
@@ -1128,6 +1162,7 @@ func _notification(what: int) -> void:
 		if expedition_ui != null: expedition_ui.suspend()
 		_cancel_native_button_presses()
 		if is_instance_valid(world): _cancel_gesture()
+		_begin_away()
 		save_now()
 	elif what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
 		if tea_ui != null: tea_ui.interrupt()
@@ -1137,6 +1172,7 @@ func _notification(what: int) -> void:
 		backgrounded = false
 		skip_resume_frame = true
 		if is_instance_valid(world): _layout()
+		_resume_restaurant()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and expedition_ui != null and expedition_ui.back():
 			save_now();return
@@ -1168,11 +1204,47 @@ func _notification(what: int) -> void:
 			_cancel_gesture()
 			_editor_command({"type": "editor_select", "id": null})
 			return
+		_begin_away()
 		save_now()
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST: get_tree().quit()
 
 func _exit_tree() -> void:
+	_begin_away()
 	save_now()
+
+## Closing or backgrounding the app starts its time away (a dive already has).
+func _begin_away() -> void:
+	if show_gallery or show_editor_gallery or session == null or save_blocked: return
+	session.command({"type": "away_begin", "now": _wall_clock()})
+
+## The restaurant is back on screen: credit its time away once. Waits while a
+## dive or its results are still showing; they credit on their return.
+func _resume_restaurant() -> void:
+	if show_gallery or show_editor_gallery or session == null or save_blocked: return
+	var pending: Dictionary = session.snapshot().expedition
+	if pending.run != null or pending.result != null: return
+	var result := dispatch({"type": "away_resume", "now": _wall_clock()}, false)
+	_present_away(int(result.get("amount", 0)))
+
+## A full-screen scene (Workshop room, expedition) hides the restaurant.
+func _restaurant_covered() -> bool:
+	return (workshop_ui != null and workshop_ui.visible) or (expedition_ui != null and expedition_ui.visible)
+
+func _wall_clock() -> float:
+	return frozen_clock if frozen_clock >= 0.0 else Time.get_unix_time_from_system()
+
+## The cue appears first; the balance rolls up a beat later on its odometer.
+func _present_away(amount: int) -> void:
+	if amount <= 0: return
+	away_notice.reduced_motion = world.reduced_motion
+	away_notice.present(amount)
+	if world.reduced_motion:
+		_refresh();return
+	wallet_pending += amount
+	get_tree().create_timer(0.55).timeout.connect(func():
+		wallet_pending = maxi(0, wallet_pending - amount)
+		audio.play_cue("coin")
+		_refresh())
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if workshop_ui != null and workshop_ui.visible: return
@@ -1321,6 +1393,7 @@ func _workshop_upgrade(request: Dictionary) -> void:
 func _return_from_expedition() -> void:
 	session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
 	_clamp_camera();_refresh();world.grab_focus()
+	_resume_restaurant()
 
 func _sync_clearance_targets() -> void:
 	if clearance_ui == null: return
@@ -1472,6 +1545,8 @@ func _open_shop() -> Dictionary:
 	shop_ui.interaction_blocked = false
 	shop_ui.reduced_motion = world.reduced_motion
 	if not shop_ui.open(session.snapshot()): return {"ok":false,"reason":"edit_required"}
+	# Entering Shop acknowledges new stock.
+	dispatch({"type": "shop_seen"}, false)
 	audio.play_cue("click")
 	_refresh()
 	return {"ok":true}

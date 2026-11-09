@@ -100,6 +100,8 @@ func load_scenario(trap := false) -> void:
 	await frames()
 
 func run() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name", "")).begins_with("SushiLoopTicketsTest-"):
 		printerr("Use tools/test_native.py for isolated save storage.")
 		quit(1)

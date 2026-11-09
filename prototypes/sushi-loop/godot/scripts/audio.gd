@@ -8,6 +8,9 @@ const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_i
 const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -12.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0}
 const ALIASES := {"ui": "click", "cooking": "cook", "prepared": "cook", "loading": "load", "loaded": "load", "sale": "coin", "tip": "coin"}
 
+## Each cue that actually starts a voice (tests listen; nothing in play does).
+signal cue_played(cue: String)
+
 var music_volume_db := -16.0
 var effects_volume_db := 0.0
 var _muted := false
@@ -71,6 +74,7 @@ func play_cue(name: String) -> void:
 			voice.stream = _streams[cue]
 			voice.volume_db = float(CUE_VOLUME_DB[cue]) + effects_volume_db
 			voice.play()
+			cue_played.emit(cue)
 			return
 
 ## Tea stream loudness for a flow share in [0, 1]; 0 stops it.

@@ -20,6 +20,8 @@ func hold(at: Vector2) -> void:
 	await frames()
 
 func run() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name", "")).begins_with("SushiLoopTicketsTest-"):
 		quit(1)
 		return
