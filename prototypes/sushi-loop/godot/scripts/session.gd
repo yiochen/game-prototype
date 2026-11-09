@@ -22,16 +22,18 @@ const Navigation = preload("res://scripts/features/navigation.gd")
 const Tips = preload("res://scripts/features/tips.gd")
 const WorkshopBook = preload("res://scripts/workshop_book.gd")
 const Tea = preload("res://scripts/features/tea.gd")
+const Away = preload("res://scripts/features/away.gd")
 ## Self-contained features whose records are store slices. `_state` is the
 ## session's own `core` slice; it also refers to these slices under their
 ## names so older code can read them, but never holds a copy.
-const SLICES := {"shop": 2, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 2, "editor": 1, "expedition": 1, "tips": 1, "workshop": 1}
+const SLICES := {"shop": 3, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 2, "editor": 1, "expedition": 1, "tips": 1, "workshop": 1, "away": 1}
 ## Commands that may place, move or remove layout objects.
 const LAYOUT_COMMANDS := ["staff_place", "unassign_chef", "fire_chef"]
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
 const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood", "tip-jar"]
+const AWAY_COMMANDS := ["away_begin", "away_resume"]
 const TIP_COMMANDS := ["tea_pour_open", "tea_pour_cancel", "tea_pour_finish", "collect_cash", "collect_jar", "tip_jar_upgrade"]
 const CHEF_ART_IDS := ["chef-lena", "chef-omar", "chef-ama", "chef-mateo", "chef-noor", "chef-dalia", "chef-ellis", "chef-rowan"]
 const MAX_EXACT_INTEGER := 9007199254740991
@@ -84,8 +86,9 @@ static func _new_store() -> Store:
 	Chefs.define(store)
 	Layout.define(store)
 	Customers.define(store)
-	# Version 2 of shop and inventory adds the tip jar (#61) to saves made before it.
-	var migrations := {"shop": [ShopBook.add_missing_offers], "inventory": [_add_missing_stock]}
+	# Version 2 of shop and inventory adds the tip jar (#61) to saves made before
+	# it; version 3 of shop adds stock rotation (#29).
+	var migrations := {"shop": [ShopBook.add_missing_offers, ShopBook.add_rotation], "inventory": [_add_missing_stock]}
 	for name in SLICES: store.define_slice(name, {"version": SLICES[name], "initial": func(): return null, "migrations": migrations.get(name, [])})
 	# The session's own values: coins, clock, counters, camera, mode and stats.
 	store.define_slice("core", {"owner": "session", "initial": func(): return null, "encode": _encode_core})
@@ -135,12 +138,14 @@ func command(request: Dictionary) -> Dictionary:
 static func _slices_written(type: String) -> Array:
 	if type.begins_with("floor_"): return ["floor_styles", "editor"]
 	# Steering and advancing run every frame and never fail after a change.
-	if type.begins_with("expedition_"): return [] if type in ["expedition_advance", "expedition_steer"] else ["expedition", "floor_styles", "recipe_book"]
+	if type.begins_with("expedition_"): return [] if type in ["expedition_advance", "expedition_steer"] else ["expedition", "floor_styles", "recipe_book", "shop", "away"]
+	if type in AWAY_COMMANDS: return ["away"]
 	if type.begins_with("editor_"): return ["editor", "inventory", "tips"]
 	if type in TIP_COMMANDS: return ["tips"]
 	if type.begins_with("workshop_"): return ["workshop", "expedition"]
 	match type:
 		"shop_purchase": return ["shop", "inventory"]
+		"shop_seen": return ["shop"]
 		"clear_trash", "reveal_dock", "dock_access": return ["expansion"]
 		"hire_applicant", "refresh_applicants", "staff_seen": return ["staff", "inventory"]
 		"fire_chef": return ["staff", "inventory", "editor", "tips"]
@@ -181,6 +186,8 @@ func _command(request: Dictionary) -> Dictionary:
 	if str(request.get("type", "")).begins_with("floor_"): return FloorBook.command(_configuration,_state,request)
 	if str(request.get("type", "")).begins_with("expedition_"):
 		var outcome := ExpeditionBook.command(_configuration,_state,request,_store)
+		# Start freezes the restaurant: its time away begins with the dive.
+		if outcome.get("ok", false) and request.type == "expedition_start": Away.begin(_state, float(request.now))
 		# The run's transient world ends with the run.
 		if _state.expedition.run == null: _store.drop_world(ExpeditionBook.WORLD)
 		return outcome
@@ -189,6 +196,8 @@ func _command(request: Dictionary) -> Dictionary:
 		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
 		return result
 	if request.get("type") == "shop_purchase": return ShopBook.command(_state, request)
+	if request.get("type") == "shop_seen": return ShopBook.seen(_state)
+	if request.get("type") in AWAY_COMMANDS: return _away_command(request)
 	if str(request.get("type", "")).begins_with("workshop_"): return WorkshopBook.command(_state, request)
 	if request.get("type") in TIP_COMMANDS: return _tip_command(request)
 	if request.get("type") in ["level_up_chef","fire_chef"]:
@@ -259,7 +268,8 @@ func _command(request: Dictionary) -> Dictionary:
 
 func advance(elapsed: float) -> Array:
 	var events: Array = []
-	if not is_finite(elapsed) or elapsed <= 0.0 or _state.is_empty() or _state.get("mode", "live") == "edit":
+	# Edit mode and time away (an expedition, a closed app) freeze service.
+	if not is_finite(elapsed) or elapsed <= 0.0 or _state.is_empty() or _state.get("mode", "live") == "edit" or Away.is_open(_state):
 		return events
 	var step := float(_configuration.service.step_seconds)
 	var accumulated := _remainder + elapsed
@@ -442,6 +452,9 @@ func _derive(state: Dictionary, store: Store, config: Dictionary) -> bool:
 	if state.get("workshop") == null:
 		state.workshop = WorkshopBook.initial()
 		store.set_slice("workshop", state.workshop)
+	if state.get("away") == null:
+		state.away = Away.initial()
+		store.set_slice("away", state.away)
 	for stock in state.inventory:
 		if stock is Dictionary and stock.get("kind") == "chef": stock.assigned = store.has_row(Layout.WORLD, "layout", str(stock.get("id")))
 	# Chefs placed before auto-assignment (2026-11-08) start cooking too.
@@ -503,7 +516,7 @@ func _valid_store(store: Store, config: Dictionary, state: Dictionary = {}) -> b
 	if not FloorBook.valid(config, view) or not view.editor.get("floor_brush", "") is String: return false
 	if view.editor.get("floor_brush", "") != "" and not view.editor.floor_brush in view.floor_styles.owned: return false
 	if not ShopBook.valid(view) or not Expansion.valid(config, view) or not ExpeditionBook.valid(view): return false
-	if not Tips.valid(view) or not _valid_cash(view, config) or not WorkshopBook.valid(view): return false
+	if not Tips.valid(view) or not _valid_cash(view, config) or not WorkshopBook.valid(view) or not Away.valid(view): return false
 	if not StaffBook.valid(config, view, store) or not RecipeBook.valid(config, view): return false
 	return _valid_saved_state(view, config, store)
 
@@ -512,6 +525,7 @@ func _normalize_restored_numbers() -> void:
 	ExpeditionBook.normalize(_state)
 	Tips.normalize(_state)
 	WorkshopBook.normalize(_state)
+	Away.normalize(_state)
 	# A pour sheet is not saved: a guest saved mid-pour is asking again.
 	for customer in Customers.rows(_store):
 		if customer.get("tea_phase") == "pouring": customer.tea_phase = "requested"
@@ -580,6 +594,7 @@ func _start() -> void:
 	Expansion.initialize(_configuration,_state)
 	ExpeditionBook.initialize(_state,_staff_seed)
 	_state.workshop = WorkshopBook.initial()
+	_state.away = Away.initial()
 	BeltRoutes.initialize(_state.objects)
 	_store = _new_store()
 	Chefs.extract(_state, _store, _configuration)
@@ -2597,3 +2612,78 @@ func _tip_command(request: Dictionary) -> Dictionary:
 			_state.coins = int(_state.coins) + value
 			return {"ok": true, "amount": value, "x": int(jar.x), "y": int(jar.y)}
 	return {"ok": false, "reason": "unknown_command"}
+
+# ---------------------------------------------------------------- time away (#29)
+
+## away_begin {now}: the app closes or backgrounds. away_resume {now}: the
+## restaurant is back; the interval is estimated and credited once. Resuming
+## waits while an expedition or its results are still on screen.
+func _away_command(request: Dictionary) -> Dictionary:
+	if not _finite_number(request.get("now")) or float(request.now) < 0.0: return {"ok": false, "reason": "invalid_time"}
+	var now := float(request.now)
+	match request.type:
+		"away_begin": return {"ok": true, "changed": Away.begin(_state, now)}
+	if _state.expedition.run != null or _state.expedition.result != null: return {"ok": false, "reason": "expedition_pending"}
+	var seconds := Away.pending_seconds(_state, now)
+	if not Away.is_open(_state): return {"ok": true, "changed": false, "amount": 0}
+	var amount := Away.estimate(_away_model(), seconds)
+	_state.coins = mini(MAX_EXACT_INTEGER, int(_state.coins) + amount)
+	var credit: Dictionary = Away.close(_state, now, amount)
+	return {"ok": true, "changed": true, "amount": amount, "seconds": seconds, "sequence": credit.sequence}
+
+## The committed restaurant as the time-away estimate sees it: active chefs
+## with their effective recipe times and prices, the reachable seats their
+## belts serve, and arrivals. Chefs and seats sharing a belt route form one
+## group, so a disconnected chef or an unreachable seat contributes nothing.
+func _away_model() -> Dictionary:
+	var service: Dictionary = _configuration.service
+	var visit: Dictionary = _configuration.get("customers", {})
+	var index := _service_index()
+	var belt_seconds := float(service.belt_seconds_per_cell)
+	var chefs := {}
+	for object in _objects():
+		if object.kind != "chef" or not _chef_service(object, index).active: continue
+		var cycle := Chefs.duration(_store, _configuration, object.id) + float(service.get("loading_seconds", 0.0))
+		chefs[object.id] = {"belt": str(_indexed_facing(object, index).id), "rate": 1.0 / maxf(belt_seconds, cycle),
+			"price": int(_configuration.recipes[_chef_recipe(object, index)].price)}
+	# Union chefs with the seats their dishes reach.
+	var parent := {}
+	var root := func(id: String) -> String:
+		while parent.get(id, id) != id: id = parent[id]
+		return id
+	var seats := {}
+	for seat in _objects():
+		if seat.kind != "seat" or _access_paths.get(seat.id, []).is_empty(): continue
+		var front := _indexed_facing(seat, index)
+		if front.get("kind") != "belt": continue
+		var reaching := _upstream_belts(str(front.id), index)
+		var recipes := {}
+		for id in chefs:
+			if not reaching.has(chefs[id].belt): continue
+			recipes[_chef_recipe(_object_by_id(id), index)] = true
+			parent[root.call(id)] = root.call(seat.id)
+		if recipes.is_empty(): continue
+		seats[seat.id] = {"path": _access_paths[seat.id].size(), "recipes": recipes.size()}
+	var groups := {}
+	for id in seats:
+		var key: String = root.call(id)
+		if not groups.has(key): groups[key] = {"chefs": [], "seats": []}
+		groups[key].seats.append(seats[id])
+	for id in chefs:
+		var key: String = root.call(id)
+		if groups.has(key): groups[key].chefs.append(chefs[id])
+	var fullness := (float(visit.get("fullness_min", 1.0)) + float(visit.get("fullness_max", 1.0))) * 0.5
+	var portion := maxf(0.001, (float(visit.get("dish_fullness_min", 1.0)) + float(visit.get("dish_fullness_max", 1.0))) * 0.5)
+	return {"open": bool(_state.entrance_open), "mode": _state.mode, "belt_seconds": belt_seconds,
+		"arrival_seconds": float(service.arrival_seconds),
+		"arrival_multiplier": Expansion.arrival_multiplier(_state, _configuration.floor) if Expansion.enabled(_configuration.floor) else 1.0,
+		"walk_speed": float(service.walking_cells_per_second), "eating_seconds": float(service.eating_seconds),
+		"sit_seconds": _transition_seconds("sitting_seconds"), "stand_seconds": _transition_seconds("standing_seconds"),
+		"preference_seconds": _customer_number("preference_seconds"),
+		# Guests eat until full, so the last portion overshoots by half on average.
+		"dishes_per_visit": fullness / portion + 0.5,
+		"groups": groups.values()}
+
+## The estimated coins `seconds` away would earn now (tools and tests).
+func away_estimate(seconds: float) -> int:
+	return Away.estimate(_away_model(), seconds)

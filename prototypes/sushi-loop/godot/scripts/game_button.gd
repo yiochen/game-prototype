@@ -13,6 +13,7 @@ extends Button
 ## moves, keeps at least 44 physical px, and shows the shared focus ring.
 ## Call `fit(unit, physical)` after giving it a size; attributes restyle it.
 const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
+const NewDot = preload("res://scripts/new_dot.gd")
 const Typography = preload("res://scripts/typography.gd")
 enum Tone { PRIMARY, SECONDARY, MAPLE, WALNUT, LINK }
 const LIP := 4.0
@@ -27,7 +28,6 @@ const PALETTE := {
 const SHORT := Color("b84432")
 const SELECTED := {"face": Color("fff1d3"), "edge": Color("e1bc85"), "lip": Color("c9925a"), "ink": Color("592c10")}
 const DISABLED := {"face": Color("e8d8b9"), "edge": Color("c9b595"), "lip": Color("baa486"), "ink": Color("806b52")}
-const DOT := Color("ff5f48")
 static var _grain: Texture2D
 
 var tone := Tone.SECONDARY: set = _set_tone
@@ -54,7 +54,7 @@ var cost_label: Label
 var have_label: Label
 var cost_image: TextureRect
 var glyph_image: TextureRect
-var dot_panel: Panel
+var dot_panel: NewDot
 
 func _init() -> void:
 	var font := Typography.body()
@@ -68,7 +68,7 @@ func _init() -> void:
 	surface = Panel.new(); surface.mouse_filter = Control.MOUSE_FILTER_IGNORE; visual.add_child(surface)
 	grain = grain_face(visual)
 	glyph_image = _image(); caption = _label(font); verb_label = _label(font); cost_image = _image(); have_label = _label(font); cost_label = _label(font)
-	dot_panel = Panel.new(); dot_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE; visual.add_child(dot_panel)
+	dot_panel = NewDot.new(); visual.add_child(dot_panel)
 	button_down.connect(func(): _down = true; restyle())
 	button_up.connect(func(): _down = false; restyle())
 	focus_entered.connect(restyle); focus_exited.connect(restyle)
@@ -126,9 +126,7 @@ func restyle() -> void:
 	add_theme_stylebox_override("focus", PopupSkin.focus_ring(r, unit))
 	_layout_content(c.ink)
 	dot_panel.visible = dot
-	dot_panel.size = Vector2.ONE * 18 * unit
-	dot_panel.position = Vector2(surface.size.x - minf(r, 36 * unit) - 2 * unit, 14 * unit)
-	dot_panel.add_theme_stylebox_override("panel", PopupSkin.flat(DOT, 9 * unit))
+	dot_panel.place(surface.size.x, r, unit)
 
 ## The shared face: colour, edge and the lip it sinks onto. Also used by the
 ## Edit dock's tabs, which keep the editor's native button plumbing.

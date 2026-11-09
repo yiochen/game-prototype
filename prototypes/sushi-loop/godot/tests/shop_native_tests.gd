@@ -22,6 +22,8 @@ func capture(name: String) -> void:
 func data_item(id: String) -> Dictionary:
 	return app.session.snapshot().inventory.filter(func(entry):return entry.id==id)[0]
 func run() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	if not str(ProjectSettings.get_setting("application/config/custom_user_dir_name","")).begins_with("SushiLoopTicketsTest-"): quit(1);return
 	var dimensions := OS.get_environment("SUSHI_LOOP_TEST_SIZE").split("x")
 	if dimensions.size()==2: root.size = Vector2i(int(dimensions[0]),int(dimensions[1]))

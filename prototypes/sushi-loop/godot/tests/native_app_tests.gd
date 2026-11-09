@@ -18,6 +18,8 @@ var failures: Array[String] = []
 
 
 func _init() -> void:
+	# A frozen wall clock: background/resume here adds no time away (#29).
+	preload("res://scripts/game.gd").frozen_clock = 1000.0
 	call_deferred("_run")
 
 func _run() -> void:
@@ -595,6 +597,9 @@ func _test_reopen(app):
 	await _frames()
 	_expect(_same(saved, reopened.session.snapshot()), "A fresh main scene reopens coins, camera, chef progress, customer positions and belt food unchanged")
 	_expect(_same(saved, reopened.world.state) and int(reopened.money.text) == saved.coins, "Restored transient state reaches the real renderer and coin HUD")
+	# Closing the first app opened its time away (#29); with the frozen clock
+	# it resumes with nothing credited, like the reopened app did.
+	uninterrupted.command({"type": "away_resume", "now": 1000.0})
 	var expected_events: Array = uninterrupted.advance(31.027777777)
 	var actual_events: Array = reopened.session.advance(31.027777777)
 	await _frames()

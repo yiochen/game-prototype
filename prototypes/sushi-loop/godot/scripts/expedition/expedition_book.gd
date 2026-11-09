@@ -61,6 +61,7 @@ const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const Discharge = preload("res://scripts/expedition/discharge.gd")
 const WorkshopBook = preload("res://scripts/workshop_book.gd")
+const ShopBook = preload("res://scripts/shop_book.gd")
 const OUTCOMES := ["complete", "gave_up", "hull_depleted"]
 const MAX_INTEGER := 9007199254740991
 static var _content: Dictionary = {}
@@ -768,7 +769,7 @@ static func _overlaps(rows: Array, x: float, y: float, half: Vector2) -> bool:
 	return false
 
 ## Commit once: bank salvage (+ completion bonus), start the night recharge,
-## refresh cosmetic stock, and leave a receipt for the results screen.
+## rotate limited Shop stock and the floor offer, and leave a receipt for the results screen.
 static func _end(config: Dictionary, state: Dictionary, outcome: String, now: float, creature := {}) -> Dictionary:
 	var data: Dictionary = state.expedition
 	var run: Dictionary = data.run
@@ -782,6 +783,7 @@ static func _end(config: Dictionary, state: Dictionary, outcome: String, now: fl
 	data.charge = {"ready": false, "recharge_started": now}
 	if state.has("floor_styles"):
 		FloorBook.command(config, state, {"type": "floor_refresh", "expected_rotation": state.floor_styles.rotation})
+	if state.has("shop"): ShopBook.rotate(state)
 	return data.result.duplicate()
 
 # ------------------------------------------------------------ save

@@ -1,5 +1,8 @@
 extends RefCounted
 ## Persistent supplies through the public command/save boundary. No clocks or RNG.
+## Limited stock rotates once per ended expedition (#29): each limited offer
+## restocks to its content quantity, except `once` goods already bought (the
+## one tip jar per restaurant). `fresh` marks new stock until Shop is entered.
 const PATH := "res://content/shop.json"
 const MAX_INTEGER := 9007199254740991
 static var _definition: Dictionary = {}
@@ -9,7 +12,7 @@ static func definition() -> Dictionary:
 	return _definition
 
 static func initialize(state: Dictionary) -> void:
-	state.shop = {"purchase_sequence":0,"stock":{},"purchased":{}}
+	state.shop = {"purchase_sequence":0,"stock":{},"purchased":{},"rotation":0,"fresh":false}
 	for offer in definition().offers:
 		state.shop.stock[offer.id] = offer.stock
 		state.shop.purchased[offer.inventory_id] = 0
@@ -19,7 +22,24 @@ static func snapshot(state: Dictionary) -> Dictionary:
 	for offer in offers:
 		offer.remaining = state.shop.stock[offer.id]
 		offer.erase("stock")
-	return {"purchase_sequence":int(state.shop.purchase_sequence),"offers":offers}
+	return {"purchase_sequence":int(state.shop.purchase_sequence),"offers":offers,"rotation":int(state.shop.rotation),"fresh":bool(state.shop.fresh)}
+
+## The ended expedition's one restock. Callers hold the run's end transition,
+## which happens once per run, so a replay cannot rotate twice.
+static func rotate(state: Dictionary) -> void:
+	var shop: Dictionary = state.shop
+	for offer in definition().offers:
+		if offer.stock == null: continue
+		var owned := int(shop.purchased[offer.inventory_id])
+		shop.stock[offer.id] = 0 if offer.get("once", false) and owned > 0 else int(offer.stock)
+	shop.rotation = int(shop.rotation) + 1
+	shop.fresh = true
+
+## Entering Shop clears the new-stock dot.
+static func seen(state: Dictionary) -> Dictionary:
+	if not state.shop.fresh: return {"ok":true,"changed":false}
+	state.shop.fresh = false
+	return {"ok":true,"changed":true}
 
 static func command(state: Dictionary, request: Dictionary) -> Dictionary:
 	if state.mode != "edit": return {"ok":false,"reason":"edit_required"}
@@ -49,6 +69,7 @@ static func valid(state: Dictionary) -> bool:
 	if not state.get("shop") is Dictionary: return false
 	var shop: Dictionary = state.shop
 	if not _integer(shop.get("purchase_sequence")) or not shop.get("stock") is Dictionary or not shop.get("purchased") is Dictionary: return false
+	if not _integer(shop.get("rotation")) or not shop.get("fresh") is bool: return false
 	if shop.stock.size() != definition().offers.size() or shop.purchased.size() != definition().offers.size(): return false
 	var total := 0
 	for offer in definition().offers:
@@ -58,11 +79,15 @@ static func valid(state: Dictionary) -> bool:
 		total += count
 		if offer.stock == null:
 			if shop.stock[offer.id] != null: return false
-		elif not _integer(shop.stock[offer.id]) or int(shop.stock[offer.id]) + count != int(offer.stock): return false
+		elif not _integer(shop.stock[offer.id]) or int(shop.stock[offer.id]) > int(offer.stock): return false
+		# Before any rotation, stock is exactly what purchases left.
+		elif int(shop.rotation) == 0 and int(shop.stock[offer.id]) + count != int(offer.stock): return false
+		elif offer.get("once", false) and int(shop.stock[offer.id]) + count > int(offer.stock): return false
 	return total == int(shop.purchase_sequence)
 
 static func normalize(state: Dictionary) -> void:
 	state.shop.purchase_sequence = int(state.shop.purchase_sequence)
+	state.shop.rotation = int(state.shop.rotation)
 	for id in state.shop.purchased: state.shop.purchased[id] = int(state.shop.purchased[id])
 	for id in state.shop.stock:
 		if state.shop.stock[id] != null: state.shop.stock[id] = int(state.shop.stock[id])
@@ -76,4 +101,11 @@ static func add_missing_offers(shop: Variant) -> Variant:
 	for offer in definition().offers:
 		if not shop.stock.has(offer.id): shop.stock[offer.id] = offer.stock
 		if not shop.purchased.has(offer.inventory_id): shop.purchased[offer.inventory_id] = 0
+	return shop
+
+## Saves made before stock rotation (#29) have never rotated.
+static func add_rotation(shop: Variant) -> Variant:
+	if not shop is Dictionary: return shop
+	if not shop.has("rotation"): shop.rotation = 0
+	if not shop.has("fresh"): shop.fresh = false
 	return shop
