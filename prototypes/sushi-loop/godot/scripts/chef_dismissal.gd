@@ -3,6 +3,8 @@ extends Control
 const Resume=preload("res://scripts/staff_resume.gd")
 const Wood=preload("res://scripts/wood_skin.gd")
 const Type=preload("res://scripts/typography.gd")
+const GameButton=preload("res://scripts/game_button.gd")
+const PopupSkin=preload("res://scripts/maple_popup_skin.gd")
 signal confirmed
 signal canceled
 signal closed
@@ -15,8 +17,8 @@ var panel:Panel
 var maple:TextureRect
 var heading:Label
 var close_button:Button
-var cancel_button:Button
-var confirm_button:Button
+var cancel_button:GameButton
+var confirm_button:GameButton
 var resume
 var entry_tween:Tween
 var stamp_tween:Tween
@@ -34,16 +36,14 @@ func _ready()->void:
 	heading=Label.new();heading.add_theme_font_override("font",font);heading.add_theme_color_override("font_color",Color("592c10"));panel.add_child(heading)
 	close_button=button("×",panel);close_button.pressed.connect(back)
 	resume=Resume.new();resume.dismissal_mode=true;panel.add_child(resume)
-	cancel_button=button("Cancel",panel);cancel_button.pressed.connect(back)
-	confirm_button=button("Fire",panel);confirm_button.pressed.connect(func():
+	cancel_button=action("Cancel",panel);cancel_button.pressed.connect(back)
+	confirm_button=action("Fire",panel);confirm_button.tone=GameButton.Tone.PRIMARY;confirm_button.pressed.connect(func():
 		if not fired:confirmed.emit())
 	hide()
 func button(text:String,parent:Node)->Button:
 	var control:=Button.new();control.text=text;control.accessibility_name=text;control.add_theme_font_override("font",font);parent.add_child(control);return control
-func style(control:Button,primary:=false)->void:
-	for treatment in ["normal","hover","pressed","disabled"]:control.add_theme_stylebox_override(treatment,wood.style("hud-live-pressed" if primary and treatment=="pressed" else "hud-live-normal" if primary else "hud-cream-pressed" if treatment=="pressed" else "hud-cream-normal",unit*390/720))
-	for key in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:control.add_theme_color_override(key,Color("fff9ed") if primary else Color("61381e"))
-	control.add_theme_stylebox_override("focus",StyleBoxEmpty.new());control.add_theme_font_size_override("font_size",int(16*unit));var hit:=44.01/maxf(.001,get_viewport_transform().get_scale().x);control.custom_minimum_size=Vector2(hit,hit)
+func action(text:String,parent:Node)->GameButton:
+	var control:=GameButton.new();control.text=text;control.accessibility_name=text;control.radius=999;parent.add_child(control);return control
 func open(value:Dictionary,bounds:Rect2)->void:
 	stop_motion();actor=value.duplicate(true);fired=false
 	var data:Dictionary={}
@@ -57,7 +57,7 @@ func open(value:Dictionary,bounds:Rect2)->void:
 	data.id=actor.id;data.cost=0;resume.offer=data;resume.stamp_text.text="Fired";resume.imprint.modulate.a=0;resume.stamp_prop.modulate.a=0
 	heading.text="Fire %s?"%actor.name;resume.dismissal_note.text="%s will permanently leave your staff, including their level and upgrades."%data.name
 	confirm_button.text="Fire %s"%actor.name;confirm_button.accessibility_name=confirm_button.text;cancel_button.text="Cancel";cancel_button.show();confirm_button.show();close_button.accessibility_name="Cancel dismissal"
-	show();layout(bounds);close_button.grab_focus();panel.modulate.a=0
+	show();layout(bounds);close_button.grab_focus(true);panel.modulate.a=0
 	if is_instance_valid(entry_tween):entry_tween.kill()
 	panel.position=resting if reduced_motion else resting+Vector2(0,bounds.size.y)
 	entry_tween=create_tween().set_parallel(true);entry_tween.tween_property(panel,"position",resting,.10 if reduced_motion else .34).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT);entry_tween.tween_property(panel,"modulate:a",1.0,.10 if reduced_motion else .34)
@@ -73,22 +73,22 @@ func layout(bounds:Rect2)->void:
 	var h:=minf(580.0,(bounds.size.y-24*unit)/unit)
 	panel.size=Vector2(bounds.size.x-24*unit,h*unit);resting=Vector2(bounds.position.x+12*unit,bounds.position.y+(bounds.size.y-panel.size.y)*.5)
 	if not is_instance_valid(entry_tween) or not entry_tween.is_running():panel.position=resting
-	var shadow:=StyleBoxFlat.new();shadow.bg_color=Color.TRANSPARENT;shadow.shadow_color=Color(.3,.16,.04,.25);shadow.shadow_size=int(7*unit);shadow.shadow_offset=Vector2(0,5)*unit;shadow.set_corner_radius_all(int(24*unit));panel.add_theme_stylebox_override("panel",shadow)
+	panel.add_theme_stylebox_override("panel",PopupSkin.card_shadow(24*unit,unit))
 	maple.size=panel.size;var material_value:ShaderMaterial=maple.material;material_value.set_shader_parameter("surface_size",panel.size);material_value.set_shader_parameter("corner_radius",24*unit);material_value.set_shader_parameter("grain_width",390*unit)
 	heading.position=Vector2(16,18)*unit;heading.size=Vector2(panel.size.x-80*unit,38*unit);heading.add_theme_font_size_override("font_size",int(23*unit))
-	close_button.position=Vector2(panel.size.x-58*unit,12*unit);close_button.size=Vector2(44,44)*unit;style(close_button)
+	close_button.position=Vector2(panel.size.x-58*unit,12*unit);PopupSkin.close_button(close_button,unit*44.0/96.0,get_viewport_transform().get_scale().x)
 	resume.compact_dismissal=h<450
 	resume.unit=unit;resume.narrow=bounds.size.x*get_viewport_transform().get_scale().x<350;resume.position=Vector2(18,76)*unit;resume.size=Vector2(panel.size.x-36*unit,(h-154)*unit);resume.layout()
 	var button_y:=panel.size.y-64*unit
 	cancel_button.position=Vector2(18*unit,button_y);cancel_button.size=Vector2((panel.size.x-46*unit)*.5,46*unit)
 	confirm_button.position=Vector2(panel.size.x*.5+5*unit,button_y);confirm_button.size=cancel_button.size
 	if fired:cancel_button.position.x=18*unit;cancel_button.size.x=panel.size.x-36*unit
-	style(cancel_button);style(confirm_button,true)
+	for control in [cancel_button,confirm_button]:control.caption_px=16.0;control.fit(unit,get_viewport_transform().get_scale().x)
 func play_fired()->void:
 	if fired:return
 	fired=true;heading.text="Application";cancel_button.text="Close";cancel_button.accessibility_name="Close fired application";close_button.accessibility_name="Close fired application";confirm_button.hide()
 	resume.dismissal_note.text="%s has left your staff."%resume.offer.name
-	layout(area);close_button.grab_focus()
+	layout(area);close_button.grab_focus(true)
 	if is_instance_valid(stamp_tween):stamp_tween.kill()
 	stamp_tween=create_tween();stamp_tween.tween_interval(.0 if reduced_motion else .35);stamp_tween.tween_property(resume.imprint,"modulate:a",.94,.18 if reduced_motion else .05)
 	if not reduced_motion:

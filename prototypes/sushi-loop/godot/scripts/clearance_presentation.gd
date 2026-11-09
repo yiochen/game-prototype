@@ -5,6 +5,7 @@ const Wood = preload("res://scripts/wood_skin.gd")
 const Art = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
+const GameButton = preload("res://scripts/game_button.gd")
 signal confirmed(identity: String)
 signal reveal_confirmed
 signal unlock_go_requested
@@ -16,8 +17,8 @@ var face: TextureRect
 var title: Label
 var well: Panel
 var preview: Preview
-var cancel: Button
-var clear_button: Button
+var cancel: GameButton
+var clear_button: GameButton
 var clear_caption: Label
 var price_label: Label
 var price_coin: TextureRect
@@ -64,18 +65,16 @@ func _ready() -> void:
 	title.add_theme_font_override("font",heading);title.add_theme_color_override("font_color",Color("592c10"));title.mouse_filter = Control.MOUSE_FILTER_IGNORE;panel.add_child(title)
 	well = Panel.new();well.mouse_filter = Control.MOUSE_FILTER_IGNORE;panel.add_child(well)
 	preview = Preview.new();preview.art_book = art;preview.mouse_filter = Control.MOUSE_FILTER_IGNORE;well.add_child(preview)
-	cancel = _button("Cancel",panel);clear_button = _button("",panel)
-	clear_caption = Label.new();clear_caption.text = "Clear";clear_caption.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(clear_caption)
-	price_label = Label.new();price_label.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(price_label)
-	price_coin = TextureRect.new();price_coin.texture = UISkin.cash_icon();price_coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;price_coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;price_coin.mouse_filter = Control.MOUSE_FILTER_IGNORE;clear_button.add_child(price_coin)
+	cancel = _action("Cancel",GameButton.Tone.SECONDARY);clear_button = _action("Clear",GameButton.Tone.PRIMARY)
+	clear_button.cost_icon = UISkin.cash_icon()
+	# The shared button's own caption and price parts.
+	clear_caption = clear_button.caption;price_label = clear_button.cost_label;price_coin = clear_button.cost_image
 	unlock_art = TextureRect.new();unlock_art.texture = load("res://assets/ui/exhibition/underwater.webp")
 	unlock_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;unlock_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;unlock_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unlock_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	unlock_art.accessibility_name = "A yellow submarine exploring turquoise water among coral, fish and ancient underwater ruins."
 	var image_material := ShaderMaterial.new();image_material.shader = load("res://scripts/rounded_image.gdshader");unlock_art.material = image_material;panel.add_child(unlock_art)
 	close_button = _button("×",panel);close_button.accessibility_name = "Close";close_button.pressed.connect(dismiss)
-	for label in [clear_caption,price_label]:
-		var price_font := Typography.body();price_font.variation_opentype = {TextServerManager.get_primary_interface().name_to_tag("wght"):900};label.add_theme_font_override("font",price_font);label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	cancel.pressed.connect(dismiss)
 	clear_button.pressed.connect(func():
 		if busy or clear_button.disabled: return
@@ -84,10 +83,15 @@ func _ready() -> void:
 		else: confirmed.emit(str(patch.get("id",""))))
 	samples = HBoxContainer.new();samples.mouse_filter = Control.MOUSE_FILTER_STOP;add_child(samples)
 	for value in ["normal","pressed","disabled","selected"]:
-		var button := _button(value.capitalize(),samples)
+		var button := GameButton.new();button.text = value.capitalize();button.radius = 16.0;samples.add_child(button)
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.pressed.connect(func(): sample = value; refresh(state); layout(area))
 	hide()
+
+func _action(text: String, tone: GameButton.Tone) -> GameButton:
+	var button := GameButton.new();button.text = text;button.tone = tone;button.radius = 26.0;button.caption_px = 17.0
+	panel.add_child(button)
+	return button
 
 func _button(text: String, parent: Node) -> Button:
 	var button := Button.new();button.text = text
@@ -100,17 +104,17 @@ func open(value: Dictionary, snapshot: Dictionary) -> void:
 	unlock_popup = false;reveal_confirmation = false;panel.show();panel.accessibility_name = "Garbage clearance"
 	focused_before = get_viewport().gui_get_focus_owner();patch = value.duplicate(true);destination = "";state = snapshot;busy = false
 	title.text = "Clear this patch?";cancel.text = "Cancel";cancel.accessibility_name = "Cancel garbage clearance"
-	preview.entry = patch;preview.accessibility_name = str(patch.name);show();refresh(snapshot);layout(area);cancel.grab_focus()
+	preview.entry = patch;preview.accessibility_name = str(patch.name);show();refresh(snapshot);layout(area);cancel.grab_focus(true)
 
 func open_destination(name: String, snapshot: Dictionary) -> void:
 	unlock_popup = false;reveal_confirmation = false;panel.show();panel.accessibility_name = name
 	focused_before = get_viewport().gui_get_focus_owner();destination = name;patch = {"art_id":"submarine-yellow" if name == "Submarine" else "workshop-hut","landmark":true,"name":name};state = snapshot;busy = false
-	title.text = name;cancel.text = "Back to restaurant";cancel.accessibility_name = cancel.text;preview.entry = patch;preview.accessibility_name = name;show();refresh(snapshot);layout(area);cancel.grab_focus()
+	title.text = name;cancel.text = "Back to restaurant";cancel.accessibility_name = cancel.text;preview.entry = patch;preview.accessibility_name = name;show();refresh(snapshot);layout(area);cancel.grab_focus(true)
 
 func open_reveal(snapshot: Dictionary) -> void:
 	unlock_popup = false;panel.show();focused_before = get_viewport().gui_get_focus_owner();patch = {};destination = "";state = snapshot;busy = false;reveal_confirmation = true
 	title.text = "reveal?";panel.accessibility_name = "Reveal confirmation";cancel.text = "Cancel";cancel.accessibility_name = "Cancel reveal"
-	preview.entry = {};preview.accessibility_name = "";show();refresh(snapshot);layout(area);cancel.grab_focus()
+	preview.entry = {};preview.accessibility_name = "";show();refresh(snapshot);layout(area);cancel.grab_focus(true)
 
 func hold_for_reveal() -> void:
 	# Keep one full-screen input shield alive until both the cover and its frame
@@ -121,7 +125,7 @@ func open_unlock(snapshot: Dictionary) -> void:
 	if not busy: focused_before = get_viewport().gui_get_focus_owner()
 	patch = {};destination = "";state = snapshot;busy = false;reveal_confirmation = false;unlock_popup = true
 	panel.show();title.text = "Exhibition Unlocked";panel.accessibility_name = title.text
-	preview.entry = {};show();refresh(snapshot);layout(area);clear_button.grab_focus()
+	preview.entry = {};show();refresh(snapshot);layout(area);clear_button.grab_focus(true)
 
 func refresh(snapshot: Dictionary) -> void:
 	state = snapshot
@@ -130,9 +134,8 @@ func refresh(snapshot: Dictionary) -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if unlock_popup else HORIZONTAL_ALIGNMENT_CENTER
 	clear_button.visible = destination.is_empty()
 	well.visible = not reveal_confirmation and not unlock_popup
-	price_label.visible = not reveal_confirmation and not unlock_popup;price_coin.visible = not reveal_confirmation and not unlock_popup
-	clear_caption.text = "Let's go" if unlock_popup else "Reveal" if reveal_confirmation else "Clear"
-	price_label.text = str(int(patch.get("price",0)))
+	clear_button.text = "Let's go" if unlock_popup else "Reveal" if reveal_confirmation else "Clear"
+	clear_button.cost = "" if reveal_confirmation or unlock_popup else str(int(patch.get("price",0)))
 	clear_button.accessibility_name = "Clear for %s coins" % int(patch.get("price",0))
 	clear_button.disabled = busy or sample == "disabled" or int(snapshot.get("coins",0)) < int(patch.get("price",0))
 	if reveal_confirmation:
@@ -142,7 +145,7 @@ func refresh(snapshot: Dictionary) -> void:
 		clear_button.accessibility_name = "Let's go";clear_button.disabled = busy
 	close_button.disabled = busy
 	cancel.disabled = busy
-	if area.size.x > 0: _layout_price(area.size.x/390.0)
+	clear_button.hold(sample == "pressed")
 	preview.queue_redraw()
 
 func dismiss() -> void:
@@ -172,8 +175,7 @@ func layout(value: Rect2) -> void:
 	if reveal_confirmation: height = maxf(154*unit,action_height+78*unit)
 	panel.position = Vector2(area.position.x+14*unit,maxf(area.position.y+8*unit,area.end.y-height-(14 if compact else 24)*unit))
 	panel.size = Vector2(area.size.x-28*unit,height)
-	var shadow := PopupSkin.flat(Color.TRANSPARENT,25*unit);shadow.shadow_color = Color(.35,.18,.05,.24);shadow.shadow_size = int(7*unit);shadow.shadow_offset = Vector2(0,5)*unit
-	panel.add_theme_stylebox_override("panel",shadow);PopupSkin.layout_face(face,panel.size,unit*390.0/720.0);face.material.set_shader_parameter("corner_radius",25*unit)
+	panel.add_theme_stylebox_override("panel",PopupSkin.card_shadow(25*unit,unit));PopupSkin.layout_face(face,panel.size,unit*390.0/720.0);face.material.set_shader_parameter("corner_radius",25*unit)
 	title.add_theme_font_size_override("font_size",maxi(1,int((22 if compact else 25)*unit)))
 	title.position = Vector2(12,18 if compact else 20)*unit;title.size = Vector2(panel.size.x-24*unit,34*unit)
 	well.position = Vector2(14,54 if compact else 62)*unit
@@ -187,24 +189,11 @@ func layout(value: Rect2) -> void:
 	clear_button.position = Vector2(cancel.position.x+cancel.size.x+gap,cancel.position.y)
 	clear_button.size = Vector2(available*1.3/2.2,action_height)
 	if not destination.is_empty(): cancel.size.x = panel.size.x-28*unit
-	for button in [cancel,clear_button]:
-		button.custom_minimum_size = Vector2.ONE*44.01/physical
-		button.add_theme_font_size_override("font_size",maxi(1,int(17*unit)))
-		for treatment in ["normal","hover","pressed","disabled"]:
-			var primary: bool = button == clear_button
-			var style := PopupSkin.flat(Color("ff624b") if primary else Color("fff1d5"),26*unit)
-			if treatment == "pressed" or (primary and sample == "pressed"): style.bg_color = style.bg_color.darkened(.06)
-			if treatment == "disabled" and primary: style.bg_color = Color("dfc6a1")
-			style.shadow_color = Color("bd4528") if primary else Color("b98450");style.shadow_size = maxi(1,int(unit));style.shadow_offset = Vector2(0,1 if treatment == "pressed" else 3)*unit
-			button.add_theme_stylebox_override(treatment,style)
-		for key in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(key,Color("fff9ed") if button == clear_button else Color("633b21"))
-		button.add_theme_color_override("font_disabled_color",Color("705b43"))
-		var focus := PopupSkin.flat(Color.TRANSPARENT,26*unit);focus.set_border_width_all(maxi(1,int(2*unit)));focus.border_color = Color("32636b");button.add_theme_stylebox_override("focus",focus)
+	for button in [cancel,clear_button]: button.caption_px = 17.0;button.fit(unit,physical)
 	samples.visible = gallery and not busy
 	samples.position = Vector2(area.position.x+14*unit,area.position.y+86*unit);samples.size = Vector2(area.size.x-28*unit,44.01/physical)
-	for button in samples.get_children(): button.custom_minimum_size = Vector2(44.01,44.01)/physical;button.add_theme_font_size_override("font_size",maxi(1,int(12*unit)))
+	for button in samples.get_children(): button.caption_px = 12.0;button.selected = button.text.to_lower() == sample;button.fit(unit,physical)
 	if sample == "selected": well.add_theme_stylebox_override("panel",PopupSkin.flat(Color("e1ebc6"),18*unit))
-	_layout_price(unit)
 
 func _layout_unlock(physical: float, compact: bool) -> void:
 	# Phone pixels scale as one native control family. A wider desktop window
@@ -238,55 +227,22 @@ func _layout_unlock(physical: float, compact: bool) -> void:
 	var height := top+header_height+header_gap+art_height+action_gap+action_height+bottom
 	panel.position = Vector2(area.get_center().x-card_width*.5,area.get_center().y-height*.5)
 	panel.size = Vector2(card_width,height)
-	var shadow := PopupSkin.flat(Color.TRANSPARENT,25*unit);shadow.shadow_color = Color(.35,.18,.05,.24);shadow.shadow_size = int(7*unit);shadow.shadow_offset = Vector2(0,5)*unit
-	panel.add_theme_stylebox_override("panel",shadow);PopupSkin.layout_face(face,panel.size,unit*390.0/720.0);face.material.set_shader_parameter("corner_radius",25*unit)
+	panel.add_theme_stylebox_override("panel",PopupSkin.card_shadow(25*unit,unit));PopupSkin.layout_face(face,panel.size,unit*390.0/720.0);face.material.set_shader_parameter("corner_radius",25*unit)
 	title.size.y = header_height;title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	close_button.position = Vector2(panel.size.x-inset-close_size.x,top)
 	unlock_art.position = Vector2(inset,top+header_height+header_gap);unlock_art.size = Vector2(art_width,art_height)
 	unlock_art.material.set_shader_parameter("surface_size",unlock_art.size);unlock_art.material.set_shader_parameter("corner_radius",16*unit)
 	clear_button.custom_minimum_size = Vector2.ZERO
 	clear_button.position = Vector2(inset,unlock_art.position.y+art_height+action_gap);clear_button.size = Vector2(art_width,action_height)
-	clear_button.custom_minimum_size = Vector2.ONE*44.01/physical
-	for treatment in ["normal","hover","pressed","disabled"]:
-		var pressed: bool = treatment == "pressed" or sample == "pressed"
-		var style := PopupSkin.flat(Color("ff624b").darkened(.06) if pressed else Color("ff624b"),26*unit)
-		style.shadow_color = Color("bd4528");style.shadow_size = maxi(1,int(unit));style.shadow_offset = Vector2(0,1 if pressed else 3)*unit
-		clear_button.add_theme_stylebox_override(treatment,style)
-	for key in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: clear_button.add_theme_color_override(key,Color("fff9ed"))
-	for button in [clear_button,close_button]:
-		var focus := PopupSkin.flat(Color.TRANSPARENT,(26.0 if button == clear_button else 22.0)*unit);focus.set_border_width_all(maxi(1,int(2*unit)));focus.border_color = Color("32636b");button.add_theme_stylebox_override("focus",focus)
-	clear_caption.add_theme_font_size_override("font_size",maxi(1,int((18.0 if compact else 20.0)*unit)))
-	clear_caption.add_theme_color_override("font_color",Color("fff9ed"));clear_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;clear_caption.position = Vector2.ZERO;clear_caption.size = clear_button.size
+	clear_button.caption_px = 18.0 if compact else 20.0;clear_button.fit(unit,physical);clear_button.hold(sample == "pressed")
 	samples.visible = gallery and not busy and not compact
 	samples.position = Vector2(area.position.x+14*unit,area.position.y+86*unit);samples.size = Vector2(area.size.x-28*unit,44.01/physical)
 	for button in samples.get_children():
-		button.visible = button.text in ["Normal","Pressed"];button.custom_minimum_size = Vector2.ONE*44.01/physical;button.add_theme_font_size_override("font_size",maxi(1,int(12*unit)))
-		var selected: bool = button.text.to_lower() == sample
-		for treatment in ["normal","hover","pressed","disabled"]:
-			var style := PopupSkin.flat(Color("99552d") if selected else Color("fff1d5"),16*unit)
-			style.shadow_color = Color("b98450");style.shadow_offset = Vector2(0,1 if treatment == "pressed" else 3)*unit
-			button.add_theme_stylebox_override(treatment,style)
-		for color in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(color,Color("fff5df") if selected else Color("633b21"))
+		button.visible = button.text in ["Normal","Pressed"];button.caption_px = 12.0;button.selected = button.text.to_lower() == sample;button.fit(unit,physical)
 
-func _layout_price(unit: float) -> void:
-	if clear_caption == null: return
-	var pixels := maxi(1,int(17*unit))
-	for label in [clear_caption,price_label]:
-		label.add_theme_font_size_override("font_size",pixels);label.add_theme_color_override("font_color",Color("705b43") if clear_button.disabled else Color("fff9ed"))
-	if unlock_popup: return
-	if reveal_confirmation:
-		clear_caption.position = Vector2.ZERO;clear_caption.size = clear_button.size;clear_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER;return
-	clear_caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	var font: Font = clear_caption.get_theme_font("font")
-	var caption_width := font.get_string_size("Clear",HORIZONTAL_ALIGNMENT_LEFT,-1,pixels).x
-	var price_width := font.get_string_size(price_label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,pixels).x
-	var left := (clear_button.size.x-caption_width-price_width-33*unit)/2
-	clear_caption.position = Vector2(left,0);clear_caption.size = Vector2(caption_width,clear_button.size.y)
-	price_coin.position = Vector2(left+caption_width+8*unit,(clear_button.size.y-20*unit)/2);price_coin.size = Vector2.ONE*20*unit
-	price_label.position = Vector2(price_coin.position.x+25*unit,0);price_label.size = Vector2(price_width,clear_button.size.y)
-	price_coin.modulate = Color(.7,.65,.55,.8) if clear_button.disabled else Color.WHITE
 
 func cancel_interactions() -> void:
+	cancel.release();clear_button.release()
 	for button in [cancel,clear_button,close_button]:
 		var disabled: bool = button.disabled;button.disabled = true;button.disabled = disabled
 

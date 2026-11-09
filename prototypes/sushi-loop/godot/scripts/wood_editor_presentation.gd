@@ -1,8 +1,15 @@
 extends "res://scripts/editor_presentation.gd"
 ## Approved HTML dock, with native controls, accessible labels and clipped goods.
+## #28 (user, 2026-11-08): the categories use the game's one tab control, the
+## same as the Workshop tray: maple segments with the selected one in cream, on a
+## continuous maple band, over a beige goods catalog; Shop stays a separate
+## walnut action. This replaces the connected-tab caps (wood-dock amendment).
 const FloorPattern = preload("res://scripts/floor_pattern.gd")
 const WoodSkin = preload("res://scripts/wood_skin.gd")
+const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
+const GameButton = preload("res://scripts/game_button.gd")
 const WOOD_INK := Color("592c10")
+const TAB_CREAM := Color("fff1d3")
 signal recipes_requested(chef_id: String)
 signal applicants_requested
 var applicants: Button
@@ -54,24 +61,20 @@ class PhotoPortrait extends Control:
 
 class Backdrop extends Control:
 	var owner_ui
+	var shade: ColorRect
 	func _draw() -> void:
 		var ui = owner_ui
 		var u: float = ui.unit
 		var layer := str(ui.state.get("editor",{}).get("layer","layout"))
 		var opened := bool(ui.state.get("editor",{}).get("tray_open",true))
-		var cap_top: float = ui.header_height-78
-		var board_top: float = ui.header_height
-		# A real bottom inset can extend the plain maple below the fixed design.
-		ui.wood.style("board",u).draw(get_canvas_item(),Rect2(0,board_top*u,size.x,size.y-board_top*u))
-		# The gradient is a plain translucent span, with no corners to distort.
-		draw_texture_rect_region(ui.wood.texture("tab-backdrop"),Rect2(0,0,size.x,ui.header_height*u),Rect2(32,32,1440,156))
-		# Paint the connected cap over the gradient as it is in the HTML stacking.
+		# One continuous maple band holds the tabs and the goods (shared tab control, #28).
+		ui.wood.style("board",u).draw(get_canvas_item(),Rect2(0,0,size.x,size.y))
 		if opened:
-			ui.wood.draw_asset(self,"connected-"+layer,Vector2(0,cap_top)*u,u)
-		else:
-			var button: Button = ui.layers[layer]
-			ui.wood.style("tab-selected",u).draw(get_canvas_item(),Rect2(button.position+Vector2(0,cap_top)*u,Vector2(button.size.x,78*u)))
-		ui.wood.draw_asset(self,"footer-waves",Vector2(28*u,size.y-40*u),u)
+			var catalog := StyleBoxFlat.new(); catalog.bg_color = TAB_CREAM; catalog.set_corner_radius_all(int(36*u))
+			var bounds := Rect2(16*u,ui.header_height*u,size.x-32*u,(249.0+ui.people_header_height)*u)
+			draw_style_box(catalog,bounds)
+			PopupSkin.layout_inner_shadow(shade,bounds,36*u,u)
+		shade.visible = opened
 
 func _ready() -> void:
 	super._ready()
@@ -91,6 +94,7 @@ func _ready() -> void:
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	backdrop.clip_contents = true
 	add_child(backdrop)
+	backdrop.shade = PopupSkin.inner_shadow(backdrop)
 	move_child(backdrop,0)
 	rail.clip_contents = true
 	rail.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -229,7 +233,12 @@ func _refresh_button_visual(button: Button) -> void:
 	var pressed: bool = button.get_meta("visual_pressed",false)
 	var surface: Panel = button.get_meta("visual_surface")
 	surface.custom_minimum_size = Vector2.ZERO
-	surface.add_theme_stylebox_override("panel",StyleBoxEmpty.new() if selected else wood.style(("shop-" if button == shop else "tab-")+("pressed" if pressed else "normal"),unit))
+	# The same face as GameButton's MAPLE/selected/WALNUT tones (one tab control, #28).
+	var colors: Dictionary = GameButton.PALETTE[GameButton.Tone.WALNUT] if button == shop else GameButton.SELECTED if selected else GameButton.PALETTE[GameButton.Tone.MAPLE]
+	surface.add_theme_stylebox_override("panel",GameButton.face_style(colors,28*unit,unit,pressed,button != shop and not selected))
+	# Unselected maple tabs carry the shared wood grain (the cream tab and walnut Shop stay plain).
+	var grain := _tab_grain(button,surface)
+	grain.visible = button != shop and not selected
 	var icon: TextureRect = button.get_meta("visual_icon")
 	icon.texture = wood.icon("shop" if button == shop else button.text.to_lower())
 	icon.modulate = CREAM if button == shop else WOOD_INK
@@ -245,6 +254,10 @@ func _refresh_button_visual(button: Button) -> void:
 	outline.set_corner_radius_all(int(12*unit))
 	focus.add_theme_stylebox_override("panel",outline)
 	focus.visible = button.has_focus()
+
+func _tab_grain(button: Button, surface: Panel) -> TextureRect:
+	if not button.has_meta("visual_grain"): button.set_meta("visual_grain",GameButton.grain_face(surface))
+	return button.get_meta("visual_grain")
 
 func _press_button_visual(button: Button, pressed: bool) -> void:
 	if not _is_wood_button(button):
@@ -264,9 +277,12 @@ func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon
 	visual.size = button.size
 	visual.scale = Vector2.ONE
 	var surface: Panel = button.get_meta("visual_surface")
-	surface.position = Vector2(0,(header_height-78-14)*unit)
-	surface.size = Vector2(button.size.x,78*unit)
-	var face := Rect2(0,(header_height-78)*unit,button.size.x,60*unit)
+	# Capsule inside the header band (shared tab control).
+	var face := Rect2(0,14*unit,button.size.x,(header_height-26)*unit)
+	surface.position = face.position + Vector2(0,2*unit if button.get_meta("visual_pressed",false) else 0)
+	surface.size = face.size
+	var grain := _tab_grain(button,surface)
+	GameButton.layout_grain(grain,surface.size,28*unit,unit,button.get_meta("visual_pressed",false))
 	var focus: Panel = button.get_meta("visual_focus")
 	focus.position = face.position
 	focus.size = face.size
@@ -469,7 +485,7 @@ func refresh_layout() -> void:
 	super.refresh_layout()
 	var physical_axes := get_viewport_transform().get_scale() * get_global_transform().get_scale()
 	var physical_scale := maxf(0.001,minf(physical_axes.x,physical_axes.y))
-	header_height = maxf(78,44.01/physical_scale/unit)
+	header_height = maxf(100,44.01/physical_scale/unit+24)
 	safe_height = 42
 	if OS.get_name() in ["Android","iOS"]:
 		var bottom := maxf(0,float(get_window().size.y)-Rect2(DisplayServer.get_display_safe_area()).end.y)

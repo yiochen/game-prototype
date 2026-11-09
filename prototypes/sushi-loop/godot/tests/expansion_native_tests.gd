@@ -5,6 +5,14 @@ var app
 var count := 0
 var failures: Array[String] = []
 var output := ""
+
+## Waits out the shared scene transition (#28): close, loading beat, open.
+func settle() -> void:
+	for i in range(2): await process_frame
+	var guard := 0
+	while app.transition.busy and guard < 900:
+		await process_frame; guard += 1
+
 func _init() -> void: call_deferred("run")
 func check(value: bool, message: String) -> void:
 	count += 1
@@ -96,8 +104,8 @@ func run() -> void:
 	await create_timer(app.world.dock_reveal_duration()+app.world.COVER_FADE_SECONDS+.1).timeout;await frames()
 	await capture("06-dock-revealed")
 	check(app.clearance_ui.unlock_popup and app.clearance_ui.title.text == "Exhibition Unlocked","complete reveal shows the approved unlock popup")
-	await tap(app.clearance_ui.clear_button);check(app.expedition_ui.visible and app.expedition_ui.mode == "prep","Let's go opens the native submarine entry (#21 preparation) after full cleanup");await capture("07-submarine");app.expedition_ui.mode = "hidden";app.expedition_ui.hide()
-	app._open_landmark("Workshop");check(app.clearance_ui.visible and app.clearance_ui.title.text == "Workshop","Workshop shares the same prerequisite");app.clearance_ui.dismiss()
+	await tap(app.clearance_ui.clear_button);await settle();check(app.expedition_ui.visible and app.expedition_ui.mode == "prep","Let's go opens the native submarine entry (#21 preparation) after full cleanup");await capture("07-submarine");app.expedition_ui.mode = "hidden";app.expedition_ui.hide()
+	app._open_landmark("Workshop");await settle();check(app.workshop_ui.visible,"Workshop shares the same prerequisite and opens its room (#28)");app.workshop_ui.leave();await settle()
 	app.session = Session.new_session(19,{"starting_coins":0});app._refresh();app._layout();app._open_clearance("dock-access");await frames()
 	check(app.clearance_ui.clear_button.disabled and app.clearance_ui.price_label.text == "180" and not app.clearance_ui.cancel.disabled,"disabled Clear keeps its readable cost and Cancel")
 	await capture("08-not-enough-coins");app.clearance_ui.dismiss()

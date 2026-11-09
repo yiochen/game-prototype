@@ -1,0 +1,46 @@
+{
+  "issue": 28,
+  "revision": 3,
+  "provider": "codex image_gen via sprite-gen gen --model gpt-5.6-sol",
+  "note": "Replaces the Blender submarine for this one-view game: three ImageGen part sheets, three tiers each, keyed on #FF00FF by sprite-gen, sliced/cleaned/anchored by tools/prepare-ship-parts.py.",
+  "sheets": [
+    {
+      "file": "ship-parts/hull-sheet-v1.png",
+      "raw": "ship-parts/hull-sheet-v1.png.raw.png",
+      "prompt": "ship-parts/hull-prompt.txt",
+      "sha256": "9d9ea6d303d8c28d960537f323cd11243cae0aac31c2226d6ec52f5cf68500ed",
+      "refs": {
+        "ship-parts/refs/current-submarine.png": "38ec8697349f956d517d9b6a24740e6ffa6c36bb2044d60a43abcbb897b6be0c",
+        "ship-parts/refs/workshop-room-style.png": "7459e9e263d2f0c70abc3db5ebe4158a8767af2fabe9dfcc617ba26b97f2c200"
+      }
+    },
+    {
+      "file": "ship-parts/harpoon-sheet-v1.png",
+      "raw": "ship-parts/harpoon-sheet-v1.png.raw.png",
+      "prompt": "ship-parts/harpoon-prompt.txt",
+      "sha256": "c9c5ea5cadeec500d9fbc85e602e2f9ddd9301933891a5550436d6badf528ba4",
+      "refs": {
+        "ship-parts/hull-sheet-v1.png.raw.png": "9d9ea6d303d8c28d960537f323cd11243cae0aac31c2226d6ec52f5cf68500ed"
+      }
+    },
+    {
+      "file": "ship-parts/collector-sheet-v1.png",
+      "raw": "ship-parts/collector-sheet-v1.png.raw.png",
+      "prompt": "ship-parts/collector-prompt.txt",
+      "sha256": "b433a36abacc5418bbb86b029f902ad3b04db288c425bc6d1640e3277942082d",
+      "refs": {
+        "ship-parts/hull-sheet-v1.png.raw.png": "9d9ea6d303d8c28d960537f323cd11243cae0aac31c2226d6ec52f5cf68500ed"
+      }
+    }
+  ],
+  "notes": [
+    "harpoon first attempt failed: codex session did not offer image_gen; identical retry succeeded",
+    "r4 (2026-11-08): the harpoon launcher is no longer composed on the ship; its tier sprites moved to ship-parts/superseded/. The Harpoon track changes the fired harpoon (code-drawn, harpoon.js)."
+  ],
+  "runtime": [
+    "assets/ship-hull-{1,2,3}.png",
+    "assets/ship-harpoon-{1,2,3}.png",
+    "assets/ship-collector-{1,2,3}.png (right side mirrored)",
+    "assets/ship-layout.json"
+  ]
+}

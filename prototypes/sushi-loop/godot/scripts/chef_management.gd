@@ -6,6 +6,7 @@ const Art=preload("res://scripts/recipe_art.gd")
 const Wood=preload("res://scripts/wood_skin.gd")
 const Type=preload("res://scripts/typography.gd")
 const UISkin=preload("res://scripts/ui_skin.gd")
+const GameButton=preload("res://scripts/game_button.gd")
 signal requested(value:Dictionary)
 signal firing_requested
 signal placement_requested
@@ -24,9 +25,9 @@ var next_label:Label
 var preview:Label
 var unlock:Label
 var result:Label
-var upgrade:Button
-var unassign:Button
-var fire:Button
+var upgrade:GameButton
+var unassign:GameButton
+var fire:GameButton
 var budget:Label
 var current_plate:Control
 var next_plate:Control
@@ -57,17 +58,18 @@ func _ready()->void:
 	upgrade=button("Level up",self);upgrade.pressed.connect(func():
 		if not upgrade.disabled and Time.get_ticks_msec()-last_purchase_ms>=300:
 			last_purchase_ms=Time.get_ticks_msec();requested.emit({"type":"level_up_chef","chef_id":actor.id,"expected_level":expected_level}))
-	upgrade_word=label(upgrade);upgrade_word.text="Level up";upgrade_price=label(upgrade)
-	coin=TextureRect.new();coin.texture=UISkin.cash_icon();coin.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter=MOUSE_FILTER_IGNORE;upgrade.add_child(coin)
+	upgrade.tone=GameButton.Tone.PRIMARY;upgrade.cost_icon=UISkin.cash_icon()
+	# The shared button's own parts, kept under their old names.
+	upgrade_word=upgrade.caption;upgrade_price=upgrade.cost_label;coin=upgrade.cost_image
 	unassign=button("Unassign",self);unassign.pressed.connect(func():
 		if placed():requested.emit({"type":"unassign_chef","chef_id":actor.id})
 		else:placement_requested.emit())
-	fire=button("Fire…",self);fire.pressed.connect(func():firing_requested.emit())
+	fire=button("Fire…",self);fire.tone=GameButton.Tone.LINK;fire.pressed.connect(func():firing_requested.emit())
 	budget=label(self);budget.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;budget.add_theme_color_override("font_color",Color("9d4b33"));result.add_theme_color_override("font_color",Color("4b704e"))
 func label(parent:Node)->Label:
 	var value:=Label.new();value.add_theme_font_override("font",font);value.add_theme_color_override("font_color",Color("592c10"));value.mouse_filter=MOUSE_FILTER_IGNORE;parent.add_child(value);return value
-func button(text:String,parent:Node)->Button:
-	var value:=Button.new();value.text=text;value.accessibility_name=text;value.add_theme_font_override("font",font);parent.add_child(value);return value
+func button(text:String,parent:Node)->GameButton:
+	var value:=GameButton.new();value.text=text;value.accessibility_name=text;value.radius=999;parent.add_child(value);return value
 func placed()->bool:return state.get("objects",[]).any(func(c):return c.get("id")==actor.get("id"))
 func refresh(snapshot:Dictionary,chef:Dictionary)->void:
 	state=snapshot;actor=chef
@@ -83,19 +85,16 @@ func refresh(snapshot:Dictionary,chef:Dictionary)->void:
 	var changes:bool=not maximum and Dev.tier(int(actor.level)+1)!=Dev.tier(int(actor.level))
 	unlock.text="Unlocks %s recipes\nAvailable at Level %s"%[Dev.tier(int(actor.level)+1),int(actor.level)+1] if changes else ""
 	next_plate.visible=changes;next_plate.tier_name=Dev.tier(int(actor.level)+1);next_plate.queue_redraw()
-	upgrade.visible=not maximum;upgrade.disabled=int(state.coins)<Dev.cost(actor);upgrade.text="";upgrade_price.text=str(Dev.cost(actor))
+	upgrade.visible=not maximum;upgrade.disabled=int(state.coins)<Dev.cost(actor);upgrade.text="Level up";upgrade.cost=str(Dev.cost(actor))
 	upgrade.accessibility_name="Level up %s to Level %s for %s coins"%[actor.name,int(actor.level)+1,Dev.cost(actor)]
 	budget.text="%s / %s coins · Not enough coins"%[state.coins,Dev.cost(actor)] if not maximum and upgrade.disabled else ""
 	unassign.text="Unassign" if placed() else "Place in restaurant";unassign.accessibility_name=unassign.text
 	layout(size,unit)
 func text_at(node:Label,box:Rect2,pixels:float)->void:
 	node.position=box.position*unit;node.size=box.size*unit;node.add_theme_font_size_override("font_size",maxi(1,int(pixels*unit)));node.vertical_alignment=VERTICAL_ALIGNMENT_CENTER;node.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT
-func style_button(control:Button,primary:bool=false)->void:
-	var scale_value:=control.size.y/78.0
-	for treatment in ["normal","hover","pressed","disabled"]:control.add_theme_stylebox_override(treatment,wood.style("hud-live-pressed" if primary and treatment=="pressed" else "hud-live-normal" if primary and treatment!="disabled" else "hud-cream-pressed" if treatment=="pressed" else "hud-cream-normal",scale_value))
-	for key in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]:control.add_theme_color_override(key,Color("fff9ed") if primary else Color("61381e"))
-	control.add_theme_color_override("font_disabled_color",Color("927553"));control.add_theme_stylebox_override("focus",StyleBoxEmpty.new());control.add_theme_font_size_override("font_size",int(28*unit))
-	var hit:=44.01/maxf(.001,get_viewport_transform().get_scale().x);control.custom_minimum_size=Vector2(hit,hit)
+## Shared buttons in this 720-unit popup: GameButton works in 390-wide units.
+func style_button(control:GameButton,caption:=15.0)->void:
+	control.caption_px=caption;control.fit(unit*720.0/390.0,get_viewport_transform().get_scale().x)
 func layout(bounds:Vector2,scale_value:float)->void:
 	unit=scale_value;size=bounds
 	if not is_node_ready() or unit<=0:return
@@ -114,15 +113,10 @@ func layout(bounds:Vector2,scale_value:float)->void:
 	next_plate.position=Vector2(26,466)*unit;next_plate.size=Vector2(108,108)*unit;text_at(unlock,Rect2(142,478,w-178,75),22)
 	text_at(result,Rect2(36,563,w-72,50),20)
 	var target:=maxf(88*unit,44.01/maxf(.001,get_viewport_transform().get_scale().x))
-	upgrade.position=Vector2(36,(h-footer+8))*unit;upgrade.size=Vector2((w-72)*unit,target);style_button(upgrade,true)
-	text_at(upgrade_word,Rect2(32,0,w-250,target/unit),32);text_at(upgrade_price,Rect2(w-176,0,90,target/unit),32)
-	upgrade_word.add_theme_color_override("font_color",Color("927553") if upgrade.disabled else Color("fff9ed"));upgrade_price.add_theme_color_override("font_color",Color("927553") if upgrade.disabled else Color("fff9ed"));upgrade_price.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-	coin.position=Vector2((w-224)*unit,(target-40*unit)*.5);coin.size=Vector2(40,40)*unit
+	upgrade.position=Vector2(36,(h-footer+8))*unit;upgrade.size=Vector2((w-72)*unit,target);style_button(upgrade,17.0)
 	text_at(budget,Rect2(36,h-footer+108,w-72,30),20);budget.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	unassign.position=Vector2(36*unit,size.y-target-24*unit);unassign.size=Vector2((w-210)*unit,target);style_button(unassign)
 	fire.position=Vector2((w-154)*unit,size.y-target-24*unit);fire.size=Vector2(120*unit,target);style_button(fire)
-	for treatment in ["normal","hover","pressed","disabled"]:fire.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
-	for key in ["font_color","font_hover_color","font_pressed_color"]:fire.add_theme_color_override(key,Color("ad4835"))
 	if wide:
 		var column:=(w-108)*.5
 		text_at(assignment,Rect2(36,12,column,30),18)

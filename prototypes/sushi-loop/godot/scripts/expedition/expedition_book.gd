@@ -48,12 +48,19 @@ extends RefCounted
 ## it, warns for a moment, then the strip goes live. A ship inside it loses
 ## hull (hit protection applies; no knock-back, no resistance change). A catch
 ## or escape ends the run, which removes any warning or strike with it.
+##
+## Issue #28: Start copies the Workshop gear into the run (`run.gear`), so
+## later upgrades never change an expedition under way: maximum hull, reeling
+## strength (resistance drain multiplier), Collector reach (pickup attraction
+## radius), shield-pickup duration, passage ride length and a launch shield.
+## Encounters never scale with equipment.
 ## Balance lives in res://content/expedition.json; routes in route.gd.
 const VERSION := 1
 const Route = preload("res://scripts/expedition/route.gd")
 const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const Discharge = preload("res://scripts/expedition/discharge.gd")
+const WorkshopBook = preload("res://scripts/workshop_book.gd")
 const OUTCOMES := ["complete", "gave_up", "hull_depleted"]
 const MAX_INTEGER := 9007199254740991
 static var _content: Dictionary = {}
@@ -83,8 +90,17 @@ static func shield_valid(store) -> bool:
 	for owner in effects:
 		if owner != SHIP: return false
 		for effect in effects[owner]:
-			if effect.get("id") != "shield" or not _finite(effect.get("remaining")) or float(effect.remaining) <= 0.0 or float(effect.remaining) > float(definition().shield_seconds): return false
+			if effect.get("id") != "shield" or not _finite(effect.get("remaining")) or float(effect.remaining) <= 0.0 or float(effect.remaining) > max_shield_seconds() + 0.001: return false
 	return true
+
+## A run's gear (runs saved before #28 fly with base gear).
+static func gear(run: Dictionary) -> Dictionary:
+	var value = run.get("gear")
+	return value if value is Dictionary and value.has("tiers") else WorkshopBook.base_gear()
+
+## Longest shield any gear can grant, for validating saved effects.
+static func max_shield_seconds() -> float:
+	return maxf(WorkshopBook.value("shield", WorkshopBook.max_level("shield")), WorkshopBook.value("launch", WorkshopBook.max_level("launch")))
 
 static func definition() -> Dictionary:
 	if _content.is_empty(): _content = JSON.parse_string(FileAccess.get_file_as_string("res://content/expedition.json"))
@@ -208,11 +224,11 @@ static func _centre_of(row: String) -> float:
 
 ## Bonus passage behind a portal: a winding three-wide channel with gold every
 ## few rows, seeded by the run and portal. The ride follows its centre.
-static func passage(seed_value: int, portal: int) -> Dictionary:
-	var cache_key := "%d:%d" % [seed_value, portal]
+static func passage(seed_value: int, portal: int, ride_rows := -1) -> Dictionary:
+	var rules := definition()
+	var count := int(rules.passage_rows) if ride_rows < 0 else ride_rows
+	var cache_key := "%d:%d:%d" % [seed_value, portal, count]
 	if not _passages.has(cache_key):
-		var rules := definition()
-		var count := int(rules.passage_rows)
 		var rng := Route.Mulberry32.new(seed_value * 101 + portal * 7 + 3)
 		var info := {"rows_count": count, "phase": rng.next() * 6.0, "amp": 1.6 + rng.next() * 0.6}
 		var rows: Array = []
@@ -268,7 +284,8 @@ static func snapshot(state: Dictionary, store = null) -> Dictionary:
 	if data.run is Dictionary:
 		var run: Dictionary = data.run
 		run.shield = shield(store)
-		var hull_max := float(definition().hull_max)
+		var hull_max := float(gear(run).hull)
+		run.hull_max = hull_max
 		run.hull_fraction = clampf(float(run.hull) / hull_max, 0.0, 1.0)
 		run.low_hull = run.hull_fraction <= float(definition().low_hull_fraction)
 		run.rows = run_route(run).rows.size()
@@ -307,14 +324,17 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 				start_y = float(request.y)
 			data.charge = {"ready": false, "recharge_started": null}
 			data.sequence = int(data.sequence) + 1
+			var fitted := WorkshopBook.gear(state)
 			data.run = {"id": int(data.sequence), "seed": seed_value, "y": start_y, "x": start_x, "steer": 0.0, "vx": 0.0,
-				"hull": float(definition().hull_max), "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
+				"hull": float(fitted.hull), "gear": fitted, "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
 				"route_version": int(definition().route_version), "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
 				"encounter": null}
 			# Each run starts a fresh transient world.
 			store.drop_world(WORLD)
 			store.create_world(WORLD)
-			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id}
+			# Shield at start: the run launches already shielded.
+			if float(fitted.launch) > 0.0: set_shield(store, float(fitted.launch))
+			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id, "launch_shield": float(fitted.launch)}
 		"expedition_steer":
 			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
 			if not _finite(request.get("input")): return {"ok": false, "reason": "invalid_steer"}
@@ -339,7 +359,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 		"expedition_cheat_shield":
 			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
 			if float(run.y) <= float(run_route(run).encounter_edge) + 0.5: return {"ok": false, "reason": "no_shields_here"}
-			set_shield(store, float(definition().shield_seconds))
+			set_shield(store, float(gear(run).shield))
 			return {"ok": true, "events": [{"type": "shield", "index": -1, "x": run.x, "y": run.y}]}
 		"expedition_cheat_encounter":
 			if run == null or run.paused or run.passage != null: return {"ok": false, "reason": "not_travelling"}
@@ -398,7 +418,8 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 	var rules := definition()
 	var path := run_route(run)
 	var reach := float(rules.ship_radius)
-	var radius := float(rules.pickup_radius)
+	# The Collector's reach: salvage within it is drawn in (base reach is the pickup radius).
+	var radius := maxf(float(rules.pickup_radius), float(gear(run).collector))
 	var per := int(rules.salvage_per_pickup)
 	# Sub-steps keep a frame hitch from tunnelling through a one-cell rock.
 	var remaining := elapsed
@@ -411,7 +432,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			# Safe ride: the passage current carries the ship along the channel
 			# centre; steering has no effect and nothing damages the hull.
 			var ride: Dictionary = run.passage
-			var info := passage(int(run.seed), int(ride.portal))
+			var info := passage(int(run.seed), int(ride.portal), int(gear(run).passage))
 			ride.y = float(ride.y) - float(rules.passage_forward_rows_per_second) * dt
 			ride.x = passage_centre(info, float(ride.y))
 			run.vx = 0.0
@@ -458,7 +479,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			if i in run.shields_taken or float(run.y) <= float(path.encounter_edge) + 0.5: continue
 			if absf(b.x - float(run.x)) <= float(rules.shield_radius) and absf(b.y - float(run.y)) <= float(rules.shield_radius):
 				run.shields_taken.append(i)
-				set_shield(store, float(rules.shield_seconds))
+				set_shield(store, float(gear(run).shield))
 				events.append({"type": "shield", "index": i, "x": b.x, "y": b.y})
 		for i in range(path.portals.size()):
 			var portal: Dictionary = path.portals[i]
@@ -467,7 +488,7 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				# Entering spends the portal first, so a save can never repeat it.
 				run.portals_used.append(i)
 				set_shield(store, 0.0); run.vx = 0.0
-				var info := passage(int(run.seed), i)
+				var info := passage(int(run.seed), i, int(gear(run).passage))
 				var start_y := float(info.rows_count) - float(rules.passage_ride_rows)
 				run.passage = {"portal": i, "y": start_y, "x": passage_centre(info, start_y), "collected": []}
 				events.append({"type": "passage_enter", "portal": i, "from_x": portal.x, "from_y": portal.y, "x": run.passage.x, "y": start_y})
@@ -552,7 +573,7 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 	if encounter.state == "hooked":
 		# Pursuit: resistance is the creature's health and only drains.
 		encounter.chase_t = float(encounter.chase_t) + dt
-		encounter.resistance = maxf(0.0, float(encounter.resistance) - float(rules.resistance_drain_per_second) * dt)
+		encounter.resistance = maxf(0.0, float(encounter.resistance) - float(rules.resistance_drain_per_second) * float(gear(run).harpoon) * dt)
 		# It weaves, but holds over its strip while discharging (#25).
 		var weave := Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
 		var strike = encounter.get("discharge")
@@ -783,7 +804,8 @@ static func valid(state: Dictionary) -> bool:
 		if absf(float(run.get("steer", 0.0))) > 1.0: return false
 		if not _integer(run.get("id")) or not _integer(run.get("seed")) or int(run.seed) < 1 or not _integer(run.get("salvage")) or not _integer(run.get("impacts")): return false
 		if not run.get("paused") is bool or not run.get("collected") is Array: return false
-		if float(run.hull) <= 0.0 or float(run.hull) > float(definition().hull_max): return false
+		if run.has("gear") and not _gear_valid(run.gear): return false
+		if float(run.hull) <= 0.0 or float(run.hull) > float(gear(run).hull): return false
 		if not _features_valid(run): return false
 		if not _encounter_valid(run): return false
 		var pickups: int = run_route(run).pickups.size()
@@ -815,6 +837,10 @@ static func normalize(state: Dictionary) -> void:
 		run.route_version = int(run.route_version)
 		if run.has("shield"): run.shield = float(run.shield)
 		run.passage_pickups = int(run.get("passage_pickups", 0))
+		if run.get("gear") is Dictionary:
+			for id in run.gear.tiers: run.gear.tiers[id] = int(run.gear.tiers[id])
+			for id in run.gear:
+				if id != "tiers": run.gear[id] = float(run.gear[id])
 		for field in ["shields_taken", "portals_used"]: run[field] = run.get(field, []).map(func(i): return int(i))
 		if run.get("passage") is Dictionary:
 			run.passage.portal = int(run.passage.portal); run.passage.y = float(run.passage.y); run.passage.x = float(run.passage.x)
@@ -837,12 +863,21 @@ static func normalize(state: Dictionary) -> void:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
 			if data.result.has(field): data.result[field] = int(data.result[field])
 
+## A saved gear copy must be one the Workshop can produce.
+static func _gear_valid(value) -> bool:
+	if not value is Dictionary or not value.get("tiers") is Dictionary: return false
+	for entry in WorkshopBook.tracks():
+		if not _finite(value.get(entry.id)): return false
+		if not float(value[entry.id]) in entry.levels.map(func(v): return float(v)): return false
+	return true
+
 ## Issue #22 run fields: spent shields
 ## and portals, and the passage ride, which must belong to a spent portal.
 static func _features_valid(run: Dictionary) -> bool:
 	var rules := definition()
 	if not _integer(run.get("route_version")) or int(run.route_version) != int(rules.route_version): return false
-	if not _finite(run.get("shield", 0.0)) or float(run.get("shield", 0.0)) < 0.0 or float(run.get("shield", 0.0)) > float(rules.shield_seconds): return false
+	var longest := maxf(float(gear(run).shield), float(gear(run).launch))
+	if not _finite(run.get("shield", 0.0)) or float(run.get("shield", 0.0)) < 0.0 or float(run.get("shield", 0.0)) > longest + 0.001: return false
 	if not _integer(run.get("passage_pickups", 0)): return false
 	var path := run_route(run)
 	if not _unique_indices(run.get("shields_taken", []), path.shields.size()) or not _unique_indices(run.get("portals_used", []), path.portals.size()): return false
@@ -850,7 +885,7 @@ static func _features_valid(run: Dictionary) -> bool:
 	if ride != null:
 		if not ride is Dictionary or not _integer(ride.get("portal")) or not _finite(ride.get("y")) or not _finite(ride.get("x")): return false
 		if int(ride.portal) >= path.portals.size() or not run.get("portals_used", []).any(func(i): return int(i) == int(ride.portal)): return false
-		if not _unique_indices(ride.get("collected"), passage(int(run.seed), int(ride.portal)).pickups.size()): return false
+		if not _unique_indices(ride.get("collected"), passage(int(run.seed), int(ride.portal), int(gear(run).passage)).pickups.size()): return false
 	return true
 
 ## Issue #23 encounter (optional; null until the window opens). A hook needs

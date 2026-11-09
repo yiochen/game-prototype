@@ -1,0 +1,48 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Use case: single game prop sprite with transparent background (chroma key).\nImage 1 is the STYLE AND PROJECTION REFERENCE: soft clean low-poly 3D toy-like models, smooth matte materials, gentle ambient light, no ink outlines, seen top-down with front faces slightly visible.\nImage 2 is a SIZE REFERENCE: the yellow submarine (seen from above, nose pointing up) that will rest on this cradle. Do NOT draw the submarine.\nPrimary request: an EMPTY submarine maintenance cradle seen from above in the same camera as image 1: a low rectangular steel-and-wood frame on the floor, two padded wooden chocks/saddles running front-to-back where the hull would rest, small steel corner feet with bolts, a thin yellow-and-navy hazard stripe trim around the base. Taller than wide (about 3:4), symmetric left/right, centred, sized so the submarine of image 2 would sit inside it with a little margin.\nBackground: perfectly flat solid #00FF00 green, no shadow cast onto the background, no floor, no ground plane.\nConstraints: nothing resting on it, no submarine, no text, no characters.",
+  "out": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/cradle-v1.png",
+  "raw": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/cradle-v1.png.raw.png",
+  "raw_bytes": 838558,
+  "elapsed_seconds": 48.018,
+  "model": "gpt-5.6-sol",
+  "session_id": "01a1bcac-8b42-7ce0-ad34-e0c5a72a67dc",
+  "refs": [
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/refs/restaurant-style.png",
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/refs/submarine-size.png"
+  ],
+  "transparent": true,
+  "alpha": {
+    "strategy": "chroma",
+    "strategy_source": "refs-attached",
+    "out": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/cradle-v1.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1086x1448",
+    "key": "magenta",
+    "keyed_pixels": 616459,
+    "fringe_pixels": 5,
+    "cleaned_transparent_rgb_pixels": 409243,
+    "alpha_zero_pct": 99.15,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "chroma": {
+    "out": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/workshop-preview/room/cradle-v1.png",
+    "mode": "RGBA",
+    "method": "ycbcr",
+    "size": "1086x1448",
+    "key": "magenta",
+    "keyed_pixels": 616459,
+    "fringe_pixels": 5,
+    "cleaned_transparent_rgb_pixels": 409243,
+    "alpha_zero_pct": 99.15,
+    "stale_transparent_rgb_pixels": 0
+  },
+  "extra": {
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": null
+  },
+  "provider_resolved_from": "explicit"
+}

@@ -1,0 +1,67 @@
+{
+  "issue": 28,
+  "provider": "codex image_gen via sprite-gen gen",
+  "model_flag": "gpt-5.6-sol (config default gpt-6.1-sol is not available to the ChatGPT login)",
+  "outputs": [
+    {
+      "file": "room/room-v1.png",
+      "raw": "room/room-v1.png.raw.png",
+      "prompt": "room/room-prompt.txt",
+      "refs": {
+        "room/refs/restaurant-style.png": "3f2cb7c76ad4cae2ed55874af75379f25beff5a7bcb3ceb3a7573ad081419070",
+        "room/refs/concept-composition.png": "e8a27f0e92ad7f29742971ed23841827d0638aefa51af0c9e4afe883fcf76bfc"
+      },
+      "status": "superseded: painted hazard square fixed the ship position"
+    },
+    {
+      "file": "room/room-v2.png",
+      "raw": "room/room-v2.png.raw.png",
+      "prompt": "room/room-v2-prompt.txt",
+      "refs": {
+        "room/room-v1.png": "99daf30685309f40e6c41b760f7ceec61ad7b74a4e9ab163b617503d7bd707f5"
+      },
+      "runtime": "assets/workshop-room.webp",
+      "status": "used",
+      "sha256": "7459e9e263d2f0c70abc3db5ebe4158a8767af2fabe9dfcc617ba26b97f2c200"
+    },
+    {
+      "file": "room/cradle-v1.png",
+      "prompt": "room/cradle-prompt.txt",
+      "status": "rejected: chroma key erased the object"
+    },
+    {
+      "file": "room/cradle-v2.png",
+      "raw": "room/cradle-v2.png.raw.png",
+      "prompt": "room/cradle-prompt-v2.txt",
+      "refs": {},
+      "runtime": "assets/workshop-cradle.png",
+      "runtime_crop": [
+        0,
+        33,
+        1024,
+        1536
+      ],
+      "status": "used",
+      "sha256": "e26710d4702203759107c3bec5d17f6b80c36c7b40c781b64849f8a817ea193d"
+    }
+  ],
+  "room_anchors_px": {
+    "size": [
+      853,
+      1844
+    ],
+    "doorway": [
+      45,
+      290,
+      210,
+      530
+    ],
+    "sign": [
+      283,
+      323,
+      547,
+      420
+    ],
+    "wall_bottom": 540
+  }
+}

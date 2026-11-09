@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Workshop</title>
+</head>
+<body>
+<div class="review">
+  <header class="review-bar">
+    <h1>Workshop equipment · #28</h1>
+    <label>View <select id="state" aria-label="Review state">
+      <option value="restaurant">Restaurant · dock</option>
+      <option value="edit">Restaurant · Edit inventory tabs</option>
+      <option value="workshop">Workshop</option>
+      <option value="unaffordable">Workshop · not enough salvage</option>
+      <option value="max">Workshop · MAX</option>
+      <option value="dive">Dive · equipment in play</option>
+      <option value="gallery">Shared components</option>
+    </select></label>
+    <label class="screen-pick">Screen <select id="screen" aria-label="Screen shape">
+      <option value="fill">Fill window</option>
+      <option value="9/16">9:16</option>
+      <option value="9/19.5" selected>9:19.5</option>
+      <option value="9/21">9:21</option>
+      <option value="2/3">2:3</option>
+      <option value="3/4">3:4 tablet</option>
+    </select></label>
+    <button type="button" id="reset">Reset</button>
+    <button type="button" id="earn" aria-label="Add 100 salvage">+100 <img src="./assets/salvage.png" alt="" width="18" style="vertical-align:-3px"></button>
+  </header>
+  <div class="review-body">
+    <main class="stage" id="stage">
+      <div class="phone" id="phone"></div>
+    </main>
+    <aside class="notes" id="notes" aria-live="polite"></aside>
+  </div>
+</div>
+<!-- Interactable world art: the approved #61 cyan outline + glow (design/cash-preview), one shared filter. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="outline" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="discrete" tableValues="0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"/></feComponentTransfer>
+    <feMorphology in="solid" operator="dilate" radius="2.5" result="grown"/>
+    <feFlood flood-color="#19e3ff" result="paint"/>
+    <feComposite in="paint" in2="grown" operator="in" result="ring"/>
+    <feGaussianBlur in="ring" stdDeviation="3" result="halo"/>
+    <feComponentTransfer in="halo" result="glow"><feFuncA type="linear" slope="0.9"/></feComponentTransfer>
+    <feMerge result="outer"><feMergeNode in="glow"/><feMergeNode in="ring"/></feMerge>
+    <feComposite in="outer" in2="solid" operator="out" result="outside"/>
+    <feMerge><feMergeNode in="outside"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</svg>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

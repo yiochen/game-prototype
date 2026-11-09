@@ -26,6 +26,11 @@ const Art = preload("res://scripts/expedition/feature_art.gd")
 const Harpoon = preload("res://scripts/expedition/harpoon_art.gd")
 const CreatureView = preload("res://scripts/expedition/creature_view.gd")
 const DischargeArt = preload("res://scripts/expedition/discharge_art.gd")
+const ShipArt = preload("res://scripts/ship_art.gd")
+const WorkshopBook = preload("res://scripts/workshop_book.gd")
+## The ImageGen ship (#28): hull 1.04 cells tall, centred 0.21 cells above the ship root.
+const SHIP_HULL_CELLS := 1.04
+const SHIP_HULL_LIFT := 0.21
 
 signal steered(input: float)
 signal pressed_down
@@ -38,6 +43,9 @@ var by_row: Array = []
 var worlds: Dictionary = {}
 var world: Dictionary = {}
 var run_state: Dictionary = {}
+## The current shield's starting length, so its rim drains from full whether it
+## came from a pickup or the launch (presentation only).
+var _shield_peak := 0.0
 ## Arrows dim while the passage current steers.
 var controls_disabled := false
 const MAX_TILT := 0.3
@@ -158,10 +166,10 @@ func _main_world(seed_value: int) -> Dictionary:
 		worlds[key] = w
 	return worlds[key]
 
-func _passage_world(seed_value: int, portal: int) -> Dictionary:
-	var key := "passage:%d:%d" % [seed_value, portal]
+func _passage_world(seed_value: int, portal: int, rows: int) -> Dictionary:
+	var key := "passage:%d:%d:%d" % [seed_value, portal, rows]
 	if not worlds.has(key):
-		var info := Book.passage(seed_value, portal)
+		var info := Book.passage(seed_value, portal, rows)
 		var w := _make_world(info.rows, seed_value * 7 + portal + 11, "passage")
 		w.info = info
 		w.flow = Art.flow_lines(info.rows.size(), seed_value + portal)
@@ -204,7 +212,7 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	var ride = run.get("passage")
 	var target := main
 	if ride is Dictionary:
-		target = _passage_world(int(run.seed), int(ride.portal))
+		target = _passage_world(int(run.seed), int(ride.portal), int(Book.gear(run).passage))
 		target.collected = _index_set(ride.collected)
 		ship = Vector2(float(ride.x), float(ride.y))
 	else:
@@ -369,8 +377,11 @@ func _release_burst() -> void:
 	for i in range(6): _bubble_at(at.x + _rng.randf_range(-.15, .15), at.y, _rng.randf_range(-.5, .5), -.4 - _rng.randf() * .4, .03 + _rng.randf() * .03, 1.0, .5)
 
 ## Where the ship's harpoon leaves the hull (view coordinates).
+## The rope leaves from the hull's nose hatch (#28 ImageGen hull).
 func muzzle() -> Vector2:
-	return _origin() + (_shown_ship() - Vector2(0, float(Book.definition().encounter.nose_rows))) * _cell()
+	var cell := _cell()
+	var centre := _origin() + _shown_ship() * cell - Vector2(0, cell * SHIP_HULL_LIFT)
+	return centre + ShipArt.nose_offset(cell * SHIP_HULL_CELLS, Book.gear(run_state).tiers)
 
 ## The pinned harpoon on the creature (view coordinates).
 func hook_point() -> Vector2:
@@ -630,6 +641,8 @@ func _draw_harpoon(cell: float) -> void:
 	if not encounter is Dictionary or not encounter.harpoon is Dictionary or world.get("kind") != "main": return
 	var shot: Dictionary = encounter.harpoon
 	var nose := muzzle()
+	var tier := int(Book.gear(run_state).tiers.get("harpoon", 1))
+	var reach := cell * Harpoon.length(tier)
 	var rules: Dictionary = Book.definition().encounter
 	if shot.state == "attached":
 		if escape_t >= 0.0:
@@ -637,7 +650,7 @@ func _draw_harpoon(cell: float) -> void:
 			var fade := maxf(0.0, 1.0 - escape_t / .9)
 			if fade <= 0.0 or not _creature_shown: return
 			var mid := nose.lerp(hook_point(), .5) + Vector2(-cell * .6 * escape_t, cell * 2.0 * escape_t)
-			Harpoon.rope(self, nose, mid, cell, .9, time, fade)
+			Harpoon.rope(self, nose, mid, cell, .9, time, fade, tier)
 			return
 		if not _creature_shown: return
 		var pin := hook_point()
@@ -647,13 +660,13 @@ func _draw_harpoon(cell: float) -> void:
 			if k >= 1.0: return
 			var at := pin.lerp(nose, smoothstep(0.0, 1.0, k))
 			var away := (at - nose).angle()
-			var tail := at - Vector2.from_angle(away) * cell * .95
-			if tail.distance_to(nose) > 2.0: Harpoon.rope(self, nose, tail, cell, .5 * (1.0 - k), time)
-			Harpoon.harpoon(self, at, away, cell, k > 0.0)
+			var tail := at - Vector2.from_angle(away) * reach
+			if tail.distance_to(nose) > 2.0: Harpoon.rope(self, nose, tail, cell, .5 * (1.0 - k), time, 1.0, tier)
+			Harpoon.harpoon(self, at, away, cell, k > 0.0, tier)
 			return
 		var angle := (pin - nose).angle()
-		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * cell * .95, cell, .06, time)
-		Harpoon.harpoon(self, pin, angle, cell, false)
+		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * reach, cell, .06, time, 1.0, tier)
+		Harpoon.harpoon(self, pin, angle, cell, false, tier)
 		if _hooked_at >= 0.0: Harpoon.hook_ring(self, pin, cell, time - _hooked_at)
 		return
 	var o := _origin()
@@ -662,9 +675,9 @@ func _draw_harpoon(cell: float) -> void:
 	var x := float(shot.x) if shot.state == "flying" else lerpf(_shown_ship().x, float(shot.x), clampf(d / float(rules.harpoon_range_rows), 0.0, 1.0))
 	var tip := o + Vector2(x, _shown_ship().y - float(rules.nose_rows) - d) * cell
 	var angle := -PI / 2 if shot.state == "flying" else (tip - nose).angle()
-	var tail := tip - Vector2.from_angle(angle) * cell * .95
-	Harpoon.rope(self, nose, tail, cell, .35 if shot.state == "flying" else .9, time)
-	Harpoon.harpoon(self, tip, angle, cell)
+	var tail := tip - Vector2.from_angle(angle) * reach
+	Harpoon.rope(self, nose, tail, cell, .35 if shot.state == "flying" else .9, time, 1.0, tier)
+	Harpoon.harpoon(self, tip, angle, cell, true, tier)
 
 ## Portals (whirlpool under the stone ring), passage end whirlpools, the rejoin
 ## outflow, current flow lines and the passage's forward flow.
@@ -678,7 +691,7 @@ func _draw_features(o: Vector2, cell: float, top: int, bottom: int) -> void:
 			# Until the iris closes on entry, the portal still looks open.
 			var spent: bool = i in used and not (not _tr.is_empty() and not _tr.switched and _tr.kind == "enter")
 			var at := o + Vector2(float(portal.x), float(portal.y)) * cell
-			Art.portal_pool(self, at, cell, t, spent)
+			Art.portal_pool(self, at, cell, t, spent, WorkshopBook.tier_color(int(Book.gear(run_state).tiers.get("passage", 1))))
 			piece("portal-ring", "S", at, cell, 0, 0.0, true)
 		if not _outflow.is_empty():
 			Art.swirl(self, o + _outflow.p * cell, cell * .45 * (1.0 - float(_outflow.t)), -t, 1.0 - float(_outflow.t))
@@ -689,7 +702,7 @@ func _draw_features(o: Vector2, cell: float, top: int, bottom: int) -> void:
 		var ride := float(Book.definition().passage_ride_rows)
 		Art.swirl(self, o + Vector2(Book.passage_centre(info, rows - ride), rows - ride) * cell, cell * .45, t)
 		Art.swirl(self, o + Vector2(Book.passage_centre(info, ride), ride) * cell, cell * .45, -t)
-		Art.draw_flow(self, world.flow, info, func(y): return Book.passage_centre(info, y), o, cell, t, float(Book.definition().passage_forward_rows_per_second) * 1.7, top, bottom)
+		Art.draw_flow(self, world.flow, info, func(y): return Book.passage_centre(info, y), o, cell, t, float(Book.definition().passage_forward_rows_per_second) * 1.7, top, bottom, WorkshopBook.tier_color(int(Book.gear(run_state).tiers.get("passage", 1))))
 
 ## Ship size through a whirlpool: it spins down into the first and rises out of the next.
 func _ship_scale() -> float:
@@ -762,10 +775,14 @@ func _draw_ship(o: Vector2, cell: float) -> void:
 	if not reduced_motion: spin += sin(_hurt * 26.0) * _hurt * _hurt * .35
 	draw_set_transform_matrix(Transform2D(spin, Vector2(shrink, shrink), 0.0, pivot) * Transform2D(0.0, -pivot))
 	var red := _hurt * _hurt
-	piece("submarine-yellow", "S", root, cell, 1 if hurt else 0, 0.0, true, 1.0, alpha, Color(1, 1 - .55 * red, 1 - .6 * red))
+	var tiers: Dictionary = Book.gear(run_state).tiers
+	ShipArt.draw(self, root - Vector2(0, cell * SHIP_HULL_LIFT), cell * SHIP_HULL_CELLS, tiers, Color(1, 1 - .55 * red, 1 - .6 * red, alpha))
 	draw_set_transform(Vector2.ZERO)
+	var shield_left := float(run_state.get("shield", 0.0))
+	if shield_left <= 0.0: _shield_peak = 0.0
+	elif shield_left > _shield_peak: _shield_peak = shield_left
 	if _shielded() and _tr.is_empty():
-		Art.shield_bubble(self, root, cell, float(run_state.shield) / float(Book.definition().shield_seconds), time, _bump)
+		Art.shield_bubble(self, root, cell, shield_left / maxf(_shield_peak, 0.001), time, _bump, WorkshopBook.tier_color(int(tiers.get("shield", 1))))
 
 func _draw_particles(o: Vector2, cell: float) -> void:
 	for p in particles:

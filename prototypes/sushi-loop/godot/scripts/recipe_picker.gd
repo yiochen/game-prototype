@@ -11,6 +11,7 @@ const Dismissal = preload("res://scripts/chef_dismissal.gd")
 const Dev = preload("res://scripts/chef_development.gd")
 const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
 const INK := Color("592c10")
+const GameButton = preload("res://scripts/game_button.gd")
 signal inspected(chef_id: String, recipe_id: String)
 signal prepared(chef_id: String, recipe_id: String)
 signal closed
@@ -54,7 +55,7 @@ var detail_price: Label
 var detail_coin: TextureRect
 var detail_time: Label
 var detail_requirement: Label
-var prepare_button: Button
+var prepare_button: GameButton
 var preparing_label: Label
 var waves: Control
 var tiles: Dictionary = {}
@@ -148,7 +149,8 @@ func _ready() -> void:
 	detail_time = _label(details)
 	detail_time.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail_requirement = _label(details)
-	prepare_button = _button("Prepare", "Prepare selected recipe", details)
+	prepare_button = GameButton.new();prepare_button.text = "Prepare";prepare_button.accessibility_name = "Prepare selected recipe"
+	prepare_button.tone = GameButton.Tone.PRIMARY;prepare_button.radius = 999;details.add_child(prepare_button)
 	prepare_button.pressed.connect(func():
 		if tab=="recipes" and prepare_button.is_visible_in_tree() and not prepare_button.disabled and not dismissal.visible: prepared.emit(chef_id, selected))
 	preparing_label = _label(details)
@@ -206,7 +208,7 @@ func open(state: Dictionary, id: String) -> void:
 	manage_view.refresh(state,actor)
 	layout(area, safe_top)
 	close_button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	close_button.grab_focus()
+	close_button.grab_focus(true)
 	if not selected.is_empty():
 		inspected.emit(chef_id, selected)
 		call_deferred("_reveal_selected")
@@ -303,6 +305,10 @@ func _rebuild() -> void:
 		badge.add_theme_stylebox_override("normal", backing)
 		tiles[id] = {"button":tile, "dish":dish, "name":name_label, "price":price, "coin":coin, "badge":badge}
 	layout(area, safe_top)
+
+## Prepare is the shared primary button; this popup lays out in 720-wide units.
+func _fit_prepare(caption: float) -> void:
+	prepare_button.caption_px = caption;prepare_button.fit(unit*720.0/390.0,get_viewport_transform().get_scale().x)
 
 func _flat(color: Color, radius: float) -> StyleBoxFlat:
 	var result := StyleBoxFlat.new()
@@ -453,11 +459,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		_text(detail_time, Rect2(32, 124, 608, 90), 23)
 	prepare_button.position = Vector2(32, 260)*unit
 	prepare_button.size = Vector2(reference_width-64, 100)*unit
-	prepare_button.add_theme_font_size_override("font_size", int(35*unit))
-	for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]: prepare_button.add_theme_color_override(key, Color("fff9e9"))
-	for treatment in ["normal", "hover", "pressed", "disabled"]:
-		prepare_button.add_theme_stylebox_override(treatment, wood.style("hud-cream-normal" if treatment == "disabled" else "hud-live-pressed" if treatment == "pressed" else "hud-live-normal", unit))
-	prepare_button.add_theme_stylebox_override("focus", focus)
+	_fit_prepare(19.0)
 	_text(preparing_label, Rect2(32, 260, 608, 100), 28)
 	waves.position = Vector2(4, footer-32)*unit
 	waves.size = Vector2(reference_width-8, 24)*unit
@@ -468,7 +470,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		_text(detail_price,Rect2(254,62,reference_width-510,36),28);detail_coin.position=Vector2(210,65)*unit
 		_text(detail_time,Rect2(210,110,reference_width-480,42),22)
 		_text(detail_requirement,Rect2(210,158,reference_width-480,30),21)
-		prepare_button.position=Vector2(reference_width-244,54)*unit;prepare_button.size=Vector2(216,92)*unit
+		prepare_button.position=Vector2(reference_width-244,54)*unit;prepare_button.size=Vector2(216,92)*unit;_fit_prepare(16.0)
 		_text(preparing_label,Rect2(reference_width-250,54,222,92),23)
 		if selected.is_empty():
 			_text(detail_name,Rect2(30,16,reference_width-300,60),30);_text(detail_time,Rect2(30,80,reference_width-300,64),22)

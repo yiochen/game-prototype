@@ -1,0 +1,14 @@
+{
+	"_comment": "Workshop (#28) balance. levels[i] is the value at level i+1; costs[i] buys level i+2 (salvage). looks are the levels where the part's look tier changes (whole-sprite swap for equipment, colour for power-ups). Values are used by expedition rules; players never see raw units.",
+	"tracks": [
+		{"id": "hull", "group": "equipment", "levels": [100, 125, 150, 175, 200], "costs": [60, 110, 170, 240], "looks": [3, 5]},
+		{"id": "harpoon", "group": "equipment", "levels": [1.0, 1.2, 1.4, 1.6, 1.8], "costs": [70, 120, 180, 260], "looks": [3, 5]},
+		{"id": "collector", "group": "equipment", "levels": [0.6, 0.9, 1.2, 1.5], "costs": [50, 95, 150], "looks": [3, 4]},
+		{"id": "shield", "group": "powerup", "levels": [3.5, 4.25, 5.0, 5.75, 6.5], "costs": [80, 130, 190, 260], "looks": [3, 5]},
+		{"id": "passage", "group": "powerup", "levels": [28, 34, 40, 46], "costs": [90, 150, 230], "looks": [3, 4]},
+		{"id": "launch", "group": "powerup", "levels": [0.0, 1.5, 2.5, 3.5], "costs": [100, 170, 260], "looks": [2, 4]}
+	],
+	"tier_colors": ["#e8fdff", "#c39bff", "#ffd552"],
+	"signal": {"good": "#b4ff2e", "bad": "#ff3b3b"},
+	"interactable_outline": "#19e3ff"
+}

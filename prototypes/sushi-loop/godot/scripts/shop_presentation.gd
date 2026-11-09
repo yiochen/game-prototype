@@ -8,6 +8,7 @@ const Typography = preload("res://scripts/typography.gd")
 const EditorUI = preload("res://scripts/editor_presentation.gd")
 const ArtBook = preload("res://scripts/art_book.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
+const GameButton = preload("res://scripts/game_button.gd")
 const INK := Color("592c10")
 signal purchase_requested(request: Dictionary, source: Rect2)
 signal closed
@@ -23,6 +24,7 @@ var interaction_blocked := false
 var panel: Panel
 var face: TextureRect
 var catalog_backing: Panel
+var catalog_shade: ColorRect
 var catalog: ScrollContainer
 var content: VBoxContainer
 var heading: Label
@@ -72,6 +74,7 @@ func _ready() -> void:
 	catalog_backing.mouse_filter = Control.MOUSE_FILTER_STOP
 	catalog_backing.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
 	panel.add_child(catalog_backing)
+	catalog_shade = PopupSkin.inner_shadow(catalog_backing)
 	catalog = ScrollContainer.new()
 	catalog.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	catalog.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
@@ -131,7 +134,7 @@ func open(value: Dictionary) -> bool:
 	catalog.scroll_vertical = 0
 	refresh(value)
 	layout(area,safe_top)
-	close_button.grab_focus()
+	close_button.grab_focus(true)
 	return true
 
 func _build_rows() -> void:
@@ -155,23 +158,14 @@ func _build_rows() -> void:
 		description.text = offer.description
 		description.add_theme_color_override("font_color",Color("866347"))
 		var stock := _label(row);stock.add_theme_color_override("font_color",Color("80613c"))
-		var buy := _button(str(int(offer.cost)),"Buy %s for %s coins" % [offer.name,int(offer.cost)],row)
-		buy.icon = coin.texture;buy.expand_icon = true;buy.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		var buy := GameButton.new();buy.tone = GameButton.Tone.MAPLE;buy.radius = 40.0;buy.caption_px = 30.0
+		buy.text = str(int(offer.cost));buy.cost = buy.text;buy.captioned = false;buy.cost_icon = coin.texture
+		buy.accessibility_name = "Buy %s for %s coins" % [offer.name,int(offer.cost)];row.add_child(buy)
 		buy.pressed.connect(func(): _request(str(offer.id)))
-		buy.self_modulate.a = 0
-		var visual := Control.new();visual.mouse_filter = Control.MOUSE_FILTER_IGNORE;buy.add_child(visual)
-		var surface := Panel.new();surface.mouse_filter = Control.MOUSE_FILTER_IGNORE;visual.add_child(surface)
-		var cost_face := PopupSkin.make_face(visual,wood.texture("wood-grain"))
-		var cost_coin := _image(visual,coin.texture)
-		var cost_label := _label(visual);cost_label.text = str(int(offer.cost))
-		buy.button_down.connect(func(): _price_visual(str(offer.id),true))
-		buy.button_up.connect(func(): _price_visual(str(offer.id),false))
-		buy.focus_entered.connect(func(): _price_visual(str(offer.id)))
-		buy.focus_exited.connect(func(): _price_visual(str(offer.id)))
 		var owned := _label(row);owned.text="Owned";owned.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		var line := ColorRect.new();line.color = Color(.65,.47,.28,.20);line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(line)
-		rows[offer.id] = {"row":row,"preview":preview,"name":name_label,"description":description,"stock":stock,"buy":buy,"face":cost_face,"visual":visual,"surface":surface,"cost_coin":cost_coin,"cost_label":cost_label,"line":line,"offer":offer,"owned":owned}
+		rows[offer.id] = {"row":row,"preview":preview,"name":name_label,"description":description,"stock":stock,"buy":buy,"line":line,"offer":offer,"owned":owned}
 
 func refresh(value: Dictionary) -> void:
 	if not visible: return
@@ -191,7 +185,6 @@ func refresh(value: Dictionary) -> void:
 		row.owned.visible = offer.get("owned",false)
 		row.buy.visible = not offer.get("owned",false)
 		row.buy.disabled = interaction_blocked or offer.get("owned",false) or sold or int(value.coins) < int(offer.cost)
-		_price_visual(str(offer.id))
 		row.buy.accessibility_description = "Sold out" if sold else "Not enough coins" if int(value.coins) < int(offer.cost) else "Upgrades the tip jar" if offer.kind=="tip_upgrade" else "Adds one to inventory"
 		row.preview.modulate.a = .45 if sold else 1.0
 	close_button.disabled = interaction_blocked
@@ -240,6 +233,7 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	catalog_backing.position = Vector2(16,header)*unit
 	catalog_backing.size = Vector2(reference_width-32,maxf(60,panel.size.y/unit-header-footer))*unit
 	catalog_backing.add_theme_stylebox_override("panel",PopupSkin.flat(Color("fff3db"),32*unit))
+	PopupSkin.layout_inner_shadow(catalog_shade,Rect2(Vector2.ZERO,catalog_backing.size),32*unit,unit)
 	catalog.position = Vector2(20,0)*unit
 	catalog.size = Vector2(catalog_backing.size.x-40*unit,catalog_backing.size.y)
 	var row_width := catalog.size.x/unit
@@ -251,22 +245,11 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		_text(row.name,Rect2(146,35,row_width-304,48),32)
 		_text(row.description,Rect2(146,86,row_width-304,62),21)
 		_text(row.stock,Rect2(146,153,row_width-304,36),21)
-		row.buy.custom_minimum_size = Vector2.ONE*44.01/physical
-		row.buy.add_theme_font_size_override("font_size",maxi(1,int(30*unit)))
-		row.buy.add_theme_constant_override("icon_max_width",maxi(1,int(34*unit)))
-		row.buy.add_theme_constant_override("h_separation",maxi(1,int(6*unit)))
-		row.buy.position = Vector2(row_width-136,78)*unit;row.buy.size = Vector2(136,90)*unit
+		row.buy.position = Vector2(row_width-136,78)*unit;row.buy.size = Vector2(136,90)*unit;row.buy.fit(unit,physical)
 		_text(row.owned,Rect2(row_width-136,78,136,90),27)
-		_price_visual(str(id))
-		for treatment in ["normal","hover","pressed","disabled","focus"]:row.buy.add_theme_stylebox_override(treatment,StyleBoxEmpty.new())
 		row.line.position = Vector2(0,229)*unit;row.line.size = Vector2(row_width,maxf(1,unit))
-	bag_button.custom_minimum_size = Vector2.ONE*44.01/physical
-	bag_button.size = Vector2(114,114)*unit
+	PopupSkin.round_button(bag_button,unit,physical,114)
 	bag_button.position = Vector2(panel.size.x-144*unit,panel.size.y-138*unit)
-	for treatment in ["normal","hover","pressed","disabled"]:
-		var style := PopupSkin.flat(Color("f5d39e") if treatment == "pressed" else Color("ffe8bc"),57*unit)
-		style.shadow_color = Color(.45,.25,.08,.18);style.shadow_size = int(5*unit);style.shadow_offset = Vector2(0,4)*unit
-		bag_button.add_theme_stylebox_override(treatment,style)
 	bag_icon.position = bag_button.size*.25;bag_icon.size = bag_button.size*.5
 	waves.position = Vector2(32*unit,panel.size.y-64*unit);waves.size = Vector2(panel.size.x-212*unit,36*unit);waves.queue_redraw()
 
@@ -319,7 +302,7 @@ func cancel_interactions() -> void:
 	if bag_icon != null: bag_icon.scale = Vector2.ONE;bag_icon.modulate.a = 1
 	var buttons: Array = [close_button,bag_button]
 	for row in rows.values():
-		_price_visual(str(row.offer.id),false)
+		row.buy.release()
 		buttons.append(row.buy)
 	for button in buttons:
 		if not is_instance_valid(button): continue
@@ -337,18 +320,18 @@ func _input(event: InputEvent) -> void:
 		touch_index = event.index;touch_origin = event.position;touch_scroll = catalog.scroll_vertical;touch_dragged = false;touch_offer = ""
 		for id in rows:
 			if rows[id].buy.get_global_rect().has_point(event.position) and not rows[id].buy.disabled:
-				touch_offer = id;rows[id].buy.set_pressed_no_signal(true);_price_visual(str(id),true);break
+				touch_offer = id;rows[id].buy.hold(true);break
 		get_viewport().set_input_as_handled()
 	elif event is InputEventScreenDrag and event.index == touch_index:
 		var delta: Vector2 = event.position-touch_origin
 		if delta.length()>10/maxf(.001,get_viewport_transform().get_scale().x): touch_dragged = true
 		if touch_dragged:
 			catalog.scroll_vertical = touch_scroll-int(delta.y)
-			if rows.has(touch_offer): rows[touch_offer].buy.set_pressed_no_signal(false);_price_visual(touch_offer,false)
+			if rows.has(touch_offer): rows[touch_offer].buy.release()
 		get_viewport().set_input_as_handled()
 	elif event is InputEventScreenTouch and not event.pressed and event.index == touch_index:
 		var id := touch_offer;var dragged := touch_dragged;touch_index = -1;touch_offer = ""
-		if rows.has(id): rows[id].buy.set_pressed_no_signal(false);_price_visual(str(id),false)
+		if rows.has(id): rows[id].buy.release()
 		if not event.canceled and not dragged and rows.has(id) and rows[id].buy.get_global_rect().has_point(event.position) and catalog.get_global_rect().has_point(event.position): _request(id)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventKey and event.pressed:
@@ -371,28 +354,3 @@ func _prune_tweens() -> void:
 func _exit_tree() -> void:
 	cancel_interactions()
 
-func _price_visual(id: String, pressed := false) -> void:
-	if not rows.has(id): return
-	var row: Dictionary = rows[id]
-	var disabled: bool = row.buy.disabled
-	row.visual.position = Vector2(0,2*unit if pressed and not disabled else 0)
-	row.visual.size = row.buy.size;row.surface.size = row.buy.size
-	var surface := PopupSkin.flat(Color("e8d8b9") if disabled else Color("ffdda3"),40*unit)
-	surface.border_color = Color("c9b595") if disabled else Color("d49b5e")
-	surface.set_border_width_all(maxi(1,int(unit)))
-	surface.shadow_color = Color("baa486") if disabled else Color("a16635")
-	surface.shadow_size = maxi(1,int(unit));surface.shadow_offset = Vector2(0,2 if pressed else 4)*unit
-	row.surface.add_theme_stylebox_override("panel",surface)
-	row.face.visible = not disabled
-	row.face.position = Vector2.ONE*2*unit
-	PopupSkin.layout_face(row.face,row.buy.size-Vector2.ONE*4*unit,unit)
-	row.face.material.set_shader_parameter("corner_radius",38*unit)
-	row.face.modulate = Color(.93,.93,.93) if pressed else Color.WHITE
-	var font_size := maxi(1,int(30*unit))
-	var ink := UISkin.caption_ink(font,row.cost_label.text,font_size)
-	var group_width: float = 40*unit+ink.size.x
-	var left: float = (row.buy.size.x-group_width)*.5
-	row.cost_coin.position = Vector2(left,(row.buy.size.y-34*unit)*.5)
-	row.cost_coin.size = Vector2.ONE*34*unit;row.cost_coin.modulate.a = .7 if disabled else 1.0
-	row.cost_label.add_theme_color_override("font_color",Color("806b52") if disabled else INK)
-	UISkin.layout_caption(row.cost_label,Rect2(left+40*unit,0,ink.size.x,row.buy.size.y),font_size)

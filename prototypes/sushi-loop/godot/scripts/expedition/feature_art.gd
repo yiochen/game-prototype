@@ -11,6 +11,12 @@ static var _soft: Texture2D
 static var _core: Texture2D
 static var _halo: Texture2D
 static var _bubble: Texture2D
+static var _glow: Texture2D
+## #28: things the ship can use carry one signal (lime halo, keylined ring,
+## pulse); red is reserved for harmful things. Power-up looks are colours.
+const SIGNAL_GOOD := Color("b4ff2e")
+const SIGNAL_BAD := Color("ff3b3b")
+const KEYLINE := Color(.04, .19, .28, .5)
 
 static func _radial(colors: Array, offsets: Array) -> Texture2D:
 	var gradient := Gradient.new()
@@ -26,6 +32,7 @@ static func _textures() -> void:
 	_soft = _radial([Color(.84, .98, 1, 1), Color(.84, .98, 1, .55), Color(.84, .98, 1, 0)], [0.0, .5, 1.0])
 	_core = _radial([Color(.012, .1, .26, .95), Color(.047, .36, .59, .75), Color(.35, .86, 1, 0)], [0.0, .55, 1.0])
 	_halo = _radial([Color(.43, .94, 1, .45), Color(.24, .78, 1, 0)], [0.0, 1.0])
+	_glow = _radial([Color(1, 1, 1, .5), Color(1, 1, 1, .22), Color(1, 1, 1, 0)], [0.0, .55, 1.0])
 	_bubble = _radial([Color(.63, .96, 1, .05), Color(.63, .96, 1, .22), Color(.86, .99, 1, .5), Color(.86, .99, 1, 0)], [0.0, .8, .94, 1.0])
 
 # ------------------------------------------------------------ currents
@@ -83,7 +90,7 @@ static func draw_streaks(canvas: CanvasItem, list: Array, o: Vector2, cell: floa
 # ------------------------------------------------------------ whirlpools
 
 ## Seen from above: a dark core with three bright arms turning inward.
-static func swirl(canvas: CanvasItem, at: Vector2, radius: float, time: float, strength := 1.0) -> void:
+static func swirl(canvas: CanvasItem, at: Vector2, radius: float, time: float, strength := 1.0, arms := Color(.75, .98, 1)) -> void:
 	if radius <= .5 or strength <= 0.0: return
 	_textures()
 	canvas.draw_texture_rect(_core, Rect2(at - Vector2.ONE * radius, Vector2.ONE * radius * 2.0), false, Color(1, 1, 1, strength))
@@ -93,19 +100,30 @@ static func swirl(canvas: CanvasItem, at: Vector2, radius: float, time: float, s
 			var u := i / 24.0
 			var a := arm * TAU / 3.0 - time * 2.6 + u * 3.2
 			points.append(at + Vector2(cos(a), sin(a)) * radius * (.95 - u * .8))
-		canvas.draw_polyline(points, Color(.75, .98, 1, .8 * strength), maxf(1.5, radius * .11), true)
+		canvas.draw_polyline(points, Color(arms, .8 * strength), maxf(1.5, radius * .11), true)
 
-## Portal glow under the ring: open portals breathe; spent ones lie still and dim.
-static func portal_pool(canvas: CanvasItem, at: Vector2, cell: float, time: float, used: bool) -> void:
+## The shared "good, interactable" signal (#28): a soft halo, a steady ring with
+## a dark keyline and a ring that pulses outward.
+static func signal_glow(canvas: CanvasItem, at: Vector2, radius: float, time: float, color := SIGNAL_GOOD) -> void:
+	_textures()
+	canvas.draw_texture_rect(_glow, Rect2(at - Vector2.ONE * radius * 1.35, Vector2.ONE * radius * 2.7), false, Color(color, .9))
+	canvas.draw_arc(at, radius, 0, TAU, 48, KEYLINE, maxf(2.0, radius * .12), true)
+	canvas.draw_arc(at, radius, 0, TAU, 48, color, maxf(1.5, radius * .07), true)
+	var pulse := fposmod(time / 1.3, 1.0)
+	canvas.draw_arc(at, radius * (.85 + pulse * .5), 0, TAU, 48, Color(color, 1.0 - pulse), maxf(1.0, radius * .05), true)
+
+## Portal under the ring: open portals carry the signal glow and a whirlpool in
+## the Passage tier colour; spent ones lie still and dim.
+static func portal_pool(canvas: CanvasItem, at: Vector2, cell: float, time: float, used: bool, arms := Color(.75, .98, 1)) -> void:
 	_textures()
 	if used:
 		canvas.draw_circle(at, cell * .3, Color(.016, .12, .27, .45), true, -1.0, true)
 		return
-	canvas.draw_texture_rect(_halo, Rect2(at - Vector2.ONE * cell * .9, Vector2.ONE * cell * 1.8), false, Color(1, 1, 1, .75 + .25 * sin(time * 3.0)))
-	swirl(canvas, at, cell * .36, time)
+	signal_glow(canvas, at, cell * .62, time)
+	swirl(canvas, at, cell * .36, time, 1.0, arms)
 
 ## Passage current: flow lines rushing forward (up the screen) between the walls.
-static func draw_flow(canvas: CanvasItem, flow: Array, info: Dictionary, centre: Callable, o: Vector2, cell: float, time: float, speed: float, top: int, bottom: int) -> void:
+static func draw_flow(canvas: CanvasItem, flow: Array, info: Dictionary, centre: Callable, o: Vector2, cell: float, time: float, speed: float, top: int, bottom: int, tint := FLOW) -> void:
 	var rows := float(info.rows_count)
 	for f in flow:
 		var y := fposmod(float(f.y) - time * speed, rows)
@@ -114,10 +132,10 @@ static func draw_flow(canvas: CanvasItem, flow: Array, info: Dictionary, centre:
 		var alpha := .8 * minf(1.0, minf((y - 1.0) / 2.0, (rows - 2.0 - y) / 2.0))
 		var head := o + Vector2(x, y) * cell
 		var tail := o + Vector2(x, y + float(f.len)) * cell
-		canvas.draw_polyline_colors(PackedVector2Array([tail, head]), PackedColorArray([Color(FLOW, 0), Color(FLOW, alpha)]), maxf(2.0, cell * .05), true)
+		canvas.draw_polyline_colors(PackedVector2Array([tail, head]), PackedColorArray([Color(tint, 0), Color(tint, alpha)]), maxf(2.0, cell * .05), true)
 		if f.head:
 			var k := cell * .1
-			canvas.draw_polyline(PackedVector2Array([head + Vector2(-k, k), head, head + Vector2(k, k)]), Color(FLOW, alpha), maxf(2.0, cell * .05), true)
+			canvas.draw_polyline(PackedVector2Array([head + Vector2(-k, k), head, head + Vector2(k, k)]), Color(tint, alpha), maxf(2.0, cell * .05), true)
 
 static func flow_lines(rows: int, seed_value: int) -> Array:
 	var rng := RandomNumberGenerator.new(); rng.seed = seed_value * 17 + 9
@@ -133,9 +151,7 @@ static func shield_pickup(canvas: CanvasItem, at: Vector2, cell: float, time: fl
 	_textures()
 	var r := cell * .3
 	var c := at + Vector2(0, -cell * .12 + sin(time * 2.2 + salt) * .05 * cell)
-	var pulse := fposmod(time * .9 + salt, 1.0)
-	canvas.draw_texture_rect(_halo, Rect2(c - Vector2.ONE * cell * .62, Vector2.ONE * cell * 1.24), false)
-	canvas.draw_arc(c, r * (1.0 + pulse * .9), 0, TAU, 40, Color(.78, .99, 1, .7 * (1.0 - pulse)), maxf(1.5, cell * .03), true)
+	signal_glow(canvas, c, cell * .42, time + salt)
 	var outer := _shield_shape(c, r)
 	canvas.draw_colored_polygon(outer, Color("0d3f78"))
 	var rim := outer.duplicate(); rim.append(outer[0])
@@ -177,11 +193,12 @@ static func _shield_shape(c: Vector2, r: float) -> PackedVector2Array:
 	return points
 
 ## Shielded hull: a bubble whose bright rim drains with the time left.
-static func shield_bubble(canvas: CanvasItem, ship: Vector2, cell: float, fraction: float, time: float, bump: float) -> void:
+## `tint` is the Shield track's look colour (#28): white, violet, gold.
+static func shield_bubble(canvas: CanvasItem, ship: Vector2, cell: float, fraction: float, time: float, bump: float, tint := Color(.94, 1, 1)) -> void:
 	_textures()
 	var r := cell * (.66 + bump * .08)
 	var c := ship + Vector2(0, -cell * .28)
-	canvas.draw_texture_rect(_bubble, Rect2(c - Vector2.ONE * r * 1.06, Vector2.ONE * r * 2.12), false)
-	canvas.draw_arc(c, r, 0, TAU, 48, Color(.86, .99, 1, .35), maxf(1.5, cell * .03), true)
+	canvas.draw_texture_rect(_bubble, Rect2(c - Vector2.ONE * r * 1.06, Vector2.ONE * r * 2.12), false, Color(1, 1, 1).lerp(tint, .6))
+	canvas.draw_arc(c, r, 0, TAU, 48, Color(tint, .4), maxf(1.5, cell * .03), true)
 	if fraction > 0.0:
-		canvas.draw_arc(c, r, -PI / 2, -PI / 2 + TAU * fraction, 48, Color(.94, 1, 1, .8 + .2 * sin(time * 12.0)), maxf(2.5, cell * .06), true)
+		canvas.draw_arc(c, r, -PI / 2, -PI / 2 + TAU * fraction, 48, Color(tint, .8 + .2 * sin(time * 12.0)), maxf(2.5, cell * .06), true)
