@@ -1,6 +1,6 @@
 extends SceneTree
 ## Phone feedback on 0.20.1: the tea bubble itself is a tap target, the
-## Workshop ship keeps its size across tabs, Shop rows never let a long
+## Workshop ship keeps its size across tabs, goods place only by dragging, Shop rows never let a long
 ## description run into the stock line, and tapped goods show no square outline.
 ##   python3 tools/test_native.py --script tests/phone_feedback_native_tests.gd --visible --resolution 780x1688 --output <dir>
 const Session = preload("res://scripts/session.gd")
@@ -115,6 +115,8 @@ func run() -> void:
 	await capture("05-goods-held")
 	await touch(at, false); await frames(4)
 	await capture("06-goods-tapped")
+	# Placement is drag-only: a tapped good is not armed for a later floor tap.
+	check(app.armed_item.is_empty() and app.editor_ui.active_item == "", "tapping a good does not arm it")
 	outline = null; ring = null  # release StyleBox resources before quit
 
 	# Let UI click cues finish so no audio stream is still playing at exit.

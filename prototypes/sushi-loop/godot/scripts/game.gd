@@ -803,11 +803,8 @@ func _arm_item(item: Dictionary) -> void:
 	if item.kind == "chef":
 		_open_recipes(str(item.id))
 		return
-	_editor_command({"type": "editor_select", "id": null})
-	if save_blocked: return
-	armed_item = item.duplicate(true)
-	editor_ui.active_item = str(item.id)
-	_refresh()
+	# Goods are placed only by dragging them onto the floor (user, 2026-11-08):
+	# a tap no longer arms an item for a later tap on a tile.
 
 func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
 	if not event is InputEventScreenTouch or not event.pressed or pointer != -1: return
@@ -1011,6 +1008,9 @@ func _input(event: InputEvent) -> void:
 						editor_ui.active_item = ""
 				elif gesture_dragged:
 					editor_ui.reject("invalid_position")
+				# The drag owned the item only while held; nothing stays armed.
+				armed_item.clear()
+				editor_ui.active_item = ""
 		_cancel_gesture()
 		save_now()
 		_refresh()
@@ -1450,14 +1450,13 @@ func _manage_chef(request:Dictionary)->void:
 	if not result.saved:return
 	_refresh()
 	recipe_ui.management_result(request,result)
-func _place_managed_chef(identity:String)->void:
+func _place_managed_chef(_identity:String)->void:
 	if save_blocked:return
 	recipe_ui.dismiss()
 	_editor_command({"type":"set_mode","mode":"edit"})
 	_editor_command({"type":"editor_layer","layer":"people"})
-	for item in session.snapshot().inventory:
-		if item.id==identity:
-			armed_item=item.duplicate(true);editor_ui.active_item=identity;_refresh();return
+	# Placement is drag-only: People is open with the chef's photo to drag in.
+	armed_item.clear();editor_ui.active_item="";_refresh()
 
 func _restore_chef_focus()->void:
 	for card in editor_ui.cards:
