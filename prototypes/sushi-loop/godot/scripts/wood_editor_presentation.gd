@@ -428,8 +428,10 @@ func _layout_goods(layer: String) -> void:
 				outline.bg_color = Color(1,.97,.86,.53)
 				outline.set_corner_radius_all(maxi(1,int(20*unit)))
 			outline.set_border_width_all(maxi(1,int(2*unit)))
-			card.add_theme_stylebox_override("focus",StyleBoxEmpty.new() if layer == "people" else outline)
-			card.add_theme_stylebox_override("pressed",StyleBoxEmpty.new() if layer == "people" else outline)
+			# Goods show their armed state by lifting (as the HTML dock); only Floor
+			# thumbnails keep a selected backing. Keyboard focus is the shared ring.
+			card.add_theme_stylebox_override("focus",PopupSkin.focus_ring(20*unit,unit))
+			card.add_theme_stylebox_override("pressed",outline if layer == "floor" else StyleBoxEmpty.new())
 		var preview: Control = card.get_meta("preview")
 		preview.position = Vector2(12,8)*unit
 		if card.button_pressed: preview.position.y -= 4*unit

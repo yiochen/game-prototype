@@ -354,6 +354,11 @@ func _curtain_hides_hit(item: Dictionary, point: Vector2) -> bool:
 ## (front rows first), then the jar, then a guest asking for tea.
 func tip_target_at(point: Vector2) -> Dictionary:
 	if show_gallery or state.is_empty() or not hud_area().has_point(point): return {}
+	# The tea bubble itself draws over everything, so it is tested first.
+	for customer in state.get("customers", []):
+		if customer.get("tea_phase") != "requested": continue
+		if tea_bubble_centre(customer).distance_to(point) <= maxf(cell * TipArt.TEA_RIM_CELLS * 1.4, 24.0 / maxf(.001, get_viewport_transform().get_scale().x)):
+			return {"kind": "tea", "customer_id": str(customer.id)}
 	var tips: Dictionary = state.get("tips", {})
 	var piles: Array = tips.get("cash", []).duplicate()
 	piles.sort_custom(func(a, b): return int(a.y) > int(b.y))
@@ -370,6 +375,11 @@ func tip_target_at(point: Vector2) -> Dictionary:
 		var base := cell_base(float(customer.x) + float(customer.get("render_offset_x", 0)), float(customer.y) + float(customer.get("render_offset_y", 0)))
 		if Rect2(base - Vector2(0.5, 2.0) * cell, Vector2(1.0, 2.3) * cell).has_point(point): return {"kind": "tea", "customer_id": str(customer.id)}
 	return {}
+
+## Centre of a guest's tea request bubble, matching _feedback_at and TipArt.draw_tea_ask.
+func tea_bubble_centre(customer: Dictionary) -> Vector2:
+	var base := cell_base(float(customer.x), float(customer.y))
+	return base + customer_pose_offset(customer, cell) + BUBBLE_ATTACHMENT * cell / art.cell_size + TipArt.TEA_FACE_CELLS * cell
 
 func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}

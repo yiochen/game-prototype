@@ -239,15 +239,22 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	var row_width := catalog.size.x/unit
 	for id in rows:
 		var row: Dictionary = rows[id]
-		row.row.custom_minimum_size = Vector2(0,230)*unit
-		row.row.size = Vector2(catalog.size.x,230*unit)
-		row.preview.position = Vector2(0,38)*unit;row.preview.size = Vector2(132,148)*unit;row.preview.queue_redraw()
-		_text(row.name,Rect2(146,35,row_width-304,48),32)
-		_text(row.description,Rect2(146,86,row_width-304,62),21)
-		_text(row.stock,Rect2(146,153,row_width-304,36),21)
-		row.buy.position = Vector2(row_width-136,78)*unit;row.buy.size = Vector2(136,90)*unit;row.buy.fit(unit,physical)
-		_text(row.owned,Rect2(row_width-136,78,136,90),27)
-		row.line.position = Vector2(0,229)*unit;row.line.size = Vector2(row_width,maxf(1,unit))
+		# A description that wraps past two lines pushes the stock line down and
+		# grows its row, so the two never overlap (the tip jar's copy wraps to 3+).
+		var text_w := row_width-304
+		var description_h := font.get_multiline_string_size(row.description.text,HORIZONTAL_ALIGNMENT_LEFT,text_w*unit,maxi(1,int(21*unit))).y/unit
+		var stock_y := maxf(153.0,86.0+description_h+6.0)
+		var row_h := maxf(230.0,stock_y+77.0)
+		var drop := (row_h-230.0)*.5
+		row.row.custom_minimum_size = Vector2(0,row_h)*unit
+		row.row.size = Vector2(catalog.size.x,row_h*unit)
+		row.preview.position = Vector2(0,38+drop)*unit;row.preview.size = Vector2(132,148)*unit;row.preview.queue_redraw()
+		_text(row.name,Rect2(146,35,text_w,48),32)
+		_text(row.description,Rect2(146,86,text_w,maxf(62.0,description_h)),21)
+		_text(row.stock,Rect2(146,stock_y,text_w,36),21)
+		row.buy.position = Vector2(row_width-136,78+drop)*unit;row.buy.size = Vector2(136,90)*unit;row.buy.fit(unit,physical)
+		_text(row.owned,Rect2(row_width-136,78+drop,136,90),27)
+		row.line.position = Vector2(0,row_h-1)*unit;row.line.size = Vector2(row_width,maxf(1,unit))
 	PopupSkin.round_button(bag_button,unit,physical,114)
 	bag_button.position = Vector2(panel.size.x-144*unit,panel.size.y-138*unit)
 	bag_icon.position = bag_button.size*.25;bag_icon.size = bag_button.size*.5

@@ -426,12 +426,10 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	salvage_label.add_theme_font_size_override("font_size", int(40 * unit))
 	# Tray: tabs over the beige catalog, rows compact on short screens.
 	var short := H < W * 1.75
-	var row_h := (204.0 if short else 222.0) if group == "powerup" else (168.0 if short else 206.0)
-	var count := rows.size()
+	var row_h := _row_height(group, short)
 	var bottom_pad := 22.0
-	var natural := 18.0 + 88.0 + 16.0 + count * row_h + 8.0 + bottom_pad
 	var wall := room_rect.position.y + 540.0 * scale
-	var tray_h := minf(natural * unit, maxf(300.0 * unit, H - wall - 240.0 * unit))
+	var tray_h := _tray_height(group, short, wall, H)
 	tray.position = origin + Vector2(0, H - tray_h)
 	tray.size = Vector2(W, tray_h + 40 * unit) # rounded bottom corners sit off screen
 	var shadow := PopupSkin.flat(Color.TRANSPARENT, 48 * unit)
@@ -497,8 +495,10 @@ func layout(value: Rect2, inset := 0.0) -> void:
 		row.divider.position = Vector2(0, 0); row.divider.size = Vector2(rw * unit, maxf(1.0, 2 * unit)); row.divider.visible = index > 0
 		index += 1
 	# Cradle and ship in the free floor between the wall and the tray.
+	# The ship sits above the Equipment tray on every tab; the taller Power-ups
+	# tray may cover its lower part rather than resizing it.
 	var free_top := origin.y + wall + 12 * unit
-	var free_bottom := tray.position.y - 12 * unit
+	var free_bottom := origin.y + H - _tray_height("equipment", short, wall, H) - 12 * unit
 	var free_h := free_bottom - free_top
 	var cradle_h := maxf(80 * unit, minf(free_h * .9, room_w * .5 / CRADLE_ASPECT))
 	var cradle_w := cradle_h * CRADLE_ASPECT
@@ -509,6 +509,14 @@ func layout(value: Rect2, inset := 0.0) -> void:
 	ship.hull_px = cradle_h * .7
 	ship.centre = cradle_pos - origin + Vector2(cradle_w * .5, cradle_h * .52)
 	ship.queue_redraw()
+
+func _row_height(id: String, short: bool) -> float:
+	return (204.0 if short else 222.0) if id == "powerup" else (168.0 if short else 206.0)
+
+func _tray_height(id: String, short: bool, wall: float, H: float) -> float:
+	var count := WorkshopBook.tracks().filter(func(t): return t.group == id).size()
+	var natural := 18.0 + 88.0 + 16.0 + count * _row_height(id, short) + 8.0 + 22.0
+	return minf(natural * unit, maxf(300.0 * unit, H - wall - 240.0 * unit))
 
 func _pill(color: Color, radius: float) -> StyleBoxFlat:
 	var style := PopupSkin.flat(color, radius)
