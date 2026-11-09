@@ -92,9 +92,9 @@ func run() -> void:
 		app.editor_ui.reveal_card(app.editor_ui.cards[-1]);await frames()
 		start=app.editor_ui.cards[-1].get_global_rect().get_center()
 		await touch(start,true);await drag(start,start-Vector2(0,60)*app.editor_ui.unit);await drag(start-Vector2(0,60)*app.editor_ui.unit,at);await touch(at,false)
-		check(stock(id).assigned and app.recipe_ui.visible and app.recipe_ui.selected=="","People placement immediately opens the idle native recipe picker")
+		check(stock(id).assigned and app.recipe_ui.visible and app.recipe_ui.selected in ["",str(stock(id).recipe_id)],"People placement immediately opens the native recipe picker")
 		app.recipe_ui.dismiss();await frames()
-		check(stock(id).recipe_id=="","Closing without Prepare leaves the new chef idle")
+		check(stock(id).recipe_id!="","A placed chef cooks its first eligible recipe without Prepare")
 	check(not app.save_blocked and app.save_now(),"Native hire, refresh, seen and assignment save successfully")
 	var reopened=Session.new();check(reopened.restore(app.store.load_session(app._valid_saved_session)) and reopened.snapshot().staff.refresh_deadline==deadline and reopened.snapshot().staff.hired.has(id),"Native file save reopens payment, pool, deadline and identity")
 	# The same upward photo gesture also places in paused Edit.
@@ -113,7 +113,7 @@ func run() -> void:
 	await touch(start,true);await drag(start,start-Vector2(0,60)*app.editor_ui.unit)
 	check(app.gesture_kind=="inventory","Upward native photo motion owns placement")
 	await drag(start-Vector2(0,60)*app.editor_ui.unit,at);await touch(at,false)
-	check(stock(id).assigned and app.recipe_ui.visible and app.recipe_ui.selected=="" and app.session.snapshot().mode=="edit","Edit drag places the same idle chef and opens the shared recipe picker")
+	check(stock(id).assigned and app.recipe_ui.visible and app.recipe_ui.selected in ["",str(stock(id).recipe_id)] and app.session.snapshot().mode=="edit","Edit drag places the same chef and opens the shared recipe picker")
 	app.recipe_ui.dismiss();app.world.reduced_motion=true
 	app.session=Session.new_session(92,{"starting_coins":1000});app._refresh();ui.open_applicants();await frames()
 	await tap(ui.cards.values()[0].hire_button);await create_timer(.18).timeout

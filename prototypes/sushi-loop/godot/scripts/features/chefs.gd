@@ -151,6 +151,19 @@ static func prepare(store, config: Dictionary, state: Dictionary, request: Dicti
 	state.recipe_book.new.erase(id)
 	return {"ok": true, "changed": true}
 
+## A placed chef with no recipe starts on their first eligible discovered
+## recipe (user, 2026-11-08), so a newly placed chef cooks at once instead of
+## sitting idle until the player opens Recipes. Returns the recipe set, or "".
+static func auto_prepare(store, config: Dictionary, state: Dictionary, chef_id: String) -> String:
+	if not exists(store, chef_id) or not store.has_row(WORLD, "layout", chef_id): return ""
+	if station(store, chef_id).recipe_id != "": return ""
+	var actor := record(store, config, chef_id)
+	for id in state.recipe_book.discovered:
+		if RecipeBook.eligible(config, state, actor, str(id)):
+			prepare(store, config, state, {"type": "prepare_recipe", "chef_id": chef_id, "recipe_id": str(id)})
+			return str(id)
+	return ""
+
 # --- New games -----------------------------------------------------------------
 
 ## A new game's chefs start as full records in the configuration's layout.

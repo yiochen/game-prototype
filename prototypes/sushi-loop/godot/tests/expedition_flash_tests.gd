@@ -7,6 +7,14 @@ var app
 var count := 0
 var failures: Array[String] = []
 
+
+## Waits out the shared scene transition (#28): close, loading beat, open.
+func settle() -> void:
+	for i in range(2): await process_frame
+	var guard := 0
+	while app.transition.busy and guard < 900:
+		await process_frame; guard += 1
+
 func check(value: bool, message: String) -> void:
 	count += 1
 	if not value: failures.append(message); printerr("FAIL: " + message)
@@ -23,7 +31,7 @@ func run() -> void:
 	s.command({"type": "reveal_dock"})
 	app.session = s; app._refresh(); app._layout()
 	var ui = app.expedition_ui
-	app._open_landmark("Submarine"); ui.start()
+	app._open_landmark("Submarine"); await settle(); ui.start()
 	await process_frame
 	# A hit lands, and the run ends at once (Pause → Give up).
 	ui._hit_flash = 1.0; ui._hull_pulse = 1.0; ui.view.damage(Vector2(5.5, 10.0), Vector2(5.5, 10.6))
@@ -31,10 +39,9 @@ func run() -> void:
 	await process_frame
 	check(ui.mode == "results", "the run ended on the hit")
 	for i in range(3): await process_frame
-	ui.finish_results()
+	ui.finish_results(); await settle()
 	app.session._state.expedition.charge = {"ready": true, "recharge_started": null}
-	app._open_landmark("Submarine")
-	await process_frame
+	app._open_landmark("Submarine"); await settle()
 	ui.start()
 	await process_frame
 	check(ui.mode == "travel", "a new dive starts")

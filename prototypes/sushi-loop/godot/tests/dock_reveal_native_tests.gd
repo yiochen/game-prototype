@@ -6,6 +6,14 @@ var output := ""
 var checks := 0
 var failures: Array[String] = []
 
+
+## Waits out the shared scene transition (#28): close, loading beat, open.
+func settle() -> void:
+	for i in range(2): await process_frame
+	var guard := 0
+	while app.transition.busy and guard < 900:
+		await process_frame; guard += 1
+
 func _init() -> void: call_deferred("run")
 
 func check(value: bool, message: String) -> void:
@@ -112,13 +120,13 @@ func run() -> void:
 	await capture("03-cover-removed")
 	check(app.clearance_ui.visible and app.clearance_ui.unlock_popup and app.clearance_ui.title.text == "Exhibition Unlocked","removed cover presents the approved unlock popup")
 	await tap(app.clearance_ui.close_button)
-	app._open_landmark("Submarine")
+	app._open_landmark("Submarine");await settle()
 	check(app.expedition_ui.visible and app.expedition_ui.mode == "prep","submarine opens underwater preparation after the cover finishes (#21)")
-	app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
+	app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST);await settle()
 	check(not app.expedition_ui.visible,"Android Back returns from preparation through the Sushi Bar airlock")
-	app._open_landmark("Workshop")
-	check(app.clearance_ui.visible and app.clearance_ui.title.text == "Workshop","hut opens after the cover finishes")
-	app.clearance_ui.dismiss()
+	app._open_landmark("Workshop");await settle()
+	check(app.workshop_ui.visible,"hut opens the Workshop room after the cover finishes (#28)")
+	app.workshop_ui.leave();await settle()
 	var restored = Session.new_session(1)
 	check(restored.restore(app.store.load_session()),"unlock is durable independently of animation playback")
 	app.session = restored;app.world.dock_reveal_started = -1;app.world.time = 0;app._refresh();await frames()

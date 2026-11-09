@@ -26,6 +26,11 @@ const Expansion = preload("res://scripts/expansion_book.gd")
 const ClearancePresentation = preload("res://scripts/clearance_presentation.gd")
 const ExpeditionPresentation = preload("res://scripts/expedition/expedition_presentation.gd")
 const ExpeditionBook = preload("res://scripts/expedition/expedition_book.gd")
+const WorkshopPresentation = preload("res://scripts/workshop_presentation.gd")
+const SceneTransition = preload("res://scripts/scene_transition.gd")
+var workshop_ui: WorkshopPresentation
+var transition: SceneTransition
+var show_workshop_gallery := false
 const Odometer = preload("res://scripts/odometer.gd")
 const CashFlights = preload("res://scripts/cash_flights.gd")
 const TipArt = preload("res://scripts/tip_art.gd")
@@ -116,12 +121,13 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	show_floor_gallery = "--floor-gallery" in OS.get_cmdline_user_args()
 	show_shop_gallery = "--shop-gallery" in OS.get_cmdline_user_args()
+	show_workshop_gallery = "--workshop-gallery" in OS.get_cmdline_user_args()
 	show_exhibition_gallery = "--exhibition-gallery" in OS.get_cmdline_user_args()
 	show_expedition_gallery = "--expedition-gallery" in OS.get_cmdline_user_args()
 	show_clearance_gallery = show_exhibition_gallery or "--clearance-gallery" in OS.get_cmdline_user_args()
 	show_staff_gallery="--staff-gallery" in OS.get_cmdline_user_args()
 	show_chef_gallery="--chef-gallery" in OS.get_cmdline_user_args()
-	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery or show_expedition_gallery
+	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args() or show_staff_gallery or show_chef_gallery or show_shop_gallery or show_clearance_gallery or show_expedition_gallery or show_workshop_gallery
 	show_editor_gallery = show_editor_gallery or show_floor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
@@ -243,6 +249,12 @@ func _ready() -> void:
 	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state, session._store)
 	expedition_ui.save_requested.connect(func(): save_now())
 	expedition_ui.returned_to_restaurant.connect(_return_from_expedition)
+	# #28: the Workshop room, and the one scene transition every switch uses.
+	workshop_ui = WorkshopPresentation.new(); add_child(workshop_ui)
+	workshop_ui.upgrade_requested.connect(_workshop_upgrade)
+	workshop_ui.close_requested.connect(_leave_workshop)
+	transition = SceneTransition.new(); add_child(transition)
+	expedition_ui.leave_with = func(from: Vector2, work: Callable): transition.play(from, work, func(): return _landmark_point("Submarine"))
 	staff_ui.tray_source=editor_ui
 	staff_ui.recipe_overlay=recipe_ui
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
@@ -291,6 +303,20 @@ func _ready() -> void:
 			session.command({"type":"reveal_dock"});session.command({"type":"set_camera","x":4,"y":0})
 			_refresh();_layout();clearance_ui.open_unlock(session.snapshot())
 		else: _refresh();_layout();_open_clearance("dock-access")
+	if show_workshop_gallery:
+		# Shared Workshop presentation (#28): the same native room and cards as
+		# gameplay, on a revealed dock with banked salvage and mixed levels.
+		for button in gallery_buttons: button.hide()
+		session = Session.new_session(28, {"starting_coins": 9180})
+		for identity in ["armchair-west","dock-access","trash-8-5","trash-9-4","trash-10-6","trash-10-8","trash-10-9"]: session.command({"type":"clear_trash","id":identity})
+		session.command({"type":"reveal_dock"});session.command({"type":"set_camera","x":4,"y":0})
+		session._state.expedition.salvage = 2000
+		for id in ["hull", "hull", "hull", "harpoon", "harpoon", "collector", "collector", "collector", "shield", "shield"]:
+			session.command({"type": "workshop_upgrade", "id": id, "token": "gallery-%s-%d" % [id, session.snapshot().workshop.tracks.filter(func(t): return t.id == id)[0].level]})
+		session._state.expedition.salvage = 420
+		_refresh();_layout()
+		workshop_ui.gallery = true
+		workshop_ui.open(session.snapshot())
 	if show_expedition_gallery:
 		# Shared expedition presentation: a travelling run reopened behind Paused.
 		for button in gallery_buttons: button.hide()
@@ -534,6 +560,7 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	if expedition_ui != null:
 		expedition_ui.safe_top = maxf(top_inset, world.diagnostic_header_height)
 		expedition_ui.layout(scene_area)
+	if workshop_ui != null: workshop_ui.layout(scene_area, maxf(top_inset, world.diagnostic_header_height))
 	_layout_hud(area, unit)
 	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
 	_place_native_button(edit, Rect2(Vector2(area.end.x-190*unit,area.position.y+32*unit),Vector2(166,100)*unit),unit,32,38)
@@ -622,6 +649,11 @@ func _refresh() -> void:
 		dock_unlock_pending = false
 		clearance_ui.open_unlock(world.state)
 	if clearance_ui != null: clearance_ui.refresh(world.state)
+	if workshop_ui != null:
+		workshop_ui.reduced_motion = world.reduced_motion
+		workshop_ui.interaction_blocked = save_blocked or backgrounded
+		workshop_ui.refresh(world.state)
+	if transition != null: transition.reduced_motion = world.reduced_motion
 	world.prune_dish_flights()
 	if recipe_ui != null: recipe_ui.refresh(world.state)
 	odometer.reduced_motion = world.reduced_motion
@@ -771,11 +803,8 @@ func _arm_item(item: Dictionary) -> void:
 	if item.kind == "chef":
 		_open_recipes(str(item.id))
 		return
-	_editor_command({"type": "editor_select", "id": null})
-	if save_blocked: return
-	armed_item = item.duplicate(true)
-	editor_ui.active_item = str(item.id)
-	_refresh()
+	# Goods are placed only by dragging them onto the floor (user, 2026-11-08):
+	# a tap no longer arms an item for a later tap on a tile.
 
 func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
 	if not event is InputEventScreenTouch or not event.pressed or pointer != -1: return
@@ -844,6 +873,7 @@ func _object_at(position_value: Vector2) -> Dictionary:
 	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
+	if workshop_ui != null and workshop_ui.visible: return
 	if clearance_ui != null and clearance_ui.visible: return
 	if tea_ui != null and tea_ui.visible:
 		return
@@ -903,6 +933,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _input(event: InputEvent) -> void:
 	# A keyboard activation starts a new selection after a completed swipe.
 	if pointer == -1 and event is InputEventKey and event.pressed and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: gesture_dragged = false
+	if workshop_ui != null and workshop_ui.visible: return
 	if clearance_ui != null and clearance_ui.visible: return
 	if tea_ui != null and tea_ui.visible: return
 	if expedition_ui != null and expedition_ui.visible: return
@@ -977,6 +1008,9 @@ func _input(event: InputEvent) -> void:
 						editor_ui.active_item = ""
 				elif gesture_dragged:
 					editor_ui.reject("invalid_position")
+				# The drag owned the item only while held; nothing stays armed.
+				armed_item.clear()
+				editor_ui.active_item = ""
 		_cancel_gesture()
 		save_now()
 		_refresh()
@@ -1107,6 +1141,8 @@ func _notification(what: int) -> void:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and expedition_ui != null and expedition_ui.back():
 			save_now();return
 		if expedition_ui != null: expedition_ui.suspend()
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and workshop_ui != null and workshop_ui.visible:
+			workshop_ui.leave();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and tea_ui != null and tea_ui.visible:
 			tea_ui.cancel();return
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and clearance_ui != null and clearance_ui.visible:
@@ -1139,6 +1175,7 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if workshop_ui != null and workshop_ui.visible: return
 	if clearance_ui != null and clearance_ui.visible: return
 	if tea_ui != null and tea_ui.visible:
 		if event.is_action_pressed("ui_cancel"): tea_ui.cancel();get_viewport().set_input_as_handled()
@@ -1240,10 +1277,47 @@ func _open_landmark(destination: String) -> void:
 			# Charging tap: local message with the actual time remaining.
 			var seconds := int(ceil(float(charge.remaining)))
 			_show_clearance_notice("Charging · ready in %d:%02d" % [seconds / 60, seconds % 60]);return
-		clearance_toast.hide();expedition_ui.open_prep(session.snapshot());return
-	_cancel_gesture();clearance_toast.hide();clearance_ui.open_destination(destination,session.snapshot());_refresh()
+		clearance_toast.hide()
+		transition.play(_landmark_point("Submarine"), func(): expedition_ui.open_prep(session.snapshot()), func(): return expedition_ui.get_global_rect().get_center())
+		return
+	_cancel_gesture();clearance_toast.hide()
+	if destination == "Workshop": _enter_workshop();return
+	clearance_ui.open_destination(destination,session.snapshot());_refresh()
 
 ## Back at the bar: recentre the starter restaurant floor.
+## Screen point of a dock landmark (the iris closes or reopens on it).
+func _landmark_point(destination: String) -> Vector2:
+	var scene: Dictionary = world.state.get("expansion", {})
+	var dock_x := float(scene.get("offset_x", 0))
+	var base: Vector2 = world.cell_base(7.5 + dock_x if destination == "Submarine" else 8.8 + dock_x, 7.2)
+	return base - Vector2(0, world.cell * (0.3 if destination == "Submarine" else 1.2))
+
+func _enter_workshop() -> void:
+	if workshop_ui.visible or transition.busy: return
+	audio.play_cue("click")
+	transition.play(_landmark_point("Workshop"), func():
+		workshop_ui.interaction_blocked = save_blocked or backgrounded
+		workshop_ui.reduced_motion = world.reduced_motion
+		workshop_ui.open(session.snapshot())
+		_refresh(), func(): return workshop_ui.hero.get_global_rect().get_center() - get_global_rect().position)
+
+func _leave_workshop(from: Vector2) -> void:
+	if not workshop_ui.visible or transition.busy: return
+	transition.play(from, func():
+		# Leaving acknowledges the NEW tags.
+		dispatch({"type": "workshop_seen"})
+		workshop_ui.hide()
+		_refresh()
+		world.grab_focus(), func(): return _landmark_point("Workshop"))
+
+func _workshop_upgrade(request: Dictionary) -> void:
+	if save_blocked or backgrounded or not workshop_ui.visible: return
+	var result := dispatch(request)
+	_refresh()
+	if result.get("ok", false) and result.get("changed", false):
+		audio.play_cue("click")
+		workshop_ui.upgraded(result)
+
 func _return_from_expedition() -> void:
 	session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
 	_clamp_camera();_refresh();world.grab_focus()
@@ -1376,14 +1450,13 @@ func _manage_chef(request:Dictionary)->void:
 	if not result.saved:return
 	_refresh()
 	recipe_ui.management_result(request,result)
-func _place_managed_chef(identity:String)->void:
+func _place_managed_chef(_identity:String)->void:
 	if save_blocked:return
 	recipe_ui.dismiss()
 	_editor_command({"type":"set_mode","mode":"edit"})
 	_editor_command({"type":"editor_layer","layer":"people"})
-	for item in session.snapshot().inventory:
-		if item.id==identity:
-			armed_item=item.duplicate(true);editor_ui.active_item=identity;_refresh();return
+	# Placement is drag-only: People is open with the chef's photo to drag in.
+	armed_item.clear();editor_ui.active_item="";_refresh()
 
 func _restore_chef_focus()->void:
 	for card in editor_ui.cards:

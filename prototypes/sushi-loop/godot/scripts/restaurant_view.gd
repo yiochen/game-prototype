@@ -11,6 +11,10 @@ const Typography = preload("res://scripts/typography.gd")
 const GroundShadows = preload("res://scripts/ground_shadows.gd")
 const Expansion = preload("res://scripts/expansion_book.gd")
 const TipArt = preload("res://scripts/tip_art.gd")
+const ShipArt = preload("res://scripts/ship_art.gd")
+## Dock ship (#28): hull 1.11 cells tall, centred 0.23 cells above its ground point.
+const DOCK_HULL_CELLS := 1.11
+const DOCK_HULL_LIFT := 0.23
 var clearance_selected := ""
 var clearance_removals: Array = []
 var dock_reveal_started := -1.0
@@ -258,12 +262,15 @@ func _render_room_items(items: Array = []) -> void:
 		match item.kind:
 			"belt": _belt(item.value)
 			"dish": _dish(item.value)
-			"sprite": sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), float(item.get("seconds",0.0 if reduced_motion else float(state.elapsed))), -1.0, item.get("tint",Color.WHITE))
+			"sprite":
+				sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), float(item.get("seconds",0.0 if reduced_motion else float(state.elapsed))), -1.0, item.get("tint",Color.WHITE))
+				if item.key == "workshop-hut": _hut_outline(item)
 			"chef": _chef(item.value)
 			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
 			"board": _board(item.value)
 			"customer": _customer(item.value)
 			"curtain": EntranceCurtain.draw_front(self, item.base)
+			"ship": _dock_ship(item)
 			"cash":
 				# Cash is tapped through its own hit test, never sprite picking,
 				# so a pile neither selects nor hides the furniture behind it.
@@ -274,6 +281,37 @@ func _render_room_items(items: Array = []) -> void:
 	_capture_hits = false
 	_current_owner = ""
 	_hit_signature = _geometry_signature()
+
+## Landmarks are interactable in Live once the dock is open: they carry the
+## approved cyan outline (baked), like tip piles. Edit mode shows them plain.
+func landmarks_interactable() -> bool:
+	return state.get("mode") == "live" and state.get("expansion", {}).get("dock_open", false) and not dock_revealing()
+
+func _dock_ship(item: Dictionary) -> void:
+	var hull_px := cell * DOCK_HULL_CELLS
+	var centre: Vector2 = item.base - Vector2(0, cell * DOCK_HULL_LIFT)
+	var tiers: Dictionary = state.get("workshop", {}).get("gear", {}).get("tiers", {})
+	if _collect_ground_shadows or _record_only:
+		pass
+	elif landmarks_interactable(): ShipArt.draw_dock(self, centre, hull_px, tiers)
+	else:
+		draw_set_transform(centre + Vector2(0, hull_px * .42), 0, Vector2(1, .32))
+		draw_circle(Vector2.ZERO, hull_px * .42, Color(.24, .14, .05, .16))
+		draw_set_transform(Vector2.ZERO)
+		ShipArt.draw(self, centre, hull_px, tiers)
+	if _capture_hits:
+		# Picked by its pixels, like every sprite: the composed dock image has the ship's silhouette.
+		var placed := ShipArt.dock(centre, hull_px, tiers)
+		var tex: Texture2D = placed[0]
+		_hit_records.append({"owner_id": str(item.owner_id), "art_id": "submarine-yellow", "clip": "static", "direction": "S", "frame": 0, "frames": 1,
+			"texture": tex, "source_path": tex.resource_path, "region": Rect2(Vector2.ZERO, tex.get_size()), "rect": placed[1], "tint": Color.WHITE})
+
+func _hut_outline(item: Dictionary) -> void:
+	if _collect_ground_shadows or _record_only or not landmarks_interactable(): return
+	var registered: Rect2 = art.registered_rect(item.key, item.base, cell, item.get("clip", "static"), "S")
+	var tex := ShipArt.texture("hut-outline.png")
+	var pad := float(ShipArt.layout().hut_outline_pad) * registered.size.x / 384.0
+	draw_texture_rect(tex, Rect2(registered.position - Vector2(pad, pad), registered.size + Vector2(pad, pad) * 2), false)
 
 func _lifted_item(item: Dictionary) -> bool:
 	var identity := str(editor_preview.get("lifted_id", ""))
@@ -316,6 +354,11 @@ func _curtain_hides_hit(item: Dictionary, point: Vector2) -> bool:
 ## (front rows first), then the jar, then a guest asking for tea.
 func tip_target_at(point: Vector2) -> Dictionary:
 	if show_gallery or state.is_empty() or not hud_area().has_point(point): return {}
+	# The tea bubble itself draws over everything, so it is tested first.
+	for customer in state.get("customers", []):
+		if customer.get("tea_phase") != "requested": continue
+		if tea_bubble_centre(customer).distance_to(point) <= maxf(cell * TipArt.TEA_RIM_CELLS * 1.4, 24.0 / maxf(.001, get_viewport_transform().get_scale().x)):
+			return {"kind": "tea", "customer_id": str(customer.id)}
 	var tips: Dictionary = state.get("tips", {})
 	var piles: Array = tips.get("cash", []).duplicate()
 	piles.sort_custom(func(a, b): return int(a.y) > int(b.y))
@@ -332,6 +375,11 @@ func tip_target_at(point: Vector2) -> Dictionary:
 		var base := cell_base(float(customer.x) + float(customer.get("render_offset_x", 0)), float(customer.y) + float(customer.get("render_offset_y", 0)))
 		if Rect2(base - Vector2(0.5, 2.0) * cell, Vector2(1.0, 2.3) * cell).has_point(point): return {"kind": "tea", "customer_id": str(customer.id)}
 	return {}
+
+## Centre of a guest's tea request bubble, matching _feedback_at and TipArt.draw_tea_ask.
+func tea_bubble_centre(customer: Dictionary) -> Vector2:
+	var base := cell_base(float(customer.x), float(customer.y))
+	return base + customer_pose_offset(customer, cell) + BUBBLE_ATTACHMENT * cell / art.cell_size + TipArt.TEA_FACE_CELLS * cell
 
 func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
@@ -532,7 +580,8 @@ func _decor_plan() -> Array:
 	# These are permanent layers. Openings in the cloth reveal the actual
 	# deck and its objects before access unlocks, rather than empty floor.
 	var deck := _prop("dock-floor",8.0+dock_x,7.0);deck.depth = -1.0;result.append(deck)
-	var sub := _prop("submarine-yellow",7.5+dock_x,7.2);sub.owner_id = "landmark-submarine";result.append(sub)
+	# The ImageGen ship (#28) replaces the registered 3D sprite; it shows the Workshop gear.
+	result.append({"kind": "ship", "key": "submarine-yellow", "base": cell_base(7.5 + dock_x, 7.2), "depth": 7.2, "priority": 0, "owner_id": "landmark-submarine"})
 	var hut := _prop("workshop-hut",8.8+dock_x,7.2);hut.owner_id = "landmark-workshop";result.append(hut)
 	for trash in state.expansion.patches:
 		var entry := _prop(str(trash.art_id),float(trash.x)+float(trash.w)/2.0-0.5,float(trash.y)+float(trash.h)/2.0-0.5,"clearance-static",str(trash.facing))

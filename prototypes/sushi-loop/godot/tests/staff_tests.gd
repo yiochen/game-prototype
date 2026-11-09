@@ -40,9 +40,14 @@ func _initialize() -> void:
 	check(placed.ok,"live placement beside belt")
 	check(session.snapshot().mode=="live" and session.snapshot().camera==before.state.camera,"live mode/camera preserved")
 	var actor: Dictionary = session.snapshot().objects.filter(func(item): return item.id==hired.chef_id)[0]
-	check(actor.recipe_id=="" and not actor.active,"closing picker leaves idle")
+	check(actor.recipe_id!="" and actor.active,"a placed chef starts on its first eligible recipe and is active")
 	check(session.command({"type":"prepare_recipe","chef_id":hired.chef_id,"recipe_id":"salmon_nigiri"}).ok,"explicit Prepare")
 	check(Session.new().restore(JSON.parse_string(JSON.stringify(session.save_data()))),"assignment and payment restore")
+	# A save from before auto-assignment (placed chef with no recipe) cooks after loading.
+	session._store.write("restaurant", "station")[hired.chef_id].recipe_id = ""
+	var idle_save: Dictionary = JSON.parse_string(JSON.stringify(session.save_data()))
+	var reloaded = Session.new()
+	check(reloaded.restore(idle_save) and reloaded.snapshot().objects.filter(func(item): return item.id==hired.chef_id)[0].recipe_id != "","an idle placed chef from an older save starts cooking on load")
 	var poor = Session.new_session(2,{"starting_coins":0})
 	var unchanged: Dictionary = poor.save_data()
 	check(poor.command({"type":"hire_applicant","offer_id":poor.snapshot().staff.offers[0].id}).reason=="not_enough_coins","unaffordable hire fails")

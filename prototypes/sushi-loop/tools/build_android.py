@@ -42,6 +42,7 @@ RUNTIME_TREES = {
     "assets/expansion/sprites": {".png"},
     "assets/tips/sprites": {".png"},
     "assets/expedition": {".png", ".json", ".glb", ".svg"},
+    "assets/workshop": {".png", ".json", ".svg"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},
@@ -201,7 +202,31 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     exhibition_ui_contract.verify_exhibition_ui(project, source_project=source)
     editor_ui_contract.verify_editor_ui(project, source_project=source)
     editor_goods_contract.verify_editor_goods(project, source_project=source)
+    verify_script_paths(project)
     return hashes, catalog
+
+
+RES_LITERAL = re.compile(r'"res://([^"%]*)"')
+
+
+def verify_script_paths(project: Path) -> None:
+    """Every literal res:// file or folder a staged script names must be staged too.
+
+    A runtime folder missing from RUNTIME_TREES otherwise exports cleanly and
+    only fails on the phone (0.20.0 shipped without assets/workshop)."""
+    missing = set()
+    for script in project.joinpath("scripts").rglob("*"):
+        if script.suffix not in {".gd", ".gdshader", ".tscn", ".tres"}:
+            continue
+        for relative in RES_LITERAL.findall(script.read_text(encoding="utf-8")):
+            if relative and not (project / relative).exists():
+                missing.add(f"{script.relative_to(project)} → res://{relative}")
+    for root_file in ("main.tscn", "project.godot"):
+        for relative in RES_LITERAL.findall((project / root_file).read_text(encoding="utf-8")):
+            if relative and not (project / relative).exists():
+                missing.add(f"{root_file} → res://{relative}")
+    if missing:
+        raise ValueError("Scripts reference runtime paths that are not staged (add them to RUNTIME_TREES):\n  " + "\n  ".join(sorted(missing)))
 
 
 # ArtBook sprite atlases: the packer rewrites these to trimmed phone-resolution

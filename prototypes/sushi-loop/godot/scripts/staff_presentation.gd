@@ -4,6 +4,8 @@ const Resume = preload("res://scripts/staff_resume.gd")
 const Typography = preload("res://scripts/typography.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const Wood = preload("res://scripts/wood_skin.gd")
+const GameButton = preload("res://scripts/game_button.gd")
+const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
 signal command_requested(value: Dictionary)
 var state: Dictionary = {}
 var scene := Rect2()
@@ -17,7 +19,7 @@ var maple: TextureRect
 var title: Label
 var subtitle: RichTextLabel
 var close_button: Button
-var refresh_button: Button
+var refresh_button: GameButton
 var refresh_title: Label
 var refresh_note: Label
 var fan: Control
@@ -65,7 +67,7 @@ func _ready() -> void:
 	subtitle=RichTextLabel.new();subtitle.bbcode_enabled=true;subtitle.scroll_active=false;subtitle.mouse_filter=MOUSE_FILTER_IGNORE;subtitle.add_theme_font_override("normal_font",font);panel.add_child(subtitle)
 	fan=Control.new();fan.clip_contents=true;fan.mouse_filter=MOUSE_FILTER_STOP;modal.add_child(fan);fan.gui_input.connect(_fan_gui)
 	empty_label=label(fan);empty_label.text="No applications left\n\nRefresh for three new faces.";empty_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;empty_label.hide()
-	refresh_button=button("Refresh","Refresh applications",panel);refresh_button.pressed.connect(func():command_requested.emit({"type":"refresh_applicants","now":Time.get_unix_time_from_system()}))
+	refresh_button=GameButton.new();refresh_button.text="Refresh";refresh_button.accessibility_name="Refresh applications";refresh_button.radius=999;panel.add_child(refresh_button);refresh_button.pressed.connect(func():command_requested.emit({"type":"refresh_applicants","now":Time.get_unix_time_from_system()}))
 	refresh_title=label(panel);refresh_title.text="Fresh faces?";refresh_note=label(panel)
 	modal.hide()
 
@@ -73,13 +75,6 @@ func label(parent: Node) -> Label:
 	var result:=Label.new();result.mouse_filter=MOUSE_FILTER_IGNORE;result.add_theme_font_override("font",font);result.add_theme_color_override("font_color",Color("592c10"));parent.add_child(result);return result
 func button(text: String, accessible: String, parent: Node) -> Button:
 	var result:=Button.new();result.text=text;result.accessibility_name=accessible;result.add_theme_font_override("font",font);result.mouse_filter=MOUSE_FILTER_STOP;parent.add_child(result);return result
-func style_button(control: Button, primary := false, disabled := false) -> void:
-	control.disabled=disabled
-	var scale_value:=unit*390.0/720.0
-	for treatment in ["normal","hover","pressed","disabled"]: control.add_theme_stylebox_override(treatment,wood.style("hud-live-pressed" if primary and treatment=="pressed" else "hud-live-normal" if primary and treatment!="disabled" else "hud-cream-pressed" if treatment=="pressed" else "hud-cream-normal",scale_value))
-	for key in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: control.add_theme_color_override(key,Color("fff9ed") if primary else Color("61381e"))
-	control.add_theme_color_override("font_disabled_color",Color("927553"));control.add_theme_stylebox_override("focus",StyleBoxEmpty.new());control.add_theme_font_size_override("font_size",maxi(1,int(15*unit)))
-	var minimum:=44.01/maxf(.001,get_viewport_transform().get_scale().x);control.custom_minimum_size=Vector2(minimum,minimum)
 func text_at(node: Label, box: Rect2, pixels: float) -> void:
 	if node.autowrap_mode!=TextServer.AUTOWRAP_OFF:
 		node.position=box.position*unit;node.size=box.size*unit;node.add_theme_font_size_override("font_size",int(pixels*unit))
@@ -97,7 +92,7 @@ func refresh(value: Dictionary) -> void:
 func open_applicants() -> void:
 	if state.is_empty():return
 	focus_before=get_viewport().gui_get_focus_owner();view="applicants";closing=false;offers_signature="";active=0;position_value=0;target=0;velocity=0;settling=false;modal.modulate.a=1;panel.modulate.a=1;modal.show();fan.show()
-	_sync_offers();layout(scene);close_button.grab_focus()
+	_sync_offers();layout(scene);close_button.grab_focus(true)
 func _sync_offers() -> void:
 	var offers:Array=state.staff.offers
 	var old_positions:Dictionary={}
@@ -153,11 +148,11 @@ func layout(value: Rect2) -> void:
 	var width:=scene.size.x-24*unit
 	panel.position=Vector2(scene.position.x+12*unit,usable_top+(usable_height-panel_height*unit)*.5)
 	panel.size=Vector2(width,panel_height*unit)
-	var shadow:=StyleBoxFlat.new();shadow.bg_color=Color.TRANSPARENT;shadow.shadow_color=Color(.3,.16,.04,.25);shadow.shadow_size=int(7*unit);shadow.shadow_offset=Vector2(0,5)*unit;shadow.set_corner_radius_all(int(24*unit));panel.add_theme_stylebox_override("panel",shadow)
+	panel.add_theme_stylebox_override("panel",PopupSkin.card_shadow(24*unit,unit))
 	maple.size=panel.size;var material_value:ShaderMaterial=maple.material;material_value.set_shader_parameter("surface_size",panel.size);material_value.set_shader_parameter("corner_radius",24*unit);material_value.set_shader_parameter("grain_width",390*unit)
 	title.text="Applicants"
 	text_at(title,Rect2(16,14,width/unit-80,32),25)
-	close_button.position=Vector2(width-60*unit,14*unit);close_button.size=Vector2(44,44)*unit;close_button.accessibility_name="Close applicants";style_button(close_button)
+	close_button.position=Vector2(width-60*unit,14*unit);PopupSkin.close_button(close_button,unit*44.0/96.0,get_viewport_transform().get_scale().x);close_button.accessibility_name="Close applicants"
 	subtitle.position=Vector2(16,50)*unit;subtitle.size=Vector2(width/unit-75,24)*unit;subtitle.add_theme_font_size_override("normal_font_size",int(12*unit));subtitle.add_theme_color_override("default_color",Color("8a5b34"))
 	if view=="applicants":subtitle.text="Staff %s / %s · %s" % [state.staff.count,state.staff.capacity,"[color=#b84432]Roster full[/color]" if int(state.staff.count)>=int(state.staff.capacity) else "%s space%s available" % [int(state.staff.capacity)-int(state.staff.count),"" if int(state.staff.capacity)-int(state.staff.count)==1 else "s"]]
 	fan.position=Vector2(scene.position.x,panel.position.y+80*unit);fan.size=Vector2(scene.size.x,fan_height*unit)
@@ -172,7 +167,7 @@ func layout(value: Rect2) -> void:
 	text_at(refresh_note,Rect2(22,bottom+36,width/unit-145,20),10)
 	refresh_button.position=Vector2(width-122*unit,(bottom+9)*unit);refresh_button.size=Vector2(102,44)*unit
 	var seconds:=maxi(0,int(ceil(float(state.staff.refresh_deadline)-Time.get_unix_time_from_system())))
-	refresh_note.text="Available in %02d:%02d" % [seconds/60,seconds%60] if seconds>0 else "Free · replaces remaining offers";style_button(refresh_button,false,seconds>0)
+	refresh_note.text="Available in %02d:%02d" % [seconds/60,seconds%60] if seconds>0 else "Free · replaces remaining offers";refresh_button.disabled=seconds>0;refresh_button.caption_px=15.0;refresh_button.fit(unit,get_viewport_transform().get_scale().x)
 
 func _place_cards() -> void:
 	var index:=0

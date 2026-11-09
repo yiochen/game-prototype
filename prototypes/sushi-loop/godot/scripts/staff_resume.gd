@@ -4,6 +4,7 @@ const Art = preload("res://scripts/recipe_art.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const Typography = preload("res://scripts/typography.gd")
 const Wood = preload("res://scripts/wood_skin.gd")
+const GameButton = preload("res://scripts/game_button.gd")
 signal hire_requested(id: String)
 var offer: Dictionary = {}
 var dismissal_mode := false
@@ -23,10 +24,7 @@ var eyebrow: Label
 var portrait: Control
 var names: Array[Label] = []
 var values: Array[Label] = []
-var hire_button: Button
-var hire_word: Label
-var budget: RichTextLabel
-var coin: TextureRect
+var hire_button: GameButton
 var imprint: Control
 var stamp_text: Label
 var stamp_prop: TextureRect
@@ -52,11 +50,9 @@ func _ready() -> void:
 	portrait = Head.new();portrait.mouse_filter = MOUSE_FILTER_IGNORE;add_child(portrait)
 	for text in ["Cooking speed","Growth / level","Max level"]: names.append(label(text));values.append(label(""))
 	names.append(label("Current level"));values.append(label(""));dismissal_note=label("");dismissal_note.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-	hire_button = Button.new();hire_button.mouse_filter = MOUSE_FILTER_STOP;hire_button.accessibility_name = "Hire applicant";add_child(hire_button)
+	hire_button = GameButton.new();hire_button.tone = GameButton.Tone.PRIMARY;hire_button.radius = 999;hire_button.text = "Hire";hire_button.cost_icon = UISkin.cash_icon()
+	hire_button.mouse_filter = MOUSE_FILTER_STOP;hire_button.accessibility_name = "Hire applicant";add_child(hire_button)
 	hire_button.pressed.connect(func(): hire_requested.emit(str(offer.id)))
-	hire_word = label("Hire",hire_button)
-	budget = RichTextLabel.new();budget.bbcode_enabled = true;budget.scroll_active = false;budget.mouse_filter = MOUSE_FILTER_IGNORE;budget.add_theme_font_override("normal_font",font);hire_button.add_child(budget)
-	coin = TextureRect.new();coin.texture=UISkin.cash_icon();coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;coin.mouse_filter = MOUSE_FILTER_IGNORE;hire_button.add_child(coin)
 	imprint = Ink.new();imprint.mouse_filter = MOUSE_FILTER_IGNORE;add_child(imprint);stamp_text = label("Hired",imprint);stamp_text.add_theme_color_override("font_color",Color("c54632"));imprint.modulate.a = 0
 	stamp_prop = TextureRect.new();stamp_prop.texture = preload("res://assets/ui/staff/hiring-stamp.png");stamp_prop.expand_mode = TextureRect.EXPAND_IGNORE_SIZE;stamp_prop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED;stamp_prop.mouse_filter = MOUSE_FILTER_IGNORE;add_child(stamp_prop);stamp_prop.modulate.a = 0
 	layout()
@@ -96,16 +92,11 @@ func layout() -> void:
 		text_at(values[i],Rect2(pad+i*step,stats_y+27,step,28),18 if narrow else 19)
 	hire_button.custom_minimum_size = Vector2.ZERO
 	hire_button.position = Vector2(pad*unit,hire_top*unit);hire_button.size = Vector2((width-pad*2)*unit,target_height)
-	var style_scale := unit*390.0/720.0
-	for treatment in ["normal","hover","pressed","disabled"]: hire_button.add_theme_stylebox_override(treatment,wood.style("hud-cream-normal" if treatment=="disabled" else "hud-live-pressed" if treatment=="pressed" else "hud-live-normal",style_scale))
-	hire_button.add_theme_stylebox_override("focus",StyleBoxEmpty.new())
 	hire_button.disabled = full or coins<int(offer.get("cost",0))
 	hire_button.accessibility_name = "Hire %s for %s coins%s" % [offer.get("name",""),offer.get("cost",0),", %s coins available" % coins if coins<int(offer.get("cost",0)) else ", roster full" if full else ""]
-	var poor := coins<int(offer.get("cost",0));var ink := Color("927553") if hire_button.disabled else Color("fff9ed")
-	text_at(hire_word,Rect2(16,0,(width-pad*2)*.43,target_height/unit),18,ink)
-	coin.position=Vector2((width-pad*2)*.48,(target_height/unit-22)*.5)*unit;coin.size=Vector2(22,22)*unit
-	budget.position=Vector2((width-pad*2)*.48+28,(target_height/unit-28)*.5)*unit;budget.size=Vector2((width-pad*2)*.52-32,32)*unit;budget.add_theme_font_size_override("normal_font_size",int(17*unit));budget.add_theme_color_override("default_color",ink)
-	budget.text = "%s / [color=#b84432]%s[/color]" % [coins,int(offer.get("cost",0))] if poor else str(int(offer.get("cost",0)))
+	var poor := coins<int(offer.get("cost",0))
+	hire_button.cost = str(int(offer.get("cost",0)));hire_button.short = str(coins) if poor else ""
+	hire_button.caption_px = 18.0;hire_button.fit(unit,get_viewport_transform().get_scale().x)
 	imprint.size=Vector2(minf(176,width*.66),minf(176,width*.66)*488.0/2048)*unit;imprint.pivot_offset=imprint.size*.5;imprint.position=size*.52-imprint.size*.5;imprint.position.x=size.x*.5-imprint.size.x*.5;imprint.rotation=deg_to_rad(-12);imprint.queue_redraw()
 	UISkin.layout_caption(stamp_text,Rect2(Vector2.ZERO,imprint.size),int(28*unit))
 	stamp_prop.size=Vector2(minf(172,width*.56),minf(172,width*.56)*876.0/964)*unit;stamp_prop.position=Vector2((size.x-stamp_prop.size.x)*.5,size.y*.52-stamp_prop.size.y)

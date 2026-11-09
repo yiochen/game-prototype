@@ -22,6 +22,7 @@ extends Control
 ## Surfaces reuse the approved shared family (maple popup face, cream capsules,
 ## vermilion primary, round cream control). Outcome backgrounds are tinted
 ## scrims until the ImageGen results family is produced and approved.
+const ShipArt = preload("res://scripts/ship_art.gd")
 const ExpeditionView = preload("res://scripts/expedition/expedition_view.gd")
 const Book = preload("res://scripts/expedition/expedition_book.gd")
 const PopupSkin = preload("res://scripts/maple_popup_skin.gd")
@@ -31,6 +32,7 @@ const UISkin = preload("res://scripts/ui_skin.gd")
 const HarpoonButton = preload("res://scripts/expedition/harpoon_button.gd")
 const Cheats = preload("res://scripts/cheats.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
+const GameButton = preload("res://scripts/game_button.gd")
 
 signal returned_to_restaurant
 signal save_requested
@@ -73,7 +75,7 @@ var damage_flash: TextureRect
 var prep_title: Label
 var prep_text: Label
 var prep_hint: Label
-var exit_button: Button
+var exit_button: GameButton
 var ride_note: Label
 var toast: Label
 var _toast_left := 0.0
@@ -157,8 +159,8 @@ func _ready() -> void:
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		label.add_theme_color_override("font_color", Color("fff6df"))
 		label.add_theme_color_override("font_shadow_color", Color(.02, .1, .2, .7)); label.add_theme_constant_override("shadow_offset_y", 3)
-	exit_button = Button.new(); exit_button.text = "Sushi Bar"; exit_button.accessibility_name = "Back to the Sushi Bar"
-	exit_button.add_theme_font_override("font", _font(850)); exit_button.set_meta("primary", false); exit_button.focus_mode = Control.FOCUS_ALL
+	exit_button = GameButton.new(); exit_button.text = "Sushi Bar"; exit_button.accessibility_name = "Back to the Sushi Bar"
+	exit_button.focus_mode = Control.FOCUS_ALL
 	exit_button.pressed.connect(close_prep); add_child(exit_button)
 	ride_note = _label(self, 850); ride_note.text = "The current carries you"; ride_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	toast = _label(self, 850); toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -243,14 +245,9 @@ func _pill(accessible: String) -> Panel:
 	var panel := Panel.new(); panel.mouse_filter = Control.MOUSE_FILTER_IGNORE; panel.accessibility_name = accessible; add_child(panel)
 	return panel
 
-## The travel clip's first frame, cropped to the hull, as the meter icon.
-func _ship_icon() -> Texture2D:
-	var data: Dictionary = view.pieces.objects["submarine-yellow"]
-	var rect: Array = data.clips[0].directions.S.rects[0]
-	var atlas := AtlasTexture.new()
-	atlas.atlas = load("res://assets/expedition/" + str(data.clips[0].directions.S.image))
-	atlas.region = Rect2(float(rect[0]) + float(rect[2]) * .25, float(rect[1]) + float(rect[3]) * .44, float(rect[2]) * .5, float(rect[3]) * .4)
-	return atlas
+## The hull meter's icon: the ImageGen hull (#28) in its current look tier.
+func _ship_icon(tier := 1) -> Texture2D:
+	return ShipArt.texture("parts/hull-%d.png" % clampi(tier, 1, 3))
 
 func _card(id: String, heading: String, body: String, actions: Array) -> void:
 	var panel := Panel.new(); panel.mouse_filter = Control.MOUSE_FILTER_STOP; panel.accessibility_name = heading; add_child(panel)
@@ -259,8 +256,8 @@ func _card(id: String, heading: String, body: String, actions: Array) -> void:
 	var text := _label(panel, 750); text.text = body; text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	var buttons: Array = []
 	for action in actions:
-		var button := Button.new(); button.text = action[0]; button.accessibility_name = action[0]
-		button.add_theme_font_override("font", _font(850)); button.set_meta("primary", action[1]); panel.add_child(button)
+		var button := GameButton.new(); button.text = action[0]; button.accessibility_name = action[0]
+		button.tone = GameButton.Tone.PRIMARY if action[1] else GameButton.Tone.SECONDARY; panel.add_child(button)
 		button.pressed.connect(action[2]); buttons.append(button)
 	cards[id] = {"panel": panel, "face": face, "title": title, "text": text, "buttons": buttons}
 	panel.hide()
@@ -287,8 +284,16 @@ func open_prep(value: Dictionary) -> void:
 	# No focused control: Enter/Space starts, Back returns to the Sushi Bar.
 	if get_viewport().gui_get_focus_owner() != null: get_viewport().gui_get_focus_owner().release_focus()
 
+## Scene switches back to the restaurant go through the game's shared
+## transition (#28) when one is provided: leave_with.call(from, work).
+var leave_with: Callable
+
+func _leave(from: Vector2, work: Callable) -> void:
+	if leave_with.is_valid(): leave_with.call(from, work)
+	else: work.call()
+
 func close_prep() -> void:
-	mode = "hidden"; hide(); returned_to_restaurant.emit()
+	_leave(get_global_rect().get_center(), func(): mode = "hidden"; hide(); returned_to_restaurant.emit())
 
 ## `by_touch`: the starting press stays held (and steers if it is on an arrow).
 func start(by_touch := false) -> void:
@@ -414,7 +419,7 @@ func _open_award(value: Dictionary) -> void:
 	result = value
 	_fill_award(value.creature)
 	_show_overlay("award")
-	cards.award.buttons[0].grab_focus()
+	cards.award.buttons[0].grab_focus(true)
 
 func _award_continue() -> void:
 	if overlay != "award": return
@@ -452,15 +457,16 @@ func show_results(value: Dictionary) -> void:
 	if creature is Dictionary and creature.get("outcome") == "escaped": receipt.note[0].text = "The hull gave out and the %s got away." % str(Book.definition().encounter.get("creature_name", "creature"))
 	scrim.color = SCRIMS[outcome]
 	_refresh_visibility(); layout(area)
-	cards.results.buttons[0].grab_focus()
+	cards.results.buttons[0].grab_focus(true)
 
 func finish_results() -> void:
 	_command({"type": "expedition_acknowledge", "id": result.get("id")})
-	result = {}; mode = "hidden"; hide(); save_requested.emit(); returned_to_restaurant.emit()
+	var from: Vector2 = cards.results.buttons[0].get_global_rect().get_center() if cards.has("results") else get_global_rect().get_center()
+	_leave(from, func(): result = {}; mode = "hidden"; hide(); save_requested.emit(); returned_to_restaurant.emit())
 
 func _show_overlay(value: String) -> void:
 	overlay = value; _refresh_visibility(); layout(area)
-	if value == "paused": cards.paused.buttons[1].grab_focus()
+	if value == "paused": cards.paused.buttons[1].grab_focus(true)
 
 ## Android Back: Pause while travelling; step back through cards otherwise.
 func back() -> bool:
@@ -594,7 +600,9 @@ func _update_slow_motion(delta: float) -> void:
 
 func _sync_prep(delta: float) -> void:
 	view.steering_enabled = false; view.controls_visible = true; view.reduced_motion = reduced_motion
-	view.sync({"seed": _prep_seed, "x": _prep_lead.x, "y": _prep_y, "protection": 0.0, "collected": []}, delta, not gallery)
+	# The ship waiting at the launch already shows the Workshop gear it will fly with (#28).
+	var gear = snapshot.get("workshop", {}).get("gear")
+	view.sync({"seed": _prep_seed, "x": _prep_lead.x, "y": _prep_y, "protection": 0.0, "collected": [], "gear": gear if gear is Dictionary else {}}, delta, not gallery)
 
 func _sync_view(delta: float) -> void:
 	var run = snapshot.expedition.run
@@ -641,6 +649,7 @@ func _refresh_hud(delta: float) -> void:
 	var run = snapshot.get("expedition", {}).get("run")
 	if run == null: return
 	# The hull icon glows while the shield or the passage protects it.
+	hull_icon.texture = _ship_icon(int(Book.gear(run).tiers.get("hull", 1)))
 	hull_icon.modulate = Color(.8, 1.15, 1.3) if float(run.get("shield", 0.0)) > 0.0 or run.get("passage") != null else Color.WHITE
 	salvage_label.text = str(int(run.salvage)); salvage_pill.accessibility_description = "%d salvage this expedition" % int(run.salvage)
 	var fraction := float(run.get("hull_fraction", 1.0))
@@ -803,9 +812,7 @@ func layout(value: Rect2) -> void:
 func _layout_prep(unit: float, physical: float, top: float) -> void:
 	exit_button.position = Vector2(area.position.x + 12 * unit, top)
 	exit_button.size = Vector2(132 * unit, maxf(48.0 / physical, 48.0 * unit))
-	exit_button.custom_minimum_size = Vector2.ONE * 44.01 / physical
-	_style_button(exit_button, unit)
-	exit_button.add_theme_font_size_override("font_size", maxi(1, int(17 * unit)))
+	exit_button.caption_px = 17.0; exit_button.fit(unit, physical)
 	var y := area.position.y + area.size.y * .3
 	prep_title.position = Vector2(area.position.x + 20 * unit, y); prep_title.size = Vector2(area.size.x - 40 * unit, 48 * unit)
 	prep_title.add_theme_font_size_override("font_size", maxi(1, int(36 * unit)))
@@ -814,25 +821,12 @@ func _layout_prep(unit: float, physical: float, top: float) -> void:
 	prep_hint.position = Vector2(area.position.x + 20 * unit, y + 132 * unit); prep_hint.size = Vector2(area.size.x - 40 * unit, 36 * unit)
 	prep_hint.add_theme_font_size_override("font_size", maxi(1, int(22 * unit)))
 
-func _style_button(button: Button, unit: float) -> void:
-	var primary: bool = button.get_meta("primary")
-	for treatment in ["normal", "hover", "pressed", "disabled"]:
-		var style := PopupSkin.flat(Color("ff624b") if primary else Color("fff1d5"), 26 * unit)
-		if treatment == "pressed": style.bg_color = style.bg_color.darkened(.06)
-		if treatment == "disabled" and primary: style.bg_color = Color("dfc6a1")
-		style.shadow_color = Color("bd4528") if primary else Color("b98450"); style.shadow_size = maxi(1, int(unit)); style.shadow_offset = Vector2(0, 1 if treatment == "pressed" else 3) * unit
-		button.add_theme_stylebox_override(treatment, style)
-	for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]: button.add_theme_color_override(key, Color("fff9ed") if primary else INK)
-	var focus := PopupSkin.flat(Color.TRANSPARENT, 26 * unit); focus.set_border_width_all(maxi(1, int(2 * unit))); focus.border_color = Color("32636b")
-	button.add_theme_stylebox_override("focus", focus)
-
 func _layout_card(card: Dictionary, unit: float, physical: float, height: float, bottom := false) -> void:
 	var panel: Panel = card.panel
 	var action_height := maxf(48.0 / physical, 48.0 * unit)
 	panel.size = Vector2(area.size.x - 40 * unit, maxf(height * unit, action_height + 110 * unit))
 	panel.position = Vector2(area.position.x + 20 * unit, area.end.y - panel.size.y - 28 * unit if bottom else area.get_center().y - panel.size.y / 2)
-	var shadow := PopupSkin.flat(Color.TRANSPARENT, 25 * unit); shadow.shadow_color = Color(.35, .18, .05, .24); shadow.shadow_size = int(7 * unit); shadow.shadow_offset = Vector2(0, 5) * unit
-	panel.add_theme_stylebox_override("panel", shadow)
+	panel.add_theme_stylebox_override("panel", PopupSkin.card_shadow(25 * unit, unit))
 	PopupSkin.layout_face(card.face, panel.size, unit * 390.0 / 720.0); card.face.material.set_shader_parameter("corner_radius", 25 * unit)
 	card.title.position = Vector2(14, 18) * unit; card.title.size = Vector2(panel.size.x - 28 * unit, 34 * unit)
 	card.title.add_theme_font_size_override("font_size", maxi(1, int(25 * unit)))
@@ -846,9 +840,7 @@ func _layout_card(card: Dictionary, unit: float, physical: float, height: float,
 		var button: Button = buttons[i]
 		button.position = Vector2(14 * unit + i * (width + gap), panel.size.y - action_height - 18 * unit)
 		button.size = Vector2(width, action_height)
-		button.custom_minimum_size = Vector2.ONE * 44.01 / physical
-		button.add_theme_font_size_override("font_size", maxi(1, int(17 * unit)))
-		_style_button(button, unit)
+		button.caption_px = 17.0; button.fit(unit, physical)
 
 ## Award card: title, 3:2 illustration with the plated dish centred on its
 ## spotlight, name, origin line, two fact chips and Continue (as the HTML review).
@@ -896,16 +888,13 @@ func _layout_award(unit: float, physical: float) -> void:
 		value.position = Vector2(chip.icon.position.x + icon_size + 6 * unit, 26 * unit); value.size.y = 28 * unit; value.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		chip.icon.queue_redraw()
 	y += chip_h + 18 * unit
-	var button: Button = card.buttons[0]
+	var button: GameButton = card.buttons[0]
 	button.position = Vector2(inset, y); button.size = Vector2(art_w, action_height)
-	button.custom_minimum_size = Vector2.ONE * 44.01 / physical
-	button.add_theme_font_size_override("font_size", maxi(1, int(20 * unit)))
-	_style_button(button, unit)
+	button.caption_px = 20.0; button.fit(unit, physical)
 	y += action_height + 20 * unit
 	panel.size = Vector2(width, y)
 	panel.position = Vector2(area.get_center().x - width / 2.0, area.get_center().y - y / 2.0)
-	var shadow := PopupSkin.flat(Color.TRANSPARENT, 25 * unit); shadow.shadow_color = Color(.35, .18, .05, .24); shadow.shadow_size = int(7 * unit); shadow.shadow_offset = Vector2(0, 5) * unit
-	panel.add_theme_stylebox_override("panel", shadow)
+	panel.add_theme_stylebox_override("panel", PopupSkin.card_shadow(25 * unit, unit))
 	PopupSkin.layout_face(card.face, panel.size, unit * 390.0 / 720.0); card.face.material.set_shader_parameter("corner_radius", 25 * unit)
 	card.text.visible = false
 

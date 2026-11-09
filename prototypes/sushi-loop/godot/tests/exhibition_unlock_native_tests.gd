@@ -6,6 +6,14 @@ var output := ""
 var checks := 0
 var failures: Array[String] = []
 
+
+## Waits out the shared scene transition (#28): close, loading beat, open.
+func settle() -> void:
+	for i in range(2): await process_frame
+	var guard := 0
+	while app.transition.busy and guard < 900:
+		await process_frame; guard += 1
+
 func _init() -> void: call_deferred("run")
 func check(value: bool, message: String) -> void:
 	checks += 1
@@ -94,7 +102,7 @@ func run() -> void:
 	accepted = app.session.save_data() # Restore may normalize versioned snapshot caches.
 	ui.open_unlock(app.session.snapshot());await key(KEY_ESCAPE);check(not ui.visible and app.session.save_data() == accepted,"Escape closes without mutating the accepted reveal")
 	ui.open_unlock(app.session.snapshot());app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST);check(not ui.visible and app.session.save_data() == accepted,"Android Back closes without leaving the restaurant")
-	ui.open_unlock(app.session.snapshot());await tap(ui.clear_button)
+	ui.open_unlock(app.session.snapshot());await tap(ui.clear_button);await settle()
 	check(not ui.visible and app.expedition_ui.visible and app.expedition_ui.mode == "prep","Let's go opens the native Submarine entry: underwater preparation (#21)")
 	check(app.session.save_data() == accepted,"opening the entry never charges, moves the camera, or starts a journey")
 	await capture("05-submarine-entry");app.expedition_ui.mode = "hidden";app.expedition_ui.hide()

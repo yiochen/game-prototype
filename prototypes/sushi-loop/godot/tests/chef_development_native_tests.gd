@@ -50,7 +50,7 @@ func run()->void:
 	await tap(picker.recipe_tab);await create_timer(.3).timeout
 	check(not picker.prepare_button.visible and picker.prepare_button.disabled,"stored chef Recipes has no Prepare")
 	await tap(picker.manage_tab);await create_timer(.3).timeout
-	await tap(manage.unassign);check(not picker.visible and not app.armed_item.is_empty(),"Place in restaurant arms existing valid placement")
+	await tap(manage.unassign);check(not picker.visible and app.armed_item.is_empty() and app.session.snapshot().editor.layer=="people","Place in restaurant opens People to drag the chef in (placement is drag-only)")
 	app.armed_item.clear();app.editor_ui.active_item=""
 	var placed:Dictionary=app._staff_command({"type":"staff_place","inventory_id":id,"x":1,"y":5});await frames()
 	check(placed.ok and picker.visible and picker.tab=="recipes","reassignment opens shared recipe picker")

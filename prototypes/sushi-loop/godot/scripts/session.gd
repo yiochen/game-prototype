@@ -20,11 +20,12 @@ const Layout = preload("res://scripts/features/layout.gd")
 const Customers = preload("res://scripts/features/customers.gd")
 const Navigation = preload("res://scripts/features/navigation.gd")
 const Tips = preload("res://scripts/features/tips.gd")
+const WorkshopBook = preload("res://scripts/workshop_book.gd")
 const Tea = preload("res://scripts/features/tea.gd")
 ## Self-contained features whose records are store slices. `_state` is the
 ## session's own `core` slice; it also refers to these slices under their
 ## names so older code can read them, but never holds a copy.
-const SLICES := {"shop": 2, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 2, "editor": 1, "expedition": 1, "tips": 1}
+const SLICES := {"shop": 2, "floor_styles": 1, "recipe_book": 1, "staff": 1, "expansion": 1, "inventory": 2, "editor": 1, "expedition": 1, "tips": 1, "workshop": 1}
 ## Commands that may place, move or remove layout objects.
 const LAYOUT_COMMANDS := ["staff_place", "unassign_chef", "fire_chef"]
 const BeltRoutes = preload("res://scripts/belt_routes.gd")
@@ -137,6 +138,7 @@ static func _slices_written(type: String) -> Array:
 	if type.begins_with("expedition_"): return [] if type in ["expedition_advance", "expedition_steer"] else ["expedition", "floor_styles", "recipe_book"]
 	if type.begins_with("editor_"): return ["editor", "inventory", "tips"]
 	if type in TIP_COMMANDS: return ["tips"]
+	if type.begins_with("workshop_"): return ["workshop", "expedition"]
 	match type:
 		"shop_purchase": return ["shop", "inventory"]
 		"clear_trash", "reveal_dock", "dock_access": return ["expansion"]
@@ -187,6 +189,7 @@ func _command(request: Dictionary) -> Dictionary:
 		if result.get("ok",false) and result.get("changed",false): _rebuild_access()
 		return result
 	if request.get("type") == "shop_purchase": return ShopBook.command(_state, request)
+	if str(request.get("type", "")).begins_with("workshop_"): return WorkshopBook.command(_state, request)
 	if request.get("type") in TIP_COMMANDS: return _tip_command(request)
 	if request.get("type") in ["level_up_chef","fire_chef"]:
 		var result:=Chefs.level_up(_store,_state,request) if request.type=="level_up_chef" else Chefs.fire(_store,_state,request)
@@ -222,6 +225,7 @@ func _command(request: Dictionary) -> Dictionary:
 		_state.editor = old_editor
 		if result.get("ok",false):
 			if Chefs.reset_station(_store,str(request.inventory_id)):_state.discarded_dishes=int(_state.discarded_dishes)+1
+			Chefs.auto_prepare(_store,_configuration,_state,str(request.inventory_id))
 		return result
 	if request.get("type") in ["inspect_recipe", "prepare_recipe"]:
 		return Chefs.prepare(_store, _configuration, _state, request)
@@ -308,6 +312,7 @@ func snapshot() -> Dictionary:
 		"customers": [],
 		"stats": _state.stats.duplicate(true),
 		"tips": Tips.snapshot(_state, _objects()),
+		"workshop": WorkshopBook.snapshot(_state),
 	}
 	var floor_offer := FloorBook.offer(_state)
 	if not floor_offer.is_empty(): result.shop.offers.push_front(floor_offer)
@@ -433,8 +438,15 @@ func _derive(state: Dictionary, store: Store, config: Dictionary) -> bool:
 	if state.get("tips") == null:
 		state.tips = Tips.initial(1)
 		store.set_slice("tips", state.tips)
+	# Saves from before the Workshop (#28) start with every level at 1.
+	if state.get("workshop") == null:
+		state.workshop = WorkshopBook.initial()
+		store.set_slice("workshop", state.workshop)
 	for stock in state.inventory:
 		if stock is Dictionary and stock.get("kind") == "chef": stock.assigned = store.has_row(Layout.WORLD, "layout", str(stock.get("id")))
+	# Chefs placed before auto-assignment (2026-11-08) start cooking too.
+	if state.get("recipe_book") is Dictionary:
+		for id in Chefs.ids(store): Chefs.auto_prepare(store, config, state, str(id))
 	return true
 
 ## A saved configuration with the current content's cell scale, or {} if invalid.
@@ -491,7 +503,7 @@ func _valid_store(store: Store, config: Dictionary, state: Dictionary = {}) -> b
 	if not FloorBook.valid(config, view) or not view.editor.get("floor_brush", "") is String: return false
 	if view.editor.get("floor_brush", "") != "" and not view.editor.floor_brush in view.floor_styles.owned: return false
 	if not ShopBook.valid(view) or not Expansion.valid(config, view) or not ExpeditionBook.valid(view): return false
-	if not Tips.valid(view) or not _valid_cash(view, config): return false
+	if not Tips.valid(view) or not _valid_cash(view, config) or not WorkshopBook.valid(view): return false
 	if not StaffBook.valid(config, view, store) or not RecipeBook.valid(config, view): return false
 	return _valid_saved_state(view, config, store)
 
@@ -499,6 +511,7 @@ func _normalize_restored_numbers() -> void:
 	ShopBook.normalize(_state)
 	ExpeditionBook.normalize(_state)
 	Tips.normalize(_state)
+	WorkshopBook.normalize(_state)
 	# A pour sheet is not saved: a guest saved mid-pour is asking again.
 	for customer in Customers.rows(_store):
 		if customer.get("tea_phase") == "pouring": customer.tea_phase = "requested"
@@ -566,6 +579,7 @@ func _start() -> void:
 	FloorBook.initialize(_state,_staff_seed)
 	Expansion.initialize(_configuration,_state)
 	ExpeditionBook.initialize(_state,_staff_seed)
+	_state.workshop = WorkshopBook.initial()
 	BeltRoutes.initialize(_state.objects)
 	_store = _new_store()
 	Chefs.extract(_state, _store, _configuration)

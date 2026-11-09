@@ -77,7 +77,7 @@ func run() -> void:
 	app._editor_command({"type":"editor_layer","layer":"people"})
 	app._staff_command({"type":"staff_place","inventory_id":id,"x":1,"y":5})
 	app.recipe_ui.inspect("salmon_nigiri");await frames()
-	check(app.recipe_ui.visible and app.recipe_ui.prepare_button.visible and not app.recipe_ui.prepare_button.disabled,"Placing the chef enables Prepare in the same dialog")
+	check(app.recipe_ui.visible and (app.recipe_ui.preparing_label.visible or (app.recipe_ui.prepare_button.visible and not app.recipe_ui.prepare_button.disabled)),"Placing the chef starts a recipe; the dialog shows it or offers Prepare")
 	await capture("04-placed-idle-can-prepare")
 	app.recipe_ui.dismiss();app.queue_free();await frames()
 	print("Chef recipes and deferred dots: %s checks, %s failures" % [checks,failures.size()]);quit(0 if failures.is_empty() else 1)
