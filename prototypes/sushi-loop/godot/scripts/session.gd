@@ -225,6 +225,7 @@ func _command(request: Dictionary) -> Dictionary:
 		_state.editor = old_editor
 		if result.get("ok",false):
 			if Chefs.reset_station(_store,str(request.inventory_id)):_state.discarded_dishes=int(_state.discarded_dishes)+1
+			Chefs.auto_prepare(_store,_configuration,_state,str(request.inventory_id))
 		return result
 	if request.get("type") in ["inspect_recipe", "prepare_recipe"]:
 		return Chefs.prepare(_store, _configuration, _state, request)
@@ -443,6 +444,9 @@ func _derive(state: Dictionary, store: Store, config: Dictionary) -> bool:
 		store.set_slice("workshop", state.workshop)
 	for stock in state.inventory:
 		if stock is Dictionary and stock.get("kind") == "chef": stock.assigned = store.has_row(Layout.WORLD, "layout", str(stock.get("id")))
+	# Chefs placed before auto-assignment (2026-11-08) start cooking too.
+	if state.get("recipe_book") is Dictionary:
+		for id in Chefs.ids(store): Chefs.auto_prepare(store, config, state, str(id))
 	return true
 
 ## A saved configuration with the current content's cell scale, or {} if invalid.

@@ -52,7 +52,7 @@ func run()->void:
 	check(session.command({"type":"staff_place","inventory_id":id,"x":1,"y":5}).ok,"valid reassignment uses existing placement")
 	actor=chef(session,id)
 	check(actor.level==upgraded.level and actor.cooking_speed==upgraded.cooking_speed,"reassignment retains development")
-	check(actor.recipe_id=="" and actor.held_dish==null and actor.preparation_elapsed==0,"reassigned chef waits for explicit Prepare")
+	check(actor.recipe_id!="" and actor.held_dish==null and actor.preparation_elapsed==0,"reassigned chef starts fresh on an auto-assigned recipe")
 	while int(actor.level)<int(actor.level_cap):
 		check(session.command({"type":"level_up_chef","chef_id":id,"expected_level":actor.level}).ok,"development to cap")
 		actor=chef(session,id)
