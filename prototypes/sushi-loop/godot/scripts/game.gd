@@ -262,6 +262,7 @@ func _ready() -> void:
 	expedition_ui.commander = func(request: Dictionary) -> Dictionary: return session.command(request)
 	expedition_ui.state_provider = func() -> Dictionary: return ExpeditionBook.snapshot(session._state, session._store)
 	expedition_ui.save_requested.connect(func(): save_now())
+	expedition_ui.cue_requested.connect(func(cue: String): audio.play_cue(cue))
 	expedition_ui.returned_to_restaurant.connect(_return_from_expedition)
 	# #28: the Workshop room, and the one scene transition every switch uses.
 	workshop_ui = WorkshopPresentation.new(); add_child(workshop_ui)

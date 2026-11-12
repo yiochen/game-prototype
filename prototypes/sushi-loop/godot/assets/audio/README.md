@@ -8,6 +8,8 @@ These five PCM WAV files were synthesized specifically for issue #10 by `generat
 - `coin.wav`: brief three-note sale chime.
 - `harbor_cafe.wav`: original 19.2-second, eight-bar instrumental loop at 100 BPM, with soft keys, low bass and a very quiet brushed pulse. Instrument tails wrap across the loop boundary.
 
+Dive cues for the Inkfin Cuttlefish's ink (#70), from the same generator: `ink_warn.wav` (three low glugs, one per warning pulse), `ink_burst.wav` (the ink bursting out: a falling bloop under a muffled whoosh with a few bubbles) and `ink_lift.wav` (a soft rising wash as the ink clears). The expedition presentation requests them through `cue_requested`.
+
 Audio is 22,050 Hz, signed 16-bit PCM. Cues are mono; music is stereo. Peak/RMS values and durations are recorded in `audio-verification.json`. Source headroom and playback attenuation keep the mix quiet.
 
 Create one `RestaurantAudio` node from `res://scripts/audio.gd`; it starts the music automatically. Call `play_cue("click"|"cook"|"load"|"coin")` for presentation events. Aliases `ui`, `prepared`, `loaded` and `sale` accept the current public session event names. Calls never affect game state or timers. Repeated cues are rate-limited and dropped when all six voices are occupied. Application pause/focus loss pauses music and stops one-shot cues; resume continues the music without replaying stale effects. `set_muted(bool)` and `set_backgrounded(bool)` are available for host integration.

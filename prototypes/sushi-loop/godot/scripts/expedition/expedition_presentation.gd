@@ -30,6 +30,7 @@ const Wood = preload("res://scripts/wood_skin.gd")
 const Typography = preload("res://scripts/typography.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const HarpoonButton = preload("res://scripts/expedition/harpoon_button.gd")
+const CreatureView = preload("res://scripts/expedition/creature_view.gd")
 const Cheats = preload("res://scripts/cheats.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const GameButton = preload("res://scripts/game_button.gd")
@@ -37,6 +38,8 @@ const GameButton = preload("res://scripts/game_button.gd")
 signal returned_to_restaurant
 signal save_requested
 signal departed
+## A dive sound cue (the game's audio node plays it; presentation only).
+signal cue_requested(cue: String)
 
 const INK := Color("633b21")
 const TITLES := {"complete": "Expedition complete", "gave_up": "Gave up", "hull_depleted": "Hull depleted"}
@@ -102,6 +105,12 @@ var _keys := {}
 var cheat_buttons: Array[Button] = []
 var cheat_catch_button: Button
 var cheat_zone_button: Button
+var cheat_creature_button: Button
+## Debug: the species forced for the next dive ("" follows the rules' own pick).
+var _cheat_creature := ""
+## The species this dive (or the next one, during preparation) meets.
+var _creature_id := ""
+var _icon_for := ""
 ## Issue #24 ending over the frozen last run: {kind: catch|escape, t, first, result}.
 var _outro: Dictionary = {}
 var _callout_low := false
@@ -191,7 +200,7 @@ func _ready() -> void:
 		label.add_theme_color_override("font_shadow_color", Color(.02, .1, .2, .45))
 		label.add_theme_constant_override("shadow_offset_y", 5); label.add_theme_constant_override("shadow_offset_x", 0)
 	if Cheats.enabled():
-		for entry in [["Shield", cheat_shield], ["To Eel", cheat_encounter], ["Eel zone", cheat_zone], ["Catch", cheat_catch]]:
+		for entry in [["Shield", cheat_shield], ["To creature", cheat_encounter], ["Attack zone", cheat_zone], ["Catch", cheat_catch], ["Creature", cheat_creature]]:
 			var button := Button.new(); button.text = "DEBUG · " + entry[0]; button.focus_mode = Control.FOCUS_NONE
 			button.add_theme_font_override("font", _font(850)); button.pressed.connect(entry[1])
 			for treatment in ["normal", "hover", "pressed"]:
@@ -201,7 +210,8 @@ func _ready() -> void:
 			for key in ["font_color", "font_hover_color", "font_pressed_color"]: button.add_theme_color_override(key, Color("ffe6fa"))
 			add_child(button); cheat_buttons.append(button)
 			if entry[0] == "Catch": cheat_catch_button = button
-			if entry[0] == "Eel zone": cheat_zone_button = button
+			if entry[0] == "Attack zone": cheat_zone_button = button
+			if entry[0] == "Creature": cheat_creature_button = button
 	# Encounter pieces stay under the Pause scrim and cards, like the rest of the HUD.
 	for node in [resistance_pill, harpoon_button, callout_title, callout_text] + cheat_buttons: move_child(node, scrim.get_index())
 	countdown_number = _label(self, 950); countdown_number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; countdown_number.add_theme_color_override("font_color", Color("fff6df"))
@@ -275,7 +285,8 @@ func open_prep(value: Dictionary) -> void:
 	snapshot = value; mode = "prep"; overlay = "none"; result = {}
 	focused_before = get_viewport().gui_get_focus_owner()
 	_prep_seed = int(value.expedition.next_seed)
-	_prep_lead = Book.launch(_prep_seed)
+	_creature_id = _cheat_creature if _cheat_creature != "" else str(value.expedition.get("next_creature", ""))
+	_prep_lead = Book.launch(_prep_seed, _creature_id)
 	_prep_y = float(_prep_lead.bottom)
 	_sync_prep(0.0)
 	view.snap_camera()
@@ -298,7 +309,10 @@ func close_prep() -> void:
 ## `by_touch`: the starting press stays held (and steers if it is on an arrow).
 func start(by_touch := false) -> void:
 	if mode != "prep": return
-	var outcome := _command({"type": "expedition_start", "now": _now(), "y": _prep_y})
+	var request := {"type": "expedition_start", "now": _now(), "y": _prep_y}
+	# Debug: a forced species flies the previewed seed.
+	if _cheat_creature != "": request.merge({"seed": _prep_seed, "creature": _cheat_creature})
+	var outcome := _command(request)
 	if not outcome.get("ok", false): close_prep(); return
 	mode = "travel"; overlay = "none"
 	# A fresh dive starts with no leftover hit feedback from the last one.
@@ -351,7 +365,17 @@ func cheat_zone() -> void:
 	if _command({"type": "expedition_cheat_zone"}).ok:
 		if state_provider.is_valid(): snapshot.expedition = state_provider.call()
 		_sync_view(0.0); view.snap_camera(); save_requested.emit()
-	else: _show_toast("Debug: no eel zone ahead")
+	else: _show_toast("Debug: no attack zone ahead")
+
+## Debug (preparation only): choose which species the next dive meets.
+func cheat_creature() -> void:
+	if mode != "prep": return
+	var ids: Array = [""] + Book.creatures()
+	_cheat_creature = str(ids[(ids.find(_cheat_creature) + 1) % ids.size()])
+	_creature_id = _cheat_creature if _cheat_creature != "" else str(snapshot.expedition.get("next_creature", ""))
+	_prep_lead = Book.launch(_prep_seed, _creature_id)
+	_prep_y = float(_prep_lead.bottom)
+	_sync_prep(0.0); view.snap_camera(); _refresh_visibility()
 
 ## Debug: drain the hooked creature's resistance to its last moment.
 func cheat_catch() -> void:
@@ -409,7 +433,7 @@ func _fill_award(caught: Dictionary) -> void:
 	award.food.texture = sheet.call("res://assets/ui/recipes/food.png", int(recipe.get("food_cell", 0)))
 	award.recipe = id
 	award.name.text = str(recipe.get("name", id))
-	award.from.text = "From the %s" % str(Book.definition().encounter.get("creature_name", "creature"))
+	award.from.text = "From the %s" % str(Book.species(str(caught.get("id", ""))).name)
 	award.chips[0].value.text = str(int(recipe.get("price", 0)))
 	award.chips[1].value.text = "%s sec" % String.num(float(recipe.get("preparation_seconds", 0.0)), 1)
 	award.art.accessibility_name = "%s on a %s plate with a %s rim. %s plates need a chef at level %d or above." % [award.name.text, tier.to_lower(), str(catalog.rim_patterns[tier_at]), tier, int(catalog.required_levels[tier_at])]
@@ -454,7 +478,7 @@ func show_results(value: Dictionary) -> void:
 	receipt.total[0].text = "Total salvage"; receipt.total[1].text = str(int(value.total))
 	receipt.note[0].text = "" if outcome == "complete" else ("Finish the route to earn the completion bonus." if outcome == "gave_up" else "The hull gave out before the finish.")
 	var creature = value.get("creature")
-	if creature is Dictionary and creature.get("outcome") == "escaped": receipt.note[0].text = "The hull gave out and the %s got away." % str(Book.definition().encounter.get("creature_name", "creature"))
+	if creature is Dictionary and creature.get("outcome") == "escaped": receipt.note[0].text = "The hull gave out and the %s got away." % str(Book.species(str(creature.get("id", ""))).name)
 	scrim.color = SCRIMS[outcome]
 	_refresh_visibility(); layout(area)
 	cards.results.buttons[0].grab_focus(true)
@@ -521,6 +545,10 @@ func update(value: Dictionary, delta: float) -> void:
 					"impact":
 						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit(); view.damage(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"discharge_strike": view.discharge_strike()
+					# Issue #70 ink: three glugs with the warning, the burst, the wash as it lifts.
+					"ink_warn": cue_requested.emit("ink_warn")
+					"ink_spread": cue_requested.emit("ink_burst")
+					"ink_lift": cue_requested.emit("ink_lift")
 					"zapped":
 						_hull_pulse = 1.0; _hit_flash = 1.0; view.zap(Vector2(float(event.x), float(event.y)))
 					"bump": view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
@@ -533,7 +561,7 @@ func update(value: Dictionary, delta: float) -> void:
 						_callout("Hooked!", "Reel it in. Dodge the rocks!"); save_requested.emit()
 					"caught":
 						# Already committed by the rules; this only presents it.
-						var name := str(Book.definition().encounter.get("creature_name", ""))
+						var name := str(Book.species(_creature_id).name)
 						_outro = {"kind": "catch", "t": 0.0, "first": bool(event.first)}
 						view.start_catch(); harpoon_button.release(); view.release_controls(); _keys.clear(); view.key_input = 0.0
 						_callout("Caught!", name + (" · first catch" if event.first else ""), float(Book.definition().encounter.catch_cutscene_seconds), true)
@@ -602,11 +630,12 @@ func _sync_prep(delta: float) -> void:
 	view.steering_enabled = false; view.controls_visible = true; view.reduced_motion = reduced_motion
 	# The ship waiting at the launch already shows the Workshop gear it will fly with (#28).
 	var gear = snapshot.get("workshop", {}).get("gear")
-	view.sync({"seed": _prep_seed, "x": _prep_lead.x, "y": _prep_y, "protection": 0.0, "collected": [], "gear": gear if gear is Dictionary else {}}, delta, not gallery)
+	view.sync({"seed": _prep_seed, "x": _prep_lead.x, "y": _prep_y, "protection": 0.0, "collected": [], "gear": gear if gear is Dictionary else {}, "creature": _creature_id}, delta, not gallery)
 
 func _sync_view(delta: float) -> void:
 	var run = snapshot.expedition.run
 	if run == null: return
+	_creature_id = Book.creature_of(run)
 	view.steering_enabled = overlay == "none"; view.controls_visible = overlay == "none"
 	# The passage current steers: the arrows dim. A hooked creature is chased, so they stay live.
 	var encounter = run.get("encounter")
@@ -675,7 +704,9 @@ func _refresh_hud(delta: float) -> void:
 	resistance_fill.size = Vector2(maxf(0.0, (resistance_track.size.x - 6 * unit) * share * arrival), resistance_track.size.y - 6 * unit)
 	resistance_fill.position = Vector2(resistance_track.size.x - 3 * unit - resistance_fill.size.x, 3 * unit)
 	resistance_fill.add_theme_stylebox_override("panel", PopupSkin.flat(Color("ffb02e") if share < .25 else Color("4f8fe6"), 5 * unit))
-	resistance_pill.accessibility_description = "%s resistance %d%%" % [str(rules.get("creature_name", "Creature")), int(ceil(share * 100))]
+	resistance_pill.accessibility_description = "%s resistance %d%%" % [str(Book.species(_creature_id).name), int(ceil(share * 100))]
+	if _icon_for != _creature_id:
+		_icon_for = _creature_id; resistance_icon.texture = CreatureView.icon(_creature_id)
 
 ## Versus HUD transition. On the creature's arrival the gold count lifts and
 ## fades (0.25 s), then the empty eel bar slides in from the right with a small
@@ -734,6 +765,9 @@ func _refresh_visibility() -> void:
 		callout_title.visible = false; callout_text.visible = false
 	cards.results.panel.visible = mode == "results"
 	for button in cheat_buttons: button.visible = travelling and overlay == "none"
+	if cheat_creature_button != null:
+		cheat_creature_button.visible = mode == "prep"
+		cheat_creature_button.text = "DEBUG · " + ("Creature: rules" if _cheat_creature == "" else str(Book.species(_cheat_creature).name))
 	countdown_number.visible = travelling and overlay == "countdown"
 	countdown_caption.visible = countdown_number.visible
 
@@ -795,7 +829,7 @@ func layout(value: Rect2) -> void:
 	for i in range(cheat_buttons.size()):
 		var button := cheat_buttons[i]
 		button.add_theme_font_size_override("font_size", maxi(1, int(13 * unit)))
-		button.size = Vector2(118, 40) * unit
+		button.size = Vector2(190 if button == cheat_creature_button else 118, 40) * unit
 		button.position = Vector2(area.position.x + 10 * unit, area.position.y + area.size.y * .36 + i * 48 * unit)
 	_layout_award(unit, physical)
 	_layout_card(cards.paused, unit, physical, 150)

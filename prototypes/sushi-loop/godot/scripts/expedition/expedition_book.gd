@@ -49,6 +49,16 @@ extends RefCounted
 ## hull (hit protection applies; no knock-back, no resistance change). A catch
 ## or escape ends the run, which removes any warning or strike with it.
 ##
+## Issue #70: a second species, the Inkfin Cuttlefish. Each run flies for one
+## creature (`run.creature`): Start picks at random among the species whose
+## recipe is still undiscovered, then among all of them. The cuttlefish's route
+## (version 6) puts ordinary chunks in the plan's creature slots; each is an
+## ink zone. While hooked, entering one makes the cuttlefish warn for a moment
+## and then black out the sea: the ink seeps in, holds through the zone and a
+## few rows of the next chunk, then lifts. Only the ship's light shows the
+## water ahead, so ink zones and the chunks the ink lingers into must pass
+## the sight check (sight.gd). Ink does no damage and never changes collision.
+##
 ## Issue #28: Start copies the Workshop gear into the run (`run.gear`), so
 ## later upgrades never change an expedition under way: maximum hull, reeling
 ## strength (resistance drain multiplier), Collector reach (pickup attraction
@@ -60,6 +70,7 @@ const Route = preload("res://scripts/expedition/route.gd")
 const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const Discharge = preload("res://scripts/expedition/discharge.gd")
+const Sight = preload("res://scripts/expedition/sight.gd")
 const WorkshopBook = preload("res://scripts/workshop_book.gd")
 const ShopBook = preload("res://scripts/shop_book.gd")
 const OUTCOMES := ["complete", "gave_up", "hull_depleted"]
@@ -69,6 +80,7 @@ static var _library: Array = []
 static var _routes: Dictionary = {}
 static var _passages: Dictionary = {}
 static var _docs: Dictionary = {}
+static var _sight: Dictionary = {}
 
 ## A run's transient world in the state store. The ship's shield is a timed
 ## effect there, counted down by the engine; screens see it as `run.shield`.
@@ -125,17 +137,58 @@ static func library() -> Array:
 		_library = analysis.chunks
 	return _library
 
+## Species ids, in catalog order.
+static func creatures() -> Array:
+	return definition().encounter.creatures.keys()
+
+## One species' entry: {name, recipe, attack, …}. Unknown ids read as the default species.
+static func species(creature: String) -> Dictionary:
+	var all: Dictionary = definition().encounter.creatures
+	return all.get(creature, all[str(definition().encounter.creature)])
+
+## The species a run flies for (runs saved before #70 chase the default one).
+static func creature_of(run: Dictionary) -> String:
+	var id := str(run.get("creature", ""))
+	return id if definition().encounter.creatures.has(id) else str(definition().encounter.creature)
+
+## The species the next departure will meet: at random among those whose recipe
+## is still undiscovered, then among all (issue #27's rule, in its simplest form).
+static func next_creature(state: Dictionary) -> String:
+	var known: Array = state.get("recipe_book", {}).get("discovered", [])
+	var pool: Array = creatures().filter(func(id): return not str(species(id).recipe) in known)
+	if pool.is_empty(): pool = creatures()
+	var data: Dictionary = state.expedition
+	return str(pool[mini(pool.size() - 1, int(Route.cell_hash(int(data.sequence), int(data.seed_base), 67) * pool.size()))])
+
+## Whether the ink may cover a chunk: an ordinary chunk that passes the sight check.
+static func ink_fair(chunk: Dictionary) -> bool:
+	if str(chunk.kind) != "normal": return false
+	if not _sight.has(chunk.id): _sight[chunk.id] = Sight.problems(chunk.rows, definition()).is_empty()
+	return _sight[chunk.id]
+
 ## Library for one creature's route: its own creature chunks, no other species'.
+## The Inkfin has no chunks of its own: its ink falls on ordinary chunks, so its
+## library leaves out any ordinary chunk that fails the sight check.
 static func _library_for(creature: String) -> Array:
+	if str(species(creature).attack) == "ink":
+		return library().filter(func(c): return c.kind != "creature" and (c.kind != "normal" or ink_fair(c)))
 	return library().filter(func(c): return c.kind != "creature" or str(c.get("creature")) == creature)
 
-## Assembled grid, spans, gold and features for a seed (cached).
-static func route(seed_value: int) -> Dictionary:
+## Assembled grid, spans, gold and features for a seed and species (cached).
+static func route(seed_value: int, creature := "") -> Dictionary:
 	var version := int(definition().route_version)
-	var cache_key := "%d:%d" % [seed_value, version]
+	creature = creature_of({"creature": creature})
+	var inked: bool = str(species(creature).attack) == "ink"
+	var cache_key := "%d:%d:%s" % [seed_value, version, creature]
 	if not _routes.has(cache_key):
-		var sequence := Route.generate(seed_value, _library_for(str(definition().encounter.creature)), definition().plan)
+		# The Inkfin's creature slots are ordinary chunks: its ink zones.
+		var slots: Array = definition().plan
+		var plan: Array = slots.map(func(slot): return float(definition().encounter.ink.chunk_difficulty) if inked and slot is String and slot == "creature" else slot)
+		var sequence := Route.generate(seed_value, _library_for(creature), plan)
 		var assembled := Route.assemble(sequence)
+		if inked:
+			for i in range(mini(slots.size(), assembled.spans.size())):
+				if slots[i] is String and slots[i] == "creature": assembled.spans[i].ink = true
 		assembled = _with_arena(assembled, seed_value, int(definition().encounter.pursuit_chunks))
 		var pickups: Array = []
 		for y in range(assembled.rows.size()):
@@ -162,6 +215,16 @@ static func route(seed_value: int) -> Dictionary:
 		for c in library(): by_id[c.id] = c
 		for i in range(spans.size()):
 			if spans[i].kind == "creature": zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "strikes": by_id[spans[i].id].discharge.strikes})
+		# Issue #70: where the Inkfin blacks out the sea. The ink lingers into the
+		# next chunk (`end`), but only when that chunk passes the sight check too.
+		var ink_zones: Array = []
+		for i in range(spans.size()):
+			if not spans[i].get("ink", false): continue
+			var linger := 0
+			var after: Dictionary = spans[i + 1] if i + 1 < spans.size() else {}
+			if not after.is_empty() and by_id.has(after.id) and ink_fair(by_id[after.id]):
+				linger = mini(int(definition().encounter.ink.linger_rows), int(after.y1) - int(after.y0) + 1)
+			ink_zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "end": int(spans[i].y0) - linger})
 		for i in range(spans.size()):
 			var span: Dictionary = spans[i]
 			if span.kind == "encounter": continue
@@ -178,7 +241,7 @@ static func route(seed_value: int) -> Dictionary:
 						var row := int(rejoin.y1)
 						portals.append({"x": x + 0.5, "y": y + 0.5, "rejoin": Vector2(_centre_of(assembled.rows[row]), row + 0.5)})
 		_routes[cache_key] = {"rows": assembled.rows, "spans": spans, "pickups": pickups, "columns": Route.COLUMNS, "launch_top": launch_top,
-			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version, "zones": zones,
+			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version, "zones": zones, "ink_zones": ink_zones, "creature": creature,
 			"arena": arena, "encounter_start": (float(arena.y1) + 1.0 - float(definition().encounter.window_opens_rows_into_arena)) if arena != null else null}
 	return _routes[cache_key]
 
@@ -255,11 +318,11 @@ static func passage_centre(info: Dictionary, y: float) -> float:
 
 ## The route a run flies.
 static func run_route(run: Dictionary) -> Dictionary:
-	return route(int(run.seed))
+	return route(int(run.seed), creature_of(run))
 
 ## Preparation cruise: rows the ship may cover before Start, ending in a hover.
-static func launch(seed_value: int) -> Dictionary:
-	var path := route(seed_value)
+static func launch(seed_value: int, creature := "") -> Dictionary:
+	var path := route(seed_value, creature)
 	var bottom := float(path.rows.size()) - 0.5
 	var hover := minf(bottom, float(path.launch_top) + float(definition().launch_hover_rows))
 	return {"x": _start_x(path.rows), "bottom": bottom, "hover": hover}
@@ -291,6 +354,7 @@ static func snapshot(state: Dictionary, store = null) -> Dictionary:
 		run.low_hull = run.hull_fraction <= float(definition().low_hull_fraction)
 		run.rows = run_route(run).rows.size()
 	data.next_seed = next_seed(state)
+	data.next_creature = next_creature(state)
 	return data
 
 ## The route the next departure will take (preparation previews it).
@@ -310,15 +374,22 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			if data.result != null: return {"ok": false, "reason": "results_pending"}
 			if not charge(state, float(request.now)).ready: return {"ok": false, "reason": "charging"}
 			var seed_value: int
+			# A chosen seed (tests, galleries) meets the default species unless it names one.
+			var creature := str(definition().encounter.creature)
+			if request.has("creature"):
+				if not request.creature is String or not definition().encounter.creatures.has(request.creature): return {"ok": false, "reason": "invalid_creature"}
+				creature = str(request.creature)
+			elif not request.has("seed"):
+				creature = next_creature(state)
 			if request.has("seed"):
 				if not _integer(request.seed) or int(request.seed) < 1: return {"ok": false, "reason": "invalid_seed"}
 				seed_value = int(request.seed)
 			else:
 				seed_value = next_seed(state)
-			var path := route(seed_value)
+			var path := route(seed_value, creature)
 			if path.rows.is_empty(): return {"ok": false, "reason": "no_route"}
 			var start_x: float = _start_x(path.rows)
-			var lead := launch(seed_value)
+			var lead := launch(seed_value, creature)
 			var start_y: float = lead.bottom
 			if request.has("y"):
 				if not _finite(request.y) or float(request.y) < float(lead.hover) - 0.001 or float(request.y) > float(lead.bottom) + 0.001: return {"ok": false, "reason": "invalid_start"}
@@ -329,13 +400,13 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			data.run = {"id": int(data.sequence), "seed": seed_value, "y": start_y, "x": start_x, "steer": 0.0, "vx": 0.0,
 				"hull": float(fitted.hull), "gear": fitted, "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
 				"route_version": int(definition().route_version), "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
-				"encounter": null}
+				"encounter": null, "creature": creature}
 			# Each run starts a fresh transient world.
 			store.drop_world(WORLD)
 			store.create_world(WORLD)
 			# Shield at start: the run launches already shielded.
 			if float(fitted.launch) > 0.0: set_shield(store, float(fitted.launch))
-			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id, "launch_shield": float(fitted.launch)}
+			return {"ok": true, "changed": true, "seed": seed_value, "id": data.run.id, "launch_shield": float(fitted.launch), "creature": creature}
 		"expedition_steer":
 			if run == null or run.paused: return {"ok": false, "reason": "not_travelling"}
 			if not _finite(request.get("input")): return {"ok": false, "reason": "invalid_steer"}
@@ -372,12 +443,13 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 		"expedition_cheat_zone":
 			# Debug: skip ahead to the entry of the next creature chunk while hooked.
 			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
-			var ahead: Array = run_route(run).zones.filter(func(z): return float(z.y0) < float(run.y) - 1.0)
+			var done: Array = run.encounter.get("inked", [])
+			var ahead: Array = (run_route(run).zones + run_route(run).ink_zones).filter(func(z): return float(z.y0) < float(run.y) - 1.0 and not int(z.y0) in done)
 			if ahead.is_empty(): return {"ok": false, "reason": "no_zone_ahead"}
 			var zone: Dictionary = ahead.reduce(func(a, b): return a if int(a.y0) > int(b.y0) else b)
 			var rows: Array = run_route(run).rows
 			run.y = float(zone.y1) + 0.6; run.x = _centre_of(str(rows[int(zone.y1)])); run.vx = 0.0; run.protection = 0.0
-			run.encounter.discharge = null; run.encounter.discharge_cooldown = 0.0
+			run.encounter.discharge = null; run.encounter.discharge_cooldown = 0.0; run.encounter.ink = null
 			return {"ok": true}
 		"expedition_cheat_catch":
 			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
@@ -518,13 +590,15 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 					events.append({"type": "impact", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y, "hull": run.hull})
 					if float(run.hull) <= 0.0:
 						# A hooked creature gets away for good: the cable snaps.
-						var lost := {"id": str(definition().encounter.creature), "outcome": "escaped"} if _hooked(run) else {}
+						var lost := {"id": creature_of(run), "outcome": "escaped"} if _hooked(run) else {}
 						if not lost.is_empty(): events.append({"type": "creature_lost"})
 						events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, lost)})
 						return events
 				else:
 					events.append({"type": "bump", "x": run.x, "y": run.y, "from_x": from.x, "from_y": from.y})
-		if _hooked(run) and _discharge_step(config, state, run, path, dt, events, now): return events
+		if _hooked(run):
+			if str(species(creature_of(run)).attack) == "ink": _ink_step(run, path, dt, events)
+			elif _discharge_step(config, state, run, path, dt, events, now): return events
 		if _hooked(run) and (float(run.encounter.resistance) <= 0.0 or float(run.y) <= 0.5):
 			events.append_array(_catch(config, state, now))
 			return events
@@ -549,11 +623,11 @@ static func _hooked(run: Dictionary) -> bool:
 static func _catch(config: Dictionary, state: Dictionary, now: float) -> Array:
 	var run: Dictionary = state.expedition.run
 	var rules: Dictionary = definition().encounter
-	var recipe := str(rules.recipe)
+	var recipe := str(species(creature_of(run)).recipe)
 	var first: bool = not recipe in state.recipe_book.discovered
 	RecipeBook.command(config, state, {"type": "discover_recipe", "recipe_id": recipe})
 	var centre := creature_centre(run)
-	var caught := {"id": str(rules.creature), "outcome": "caught", "recipe": recipe, "first": first}
+	var caught := {"id": creature_of(run), "outcome": "caught", "recipe": recipe, "first": first}
 	return [{"type": "caught", "x": centre.x, "y": centre.y, "first": first, "recipe": recipe},
 		{"type": "ended", "result": _end(config, state, "complete", now, caught)}]
 
@@ -599,6 +673,7 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 						encounter.state = "hooked"; encounter.hook = hit
 						encounter.resistance = float(rules.resistance); encounter.chase_t = 0.0
 						encounter.discharge = null; encounter.discharge_cooldown = 0.0; encounter.strikes = 0
+						encounter.ink = null; encounter.inked = []
 						events.append({"type": "hooked", "along": hit.along, "across": hit.across})
 						return false
 			if float(shot.d) >= float(rules.harpoon_range_rows):
@@ -637,7 +712,7 @@ static func _discharge_step(config: Dictionary, state: Dictionary, run: Dictiona
 				events.append({"type": "zapped", "x": run.x, "y": run.y, "hull": run.hull})
 				if float(run.hull) <= 0.0:
 					events.append({"type": "creature_lost"})
-					events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, {"id": str(rules.encounter.creature), "outcome": "escaped"})})
+					events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, {"id": creature_of(run), "outcome": "escaped"})})
 					return true
 			if float(strike.t) >= float(d.warn_seconds) + float(d.active_seconds):
 				encounter.discharge = null
@@ -671,6 +746,51 @@ static func _discharge_step(config: Dictionary, state: Dictionary, run: Dictiona
 	events.append({"type": "discharge_windup", "x0": int(pick[0]), "w": int(pick[1])})
 	return false
 
+# ------------------------------------------------------------ ink (#70)
+
+## The hooked Inkfin's ink for one step. One burst per ink zone, starting as
+## the ship enters it at full chase speed: a warning with the sea still in
+## view, then the ink seeps in and holds until the ship's clear sight reaches
+## where the ink ends (the zone's top plus the rows it lingers), then lifts.
+static func _ink_step(run: Dictionary, path: Dictionary, dt: float, events: Array) -> void:
+	var rules := definition()
+	var k: Dictionary = rules.encounter.ink
+	var encounter: Dictionary = run.encounter
+	var ink = encounter.get("ink")
+	if ink is Dictionary:
+		ink.t = float(ink.t) + dt
+		if ink.phase == "warn" and float(ink.t) >= float(k.warn_seconds):
+			ink.phase = "spread"; ink.t = 0.0; events.append({"type": "ink_spread"})
+		elif ink.phase == "spread" and float(ink.t) >= float(k.spread_seconds):
+			ink.phase = "hold"; ink.t = 0.0
+		if ink.phase in ["spread", "hold"] and float(run.y) - float(ink.end) < float(k.clear_rows):
+			# A lift that interrupts the spread starts from the cover reached so far.
+			ink["from"] = ink_cover(run); ink.phase = "lift"; ink.t = 0.0; events.append({"type": "ink_lift"})
+		if ink.phase == "lift" and float(ink.t) >= float(k.lift_seconds):
+			encounter.ink = null; events.append({"type": "ink_end"})
+		return
+	if pursuit_speed(run) < float(rules.encounter.pursuit_speed_multiplier) - 1e-6: return
+	var done: Array = encounter.get("inked", [])
+	for zone in path.get("ink_zones", []):
+		if float(run.y) < float(zone.y0) or float(run.y) >= float(zone.y1) + 1.0 or int(zone.y0) in done: continue
+		if float(zone.y1) + 1.0 - float(run.y) < float(k.entry_rows): continue
+		done.append(int(zone.y0)); encounter.inked = done
+		encounter.ink = {"phase": "warn", "t": 0.0, "zone": int(zone.span), "end": int(zone.end), "from": 1.0}
+		events.append({"type": "ink_warn"})
+		return
+
+## How much ink covers the sea, 0 (clear) to 1 (full).
+static func ink_cover(run: Dictionary) -> float:
+	var encounter = run.get("encounter")
+	var ink = encounter.get("ink") if encounter is Dictionary else null
+	if not ink is Dictionary: return 0.0
+	var k: Dictionary = definition().encounter.ink
+	match str(ink.phase):
+		"spread": return clampf(float(ink.t) / float(k.spread_seconds), 0.0, 1.0)
+		"hold": return 1.0
+		"lift": return float(ink.get("from", 1.0)) * clampf(1.0 - float(ink.t) / float(k.lift_seconds), 0.0, 1.0)
+	return 0.0
+
 ## Creature body centre on the route: ahead of the ship by the lead (arriving
 ## from further north as the window opens), at its weaving column.
 static func creature_centre(run: Dictionary) -> Vector2:
@@ -687,8 +807,10 @@ static func _hit_point(run: Dictionary, x: float, d: float) -> Variant:
 	var rules: Dictionary = definition().encounter
 	var centre := creature_centre(run)
 	var tip := float(run.y) - float(rules.nose_rows) - d
-	var u := (x - centre.x) / float(rules.hit_half_columns)
-	var v := (tip - centre.y) / float(rules.hit_half_rows)
+	# Each species may carry its own fixed hit ellipse.
+	var body := species(creature_of(run))
+	var u := (x - centre.x) / float(body.get("hit_half_columns", rules.hit_half_columns))
+	var v := (tip - centre.y) / float(body.get("hit_half_rows", rules.hit_half_rows))
 	if u * u + v * v > 1.0: return null
 	return {"along": v, "across": u}
 
@@ -808,6 +930,7 @@ static func valid(state: Dictionary) -> bool:
 		if not run.get("paused") is bool or not run.get("collected") is Array: return false
 		if run.has("gear") and not _gear_valid(run.gear): return false
 		if float(run.hull) <= 0.0 or float(run.hull) > float(gear(run).hull): return false
+		if run.has("creature") and (not run.creature is String or not definition().encounter.creatures.has(run.creature)): return false
 		if not _features_valid(run): return false
 		if not _encounter_valid(run): return false
 		var pickups: int = run_route(run).pickups.size()
@@ -860,6 +983,11 @@ static func normalize(state: Dictionary) -> void:
 				if strike is Dictionary:
 					strike.t = float(strike.t); strike.x0 = int(strike.x0); strike.w = int(strike.w); strike.zone = int(strike.zone); strike.row = float(strike.row)
 				else: encounter.discharge = null
+				encounter.inked = encounter.get("inked", []).map(func(i): return int(i))
+				var ink = encounter.get("ink")
+				if ink is Dictionary:
+					ink.t = float(ink.t); ink.zone = int(ink.zone); ink.end = int(ink.end); ink["from"] = float(ink.get("from", 1.0))
+				else: encounter.ink = null
 		else: run.encounter = null
 	if data.result is Dictionary:
 		for field in ["id", "seed", "pickups", "bonus", "total", "collected", "available"]:
@@ -918,7 +1046,24 @@ static func _encounter_valid(run: Dictionary) -> bool:
 		if not encounter.has("resistance"): return true
 		if float(encounter.resistance) > float(definition().encounter.resistance): return false
 		if not _discharge_valid(run, encounter): return false
+		if not _ink_valid(run, encounter): return false
 	return true
+
+## Issue #70 ink fields on a hooked encounter.
+static func _ink_valid(run: Dictionary, encounter: Dictionary) -> bool:
+	var k: Dictionary = definition().encounter.ink
+	var zones: Array = run_route(run).ink_zones
+	if not _unique_indices(encounter.get("inked", []), MAX_INTEGER): return false
+	for y0 in encounter.get("inked", []):
+		if not zones.any(func(z): return int(z.y0) == int(y0)): return false
+	var ink = encounter.get("ink")
+	if ink == null: return true
+	if not ink is Dictionary or str(ink.get("phase")) not in ["warn", "spread", "hold", "lift"]: return false
+	if not _finite(ink.get("t")) or float(ink.t) < 0.0 or not _finite(ink.get("from", 1.0)) or float(ink.get("from", 1.0)) < 0.0 or float(ink.get("from", 1.0)) > 1.0: return false
+	var limit := {"warn": float(k.warn_seconds), "spread": float(k.spread_seconds), "lift": float(k.lift_seconds)}
+	if limit.has(str(ink.phase)) and float(ink.t) > float(limit[str(ink.phase)]) + 0.051: return false
+	if not _integer(ink.get("zone")) or not _finite(ink.get("end")): return false
+	return zones.any(func(z): return int(z.span) == int(ink.zone) and int(z.end) == int(ink.end))
 
 ## Issue #25 discharge fields on a hooked encounter.
 static func _discharge_valid(run: Dictionary, encounter: Dictionary) -> bool:

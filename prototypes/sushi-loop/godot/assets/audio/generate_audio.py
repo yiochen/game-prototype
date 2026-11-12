@@ -105,5 +105,37 @@ fade=round(.05*RATE)
 for i in range(fade):
     pour[i]*=i/fade;pour[-1-i]*=i/fade
 write('tea_pour',pour,peak=.3)
+
+# Inkfin ink (#70): the first dive cues. A warning of three low glugs (one per
+# purple pulse), the ink bursting out, and a soft rising wash as it lifts.
+def sweep(buffer,start,duration,f0,f1,gain,decay=4.0,attack=.012):
+    onset=round(start*RATE);length=round(duration*RATE);phase=0.0
+    for i in range(length):
+        t=i/RATE;k=i/length
+        phase+=TAU*(f0+(f1-f0)*k)/RATE
+        env=min(1.0,t/attack)*min(1.0,(length-i)/(RATE*.04))*math.exp(-decay*k)
+        if onset+i<len(buffer):buffer[onset+i]+=math.sin(phase)*gain*env
+def wash(buffer,start,duration,gain,smooth,shape,rng):
+    onset=round(start*RATE);length=round(duration*RATE);filtered=0.0
+    for i in range(length):
+        filtered=smooth*filtered+(1-smooth)*rng.uniform(-1,1)
+        if onset+i<len(buffer):buffer[onset+i]+=filtered*gain*shape(i/length)
+ink_rng=random.Random(702026)
+ink_warn=[0.0]*round(1.05*RATE)
+for n,start in enumerate([0,.333,.666]):
+    sweep(ink_warn,start,.26,150+18*n,96+14*n,.5,3.5)
+    sweep(ink_warn,start+.02,.12,420+40*n,300+30*n,.07,5)
+    wash(ink_warn,start,.3,.5,.93,lambda k:math.sin(math.pi*k)**2,ink_rng)
+write('ink_warn',ink_warn,peak=.36)
+ink_burst=[0.0]*round(1.5*RATE)
+sweep(ink_burst,0,.55,230,62,.6,2.2,.02)
+wash(ink_burst,0,1.5,2.4,.965,lambda k:min(1.0,k/.08)*math.exp(-3.2*k),ink_rng)
+wash(ink_burst,.05,1.2,.5,.8,lambda k:min(1.0,k/.1)*math.exp(-5*k),ink_rng)
+for start,freq in [(.22,520),(.36,640),(.47,470),(.63,720),(.8,560)]:sweep(ink_burst,start,.07,freq,freq*1.5,.07,3,.006)
+write('ink_burst',ink_burst,peak=.4)
+ink_lift=[0.0]*round(1.0*RATE)
+wash(ink_lift,0,.95,1.6,.9,lambda k:math.sin(math.pi*k)*(1-k),ink_rng)
+for start,note,gain in [(.05,69,.13),(.22,74,.12),(.4,81,.1)]:tone(ink_lift,start,.5,midi(note),gain,4,(1,.2,.04))
+write('ink_lift',ink_lift,peak=.3)
 (OUT/'audio-verification.json').write_text(json.dumps(metrics,indent=2)+'\n')
 print(json.dumps(metrics,indent=2))

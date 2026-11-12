@@ -52,12 +52,13 @@ func run() -> void:
 	var rules: Dictionary = Book.definition().encounter
 	var travel := float(Book.definition().forward_rows_per_second)
 
-	# The route: ordinary terrain after the arena, long enough for a whole chase, and flyable.
+	# The route: terrain after the arena, long enough for a whole chase from an early hook, and flyable.
+	# (A late hook can reach the finish first, which lands the catch.)
 	for seed_value in [SEED, 3, 7, 21, 99]:
 		var path := Book.route(seed_value)
 		var chase_rows := float(path.arena.y0)
 		var needed := travel * float(rules.pursuit_speed_multiplier) * float(rules.resistance) / float(rules.resistance_drain_per_second)
-		check(chase_rows >= needed - (float(rules.arena_rows) - travel * float(rules.window_seconds)), "seed %d leaves %d rows of terrain after the arena (a chase needs about %d)" % [seed_value, int(chase_rows), int(needed)])
+		check(chase_rows + float(rules.arena_rows) - float(rules.window_opens_rows_into_arena) >= needed, "seed %d leaves %d rows of terrain after the arena (a chase from an early hook needs about %d with the arena's rest)" % [seed_value, int(chase_rows), int(needed)])
 		check(Route.ship_problems(path.rows).is_empty(), "seed %d: the whole version 4 route flies, arena seams included" % seed_value)
 		check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "seed %d: no shield or portal in the arena or the chase" % seed_value)
 
@@ -166,7 +167,7 @@ func run() -> void:
 	# Invalid saves are rejected.
 	s = hooked(17)
 	data = GameSession.flat_view(s.save_data())
-	data.state.expedition.run.encounter.resistance = 150.0
+	data.state.expedition.run.encounter.resistance = float(rules.resistance) + 50.0
 	check(not Session.new().restore(data), "resistance above the creature's maximum is rejected")
 	data = GameSession.flat_view(s.save_data())
 	data.state.expedition.run.encounter.chase_t = -1.0

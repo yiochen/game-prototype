@@ -4,8 +4,8 @@ extends Node
 
 const AUDIO_PATH := "res://assets/audio/"
 const VOICE_COUNT := 6
-const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_ideal": 300, "tea_good": 300, "tea_soft": 300, "tea_splash": 300}
-const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -12.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0}
+const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_ideal": 300, "tea_good": 300, "tea_soft": 300, "tea_splash": 300, "ink_warn": 600, "ink_burst": 600, "ink_lift": 600}
+const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -12.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0, "ink_warn": -9.0, "ink_burst": -8.0, "ink_lift": -11.0}
 const ALIASES := {"ui": "click", "cooking": "cook", "prepared": "cook", "loading": "load", "loaded": "load", "sale": "coin", "tip": "coin"}
 
 ## Each cue that actually starts a voice (tests listen; nothing in play does).
