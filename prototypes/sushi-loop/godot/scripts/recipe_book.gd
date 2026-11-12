@@ -70,7 +70,7 @@ static func valid(config: Dictionary, state: Dictionary) -> bool:
 	for recipe in config.recipes.values():
 		if not recipe.get("tier") in definition.tiers: return false
 		if not recipe.get("food_cell") is float and not recipe.get("food_cell") is int: return false
-		if float(recipe.food_cell) != floor(float(recipe.food_cell)) or int(recipe.food_cell) < 0 or int(recipe.food_cell) > 3: return false
+		if float(recipe.food_cell) != floor(float(recipe.food_cell)) or int(recipe.food_cell) < 0 or int(recipe.food_cell) > 5: return false
 	if not state.get("recipe_book") is Dictionary: return false
 	var book: Dictionary = state.recipe_book
 	for field in ["discovered", "new"]:

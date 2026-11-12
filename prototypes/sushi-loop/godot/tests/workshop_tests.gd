@@ -124,7 +124,7 @@ func run() -> void:
 	var drop_base := before_base - float(live(base).encounter.resistance)
 	var drop_strong := before_strong - float(live(strong).encounter.resistance)
 	check(absf(drop_strong / drop_base - 1.8) < 0.05, "Harpoon level 5 drains resistance 1.8× as fast (%.2f vs %.2f)" % [drop_strong, drop_base])
-	check(is_equal_approx(float(Book.definition().encounter.resistance), 100.0), "the creature's resistance itself does not scale with equipment")
+	check(is_equal_approx(float(Book.definition().encounter.resistance), 220.0), "the creature's resistance itself does not scale with equipment")
 
 	# Equivalent runs: Collector reach collects a pickup the base reach misses.
 	var near := Session.new_session(7)

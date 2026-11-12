@@ -128,7 +128,7 @@ func run() -> void:
 	# The route: version 5 alternates ordinary and eel chunks after the arena; version 4 has none.
 	for seed_value in [SEED, 1, 22, 777]:
 		var path := Book.route(seed_value)
-		check(path.zones.size() == 2 and path.zones.all(func(z): return z.y1 < path.arena.y0) and path.zones[0].y0 > path.zones[1].y0, "seed %d: two eel zones in the pursuit, listed in the order the ship meets them" % seed_value)
+		check(path.zones.size() == 3 and path.zones.all(func(z): return z.y1 < path.arena.y0) and path.zones[0].y0 > path.zones[1].y0 and path.zones[1].y0 > path.zones[2].y0, "seed %d: three eel zones in the pursuit, listed in the order the ship meets them" % seed_value)
 		check(Route.ship_problems(path.rows).is_empty(), "seed %d: the version 5 route flies" % seed_value)
 
 	# Aiming stays attack-free; a hooked chase through ordinary chunks too.

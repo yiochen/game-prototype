@@ -86,7 +86,7 @@ func run() -> void:
 	var path := Book.route(SEED)
 	var kinds: Array = path.spans.map(func(span): return span.kind)
 	var chase := int(rules.pursuit_chunks)
-	check(kinds[kinds.size() - 2 - chase] == "encounter" and kinds.slice(-1 - chase, -1) == ["normal", "creature", "normal", "creature", "normal"] and kinds[-1] == "finish", "route version 5 puts the arena %d chunks before the finish, ordinary and creature chunks alternating: %s" % [chase, kinds.slice(-2 - chase)])
+	check(kinds[kinds.size() - 2 - chase] == "encounter" and kinds.slice(-1 - chase, -1) == ["normal", "creature", "normal", "creature", "normal", "creature", "normal"] and kinds[-1] == "finish", "route version 7 puts the arena %d chunks before the finish, ordinary and creature chunks alternating: %s" % [chase, kinds.slice(-2 - chase)])
 	check(path.arena != null and int(path.arena.y1) - int(path.arena.y0) + 1 == int(rules.arena_rows), "the arena has the configured length")
 	check(float(path.encounter_edge) == float(path.arena.y1) + 1.0, "shields end at the arena's entry")
 	check(path.shields.all(func(b): return b.y > float(path.encounter_edge)) and path.portals.all(func(p): return p.y > float(path.encounter_edge)), "no shield or portal reaches the encounter")

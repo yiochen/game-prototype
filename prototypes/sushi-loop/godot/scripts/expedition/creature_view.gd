@@ -1,7 +1,9 @@
 extends RefCounted
-## Issue #23: the approved Storm Eel as live 3D (one skinned GLB with named
+## Issue #23: the encounter creature as live 3D (one skinned GLB with named
 ## clips), rendered into its own transparent SubViewport and drawn by the
-## expedition view between the seabed and the ship.
+## expedition view between the seabed and the ship. Each species (the Storm
+## Eel, and from #70 the Inkfin Cuttlefish) has an entry in SPECIES; every
+## model carries the same clip names.
 ##
 ## The camera matches the character contract (ordinary orthographic, 35°
 ## elevation, seven columns across) and is offset so the eel's ground root
@@ -9,14 +11,24 @@ extends RefCounted
 ## that root. Lighting is flat (mostly ambient plus a soft key) with the
 ## ART-05 135% contrast. The organs' glow is driven per clip here, not baked.
 ## Gameplay never reads the animation: the hit area is a fixed rule ellipse.
-const MODEL := "res://assets/expedition/creature/storm-eel.glb"
 const ELEVATION := deg_to_rad(35.0)
-## Rest-body centre (0.78 above ground, 0.3 south of the root) projected onto screen rows.
-const BODY_ROW_OFFSET := 0.47
 const LOOPS := ["swim", "restless", "hooked", "struggle", "exhausted"]
-## Spine order from the snout back: hook positions and shadows follow these.
-const BODY_BONES := ["head", "spine_00", "spine_01", "spine_02", "spine_03", "spine_04", "spine_05", "spine_06",
-	"spine_07", "spine_08", "spine_09", "spine_10", "spine_11", "spine_12", "spine_13"]
+## Per species:
+## - bones: body bones from the north end back; hook positions and shadows follow these.
+## - row_offset: the rest-body centre projected onto screen rows north of the ground root.
+## - front: where its attack leaves (the eel's snout, the cuttlefish's funnel).
+## - centre: the bone the catch rays turn behind.
+## - shadow: seabed shadow size in cells; lift: how far above a bone the hook sits.
+const SPECIES := {
+	"storm-eel": {"model": "res://assets/expedition/creature/storm-eel.glb", "icon": "res://assets/expedition/creature/eel-icon.svg", "spot": "eel_spot",
+		"bones": ["head", "spine_00", "spine_01", "spine_02", "spine_03", "spine_04", "spine_05", "spine_06",
+			"spine_07", "spine_08", "spine_09", "spine_10", "spine_11", "spine_12", "spine_13"],
+		"row_offset": 0.47, "front": "head", "centre": "spine_04", "shadow": 1.1, "lift": 0.36},
+	"inkfin-cuttlefish": {"model": "res://assets/expedition/creature/inkfin-cuttlefish.glb", "icon": "res://assets/expedition/creature/inkfin-icon.svg", "spot": "inkfin_spot",
+		"bones": ["mantle_tip", "mantle", "head"],
+		"row_offset": 0.59, "front": "head", "centre": "mantle", "shadow": 1.9, "lift": 0.34},
+}
+const DEFAULT := "storm-eel"
 
 var viewport: SubViewport
 var camera: Camera3D
@@ -30,6 +42,8 @@ var clip_time := 0.0
 var flash := 0.0
 var _bone_ids: Dictionary = {}
 var _scale := 1.0
+var species := ""
+var profile: Dictionary = {}
 
 func _init(host: Node) -> void:
 	viewport = SubViewport.new()
@@ -57,14 +71,26 @@ func _init(host: Node) -> void:
 	camera.rotation = Vector3(-ELEVATION, 0.0, 0.0)
 	camera.near = 0.1; camera.far = 100.0
 	viewport.add_child(camera)
-	model = (load(MODEL) as PackedScene).instantiate()
+	use(DEFAULT)
+
+static func icon(id: String) -> Texture2D:
+	return load(str(SPECIES.get(id, SPECIES[DEFAULT]).icon))
+
+## Show this species (loads its model once per change).
+func use(id: String) -> void:
+	if not SPECIES.has(id): id = DEFAULT
+	if id == species: return
+	species = id; profile = SPECIES[id]
+	if model != null: viewport.remove_child(model); model.queue_free()
+	spot_materials.clear(); body_materials.clear(); _bone_ids.clear(); clip = ""
+	model = (load(str(profile.model)) as PackedScene).instantiate()
 	viewport.add_child(model)
 	player = model.find_child("AnimationPlayer", true, false)
 	player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	for name in player.get_animation_list():
 		player.get_animation(name).loop_mode = Animation.LOOP_LINEAR if name in LOOPS else Animation.LOOP_NONE
 	skeleton = model.find_children("*", "Skeleton3D", true, false)[0]
-	for i in range(BODY_BONES.size()): _bone_ids[BODY_BONES[i]] = skeleton.find_bone(BODY_BONES[i])
+	for bone in profile.bones: _bone_ids[bone] = skeleton.find_bone(bone)
 	for node in model.find_children("*", "MeshInstance3D", true, false): _flatten(node)
 	play("swim", 0.0)
 
@@ -79,7 +105,7 @@ func _flatten(mesh: MeshInstance3D) -> void:
 		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
 		material.roughness = 1.0; material.metallic = 0.0
 		material.emission_enabled = true
-		var spot := material.resource_name == "eel_spot"
+		var spot := material.resource_name == str(profile.spot)
 		material.emission = source.emission if spot and source != null else Color.WHITE
 		material.emission_energy_multiplier = 1.0 if spot else 0.0
 		(spot_materials if spot else body_materials).append(material)
@@ -150,16 +176,17 @@ func to_view(point: Vector3) -> Vector2: return camera.unproject_position(point)
 ## Soft-shadow anchors: each body bone dropped onto the seabed, in view coordinates.
 func ground_points() -> Array[Vector2]:
 	var points: Array[Vector2] = []
-	for name in BODY_BONES:
+	for name in profile.bones:
 		var p := bone_world(name)
 		points.append(to_view(Vector3(p.x, 0.0, p.z)))
 	return points
 
-## The body bone a hook lands on: `along` -1 (snout) .. 1 (tail).
-static func hook_bone(along: float) -> String:
-	return BODY_BONES[clampi(int(round((clampf(along, -1.0, 1.0) + 1.0) * 0.5 * (BODY_BONES.size() - 1))), 0, BODY_BONES.size() - 1)]
+## The body bone a hook lands on: `along` -1 (north end) .. 1 (south end).
+func hook_bone(along: float) -> String:
+	var bones: Array = profile.bones
+	return bones[clampi(int(round((clampf(along, -1.0, 1.0) + 1.0) * 0.5 * (bones.size() - 1))), 0, bones.size() - 1)]
 
 ## Where the hooked harpoon sits: on the struck bone's back, nudged across.
 func hook_point(along: float, across: float) -> Vector2:
 	var bone := hook_bone(along)
-	return to_view(bone_world(bone, 0.36) + Vector3(clampf(across, -1.0, 1.0) * 0.12, 0.0, 0.0))
+	return to_view(bone_world(bone, float(profile.lift)) + Vector3(clampf(across, -1.0, 1.0) * 0.12, 0.0, 0.0))

@@ -105,6 +105,14 @@ var _last_strike = null
 var _bolts: Array = []
 var _bolt_t := 0.0
 var _strike_flash := 0.0
+## Issue #70 ink: a shader layer above the creature (ink.gdshader), and a layer
+## above that for what stays visible through the ink: the cable, glowing
+## pickups and the steering arrows.
+var _ink_layer: ColorRect
+var _over_layer: Control
+var _ink_material: ShaderMaterial
+var _cone_tilt := 0.0
+var _lime: Texture2D
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -122,6 +130,18 @@ func _ready() -> void:
 	_glow = _radial([Color(1, .89, .47, .55), Color(1, .75, .24, .22), Color(1, .67, .16, 0)], [0.0, .45, 1.0])
 	_shade = _radial([Color(.016, .118, .275, .5), Color(.016, .118, .275, .3), Color(.016, .118, .275, 0)], [0.0, .55, 1.0])
 	creature = CreatureView.new(self)
+	_lime = _radial([Color(.75, 1, .35, .55), Color(.63, 1, .24, .22), Color(.63, 1, .24, 0)], [0.0, .45, 1.0])
+	_ink_material = ShaderMaterial.new()
+	_ink_material.shader = load("res://scripts/expedition/ink.gdshader")
+	_ink_layer = ColorRect.new()
+	_ink_layer.material = _ink_material
+	_over_layer = Control.new()
+	for layer: Control in [_ink_layer, _over_layer]:
+		layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.set_anchors_preset(Control.PRESET_FULL_RECT)
+		layer.visible = false
+		add_child(layer)
+	_over_layer.draw.connect(_draw_over)
 
 static func _radial(colors: Array, offsets: Array) -> Texture2D:
 	var gradient := Gradient.new()
@@ -153,12 +173,12 @@ func texture(path: String) -> Texture2D:
 	if not textures.has(path): textures[path] = load("res://assets/expedition/" + path)
 	return textures[path]
 
-func set_route(seed_value: int) -> void:
-	_use(_main_world(seed_value))
+func set_route(seed_value: int, species := "") -> void:
+	_use(_main_world(seed_value, species))
 
-func _main_world(seed_value: int) -> Dictionary:
-	var path := Book.route(seed_value)
-	var key := "main:%d:%d" % [seed_value, int(path.version)]
+func _main_world(seed_value: int, species := "") -> Dictionary:
+	var path := Book.route(seed_value, species)
+	var key := "main:%d:%d:%s" % [seed_value, int(path.version), str(path.creature)]
 	if not worlds.has(key):
 		var w := _make_world(path.rows, seed_value, "main")
 		w.path = path
@@ -207,7 +227,7 @@ func _transition_seconds() -> float:
 ## Called each frame by the presentation with the current run snapshot.
 func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	run_state = run
-	var main := _main_world(int(run.seed))
+	var main := _main_world(int(run.seed), Book.creature_of(run))
 	main.collected = _index_set(run.get("collected", []))
 	var ride = run.get("passage")
 	var target := main
@@ -254,6 +274,7 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 	_step_particles(delta if travelling or ending else 0.0, delta)
 	_sync_discharge(delta if travelling else 0.0)
 	_sync_creature(run, delta if travelling or ending else 0.0)
+	_sync_ink(run, delta if travelling else 0.0)
 	queue_redraw()
 
 ## Encounter creature: clip from the rules state, camera on its route cell.
@@ -266,6 +287,7 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 		_creature_shown = float(encounter.t) - float(encounter.get("escaped_at", encounter.t)) < 1.6
 	if not _creature_shown:
 		creature.stop_rendering(); return
+	creature.use(Book.creature_of(run))
 	var rules: Dictionary = Book.definition().encounter
 	match str(encounter.state):
 		"aiming": creature.play("restless" if float(encounter.t) >= float(rules.window_seconds) - float(rules.restless_seconds) else "swim")
@@ -273,9 +295,13 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 			# Pursuit: straining forward, thrashing once resistance runs low.
 			var low := float(encounter.get("resistance", rules.resistance)) < float(rules.resistance) * .3
 			var strike = encounter.get("discharge")
+			var blot = encounter.get("ink")
 			if catch_t >= 0.0: creature.play("exhausted", .35)
 			elif escape_t >= 0.0: creature.play("escape", .15)
 			elif strike is Dictionary: creature.play("windup" if strike.phase == "windup" else "attack", .15)
+			# Ink: the sac swells through the warning, then the burst as it spreads.
+			elif blot is Dictionary and blot.phase == "warn": creature.play("windup", .15)
+			elif blot is Dictionary and blot.phase == "spread" and (creature.clip == "windup" or (creature.clip == "attack" and not creature.finished())): creature.play("attack", .1)
 			elif creature.clip == "hit":
 				if creature.finished(): creature.play("struggle" if low else "hooked")
 			elif creature.clip not in ["hooked", "struggle"]:
@@ -285,7 +311,7 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 		"escaped": creature.play("escape", 0.15)
 	var cell := _cell()
 	var centre := Book.creature_centre(run)
-	var root := _origin() + Vector2(centre.x, centre.y + CreatureView.BODY_ROW_OFFSET) * cell
+	var root := _origin() + Vector2(centre.x, centre.y + float(creature.profile.row_offset)) * cell
 	var grow := 1.0
 	var turn := 0.0
 	if catch_t >= 0.0:
@@ -304,6 +330,58 @@ func discharge() -> Variant:
 	if not _pursuit() or world.get("kind") != "main": return null
 	return run_state.encounter.get("discharge")
 
+## The Inkfin's current ink burst, while the chase is on (a catch or escape removes it).
+func ink() -> Variant:
+	if not _pursuit() or world.get("kind") != "main": return null
+	return run_state.encounter.get("ink")
+
+## Drive the ink layer from the rules state: the cover, the light cone and its
+## tilt into the turn, and the warning pulse.
+func _sync_ink(run: Dictionary, delta: float) -> void:
+	var k: Dictionary = Book.definition().encounter.ink
+	var blot = ink()
+	var lateral := float(Book.definition().lateral_columns_per_second)
+	var want := clampf(float(run.get("vx", 0.0)) / lateral, -1.0, 1.0) * deg_to_rad(float(k.tilt_degrees)) if blot is Dictionary else 0.0
+	_cone_tilt = lerpf(_cone_tilt, want, minf(1.0, delta * 8.0)) if blot is Dictionary else 0.0
+	_ink_layer.visible = blot is Dictionary
+	_over_layer.visible = blot is Dictionary
+	if not blot is Dictionary: return
+	var cell := _cell()
+	var o := _origin()
+	var cover := Book.ink_cover(run)
+	var pulse := 0.0
+	if blot.phase == "warn": pulse = .3 if reduced_motion else .38 * (.5 - .5 * cos(TAU * 3.0 * float(blot.t) / float(k.warn_seconds)))
+	var from := creature.to_view(creature.bone_world(str(creature.profile.front))) if _creature_shown else size * Vector2(.5, .35)
+	for entry in [["view_size", size], ["cell", cell], ["ship", o + (_shown_ship() + _knock) * cell], ["origin", from], ["scroll", o],
+			["cover", cover], ["bloom", 1.0 if blot.phase == "spread" else 0.0], ["warn", pulse], ["tilt", _cone_tilt],
+			["clear_rows", float(k.clear_rows)], ["far_half_columns", float(k.cone_far_width_columns) / 2.0], ["glow_columns", float(k.hull_glow_columns)],
+			["darkness", float(k.darkness)], ["tint", float(k.light_tint)], ["drift", 0.0 if reduced_motion else time * .033]]:
+		_ink_material.set_shader_parameter(entry[0], entry[1])
+	_over_layer.queue_redraw()
+
+## Above the ink: pickups glow through it with the dive's lime "good" signal,
+## and the cable and the arrows stay as they are.
+func _draw_over() -> void:
+	if scene.is_empty(): return
+	var cell := _cell()
+	var o := _origin()
+	var cover := Book.ink_cover(run_state)
+	var top_row := _top_row()
+	for i in range(scene.pickups.size()):
+		var p: Dictionary = scene.pickups[i]
+		if cover <= 0.0 or collected.has(i) or p.y < top_row - 1.0 or p.y > top_row + size.y / cell + 1.0: continue
+		var bob := sin(time * 2.4 + i) * .05
+		var g := o + Vector2(p.x, p.y - .15 + bob) * cell
+		var pulse := 1.0 if reduced_motion else .85 + .15 * sin(time * 4.0 + i)
+		_over_layer.draw_texture_rect(_lime, Rect2(g - Vector2.ONE * cell * .62 * pulse, Vector2.ONE * cell * 1.24 * pulse), false, Color(1, 1, 1, cover))
+		var entry: Dictionary = pieces.kit.get("gold-%02d" % (posmod(int(floor(time * 10 + i * 3)), 12)), {})
+		if entry.is_empty(): continue
+		var s := cell * 1.5 / float(pieces.kitCellPixels)
+		var at := o + Vector2(p.x - .75, p.y - .75 + bob - .12) * cell
+		_over_layer.draw_texture_rect(texture(str(entry.image)), Rect2(at - Vector2(float(entry.origin[0]), float(entry.origin[1])) * s, Vector2(float(entry.size[0]), float(entry.size[1])) * s), false, Color(1, 1, 1, .85 * cover))
+	_draw_harpoon(cell, _over_layer)
+	_draw_controls(_over_layer)
+
 func _sync_discharge(delta: float) -> void:
 	var strike = discharge()
 	# A finished strike leaves a short afterglow; a catch or escape clears everything.
@@ -321,7 +399,7 @@ func _sync_discharge(delta: float) -> void:
 		var cell := _cell()
 		var x0 := _origin().x + float(strike.x0) * cell
 		var w := float(strike.w) * cell
-		var from := clampf(creature.to_view(creature.bone_world("head")).y, 0.0, size.y) if _creature_shown else 0.0
+		var from := clampf(creature.to_view(creature.bone_world(str(creature.profile.front))).y, 0.0, size.y) if _creature_shown else 0.0
 		_bolts = [DischargeArt.bolt_path(_rng, x0, w, from, size.y, cell), DischargeArt.bolt_path(_rng, x0, w, from, size.y, cell), DischargeArt.bolt_path(_rng, x0, w, -10.0, from, cell)]
 	elif not (strike is Dictionary and strike.phase == "strike"): _bolts = []
 
@@ -359,9 +437,11 @@ func start_escape() -> void:
 	escape_t = 0.0
 	_clear_discharge()
 
-## A catch or escape removes any warned strip, lightning or afterglow at once (#25).
+## A catch or escape removes any warned strip, lightning or afterglow at once (#25),
+## and any ink (#70).
 func _clear_discharge() -> void:
 	_afterglow = {}; _bolts = []; _strike_flash = 0.0; _last_strike = null
+	_ink_layer.visible = false; _over_layer.visible = false; _cone_tilt = 0.0
 
 func end_outro() -> void:
 	catch_t = -1.0; escape_t = -1.0; _catch_from = Vector2.ZERO
@@ -583,10 +663,11 @@ func _draw() -> void:
 	for s in scene.shafts:
 		if s.y >= top - 2 and s.y <= bottom: piece(s.id, s.dir, o + Vector2(s.x, s.y) * cell, cell * 1.6, 0, float(s.y))
 	Harpoon.focus(self, focus_at, size, cell, focus_amount)
-	_draw_harpoon(cell)
+	# Under the ink, the cable and the arrows draw on the layer above it instead.
+	if not _ink_layer.visible: _draw_harpoon(cell)
 	_draw_discharge_marks(o, cell)
 	_draw_iris(o, cell)
-	_draw_controls()
+	if not _ink_layer.visible: _draw_controls()
 
 ## Issue #25: the warned or live strip over the terrain, under the creature.
 func _draw_strip(o: Vector2, cell: float) -> void:
@@ -618,7 +699,7 @@ func _draw_discharge_marks(o: Vector2, cell: float) -> void:
 ## creature (code-drawn, as in design/pursuit-preview).
 func _draw_catch_rays() -> void:
 	var k := 1.0 if reduced_motion else clampf(catch_t / .5, 0.0, 1.0)
-	var centre := creature.to_view(creature.bone_world("spine_04")) if _creature_shown else size * Vector2(.5, .4)
+	var centre := creature.to_view(creature.bone_world(str(creature.profile.centre))) if _creature_shown else size * Vector2(.5, .4)
 	draw_rect(Rect2(Vector2.ZERO, size), Color(.016, .08, .19, .5 * k))
 	var far := size.length()
 	var spin := 0.0 if reduced_motion else catch_t * deg_to_rad(12.0)
@@ -631,12 +712,14 @@ func _draw_catch_rays() -> void:
 func _draw_creature() -> void:
 	var cell := _cell()
 	if catch_t < 0.0:
+		var blob := cell * float(creature.profile.shadow)
 		for p in creature.ground_points():
-			draw_texture_rect(_shade, Rect2(p - Vector2.ONE * cell * .55, Vector2.ONE * cell * 1.1), false, Color(1, 1, 1, .6))
+			draw_texture_rect(_shade, Rect2(p - Vector2.ONE * blob * .5, Vector2.ONE * blob), false, Color(1, 1, 1, .6))
 	draw_texture_rect(creature.texture(), Rect2(Vector2.ZERO, size), false)
 
 ## The harpoon in flight, reeling back, or pinned to the creature, with its rope.
-func _draw_harpoon(cell: float) -> void:
+func _draw_harpoon(cell: float, c: CanvasItem = null) -> void:
+	if c == null: c = self
 	var encounter = run_state.get("encounter")
 	if not encounter is Dictionary or not encounter.harpoon is Dictionary or world.get("kind") != "main": return
 	var shot: Dictionary = encounter.harpoon
@@ -650,7 +733,7 @@ func _draw_harpoon(cell: float) -> void:
 			var fade := maxf(0.0, 1.0 - escape_t / .9)
 			if fade <= 0.0 or not _creature_shown: return
 			var mid := nose.lerp(hook_point(), .5) + Vector2(-cell * .6 * escape_t, cell * 2.0 * escape_t)
-			Harpoon.rope(self, nose, mid, cell, .9, time, fade, tier)
+			Harpoon.rope(c, nose, mid, cell, .9, time, fade, tier)
 			return
 		if not _creature_shown: return
 		var pin := hook_point()
@@ -661,13 +744,13 @@ func _draw_harpoon(cell: float) -> void:
 			var at := pin.lerp(nose, smoothstep(0.0, 1.0, k))
 			var away := (at - nose).angle()
 			var tail := at - Vector2.from_angle(away) * reach
-			if tail.distance_to(nose) > 2.0: Harpoon.rope(self, nose, tail, cell, .5 * (1.0 - k), time, 1.0, tier)
-			Harpoon.harpoon(self, at, away, cell, k > 0.0, tier)
+			if tail.distance_to(nose) > 2.0: Harpoon.rope(c, nose, tail, cell, .5 * (1.0 - k), time, 1.0, tier)
+			Harpoon.harpoon(c, at, away, cell, k > 0.0, tier)
 			return
 		var angle := (pin - nose).angle()
-		Harpoon.rope(self, nose, pin - Vector2.from_angle(angle) * reach, cell, .06, time, 1.0, tier)
-		Harpoon.harpoon(self, pin, angle, cell, false, tier)
-		if _hooked_at >= 0.0: Harpoon.hook_ring(self, pin, cell, time - _hooked_at)
+		Harpoon.rope(c, nose, pin - Vector2.from_angle(angle) * reach, cell, .06, time, 1.0, tier)
+		Harpoon.harpoon(c, pin, angle, cell, false, tier)
+		if _hooked_at >= 0.0: Harpoon.hook_ring(c, pin, cell, time - _hooked_at)
 		return
 	var o := _origin()
 	var d := float(shot.d)
@@ -676,8 +759,8 @@ func _draw_harpoon(cell: float) -> void:
 	var tip := o + Vector2(x, _shown_ship().y - float(rules.nose_rows) - d) * cell
 	var angle := -PI / 2 if shot.state == "flying" else (tip - nose).angle()
 	var tail := tip - Vector2.from_angle(angle) * reach
-	Harpoon.rope(self, nose, tail, cell, .35 if shot.state == "flying" else .9, time, 1.0, tier)
-	Harpoon.harpoon(self, tip, angle, cell, true, tier)
+	Harpoon.rope(c, nose, tail, cell, .35 if shot.state == "flying" else .9, time, 1.0, tier)
+	Harpoon.harpoon(c, tip, angle, cell, true, tier)
 
 ## Portals (whirlpool under the stone ring), passage end whirlpools, the rejoin
 ## outflow, current flow lines and the passage's forward flow.
@@ -722,8 +805,9 @@ func _draw_iris(o: Vector2, cell: float) -> void:
 	if r > 4: draw_arc(at, r, 0, TAU, 72, Color(.63, .96, 1, .8), 4.0, true)
 
 ## Arrow buttons: rounded translucent triangles that brighten while held.
-func _draw_controls() -> void:
+func _draw_controls(c: CanvasItem = null) -> void:
 	if not controls_visible: return
+	if c == null: c = self
 	var held := 0.0 if controls_disabled else (_stick if _stick != 0.0 else key_input)
 	# The passage ride dims the arrows to a third.
 	var dim := .32 if controls_disabled else 1.0
@@ -734,10 +818,10 @@ func _draw_controls() -> void:
 		# A faint navy drop keeps the pale arrow readable over bright water.
 		var drop := PackedVector2Array()
 		for point in points: drop.append(point + Vector2(0, box.size.x * .05))
-		draw_colored_polygon(drop, Color(.02, .12, .27, .22 * dim))
-		draw_colored_polygon(points, Color(1, 1, 1, (.62 if down else .34) * dim))
+		c.draw_colored_polygon(drop, Color(.02, .12, .27, .22 * dim))
+		c.draw_colored_polygon(points, Color(1, 1, 1, (.62 if down else .34) * dim))
 		points.append(points[0])
-		draw_polyline(points, Color(1, 1, 1, (.95 if down else .7) * (.65 if controls_disabled else 1.0) * dim), maxf(2.0, box.size.x * .04), true)
+		c.draw_polyline(points, Color(1, 1, 1, (.95 if down else .7) * (.65 if controls_disabled else 1.0) * dim), maxf(2.0, box.size.x * .04), true)
 
 ## Bottom corner square holding one arrow, clear of the ship's lane.
 func _button_rect(side: float) -> Rect2:
