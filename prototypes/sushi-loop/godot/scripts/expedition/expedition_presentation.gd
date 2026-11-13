@@ -593,6 +593,17 @@ func update(value: Dictionary, delta: float) -> void:
 		prep_hint.modulate.a = 1.0 if reduced_motion else .55 + .45 * (.5 + .5 * sin(view.time * 3.2))
 	_refresh_hud(delta)
 
+## The passage theme plays for the ride behind a portal, and the boss theme
+## from the creature's arrival until it is caught or gone; preparation, the
+## route, the outro and the results keep the dive theme.
+func music_scene() -> String:
+	if mode != "travel" or overlay in ["outro", "award"]: return "dive"
+	var run = snapshot.get("expedition", {}).get("run")
+	if not run is Dictionary: return "dive"
+	if run.get("passage") != null: return "passage"
+	var encounter = run.get("encounter")
+	return "boss" if encounter is Dictionary and encounter.state != "escaped" else "dive"
+
 ## Catch cutscene or escape over the frozen last run; no Skip. Then the award
 ## (first catch only) or the results.
 func _update_outro(delta: float) -> void:

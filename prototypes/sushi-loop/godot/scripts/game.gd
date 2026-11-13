@@ -643,6 +643,7 @@ func _process(delta: float) -> void:
 	if expedition_ui != null and expedition_ui.visible:
 		expedition_ui.reduced_motion = world.reduced_motion
 		expedition_ui.update({"expedition": ExpeditionBook.snapshot(session._state, session._store)}, delta)
+	audio.set_scene(_music_scene())
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
 	TipArt.expire(world)
 	world.clearance_removals = world.clearance_removals.filter(func(item: Dictionary): return world.time-float(item.started) < .26)
@@ -1226,6 +1227,12 @@ func _resume_restaurant() -> void:
 	if pending.run != null or pending.result != null: return
 	var result := dispatch({"type": "away_resume", "now": _wall_clock()}, false)
 	_present_away(int(result.get("amount", 0)))
+
+## Each scene has its own music; a dive has one track for the route and one for the creature.
+func _music_scene() -> String:
+	if expedition_ui != null and expedition_ui.visible: return expedition_ui.music_scene()
+	if workshop_ui != null and workshop_ui.visible: return "workshop"
+	return "restaurant"
 
 ## A full-screen scene (Workshop room, expedition) hides the restaurant.
 func _restaurant_covered() -> bool:

@@ -137,5 +137,136 @@ ink_lift=[0.0]*round(1.0*RATE)
 wash(ink_lift,0,.95,1.6,.9,lambda k:math.sin(math.pi*k)*(1-k),ink_rng)
 for start,note,gain in [(.05,69,.13),(.22,74,.12),(.4,81,.1)]:tone(ink_lift,start,.5,midi(note),gain,4,(1,.2,.04))
 write('ink_lift',ink_lift,peak=.3)
+# Scene music: one loop per scene. Like harbor_cafe, every tail wraps into the
+# start of its loop. `level` scales each track to a fixed peak for the mix.
+def pad(buffer,start,duration,frequency,gain,pan=0.0):
+    frames=len(buffer)//2;onset=round(start*RATE);length=round(duration*RATE)
+    left=math.sqrt((1-pan)/2);right=math.sqrt((1+pan)/2)
+    for i in range(length):
+        t=i/RATE
+        value=(math.sin(TAU*frequency*.997*t)+math.sin(TAU*frequency*1.003*t)+.2*math.sin(TAU*frequency*2*t))*gain*math.sin(math.pi*i/length)**2
+        at=(onset+i)%frames
+        buffer[at*2]+=value*left;buffer[at*2+1]+=value*right
+def noise(buffer,start,duration,gain,smooth,shape,rng,pan=0.0):
+    frames=len(buffer)//2;onset=round(start*RATE);length=round(duration*RATE);filtered=0.0
+    left=math.sqrt((1-pan)/2);right=math.sqrt((1+pan)/2)
+    for i in range(length):
+        filtered=smooth*filtered+(1-smooth)*rng.uniform(-1,1)
+        value=filtered*gain*shape(i/length)
+        at=(onset+i)%frames
+        buffer[at*2]+=value*left;buffer[at*2+1]+=value*right
+def thump(buffer,start,duration,f0,f1,gain):
+    frames=len(buffer)//2;onset=round(start*RATE);length=round(duration*RATE);phase=0.0
+    for i in range(length):
+        k=i/length;phase+=TAU*(f1+(f0-f1)*(1-k)**3)/RATE
+        value=math.sin(phase)*gain*min(1.0,i/(RATE*.004))*(1-k)**2
+        at=(onset+i)%frames
+        buffer[at*2]+=value*.707;buffer[at*2+1]+=value*.707
+def level(samples,peak):
+    scale=peak/(max(abs(v) for v in samples) or 1)
+    return [v*scale for v in samples]
+def track(name,samples,peak,bpm):
+    write(name,level(samples,peak),2,peak=peak)
+    metrics[name]['loop']=True;metrics[name]['bpm']=bpm
+music_rng=random.Random(772026)
+
+# Workshop, "Tinker Dock": eight bars at 96 BPM in F. A marimba arpeggio,
+# a whistled tune, and tiny hammer taps on the backbeat.
+beat=60/96;bar=4*beat
+tinker=[0.0]*(round(8*bar*RATE)*2)
+chords=[(41,[60,64,65,69]),(38,[60,62,65,69]),(34,[58,62,65,69]),(36,[58,60,65,67])]*2
+tunes=[[(0,72),(1.5,77),(2,76),(3,72)],[(0,74),(1.5,77),(2.5,74)],[(0,70),(1.5,74),(2,77),(3,74)],[(0,72),(2,67),(3,70)],
+       [(0,77),(1.5,81),(2,79),(3,77)],[(0,74),(1.5,77),(2.5,81)],[(0,82),(1.5,81),(2,77),(3,74)],[(0,72),(1,77),(2,79),(3,70)]]
+for b,(bass,chord) in enumerate(chords):
+    start=b*bar
+    for offset,note,gain in [(0,bass,.12),(1.5,bass,.07),(3,bass+7,.08)]:
+        tone(tinker,start+offset*beat,.7,midi(note),gain,3.5,(1,.12),0,True,True)
+    for step,index in enumerate([0,2,1,3,2,1,3,2]):
+        tone(tinker,start+step*beat/2,.34,midi(chord[index]+12),.05 if step%2 else .065,6,(1,0,0,.22),-.45+.3*index,True,True)
+    for offset,note in tunes[b]:
+        tone(tinker,start+offset*beat,.8,midi(note+12),.06,3.5,(1,.06),.12,True,True)
+    for offset in (1,3):
+        tone(tinker,start+offset*beat,.07,2100,.03,7,(1,.4),.5,True,True)
+        tone(tinker,start+(offset+.5)*beat,.05,1650,.014,7,(1,),-.5,True,True)
+    for step in range(8):
+        noise(tinker,start+(step+.5)*beat/2,.05,.05,.3,lambda k:(1-k)**2,music_rng,.3)
+track('tinker_dock',tinker,.22,96)
+
+# Expedition route, "Deep Current": eight bars at 80 BPM in A minor. Slow
+# pads, echoing bell arpeggios and a low swell of water.
+beat=60/80;bar=4*beat
+deep=[0.0]*(round(8*bar*RATE)*2)
+chords=[(33,[57,60,64,71]),(29,[57,60,64,65]),(36,[55,59,60,64]),(28,[55,59,62,64])]*2
+tunes=[[(2,76)],[(1,77),(3,76)],[(2,79)],[(1,74),(3,71)],[(2,81)],[(1,79),(3,77)],[(2,76),(3.5,79)],[(1,74)]]
+for b,(bass,chord) in enumerate(chords):
+    start=b*bar
+    tone(deep,start,2.8,midi(bass+12),.11,2,(1,.2,.04),0,True,True)
+    for offset in (1,2,3):tone(deep,start+offset*beat,.5,midi(bass+12),.035,4,(1,),0,True,True)
+    for n,note in enumerate(chord):pad(deep,start-.3,bar+.9,midi(note),.016,-.5+.33*n)
+    for step,index in enumerate([0,1,2,3,2,1,2,3]):
+        for echo,gain in enumerate([.05,.02,.008]):
+            side=(-.5 if step%2 else .5)*(-1)**echo
+            tone(deep,start+(step/2+.75*echo)*beat,1.1,midi(chord[index]+12),gain,5,(1,0,.12,0,.05),side,True,True)
+    for offset,note in tunes[b]:
+        tone(deep,start+offset*beat,2.2,midi(note),.05,3,(1,.1),.1,True,True)
+        tone(deep,start+(offset+1.5)*beat,2.0,midi(note),.016,3,(1,.1),-.4,True,True)
+    if b%2==0:noise(deep,start,2*bar,.5,.985,lambda k:math.sin(math.pi*k)**2,music_rng,-.2 if b%4 else .2)
+track('deep_current',deep,.16,80)
+
+# Bonus passage behind a portal, "Portal Ride": eight bars at 132 BPM in C
+# lydian. The ride lasts about eight seconds, so it sparkles from the first
+# beat: racing sixteenth arpeggios, a bouncing bass and a rising tune.
+beat=60/132;bar=4*beat
+ride=[0.0]*(round(8*bar*RATE)*2)
+chords=[(36,[60,64,67,71]),(38,[62,66,69,72]),(40,[59,64,67,71]),(43,[59,62,66,69])]*2
+tunes=[[(0,79),(1,83),(2,84),(3,88)],[(0,90),(1.5,86),(2,84),(3,81)],[(0,83),(1,86),(2,88),(3,91)],[(0,90),(1,86),(2,83),(3,86)],
+       [(0,88),(1,91),(2,95),(3,96)],[(0,98),(1.5,96),(2,93),(3,90)],[(0,95),(1,91),(2,88),(3,86)],[(0,90),(1,93),(2,95),(3,98)]]
+for b,(bass,chord) in enumerate(chords):
+    start=b*bar
+    for step in range(8):
+        tone(ride,start+step*beat/2,.2,midi(bass+(12 if step%2 else 0)),.1 if step%2==0 else .06,4,(1,.25,.08),0,True,True)
+    for step in range(16):
+        note=chord[step%4]+12*(1+(step//4)%2)
+        tone(ride,start+step*beat/4,.22,midi(note),.04,6,(1,0,.15,0,.06),.6 if step%2 else -.6,True,True)
+    for n,note in enumerate(chord):pad(ride,start-.1,bar+.3,midi(note),.012,-.45+.3*n)
+    for offset,note in tunes[b]:
+        tone(ride,start+offset*beat,.6,midi(note),.06,3.5,(1,.15,.04),.1,True,True)
+        tone(ride,start+(offset+.75)*beat,.5,midi(note),.018,4,(1,.1),-.5,True,True)
+    for step in range(8):
+        noise(ride,start+(step+.5)*beat/2,.04,.06,.15,lambda k:(1-k)**2,music_rng,-.3)
+    for offset in (0,2):thump(ride,start+offset*beat,.16,110,50,.14)
+track('portal_ride',ride,.2,132)
+
+# Creature encounter, "Storm Chase": sixteen bars at 150 BPM in D minor. A
+# driving eighth-note bass, kick and snare, chord stabs and an urgent lead,
+# doubled an octave up on the second pass.
+beat=60/150;bar=4*beat
+storm=[0.0]*(round(16*bar*RATE)*2)
+chords=[(38,[62,65,69]),(38,[62,65,69]),(34,[62,65,70]),(36,[60,64,67]),(38,[62,65,69]),(38,[62,65,69]),(34,[62,65,70]),(33,[61,64,69])]*2
+leads=[[(0,74,1),(1,77,.5),(1.5,76,.5),(2,74,1),(3,69,1)],[(0,72,.5),(.5,74,1.5),(2,77,1),(3,81,1)],
+       [(0,82,1.5),(1.5,81,.5),(2,77,1),(3,74,1)],[(0,76,1),(1,79,1),(2,76,.5),(2.5,72,.5),(3,76,1)],
+       [(0,74,1),(1,77,.5),(1.5,76,.5),(2,74,1),(3,81,1)],[(0,84,.5),(.5,86,1.5),(2,84,.5),(2.5,81,.5),(3,77,1)],
+       [(0,82,1),(1,79,1),(2,77,1),(3,74,1)],[(0,73,1),(1,76,1),(2,81,1),(3,85,1)]]*2
+for b,(bass,chord) in enumerate(chords):
+    start=b*bar;again=b>=8
+    for step,lift in enumerate([0,0,12,0,0,0,12,7]):
+        tone(storm,start+step*beat/2,.2,midi(bass+lift),.12 if step%2==0 else .09,4,(1,.5,.25,.12),0,True,True)
+    for offset in (0,2):thump(storm,start+offset*beat,.2,130,44,.3)
+    if b%4==3:thump(storm,start+3.5*beat,.16,130,44,.22)
+    for offset in (1,3):
+        noise(storm,start+offset*beat,.14,.42,.45,lambda k:(1-k)**3,music_rng)
+        tone(storm,start+offset*beat,.08,190,.06,6,(1,.3),0,True,True)
+    for step in range(8):
+        noise(storm,start+(step+.5)*beat/2,.04,.1 if step%2 else .06,.12,lambda k:(1-k)**2,music_rng,.35)
+    for offset in (0,1.5,3):
+        for n,note in enumerate(chord):
+            tone(storm,start+offset*beat,.22,midi(note),.034,4,(1,.4,.2,.1),-.5+.5*n,True,True)
+    for offset,note,length in leads[b]:
+        tone(storm,start+offset*beat,length*beat+.12,midi(note),.085,2.6,(1,.35,.15,.06),.15,True,True)
+        if again:tone(storm,start+offset*beat,length*beat+.1,midi(note+12),.03,3,(1,.2),-.3,True,True)
+    if again:
+        for step in range(16):
+            tone(storm,start+step*beat/4,.1,midi(chord[step%3]+24),.012,5,(1,),.6 if step%2 else -.6,True,True)
+track('storm_chase',storm,.3,150)
 (OUT/'audio-verification.json').write_text(json.dumps(metrics,indent=2)+'\n')
 print(json.dumps(metrics,indent=2))
