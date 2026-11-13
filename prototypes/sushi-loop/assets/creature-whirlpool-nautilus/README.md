@@ -1,0 +1,12 @@
+# Whirlpool Nautilus (issue #73)
+
+Concept model only. The creature's mechanics are not approved, so it has **no rig, no clips and no game integration** yet.
+
+Striped spiral shell rolled towards the camera, teal tentacles. Low-poly, flat-shaded, flat colours, in the Storm Eel and Inkfin Cuttlefish style.
+
+- **Size:** 2.4 × 3.8 cells (X × Y), 906 / 670 vertices / faces.
+- **Axes:** X right, +Y north (travel direction), Z up, 1 unit = 1 cell.
+- `source/build_model.py`: run in Blender with `ASSETS` set to the `assets` folder; it uses `../creature-kit/kit.py`.
+- `source/whirlpool-nautilus.blend`, `export/whirlpool-nautilus.glb`: the result.
+- `validation/game-view.png`, `validation/three-quarter.png`: renders.
+- `concept/issue-73-concept.jpg`: the issue's inspirational mock.
