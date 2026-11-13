@@ -1,0 +1,554 @@
+{
+  "schemaVersion": 1,
+  "asset": "breakable-reef",
+  "style": "Warm, softly lit cartoon 3D matching the approved underwater production pieces (see inputs/warm-soft-reference.png for finish only): pale warm limestone/coral-rock with hairline cracks, small pores, chipped corners and banded tan sides, as in the frozen target. Readable at phone size; clearly paler and warmer than the blue bedrock so it reads as breakable. Real 3D render output from an editable Blender source; no paint-over.",
+  "qualityCriteria": {
+    "frozenFrom": "reviews/criteria.json",
+    "criteriaSHA256": "5f6410ce5d8e6c7e11eca0905abd66c74712cd0edc4581b2df7fcc7c76d7a59c",
+    "frozenBy": "coordinator",
+    "frozenAt": "2026-11-13",
+    "shapeVolume": "Approved slab layout, height and locked outline unchanged; small chipped top corners within 0.03 cell; no chips into fronts or rounded corners.",
+    "color": "Peach-cream tops over a clearly deeper warm tan front, darkening slightly toward the seabed, gentle per-slab variation; clearly paler and warmer than blue bedrock; no more orange than the target.",
+    "lightingHighlights": "Soft warm highlight on top edges instead of a grey rim; recipe rig family; no preferred horizontal direction, no cast shadow.",
+    "materialDetail": "2-4 soft horizontal bands on fronts following world height; hairline cracks on roughly a third to half of slabs; sparse pores (2x only); equal detail density on every piece.",
+    "seamContinuity": "No jump in tone, light, bevel or band height across cell seams for any mask/pattern pairing; no crack or chip cut off by a straight cell edge.",
+    "artifactFreeReadability": "Grooves read as narrow warm shadow lines with no blue seabed inside a cell and no dark wedges; no diagonal shading lines, black patches, speckle or downsample shimmer; clean alpha edges; rubble uses the slab palette and stays low.",
+    "requiredEvidence": "All 50 native captures + published sprites with hashes; assembly.png of the same 6x6 patch; a seam stress sheet pairing different masks/patterns at native size and 2x; validation.json proving outline, registration and rubble height unchanged; one unchanged piece rendered twice to set the pixel tolerance before any numeric comparison."
+  },
+  "capture": {
+    "frame": [
+      768,
+      2048
+    ],
+    "publishedFrame": [
+      384,
+      1024
+    ],
+    "logicalFrame": [
+      192,
+      512
+    ],
+    "groundRoot": [
+      96,
+      416
+    ],
+    "nativeScale": 4,
+    "cellPixels": 128,
+    "camera": "Exactly the boulder-underwater round-04 recipe: R.configure (orthographic, 35 deg, ortho_scale 1.5, shift from root) and R.square_footing during capture. One south view per piece; terrain is chosen by mask, never rotated.",
+    "lighting": "Keep the recipe rig family (broad overhead plus eight symmetric fills, low blue world). No preferred horizontal light direction, no cast shadows on the ground, so any mask can sit beside any other.",
+    "views": [
+      "reef-00-a",
+      "reef-00-b",
+      "reef-00-c",
+      "reef-01-a",
+      "reef-01-b",
+      "reef-01-c",
+      "reef-02-a",
+      "reef-02-b",
+      "reef-02-c",
+      "reef-03-a",
+      "reef-03-b",
+      "reef-03-c",
+      "reef-04-a",
+      "reef-04-b",
+      "reef-04-c",
+      "reef-05-a",
+      "reef-05-b",
+      "reef-05-c",
+      "reef-06-a",
+      "reef-06-b",
+      "reef-06-c",
+      "reef-07-a",
+      "reef-07-b",
+      "reef-07-c",
+      "reef-08-a",
+      "reef-08-b",
+      "reef-08-c",
+      "reef-09-a",
+      "reef-09-b",
+      "reef-09-c",
+      "reef-10-a",
+      "reef-10-b",
+      "reef-10-c",
+      "reef-11-a",
+      "reef-11-b",
+      "reef-11-c",
+      "reef-12-a",
+      "reef-12-b",
+      "reef-12-c",
+      "reef-13-a",
+      "reef-13-b",
+      "reef-13-c",
+      "reef-14-a",
+      "reef-14-b",
+      "reef-14-c",
+      "reef-15-a",
+      "reef-15-b",
+      "reef-15-c",
+      "reef-rubble-a",
+      "reef-rubble-b"
+    ],
+    "previews": [
+      "independent-assembly",
+      "seam-stress"
+    ],
+    "previewHow": {
+      "independent-assembly": "Downsample each native capture 2x (ffmpeg lanczos, as assets/expedition/v2/publish.mjs) into a round sprites folder, then: python3 inputs/assemble_snapshot.py <sprites dir> <round>/assembly.html and node inputs/shoot.cjs <round>/assembly.html <round>/assembly.png (NODE_PATH=/Users/yiouchen/dev/game-prototype/node_modules). Same 6x6 patch as inputs/original.png.",
+      "runtime-consumer": "Optional until final: the coordinator places approved-candidate sprites into design/boulderhead-preview and captures the real game view."
+    }
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "712df857b0166aacce59e150fca9c3790429a06d9744ec20557c947ea37788ea"
+    },
+    "originalProject": {
+      "path": "../../../../../../../expedition/v2/native/reef/reef-05-a/project.blend",
+      "sha256": "49c864c19bbe3dd2d47c9498aaf33b40409ae51aea94b07ac0a1cd5960ed2129"
+    },
+    "backup": {
+      "path": "../../backups/reef-05-a.blend",
+      "sha256": "49c864c19bbe3dd2d47c9498aaf33b40409ae51aea94b07ac0a1cd5960ed2129"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "3144d8c20660b913d6717febbc5c81c8031f30edbb8201b420e7a24d8accb94a"
+    },
+    "target": {
+      "path": "../../targets/target-v01.png",
+      "sha256": "3e4c0f2f10a44a3ccb78682ffe3f68f45582d6cb4f94b22d1981902c4fa58e55"
+    },
+    "candidateProject": {
+      "path": "../../source/round-01/reef-05-a.blend",
+      "sha256": "8e2c46ca347f31d5204d7d26489d66a3bba251230477524daaeb606249654600"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "fe1a527ba229a5e2f1b4e8caab3c4a75604a5021a8ff5ef27e749b664895e9ca"
+    },
+    "targetPrompt": {
+      "path": "../../targets/imagegen-prompt.txt",
+      "sha256": "f8896c2216f4a72cef9c4a36ce3071c22f0fb94bcd536cdfb836f40577c8e112"
+    },
+    "candidateResource:recipe": {
+      "path": "../../source/round-01/reef.py",
+      "sha256": "70ce810492326d6eb1f207a002aeea6ce7c9eacaeaa41f2a09fce1178d84d2e4"
+    }
+  },
+  "candidateRenders": {
+    "reef-00-a": {
+      "path": "native/reef-00-a.png",
+      "sha256": "e51de7ad6b0b5b104c0ecea960bd3f701e6bda8005728ea79eaff4508fde667c",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-00-b": {
+      "path": "native/reef-00-b.png",
+      "sha256": "0b4a65d184f59d61781df48d23c468f5817b71ff5fc8a96fa0bd6d25e8d159ac",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-00-c": {
+      "path": "native/reef-00-c.png",
+      "sha256": "842ff70e2fa66a37384ad44ea38c4eb056aa77c9c3431736e4a8dd745d97efb3",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-01-a": {
+      "path": "native/reef-01-a.png",
+      "sha256": "98eada86f5b0ac638951f51ebb82c96173a32ef50af7a5b42a8f9a19e31f50cd",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-01-b": {
+      "path": "native/reef-01-b.png",
+      "sha256": "a70171a2254f7dc6fb0124345028366ddcb037deb7dd52439ea36e72fa996a92",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-01-c": {
+      "path": "native/reef-01-c.png",
+      "sha256": "31b5e5cad2ff5f3968de51727d71d16335b1f5e279383ce01e2d22b0bd256f1e",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-02-a": {
+      "path": "native/reef-02-a.png",
+      "sha256": "4650cfe6420157e1e1bd7c5b0412ef3171c644ffb5c29fc4a8dc7bcb94424e94",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-02-b": {
+      "path": "native/reef-02-b.png",
+      "sha256": "4a03fcd3fdebc61ea6065d97e3ce0b2af0203eceff588baf5a5b1a7321dba2b7",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-02-c": {
+      "path": "native/reef-02-c.png",
+      "sha256": "c0003e591316c25a9f8c845ed748055ff4ce729e0a275f1cfeca874beaaf9b98",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-03-a": {
+      "path": "native/reef-03-a.png",
+      "sha256": "399b38f56fd501e7d76f2cf0723d1d8c04b6d13a85f6c8058e2adee85aa4f20f",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-03-b": {
+      "path": "native/reef-03-b.png",
+      "sha256": "d77c25db44e530eb5c8548c689018561deeaf95362312ac595994f67bbbe3133",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-03-c": {
+      "path": "native/reef-03-c.png",
+      "sha256": "46c1e538751c056ea22d7b2ac757fda4090c30b9e0d1e314741341b777d009dc",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-04-a": {
+      "path": "native/reef-04-a.png",
+      "sha256": "3933c592a851d315c4732b0cabe54ff2ec6388127d92b1c63180df192cfc5ddf",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-04-b": {
+      "path": "native/reef-04-b.png",
+      "sha256": "47b91ac6fc3e41bbcb7b3c200bab9e3cf622460a7bf43dca35bf240274b3d798",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-04-c": {
+      "path": "native/reef-04-c.png",
+      "sha256": "5eb011180e716804071a7ab9f07932184bee546575ddcc86bde571df5f1b34e2",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-05-a": {
+      "path": "native/reef-05-a.png",
+      "sha256": "ebf7eb641a84b995b846e510f51b95c304da0b8dd0e1d405ca813e8a4c5cf4db",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-05-b": {
+      "path": "native/reef-05-b.png",
+      "sha256": "e7a27365719db77d67c378a06acd2687745bb6a990548bb9641508f9a7d6fb04",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-05-c": {
+      "path": "native/reef-05-c.png",
+      "sha256": "711bf20306b1ab02f06e995f7d5684050039829346c9636c1853437dd74d6d2a",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-06-a": {
+      "path": "native/reef-06-a.png",
+      "sha256": "89a2f3e988fc7cb6fc32c28c8cd24c605d84388e7887eb205fa611ee95183fd0",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-06-b": {
+      "path": "native/reef-06-b.png",
+      "sha256": "cfd550429c41dfe28f37c94f6ad11eaf6cac0f91576b3aa46d78bec29b39620d",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-06-c": {
+      "path": "native/reef-06-c.png",
+      "sha256": "4f53bd36a51e59521b06f4da76a20ce2acf469eae0f8eb6d64168fe95a560d6f",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-07-a": {
+      "path": "native/reef-07-a.png",
+      "sha256": "c19ba012e471101eedcac502637d505bf9df361667f68dbd571fdc3d2a40bbdb",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-07-b": {
+      "path": "native/reef-07-b.png",
+      "sha256": "2de72d5d1b5ce2e3965dc66c180826f366c1b8efd5dc2519e64173caee0deab2",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-07-c": {
+      "path": "native/reef-07-c.png",
+      "sha256": "9b9700fdb70b58ab03f3dcdc889fe190a361ebf3cdece25c6d8e4bba12449da7",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-08-a": {
+      "path": "native/reef-08-a.png",
+      "sha256": "314c40bfe4ce38c015f3f5d03b719b99bdf32ecc0a664df39baa25356d355ecc",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-08-b": {
+      "path": "native/reef-08-b.png",
+      "sha256": "77d488be4eaaa700f87866fccc34ffc6054ed59eb611b6e94fe42245c548ce47",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-08-c": {
+      "path": "native/reef-08-c.png",
+      "sha256": "04d6529ae192dc5767f5f750ac50bb1598762509e159483168fa04b96c19a900",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-09-a": {
+      "path": "native/reef-09-a.png",
+      "sha256": "131e1439fb44212d5a2381e82125e6f687a64656fac674325c96bbf2efc614ba",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-09-b": {
+      "path": "native/reef-09-b.png",
+      "sha256": "eefa8a520279acf31d010f88bb72dddeb4d6fa11798db1b4f958fa4398ca8d01",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-09-c": {
+      "path": "native/reef-09-c.png",
+      "sha256": "e43ffd7516e520fae2ba5dcf7f98ecdd5b0bd7a8e44355ada96ac888713602c5",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-10-a": {
+      "path": "native/reef-10-a.png",
+      "sha256": "fca9f8e0abefa1ad709cad89d17911996b56c5bd00261f2b5267bc44162f6305",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-10-b": {
+      "path": "native/reef-10-b.png",
+      "sha256": "8b2c35fbce00de8a1a905460689f6e0bc93cd35d3c2f8b4ac68daac5e027778c",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-10-c": {
+      "path": "native/reef-10-c.png",
+      "sha256": "ac96bf2a3e499cb24722c368cd9536a0aaf08ac43bab3b474952fef74999f3fe",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-11-a": {
+      "path": "native/reef-11-a.png",
+      "sha256": "1e3c46c6b1f44cfb1d1bb1d21764820703f0b7a507d09517b9d60667dbac1571",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-11-b": {
+      "path": "native/reef-11-b.png",
+      "sha256": "617833103477528b49e6115a91fb3eac1324397bd54a5084cfb24a01815ef4db",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-11-c": {
+      "path": "native/reef-11-c.png",
+      "sha256": "509894ba4cec7309429860faca0d079199c5369a405094bee344b716797a941d",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-12-a": {
+      "path": "native/reef-12-a.png",
+      "sha256": "a3c098482dc65777ccfe781ddae20c06ecce4f125cdfa01888c80c40e5df66da",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-12-b": {
+      "path": "native/reef-12-b.png",
+      "sha256": "53c97f781f0e7eb601d4495bf8929b1cbec182cfa54be11f4705e28e9d0bce19",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-12-c": {
+      "path": "native/reef-12-c.png",
+      "sha256": "b0272fd9a49a1310161aa33b6108c923ae2b9c9a8d8e03aeadf802bc72f4d8c5",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-13-a": {
+      "path": "native/reef-13-a.png",
+      "sha256": "9220a2b0c6964c62f8b29a1a3c6ad4f68778182e8c6d71d5439f1573f047ed90",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-13-b": {
+      "path": "native/reef-13-b.png",
+      "sha256": "bfa7fad09bc28fd853d0d7b6793a3ddc5ae7f8e093b932e95f58b7dfa520b7b4",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-13-c": {
+      "path": "native/reef-13-c.png",
+      "sha256": "0ee55efe53b7295b8e1de0cae605ff51fee107aa58805a4a31a7a969ffc9757a",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-14-a": {
+      "path": "native/reef-14-a.png",
+      "sha256": "3daae901b2e30e1a9b8da1a5e70bc51583fc62953b19263fd66799cad354e858",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-14-b": {
+      "path": "native/reef-14-b.png",
+      "sha256": "1d833ad6f3c6f9c7889f0c4bbdb4645ea232ed07f3302d4a59e61ac6e1558c1c",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-14-c": {
+      "path": "native/reef-14-c.png",
+      "sha256": "58fd419adcd10392e39e51149df7dd24d02beaa3fe4a24df6254ed52cdfeb5a6",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-15-a": {
+      "path": "native/reef-15-a.png",
+      "sha256": "30a7d6f40d3ff6a8a84b18c92f722192edf15a79cf090252c86a4516a1c02438",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-15-b": {
+      "path": "native/reef-15-b.png",
+      "sha256": "85b57482493294aa6ac527dac7e69723ad04230a787e0754874920d79fb1623f",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-15-c": {
+      "path": "native/reef-15-c.png",
+      "sha256": "09ac7441e5519fa9e62aa816e8d8b97f4c3c1cb9e0d8a92a5287c8048e09ae18",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-rubble-a": {
+      "path": "native/reef-rubble-a.png",
+      "sha256": "603cf433e71663a468a842ced3dabcf22641248366d38f2345fcc5d45bfba285",
+      "frame": [
+        768,
+        2048
+      ]
+    },
+    "reef-rubble-b": {
+      "path": "native/reef-rubble-b.png",
+      "sha256": "850f551800a95a2cf818876b4850f50af582f1f61457208d2c13b3f826ea11ad",
+      "frame": [
+        768,
+        2048
+      ]
+    }
+  },
+  "previews": {
+    "independent-assembly": {
+      "path": "assembly.png",
+      "sha256": "8b0dd485f8d80e83cabd3a60a1198996af7b94639a1cc6728119c59b3095473a"
+    },
+    "seam-stress": {
+      "path": "seam-stress-native.png",
+      "sha256": "877e4cbb5ccbc6828e2f2861046d3e7143c4974d3f5063826a2975c9addcefb6"
+    },
+    "seam-stress-2x": {
+      "path": "seam-stress-2x.png",
+      "sha256": "446d33f7dcdeb9b4ede5740b6daaf4caf694531b2a711062b8683750a18bbcd3"
+    }
+  }
+}

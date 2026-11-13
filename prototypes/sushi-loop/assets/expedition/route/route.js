@@ -148,6 +148,8 @@ export function difficulty(rows) {
 // Each chunk is a map-designer document (format sushi-loop-underwater-map)
 // with a `chunk` block. Layers: obstacles (rock), decor (growth on rock or
 // seabed decor on water) and pickups (gold salvage).
+// Issue #76 brittle reef: water to the route ('b'), rock to travel until it breaks.
+export const REEF_BRITTLE = 'reef-brittle';
 const GROWTH = { 'decor-kelp': 'k', 'decor-foreground-coral': 'c', 'decor-midground-coral': 'm' };
 const GROWTH_IDS = { k: 'decor-kelp', c: 'decor-foreground-coral', m: 'decor-midground-coral' };
 
@@ -159,7 +161,8 @@ export function chunkFromMap(doc, id) {
   const rock = at('obstacles'), decor = at('decor'), gold = at('pickups');
   for (let y = 0; y < height; y++) for (let x = 0; x < columns; x++) {
     const key = `${x},${y}`;
-    if (rock.has(key)) cells[y][x] = GROWTH[decor.get(key)] ?? '#';
+    if (rock.get(key) === REEF_BRITTLE) cells[y][x] = 'b';
+    else if (rock.has(key)) cells[y][x] = GROWTH[decor.get(key)] ?? '#';
     else if (gold.has(key)) cells[y][x] = '$';
     else if (decor.has(key)) cells[y][x] = ',';
   }

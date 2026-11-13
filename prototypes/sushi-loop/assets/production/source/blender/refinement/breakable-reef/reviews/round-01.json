@@ -1,0 +1,88 @@
+{
+ "round": 1,
+ "verdict": "revise",
+ "reviewSequence": 1,
+ "submissionType": "art-change",
+ "candidatePacketSHA256": "fd73489cc50923e42a941ce0e951226a9dc5f9c4b07126e2c308317e97cc70c2",
+ "criteria": "brief.qualityCriteria frozen from reviews/criteria.json sha256 5f6410ce5d8e6c7e11eca0905abd66c74712cd0edc4581b2df7fcc7c76d7a59c (matches)",
+ "inspectedFiles": [
+  "candidates/round-01/assembly.png (full, 3 crops at native, 360 px phone downscale side by side with original and target)",
+  "candidates/round-01/seam-stress-2x.png (full)",
+  "candidates/round-01/seam-stress-native.png (hash verified; content inspected via its 2x sibling)",
+  "candidates/round-01/native/reef-15-c.png vs source/round-01/baseline/reef-15-c/static-S.png on seabed blue, native size",
+  "candidates/round-01/sprites/reef-15-c/static-S.png at published size",
+  "candidates/round-01/sprites/reef-03-a/static-S.png on near-black (alpha edge check)",
+  "candidates/round-01/sprites/reef-rubble-a/static-S.png on mid grey",
+  "All 50 native and 50 sprite hashes verified against packet (0 mismatches); the other 46 cell pieces and rubble-b inspected through the assembly and seam-stress contact sheets"
+ ],
+ "scores": {
+  "shapeVolume": {
+   "original": 6,
+   "candidate": 7,
+   "note": "Locked blocking intact; groove core removes blue slivers and dark wedges, cells now read as solid masses. Chips barely perceptible."
+  },
+  "color": {
+   "original": 4,
+   "candidate": 8,
+   "note": "Peach-cream tops over a clearly deeper warm tan front that darkens toward the seabed; gentle per-slab variation; still clearly pale/warm vs bedrock and not more orange than target. Main goal met."
+  },
+  "lightingHighlights": {
+   "original": 5,
+   "candidate": 6,
+   "note": "Grey rim gone; chamfer now warm. But the top-to-front break is smeared (see blocker 2)."
+  },
+  "materialDetail": {
+   "original": 2,
+   "candidate": 5,
+   "note": "Strata present and aligned across seams; pores and cracks exist but are too sparse/thin to register at use size."
+  },
+  "artifactFreeReadability": {
+   "original": 6,
+   "candidate": 6,
+   "note": "Old blue slivers/diagonal lines fixed; new soft smudge band under top edges and blurred vertical streaks at slab front edges and around chips."
+  }
+ },
+ "observations": [
+  "Phone-size (360 px assembly) read moved from cream tiles to warm sandstone/limestone blocks; this is the biggest win and matches criterion 1.",
+  "Seam continuity: across the assembly and every seam-stress group (rows, columns, 3x3 mask-15 mixes, L joins, singles), top tone, front strata heights, chamfer and light do not jump at cell seams. Strata line up horizontally. No crack is cut by a cell edge. Passes.",
+  "Grooves: no seabed blue inside cells, no dark wedges; the groove core reads as a warm dark line on tops. On front faces between slabs it reads as a soft blurred darker V/streak rather than a thin line (part of blocker 2).",
+  "Cracks: thin dark hairlines on 0-2 slabs per pattern (pattern b has none). At 2x they are visible; at published 384 and at phone assembly size they nearly vanish, so the stone does not yet read as cracked/breakable. Target shows more and slightly bolder cracks with lighter edges.",
+  "Chipped corners: one or two tiny nicks visible only at native size; target's chipped top corners (within tolerance) are a stronger breakable cue.",
+  "Pores: sparse dots, correct density for 2x detail; invisible at use size as intended.",
+  "Native close-up (reef-15-c): directly under each top chamfer the front face has a wavy, blurred darker band, and vertical lighter smears run down slab front edges and around the chip on the top-left slab corner; the strata themselves look smudged rather than soft-but-clean. Reads like a texture/normal smoothing artifact at 2x; at phone size it softens the top/front edge.",
+  "Rubble: shares limestone palette, lit tops and tan sides; crisp, low. Alpha edges clean on near-black and grey, no halo.",
+  "Seam-stress sheet bottom-right L group: the upper piece's west face sits ~0.08 cell left of the lower piece's inset face. Consistent with the sheet pairing a W-solid mask above a W-open one (stress layout), not a piece defect; noted only."
+ ],
+ "blockers": [
+  {
+   "rank": 1,
+   "category": "visual",
+   "location": "all cell pieces, slab tops (cracks/chips); pattern b has zero cracked slabs",
+   "effect": "Breakable cues disappear at the published 384x1024 and phone assembly size; the reef reads as warm stone bricks, not cracked breakable limestone (criterion 3).",
+   "desired": "Cracks on roughly a third to half of slabs in every pattern (a, b and c), one or two each, with a slightly wider dark core plus a pale lip/edge so they survive the 2x downsample; a few small chipped top corners per cell (within 0.03 cell, top edges only) with a lit facet. Keep them seam-safe (within a slab or world-continuous) and calm, not noisy."
+  },
+  {
+   "rank": 2,
+   "category": "visual",
+   "location": "front faces just below every top chamfer; vertical front edges of slabs; around chips; front grooves between slabs",
+   "effect": "Blurred wavy dark band under the top edge and vertical smears make the top/front break and strata look smudged at 2x and soften the block volume at phone size (criteria 4 and 5).",
+   "desired": "A crisp chamfer-to-front transition: warm highlight on the chamfer, then clean front tan with soft but well-defined horizontal strata bands; no smear along slab edges or chips. Front grooves between slabs read as thin dark lines, not blurred V wedges. Likely check normal smoothing / shader bevel radius / texture coordinate stretching on the side faces."
+  }
+ ],
+ "remainingDifferences": [
+  "Target's larger wedge chips that cut the front outline are intentionally not reproduced (locked footprint).",
+  "Target is slightly softer/more painterly overall; native flat-calm planes are acceptable for the house style.",
+  "Exact crack placement differs from target; only density/visibility matters."
+ ],
+ "technicalEvidence": {
+  "checks": [
+   "SHA-256 of packet.json = fd73489c...c70c2 (matches coordinator).",
+   "All candidateRenders (50 native + their sprites), previews and files entries re-hashed: 0 mismatches.",
+   "Frozen criteria hash in packet matches reviews/criteria.json.",
+   "validation.json: ground-ring vertices on original outline (max 9e-8 cell); chip depth beyond chamfer 0.025 <= 0.03; rubble vertices unchanged; slab height delta only the removed +/-0.008 top jitter (within +/-12% band); camera matrix, ortho scale, shift and root px identical; eight fills equal energy/colour at 45 deg spacing; no external images.",
+   "Renderer repeatability: unchanged piece rendered twice pixel-identical, so tolerance 0.",
+   "Alpha footprint: worst IoU 0.9953; bottomRowShift up to 23 native px and opaqueBeyondBaseline 376 px explained as the groove core filling seabed notches flush to faces against solid. Visually confirmed in the assembly that exposed faces and rounded corners are unchanged and that the fill only closes junction notches inside the footprint. Accepted."
+  ],
+  "limits": "Did not open the .blend or re-render; did not individually view all 50 sprite files outside the contact sheets. Note for the coordinator: topHeightDelta removes the original per-vertex top jitter; heights stay within the locked band, but it is a (tiny) geometry change beyond pure surface. I judge it acceptable."
+ }
+}

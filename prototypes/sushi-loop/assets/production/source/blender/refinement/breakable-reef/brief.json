@@ -1,0 +1,175 @@
+{
+ "asset": "breakable-reef",
+ "issue": "#76 Boulderhead Parrotfish",
+ "style": "Warm, softly lit cartoon 3D matching the approved underwater production pieces (see inputs/warm-soft-reference.png for finish only): pale warm limestone/coral-rock with hairline cracks, small pores, chipped corners and banded tan sides, as in the frozen target. Readable at phone size; clearly paler and warmer than the blue bedrock so it reads as breakable. Real 3D render output from an editable Blender source; no paint-over.",
+ "userApproval": "Shape and height approved by the user 2026-11-13; this pass is surface/material only.",
+ "source": {
+  "project": "../../../../../expedition/v2/native/reef/reef-05-a/project.blend",
+  "recipe": "backups/reef.py",
+  "liveRecipe": "../../../../../expedition/v2/reef.py",
+  "backup": "backups/reef-05-a.blend",
+  "backupHashes": "backups/SHA256SUMS",
+  "snapshot": "inputs/original.png",
+  "snapshotAssembler": "inputs/assemble_snapshot.py",
+  "notes": "The recipe builds every piece procedurally; the saved .blend holds one piece (mask 05, pattern a). Work in source/ copies only."
+ },
+ "target": {
+  "image": "targets/target-v01.png",
+  "sha256": "3e4c0f2f10a44a3ccb78682ffe3f68f45582d6cb4f94b22d1981902c4fa58e55",
+  "provenance": "imagegen",
+  "prompt": "targets/imagegen-prompt.txt",
+  "report": "targets/provenance.json",
+  "inputHashes": "targets/input-hashes.txt",
+  "references": [
+   {
+    "role": "edit-target",
+    "path": "inputs/original.png"
+   },
+   {
+    "role": "style-only",
+    "path": "inputs/warm-soft-reference.png"
+   },
+   {
+    "role": "material-only",
+    "path": "inputs/issue-76-concept.jpg"
+   }
+  ],
+  "interpretation": "Aesthetic target only. Its pixels drift slightly from registration; never copy geometry from it. Rebuild its material treatment natively."
+ },
+ "capture": {
+  "frame": [
+   768,
+   2048
+  ],
+  "publishedFrame": [
+   384,
+   1024
+  ],
+  "logicalFrame": [
+   192,
+   512
+  ],
+  "groundRoot": [
+   96,
+   416
+  ],
+  "nativeScale": 4,
+  "cellPixels": 128,
+  "camera": "Exactly the boulder-underwater round-04 recipe: R.configure (orthographic, 35 deg, ortho_scale 1.5, shift from root) and R.square_footing during capture. One south view per piece; terrain is chosen by mask, never rotated.",
+  "lighting": "Keep the recipe rig family (broad overhead plus eight symmetric fills, low blue world). No preferred horizontal light direction, no cast shadows on the ground, so any mask can sit beside any other.",
+  "views": [
+   "reef-00-a",
+   "reef-00-b",
+   "reef-00-c",
+   "reef-01-a",
+   "reef-01-b",
+   "reef-01-c",
+   "reef-02-a",
+   "reef-02-b",
+   "reef-02-c",
+   "reef-03-a",
+   "reef-03-b",
+   "reef-03-c",
+   "reef-04-a",
+   "reef-04-b",
+   "reef-04-c",
+   "reef-05-a",
+   "reef-05-b",
+   "reef-05-c",
+   "reef-06-a",
+   "reef-06-b",
+   "reef-06-c",
+   "reef-07-a",
+   "reef-07-b",
+   "reef-07-c",
+   "reef-08-a",
+   "reef-08-b",
+   "reef-08-c",
+   "reef-09-a",
+   "reef-09-b",
+   "reef-09-c",
+   "reef-10-a",
+   "reef-10-b",
+   "reef-10-c",
+   "reef-11-a",
+   "reef-11-b",
+   "reef-11-c",
+   "reef-12-a",
+   "reef-12-b",
+   "reef-12-c",
+   "reef-13-a",
+   "reef-13-b",
+   "reef-13-c",
+   "reef-14-a",
+   "reef-14-b",
+   "reef-14-c",
+   "reef-15-a",
+   "reef-15-b",
+   "reef-15-c",
+   "reef-rubble-a",
+   "reef-rubble-b"
+  ],
+  "previews": [
+   "independent-assembly",
+   "seam-stress"
+  ],
+  "previewHow": {
+   "independent-assembly": "Downsample each native capture 2x (ffmpeg lanczos, as assets/expedition/v2/publish.mjs) into a round sprites folder, then: python3 inputs/assemble_snapshot.py <sprites dir> <round>/assembly.html and node inputs/shoot.cjs <round>/assembly.html <round>/assembly.png (NODE_PATH=/Users/yiouchen/dev/game-prototype/node_modules). Same 6x6 patch as inputs/original.png.",
+   "runtime-consumer": "Optional until final: the coordinator places approved-candidate sprites into design/boulderhead-preview and captures the real game view."
+  }
+ },
+ "constraints": {
+  "locked": [
+   "Piece ids and the full set: 16 neighbour masks (N=1,E=2,S=4,W=8; set = solid neighbour) x patterns a,b,c, plus reef-rubble-a and reef-rubble-b",
+   "Ground footprint = collision shape: open faces inset 0.08 cell, faces against solid flush to the cell edge, exposed corners (both neighbours open) rounded with radius 0.35 cell, other corners square. Chips/cracks may only bite inward by at most 0.03 cell and never change the outline at ground level.",
+   "Slab layout per pattern and approved slab height (0.32 cell, per-slab variation as now, within +/-12%)",
+   "Cell edges against reef meet flush (no gap showing the seabed); interior slab grooves stay narrow",
+   "Rubble stays low (under 0.1 cell) and inside its cell",
+   "Camera, frame, root, native scale, publish downsample",
+   "Neighbouring masks must join seamlessly: material, tone and light must not jump across a cell seam. Use world/object-space procedural detail or per-slab variation that does not depend on a cell's mask.",
+   "Nothing grows on the reef (no coral, kelp, moss): the #21 art direction puts growth on the seabed between rocks"
+  ],
+  "pipeline": "native-3d, procedural (no external raster textures unless saved inside the experiment and bound as resources)"
+ },
+ "modelingPolicy": {
+  "mode": "reskin",
+  "allowed": [
+   "Materials and shaders (base color variation, strata on sides, pores, hairline cracks via shader or shallow geometry)",
+   "Small chipped corners and edge wear on slab tops within the locked outline tolerance",
+   "Shallow bevel/normal changes for softer highlights",
+   "Light energy/color within the recipe rig family",
+   "Per-slab tone variation"
+  ],
+  "locked": "See constraints.locked; slab count/layout and height are user-approved.",
+  "judging": "Reward a native result that reads like the target's cracked limestone at phone size while staying seamless across masks. Do not reward geometry copied from target drift."
+ },
+ "delivery": {
+  "candidateLayout": "candidates/round-NN/{native/<id>.png (768x2048), sprites/<id>/static-S.png (384x1024), assembly.png, validation.json, packet.json}",
+  "sourceLayout": "source/round-NN/{reef.py, reef-05-a.blend}",
+  "final": "After approval the coordinator copies the approved recipe to assets/expedition/v2/reef.py and the sprites to assets/expedition/v2/sprites/."
+ },
+ "coordination": {
+  "editorAgent": "editor",
+  "judgeAgent": "judge",
+  "coordinatorAgent": "main session",
+  "ledger": "events.jsonl",
+  "peerMessaging": "unavailable: the coordinator relays handoffs"
+ },
+ "qualityCriteria": {
+  "frozenFrom": "reviews/criteria.json",
+  "criteriaSHA256": "5f6410ce5d8e6c7e11eca0905abd66c74712cd0edc4581b2df7fcc7c76d7a59c",
+  "frozenBy": "coordinator",
+  "frozenAt": "2026-11-13",
+  "shapeVolume": "Approved slab layout, height and locked outline unchanged; small chipped top corners within 0.03 cell; no chips into fronts or rounded corners.",
+  "color": "Peach-cream tops over a clearly deeper warm tan front, darkening slightly toward the seabed, gentle per-slab variation; clearly paler and warmer than blue bedrock; no more orange than the target.",
+  "lightingHighlights": "Soft warm highlight on top edges instead of a grey rim; recipe rig family; no preferred horizontal direction, no cast shadow.",
+  "materialDetail": "2-4 soft horizontal bands on fronts following world height; hairline cracks on roughly a third to half of slabs; sparse pores (2x only); equal detail density on every piece.",
+  "seamContinuity": "No jump in tone, light, bevel or band height across cell seams for any mask/pattern pairing; no crack or chip cut off by a straight cell edge.",
+  "artifactFreeReadability": "Grooves read as narrow warm shadow lines with no blue seabed inside a cell and no dark wedges; no diagonal shading lines, black patches, speckle or downsample shimmer; clean alpha edges; rubble uses the slab palette and stays low.",
+  "requiredEvidence": "All 50 native captures + published sprites with hashes; assembly.png of the same 6x6 patch; a seam stress sheet pairing different masks/patterns at native size and 2x; validation.json proving outline, registration and rubble height unchanged; one unchanged piece rendered twice to set the pixel tolerance before any numeric comparison."
+ },
+ "prompts": {
+  "judge": "prompts/judge.txt",
+  "editor": "prompts/editor.txt"
+ }
+}

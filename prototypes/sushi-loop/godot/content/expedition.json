@@ -33,7 +33,8 @@
 		"creature_name": "Storm Eel",
 		"creatures": {
 			"storm-eel": {"name": "Storm Eel", "recipe": "eel_roll", "attack": "discharge"},
-			"inkfin-cuttlefish": {"name": "Inkfin Cuttlefish", "recipe": "ika_nigiri", "attack": "ink", "hit_half_columns": 0.75, "hit_half_rows": 1.7}
+			"inkfin-cuttlefish": {"name": "Inkfin Cuttlefish", "recipe": "ika_nigiri", "attack": "ink", "hit_half_columns": 0.75, "hit_half_rows": 1.7},
+			"boulderhead-parrotfish": {"name": "Boulderhead Parrotfish", "recipe": "budai_sashimi", "attack": "reef", "hit_half_columns": 0.8, "hit_half_rows": 1.4, "nose_rows": 1.4}
 		},
 		"catch_cutscene_seconds": 2.8,
 		"escape_seconds": 1.6,
@@ -75,6 +76,19 @@
 			"lift_seconds": 1.0,
 			"linger_rows": 15,
 			"entry_rows": 0.6,
+			"reaction_seconds": 0.3
+		},
+		"reef": {
+			"breach_columns": 2,
+			"max_shift_columns": 0.8,
+			"crack_seconds": 0.6,
+			"damage": 15,
+			"slow_multiplier": 0.55,
+			"slow_seconds": 0.7,
+			"candidate_lines": 40,
+			"lines_per_chunk": 6,
+			"min_lines": 2,
+			"bot_look_rows": 1.2,
 			"reaction_seconds": 0.3
 		},
 		"discharge": {

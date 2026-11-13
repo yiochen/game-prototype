@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sushi Loop · Boulderhead reef</title>
+<link rel="stylesheet" href="./style.css">
+<style>
+.eel-icon { background-image: url('./parrot-icon.svg') !important; }
+.row input[type="range"] { flex: 1; min-width: 120px; accent-color: #ffc91c; }
+.row output { min-width: 4.5em; color: #ffd75e; font-weight: 700; }
+.slider { width: 100%; }
+.fairness figure.rejected { outline-color: #ef5a3c; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header class="bar">
+  <h1>Boulderhead Parrotfish broken path · issue #76 review</h1>
+  <nav role="tablist" aria-label="Review view">
+    <button role="tab" data-view="play" aria-selected="true">Play</button>
+    <button role="tab" data-view="screens" aria-selected="false">Reef chunks &amp; fair lines</button>
+  </nav>
+</header>
+<main>
+  <section id="play" class="view">
+    <div class="layout">
+      <div class="stage" id="stage">
+        <div class="phone" id="phone" data-phase="pursuit" data-hud="versus">
+          <canvas id="world" aria-label="Expedition playfield"></canvas>
+          <div class="catch-rays" id="rays" aria-hidden="true"></div>
+          <canvas id="eel" aria-hidden="true"></canvas>
+          <canvas id="fx" aria-hidden="true"></canvas>
+          <div class="hud">
+            <div class="pill hull" role="img" id="hull" aria-label="Hull 100%"><span class="ship-icon"></span><span class="track"><span class="fill" id="hull-fill"></span></span></div>
+            <div class="pill salvage" role="img" id="salvage" aria-label="0 salvage this expedition"><span class="gold-icon"></span><b class="salvage-value" id="salvage-value">0</b></div>
+            <button class="pause" id="pause" aria-label="Pause"><span></span><span></span></button>
+            <div class="pill resistance" role="img" id="resistance" aria-label="Boulderhead resistance 100%"><span class="eel-icon"></span><span class="track"><span class="fill" id="resistance-fill"></span></span></div>
+          </div>
+          <div class="zone left" id="zone-left" role="button" aria-label="Steer left"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <div class="zone right" id="zone-right" role="button" aria-label="Steer right"><svg class="arrow" viewBox="-50 -50 100 100" aria-hidden="true"><polygon class="drop"/><polygon class="face"/></svg></div>
+          <div class="banner" id="banner" role="status" hidden></div>
+          <div class="scrim" id="scrim" hidden>
+            <div class="card" id="paused-card" role="dialog" aria-label="Paused" hidden>
+              <h2>Paused</h2>
+              <div class="actions"><button class="cream" id="return-early">Return early</button><button class="primary" id="resume">Resume</button></div>
+            </div>
+            <div class="award-host" id="award-host" hidden></div>
+            <div class="card results" id="results-card" role="dialog" aria-labelledby="results-title" hidden>
+              <h2 id="results-title">Expedition complete</h2>
+              <dl>
+                <dt>Pickups</dt><dd id="r-pickups">0</dd>
+                <dt id="r-bonus-label">Completion bonus</dt><dd id="r-bonus">+20</dd>
+                <dt class="total">Total salvage</dt><dd class="total" id="r-total">0</dd>
+              </dl>
+              <div class="actions"><button class="primary" id="restaurant">Restaurant</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="panel" aria-label="Review controls">
+        <h2>Try it</h2>
+        <p>The parrotfish is already hooked. Hold <kbd>←</kbd>/<kbd>→</kbd> or press either half of the playfield. In its reef chunks it rams a winding breach through the brittle reef: follow it. Cracks spread on the next cells just before each smash. Dark bedrock never breaks.</p>
+        <div class="row">
+          <button id="restart">Restart chase</button>
+          <button id="next-reef">Jump to the next reef</button>
+          <button id="skip-catch">Skip to the catch</button>
+          <button id="low-hull">Hull to 25%</button>
+        </div>
+        <h2>Reef settings</h2>
+        <div class="row"><label>Reef art <select id="reef-art"><option value="model">Blender model (#76 reef.py + reef_break.py)</option><option value="code">Code placeholder</option></select></label></div>
+        <div class="row slider"><label class="slider">Parrotfish lead <input type="range" id="lead" min="3.5" max="8" step="0.1"><output id="lead-out"></output></label></div>
+        <div class="row slider"><label class="slider">Crack warning <input type="range" id="crack" min="0" max="1.5" step="0.1"><output id="crack-out"></output></label></div>
+        <div class="row slider"><label class="slider">Breach width <input type="range" id="width" min="1.6" max="3" step="0.2"><output id="width-out"></output></label></div>
+        <div class="row slider"><label class="slider">Sharpest turn <input type="range" id="shift" min="0.4" max="1.6" step="0.2"><output id="shift-out"></output></label></div>
+        <div class="row slider"><label class="slider">Crash-through damage <input type="range" id="damage" min="0" max="30" step="5"><output id="damage-out"></output></label></div>
+        <div class="row slider"><label class="slider">Crash-through slowdown <input type="range" id="slow" min="0.3" max="1" step="0.05"><output id="slow-out"></output></label></div>
+        <h2>Review</h2>
+        <div class="row">
+          <label>Route seed <select id="seed"><option>24</option><option>7</option><option>101</option><option>2026</option></select></label>
+          <label>First reef chunk <select id="force"><option value="">Seeded</option></select></label>
+        </div>
+        <div class="row">
+          <label>Screen <select id="frame"><option value="390x844">Phone 390×844</option><option value="320x720">Narrow 320×720</option><option value="405x720">16:9 phone 405×720</option><option value="wide">Wider window</option></select></label>
+          <label><input type="checkbox" id="opt-hold"> Hold resistance (explore every chunk)</label>
+          <label><input type="checkbox" id="opt-slow"> Slow motion ¼×</label>
+          <label><input type="checkbox" id="opt-line"> Show the parrotfish's line</label>
+          <label><input type="checkbox" id="opt-reduced"> Reduced motion</label>
+          <label><input type="checkbox" id="opt-sound" checked> Sound</label>
+        </div>
+        <h2>Chase state</h2>
+        <dl class="state" id="state"></dl>
+        <h2>Rules in this prototype</h2>
+        <ul class="rules" id="rules"></ul>
+      </aside>
+    </div>
+  </section>
+  <section id="screens" class="view" hidden>
+    <p class="note" id="fair-note"></p>
+    <div class="fairness" id="fairness"></div>
+  </section>
+</main>
+<template id="award-template">
+  <section class="award" role="dialog" aria-modal="true" aria-labelledby="award-title">
+    <h2 id="award-title" class="award-title">New recipe!</h2>
+    <div class="award-art">
+      <img class="award-backdrop" src="../pursuit-preview/award-art/v1/backdrop.jpg" alt="">
+      <span class="award-glow" aria-hidden="true"></span>
+      <span class="dish" role="img" aria-label="Placeholder dish on a blue plate."><span class="plate cell-3"></span><span class="food cell-0"></span></span>
+      <span class="sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+    <h3 class="award-name">Placeholder recipe</h3>
+    <p class="award-from">From the Boulderhead Parrotfish</p>
+    <dl class="award-facts">
+      <div><dt>Price</dt><dd><img src="../../godot/assets/ui/coin.svg" alt="" class="coin"> 48</dd></div>
+      <div><dt>Base prep</dt><dd><svg class="clock" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.6 2.4"/></svg> 7.5 sec</dd></div>
+    </dl>
+    <button class="award-continue primary" type="button">Continue</button>
+  </section>
+</template>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

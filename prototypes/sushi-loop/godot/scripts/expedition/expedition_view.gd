@@ -113,6 +113,11 @@ var _over_layer: Control
 var _ink_material: ShaderMaterial
 var _cone_tilt := 0.0
 var _lime: Texture2D
+var _puff: Texture2D
+## Hull losses rising off the ship ({text, age}).
+var _losses: Array = []
+## Issue #76 reef: when each cell broke (view time; unknown breaks draw settled).
+var _reef_broke_at: Dictionary = {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -130,6 +135,7 @@ func _ready() -> void:
 	_glow = _radial([Color(1, .89, .47, .55), Color(1, .75, .24, .22), Color(1, .67, .16, 0)], [0.0, .45, 1.0])
 	_shade = _radial([Color(.016, .118, .275, .5), Color(.016, .118, .275, .3), Color(.016, .118, .275, 0)], [0.0, .55, 1.0])
 	creature = CreatureView.new(self)
+	_puff = _radial([Color(.94, .91, .82, .9), Color(.94, .91, .82, 0)], [0.0, 1.0])
 	_lime = _radial([Color(.75, 1, .35, .55), Color(.63, 1, .24, .22), Color(.63, 1, .24, 0)], [0.0, .45, 1.0])
 	_ink_material = ShaderMaterial.new()
 	_ink_material.shader = load("res://scripts/expedition/ink.gdshader")
@@ -182,6 +188,7 @@ func _main_world(seed_value: int, species := "") -> Dictionary:
 	if not worlds.has(key):
 		var w := _make_world(path.rows, seed_value, "main")
 		w.path = path
+		if not path.reef_zones.is_empty(): _reef_world(w)
 		w.streaks = Art.streaks(path.currents, path.rows.size(), seed_value)
 		worlds[key] = w
 	return worlds[key]
@@ -207,6 +214,34 @@ func _make_world(rows: Array, seed_value: int, kind: String) -> Dictionary:
 	for i in range(int(ceil(composed.rows / 13.0))):
 		school.append({"y": 4 + i * 13 + r.next() * 6, "speed": .25 + r.next() * .25, "dir": -1 if i % 2 else 1, "phase": r.next() * 20})
 	return {"kind": kind, "scene": composed, "by_row": rows_by, "fish": school, "collected": {}}
+
+## Issue #76: in reef chunks every rock is dark (no pale ruins, coral or arches),
+## so pale always means breakable; and the reef art starts loading in the background.
+func _reef_world(w: Dictionary) -> void:
+	var dark: Array = _v2.filter(func(e): return e.family == "rock").map(func(e): return e.id) + ["boulder-underwater", "decor-background-rock"]
+	var spans: Array = w.path.reef_zones
+	var inside := func(y: int) -> bool: return spans.any(func(z): return y >= int(z.y0) and y <= int(z.y1))
+	var pick := func(x: int, y: int) -> String: return dark[int(Route.cell_hash(x, y, 77) * dark.size()) % dark.size()]
+	for y in range(w.by_row.size()):
+		if not inside.call(y): continue
+		var row: Array = []
+		for o in w.by_row[y]:
+			if int(o.get("w", 1)) > 1:
+				for x in [int(o.x), int(o.x) + int(o.w) - 1]: row.append({"x": x, "y": y, "id": pick.call(x, y), "dir": "S"})
+			else: row.append({"x": o.x, "y": o.y, "id": pick.call(int(o.x), y), "dir": o.dir})
+		w.by_row[y] = row
+	for entry in pieces.reef.pieces.values():
+		for key in ["static", "break"]:
+			if entry[key] == null or textures.has(entry[key]): continue
+			var full: String = "res://assets/expedition/" + str(entry[key])
+			if ResourceLoader.load_threaded_get_status(full) == ResourceLoader.THREAD_LOAD_INVALID_RESOURCE: ResourceLoader.load_threaded_request(full)
+
+func _reef_texture(path: String) -> Texture2D:
+	if not textures.has(path):
+		var full := "res://assets/expedition/" + path
+		var status := ResourceLoader.load_threaded_get_status(full)
+		textures[path] = ResourceLoader.load_threaded_get(full) if status in [ResourceLoader.THREAD_LOAD_IN_PROGRESS, ResourceLoader.THREAD_LOAD_LOADED] else load(full)
+	return textures[path]
 
 ## Make `w` the drawn world (scene, rows and fish are its aliases).
 func _use(w: Dictionary) -> void:
@@ -272,6 +307,8 @@ func sync(run: Dictionary, delta: float, travelling: bool) -> void:
 			if was < RETRACT_START and catch_t >= RETRACT_START: _release_burst()
 		if escape_t >= 0.0: escape_t += delta
 	_step_particles(delta if travelling or ending else 0.0, delta)
+	for l in _losses: l.age = float(l.age) + delta
+	_losses = _losses.filter(func(l): return float(l.age) < .9)
 	_sync_discharge(delta if travelling else 0.0)
 	_sync_creature(run, delta if travelling or ending else 0.0)
 	_sync_ink(run, delta if travelling else 0.0)
@@ -322,6 +359,15 @@ func _sync_creature(run: Dictionary, delta: float) -> void:
 		grow = 1.0 + .45 * k; turn = -.45 * k
 	elif escape_t >= 0.0:
 		root.y -= escape_t * escape_t * 6.0 * cell
+	# Issue #76: the parrotfish lies along its line (head and tail on it).
+	if creature.body != null:
+		var path: Dictionary = world.path
+		var nose := Book.reef_nose(run)
+		var reach := float(Book.species(Book.creature_of(run)).get("nose_rows", 1.0)) * 2.0
+		var head = Book._line_at(path, nose)
+		var tail = Book._line_at(path, nose + reach)
+		var want := atan2(-(float(head) - float(tail)), reach / sin(CreatureView.ELEVATION)) if head != null and tail != null and encounter.state == "hooked" and catch_t < 0.0 else 0.0
+		creature.heading = lerpf(creature.heading, want, minf(1.0, delta * 6.0))
 	creature.pose(grow, turn)
 	creature.frame(delta, root, size, cell, maxf(.001, get_viewport_transform().get_scale().x * get_global_transform().get_scale().x))
 
@@ -559,7 +605,7 @@ func burst(at: Vector2) -> void:
 ## Bubbles freeze with the run; pickup sparkles and sparks always finish.
 func _step_particles(dt: float, effect_dt: float) -> void:
 	for p in particles:
-		var step := effect_dt if p.kind in ["collect", "spark", "chip"] else dt
+		var step := effect_dt if p.kind in ["collect", "spark", "chip", "shard", "puff"] else dt
 		p.age = float(p.age) + step
 		p.v = p.v * exp(-float(p.drag) * step)
 		if p.kind == "bubble": p.v = Vector2(p.v.x, p.v.y - float(p.rise) * step * 1.6)
@@ -650,12 +696,16 @@ func _draw() -> void:
 			if i in taken or b.y < top or b.y > bottom + 1: continue
 			Art.shield_pickup(self, o + b * cell, cell, 0.0 if reduced_motion else time, i * 1.3)
 	var ship_drawn := false
+	var reef: bool = world.kind == "main" and not world.path.reef_cells.is_empty()
+	var cracks: Dictionary = Book.reef_cracks(run_state) if reef else {}
 	for y in range(top, bottom + 1):
 		if not ship_drawn and y >= int(floor(shown.y)) and by_row[y].any(func(item): return int(item.get("w", 1)) > 1):
 			_draw_ship(o, cell); ship_drawn = true
+		if reef: _draw_reef_row(o, cell, y, x0, x1, cracks)
 		for item in by_row[y]: piece(item.id, item.dir, o + Vector2(item.x, item.y) * cell, cell, 0, item.x * 5 + item.y * 3)
 	_draw_particles(o, cell)
 	if not ship_drawn: _draw_ship(o, cell)
+	_draw_losses(o, cell)
 	# The creature swims above the terrain, so the chase always reads.
 	if catch_t >= 0.0: _draw_catch_rays()
 	_draw_strip(o, cell)
@@ -668,6 +718,75 @@ func _draw() -> void:
 	_draw_discharge_marks(o, cell)
 	_draw_iris(o, cell)
 	if not _ink_layer.visible: _draw_controls()
+
+## Issue #76: one row of reef. A standing cell draws its piece for its neighbour
+## mask (rounded where a neighbour broke) and slab pattern, or the crack stage
+## spreading over it; a broken cell plays its break frames at 12 fps from the
+## piece it was when it broke, and its last frame is the rubble it keeps.
+func _draw_reef_row(o: Vector2, cell: float, y: int, x0: int, x1: int, cracks: Dictionary) -> void:
+	var cells: Dictionary = world.path.reef_cells
+	var rows := Book.solid_rows(run_state)
+	var spec: Dictionary = pieces.reef
+	for x in range(x0, x1 + 1):
+		var index := y * Route.COLUMNS + x
+		if not cells.has(index): continue
+		var at := o + Vector2(x + .5, y + .5) * cell
+		if index in run_state.get("reef_broken", []):
+			var info: Dictionary = _reef_broke_at.get(index, {})
+			var id: String = info.get("id", _reef_id(rows, x, y))
+			var last: int = spec.break.frames.size() - 1
+			var frame := last if info.is_empty() else mini(last, int(spec.break.crackFrames) + int(floor((time - float(info.t)) * float(spec.break.fps))))
+			_reef_frame(id, at, cell, frame)
+			continue
+		var id := _reef_id(rows, x, y)
+		var k := float(cracks.get(index, 0.0))
+		if k > 0.0:
+			var jit := sin(time * 70.0 + Route.cell_hash(x, y, 76) * 40.0) * cell * .02 * k if k > .55 and not reduced_motion else 0.0
+			_reef_frame(id, at + Vector2(jit, 0), cell, mini(int(spec.break.crackFrames) - 1, int(floor(k * float(spec.break.crackFrames)))))
+		else:
+			var entry: Dictionary = spec.pieces.get(id, {})
+			if entry.is_empty(): continue
+			var s := cell / float(spec.static.pixelsPerCell)
+			draw_texture_rect(_reef_texture(str(entry.static)), Rect2(at - Vector2(float(spec.static.root[0]), float(spec.static.root[1])) * s, Vector2(float(spec.static.size[0]), float(spec.static.size[1])) * s), false)
+
+## Frame `frame` of a piece's crack/break sheet, root on `at`.
+func _reef_frame(id: String, at: Vector2, cell: float, frame: int) -> void:
+	var entry: Dictionary = pieces.reef.pieces.get(id, {})
+	if entry.is_empty() or entry.break == null: return
+	var b: Dictionary = pieces.reef.break
+	var s := cell / float(b.pixelsPerCell)
+	var size_px := Vector2(float(b.frame[0]), float(b.frame[1]))
+	draw_texture_rect_region(_reef_texture(str(entry.break)), Rect2(at - Vector2(float(b.root[0]), float(b.root[1])) * s, size_px * s), Rect2(Vector2(frame * size_px.x, 0), size_px))
+
+## Piece for a reef cell: neighbour mask (N=1, E=2, S=4, W=8; rock, standing reef
+## and the canyon walls count) and one of three slab patterns.
+func _reef_id(rows: Array, x: int, y: int) -> String:
+	var solid := func(cx: int, cy: int) -> bool: return cx < 0 or cx >= Route.COLUMNS or (cy >= 0 and cy < rows.size() and str(rows[cy])[cx] == "#")
+	var mask := (1 if solid.call(x, y - 1) else 0) | (2 if solid.call(x + 1, y) else 0) | (4 if solid.call(x, y + 1) else 0) | (8 if solid.call(x - 1, y) else 0)
+	return "reef-%02d-%s" % [mask, "abc"[mini(2, int(Route.cell_hash(x, y, 76) * 3.0))]]
+
+## Reef cells just broke (by the parrotfish or the hull): each plays its break
+## from the piece it was drawn as, with a dust puff, a few shards and bubbles.
+func reef_broke(cells: Array, power: float) -> void:
+	var rows := Book.solid_rows(run_state)
+	for c in cells:
+		var x := int(c.x)
+		var y := int(c.y)
+		# The piece it was before this break (neighbours that broke with it still count as standing).
+		var before := rows.duplicate()
+		for other in cells: before[int(other.y)] = str(before[int(other.y)]).substr(0, int(other.x)) + "#" + str(before[int(other.y)]).substr(int(other.x) + 1)
+		_reef_broke_at[y * Route.COLUMNS + x] = {"t": time, "id": _reef_id(before, x, y)}
+		_reef_debris(Vector2(x + .5, y + .5), power)
+
+func _reef_debris(at: Vector2, power: float) -> void:
+	particles.append({"kind": "puff", "p": at, "v": Vector2.ZERO, "life": .7, "age": 0.0, "drag": 0.0})
+	if reduced_motion: return
+	for i in range(2):
+		var a := _rng.randf() * TAU
+		particles.append({"kind": "shard", "p": at + Vector2(_rng.randf_range(-.3, .3), _rng.randf_range(-.3, .3)), "v": Vector2.from_angle(a) * (.8 + _rng.randf() * 1.8) * power,
+			"r": .07 + _rng.randf() * .09, "life": .9 + _rng.randf() * .6, "age": 0.0, "drag": 4.0, "spin": _rng.randf_range(-7.0, 7.0), "tone": _rng.randf()})
+	for i in range(4):
+		_bubble_at(at.x + _rng.randf_range(-.4, .4), at.y, _rng.randf_range(-.5, .5), -.3 - _rng.randf() * .5, .03 + _rng.randf() * .04, 1.2, .45)
 
 ## Issue #25: the warned or live strip over the terrain, under the creature.
 func _draw_strip(o: Vector2, cell: float) -> void:
@@ -884,6 +1003,19 @@ func _draw_particles(o: Vector2, cell: float) -> void:
 			draw_line(at - tail, at + tail * .3, Color(.94, 1, 1, .85 * (1 - t)), maxf(1.5, cell * .04))
 		elif p.kind == "collect":
 			_draw_collect(o + p.p * cell, cell, t, int(p.frame))
+		elif p.kind == "shard":
+			# Reef shards: pale limestone flakes that hop and fade (cosmetic, never collide).
+			var at: Vector2 = o + p.p * cell
+			var r := float(p.r) * cell
+			var a := float(p.age) * float(p.spin)
+			var lift := sin(minf(1.0, t * 1.6) * PI) * cell * .25
+			var c := (Color("efe4c9") if float(p.tone) < .5 else Color("cdb78f"))
+			c.a = (1.0 - t) / .25 if t > .75 else 1.0
+			var flake := PackedVector2Array([at + Vector2(0, -lift) + Vector2.from_angle(a) * r, at + Vector2(0, -lift) + Vector2.from_angle(a + 2.2) * r * .8, at + Vector2(0, -lift) + Vector2.from_angle(a + 4.0) * r * .9])
+			draw_colored_polygon(flake, c)
+		elif p.kind == "puff":
+			var r := cell * (.5 + t * .9)
+			draw_texture_rect(_puff, Rect2(o + p.p * cell - Vector2.ONE * r, Vector2.ONE * r * 2), false, Color(1, 1, 1, .45 * (1.0 - t)))
 		elif p.kind == "chip":
 			# Hull chips: small yellow-paint flakes tumbling away from the dent.
 			var at: Vector2 = o + p.p * cell
@@ -926,13 +1058,28 @@ func _star(at: Vector2, radius: float, angle: float, color: Color) -> void:
 		points.append(at + Vector2(cos(a), sin(a)) * (radius if i % 2 == 0 else radius * .2))
 	draw_colored_polygon(points, color)
 
+## A hull loss: the amount rises off the ship in red.
+func hull_loss(amount: int) -> void:
+	_losses.append({"text": "−%d" % amount, "age": 0.0, "p": _shown_ship() + Vector2(0, -.9)})
+
+func _draw_losses(o: Vector2, cell: float) -> void:
+	var font := get_theme_default_font()
+	var size_px := int(cell * .42)
+	for l in _losses:
+		var t := float(l.age) / .9
+		var at: Vector2 = o + (l.p + Vector2(0, -.6 * t)) * cell
+		var w := font.get_string_size(str(l.text), HORIZONTAL_ALIGNMENT_LEFT, -1, size_px).x
+		var a := 1.0 - t * t
+		draw_string_outline(font, at - Vector2(w / 2, 0), str(l.text), HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, maxi(2, int(cell * .07)), Color(.2, .02, .02, a))
+		draw_string(font, at - Vector2(w / 2, 0), str(l.text), HORIZONTAL_ALIGNMENT_LEFT, -1, size_px, Color(1, .27, .2, a))
+
 ## Impact: a short, decaying shake of the playfield (skipped for reduced motion).
 func hit() -> void:
 	_hit = 1.0
 
 ## A new dive: drop any shake, hit wobble or knock-back left from the last one.
 func clear_feedback() -> void:
-	_hit = 0.0; _hurt = 0.0; _knock = Vector2.ZERO
+	_hit = 0.0; _hurt = 0.0; _knock = Vector2.ZERO; _reef_broke_at.clear(); _losses.clear()
 
 ## Hull damage: the ship slides back from `from` (where it struck) to where the
 ## rules left it, wobbles and flashes red, and sparks, hull chips and bubbles

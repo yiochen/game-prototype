@@ -27,7 +27,16 @@ const SPECIES := {
 	"inkfin-cuttlefish": {"model": "res://assets/expedition/creature/inkfin-cuttlefish.glb", "icon": "res://assets/expedition/creature/inkfin-icon.svg", "spot": "inkfin_spot",
 		"bones": ["mantle_tip", "mantle", "head"],
 		"row_offset": 0.59, "front": "head", "centre": "mantle", "shadow": 1.9, "lift": 0.34},
+	# Issue #76: the parrotfish is the static concept model (no rig). It is centred
+	# on its footprint and its clips are code motion (`_static_motion`); `points`
+	# stand in for bones, in model space (nose north, -z).
+	"boulderhead-parrotfish": {"model": "res://assets/expedition/creature/boulderhead-parrotfish.glb", "icon": "res://assets/expedition/creature/parrot-icon.svg", "spot": "",
+		"bones": ["nose", "head", "back", "tail"],
+		"points": {"nose": Vector3(0, 1.0, -2.2), "head": Vector3(0, 1.4, -1.2), "back": Vector3(0, 1.6, 0.4), "tail": Vector3(0, 1.0, 2.0)},
+		"row_offset": 0.98, "front": "nose", "centre": "back", "shadow": 1.6, "lift": 0.3},
 }
+## Clip lengths for static models: loops run forever, the rest end.
+const STATIC_CLIPS := {"swim": 1.0, "restless": 1.0, "hooked": 1.0, "struggle": 1.0, "exhausted": 1.0, "hit": 0.45, "escape": 1.2, "windup": 1.4, "attack": 0.5}
 const DEFAULT := "storm-eel"
 
 var viewport: SubViewport
@@ -44,6 +53,10 @@ var _bone_ids: Dictionary = {}
 var _scale := 1.0
 var species := ""
 var profile: Dictionary = {}
+## Static models: the node the code motion moves, the lunge (1 on a ram) and the heading along its line.
+var body: Node3D
+var lunge := 0.0
+var heading := 0.0
 
 func _init(host: Node) -> void:
 	viewport = SubViewport.new()
@@ -83,14 +96,31 @@ func use(id: String) -> void:
 	species = id; profile = SPECIES[id]
 	if model != null: viewport.remove_child(model); model.queue_free()
 	spot_materials.clear(); body_materials.clear(); _bone_ids.clear(); clip = ""
-	model = (load(str(profile.model)) as PackedScene).instantiate()
+	var scene := (load(str(profile.model)) as PackedScene).instantiate()
+	body = null; skeleton = null
+	if profile.has("points"):
+		# Wrap it: model (pose) > body (code motion) > the scene, centred on its footprint.
+		model = Node3D.new(); body = Node3D.new(); model.add_child(body); body.add_child(scene)
+		var box := AABB()
+		for mesh in scene.find_children("*", "MeshInstance3D", true, false):
+			var b: AABB = (mesh as MeshInstance3D).global_transform * (mesh as MeshInstance3D).get_aabb() if mesh.is_inside_tree() else (mesh as MeshInstance3D).get_aabb()
+			box = b if box.size == Vector3.ZERO else box.merge(b)
+		scene.position = -Vector3(box.get_center().x, box.position.y, box.get_center().z)
+		player = AnimationPlayer.new(); model.add_child(player)
+		var library := AnimationLibrary.new()
+		for name in STATIC_CLIPS:
+			var animation := Animation.new(); animation.length = float(STATIC_CLIPS[name]); library.add_animation(name, animation)
+		player.add_animation_library("", library)
+	else:
+		model = scene
 	viewport.add_child(model)
-	player = model.find_child("AnimationPlayer", true, false)
+	if player == null or body == null: player = model.find_child("AnimationPlayer", true, false)
 	player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	for name in player.get_animation_list():
 		player.get_animation(name).loop_mode = Animation.LOOP_LINEAR if name in LOOPS else Animation.LOOP_NONE
-	skeleton = model.find_children("*", "Skeleton3D", true, false)[0]
-	for bone in profile.bones: _bone_ids[bone] = skeleton.find_bone(bone)
+	if body == null:
+		skeleton = model.find_children("*", "Skeleton3D", true, false)[0]
+		for bone in profile.bones: _bone_ids[bone] = skeleton.find_bone(bone)
 	for node in model.find_children("*", "MeshInstance3D", true, false): _flatten(node)
 	play("swim", 0.0)
 
@@ -150,10 +180,26 @@ func frame(delta: float, root: Vector2, view_size: Vector2, cell: float, physica
 	camera.position = back * 30.0 - Vector3.RIGHT * offset.x + up * offset.y
 	player.advance(delta)
 	clip_time += delta
+	if body != null: _static_motion(delta)
 	flash = maxf(0.0, flash - delta)
 	var glow := _glow()
 	for material in spot_materials: material.emission_energy_multiplier = glow
 	for material in body_materials: material.emission_energy_multiplier = 0.04 if flash > 0.0 else 0.0
+
+## Code motion for a static model: a tail-beat wiggle by clip, a head-down
+## lunge on each ram and a turn along its heading.
+func _static_motion(delta: float) -> void:
+	lunge = maxf(0.0, lunge - delta * 5.0)
+	var t := clip_time
+	var wiggle := 0.07
+	var rate := 7.0
+	match clip:
+		"restless", "struggle": wiggle = 0.12; rate = 12.0
+		"hooked": wiggle = 0.09; rate = 9.0
+		"exhausted": wiggle = 0.04; rate = 2.0
+		"hit": wiggle = 0.2 * maxf(0.0, 1.0 - t / 0.45); rate = 30.0
+	body.rotation = Vector3(0.12 * lunge, heading + sin(t * rate) * wiggle, 0.0)
+	body.position = Vector3(0.0, 0.0, -0.35 * lunge)
 
 ## Catch cutscene pose: grown and turned about its ground root (1, 0 at rest).
 func pose(scale_value: float, yaw: float) -> void:
@@ -167,6 +213,9 @@ func texture() -> Texture2D: return viewport.get_texture()
 
 ## A bone's world position (3D), lifted `lift` units above it.
 func bone_world(name: String, lift := 0.0) -> Vector3:
+	if body != null:
+		var point: Vector3 = profile.points.get(name, profile.points[profile.centre])
+		return body.global_transform * point + Vector3(0.0, lift, 0.0)
 	var id: int = _bone_ids.get(name, skeleton.find_bone(name))
 	return skeleton.global_transform * skeleton.get_bone_global_pose(id).origin + Vector3(0.0, lift, 0.0)
 

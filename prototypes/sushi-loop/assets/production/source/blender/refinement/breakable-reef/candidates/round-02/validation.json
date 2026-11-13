@@ -1,0 +1,2122 @@
+{
+ "asset": "breakable-reef",
+ "round": 2,
+ "recipe": "source/round-02/reef.py",
+ "recipeSha256": "5a45822af7a51f5e262bc3a0ed10931d01a715261b6f81f844c4f248b72f4e73",
+ "project": "source/round-02/reef-05-a.blend",
+ "projectSha256": "ec6436cab84a3666f48c70a5ad57f0df6fe76a4e7a22d7988aa21a0bd7f2da16",
+ "baselineCaptures": "source/round-01/baseline (backups/reef.py rendered with the same Blender)",
+ "pieceCount": 50,
+ "geometry": {
+  "worst": {
+   "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+   "originalOffNewAwayFromTightCorners": 0,
+   "tightCornerOutsideOriginal": 0.014497474027266059,
+   "tightCornerOutsideBox": 0,
+   "topHeightDelta": 0.0082186758518219,
+   "rubbleVertexDelta": 0,
+   "cornerChipBite": 0.02736339788348211,
+   "nickBite": 0.02787409408529039
+  },
+  "limits": {
+   "chipDepth": 0.03,
+   "rubbleMaxZ": 0.1,
+   "slabHeightJitterOfOriginal": 0.008
+  },
+  "crackedSlabsPerPattern": {
+   "a": {
+    "1": 2
+   },
+   "b": {
+    "1": 2
+   },
+   "c": {
+    "2": 1
+   }
+  },
+  "slabsPerPattern": {
+   "a": 2,
+   "b": 2,
+   "c": 3
+  },
+  "notes": [
+   "Ground rings: away from non-exposed corners, every new z=0 vertex lies on the original outline polyline and every original z=0 vertex on the new one (distances in cells). Non-exposed (groove, seam and square-footprint) corners are tightened from radius .05 to .015: tightCornerOutsideBox = 0 shows they never pass the slab box, i.e. the collision footprint. Exposed .35 corners are identical.",
+   "cornerChipBite: largest top bite w and inward corner move d of a corner chip (limit .03); nickBite: deepest groove-edge nick. Ground rings are never chipped.",
+   "topHeightDelta is the removed per-vertex top jitter (+/-.008 in the original); the generator sequence, tilt and per-slab heights are unchanged.",
+   "Groove core: hidden block inside the footprint (inset .03 from open faces, flush to faces against solid), below every slab top; the image footprint check confirms it adds no outline pixels."
+  ],
+  "pieces": {
+   "reef-00-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007707118988037109,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-00-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006337106227874756,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-00-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.005476772785186768,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-01-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0082186758518219,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-01-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.005476772785186768,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-01-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.008083492517471313,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-02-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.004685729742050171,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-02-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00808250904083252,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-02-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0072481632232666016,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-03-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00806477665901184,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-03-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0072481632232666016,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-03-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006372392177581787,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-04-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00784185528755188,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-04-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006017625331878662,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-04-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00668904185295105,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-05-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006017625331878662,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-05-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00668904185295105,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-05-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00725594162940979,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-06-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0066890716552734375,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-06-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006739109754562378,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-06-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0070015788078308105,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-07-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0070976316928863525,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-07-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0046422481536865234,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-07-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007714450359344482,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-08-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0046422481536865234,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-08-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007714450359344482,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-08-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 5.960464477539063e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006211578845977783,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-09-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.008065402507781982,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-09-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006283700466156006,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-09-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0077520012855529785,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-10-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 7.450580596923828e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0082186758518219,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-10-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.005476772785186768,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-10-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.008083492517471313,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-11-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.005476802587509155,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-11-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007861793041229248,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-11-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007553070783615112,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-12-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.007861793041229248,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-12-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0075531005859375,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-12-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 5.960464477539063e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006017625331878662,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-13-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0075531005859375,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-13-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006017595529556274,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-13-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00668904185295105,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-14-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006017625331878662,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-14-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0066890716552734375,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-14-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.00761374831199646,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-15-a": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.01449747277257198,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0066890716552734375,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-15-b": {
+    "slabs": 2,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497470012244624,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0070976316928863525,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-15-c": {
+    "slabs": 3,
+    "groundOffOriginalAwayFromTightCorners": 8.940696716308594e-08,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.014497474027266059,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.006991326808929443,
+    "coreHeight": 0.18559999763965607,
+    "coreBelowEverySlabTop": true,
+    "coreInsideFootprint": true
+   },
+   "reef-rubble-a": {
+    "slabs": 6,
+    "groundOffOriginalAwayFromTightCorners": 0.0,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.0,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0,
+    "rubbleVertexDelta": 0,
+    "rubbleMaxZ": 0.06675220280885696
+   },
+   "reef-rubble-b": {
+    "slabs": 8,
+    "groundOffOriginalAwayFromTightCorners": 0.0,
+    "originalOffNewAwayFromTightCorners": 0.0,
+    "tightCornerOutsideOriginal": 0.0,
+    "tightCornerOutsideBox": 0.0,
+    "topHeightDelta": 0.0,
+    "rubbleVertexDelta": 0,
+    "rubbleMaxZ": 0.07524857670068741
+   }
+  }
+ },
+ "images": {
+  "repeatability": {
+   "baseline reef-05-a run1 vs run2": {
+    "maxAbs": 0.0,
+    "pixelsOver2": 0,
+    "pixelsOver8": 0,
+    "meanAbs": 0.0
+   },
+   "round-02 reef-05-a run1 vs run2": {
+    "maxAbs": 0.0,
+    "pixelsOver2": 0,
+    "pixelsOver8": 0,
+    "meanAbs": 0.0
+   }
+  },
+  "repeatabilityAlphaPixelsChanged": 0,
+  "worst": {
+   "alphaIoU": 0.9938,
+   "bottomRowShift": 23,
+   "sideExtentShift": 36,
+   "topRowShift": 12,
+   "opaqueBeyondBaseline": 539
+  },
+  "notes": [
+   "Alpha footprint vs baseline: masks alpha>0.5 at native 768x2048, compared as outer silhouettes (morphological closing, 12 px radius) because the hidden core intentionally fills groove gaps (grooveFillPx). Shifts in native px (4 px = 1 logical px). Pixels opaque beyond the baseline (+2 px) and bottom-row shifts occur only on faces against solid: the core runs flush to those cell edges and square at non-exposed corners (the collision shape), closing the seabed notches the 0.05 slab corner rounding left at cell junctions; it never passes the footprint (geometry.pieces.*.coreInsideFootprint) or the slab tops. sideExtentShift excludes the 8 tangent rows at the top and bottom of the silhouette.",
+   "Repeat renders of an unchanged piece are pixel-identical (file bytes differ only in PNG metadata), so tolerance is 0 for renderer noise."
+  ],
+  "pieces": {
+   "reef-00-a": {
+    "alphaIoU": 0.99639,
+    "bottomRowShift": 10,
+    "topRowShift": 6,
+    "sideExtentShift": 0,
+    "opaqueBeyondBaselinePlus2px": 338,
+    "grooveFillPx": 5486,
+    "newlyTransparentPx": 105,
+    "nativeSha256": "0ec75637e9c3f0d905bca3dc96d74b707fbb082be52d4364c3bc1dca49ca197a",
+    "spriteSha256": "6c719050ab1fc2f9d1120af4026ce28ccb316ae3382bee247093f814ae7c8b9c",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-00-b": {
+    "alphaIoU": 0.99999,
+    "bottomRowShift": 0,
+    "topRowShift": 1,
+    "sideExtentShift": 0,
+    "opaqueBeyondBaselinePlus2px": 0,
+    "grooveFillPx": 0,
+    "newlyTransparentPx": 1,
+    "nativeSha256": "1654f411376d1264f1fb3fd81ad171f62cebe3b2efcd8ce7abd3ead5d82e897c",
+    "spriteSha256": "8e2c266494ed21274990c3b66445127fa109ff1e29709f82ec740e8a7ef2449a",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-00-c": {
+    "alphaIoU": 0.99648,
+    "bottomRowShift": 10,
+    "topRowShift": 2,
+    "sideExtentShift": 0,
+    "opaqueBeyondBaselinePlus2px": 228,
+    "grooveFillPx": 3874,
+    "newlyTransparentPx": 319,
+    "nativeSha256": "8ae20e2a25162b92a8532913e7cbf62468cbb8a3594d00ec2c639c764f4599eb",
+    "spriteSha256": "d4ee4492b2461d701fe206c390ec22dcbf1f9ce8b135870634d50759f82f4f7e",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-01-a": {
+    "alphaIoU": 0.99614,
+    "bottomRowShift": 10,
+    "topRowShift": 11,
+    "sideExtentShift": 10,
+    "opaqueBeyondBaselinePlus2px": 348,
+    "grooveFillPx": 6123,
+    "newlyTransparentPx": 86,
+    "nativeSha256": "665f8bf2fb1afe17ed81309ba1e90f1a5fe83d615f63eb020856d892868826e0",
+    "spriteSha256": "2736b93f7828fdced4cedef2aa156751bf057675db03d56f316ace983c9e3cd6",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-01-b": {
+    "alphaIoU": 0.99845,
+    "bottomRowShift": 0,
+    "topRowShift": 11,
+    "sideExtentShift": 10,
+    "opaqueBeyondBaselinePlus2px": 64,
+    "grooveFillPx": 183,
+    "newlyTransparentPx": 139,
+    "nativeSha256": "40cfb1e501116c2f45ec0ab246d3c4ac523dcdd56ae26662d56e2ac77e50f5b7",
+    "spriteSha256": "467427fd6604f1c0397b0a341d46071ad1dac3728161fc96b0d112bb9123ff05",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-01-c": {
+    "alphaIoU": 0.99736,
+    "bottomRowShift": 10,
+    "topRowShift": 11,
+    "sideExtentShift": 6,
+    "opaqueBeyondBaselinePlus2px": 284,
+    "grooveFillPx": 4048,
+    "newlyTransparentPx": 4,
+    "nativeSha256": "511d19e4afc883f5fdb4203a42d3a8d2253e76b251381544ca49015d5f1c3729",
+    "spriteSha256": "616b0d52d7407bacf4f18efb4ee1602a79eabfce4b825bcf05aefc77d6a653a0",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-02-a": {
+    "alphaIoU": 0.99595,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 392,
+    "grooveFillPx": 5731,
+    "newlyTransparentPx": 67,
+    "nativeSha256": "04075777e242baf125837e4969667a71809244dabc57fd725e05b11c4f57e763",
+    "spriteSha256": "35d3afbfa184284b52de22a951c7c844650a27c8e072163bf0ad9854a28000c5",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-02-b": {
+    "alphaIoU": 0.99877,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 94,
+    "grooveFillPx": 234,
+    "newlyTransparentPx": 28,
+    "nativeSha256": "0e39fb8e895d85ee2fbc20a5e620c18a3b42c511b0ff9f1b6d1eb50b4a4e060a",
+    "spriteSha256": "5c171fd4b7cbb642f6ae351c8e48dc9a33fe04a856869145ae883a78b0ebb145",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-02-c": {
+    "alphaIoU": 0.99609,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 317,
+    "grooveFillPx": 4096,
+    "newlyTransparentPx": 258,
+    "nativeSha256": "4b05ad7d14d53c401d15d6d3d29f9de18e678a336fa2c74f9bf8245413ccf3aa",
+    "spriteSha256": "26e22ce45cabaa86543f93de33b5010fe2a52a4ac200733229a8166610a3195a",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-03-a": {
+    "alphaIoU": 0.99443,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 36,
+    "opaqueBeyondBaselinePlus2px": 397,
+    "grooveFillPx": 6279,
+    "newlyTransparentPx": 427,
+    "nativeSha256": "f8875b2c68cef87c02a6677681def9260ab52c0653d6a8439af53bb3e1a1bfe4",
+    "spriteSha256": "dc483bae89eafa37c03f425312141024fdc08c6158ee0ab72863b5e0081b2ea6",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-03-b": {
+    "alphaIoU": 0.99772,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 10,
+    "opaqueBeyondBaselinePlus2px": 121,
+    "grooveFillPx": 316,
+    "newlyTransparentPx": 206,
+    "nativeSha256": "b561c5e52f99d3a1b15e2d421ea34f09e37e0e416141030afc75b1ffccaef688",
+    "spriteSha256": "3c910d13c3ee5eaa940cf3577c2d1167b3c265dba602ccb48e0f1b0ae2e00c23",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-03-c": {
+    "alphaIoU": 0.99701,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 345,
+    "grooveFillPx": 4193,
+    "newlyTransparentPx": 6,
+    "nativeSha256": "aa91ebe2511b6dc44b69073b3b9d1df79e4e86f989b82c1f67994ef2c263ad1f",
+    "spriteSha256": "8d13cf6e2b39fc75df126ddde619d209bfb523a3c868e149ff1063796e19b5c3",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-04-a": {
+    "alphaIoU": 0.99508,
+    "bottomRowShift": 18,
+    "topRowShift": 7,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 439,
+    "grooveFillPx": 6466,
+    "newlyTransparentPx": 216,
+    "nativeSha256": "6685d33ff694d34a5fde7325cd0eeb4d69e382f5ae0c8e9b0af7512698355571",
+    "spriteSha256": "5525ecde2f063f79bfeed650a19d4060ff27b1aea3e71007515a9352246a653c",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-04-b": {
+    "alphaIoU": 0.99866,
+    "bottomRowShift": 18,
+    "topRowShift": 1,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 124,
+    "grooveFillPx": 280,
+    "newlyTransparentPx": 1,
+    "nativeSha256": "323a79c1529675bc8dd09ee21e50ddbdc6defc406f866df87358d6f7a966fedf",
+    "spriteSha256": "9e4ae7830eb59e93cc95145e7977f0d847ba7171061326cb86f9a453b5981eaa",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-04-c": {
+    "alphaIoU": 0.9953,
+    "bottomRowShift": 18,
+    "topRowShift": 2,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 352,
+    "grooveFillPx": 4915,
+    "newlyTransparentPx": 372,
+    "nativeSha256": "46769d140ea9cfa662280872f01beb824f719aaff5cd2d42799e1cd163464ecd",
+    "spriteSha256": "ab287d5f8a1f080876808c97f927c5221b0aa9a017e6d4eacdfc1d86d9cc3597",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-05-a": {
+    "alphaIoU": 0.99545,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 14,
+    "opaqueBeyondBaselinePlus2px": 482,
+    "grooveFillPx": 7143,
+    "newlyTransparentPx": 2,
+    "nativeSha256": "026233408d5fc946ac8aff388427f504acff32baf5b5b88b61fd04d87dae5f0b",
+    "spriteSha256": "dd35e4d924e2919415980b1ca850951939db041f3f36752900db4ead3735ac57",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-05-b": {
+    "alphaIoU": 0.99804,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 179,
+    "grooveFillPx": 445,
+    "newlyTransparentPx": 1,
+    "nativeSha256": "dd7a82e40187b41675e3784c5fcfbb0b44de204d9cff4a81b4808ad9eb3e2750",
+    "spriteSha256": "331c9b4c88a46bf57ebcf7f00244117b430c7def8dbece9f85e9c3458a302309",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-05-c": {
+    "alphaIoU": 0.99627,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 415,
+    "grooveFillPx": 5094,
+    "newlyTransparentPx": 5,
+    "nativeSha256": "c98c128f4210d35ed56ac71b133cba5711e4f974d8287d5e8e58e051e69ae60d",
+    "spriteSha256": "3a0348035caf50c7d70abee687afa9329ba1f4119b609c537e48fb3e90b20bcb",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-06-a": {
+    "alphaIoU": 0.9958,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 445,
+    "grooveFillPx": 6573,
+    "newlyTransparentPx": 63,
+    "nativeSha256": "e52e99fc705100fe6e9a7f223f2f9949c226f1606956a048b55ab488cd4f5e4e",
+    "spriteSha256": "2701b4be40c9ec74c6b97d37131ca4663cf59c475017ed2115167c802a05341b",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-06-b": {
+    "alphaIoU": 0.99826,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 8,
+    "opaqueBeyondBaselinePlus2px": 170,
+    "grooveFillPx": 384,
+    "newlyTransparentPx": 23,
+    "nativeSha256": "0731275cbd49d21031a976c0327f0f06748b753ab0f83a843e7ad0c19191f522",
+    "spriteSha256": "c2b7459f9fde58ee64bd6e6c68ae3120ad5b36f3a232d08e44d3e6f8123e65b9",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-06-c": {
+    "alphaIoU": 0.99681,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 394,
+    "grooveFillPx": 5012,
+    "newlyTransparentPx": 1,
+    "nativeSha256": "38d5c8ed132ebee22ac0290152d0b756b5f5bf3a3569da072984090d39430a93",
+    "spriteSha256": "2db8898483c38974bc65329c845bc42601c3fadee5658ec14c0f7b5fe97e9acd",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-07-a": {
+    "alphaIoU": 0.99567,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 539,
+    "grooveFillPx": 7155,
+    "newlyTransparentPx": 2,
+    "nativeSha256": "119f5fadba4806c3ed0ec4c03752e0a6a77dffb6298943e9a2f46fd17bcbd7dd",
+    "spriteSha256": "9883516de9ce9974c83a900660d65d62d17d9d3d6a24ff9d8fcefb3372911257",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-07-b": {
+    "alphaIoU": 0.99799,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 9,
+    "opaqueBeyondBaselinePlus2px": 197,
+    "grooveFillPx": 474,
+    "newlyTransparentPx": 20,
+    "nativeSha256": "aaa54b6870a905f2cb91469bc48a83428350570780abf2de4dbaf9a1682f9984",
+    "spriteSha256": "7e9898263c7f42eec365c091c0f7b38c3a0ff7f41b34dab99b05d28b8bcf2479",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-07-c": {
+    "alphaIoU": 0.99654,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 428,
+    "grooveFillPx": 5108,
+    "newlyTransparentPx": 5,
+    "nativeSha256": "b556383a0cb8d0610890e0e1f6d0f3c3be89c7379810ae179f101dd14a417f19",
+    "spriteSha256": "c9933d03fc71f48baf8efd6c01ab9a6043c6c5a6aed2cc82b8adaf92b9c80dc0",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-08-a": {
+    "alphaIoU": 0.9957,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 366,
+    "grooveFillPx": 5711,
+    "newlyTransparentPx": 165,
+    "nativeSha256": "75ae9aa379a7d15a4afce082b057326e0c8e092a8ed398dd9259cee6e58a896c",
+    "spriteSha256": "00d22cafea6adef1523b424ecb5c0001403a8c0eb2e3638914f5c5832db418ee",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-08-b": {
+    "alphaIoU": 0.99887,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 95,
+    "grooveFillPx": 234,
+    "newlyTransparentPx": 2,
+    "nativeSha256": "38b407a0c15e777f05ca13d243eb9d0fefaf57959eb1ee1c3c8c048c07992fb6",
+    "spriteSha256": "4a1a1085441d068097a14627691982f76fa84e29ff0453cb8bfa363d4223bb55",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-08-c": {
+    "alphaIoU": 0.99666,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 321,
+    "grooveFillPx": 4100,
+    "newlyTransparentPx": 123,
+    "nativeSha256": "4518675509dbc1829a29bf8880f280ab80eaf669ab8cf128333bb7a243037453",
+    "spriteSha256": "e897ad8e8febfec398d4d07f3647357f609918757d0cf40f6039390b825948b0",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-09-a": {
+    "alphaIoU": 0.99613,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 16,
+    "opaqueBeyondBaselinePlus2px": 421,
+    "grooveFillPx": 6290,
+    "newlyTransparentPx": 2,
+    "nativeSha256": "9aadaaf0b6ec66a861c4c454f077fe00f3b7c9dd9ec886723476cb5f829f5400",
+    "spriteSha256": "1ecf3114480ac46cbd996d622fbed12ae6c93e37b6b8001f145ac105f5908731",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-09-b": {
+    "alphaIoU": 0.99858,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 119,
+    "grooveFillPx": 318,
+    "newlyTransparentPx": 5,
+    "nativeSha256": "250279c301a005ee764cccb7b6d3590e8a586700038ef6536f6f8653a26204fc",
+    "spriteSha256": "759692ce8c6ba075f730df03c3bc542415eff7e6f3fd58757d3e032324420c3b",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-09-c": {
+    "alphaIoU": 0.9969,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 348,
+    "grooveFillPx": 4191,
+    "newlyTransparentPx": 10,
+    "nativeSha256": "137377dc6d6eb04f46e1e8c961bf6df774f2ff7c432f6d48265fbe2bef7623e7",
+    "spriteSha256": "66b911b36d18f5e08a55296ee52fbee7713e6e25cd02b8b036311dd6e3ba2687",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-10-a": {
+    "alphaIoU": 0.99417,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 11,
+    "opaqueBeyondBaselinePlus2px": 470,
+    "grooveFillPx": 5925,
+    "newlyTransparentPx": 398,
+    "nativeSha256": "d34122ee23075bd98c362fbe473f9f7db1c08348e86517c788a6efffeaea480b",
+    "spriteSha256": "aa21b0c474d4d00bbf3c7d10479c0f3e9c90869cc8b8dc9d061c1d6e76a3f92b",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-10-b": {
+    "alphaIoU": 0.9965,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 12,
+    "opaqueBeyondBaselinePlus2px": 182,
+    "grooveFillPx": 459,
+    "newlyTransparentPx": 381,
+    "nativeSha256": "a6039355009f2d76085c734a75b602eb7905ed35d4ed860437fc8c3f484fe443",
+    "spriteSha256": "c3690fd5e84051513dec4e37b3413ffd56aa80ade9c60a1f96a898c1114acb43",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-10-c": {
+    "alphaIoU": 0.99463,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 404,
+    "grooveFillPx": 4315,
+    "newlyTransparentPx": 474,
+    "nativeSha256": "c5dc48148ba50fa33ea8324a759fcfc1af7a4110786ae23a619e627fd84d4c09",
+    "spriteSha256": "08b78062187d9c75e05f09522681f10e81632ce1b76769223e02734a09c387fd",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-11-a": {
+    "alphaIoU": 0.99597,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 9,
+    "opaqueBeyondBaselinePlus2px": 464,
+    "grooveFillPx": 6443,
+    "newlyTransparentPx": 3,
+    "nativeSha256": "ef624c1fb8a1eecdfbd352a0f88152fff9229679d2ccd9a1ba197a03fab1f27e",
+    "spriteSha256": "710c22d471e4f1bc0825f79ac7354714e643bd53d18cc52745c62214bec8ad5f",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-11-b": {
+    "alphaIoU": 0.9981,
+    "bottomRowShift": 18,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 187,
+    "grooveFillPx": 469,
+    "newlyTransparentPx": 3,
+    "nativeSha256": "047435396c393525f8e984afb19993f71c930e384b8fca0e268ec7afdc48a8a4",
+    "spriteSha256": "20bf39995355c01b92c4f10ccbf72f54347d1bae97ca0555abd61e644b840fd0",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-11-c": {
+    "alphaIoU": 0.99674,
+    "bottomRowShift": 18,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 411,
+    "grooveFillPx": 4325,
+    "newlyTransparentPx": 3,
+    "nativeSha256": "7caade47f58b4965816c65b2f0eaaca2154c9f7e9746dbbdc2a7f69566226829",
+    "spriteSha256": "0c4963e9bfba2b4540e6af8823f232231a6ae153f660a956383803fae9eb0db5",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-12-a": {
+    "alphaIoU": 0.9938,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 9,
+    "opaqueBeyondBaselinePlus2px": 438,
+    "grooveFillPx": 6561,
+    "newlyTransparentPx": 573,
+    "nativeSha256": "f6b999c0bb6efdd0193ddfdca8b18ace97de257c91eb6629975b183853437df7",
+    "spriteSha256": "c1e84bec0cbfd0504279e9053728d627d4c1f54f1e0af59019c3c726ad6ee01e",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-12-b": {
+    "alphaIoU": 0.99737,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 168,
+    "grooveFillPx": 379,
+    "newlyTransparentPx": 245,
+    "nativeSha256": "e955db070722d018cd5941f3117924cac8454c29a0d51b40aae7ffc0b47c2d2c",
+    "spriteSha256": "b80bdf5fee288917864c71f50189a7daa3bbae87dd5fab7dacb90760284c4eaf",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-12-c": {
+    "alphaIoU": 0.99626,
+    "bottomRowShift": 23,
+    "topRowShift": 10,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 393,
+    "grooveFillPx": 5152,
+    "newlyTransparentPx": 5,
+    "nativeSha256": "011c236818c60af1584f3796651061d3d39298012f9e117ad3d60f7f4cd17573",
+    "spriteSha256": "0d630df75216200cf30c68a4aefbfc162f111569605ddd2e2397b1a26ff8d528",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-13-a": {
+    "alphaIoU": 0.99539,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 15,
+    "opaqueBeyondBaselinePlus2px": 509,
+    "grooveFillPx": 7128,
+    "newlyTransparentPx": 135,
+    "nativeSha256": "1c78e9fe7fecd1068bd6d78d6a7928610fe94f337e874b1be868cc45b27bc122",
+    "spriteSha256": "e1e218c9ed6daab1cafead92ca2469c42a9aa0db168fcf3730d0db2097ffe634",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-13-b": {
+    "alphaIoU": 0.99803,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 8,
+    "opaqueBeyondBaselinePlus2px": 197,
+    "grooveFillPx": 473,
+    "newlyTransparentPx": 13,
+    "nativeSha256": "d42a3823992c6cab118b4e30692ca4e6795cf7dbda5783560d9fe7b20cda0c18",
+    "spriteSha256": "93fcb7b63274315c80d2d77022cf4b09df5ecb25fe15209bf6f54cde395c0967",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-13-c": {
+    "alphaIoU": 0.99591,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 419,
+    "grooveFillPx": 5088,
+    "newlyTransparentPx": 202,
+    "nativeSha256": "90dd18888b5d8072b4f7b326a801681f28cc9492bb3721ad4d8c73c0e3a052c8",
+    "spriteSha256": "e2f4a19be3012e902ae064514d9826da07aa4ce929efa38b0d9ab6c0a8f17c29",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-14-a": {
+    "alphaIoU": 0.99596,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 16,
+    "opaqueBeyondBaselinePlus2px": 491,
+    "grooveFillPx": 6690,
+    "newlyTransparentPx": 2,
+    "nativeSha256": "4120685273940ac170dbee3dc9bfd6aa2ecf085ba4432046037476d6ff272d34",
+    "spriteSha256": "d88d9fb1ce9638f8d7f808b64a50a074b6dd2e177284212b4affa0ca1c221b72",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-14-b": {
+    "alphaIoU": 0.99801,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 212,
+    "grooveFillPx": 487,
+    "newlyTransparentPx": 25,
+    "nativeSha256": "10878097a3dd8a48e87564084e61765d8a24b61bea2bda8f9576d889f9e82d52",
+    "spriteSha256": "ed21d3fd688160e88539fe00072f2a477c650d9940a9fe55f7155e7c67d01225",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-14-c": {
+    "alphaIoU": 0.99661,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 8,
+    "opaqueBeyondBaselinePlus2px": 442,
+    "grooveFillPx": 5112,
+    "newlyTransparentPx": 8,
+    "nativeSha256": "55f2af1fc0fe2b7e9405573f1249e803f7350cc04c094982b2d3d90660c6c308",
+    "spriteSha256": "70977bf9e85970e62e0c54c6ded5a543d71183b111f69759a27d82897bb70897",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-15-a": {
+    "alphaIoU": 0.99617,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 14,
+    "opaqueBeyondBaselinePlus2px": 505,
+    "grooveFillPx": 7144,
+    "newlyTransparentPx": 0,
+    "nativeSha256": "991e1c04c784a7d0f31cc543cbc6884c570cc044ef1df74981d0506da2625f68",
+    "spriteSha256": "6cf5e438f9953db5772ab8f68fa9e036f9e7ab52aa15ce4317c7d62b5f4a6ba0",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-15-b": {
+    "alphaIoU": 0.99812,
+    "bottomRowShift": 23,
+    "topRowShift": 12,
+    "sideExtentShift": 11,
+    "opaqueBeyondBaselinePlus2px": 212,
+    "grooveFillPx": 483,
+    "newlyTransparentPx": 24,
+    "nativeSha256": "52562b54156d3d04e7b1ba7824dfbec87f1810b9277e446bef7a1993acab46f5",
+    "spriteSha256": "b2d9441a5c8416f5300951675c9c65fddee41f296f61676886808096893bdd35",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-15-c": {
+    "alphaIoU": 0.9969,
+    "bottomRowShift": 23,
+    "topRowShift": 11,
+    "sideExtentShift": 7,
+    "opaqueBeyondBaselinePlus2px": 429,
+    "grooveFillPx": 5097,
+    "newlyTransparentPx": 0,
+    "nativeSha256": "d6f77e05bcd65a195be0ae10bec235357214abd837ac3d1b03e5e39e04654be0",
+    "spriteSha256": "92017fc718cf1f62a4c0c10d7797ce4992fa735239ea99b6173fdf0f0e4a5b79",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-rubble-a": {
+    "alphaIoU": 1.0,
+    "bottomRowShift": 0,
+    "topRowShift": 0,
+    "sideExtentShift": 0,
+    "opaqueBeyondBaselinePlus2px": 0,
+    "grooveFillPx": 0,
+    "newlyTransparentPx": 0,
+    "nativeSha256": "ac51a3827ccb0415fb4928ee6cafbd5db6bee5b644b542cf9a9d9f829bc4a03d",
+    "spriteSha256": "38ed6ec329a6d2518c004e26bc1720816b51ca715d4a5ec0f5cf7a7457247947",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   },
+   "reef-rubble-b": {
+    "alphaIoU": 1.0,
+    "bottomRowShift": 0,
+    "topRowShift": 0,
+    "sideExtentShift": 0,
+    "opaqueBeyondBaselinePlus2px": 0,
+    "grooveFillPx": 0,
+    "newlyTransparentPx": 0,
+    "nativeSha256": "53e5d7085ce51843596bcd757893a0dce52c4ccbafeb07c5071f27bc61fd8784",
+    "spriteSha256": "f3d1f7f93e7c28b0babfb4778c6d00e0e17696e1eb0a697b32242fafa8efff72",
+    "nativeSize": [
+     768,
+     2048
+    ],
+    "spriteSize": [
+     384,
+     1024
+    ]
+   }
+  }
+ },
+ "registration": {
+  "source": {
+   "file": "backups/reef-05-a.blend",
+   "sha256": "49c864c19bbe3dd2d47c9498aaf33b40409ae51aea94b07ac0a1cd5960ed2129",
+   "resolution": [
+    768,
+    2048
+   ],
+   "engine": "BLENDER_EEVEE",
+   "viewTransform": "Standard",
+   "filmTransparent": true,
+   "taaSamples": 64,
+   "camera": {
+    "type": "ORTHO",
+    "orthoScale": 1.5,
+    "shift": [
+     0.0,
+     0.8333314061164856
+    ],
+    "matrixWorld": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.5735762119293213,
+      -0.8191522359848022,
+      -8.191520690917969
+     ],
+     [
+      0.0,
+      0.8191522359848022,
+      0.5735762119293213,
+      5.735764503479004
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "rootMatrix": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "rootNativePx": [
+    384.0,
+    1664.0
+   ],
+   "lights": [
+    {
+     "name": "Overhead",
+     "type": "AREA",
+     "location": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "energy": 185.0,
+     "size": 4.5,
+     "color": [
+      1.0,
+      0.95,
+      0.88
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 0",
+     "type": "AREA",
+     "location": [
+      3.5,
+      0.0,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 1",
+     "type": "AREA",
+     "location": [
+      2.4749,
+      2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 2",
+     "type": "AREA",
+     "location": [
+      0.0,
+      3.5,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 3",
+     "type": "AREA",
+     "location": [
+      -2.4749,
+      2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 4",
+     "type": "AREA",
+     "location": [
+      -3.5,
+      0.0,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 5",
+     "type": "AREA",
+     "location": [
+      -2.4749,
+      -2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 6",
+     "type": "AREA",
+     "location": [
+      -0.0,
+      -3.5,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 7",
+     "type": "AREA",
+     "location": [
+      2.4749,
+      -2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.9,
+      0.96,
+      1.0
+     ],
+     "shape": "DISK"
+    }
+   ],
+   "world": {
+    "color": [
+     0.7200000286102295,
+     0.800000011920929,
+     1.0,
+     1.0
+    ],
+    "strength": 0.11999999731779099
+   },
+   "externalImages": [],
+   "materials": [
+    "Limestone side",
+    "Limestone top",
+    "Limestone underside"
+   ]
+  },
+  "current": {
+   "file": "source/round-02/reef-05-a.blend",
+   "sha256": "ec6436cab84a3666f48c70a5ad57f0df6fe76a4e7a22d7988aa21a0bd7f2da16",
+   "resolution": [
+    768,
+    2048
+   ],
+   "engine": "BLENDER_EEVEE",
+   "viewTransform": "Standard",
+   "filmTransparent": true,
+   "taaSamples": 64,
+   "camera": {
+    "type": "ORTHO",
+    "orthoScale": 1.5,
+    "shift": [
+     0.0,
+     0.8333314061164856
+    ],
+    "matrixWorld": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.5735762119293213,
+      -0.8191522359848022,
+      -8.191520690917969
+     ],
+     [
+      0.0,
+      0.8191522359848022,
+      0.5735762119293213,
+      5.735764503479004
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ]
+   },
+   "rootMatrix": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "rootNativePx": [
+    384.0,
+    1664.0
+   ],
+   "lights": [
+    {
+     "name": "Overhead",
+     "type": "AREA",
+     "location": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "energy": 185.0,
+     "size": 4.5,
+     "color": [
+      1.0,
+      0.95,
+      0.88
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 0",
+     "type": "AREA",
+     "location": [
+      3.5,
+      0.0,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 1",
+     "type": "AREA",
+     "location": [
+      2.4749,
+      2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 2",
+     "type": "AREA",
+     "location": [
+      0.0,
+      3.5,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 3",
+     "type": "AREA",
+     "location": [
+      -2.4749,
+      2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 4",
+     "type": "AREA",
+     "location": [
+      -3.5,
+      0.0,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 5",
+     "type": "AREA",
+     "location": [
+      -2.4749,
+      -2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 6",
+     "type": "AREA",
+     "location": [
+      -0.0,
+      -3.5,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    },
+    {
+     "name": "Symmetric fill 7",
+     "type": "AREA",
+     "location": [
+      2.4749,
+      -2.4749,
+      2.3
+     ],
+     "energy": 34.0,
+     "size": 5.0,
+     "color": [
+      0.97,
+      0.96,
+      0.95
+     ],
+     "shape": "DISK"
+    }
+   ],
+   "world": {
+    "color": [
+     0.7200000286102295,
+     0.800000011920929,
+     1.0,
+     1.0
+    ],
+    "strength": 0.11999999731779099
+   },
+   "externalImages": [],
+   "materials": [
+    "Limestone chamfer",
+    "Limestone groove core",
+    "Limestone side",
+    "Limestone top"
+   ]
+  },
+  "cameraMatrixMaxDelta": 0.0,
+  "shiftDelta": [
+   0.0,
+   0.0
+  ],
+  "orthoScaleSame": true,
+  "rootPxSource": [
+   384.0,
+   1664.0
+  ],
+  "rootPxCurrent": [
+   384.0,
+   1664.0
+  ],
+  "expectedRootNativePx": [
+   384,
+   1664
+  ],
+  "lightsSymmetric": {
+   "fillCount": 8,
+   "fillEnergiesEqual": true,
+   "fillColorsEqual": true,
+   "fillRadiusRange": [
+    3.5,
+    3.500037145517173
+   ],
+   "fillAnglesDeg": [
+    0.0,
+    45.0,
+    90.0,
+    135.0,
+    180.0,
+    225.0,
+    270.0,
+    315.0
+   ],
+   "fillHeights": [
+    2.3
+   ],
+   "overheadAtOrigin": [
+    [
+     0.0,
+     0.0,
+     5.0
+    ]
+   ]
+  },
+  "lightChangesFromSource": "fill colour (.90,.96,1) -> (.97,.96,.95), equal on all eight; positions, energies, sizes and overhead unchanged; round 02 adds jittered soft shadows (filter radius 2, 4 rays, 16 steps) on every light alike"
+ }
+}

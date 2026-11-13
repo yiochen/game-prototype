@@ -96,6 +96,8 @@ var _callout_left := 0.0
 var _callout_age := 0.0
 ## Game speed for the strike's slow motion (1 = normal).
 var time_scale := 1.0
+## Hit-stop: travel freezes for a beat on every hull loss (approved #76 hit feedback).
+var _hitstop := 0.0
 var _slow_hold := 0.0
 var _prep_seed := 0
 var _prep_lead: Dictionary = {}
@@ -536,6 +538,8 @@ func update(value: Dictionary, delta: float) -> void:
 			if countdown <= 0.0: _finish_countdown()
 		if overlay == "none": _update_slow_motion(delta)
 		var game_delta := delta * time_scale
+		if _hitstop > 0.0:
+			_hitstop -= delta; game_delta = 0.0
 		# A portal transition holds travel until the iris opens on the far side.
 		if overlay == "none" and not gallery and not view.transitioning():
 			var outcome := _command({"type": "expedition_advance", "elapsed": game_delta, "now": _now()})
@@ -543,14 +547,28 @@ func update(value: Dictionary, delta: float) -> void:
 				match event.type:
 					"pickup": view.burst(Vector2(float(event.x), float(event.y))); _salvage_pop = 1.0
 					"impact":
-						_hull_pulse = 1.0; _hit_flash = 1.0; view.hit(); view.damage(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
+						_hull_hit(float(Book.definition().impact_damage)); view.damage(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"discharge_strike": view.discharge_strike()
 					# Issue #70 ink: three glugs with the warning, the burst, the wash as it lifts.
 					"ink_warn": cue_requested.emit("ink_warn")
 					"ink_spread": cue_requested.emit("ink_burst")
 					"ink_lift": cue_requested.emit("ink_lift")
 					"zapped":
-						_hull_pulse = 1.0; _hit_flash = 1.0; view.zap(Vector2(float(event.x), float(event.y)))
+						_hull_hit(float(Book.definition().encounter.discharge.damage)); view.zap(Vector2(float(event.x), float(event.y)))
+					# Issue #76 reef: the parrotfish rams its line open; the hull crashes through reef off it.
+					"reef_smash":
+						view.reef_broke(event.cells, 1.0); view.creature.lunge = 1.0
+						cue_requested.emit("reef_breach" if event.first else "reef_smash")
+						if event.banner: _callout("Reef ahead!", "Follow the broken path", 2.2)
+					"reef_crash":
+						view.reef_broke(event.cells, 1.1)
+						var mid := Vector2.ZERO
+						for c in event.cells: mid += Vector2(float(c.x) + .5, float(c.y) + .5) / event.cells.size()
+						var ship_at := Vector2(float(event.x), float(event.y))
+						if event.hurt:
+							_hull_hit(float(event.damage)); view.damage(ship_at.lerp(mid, .5), ship_at); cue_requested.emit("reef_crash")
+						else:
+							view.hit(); view.knock(ship_at + (ship_at - mid) * .12 + Vector2(0, .12), ship_at); cue_requested.emit("reef_bump")
 					"bump": view.knock(Vector2(float(event.from_x), float(event.from_y)), Vector2(float(event.x), float(event.y)))
 					"shield":
 						view.shield_burst(Vector2(float(event.x), float(event.y))); _show_toast("Shield! No collision damage")
@@ -592,6 +610,13 @@ func update(value: Dictionary, delta: float) -> void:
 		_sync_prep(delta)
 		prep_hint.modulate.a = 1.0 if reduced_motion else .55 + .45 * (.5 + .5 * sin(view.time * 3.2))
 	_refresh_hud(delta)
+
+## Every hull loss, whatever caused it: red screen edges, a short hit-stop, the
+## shake, the hull bar flashing and jolting, and the loss rising off the ship.
+func _hull_hit(amount: float) -> void:
+	_hull_pulse = 1.0; _hit_flash = 1.0; view.hit()
+	if not reduced_motion: _hitstop = .07
+	view.hull_loss(int(round(amount)))
 
 ## The passage theme plays for the ride behind a portal, and the boss theme
 ## from the creature's arrival until it is caught or gone; preparation, the
@@ -707,6 +732,10 @@ func _refresh_hud(delta: float) -> void:
 	hull_fill.size = Vector2(maxf(0.0, (hull_track.size.x - 6 * unit) * fraction), hull_track.size.y - 6 * unit)
 	hull_fill.position = Vector2(3, 3) * unit
 	hull_fill.add_theme_stylebox_override("panel", PopupSkin.flat(color.lerp(Color.WHITE, _hull_pulse * .5), 8 * unit))
+	# A hit jolts the hull pill and tints it red.
+	hull_pill.pivot_offset = hull_pill.size / 2
+	hull_pill.rotation = 0.0 if reduced_motion else sin(view.time * 60.0) * .05 * _hull_pulse * _hull_pulse
+	hull_pill.self_modulate = Color(1, 1 - .45 * _hull_pulse, 1 - .45 * _hull_pulse)
 	# Creature resistance is its health: full while aiming, draining through the pursuit.
 	var encounter = run.get("encounter")
 	var rules: Dictionary = Book.definition().encounter
