@@ -128,5 +128,5 @@ func run() -> void:
 	await capture("08-retry-unlocked");ui.dismiss();app.store = original_store
 	var report := {"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"checks":checks,"failures":failures}
 	if not output.is_empty(): FileAccess.open(output.path_join("renderer.json"),FileAccess.WRITE).store_string(JSON.stringify(report,"  ")+"\n")
-	app.audio.set_muted(true);app.audio._music.stop();app.queue_free();await frames()
+	app.audio.set_muted(true);app.audio.stop_music();app.queue_free();await frames()
 	print("Exhibition unlock native: %s checks; %s failures" % [checks,failures.size()]);quit(0 if failures.is_empty() else 1)

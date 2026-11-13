@@ -13,6 +13,6 @@ func run() -> void:
 	if not output.is_empty() and DisplayServer.get_name() != "headless":
 		DirAccess.make_dir_recursive_absolute(output);await RenderingServer.frame_post_draw
 		passed = root.get_texture().get_image().save_png(output.path_join("gallery.png")) == OK and passed
-	app.audio.set_muted(true);app.audio._music.stop();app.queue_free()
+	app.audio.set_muted(true);app.audio.stop_music();app.queue_free()
 	for i in range(3): await process_frame
 	print("Exhibition gallery entry: "+("PASS" if passed else "FAIL"));quit(0 if passed else 1)

@@ -5,18 +5,27 @@ extends Node
 const AUDIO_PATH := "res://assets/audio/"
 const VOICE_COUNT := 6
 const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_ideal": 300, "tea_good": 300, "tea_soft": 300, "tea_splash": 300, "ink_warn": 600, "ink_burst": 600, "ink_lift": 600}
-const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -12.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0, "ink_warn": -9.0, "ink_burst": -8.0, "ink_lift": -11.0}
+const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -15.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0, "ink_warn": -9.0, "ink_burst": -8.0, "ink_lift": -11.0}
+## One looping track per scene; set_scene() crossfades between them.
+const MUSIC := {"restaurant": "harbor_cafe", "workshop": "tinker_dock", "dive": "deep_current", "passage": "portal_ride", "boss": "storm_chase"}
+const MUSIC_FADE_SECONDS := 0.9
+## These start from the top each time; the others pick up where they left off.
+const MUSIC_RESTARTS := ["passage", "boss"]
 const ALIASES := {"ui": "click", "cooking": "cook", "prepared": "cook", "loading": "load", "loaded": "load", "sale": "coin", "tip": "coin"}
 
 ## Each cue that actually starts a voice (tests listen; nothing in play does).
 signal cue_played(cue: String)
 
-var music_volume_db := -16.0
+var music_volume_db := -10.0
 var effects_volume_db := 0.0
 var _muted := false
 var _backgrounded := false
 var _focused := true
-var _music: AudioStreamPlayer
+var music_scene := "restaurant"
+var _tracks: Dictionary = {}
+var _levels: Dictionary = {}
+var _resume: Dictionary = {}
+var _sounding: Dictionary = {}
 var _voices: Array[AudioStreamPlayer] = []
 var _streams: Dictionary = {}
 var _last_cue: Dictionary = {}
@@ -43,19 +52,49 @@ func _ready() -> void:
 		_pour.name = "TeaPour"
 		_pour.stream = looped
 		add_child(_pour)
-	var source := load(AUDIO_PATH + "harbor_cafe.wav") as AudioStreamWAV
-	if source != null:
+	for scene in MUSIC:
+		var source := load(AUDIO_PATH + str(MUSIC[scene]) + ".wav") as AudioStreamWAV
+		if source == null: continue
 		var loop := source.duplicate() as AudioStreamWAV
 		loop.loop_mode = AudioStreamWAV.LOOP_FORWARD
 		loop.loop_begin = 0
 		loop.loop_end = int(round(loop.get_length() * loop.mix_rate))
-		_music = AudioStreamPlayer.new()
-		_music.name = "HarborCafe"
-		_music.stream = loop
-		_music.volume_db = music_volume_db
-		add_child(_music)
-		_music.play()
+		var track := AudioStreamPlayer.new()
+		track.name = "Music" + str(scene).capitalize()
+		track.stream = loop
+		add_child(track)
+		_tracks[scene] = track
+		_levels[scene] = 1.0 if scene == music_scene else 0.0
+	_apply_music()
 	_sync_pause()
+
+## The music for the scene on screen; crossfades from the current track.
+func set_scene(scene: String) -> void:
+	if MUSIC.has(scene): music_scene = scene
+
+## How loud a scene's track is right now, 0 to 1 (tests).
+func music_level(scene: String) -> float:
+	return float(_levels.get(scene, 0.0))
+
+func _process(delta: float) -> void:
+	if _muted or _backgrounded or not _focused: return
+	for scene in _tracks:
+		_levels[scene] = move_toward(float(_levels[scene]), 1.0 if scene == music_scene else 0.0, delta / MUSIC_FADE_SECONDS)
+	_apply_music()
+
+func _apply_music() -> void:
+	for scene in _tracks:
+		var track: AudioStreamPlayer = _tracks[scene]
+		var level := float(_levels[scene])
+		if level <= 0.0:
+			if _sounding.erase(scene):
+				if not scene in MUSIC_RESTARTS: _resume[scene] = track.get_playback_position()
+				track.stop()
+			continue
+		track.volume_db = music_volume_db + linear_to_db(level)
+		if not _sounding.has(scene):
+			_sounding[scene] = true
+			track.play(float(_resume.get(scene, 0.0)))
 
 func play_cue(name: String) -> void:
 	if _muted or _backgrounded or not _focused or not is_inside_tree():
@@ -99,8 +138,8 @@ func set_backgrounded(value: bool) -> void:
 func _sync_pause() -> void:
 	var quiet := _muted or _backgrounded or not _focused
 	if quiet and _pour != null and _pour.playing: _pour.stop()
-	if _music != null:
-		_music.stream_paused = quiet
+	for scene in _tracks:
+		_tracks[scene].stream_paused = quiet
 	# Never resume stale coin/cooking/UI sounds after returning to the app.
 	if quiet:
 		for voice in _voices:
@@ -118,8 +157,13 @@ func _notification(what: int) -> void:
 		_focused = true
 		_sync_pause()
 
+## Silences every track at once (teardown).
+func stop_music() -> void:
+	_sounding.clear()
+	for scene in _tracks:
+		_tracks[scene].stop()
+
 func _exit_tree() -> void:
-	if _music != null:
-		_music.stop()
+	stop_music()
 	for voice in _voices:
 		voice.stop()

@@ -120,5 +120,5 @@ func run() -> void:
 	check(app.session.save_data()==paused,"background/resume cancels press ownership")
 	var record := {"renderer":RenderingServer.get_current_rendering_method(),"driver":RenderingServer.get_current_rendering_driver_name(),"adapter":RenderingServer.get_video_adapter_name(),"checks":count,"failures":failures}
 	if not output.is_empty(): FileAccess.open(output.path_join("renderer.json"),FileAccess.WRITE).store_string(JSON.stringify(record,"  "))
-	app.audio.set_muted(true);app.audio._music.stop();await create_timer(.15).timeout
+	app.audio.set_muted(true);app.audio.stop_music();await create_timer(.15).timeout
 	app.queue_free();await frames();await create_timer(.1).timeout;print("Shop native: %s checks, %s failures" % [count,failures.size()]);quit(0 if failures.is_empty() else 1)
