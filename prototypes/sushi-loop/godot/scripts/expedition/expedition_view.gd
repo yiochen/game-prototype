@@ -2,8 +2,8 @@ extends Control
 ## Expedition playfield (issue #21). Draws the seeded route with the approved
 ## production pieces over the ground layer, following the HTML review's draw
 ## order: floor, rock shadow, fish, seabed decor, ship shadow, beds, gold,
-## rows north→south (a landmark at or south of the ship covers it as it passes
-## under), particles, light shafts. The screen shows VIEW_COLUMNS of the world
+## rows north→south (any row whose base is south of the hull's covers it, so the
+## ship slips behind rocks it passes north of), particles, light shafts. The screen shows VIEW_COLUMNS of the world
 ## and follows the ship sideways. Steering is two rounded, translucent arrow
 ## buttons in the bottom corners: holding one moves the ship that way (each
 ## half of the screen counts as its button) and letting go runs straight. On
@@ -698,8 +698,10 @@ func _draw() -> void:
 	var ship_drawn := false
 	var reef: bool = world.kind == "main" and not world.path.reef_cells.is_empty()
 	var cracks: Dictionary = Book.reef_cracks(run_state) if reef else {}
+	# Depth by base: a row whose base (its south edge) is below the hull's covers it.
+	var ship_base := shown.y + SHIP_HULL_CELLS * .5 - SHIP_HULL_LIFT
 	for y in range(top, bottom + 1):
-		if not ship_drawn and y >= int(floor(shown.y)) and by_row[y].any(func(item): return int(item.get("w", 1)) > 1):
+		if not ship_drawn and y + 1.0 > ship_base:
 			_draw_ship(o, cell); ship_drawn = true
 		if reef: _draw_reef_row(o, cell, y, x0, x1, cracks)
 		for item in by_row[y]: piece(item.id, item.dir, o + Vector2(item.x, item.y) * cell, cell, 0, item.x * 5 + item.y * 3)
