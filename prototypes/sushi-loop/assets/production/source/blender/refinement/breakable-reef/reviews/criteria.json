@@ -1,0 +1,73 @@
+{
+ "asset": "breakable-reef",
+ "status": "proposed by judge; coordinator freezes into brief.qualityCriteria",
+ "at": "2026-11-13",
+ "style": "Warm, softly lit cartoon 3D limestone (finish like inputs/warm-soft-reference.png, material like the target and issue-76 concept). Calm readable planes with subtle stone detail; no photoreal grit, no paint-over.",
+ "immutableTechnicalConstraints": [
+  "Full piece set and ids unchanged: reef-00..15 x a,b,c plus reef-rubble-a, reef-rubble-b (50 pieces), one south view each.",
+  "Ground footprint equals collision shape: open faces inset 0.08 cell, faces against solid flush to the cell edge, exposed corners rounded radius 0.35 cell, other corners square. Chips/cracks bite inward <= 0.03 cell and never change the outline at ground level.",
+  "Slab layout per pattern unchanged; slab height 0.32 cell with per-slab variation within +/-12% as now.",
+  "Reef-facing cell edges meet flush with no seabed gap; interior grooves stay narrow.",
+  "Rubble under 0.1 cell high and inside its cell.",
+  "Camera, frame 768x2048 native / 384x1024 published, ground root, native scale 4, publish downsample (ffmpeg lanczos 2x) unchanged; R.configure + R.square_footing recipe.",
+  "Lighting stays in the recipe rig family: broad overhead plus eight symmetric fills, low blue world, no preferred horizontal direction, no cast shadow on the ground (transparent background stays clean).",
+  "Seam safety: surface detail is world/object-space procedural or per-slab, never dependent on a cell's mask.",
+  "Nothing grows on the reef (no coral, kelp, moss, shells).",
+  "Native procedural Blender output from an editable recipe; any raster texture must be stored inside the experiment and bound as a resource."
+ ],
+ "evidenceRequired": [
+  "All 50 native captures (768x2048) and published sprites (384x1024) listed in packet.json with hashes.",
+  "independent-assembly assembly.png of the same 6x6 patch as inputs/original.png.",
+  "A seam stress sheet: at minimum horizontal and vertical pairs that join a cell to a neighbour of a different mask and different pattern (e.g. 02-a|08-b, 0A-c|0A-a style runs, 04 over 01, a full 3x3 of mask 15 with mixed patterns, and an open-edge corner piece beside a solid run), at native size and 2x.",
+  "validation.json: per-piece alpha footprint at the ground plane compared to the original captures (outline unchanged within tolerance), frame/root registration, rubble height, and confirmation that light objects/energies stay symmetric.",
+  "Renderer repeatability: re-render of one unchanged piece to set a pixel tolerance before judging numeric diffs."
+ ],
+ "aestheticCriteria": {
+  "color": [
+   "Tops are warm cream-to-peach limestone, noticeably warmer than the original near-white (target direction approx RGB 245-255, 210-228, 160-185), with visible but gentle per-slab variation: a few slightly warmer/peachier, a few slightly paler or greyer. No slab is white, orange or grey enough to look like a different material.",
+   "Front (south) faces are a clearly deeper warm tan/ochre than tops (target direction approx RGB 170-195, 120-145, 75-100), darkening slightly toward the seabed. The top/front value step is obvious at phone size.",
+   "Whole patch remains unmistakably paler and warmer than the blue-navy bedrock and the seabed; no blue or green cast on the stone except a faint cool ambient in shadowed grooves.",
+   "Rubble uses the same palette as the slabs (lit top in top tone, sides in front tone)."
+  ],
+  "shapeVolume": [
+   "Each slab reads as a solid stone block with a lit top, a soft chamfer and a shaded front; the cell reads as one smashable mass, not a grid of tiles.",
+   "Approved silhouette, heights and rounded exposed corners are visibly identical to the original at ground level; small chipped corners on top edges read as stone wear, not as shape changes.",
+   "Grooves between slabs read as narrow warm shadow lines; no seabed blue visible inside a cell and no dark wedge where a lower slab peeks out."
+  ],
+  "lightingHighlights": [
+   "Chamfered top edges carry a soft warm highlight (lighter than the top, same hue family), replacing the original's cool grey rim band.",
+   "Soft, even lighting with no directional bias: the same slab type looks the same whatever its position or mask; no cast shadows on the ground and no blown-out highlight patches.",
+   "Gentle top gradient or occlusion is allowed only if it is symmetric/position-independent so it cannot step across a seam."
+  ],
+  "materialDetail": [
+   "Fine hairline cracks on a subset of slabs (roughly a third to a half), one or two per slab, slightly darker/paler than the top and thin enough to stay subtle at phone size; they may run over the chamfer and down the front.",
+   "Sparse small pores/pits on tops (a few per slab), not a uniform noise grain.",
+   "Front faces show 2-4 soft horizontal strata bands per slab height, slightly wavy, at heights driven by world/object Z so adjacent pieces line up.",
+   "Occasional small chipped corners/edge nicks on slab tops within the 0.03-cell tolerance; detail density consistent across all 48 cell pieces.",
+   "Overall detail stays in the warm-soft cartoon register: crisp calm planes first, texture second; no photo-noise, no high-frequency speckle."
+  ],
+  "artifactFreeReadability": [
+   "At the published 384x1024 size and at about 360 px across the 6x6 assembly, the patch reads instantly as pale breakable limestone distinct from bedrock; cracks/strata visible as texture, nothing shimmering or speckled.",
+   "No triangulation/diagonal shading lines on tops, no black or near-black patches, no z-fighting/coplanar flicker, no exposed interior faces, no normal seams at bevels, no halos or fringes on the alpha edge against the seabed.",
+   "Rubble remains crisp small low fragments with clear top/side shading."
+  ],
+  "seamContinuity": [
+   "Across every flush cell edge in the assembly and the seam stress sheet, top tone, front strata heights, chamfer treatment and light level do not jump; the seam is visible only as the normal narrow groove that also separates slabs within a cell.",
+   "Front strata of horizontally adjacent pieces in a row align in height and spacing.",
+   "No crack, chip or pore pattern is cut off with a hard straight edge at a cell boundary (cracks should stay within a slab or be world-continuous).",
+   "Open-edge (exposed) faces may differ only by geometry (inset/rounded corner), not by a different surface treatment."
+  ]
+ },
+ "priorityRanking": [
+  "1. Warm limestone colour/value structure: peach-cream tops over a clearly deeper warm tan front, gentle per-slab variation, still clearly pale vs bedrock.",
+  "2. Seamless joins across masks and patterns: no tone/light/strata jump at cell seams; strata aligned in Z.",
+  "3. Breakable stone cues readable at phone size: front strata plus hairline cracks and small chipped corners (sparse pores as 2x detail), consistent density.",
+  "4. Soft warm chamfer highlight and grooves as thin warm shadows (no grey plastic rim, no blue slivers, no dark wedges).",
+  "5. Artifact-free output with locked footprint/height/rubble unchanged and matching rubble material."
+ ],
+ "scoring": "Comparative 1-10 per dimension (shapeVolume, color, lightingHighlights, materialDetail, artifactFreeReadability) against original (baseline) and target; seam continuity is a gating check reported in observations/blockers. No numeric pass mark; approval requires visible improvement toward the target, all locked constraints met with evidence, and no material defect in any required view.",
+ "conflictsNoted": [
+  "Target chips that cut the silhouette or rounded corners conflict with the locked footprint tolerance; reproduce chips only on top edges within 0.03 cell.",
+  "Target's per-cell crack placement is not seam-aware; native cracks must not depend on mask."
+ ]
+}

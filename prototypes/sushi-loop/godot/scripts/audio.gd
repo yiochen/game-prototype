@@ -4,8 +4,8 @@ extends Node
 
 const AUDIO_PATH := "res://assets/audio/"
 const VOICE_COUNT := 6
-const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_ideal": 300, "tea_good": 300, "tea_soft": 300, "tea_splash": 300, "ink_warn": 600, "ink_burst": 600, "ink_lift": 600}
-const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -15.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0, "ink_warn": -9.0, "ink_burst": -8.0, "ink_lift": -11.0}
+const COOLDOWN_MS := {"click": 75, "cook": 170, "load": 100, "coin": 140, "tea_ideal": 300, "tea_good": 300, "tea_soft": 300, "tea_splash": 300, "ink_warn": 600, "ink_burst": 600, "ink_lift": 600, "reef_breach": 300, "reef_smash": 90, "reef_crash": 250, "reef_bump": 250}
+const CUE_VOLUME_DB := {"click": -12.0, "cook": -15.0, "load": -14.0, "coin": -15.0, "tea_ideal": -11.0, "tea_good": -11.0, "tea_soft": -13.0, "tea_splash": -12.0, "ink_warn": -9.0, "ink_burst": -8.0, "ink_lift": -11.0, "reef_breach": -7.0, "reef_smash": -12.0, "reef_crash": -8.0, "reef_bump": -12.0}
 ## One looping track per scene; set_scene() crossfades between them.
 const MUSIC := {"restaurant": "harbor_cafe", "workshop": "tinker_dock", "dive": "deep_current", "passage": "portal_ride", "boss": "storm_chase"}
 const MUSIC_FADE_SECONDS := 0.9

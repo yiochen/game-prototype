@@ -1,0 +1,64 @@
+{
+ "asset": "breakable-reef",
+ "reviewer": "judge",
+ "at": "2026-11-13",
+ "stage": "independent calibration (no candidate yet)",
+ "inspectedFiles": {
+  "inputs/original.png": "3144d8c20660b913d6717febbc5c81c8031f30edbb8201b420e7a24d8accb94a",
+  "targets/target-v01.png": "3e4c0f2f10a44a3ccb78682ffe3f68f45582d6cb4f94b22d1981902c4fa58e55 (matches brief.target.sha256)",
+  "inputs/warm-soft-reference.png": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+  "inputs/issue-76-concept.jpg": "c2cdb4b9a6114fda6b6241bee4b9058dfcaafc45f01ddfcc2e71d2ff6662533c",
+  "houseStyle": "assets/expedition/v2/sprites/rock-crag-mid-deep/static-S.png composited on the seabed blue"
+ },
+ "method": "Viewed original and target full size, 2x enlarged crops of the top-left cell group (target) and matching original region, a seam crop of the original right block, and both downscaled to 360 px wide side by side (approximate phone use size). Sampled mean RGB on a top face and a front face in each image.",
+ "measuredSamples": {
+  "originalTop": [246, 233, 198],
+  "originalFront": [194, 172, 130],
+  "targetTop": [253, 221, 168],
+  "targetFront": [181, 131, 80],
+  "seabed": [35, 134, 191],
+  "note": "Approximate means over small patches; for calibration of direction only, not exact targets."
+ },
+ "sourceAssessment": {
+  "reads": "Correct approved blocking: slabs, heights, rounded exposed corners, flush cell joins, low rubble. Clearly paler than the blue bedrock and the seabed.",
+  "weaknesses": [
+   "Material is flat untextured cream plastic: tops nearly white and desaturated (approx 246,233,198), no per-slab tone variation, no pores, cracks or chips. Reads as tiles/bricks or butter, not breakable stone.",
+   "Front (south) faces are one uniform khaki gradient; the top-to-front value step is modest and the side has no strata, so at phone size the blocks read as soft paper boxes.",
+   "Top chamfer band renders as a pale greyish rim lighter and cooler than the top itself, giving a plastic/bevelled-button look instead of a warm caught highlight.",
+   "Some interior slab grooves show slivers of seabed blue, and some junctions show small dark brown wedges where a lower slab peeks out. Grooves read as gaps or holes rather than thin soft shadow lines.",
+   "Faint diagonal shading lines are visible on some large tops at full size (likely triangulation/normal interpolation on n-gon tops); minor but should not survive into the surfaced version.",
+   "Rubble is pale cream like the tops with a flat tan side: acceptable shape, but no material continuity cues with the stone beyond colour."
+  ]
+ },
+ "targetAssessment": {
+  "takes": [
+   "Warmer, more saturated limestone: peach-cream tops (approx 253,221,168) and a clearly deeper warm tan front (approx 181,131,80). Larger top/front value contrast; the blocks read as solid stone volumes.",
+   "Per-slab tone variation on tops (some warmer, some paler) without becoming noisy.",
+   "Front faces carry soft horizontal strata bands, darkening slightly toward the seabed; strata of horizontally adjacent pieces sit at matching heights.",
+   "Fine hairline cracks (a few per slab, not every slab), sparse small round pores, and occasional small chipped corners on top edges. These are the main 'breakable' cue.",
+   "Chamfered top edge catches a soft warm highlight, not a grey band.",
+   "Grooves between slabs read as narrow warm shadow lines; no seabed blue shows inside the reef.",
+   "Rubble shares the limestone colours: lit tops, shaded tan sides."
+  ],
+  "driftNotToCopy": [
+   "Some chips in the target bite visibly into the front/top outline and rounded corners (e.g. large wedge chips on front edges); at ground level the outline is locked to <=0.03 cell inward.",
+   "Exact slab edges, corner radii and some block outlines drift a few pixels from registration; geometry must come from the recipe, not the image.",
+   "Cracks that run from the top down the full front face to the ground are fine as shader/shallow detail but must not change the silhouette.",
+   "Imagegen softness/blur and slightly uneven crack density between cells; the native result should have consistent density everywhere.",
+   "The target's top tone is close to the edge of 'too orange'; the pale/warm read versus the blue bedrock must be kept, so do not push saturation further than the target."
+  ]
+ },
+ "phoneSizeFindings": [
+  "At 360 px wide the single biggest perceptual difference is colour/value: warm peach tops over a distinctly darker warm tan front versus the original's near-white over khaki. This alone moves the read from 'cream tiles' to 'sandstone/limestone blocks'.",
+  "Second: front strata bands remain visible at phone size and give the stone identity; pores mostly vanish; the larger cracks and chips remain faintly visible as texture.",
+  "Third: grooves as warm dark lines (instead of blue slits or bright rims) make each cell read as a solid mass that can be smashed.",
+  "Fine pores and hairline cracks are secondary at use size: they matter at 2x but must not create speckle or shimmer when downsampled."
+ ],
+ "priorities": [
+  "Warm limestone colour/value structure (tops vs fronts, per-slab variation) while staying clearly pale vs bedrock",
+  "Seam-safe front strata and tone across all masks",
+  "Breakable cues: hairline cracks, small chipped corners, sparse pores, consistent density",
+  "Warm soft chamfer highlight replacing the grey rim; grooves as soft warm shadows, no blue slivers or dark wedges",
+  "Matching rubble material; no new artifacts (speckle, normal seams, triangulation lines)"
+ ]
+}

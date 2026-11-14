@@ -109,7 +109,7 @@ func run() -> void:
 	var d: Dictionary = rules.encounter.discharge
 
 	# The library: each eel chunk carries an up-to-date, accepted table of fair strikes.
-	var eel: Array = Book.library().filter(func(c): return c.kind == "creature")
+	var eel: Array = Book.library().filter(func(c): return c.kind == "creature" and str(c.creature) == "storm-eel")
 	check(eel.map(func(c): return c.id) == ["eel-island-lanes", "eel-open-basin", "eel-opening-funnel", "eel-pillar-basin"], "four Storm Eel chunks join the library: %s" % [eel.map(func(c): return c.id)])
 	for c in eel:
 		check(c.creature == "storm-eel" and Discharge.table_problems(c, Book._doc(c.id).chunk.discharge, rules).is_empty(), "%s: its discharge table is current and accepted" % c.id)

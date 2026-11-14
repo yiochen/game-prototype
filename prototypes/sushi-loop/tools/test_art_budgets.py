@@ -38,7 +38,7 @@ class ArtBudgetTests(unittest.TestCase):
     def test_current_shape_of_payload_passes_and_reports_totals(self):
         report = build.check_art_budgets(self.project)
         self.assertEqual(report["packed_sprite_megapixels"], 0.3)
-        self.assertEqual(report["unpacked_tree_megapixels"], {"assets/expedition/pieces": 4.4})
+        self.assertEqual(report["unpacked_tree_megapixels"], {"assets/expedition/pieces": 4.4, "assets/expedition/reef": 0.0})
         self.assertEqual(report["largest_images"][0]["path"], "assets/expedition/pieces/kelp/idle-S.png")
 
     def test_oversized_unpacked_image_is_rejected(self):

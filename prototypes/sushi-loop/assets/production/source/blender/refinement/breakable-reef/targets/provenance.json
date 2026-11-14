@@ -1,0 +1,25 @@
+{
+  "kind": "sprite-gen-image-report",
+  "provider": "codex",
+  "prompt": "Use case: style-transfer\nImage 1 is the EDIT TARGET: an exported native Blender snapshot of a breakable limestone reef patch for an underwater top-down game. Six by six grid cells; each cell is a group of two or three low pale slabs. A winding breach (where cells were smashed) runs through it and is covered in small rubble fragments. This is the object and camera to refine.\nImage 2 is a STYLE REFERENCE ONLY for rendering finish: warm, softly lit cartoon 3D with crisp chamfered planes, gentle gradients, a bright lit top and a cleanly shaded side. Do not copy its plant, pot or colors.\nImage 3 is a MATERIAL REFERENCE ONLY: the pale cracked limestone reef blocks in the game concept art (beige blocks with fine white hairline cracks, slightly chipped edges, subtle warm/cool tone variation). Do not copy its fish, coral, submarine, layout or UI.\n\nIntended use: aesthetic target for refining the editable 3D model; it will be rebuilt natively in Blender, so geometry drift here is only a style hint.\n\nReskin only: improve material, color, light and detail while keeping the major forms and proportions. Keep every slab, every slab boundary, the cell grid, the block height, the rounded corners exactly where they are (rounded only at exposed outer corners, flat where blocks touch), the breach shape and the rubble positions. Same square-grid top-down oblique camera: top faces screen-aligned, the short front (south) faces visible below each top. No diamond grid, no perspective.\n\nSurface to add: pale warm limestone/coral-rock. Tops: creamy sand-beige with soft variation between slabs (a few slightly warmer, a few slightly cooler and greyer), faint pitted pores, a few fine hairline cracks and small chipped corners. Chamfered top edges catch a soft highlight. Front faces: deeper warm tan, darker toward the seabed, with gentle horizontal strata. Grooves between slabs read as thin soft shadows, not gaps. Rubble: the same limestone, with lit tops and shaded sides, small and low.\n\nKeep it readable at small phone size: big calm planes, detail subtle, the top vs front contrast clear. The limestone must stay clearly paler and warmer than blue-navy rock so players read it as breakable.\nKeep the flat medium-blue background exactly as is. No coral, plants, shells, moss, fish, shadows cast on the background, text, labels, outlines or vignette. No added objects.",
+  "out": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/breakable-reef/targets/target-v01.png",
+  "raw": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/breakable-reef/targets/target-v01.png.raw.png",
+  "raw_bytes": 1563248,
+  "elapsed_seconds": 52.69,
+  "model": "gpt-5.6-sol",
+  "session_id": "01a1d5ba-3790-7011-9739-40c80d321684",
+  "refs": [
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/breakable-reef/inputs/original.png",
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/breakable-reef/inputs/warm-soft-reference.png",
+    "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/breakable-reef/inputs/issue-76-concept.jpg"
+  ],
+  "transparent": false,
+  "alpha": null,
+  "chroma": null,
+  "extra": {
+    "inline_results": 1,
+    "rollout_cleaned": true,
+    "transparent_background_reported": null
+  },
+  "provider_resolved_from": "explicit"
+}

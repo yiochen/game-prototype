@@ -64,6 +64,15 @@ extends RefCounted
 ## strength (resistance drain multiplier), Collector reach (pickup attraction
 ## radius), shield-pickup duration, passage ride length and a launch shield.
 ## Encounters never scale with equipment.
+## Issue #76: a third species, the Boulderhead Parrotfish. Its creature chunks
+## are reef: brittle reef ('b') round bedrock. To the route reef is water; to
+## travel it is rock until something breaks it (`solid_rows`). While hooked,
+## the parrotfish swims its chunk's line (one of the fair lines reef.gd keeps,
+## picked per dive) and rams it open: each breach row cracks for a moment, then
+## shatters as its nose arrives, losing collision at once. A ship that leaves
+## the breach shatters the reef it touches, at reef damage (hit protection
+## applies) and a short slowdown, with no knock-back. Bedrock stays rock.
+## If the parrotfish gets away before the hook, its lines are already open.
 ## Balance lives in res://content/expedition.json; routes in route.gd.
 const VERSION := 1
 const Route = preload("res://scripts/expedition/route.gd")
@@ -71,6 +80,7 @@ const FloorBook = preload("res://scripts/floor_book.gd")
 const RecipeBook = preload("res://scripts/recipe_book.gd")
 const Discharge = preload("res://scripts/expedition/discharge.gd")
 const Sight = preload("res://scripts/expedition/sight.gd")
+const Reef = preload("res://scripts/expedition/reef.gd")
 const WorkshopBook = preload("res://scripts/workshop_book.gd")
 const ShopBook = preload("res://scripts/shop_book.gd")
 const OUTCOMES := ["complete", "gave_up", "hull_depleted"]
@@ -81,6 +91,8 @@ static var _routes: Dictionary = {}
 static var _passages: Dictionary = {}
 static var _docs: Dictionary = {}
 static var _sight: Dictionary = {}
+static var _solid_key := ""
+static var _solid: Array = []
 
 ## A run's transient world in the state store. The ship's shield is a timed
 ## effect there, counted down by the engine; screens see it as `run.shield`.
@@ -124,7 +136,14 @@ static func library() -> Array:
 		var chunks: Array = []
 		for chunk in Route.load_chunks():
 			# A creature chunk joins only with an up-to-date, accepted discharge table.
-			if chunk.kind == "creature":
+			if chunk.kind == "creature" and str(species(str(chunk.creature)).attack) == "reef":
+				# Issue #76: a reef chunk joins only with an up-to-date, accepted table of fair lines.
+				var lines = _doc(str(chunk.id)).get("chunk", {}).get("reef")
+				var reef_problems := Reef.table_problems(chunk, lines, definition()) if Route.validate_chunk(chunk).is_empty() else []
+				if not reef_problems.is_empty():
+					push_warning("Expedition chunk %s left out: %s" % [chunk.id, "; ".join(reef_problems)]); continue
+				chunk.reef = {"lines": lines.lines.map(func(l): return l.map(func(v): return float(v)))}
+			elif chunk.kind == "creature":
 				var table = _doc(str(chunk.id)).get("chunk", {}).get("discharge")
 				var problems := Discharge.table_problems(chunk, table, definition()) if Route.validate_chunk(chunk).is_empty() else []
 				if not problems.is_empty():
@@ -214,7 +233,7 @@ static func route(seed_value: int, creature := "") -> Dictionary:
 		var by_id := {}
 		for c in library(): by_id[c.id] = c
 		for i in range(spans.size()):
-			if spans[i].kind == "creature": zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "strikes": by_id[spans[i].id].discharge.strikes})
+			if spans[i].kind == "creature" and by_id[spans[i].id].has("discharge"): zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "strikes": by_id[spans[i].id].discharge.strikes})
 		# Issue #70: where the Inkfin blacks out the sea. The ink lingers into the
 		# next chunk (`end`), but only when that chunk passes the sight check too.
 		var ink_zones: Array = []
@@ -225,6 +244,21 @@ static func route(seed_value: int, creature := "") -> Dictionary:
 			if not after.is_empty() and by_id.has(after.id) and ink_fair(by_id[after.id]):
 				linger = mini(int(definition().encounter.ink.linger_rows), int(after.y1) - int(after.y0) + 1)
 			ink_zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "end": int(spans[i].y0) - linger})
+		# Issue #76: reef chunks, each with the line picked for this dive, and every brittle cell.
+		var reef_zones: Array = []
+		var reef_cells := {}
+		for i in range(spans.size()):
+			if spans[i].kind != "creature" or not by_id[spans[i].id].has("reef"): continue
+			var chunk: Dictionary = by_id[spans[i].id]
+			var lines: Array = chunk.reef.lines
+			var span_rows := Reef.reef_rows(chunk.rows)
+			var pick := mini(lines.size() - 1, int(Route.cell_hash(seed_value, i, 76) * lines.size()))
+			reef_zones.append({"span": i, "id": spans[i].id, "y0": int(spans[i].y0), "y1": int(spans[i].y1), "top": int(spans[i].y0) + int(span_rows[0]),
+				"bottom": int(spans[i].y0) + int(span_rows[1]), "xs": lines[pick], "pick": pick})
+		for y in range(assembled.rows.size()):
+			var reef_row: String = assembled.rows[y]
+			for x in range(reef_row.length()):
+				if reef_row[x] == "b": reef_cells[y * Route.COLUMNS + x] = true
 		for i in range(spans.size()):
 			var span: Dictionary = spans[i]
 			if span.kind == "encounter": continue
@@ -242,6 +276,7 @@ static func route(seed_value: int, creature := "") -> Dictionary:
 						portals.append({"x": x + 0.5, "y": y + 0.5, "rejoin": Vector2(_centre_of(assembled.rows[row]), row + 0.5)})
 		_routes[cache_key] = {"rows": assembled.rows, "spans": spans, "pickups": pickups, "columns": Route.COLUMNS, "launch_top": launch_top,
 			"currents": currents, "shields": shields, "portals": portals, "encounter_edge": encounter_edge, "version": version, "zones": zones, "ink_zones": ink_zones, "creature": creature,
+			"reef_zones": reef_zones, "reef_cells": reef_cells,
 			"arena": arena, "encounter_start": (float(arena.y1) + 1.0 - float(definition().encounter.window_opens_rows_into_arena)) if arena != null else null}
 	return _routes[cache_key]
 
@@ -400,7 +435,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			data.run = {"id": int(data.sequence), "seed": seed_value, "y": start_y, "x": start_x, "steer": 0.0, "vx": 0.0,
 				"hull": float(fitted.hull), "gear": fitted, "salvage": 0, "collected": [], "protection": 0.0, "paused": false, "elapsed": 0.0, "impacts": 0,
 				"route_version": int(definition().route_version), "shields_taken": [], "portals_used": [], "passage": null, "passage_pickups": 0,
-				"encounter": null, "creature": creature}
+				"encounter": null, "creature": creature, "reef_broken": [], "reef_slow": 0.0}
 			# Each run starts a fresh transient world.
 			store.drop_world(WORLD)
 			store.create_world(WORLD)
@@ -444,7 +479,7 @@ static func command(config: Dictionary, state: Dictionary, request: Dictionary, 
 			# Debug: skip ahead to the entry of the next creature chunk while hooked.
 			if run == null or run.paused or not _hooked(run): return {"ok": false, "reason": "not_hooked"}
 			var done: Array = run.encounter.get("inked", [])
-			var ahead: Array = (run_route(run).zones + run_route(run).ink_zones).filter(func(z): return float(z.y0) < float(run.y) - 1.0 and not int(z.y0) in done)
+			var ahead: Array = (run_route(run).zones + run_route(run).ink_zones + run_route(run).reef_zones).filter(func(z): return float(z.y0) < float(run.y) - 1.0 and not int(z.y0) in done)
 			if ahead.is_empty(): return {"ok": false, "reason": "no_zone_ahead"}
 			var zone: Dictionary = ahead.reduce(func(a, b): return a if int(a.y0) > int(b.y0) else b)
 			var rows: Array = run_route(run).rows
@@ -527,7 +562,8 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 			continue
 		if _encounter_step(run, path, dt, events, store): continue
 		var shielded := shield(store) > 0.0
-		run.y = float(run.y) - float(rules.forward_rows_per_second) * pursuit_speed(run) * dt
+		run.reef_slow = maxf(0.0, float(run.get("reef_slow", 0.0)) - dt)
+		run.y = float(run.y) - float(rules.forward_rows_per_second) * pursuit_speed(run) * reef_slowdown(run) * dt
 		if shielded:
 			store.tick_effects(WORLD, dt)
 			# The shield always ends before the encounter.
@@ -566,10 +602,13 @@ static func _advance(config: Dictionary, state: Dictionary, elapsed: float, now:
 				run.passage = {"portal": i, "y": start_y, "x": passage_centre(info, start_y), "collected": []}
 				events.append({"type": "passage_enter", "portal": i, "from_x": portal.x, "from_y": portal.y, "x": run.passage.x, "y": start_y})
 				return events
-		if _collides(path.rows, float(run.x), float(run.y), reach):
+		_reef_step(run, path, events)
+		if not path.reef_cells.is_empty() and _collides(solid_rows(run), float(run.x), float(run.y), reach):
+			if _reef_crash(config, state, run, path, events, now): return events
+		if _collides(solid_rows(run), float(run.x), float(run.y), reach):
 			# Rock is solid, shield or not: the ship is knocked back to the closest clear water.
 			var from := Vector2(float(run.x), float(run.y))
-			var to := _nearest_clear(path.rows, from, reach + float(rules.knockback_clearance))
+			var to := _nearest_clear(solid_rows(run), from, reach + float(rules.knockback_clearance))
 			run.x = to.x; run.y = to.y
 			# Only a sideways knock against the ship's motion stops it: pressed into a
 			# wall ahead, steering keeps its speed and slides along, even against a current.
@@ -653,7 +692,10 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 		var weave := Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
 		var strike = encounter.get("discharge")
 		var goal := float(strike.x0) + float(strike.w) / 2.0 if strike is Dictionary else weave
-		encounter.x = move_toward(float(encounter.x), goal, float(rules.discharge.glide_columns_per_second) * dt)
+		# Issue #76: in reef the parrotfish holds its line.
+		var line = reef_line_x(run, path)
+		if line != null: goal = float(line)
+		encounter.x = move_toward(float(encounter.x), goal, float(rules.discharge.glide_columns_per_second) * (3.0 if line != null else 1.0) * dt)
 		return false
 	if encounter.state == "aiming": encounter.x = Route.COLUMNS / 2.0 + float(rules.weave_columns) * sin(TAU * float(encounter.t) / float(rules.weave_period_seconds))
 	encounter.cooldown = maxf(0.0, float(encounter.cooldown) - dt)
@@ -685,6 +727,8 @@ static func _encounter_step(run: Dictionary, path: Dictionary, dt: float, events
 	if encounter.state == "aiming" and float(encounter.t) >= float(rules.window_seconds) and encounter.harpoon == null:
 		encounter.state = "escaped"; encounter.escaped_at = float(encounter.t)
 		events.append({"type": "creature_escaped"})
+		# It fled through its reef: every line is already open.
+		_reef_open_all(run, path)
 	return false
 
 # ------------------------------------------------------------ discharge (#25)
@@ -790,6 +834,142 @@ static func ink_cover(run: Dictionary) -> float:
 		"hold": return 1.0
 		"lift": return float(ink.get("from", 1.0)) * clampf(1.0 - float(ink.t) / float(k.lift_seconds), 0.0, 1.0)
 	return 0.0
+
+# ------------------------------------------------------------ reef (#76)
+
+## Travel rows: intact brittle reef is rock, broken reef is water. Cached for
+## the latest break state (broken cells only ever grow within a run).
+static func solid_rows(run: Dictionary) -> Array:
+	var path := run_route(run)
+	if path.reef_cells.is_empty(): return path.rows
+	var broken: Array = run.get("reef_broken", [])
+	var cache_key := "%d:%d:%s:%d" % [int(run.get("id", 0)), int(run.seed), creature_of(run), broken.size()]
+	if cache_key != _solid_key:
+		var rows: Array = path.rows.map(func(r): return str(r).replace("b", "#"))
+		for cell in broken:
+			var y := int(cell) / Route.COLUMNS
+			var x := int(cell) % Route.COLUMNS
+			rows[y] = str(rows[y]).substr(0, x) + "." + str(rows[y]).substr(x + 1)
+		_solid_key = cache_key; _solid = rows
+	return _solid
+
+## Whether reef cell (x, y) still stands.
+static func reef_intact(run: Dictionary, x: int, y: int) -> bool:
+	var cell := y * Route.COLUMNS + x
+	return x >= 0 and x < Route.COLUMNS and run_route(run).reef_cells.has(cell) and not cell in run.get("reef_broken", [])
+
+## Travel speed factor after ramming reef: eases back from the slowdown.
+static func reef_slowdown(run: Dictionary) -> float:
+	var r: Dictionary = definition().encounter.reef
+	var left := float(run.get("reef_slow", 0.0))
+	if left <= 0.0: return 1.0
+	return float(r.slow_multiplier) + (1.0 - float(r.slow_multiplier)) * pow(1.0 - left / float(r.slow_seconds), 2.0)
+
+## The reef zone a route row lies in, or null.
+static func reef_zone_at(path: Dictionary, y: float) -> Variant:
+	for zone in path.get("reef_zones", []):
+		if y >= float(zone.y0) and y < float(zone.y1) + 1.0: return zone
+	return null
+
+## Where the hooked parrotfish's nose is (route row).
+static func reef_nose(run: Dictionary) -> float:
+	return creature_centre(run).y - float(species(creature_of(run)).get("nose_rows", 1.0))
+
+## The line's column under the parrotfish's body (head and tail averaged) while
+## hooked inside a reef zone, or null elsewhere.
+static func reef_line_x(run: Dictionary, path: Dictionary) -> Variant:
+	if path.get("reef_zones", []).is_empty() or not _hooked(run): return null
+	var nose := reef_nose(run)
+	var head = _line_at(path, nose)
+	if head == null: return null
+	var back = _line_at(path, nose + 2.0 * float(species(creature_of(run)).get("nose_rows", 1.0)))
+	return (float(head) + float(back if back != null else head)) / 2.0
+
+static func _line_at(path: Dictionary, y: float) -> Variant:
+	var zone = reef_zone_at(path, y)
+	if zone == null: return null
+	return Reef.line_at(zone.xs, int(zone.bottom) - int(zone.y0), y - float(zone.y0))
+
+## Crack strength (0..1) per standing breach cell the nose is about to reach,
+## keyed by cell index; cracks show for `crack_seconds` before the smash.
+static func reef_cracks(run: Dictionary) -> Dictionary:
+	var out := {}
+	var path := run_route(run)
+	if path.get("reef_zones", []).is_empty() or not _hooked(run): return out
+	var r: Dictionary = definition().encounter.reef
+	var lead := float(r.crack_seconds) * float(definition().forward_rows_per_second) * float(definition().encounter.pursuit_speed_multiplier)
+	if lead <= 0.0: return out
+	var nose := reef_nose(run)
+	for zone in path.reef_zones:
+		if nose > float(zone.bottom) + 1.0 + lead or nose < float(zone.top): continue
+		for y in range(int(zone.bottom), int(zone.top) - 1, -1):
+			var k := clampf(1.0 - (nose - (y + 1.0)) / lead, 0.0, 1.0)
+			if k <= 0.0: break
+			for x in Reef.breach_cells(float(zone.xs[int(zone.bottom) - y]), float(r.breach_columns)):
+				if reef_intact(run, x, y): out[y * Route.COLUMNS + x] = k
+	return out
+
+## Break reef cells ([{x, y}]); returns those that were still standing.
+static func _reef_break(run: Dictionary, cells: Array) -> Array:
+	var path := run_route(run)
+	var broken: Array = run.reef_broken
+	var out: Array = []
+	for c in cells:
+		var cell := int(c.y) * Route.COLUMNS + int(c.x)
+		if path.reef_cells.has(cell) and not cell in broken: broken.append(cell); out.append(c)
+	return out
+
+## The hooked parrotfish rams every breach row its nose has reached.
+static func _reef_step(run: Dictionary, path: Dictionary, events: Array) -> void:
+	if path.get("reef_zones", []).is_empty() or not _hooked(run): return
+	var width := float(definition().encounter.reef.breach_columns)
+	var nose := reef_nose(run)
+	for zone in path.reef_zones:
+		if nose > float(zone.bottom) + 1.0: continue
+		for y in range(int(zone.bottom), int(zone.top) - 1, -1):
+			if nose > y + 1.0: break
+			var cells: Array = Reef.breach_cells(float(zone.xs[int(zone.bottom) - y]), width).map(func(x): return {"x": x, "y": y})
+			var broke := _reef_break(run, cells)
+			if broke.is_empty(): continue
+			# The first wall of each reef chunk gets the big entrance; the run's first also gets the banner.
+			var first := y == int(zone.bottom)
+			events.append({"type": "reef_smash", "y": y, "cells": broke, "first": first,
+				"banner": first and int(zone.span) == int(path.reef_zones[0].span)})
+
+## The hull shatters any standing reef it touches: reef damage once per hit
+## protection and a short slowdown, no knock-back. Returns true when it ended the run.
+static func _reef_crash(config: Dictionary, state: Dictionary, run: Dictionary, path: Dictionary, events: Array, now: float) -> bool:
+	var rules := definition()
+	var r: Dictionary = rules.encounter.reef
+	var reach := float(rules.ship_radius)
+	var rows := solid_rows(run)
+	var near: Array = []
+	var p := Vector2(float(run.x), float(run.y))
+	for cy in range(int(floor(p.y - 1.5)), int(floor(p.y + 1.5)) + 1):
+		for cx in range(int(floor(p.x - 1.5)), int(floor(p.x + 1.5)) + 1):
+			if reef_intact(run, cx, cy) and _rock_distance(rows, cx, cy, p) < reach + 0.04: near.append({"x": cx, "y": cy})
+	if near.is_empty(): return false
+	near = _reef_break(run, near)
+	run.reef_slow = float(r.slow_seconds)
+	var hurt := float(run.protection) <= 0.0 and float(r.damage) > 0.0
+	if hurt:
+		run.hull = maxf(0.0, float(run.hull) - float(r.damage))
+		run.protection = float(rules.hit_protection_seconds)
+		run.impacts = int(run.impacts) + 1
+	events.append({"type": "reef_crash", "cells": near, "hurt": hurt, "x": run.x, "y": run.y, "hull": run.hull, "damage": float(r.damage) if hurt else 0.0})
+	if hurt and float(run.hull) <= 0.0:
+		var lost := {"id": creature_of(run), "outcome": "escaped"} if _hooked(run) else {}
+		if not lost.is_empty(): events.append({"type": "creature_lost"})
+		events.append({"type": "ended", "result": _end(config, state, "hull_depleted", now, lost)})
+		return true
+	return false
+
+## Every line already open (the parrotfish got away through its reef).
+static func _reef_open_all(run: Dictionary, path: Dictionary) -> void:
+	var width := float(definition().encounter.reef.breach_columns)
+	for zone in path.get("reef_zones", []):
+		for y in range(int(zone.bottom), int(zone.top) - 1, -1):
+			_reef_break(run, Reef.breach_cells(float(zone.xs[int(zone.bottom) - y]), width).map(func(x): return {"x": x, "y": y}))
 
 ## Creature body centre on the route: ahead of the ship by the lead (arriving
 ## from further north as the window opens), at its weaving column.
@@ -933,6 +1113,7 @@ static func valid(state: Dictionary) -> bool:
 		if run.has("creature") and (not run.creature is String or not definition().encounter.creatures.has(run.creature)): return false
 		if not _features_valid(run): return false
 		if not _encounter_valid(run): return false
+		if not _reef_valid(run): return false
 		var pickups: int = run_route(run).pickups.size()
 		var seen := {}
 		for index in run.collected:
@@ -971,6 +1152,8 @@ static func normalize(state: Dictionary) -> void:
 			run.passage.portal = int(run.passage.portal); run.passage.y = float(run.passage.y); run.passage.x = float(run.passage.x)
 			run.passage.collected = run.passage.collected.map(func(i): return int(i))
 		else: run.passage = null
+		run.reef_broken = run.get("reef_broken", []).map(func(i): return int(i))
+		run.reef_slow = float(run.get("reef_slow", 0.0))
 		var encounter = run.get("encounter")
 		if encounter is Dictionary:
 			encounter.shots = int(encounter.shots); encounter.t = float(encounter.t); encounter.cooldown = float(encounter.cooldown); encounter.x = float(encounter.x)
@@ -1048,6 +1231,14 @@ static func _encounter_valid(run: Dictionary) -> bool:
 		if not _discharge_valid(run, encounter): return false
 		if not _ink_valid(run, encounter): return false
 	return true
+
+## Issue #76 reef fields: broken cells are reef cells, each once.
+static func _reef_valid(run: Dictionary) -> bool:
+	var cells: Dictionary = run_route(run).reef_cells
+	if not _unique_indices(run.get("reef_broken", []), MAX_INTEGER): return false
+	if run.get("reef_broken", []).any(func(c): return not cells.has(int(c))): return false
+	var slow = run.get("reef_slow", 0.0)
+	return _finite(slow) and float(slow) >= 0.0 and float(slow) <= float(definition().encounter.reef.slow_seconds) + 0.001
 
 ## Issue #70 ink fields on a hooked encounter.
 static func _ink_valid(run: Dictionary, encounter: Dictionary) -> bool:

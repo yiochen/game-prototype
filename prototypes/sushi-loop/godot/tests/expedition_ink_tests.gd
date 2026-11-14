@@ -83,25 +83,26 @@ func run() -> void:
 	var k: Dictionary = rules.encounter.ink
 
 	# --- species
-	check(Book.creatures() == ["storm-eel", INKFIN] and str(Book.species(INKFIN).recipe) == "ika_nigiri", "the catalog lists the eel and the Inkfin with its recipe")
+	check(Book.creatures() == ["storm-eel", INKFIN, "boulderhead-parrotfish"] and str(Book.species(INKFIN).recipe) == "ika_nigiri", "the catalog lists the eel, the Inkfin with its recipe and the parrotfish")
 	var fresh = Session.new_session(7)
 	var seen := {}
 	for i in range(40):
 		fresh._state.expedition.sequence = i
 		seen[Book.next_creature(fresh._state)] = true
-	check(seen.size() == 2, "with nothing caught, dives meet either species")
+	check(seen.size() == 3, "with nothing caught, dives meet any species")
 	fresh._state.recipe_book.discovered.append("eel_roll")
+	fresh._state.recipe_book.discovered.append("budai_sashimi")
 	var only := true
 	for i in range(40):
 		fresh._state.expedition.sequence = i
 		if Book.next_creature(fresh._state) != INKFIN: only = false
-	check(only, "once the eel is caught, dives meet the uncaught Inkfin")
+	check(only, "once the others are caught, dives meet the uncaught Inkfin")
 	fresh._state.recipe_book.discovered.append("ika_nigiri")
 	seen = {}
 	for i in range(40):
 		fresh._state.expedition.sequence = i
 		seen[Book.next_creature(fresh._state)] = true
-	check(seen.size() == 2, "with both caught, either species returns")
+	check(seen.size() == 3, "with all caught, any species returns")
 	var plain = Session.new_session(7)
 	plain.command({"type": "expedition_start", "now": 1000.0, "seed": SEED})
 	check(Book.creature_of(live(plain)) == "storm-eel", "a chosen seed without a species meets the Storm Eel")

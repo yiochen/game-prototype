@@ -1,6 +1,11 @@
-"""Boulderhead Parrotfish (issue #76 concept, low-poly). Run in Blender with ASSETS set
-to this assets folder. A deep-bodied teal parrotfish swimming north, with a heavy
-pale boulder of a forehead, a cream beak, checkered scales and pink fins."""
+"""Boulderhead Parrotfish (issue #76, low-poly) — model and rig. Run in Blender with
+ASSETS set to this assets folder, then build_actions.py, then export.py. A deep-bodied
+teal parrotfish swimming north, with a heavy pale boulder of a forehead, a cream beak,
+checkered scales and pink fins.
+
+Rig: a spine chain from the head back to the tail fin, so yawing each joint bends the
+body in a wave, plus a bone per pectoral fin. Every bone points +Y with roll 0, so
+bone-local axes equal world axes: X pitch (+ = north end up), Y roll, Z yaw."""
 exec(open(ASSETS + "/creature-kit/kit.py").read())
 reset()
 palette("parrot", {
@@ -34,4 +39,56 @@ for side in (-1, 1):
     eye((side * 0.6, 1.5, ZC + 0.12), 0.13, (side * 0.9, 0.15, 0.35))
     plate([(side * 0.7, 0.95, ZC - 0.05), (side * 1.3, 0.7, ZC + 0.22), (side * 1.4, 0.25, ZC + 0.2), (side * 1.2, -0.05, ZC + 0.1), (side * 0.72, 0.4, ZC - 0.1)], 0.05, "pec", name="pectoral")
     plate([(side * 0.3, -0.2, ZC - 0.7), (side * 0.55, -0.7, ZC - 0.95), (side * 0.25, -0.75, ZC - 0.7)], 0.05, "fin", name="pelvic")
-finish("boulderhead_parrotfish", ASSETS + "/creature-boulderhead-parrotfish")
+
+# ---------------------------------------------------------------- rig
+# Spine joints from the head back; a vertex blends between the two joints around its Y.
+SPINE = [(1.0, "head"), (0.35, "spine_0"), (-0.45, "spine_1"), (-1.15, "spine_2"), (-1.85, "tail")]
+def spine_weights(y):
+    if y >= SPINE[0][0]: return {SPINE[0][1]: 1.0}
+    for (ya, a), (yb, b) in zip(SPINE, SPINE[1:]):
+        if y >= yb:
+            k = (ya - y) / (ya - yb)
+            return {a: 1.0 - k, b: k}
+    return {SPINE[-1][1]: 1.0}
+for ob in PARTS:
+    for v in ob.data.vertices:
+        co = v.co
+        if ob.name.startswith("pectoral"):
+            w = {"pec.L" if co.x < 0 else "pec.R": 1.0}
+        elif ob.name.startswith("tail"):
+            w = {"tail": 1.0}
+        else:
+            w = spine_weights(co.y)
+        for g, val in w.items():
+            if val <= 0: continue
+            vg = ob.vertex_groups.get(g) or ob.vertex_groups.new(name=g)
+            vg.add([v.index], val, "REPLACE")
+bpy.ops.object.select_all(action="DESELECT")
+for ob in PARTS: ob.select_set(True)
+bpy.context.view_layer.objects.active = PARTS[0]
+bpy.ops.object.join()
+fish = PARTS[0]
+fish.name = fish.data.name = "boulderhead_parrotfish"
+
+arm = bpy.data.armatures.new("parrot_rig")
+rig = bpy.data.objects.new("parrot_rig", arm)
+bpy.context.scene.collection.objects.link(rig)
+bpy.context.view_layer.objects.active = rig
+bpy.ops.object.mode_set(mode="EDIT")
+def bone(name, head, parent=None, deform=True, length=0.3):
+    b = arm.edit_bones.new(name); b.head = head; b.tail = (head[0], head[1] + length, head[2]); b.roll = 0
+    b.use_deform = deform
+    if parent: b.parent = arm.edit_bones[parent]
+bone("root", (0, 0, 0), deform=False, length=0.6)
+bone("body", (0, 0.35, ZC), "root", deform=False, length=0.5)     # whole-animal motion
+bone("spine_0", (0, 0.35, ZC), "body")                             # the trunk; head and tail hang off it
+bone("head", (0, 1.0, ZC), "spine_0")
+bone("spine_1", (0, -0.45, ZC), "spine_0")
+bone("spine_2", (0, -1.15, ZC), "spine_1")
+bone("tail", (0, -1.85, ZC), "spine_2")
+for side, name in ((-1, "L"), (1, "R")):
+    bone(f"pec.{name}", (side * 0.72, 0.62, ZC), "spine_0", length=0.25)
+bpy.ops.object.mode_set(mode="OBJECT")
+fish.parent = rig
+fish.modifiers.new("rig", "ARMATURE").object = rig
+print("built", len(fish.data.vertices), "verts", len(fish.data.polygons), "faces", len(arm.bones), "bones")
