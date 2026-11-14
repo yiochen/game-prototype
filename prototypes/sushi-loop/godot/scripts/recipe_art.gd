@@ -69,7 +69,7 @@ static func _draw_cell(canvas: CanvasItem, image: Texture2D, index: int, target:
 	canvas.draw_texture_rect_region(image, target, layer.region, tint)
 
 static func _cell_layer(image: Texture2D, index: int, target: Rect2) -> Dictionary:
-	var cell := image.get_size() / Vector2(3, 2)
+	var cell := Vector2.ONE * image.get_width() / 3.0  # square cells, three per row
 	return {"texture": image, "source_path": image.resource_path, "region": Rect2(Vector2(index % 3, index / 3) * cell, cell), "rect": target}
 
 static func draw_assigned_stamp(canvas: CanvasItem, target: Rect2) -> void:

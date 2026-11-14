@@ -27,6 +27,11 @@ const SPECIES := {
 	"inkfin-cuttlefish": {"model": "res://assets/expedition/creature/inkfin-cuttlefish.glb", "icon": "res://assets/expedition/creature/inkfin-icon.svg", "spot": "inkfin_spot",
 		"bones": ["mantle_tip", "mantle", "head"],
 		"row_offset": 0.59, "front": "head", "centre": "mantle", "shadow": 1.9, "lift": 0.34},
+	# Issue #76: the parrotfish's rig bends its body and rows its fins; `turns` wraps it
+	# (centred on its footprint) so the code adds the ram lunge and the turn along its line.
+	"boulderhead-parrotfish": {"model": "res://assets/expedition/creature/boulderhead-parrotfish.glb", "icon": "res://assets/expedition/creature/parrot-icon.svg", "spot": "",
+		"bones": ["head", "spine_0", "spine_1", "spine_2", "tail"], "turns": true,
+		"row_offset": 0.98, "front": "head", "centre": "spine_0", "shadow": 1.6, "lift": 0.3},
 }
 const DEFAULT := "storm-eel"
 
@@ -44,6 +49,10 @@ var _bone_ids: Dictionary = {}
 var _scale := 1.0
 var species := ""
 var profile: Dictionary = {}
+## Turning models: the node the code motion moves, the lunge (1 on a ram) and the heading along its line.
+var body: Node3D
+var lunge := 0.0
+var heading := 0.0
 
 func _init(host: Node) -> void:
 	viewport = SubViewport.new()
@@ -83,7 +92,18 @@ func use(id: String) -> void:
 	species = id; profile = SPECIES[id]
 	if model != null: viewport.remove_child(model); model.queue_free()
 	spot_materials.clear(); body_materials.clear(); _bone_ids.clear(); clip = ""
-	model = (load(str(profile.model)) as PackedScene).instantiate()
+	var scene := (load(str(profile.model)) as PackedScene).instantiate()
+	body = null; skeleton = null
+	if profile.get("turns", false):
+		# Wrap it: model (pose) > body (code motion) > the scene, centred on its footprint.
+		model = Node3D.new(); body = Node3D.new(); model.add_child(body); body.add_child(scene)
+		var box := AABB()
+		for mesh in scene.find_children("*", "MeshInstance3D", true, false):
+			var b: AABB = (mesh as MeshInstance3D).global_transform * (mesh as MeshInstance3D).get_aabb() if mesh.is_inside_tree() else (mesh as MeshInstance3D).get_aabb()
+			box = b if box.size == Vector3.ZERO else box.merge(b)
+		scene.position = -Vector3(box.get_center().x, box.position.y, box.get_center().z)
+	else:
+		model = scene
 	viewport.add_child(model)
 	player = model.find_child("AnimationPlayer", true, false)
 	player.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
@@ -150,10 +170,17 @@ func frame(delta: float, root: Vector2, view_size: Vector2, cell: float, physica
 	camera.position = back * 30.0 - Vector3.RIGHT * offset.x + up * offset.y
 	player.advance(delta)
 	clip_time += delta
+	if body != null: _turn(delta)
 	flash = maxf(0.0, flash - delta)
 	var glow := _glow()
 	for material in spot_materials: material.emission_energy_multiplier = glow
 	for material in body_materials: material.emission_energy_multiplier = 0.04 if flash > 0.0 else 0.0
+
+## Code motion for a turning model: a head-down lunge on each ram and a turn along its heading.
+func _turn(delta: float) -> void:
+	lunge = maxf(0.0, lunge - delta * 5.0)
+	body.rotation = Vector3(0.12 * lunge, heading, 0.0)
+	body.position = Vector3(0.0, 0.0, -0.35 * lunge)
 
 ## Catch cutscene pose: grown and turned about its ground root (1, 0 at rest).
 func pose(scale_value: float, yaw: float) -> void:

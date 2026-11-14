@@ -1,0 +1,91 @@
+{
+ "round": 2,
+ "verdict": "revise",
+ "reviewSequence": 2,
+ "submissionType": "art-change",
+ "candidatePacketSHA256": "5208a3690283b9442f4fa411d9a574cdade14eb30fa80b137d2b743cc4d85160",
+ "criteria": "brief.qualityCriteria frozen (criteria sha256 5f6410ce...a59c matches packet)",
+ "inspectedFiles": [
+  "candidates/round-02/assembly.png (full, two native crops, 360 px phone strip beside original, round-01 and target)",
+  "candidates/round-02/seam-stress-2x.png (full plus 2x crop of the mask-15 3x3 and the L group)",
+  "candidates/round-02/seam-stress-native.png (hash verified; content via 2x sibling)",
+  "candidates/round-02/native/reef-03-a.png vs source/round-01/baseline/reef-03-a/static-S.png, colour side by side and alpha difference (worst sideExtentShift piece)",
+  "All 50 native + sprite hashes, previews and file entries re-hashed: 62 checked, 0 mismatches; other pieces through the contact sheets"
+ ],
+ "scores": {
+  "shapeVolume": {
+   "round01": 7,
+   "candidate": 8,
+   "note": "Square non-exposed corners close the junction notches; cells read as one mass; chips on groove-side corners read as wear without touching the outline."
+  },
+  "color": {
+   "round01": 8,
+   "candidate": 7,
+   "note": "Tops unchanged and good. Regression: several front faces are now a desaturated grey-mauve tan beside warm ochre neighbours (blocker 1)."
+  },
+  "lightingHighlights": {
+   "round01": 6,
+   "candidate": 8,
+   "note": "Smear fixed: crisp warm chamfer, clean break to the front."
+  },
+  "materialDetail": {
+   "round01": 5,
+   "candidate": 6,
+   "note": "Cracks now carved with a pale lip and visible at phone size; chips present. But one short two-stroke motif repeats everywhere and reads as scratches; stepped strata are thin lines that fade at phone size."
+  },
+  "artifactFreeReadability": {
+   "round01": 6,
+   "candidate": 7,
+   "note": "Round-01 smudges and blurred groove V-wedges gone; no halos, no cast shadow on the transparent ground. Grey front patches are the remaining visual defect."
+  }
+ },
+ "observations": [
+  "Round-01 blocker 2 resolved: front faces are clean, chamfer-to-front transition crisp, front grooves read as thin dark lines.",
+  "Round-01 blocker 1 partly resolved: cracks are deeper with a lit lip and survive the downsample; chipped corners and groove-side nicks are visible at native and faintly at phone size; every pattern now has cracked slabs.",
+  "Tight corners (coordinator ruling): verified in pixels on reef-03-a and across the assembly. Non-exposed corners are now square (e.g. the NW corner of reef-03-a, N solid/W open), exposed 0.35 corners unchanged; alpha difference vs baseline is only those corners and the groove fill. Cell joins meet flush with no seabed notch. validation: tightCornerOutsideBox 0, chip bite 0.027 and nick bite 0.028 <= 0.03. Accepted.",
+  "Soft shadows: no shadow reaches the transparent ground; sprite edges clean on the seabed. But inside cells, fronts of some slabs (typically ones next to a taller/forward in-cell neighbour) turn noticeably greyer and desaturated, e.g. in the mask-15 3x3 of seam-stress-2x the top-right cell's left front, the middle-left cell's left front and the bottom-row second cell's left front. Because shadows are cast only by slabs in the same piece, the same situation across a cell seam gets no shadow, so this darkening is inherently not seam-consistent even if it is not visible as a hard step yet.",
+  "Seams otherwise continue to pass: tops, chamfers and strata heights match across every flush cell edge in assembly and stress sheet.",
+  "Crack motif: nearly every cracked slab shows the same short pair of strokes (a '\\' plus a '|', or a small Y). Seen over the 6x6 patch it reads as stamped claw scratches rather than limestone fracture; the target's cracks are longer, branching, irregular hairlines that sometimes reach an edge.",
+  "Strata changed from soft bands to thin stepped lines: cleaner at 2x but at 360 px the fronts read as plain tan; round 01's bands carried more stone identity at phone size.",
+  "Rubble unchanged and fine."
+ ],
+ "blockers": [
+  {
+   "rank": 1,
+   "category": "visual",
+   "location": "front (south) faces of slabs beside a taller or forward in-cell neighbour, across many masks (see mask-15 3x3 in seam-stress-2x)",
+   "effect": "Grey-mauve, desaturated front patches read as a different dirty material and break the warm tan front (criterion 1); because they come from in-piece shadows they are not seam-consistent across cell edges (criterion 2).",
+   "desired": "All fronts in the same warm tan family with only gentle per-slab variation. Either restrict soft shadows so they do not darken neighbouring slab fronts (e.g. contact shadow/occlusion only in the narrow groove), or make any darkening warm and symmetric so a slab looks the same whether its neighbour is in the same cell or across a seam."
+  },
+  {
+   "rank": 2,
+   "category": "visual",
+   "location": "crack decals/geometry on slab tops, all patterns",
+   "effect": "One repeated two-stroke motif reads as scratches/claw marks and as a stamp across the patch, undermining the 'cracked limestone' read (criterion 3).",
+   "desired": "Varied cracks: longer irregular hairlines with one or two short branches, differing in length/angle per slab, some running to a chamfer or groove edge; keep the current carved dark core and pale lip, density about a third to half of slabs, and keep them inside a slab."
+  },
+  {
+   "rank": 3,
+   "category": "visual",
+   "location": "front faces, strata",
+   "effect": "Thin stepped strata lines vanish at phone size, so the front faces lose the banded-stone identity the target shows.",
+   "desired": "Keep the clean stepped edges but add a gentle tonal difference between bands (alternating slightly lighter/darker warm tan) so 2-4 bands remain visible at 360 px, aligned in world Z as now."
+  }
+ ],
+ "remainingDifferences": [
+  "Target's large wedge chips cutting the front outline intentionally not reproduced.",
+  "Target is more painterly; native calm planes accepted.",
+  "Same slab/crack layout repeats per pattern across masks; inherent in the approved pattern scheme, not a blocker."
+ ],
+ "technicalEvidence": {
+  "checks": [
+   "packet.json sha256 = 5208a369...85160 (matches coordinator).",
+   "62 hashed entries re-verified, 0 mismatches; 50 views present.",
+   "Camera matrix, ortho scale, shift and root px identical to source; nine lights same positions/energies/sizes/colours; soft shadows added on all alike; no external images.",
+   "Repeatability: unchanged piece pixel-identical (tolerance 0).",
+   "Geometry: ground rings on original outline away from tight corners; tight corners inside the slab box; chip 0.027 and nick 0.028 within 0.03; rubble unchanged. topHeightDelta 0.0082 is the removed original top jitter (as round 01), within the +/-12% height band.",
+   "Alpha: worst IoU 0.9938; reef-03-a sideExtentShift 36 px inspected via alpha difference: caused by the filled groove and square non-exposed corners, not by any exposed face. Accepted."
+  ],
+  "limits": "Did not open the .blend or re-render; not every one of the 50 sprites viewed individually outside the contact sheets."
+ }
+}

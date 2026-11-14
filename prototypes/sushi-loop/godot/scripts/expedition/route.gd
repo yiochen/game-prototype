@@ -27,6 +27,8 @@ const KINDS := ["launch", "start", "normal", "rest", "fork", "finish", "current"
 const DEFAULT_PLAN := ["launch", "launch", "start", 1.5, 2.0, "rest", 2.5, "fork", 3.0, 3.5, "rest", "fork", 4.0, "finish"]
 const MASK := 0xFFFFFFFF
 const DIRS := ["N", "E", "S", "W"]
+## Issue #76: the map object for brittle reef ('b' in chunk rows).
+const REEF_BRITTLE := "reef-brittle"
 const GROWTH := {"decor-kelp": "k", "decor-foreground-coral": "c", "decor-midground-coral": "m"}
 
 # ------------------------------------------------------------ 32-bit integer math
@@ -190,7 +192,9 @@ static func chunk_from_map(doc: Dictionary, id: String) -> Dictionary:
 		var row := ""
 		for x in range(columns):
 			var key := _key(x, y)
-			if rock.has(key): row += GROWTH.get(decor.get(key, ""), "#")
+			# Issue #76 brittle reef: water to the route, rock to travel until it breaks.
+			if rock.get(key) == REEF_BRITTLE: row += "b"
+			elif rock.has(key): row += GROWTH.get(decor.get(key, ""), "#")
 			elif gold.has(key): row += "$"
 			elif decor.has(key): row += ","
 			else: row += "."

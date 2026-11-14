@@ -18,7 +18,8 @@ func _init() -> void:
 		var path := Route.CHUNK_DIR.path_join(file)
 		var doc: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
 		var chunk := Route.chunk_from_map(doc, file.get_basename())
-		if chunk.kind != "creature": continue
+		# Reef chunks (#76) keep fair lines instead: tools/reef_tables.gd.
+		if chunk.kind != "creature" or str(Book.species(str(chunk.creature)).attack) != "discharge": continue
 		var problems := Route.validate_chunk(chunk)
 		if not problems.is_empty():
 			printerr("%s: %s" % [chunk.id, "; ".join(problems)]); stale += 1; continue

@@ -248,7 +248,13 @@ UNPACKED_TREE_BUDGETS = {
     # Expedition pieces use their own loader and pieces.json, not ArtBook,
     # so the sprite packer does not cover them yet.
     "assets/expedition/pieces": 130.0,
+    # Issue #76 reef: 48 static pieces (crops at 256 px per cell) and 48 nine-frame
+    # crack/break sheets (192 px per cell). Cropped to the band they draw in.
+    "assets/expedition/reef": 45.0,
 }
+# Drawn at 1:1 on a phone (192 px per cell), so no mipmaps. VRAM compression
+# was tried for these and added 47 MB to the APK (both ETC2 and ASTC copies).
+UNMIPPED_TREES = ("assets/expedition/reef/break",)
 
 
 def image_size(path: Path) -> tuple[int, int]:
@@ -329,7 +335,7 @@ def optimize_runtime_art(source: Path, project: Path, godot: str, environment: d
         if image.suffix.lower() not in {".png", ".webp"}:
             continue
         relative = image.relative_to(project).as_posix()
-        mipmaps = "false" if relative.startswith(PACKED_SPRITE_TREES) else "true"
+        mipmaps = "false" if relative.startswith(PACKED_SPRITE_TREES + UNMIPPED_TREES) else "true"
         image.with_name(image.name + ".import").write_text(
             '[remap]\n\nimporter="texture"\ntype="CompressedTexture2D"\n\n[params]\n\n'
             f"compress/mode=1\ncompress/lossy_quality={LOSSY_QUALITY}\nmipmaps/generate={mipmaps}\n")

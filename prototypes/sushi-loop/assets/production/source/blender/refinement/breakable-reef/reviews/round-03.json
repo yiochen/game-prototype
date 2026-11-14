@@ -1,0 +1,124 @@
+{
+ "round": 3,
+ "verdict": "approve",
+ "reviewSequence": 3,
+ "submissionType": "art-change",
+ "candidatePacketSHA256": "a0e30d3f881b3df4a2bf4e851227daa015e8ccf6511759262a06c05371c425a5",
+ "criteria": "brief.qualityCriteria frozen (criteria sha256 5f6410ce...a59c matches packet)",
+ "inspectedFiles": [
+  "native/reef-00-a.png",
+  "native/reef-00-b.png",
+  "native/reef-00-c.png",
+  "native/reef-01-a.png",
+  "native/reef-01-b.png",
+  "native/reef-01-c.png",
+  "native/reef-02-a.png",
+  "native/reef-02-b.png",
+  "native/reef-02-c.png",
+  "native/reef-03-a.png",
+  "native/reef-03-b.png",
+  "native/reef-03-c.png",
+  "native/reef-04-a.png",
+  "native/reef-04-b.png",
+  "native/reef-04-c.png",
+  "native/reef-05-a.png",
+  "native/reef-05-b.png",
+  "native/reef-05-c.png",
+  "native/reef-06-a.png",
+  "native/reef-06-b.png",
+  "native/reef-06-c.png",
+  "native/reef-07-a.png",
+  "native/reef-07-b.png",
+  "native/reef-07-c.png",
+  "native/reef-08-a.png",
+  "native/reef-08-b.png",
+  "native/reef-08-c.png",
+  "native/reef-09-a.png",
+  "native/reef-09-b.png",
+  "native/reef-09-c.png",
+  "native/reef-10-a.png",
+  "native/reef-10-b.png",
+  "native/reef-10-c.png",
+  "native/reef-11-a.png",
+  "native/reef-11-b.png",
+  "native/reef-11-c.png",
+  "native/reef-12-a.png",
+  "native/reef-12-b.png",
+  "native/reef-12-c.png",
+  "native/reef-13-a.png",
+  "native/reef-13-b.png",
+  "native/reef-13-c.png",
+  "native/reef-14-a.png",
+  "native/reef-14-b.png",
+  "native/reef-14-c.png",
+  "native/reef-15-a.png",
+  "native/reef-15-b.png",
+  "native/reef-15-c.png",
+  "native/reef-rubble-a.png",
+  "native/reef-rubble-b.png",
+  "assembly.png",
+  "seam-stress-native.png",
+  "seam-stress-2x.png"
+ ],
+ "scores": {
+  "shapeVolume": {
+   "round02": 8,
+   "candidate": 8,
+   "note": "Unchanged geometry from round 02: locked outline, square non-exposed corners, chips within tolerance, solid cell masses."
+  },
+  "color": {
+   "round02": 7,
+   "candidate": 8,
+   "note": "Grey front patches gone. The previously cooler fronts now differ from neighbours by about (-3,+2,+6) RGB: read as gentle per-slab variation, all in the warm tan family."
+  },
+  "lightingHighlights": {
+   "round02": 8,
+   "candidate": 8,
+   "note": "Warm crisp chamfers, even symmetric light, no cast shadows; groove depth from the groove core reads well."
+  },
+  "materialDetail": {
+   "round02": 6,
+   "candidate": 7,
+   "note": "Wandering branched hairline cracks with dark core read as limestone fracture rather than scratches; alternating strata tones keep 2-4 bands visible at phone size; pores and chips present."
+  },
+  "artifactFreeReadability": {
+   "round02": 7,
+   "candidate": 8,
+   "note": "No smears, halos, black patches, triangulation lines or seabed slivers; clean alpha on dark and light."
+  }
+ },
+ "observations": [
+  "Round-02 blocker 1 resolved: with cast shadows off, fronts are uniformly warm; colour sampling of the three formerly grey fronts in the mask-15 3x3 shows only a small per-slab offset, and the variation now comes from per-slab material, so it is mask-independent and seam-safe.",
+  "Round-02 blocker 2 resolved: cracks are longer, irregular, branched hairlines, some reaching a groove edge. Per the coordinator's ruling they repeat per pattern; in the 6x6 assembly the repetition is noticeable only on close inspection at native size (the hook-shaped crack on thin top slabs recurs), and at phone size the cracks read as scattered fracture marks, not a stamp. Not blocking.",
+  "Round-02 blocker 3 resolved: alternating strata tones make the fronts read as banded stone at 360 px, aligned across seams.",
+  "Seams: tops, chamfers, strata heights and front tones continue across every flush cell edge in the assembly and stress sheet; no jumps.",
+  "Phone-size read: warm, pale limestone clearly distinct from blue bedrock and seabed, solid smashable cells, visible cracks and bands. Clear improvement over the original toward the target's material treatment.",
+  "Rubble crisp and low in the slab palette."
+ ],
+ "blockers": [],
+ "remainingDifferences": [
+  "Cracks are sparser and finer than the target's and repeat per pattern (accepted ruling).",
+  "Target's large wedge chips cutting the front outline intentionally not reproduced (locked footprint).",
+  "Target is more painterly with stronger per-slab tonal variety; native result is calmer, consistent with house style.",
+  "Removed original top-vertex jitter (topHeightDelta 0.0082) is a tiny geometry change within the locked height band; flagged since round 01 for coordinator/user awareness."
+ ],
+ "technicalEvidence": {
+  "checks": [
+   "packet.json sha256 = a0e30d3f...25a5 (matches coordinator); 62 hashed entries verified, 0 mismatches; 50 views.",
+   "Camera matrix delta 0, root px (384,1664) as expected; lights identical in position/energy/size/colour to round 02, cast shadows off on all; no external images.",
+   "Repeatability: unchanged piece pixel-identical, tolerance 0.",
+   "Geometry identical to round 02 (worst values unchanged): ground rings on outline away from tight corners, tight corners inside slab box, chip 0.027 / nick 0.028 <= 0.03, rubble vertices unchanged.",
+   "Alpha: worst IoU 0.9938, shifts explained by groove fill and square non-exposed corners, verified in round 02 and unchanged."
+  ],
+  "limits": "Did not open the .blend or re-render; runtime-consumer preview (real game view) not yet supplied, optional until final per brief. Approval binds this packet only and grants no publishing permission."
+ },
+ "inspectionNotes": [
+  "candidates/round-03/assembly.png (full, native crop, 360 px phone strip beside original, round-02 and target)",
+  "candidates/round-03/seam-stress-2x.png (mask-15 3x3 crop at 2x, plus sampled front colours vs round 02)",
+  "candidates/round-03/seam-stress-native.png (hash verified; content via 2x sibling)",
+  "candidates/round-03/sprites/reef-06-b and reef-00-c on near-black, reef-rubble-b on light grey (alpha edges)",
+  "All 50 native + sprite hashes, previews and file entries re-hashed: 62 checked, 0 mismatches; remaining pieces via contact sheets",
+  "Evidence correction (no art change): all 50 native renders inspected through reviews/round-03-native-contact-sheet.png, a judge-built 10x5 sheet in packet order (reef-00-a ... reef-15-c, reef-rubble-a, reef-rubble-b), each native composited on seabed blue and cropped to its content. No new defects: warm consistent fronts and tops, correct rounded exposed corners per mask, cracks/chips present, no black patches, smears or halos; rubble low and crisp. Verdict unchanged."
+ ],
+ "evidenceRevision": 1
+}
