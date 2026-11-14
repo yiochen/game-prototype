@@ -4,6 +4,8 @@ Interactive HTML prototype for discussing #76's mechanics before any art or Godo
 
 **Approved** (user, 2026-11-13) and implemented in Godot: see the #76 entry in `../../AGENTS.md`. The reef sounds now live in `godot/assets/audio/generate_audio.py`.
 
+**Approved** (2026-11-13) and in Godot: the parrotfish's rig and clips (user: the static model looked stiff) and the Budai sashimi dish (`dish/`, on the award card). Review the clips with the "Parrotfish clip" control; Auto plays them as the game will.
+
 ## Direction under review (user, 2026-11-12)
 
 - **Crash through.** Brittle reef shatters when the submarine hits it, at a hull cost and a short slowdown. The ship is never trapped, but the broken path is the cheap way through. Bedrock stays solid.

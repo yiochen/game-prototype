@@ -428,7 +428,7 @@ func _fill_award(caught: Dictionary) -> void:
 	var tier_at: int = maxi(0, catalog.tiers.find(tier))
 	var sheet := func(path: String, cell: int) -> AtlasTexture:
 		var tex: Texture2D = load(path)
-		var w := tex.get_width() / 3.0; var h := tex.get_height() / 2.0
+		var w := tex.get_width() / 3.0; var h := w  # square cells, three per row
 		var atlas := AtlasTexture.new(); atlas.atlas = tex; atlas.region = Rect2((cell % 3) * w, (cell / 3) * h, w, h)
 		return atlas
 	award.plate.texture = sheet.call("res://assets/ui/recipes/plates.png", tier_at)

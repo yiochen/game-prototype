@@ -16,8 +16,8 @@ import { REEF_CHUNKS, breachCells, fairLines, lineAt, reefRows } from './reef.js
      shatter: their collision goes the same frame. Debris is cosmetic. Broken reef stays open.
    - Crash-through: a ship that leaves the breach shatters the brittle reef it touches, at
      `reef_damage` hull (once per hit protection) and a brief slowdown. Bedrock is plain rock.
-   The parrotfish is the static concept GLB (assets/creature-boulderhead-parrotfish, no rig): swimming,
-   ramming and the hook are faked with transforms. Brittle reef is drawn in code as a placeholder.
+   The parrotfish is the rigged GLB (assets/creature-boulderhead-parrotfish): its clips bend the
+   body and row the fins; the ram lunge and the turn along its line are transforms, as in Godot. Brittle reef is drawn in code as a placeholder.
    Everything else (terrain, sub, cable, HUD, award, results) is the approved #21-#25 art. */
 
 const FISH_URL = new URL('../../assets/creature-boulderhead-parrotfish/export/boulderhead-parrotfish.glb', import.meta.url).href;
@@ -148,7 +148,7 @@ function lineAtWorld(y) {
   return lineAt(sp.reef.xs, sp.reef.top, sp.reef.bottom, y - sp.y0);
 }
 
-// ---------------------------------------------------------------- 3D parrotfish (static concept GLB, transforms only)
+// ---------------------------------------------------------------- 3D parrotfish (rigged GLB; lunge and heading are transforms)
 const ELEVATION = THREE.MathUtils.degToRad(35), SIN_E = Math.sin(ELEVATION);
 const renderer = new THREE.WebGLRenderer({ canvas: eelCanvas, alpha: true, antialias: true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -171,7 +171,20 @@ model.traverse((o) => {
 // Centre the model on its footprint; its nose points north (-z).
 const box = new THREE.Box3().setFromObject(model), size = box.getSize(new THREE.Vector3()), mid = box.getCenter(new THREE.Vector3());
 model.position.set(-mid.x, -box.min.y, -mid.z);
-const HALF_ROWS = (size.z / 2) * SIN_E; // screen rows from the body's centre to its nose
+const HALF_ROWS = (size.z / 2) * SIN_E;
+// Clips as in Godot: hooked (struggle when nearly caught), exhausted once caught, escape.
+const mixer = new THREE.AnimationMixer(model);
+const actions = Object.fromEntries(gltf.animations.map((a) => [a.name, mixer.clipAction(a)]));
+const ONCE = ['hit', 'escape'];
+for (const [name, a] of Object.entries(actions)) if (ONCE.includes(name)) { a.setLoop(THREE.LoopOnce); a.clampWhenFinished = true; }
+let fishClip = '';
+function playClip(name, fade = 0.25) {
+  if (name === fishClip || !actions[name]) return;
+  const next = actions[name].reset().play();
+  if (actions[fishClip]) actions[fishClip].crossFadeTo(next, fade, false);
+  fishClip = name;
+}
+playClip('swim', 0); // screen rows from the body's centre to its nose
 const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(4,28,58,0.32)'); gr.addColorStop(1, 'rgba(4,28,58,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
 const blob = new THREE.Mesh(new THREE.PlaneGeometry(size.x * 1.3, size.z * 1.1), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
 blob.rotation.x = -Math.PI / 2; blob.position.y = 0.02; blob.renderOrder = -1; fishRoot.add(blob);
@@ -798,8 +811,15 @@ function placeFish(ox, oy, dt, time) {
     // Swim wiggle, plus a lunge and head-down pitch on each smash.
     const still = reduced() ? 0 : 1;
     body.position.z = -0.35 * lunge * still;
-    body.rotation.set(0.12 * lunge * still, Math.sin(time * 7) * 0.07 * still, 0);
+    body.rotation.set(0.12 * lunge * still, 0, 0);
   }
+  const forced = $('fish-clip').value;
+  const low = run.resistance < rules.resistance * 0.3;
+  const want = forced || (run.phase === 'caught' || run.phase === 'award' || run.phase === 'results' ? 'exhausted'
+    : run.phase === 'escaped' ? 'escape'
+    : low ? 'struggle' : 'hooked');
+  playClip(want, want === 'exhausted' ? 0.35 : 0.15);
+  mixer.update(reduced() ? 0 : dt);
 }
 
 // ---------------------------------------------------------------- HUD and state readout
