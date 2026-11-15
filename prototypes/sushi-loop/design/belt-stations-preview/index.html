@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#efe9dd">
+<title>Sushi Loop · Belt stations</title>
+  <script type="module" crossorigin src="../../../../assets/sushi-loop/design/belt-stations-preview-DwXFBIIt.js"></script>
+  <link rel="modulepreload" crossorigin href="../../../../assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="../../../../assets/belt-stations-preview-GeGqWUVf.css">
+</head>
+<body>
+<div id="app">
+  <header class="hud">
+    <div class="coins" aria-label="Coins"><i class="coin"></i><output id="coins">0</output></div>
+    <div class="goal">
+      <div id="goalLabel"></div>
+      <div class="bar" role="progressbar" aria-labelledby="goalLabel"><i id="goalFill"></i></div>
+    </div>
+    <button id="sound" class="icon" aria-label="Sound" aria-pressed="true">♪</button>
+    <button id="reset" class="icon" aria-label="Start over">↺</button>
+  </header>
+  <p id="hint" aria-live="polite"></p>
+  <main>
+    <canvas id="board" aria-label="Belt board"></canvas>
+    <div id="banner" aria-live="polite"></div>
+  </main>
+  <footer class="dock">
+    <div class="tools" role="toolbar" aria-label="Tools">
+      <button data-tool="belt" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M4 18h9a4 4 0 0 0 4-4V5m0 0-4 4m4-4 4 4"/></svg>Draw</button>
+      <button data-tool="erase" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="m5 15 8-9 6 5-8 9H7zM9 20h11"/></svg>Erase</button>
+      <button data-tool="cross" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v6m0 6v6M8 9v6m8-6v6"/></svg>Bridge<b id="crossCount">0</b></button>
+      <button data-tool="merge" aria-pressed="false" hidden><svg viewBox="0 0 24 24"><path d="M4 5c5 0 8 3 8 7v8M20 5c-5 0-8 3-8 7"/></svg>Merge<b id="mergeCount">0</b></button>
+      <button id="undo"><svg viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M4 12h11a5 5 0 0 1 0 10h-3"/></svg>Undo</button>
+    </div>
+    <div class="shop" aria-label="Shop">
+      <button data-buy="cross" aria-label="Buy a bridge">+ Bridge<span></span></button>
+      <button data-buy="merge" aria-label="Buy a merge" hidden>+ Merge<span></span></button>
+      <button data-buy="speed" aria-label="Faster source">Faster<span></span></button>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
