@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#efe9dd">
 <title>Sushi Loop · Loop requests</title>
-  <script type="module" crossorigin src="../../../../assets/sushi-loop/design/loop-requests-preview-xzZ9ej-b.js"></script>
+  <script type="module" crossorigin src="../../../../assets/sushi-loop/design/loop-requests-preview-a9RlWuSm.js"></script>
   <link rel="modulepreload" crossorigin href="../../../../assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="../../../../assets/loop-requests-preview-Dnx1njjb.css">
+  <link rel="stylesheet" crossorigin href="../../../../assets/loop-requests-preview-DQGYo7fs.css">
 </head>
 <body>
 <div id="app">
@@ -17,6 +17,7 @@
       <div id="goalLabel"></div>
       <div class="bar" role="progressbar" aria-labelledby="goalLabel"><i id="goalFill"></i></div>
     </div>
+    <button id="answer" class="icon" aria-label="Show answer" aria-pressed="false">?</button>
     <button id="sound" class="icon" aria-label="Sound" aria-pressed="true">♪</button>
     <button id="reset" class="icon" aria-label="Start over">↺</button>
   </header>
@@ -28,6 +29,7 @@
   <main>
     <canvas id="board" aria-label="Restaurant floor"></canvas>
     <div id="banner" aria-live="polite"></div>
+    <button id="build" hidden>Build it for me</button>
   </main>
   <footer class="dock">
     <div class="tools" role="toolbar" aria-label="Tools">
