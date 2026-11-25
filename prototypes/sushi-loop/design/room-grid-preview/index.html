@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#efe9dd">
+<title>Sushi Loop · Room grid</title>
+  <script type="module" crossorigin src="../../../../assets/sushi-loop/design/room-grid-preview-3ukU7OOf.js"></script>
+  <link rel="modulepreload" crossorigin href="../../../../assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="stylesheet" crossorigin href="../../../../assets/room-grid-preview-DjpkI3XS.css">
+</head>
+<body>
+<div id="app">
+  <header class="hud">
+    <div class="coins" aria-label="Coins"><i class="coin"></i><output id="coins">0</output></div>
+    <div id="rate" class="rate" aria-label="Coins a minute"></div>
+    <span class="grow"></span>
+    <button id="cheat" class="icon wide" aria-label="Cheat: add 10,000 coins">+10k</button>
+    <button id="speed" class="icon wide" aria-label="Game speed" aria-pressed="false">×1</button>
+    <button id="reset" class="icon" aria-label="Start over">↺</button>
+  </header>
+  <section class="tracks" aria-label="Rewards">
+    <div id="stars" class="track"><small>Reputation</small><b></b><i><span></span></i></div>
+    <div id="mastery" class="track"><small>Mastery</small><b></b><i><span></span></i></div>
+  </section>
+  <p id="flow" aria-live="polite"></p>
+  <main>
+    <canvas id="board" aria-label="The restaurant's plots on the pier"></canvas>
+    <div id="banner" aria-live="polite"></div>
+  </main>
+  <footer class="dock">
+    <div id="orders" class="orders" aria-label="Takeaway orders"></div>
+    <div id="sel" class="sel"></div>
+  </footer>
+</div>
+</body>
+</html>
