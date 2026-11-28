@@ -51,19 +51,18 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: v
   <h2>Inside a room</h2>
   <div class="frames" id="f-rooms"></div>
 
-  <h2>Callouts, overlays and wide windows</h2>
+  <h2>Callouts and overlays</h2>
   <div class="frames" id="f-over"></div>
-  <div class="frames wide" id="f-wide" style="margin-top:28px"></div>
 
   <h2>Space budget</h2>
   <div class="card scroll">
     <table>
       <tr><th>Band</th><th>390 × 844</th><th>360 × 740 (small Android)</th><th>Rule</th></tr>
       <tr><td>Status bar / safe top</td><td>47</td><td>24</td><td>System</td></tr>
-      <tr><td>HUD: coins, salvage, log, menu</td><td>44</td><td>44</td><td>Fixed. Coins stay in the same spot on every screen.</td></tr>
-      <tr><td>Goal strip: variety, reputation, mastery</td><td>40</td><td>40</td><td>Only on the grid. Tapping it opens Goals.</td></tr>
+      <tr><td>HUD: coins, salvage, 🏆, 📖, ☰</td><td>44</td><td>44</td><td>Fixed. Coins stay in the same spot on every screen.</td></tr>
+      <tr><td>Goal strip: variety, reputation, mastery</td><td>40</td><td>40</td><td>Only on the grid. Tapping variety opens a popover of dishes served.</td></tr>
       <tr><td>Pier grid, 5 × 4 + walkways</td><td>286 (plot 52)</td><td>264 (plot 48)</td><td>Width-driven: plot = (width − 32) / 6.8. Never smaller than 44.</td></tr>
-      <tr><td>Sea strip and gate</td><td>40</td><td>28</td><td>Picture only</td></tr>
+      <tr><td>Sea</td><td>rest of the screen</td><td>rest of the screen</td><td>No blank space. Sheets slide up over the sea.</td></tr>
       <tr><td>Bottom sheet</td><td>none · open ≤ 300</td><td>none · open ≤ 260</td><td>Only while a plot is selected. Never covers the selected plot.</td></tr>
       <tr><td>Safe bottom</td><td>34</td><td>16</td><td>System</td></tr>
       <tr><td>Room active view, 7 × 7</td><td>357 (cell 51)</td><td>329 (cell 47)</td><td>The whole room fits with no pan. The palette tray sits below it.</td></tr>
@@ -77,13 +76,13 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: v
       <tr><th>When</th><th>Callout</th><th>Anchored to</th><th>How often</th></tr>
       <tr><td>Tapping Open while variety is short</td><td>Serve 1 more kind of dish</td><td>Open button</td><td>Every time</td></tr>
       <tr><td>The first notes drop</td><td>Tap 💵 to collect tips</td><td>The 💵 bubble</td><td>Once</td></tr>
-      <tr><td>A room starts dropping plates</td><td>Room B is full: plates lost</td><td>That room</td><td>At most once a minute per room</td></tr>
+      <tr><td>A room starts dropping plates</td><td>Full: plates lost</td><td>That room</td><td>At most once a minute per room</td></tr>
       <tr><td>A guest room has no pipe in</td><td>Serving market nigiri</td><td>That room</td><td>Once</td></tr>
       <tr><td>The first pipe is laid</td><td>Dishes down a pipe raise mastery</td><td>The mastery chip</td><td>Once</td></tr>
       <tr><td>A kitchen outlet has no pipe</td><td>Link me to a guest room</td><td>The outlet</td><td>Once</td></tr>
       <tr><td>The rush bar fills for the first time</td><td>Full! Tap to rush</td><td>Rush button (in the kitchen) or 🔥 bubble (on the grid)</td><td>Once in each place</td></tr>
       <tr><td>Tapping a dim room in link mode</td><td>No free inlet</td><td>That room</td><td>Every time</td></tr>
-      <tr><td>A reputation or mastery level-up</td><td>★3 · Lanterns and plants unlocked</td><td>Goal strip; NEW dot on the tray tab</td><td>Every level</td></tr>
+      <tr><td>An achievement completes (including a reputation or mastery level)</td><td>★3 · reward ready</td><td>🏆 in the HUD; NEW dot on the tray tab for unlocked pieces</td><td>Every level</td></tr>
       <tr><td>A first catch</td><td>🦑 Ika is now an inlet ingredient</td><td>Dock, after results</td><td>Each new creature</td></tr>
       <tr><td>Back after time away</td><td>💵 +12,400 while away</td><td>Under the coins</td><td>Every return</td></tr>
       <tr><td>The quick trip, used for the first time</td><td>Uses the dive charge</td><td>⚓ bubble</td><td>Once</td></tr>
@@ -100,6 +99,8 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: v
       <tr><td>Grid · a locked or empty plot</td><td>Tap</td><td>Opens its sheet: shape, price, gate, or Build.</td></tr>
       <tr><td>Grid · empty sea or walkway</td><td>Tap</td><td>Closes the sheet.</td></tr>
       <tr><td>Room · ‹ Pier, or system back</td><td>Tap</td><td>Back to the grid with the same room still selected.</td></tr>
+      <tr><td>Grid · 🏆</td><td>Tap</td><td>Achievements, full screen.</td></tr>
+      <tr><td>Grid · variety bar</td><td>Tap</td><td>Popover of the dishes being served now.</td></tr>
       <tr><td>Dock · submarine (charged)</td><td>Tap</td><td>Dive preparation, as today. Start spends the charge.</td></tr>
       <tr><td>Results · Pier</td><td>Tap</td><td>Back to the grid, with the dock selected (replaces "Restaurant").</td></tr>
     </table>
@@ -112,9 +113,9 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: v
     <div><b><span class="tag">3</span>Clearing trash happens in the plot's sheet.</b><span>One button per piece, with its price. At 52 px a plot is too small to tap the pieces themselves.</span></div>
     <div><b><span class="tag">4</span>Demolish sits behind ⋯ in the sheet and asks to confirm, showing the refund.</b><span>It never appears inside the room.</span></div>
     <div><b><span class="tag">5</span>Building happens in the room, not in a global shop.</b><span>Each room has a bottom tray of its own pieces (guest room: seats, decor, belt; kitchen: belt, machines, Plater). You pay as you place. Locked pieces show what unlocks them.</span></div>
-    <div><b><span class="tag">6</span>The recipe log and goals live behind the HUD on the grid.</b><span>📖 opens the discovery log. The goal strip opens Goals: variety live now, plus the reputation and mastery ladders. They share one tabbed sheet.</span></div>
-    <div><b><span class="tag">7</span>The game stays locked to portrait.</b><span>The web prototype still needs a landscape layout, so in wide windows the grid sits on the left and the sheet becomes a right-hand panel.</span></div>
-    <div><b><span class="tag">8</span>Rules are taught by callouts, not labels.</b><span>Screens show only names, icons, numbers and buttons. Each rule is explained once, at the moment it first matters (see the callouts table). The away credit becomes a toast instead of a dialog.</span></div>
+    <div><b><span class="tag">6</span>Achievements are a full screen with claimable rewards.</b><span>🏆 stays on the grid HUD with a red count when something is ready. Reputation and mastery level-ups are achievements, so their coins are claimed instead of paid automatically. 📖 opens the recipe log as its own full screen.</span></div>
+    <div><b><span class="tag">7</span>Portrait only.</b><span>No landscape layout, including the web prototype.</span></div>
+    <div><b><span class="tag">8</span>Rules are taught by callouts, not labels.</b><span>Screens show only icons, numbers, bars and buttons. Rooms have no names: a pipe's target is shown on a tiny pier map and by highlighting the pipe. Each rule is explained once, at the moment it first matters (see the callouts table). The away credit becomes a toast instead of a dialog.</span></div>
   </div>
 </main>
 
@@ -157,8 +158,8 @@ const PLOTS = [
   [[3,1],[2,1],[2,1],[0,0],[4,2]],
 ];
 const MID = { // a mid-game pier
-  '1,3':{k:'kitchen',name:'Kitchen B',rush:true}, '2,3':{k:'guest',name:'Room A',notes:4}, '3,3':{k:'dock',ready:true},
-  '2,2':{k:'kitchen',name:'Kitchen A'}, '1,2':{k:'guest',name:'Room B',drop:true}, '3,2':{k:'empty'}, '2,1':{k:'trash'},
+  '1,3':{k:'kitchen',rush:true}, '2,3':{k:'guest',notes:4}, '3,3':{k:'dock',ready:true},
+  '2,2':{k:'kitchen'}, '1,2':{k:'guest',drop:true}, '3,2':{k:'empty'}, '2,1':{k:'trash'},
 };
 const LINKS = [ ['2,2','2,3'], ['1,3','1,2'], ['2,3','1,2'] ];
 
@@ -168,6 +169,13 @@ function grid(o={}) {
   const W = 5*u+6*g, H = 4*u+5*g;
   let s = '';
   // pier deck + sea
+  if (o.ocean !== false) {
+    s += R(0, y0+H-6, 1000, 900, {fill:C.sea}) + R(0, y0+H+120, 1000, 900, {fill:'#7ec2c6'}) + R(0, y0+H+260, 1000, 900, {fill:'#6db4bb'});
+    for (const [wx,wy] of [[40,70],[230,110],[120,170],[300,210],[60,260],[250,300],[150,350],[320,390]]) s += L([[wx,y0+H+wy],[wx+14,y0+H+wy-5],[wx+28,y0+H+wy]],{stroke:'#fff',sw:1.5,op:.5});
+    s += `<ellipse cx="300" cy="${y0+H+150}" rx="22" ry="7" fill="#5ea6ae" opacity=".6"/>` + `<ellipse cx="90" cy="${y0+H+330}" rx="16" ry="5" fill="#5ea6ae" opacity=".6"/>`;
+    s += Ci(330,y0+H+60,6,{fill:C.red}) + R(329,y0+H+44,2,12,{fill:C.ink}); // buoy
+    s += `<path d="M150 ${y0+H+240} l46 0 l-8 12 l-30 0z" fill="#c89d68"/>` + R(170,y0+H+214,2,26,{fill:C.ink}) + `<path d="M172 ${y0+H+216} l16 18 l-16 0z" fill="#fff"/>`; // boat
+  }
   s += R(x0-6, y0+H-6, W+12, 60, {fill:C.sea}) + L([[x0-6,y0+H+22],[x0+40,y0+H+16],[x0+90,y0+H+24],[x0+150,y0+H+17],[x0+210,y0+H+24],[x0+270,y0+H+16],[x0+W+6,y0+H+22]],{stroke:'#fff',sw:1.5,op:.6});
   s += R(x0, y0, W, H, {rx:10, fill:C.wood});
   // gate on the shore walkway (left)
@@ -219,13 +227,14 @@ function hud(o={}) {
   let s = R(16,y,108,32,{rx:16,fill:C.card}) + Ci(34,y+16,8,{fill:C.gold,stroke:'#c4861c',sw:2.5}) + T(48,y+21,o.coins??'12,480',{size:15,w:800});
   s += R(130,y,72,32,{rx:16,fill:C.card}) + T(142,y+21,'🔩',{size:13}) + T(160,y+21,o.salv??'86',{size:14,w:800,fill:'#3d5a73'});
   if (o.back) s = R(16,y,74,32,{rx:16,fill:C.ink}) + T(53,y+21,'‹ Pier',{a:'middle',size:13,w:700,fill:'#fff'}) + R(98,y,100,32,{rx:16,fill:C.card}) + Ci(116,y+16,8,{fill:C.gold,stroke:'#c4861c',sw:2.5}) + T(130,y+21,o.coins??'12,480',{size:15,w:800});
-  if (!o.back) s += R(W-96,y,36,32,{rx:16,fill:C.card}) + T(W-78,y+21,'📖',{a:'middle',size:15});
+  if (!o.back) s += R(W-140,y,36,32,{rx:16,fill:C.card}) + T(W-122,y+21,'🏆',{a:'middle',size:15}) + (o.claim===0?'':Ci(W-108,y+3,8,{fill:C.red}) + T(W-108,y+7,String(o.claim??2),{a:'middle',size:10,w:800,fill:'#fff'}))
+    + R(W-96,y,36,32,{rx:16,fill:C.card}) + T(W-78,y+21,'📖',{a:'middle',size:15});
   s += R(W-52,y,36,32,{rx:16,fill:C.card}) + T(W-34,y+21,'☰',{a:'middle',size:15,w:700});
   return s;
 }
 function goals(y=92, short=true) {
-  const box = (x,label,val,frac,col) => R(x,y,114,38,{rx:11,fill:C.card}) + T(x+9,y+14,label,{size:9,w:700,fill:C.muted}) + T(x+9,y+27,val,{size:11,w:800}) + R(x+9,y+31,96,4,{rx:2,fill:C.line}) + R(x+9,y+31,96*frac,4,{rx:2,fill:col});
-  return box(16,'VARIETY','3 / 4 kinds',.75,short?C.gold:C.green) + box(138,'REPUTATION','★2 · 41/60',.52,C.teal) + box(260,'MASTERY','Lv 3 · 180/250',.53,C.coral);
+  const box = (x,label,frac,col,val) => R(x,y,114,38,{rx:11,fill:C.card}) + T(x+9,y+15,label,{size:9,w:700,fill:C.muted}) + (val?T(x+105,y+15,val,{a:'end',size:11,w:800}):'') + R(x+9,y+23,96,7,{rx:3.5,fill:C.line}) + R(x+9,y+23,96*frac,7,{rx:3.5,fill:col});
+  return box(16,'VARIETY',.75,short?C.gold:C.green,'3 / 4') + box(138,'★ REPUTATION',.52,C.teal) + box(260,'MASTERY',.62,C.coral);
 }
 const hint = (s, y=146, warn=false) => Ci(22,y-4,4.5,{fill:warn?C.red:C.green}) + T(32,y,s,{size:12,w:600,fill:warn?C.red:C.ink});
 
@@ -250,7 +259,7 @@ function guestRoom() {
   let s = room7(x,y,c,'guest');
   // inlets on top edge (2), outlet on bottom (1)
   s += R(x+c*1+8,y-6,c-16,10,{rx:3,fill:C.teal}) + R(x+c*4+8,y-6,c-16,10,{rx:3,fill:C.teal}) + R(x+c*3+8,y+7*c-4,c-16,10,{rx:3,fill:C.coral});
-  s += T(x+c*1.5,y-10,'in · Kitchen A',{a:'middle',size:9,w:700,fill:C.teal}) + T(x+c*4.5,y-10,'in · free',{a:'middle',size:9,w:700,fill:C.teal}) + T(x+c*3.5,y+7*c+20,'out → Room B',{a:'middle',size:9,w:700,fill:C.coral});
+  s += T(x+c*1.5,y-10,'🔪',{a:'middle',size:12,w:700,fill:C.teal}) + T(x+c*4.5,y-10,'+',{a:'middle',size:9,w:700,fill:C.teal}) + T(x+c*3.5,y+7*c+20,'→ 🍣',{a:'middle',size:9,w:700,fill:C.coral});
   // belt loop
   s += L([[x+c*1.5,y+4],[x+c*1.5,y+c*1.5],[x+c*5.5,y+c*1.5],[x+c*5.5,y+c*5.5],[x+c*1.5,y+c*5.5],[x+c*1.5,y+c*1.5]],{stroke:C.red,sw:10,op:.35});
   s += L([[x+c*4.5,y+4],[x+c*4.5,y+c*1.5]],{stroke:C.red,sw:10,op:.35}) + L([[x+c*3.5,y+c*5.5],[x+c*3.5,y+7*c]],{stroke:C.red,sw:10,op:.35});
@@ -271,7 +280,7 @@ function kitchenRoom() {
   const ins = [[1,'🍚'],[3,'🐟'],[5,'🥒']];
   for (const [i,ic] of ins) s += R(x+c*i+6,y-8,c-12,14,{rx:4,fill:C.teal}) + T(x+c*i+c/2,y-14,ic,{a:'middle',size:14});
   for (const i of [1,3]) s += R(x+c*i+6,y+7*c-6,c-12,12,{rx:4,fill:C.coral});
-  s += T(x+c*1.5,y+7*c+20,'1 → Room A',{a:'middle',size:9,w:700,fill:C.coral}) + T(x+c*3.5,y+7*c+20,'2 · +',{a:'middle',size:9,w:700,fill:C.muted});
+  s += T(x+c*1.5,y+7*c+20,'1 →',{a:'middle',size:9,w:700,fill:C.coral}) + T(x+c*3.5,y+7*c+20,'2 · +',{a:'middle',size:9,w:700,fill:C.muted});
   s += L([[x+c*5.5,y+4],[x+c*5.5,y+c*3.5],[x+c*3.5,y+c*3.5]],{stroke:'#8d969e',sw:10,op:.5});
   // belts
   s += L([[x+c*1.5,y+4],[x+c*1.5,y+c*2.5],[x+c*3.5,y+c*2.5]],{stroke:'#8d969e',sw:10,op:.5});
@@ -289,6 +298,18 @@ const toast = (x,y,w,text,o={}) => {
   if (o.tail!=null) s += o.up ? `<path d="M${o.tail-7} ${y} l7 -8 l7 8z" fill="${f}"/>` : `<path d="M${o.tail-7} ${y+34} l7 8 l7 -8z" fill="${f}"/>`;
   return s + T(x+w/2,y+22,text,{a:'middle',size:13,w:700,fill:'#fff'});
 };
+// a plot shown large, with arrows flowing into its inlets and out of its outlets
+const flowThumb = (x,y,sz,ni,no) => {
+  let s = R(x,y,sz,sz,{rx:12,fill:'HATCH'}) + T(x+sz/2,y+sz/2+7,'🔒',{a:'middle',size:20});
+  const arrow = (cx,cy,col,delay) => `<g opacity="0"><path d="M${cx-6} ${cy-5} l6 7 l6 -7" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`
+    + `<animateTransform attributeName="transform" type="translate" values="0 -10;0 8" dur="1.2s" begin="${delay}s" repeatCount="indefinite"/>`
+    + `<animate attributeName="opacity" values="0;1;1;0" dur="1.2s" begin="${delay}s" repeatCount="indefinite"/></g>`;
+  for (let i=0;i<ni;i++) { const cx = x+sz*(i+1)/(ni+1); s += R(cx-8,y-3,16,6,{rx:2,fill:C.teal}) + arrow(cx,y-12,C.teal,i*.2) + arrow(cx,y-12,C.teal,i*.2+.6); }
+  for (let i=0;i<no;i++) { const cx = x+sz*(i+1)/(no+1); s += R(cx-8,y+sz-3,16,6,{rx:2,fill:C.coral}) + arrow(cx,y+sz+12,C.coral,i*.2+.3) + arrow(cx,y+sz+12,C.coral,i*.2+.9); }
+  return s;
+};
+// a tiny 5x4 pier map with the target plot lit, so a pipe's target needs no name
+const locator = (x,y,from,to) => { let s=''; for (let r=0;r<4;r++) for (let c=0;c<5;c++) { const k=`${c},${r}`; s += R(x+c*7,y+r*7,5,5,{rx:1,fill:k===to?C.coral:k===from?C.ink:C.line}); } return s; };
 const chip = (x,y,label,o={}) => { const w = o.w ?? (label.length*7+18); return R(x,y,w,26,{rx:13,fill:o.fill??C.bg}) + T(x+w/2,y+17.5,label,{a:'middle',size:12,w:700,fill:o.color??C.ink}); };
 const shapeIcon = (x,y,sz,ni,no) => { let s = R(x,y,sz,sz,{rx:8,fill:'HATCH'}); for(let i=0;i<ni;i++) s+=R(x+sz*(i+1)/(ni+1)-5,y-2,10,5,{rx:2,fill:C.teal}); for(let i=0;i<no;i++) s+=R(x+sz*(i+1)/(no+1)-5,y+sz-3,10,5,{rx:2,fill:C.coral}); return s; };
 
@@ -298,19 +319,18 @@ frames.home = phone(
 
 frames.locked = phone(
   hud() + goals() + grid({y:150, sel:'3,1'}) +
-  sheet(600, shapeIcon(20,630,52,2,1) + T(88,652,'2 in · 1 out',{size:18,w:800}) + T(88,672,'Locked plot',{size:12,fill:C.muted}) +
-    chip(20,700,'🗑 4') + chip(70,700,'🍽 3 / 4',{fill:'#f6e0da',color:C.red}) +
-    toast(140,688,230,'Serve 1 more kind of dish',{fill:C.red,tail:300}) +
-    btn(20,740,350,52,'Open · 380 🪙',{off:true}) ),
+  sheet(610, flowThumb(28,650,88,2,1) +
+    chip(140,640,'🗑 4') + chip(190,640,'🍽 3 / 4',{fill:'#f6e0da',color:C.red}) +
+    btn(140,680,230,52,'Open · 380 🪙',{off:true}) +
+    toast(140,746,230,'Serve 1 more kind of dish',{fill:C.red,tail:255,up:true}) ),
   {id:'b', label:'Locked plot sheet'});
 
 frames.kitchen = phone(
   hud() + goals() + grid({y:150, sel:'2,2'}) +
-  sheet(540, T(20,574,'Kitchen A',{size:18,w:800}) + T(370,574,'⋯',{a:'end',size:20,w:800}) +
-    chip(20,588,'Lv 2') + chip(70,588,'18 / min') + chip(144,588,'● Yellow',{color:'#9a7a10'}) + chip(230,588,'🔥 14 / 20',{color:C.coral}) +
-    R(20,628,350,34,{rx:10,fill:C.bg}) + T(32,650,'1   🍣 → Room A',{size:13,w:700}) + T(358,650,'›',{a:'end',size:16,w:800,fill:C.muted}) +
-    R(20,668,350,34,{rx:10,fill:C.bg,stroke:C.line,dash:'4 3'}) + T(32,690,'2   🔥 → ',{size:13,w:700,fill:C.muted}) + T(358,690,'+ Link',{a:'end',size:13,w:800,fill:C.coral}) +
-    btn(20,724,228,52,'Enter',{primary:true}) + btn(256,724,114,52,'⬆ 1,000') ),
+  sheet(560, chip(20,584,'🔪 Lv 2') + chip(92,584,'18 / min') + chip(166,584,'● Yellow',{color:'#9a7a10'}) + chip(252,584,'🔥 ▰▰▰▰▱',{color:C.coral}) + T(370,602,'⋯',{a:'end',size:20,w:800}) +
+    R(20,622,350,36,{rx:10,fill:C.bg}) + T(32,645,'1   🍣',{size:14,w:700}) + T(250,645,'→',{size:14,w:700,fill:C.muted}) + locator(272,626,'2,2','2,3') + T(358,645,'›',{a:'end',size:16,w:800,fill:C.muted}) +
+    R(20,664,350,36,{rx:10,fill:C.bg,stroke:C.line,dash:'4 3'}) + T(32,687,'2   🔥',{size:14,w:700,fill:C.muted}) + T(358,687,'+ Link',{a:'end',size:13,w:800,fill:C.coral}) +
+    btn(20,720,228,52,'Enter',{primary:true}) + btn(256,720,114,52,'⬆ 1,000') ),
   {id:'c', label:'Kitchen sheet on the grid'});
 
 frames.link = phone(
@@ -320,19 +340,19 @@ frames.link = phone(
   {id:'d', label:'Link mode'});
 
 frames.guest = phone(
-  hud({back:true}) + T(16,118,'Room A',{size:18,w:800}) + chip(100,100,'★2',{color:C.teal}) + chip(144,100,'🪑 6 / 9') + chip(218,100,'💵 4 / 6',{color:C.green}) + guestRoom() +
+  hud({back:true}) + chip(16,98,'🍣 Lv 2') + chip(88,98,'🪑 6 / 9') + chip(162,98,'💵 4 / 6',{color:C.green}) + guestRoom() +
   tray(560,['Seats','Decor','Belt','⬆ ★3'],[{icon:'🪑',name:'Stool',price:'40 🪙'},{icon:'🛋',name:'Booth',price:'120 🪙'},{icon:'🏮',name:'Lantern',price:'★3',lock:true},{icon:'🪴',name:'Plant',price:'★3',lock:true}]),
   {id:'e', label:'Guest room active view'});
 
 frames.kitchenActive = phone(
-  hud({back:true}) + T(16,118,'Kitchen A',{size:18,w:800}) + chip(116,100,'Lv 2') + chip(166,100,'18 / min') + kitchenRoom() +
+  hud({back:true}) + chip(16,98,'🔪 Lv 2') + chip(88,98,'18 / min') + chip(162,98,'● Yellow',{color:'#9a7a10'}) + kitchenRoom() +
   tray(560,['Belt','Machines','Plater','⬆'],[{icon:'⬛',name:'Belt',price:'10 🪙'},{icon:'🔪',name:'Cutter',price:'90 🪙'},{icon:'🔥',name:'Torch',price:'160 🪙'},{icon:'🌀',name:'Roller',price:'Mastery 4',lock:true}]) +
   R(16,746,250,52,{rx:16,fill:C.coral}) + T(141,778,'🔥 Rush',{a:'middle',size:17,w:800,fill:'#fff'}) + R(274,746,100,52,{rx:16,fill:C.bg}) + T(324,777,'Inlets',{a:'middle',size:13,w:700}) +
   toast(16,700,196,'Full! Tap to rush',{fill:C.coral,tail:141}),
   {id:'f', label:'Kitchen active view'});
 
 frames.dock = phone(
-  hud({back:true}) + T(16,118,'Dock',{size:18,w:800}) +
+  hud({back:true}) + chip(16,98,'⚓ Lv 2') +
   R(0,146,390,414,{fill:'#bfe2ea'}) + R(0,420,390,140,{fill:C.deep}) + R(0,404,390,22,{fill:C.wood}) +
   R(40,240,120,166,{rx:6,fill:'#c89d68'}) + R(70,300,60,106,{rx:30,fill:'#6b4a2c'}) + R(52,252,96,30,{rx:6,fill:C.card}) + T(100,272,'WORKSHOP',{a:'middle',size:12,w:800}) +
   `<ellipse cx="270" cy="438" rx="88" ry="36" fill="#f2c230"/>` + Ci(300,432,13,{fill:'#5b8fb0',stroke:'#2a2f45',sw:3}) + R(250,388,26,24,{rx:5,fill:'#f2c230'}) +
@@ -350,15 +370,39 @@ frames.expedition = phone(
   btn(70,720,250,48,'Pier',{primary:true}),
   {id:'h', label:'Expedition and results', statusInk:'#fff'});
 
-frames.goals = phone(
-  hud() + R(0,0,390,844,{fill:C.dim}) +
-  sheet(150, R(16,176,174,34,{rx:11,fill:C.ink}) + T(103,198,'Goals',{a:'middle',size:13,w:700,fill:'#fff'}) + R(200,176,174,34,{rx:11,fill:C.bg}) + T(287,198,'Recipes 9 / 14',{a:'middle',size:13,w:700}) +
-    T(20,244,'VARIETY',{size:10,w:800,fill:C.muted}) + T(370,244,'3 / 4 → 🔓',{a:'end',size:12,w:800,fill:'#9a7a10'}) +
-    [['🍣','Nigiri',true],['🔥','Seared nigiri',true],['🥒','Cucumber maki',true],['🟠','Roe nigiri',false]].map((d,i)=> R(20,254+i*36,350,30,{rx:9,fill:d[2]?'#e3f0e4':C.bg}) + T(30,274+i*36,`${d[0]}  ${d[1]}`,{size:13,w:700,op:d[2]?null:.5}) + T(360,274+i*36,d[2]?'✓':'',{a:'end',size:13,w:800,fill:C.green})).join('') +
-    T(20,424,'REPUTATION ★2',{size:10,w:800,fill:C.teal}) + T(370,424,'41 / 60',{a:'end',size:12,w:700}) + R(20,432,350,8,{rx:4,fill:C.line}) + R(20,432,239,8,{rx:4,fill:C.teal}) + chip(20,450,'★3 → 🪙300') + chip(132,450,'🏮 🪴') + chip(194,450,'Room ⬆ Lv 3') +
-    T(20,514,'MASTERY 3',{size:10,w:800,fill:C.coral}) + T(370,514,'180 / 250',{a:'end',size:12,w:700}) + R(20,522,350,8,{rx:4,fill:C.line}) + R(20,522,252,8,{rx:4,fill:C.coral}) + chip(20,540,'4 → 🪙700') + chip(120,540,'🌀 Roller') + chip(208,540,'● Blue',{color:'#3f6fb5'}) +
-    btn(20,760,350,44,'Close',{ghost:true}) ),
-  {id:'i', label:'Goals and recipe log'});
+const ach = (y,icon,title,frac,reward,state) => {
+  const claim = state==='claim', done = state==='done';
+  let s = R(16,y,358,72,{rx:14,fill:claim?'#fff7e2':'#fff',stroke:claim?C.gold:C.line,sw:claim?2:1});
+  s += Ci(48,y+36,20,{fill:done?C.line:claim?'#f6dfa6':C.bg}) + T(48,y+43,icon,{a:'middle',size:19,op:done?.5:null});
+  s += T(80,y+28,title,{size:14,w:800,op:done?.5:null});
+  if (!done) s += R(80,y+40,claim?150:190,7,{rx:3.5,fill:C.line}) + R(80,y+40,(claim?150:190)*frac,7,{rx:3.5,fill:claim?C.gold:C.teal});
+  s += T(80,y+64,reward,{size:12,w:700,fill:done?C.muted:'#9a6a0c'});
+  if (claim) s += btn(256,y+18,104,38,'Claim',{primary:true});
+  else if (done) s += T(352,y+42,'✓',{a:'end',size:18,w:800,fill:C.green});
+  return s;
+};
+frames.achieve = phone(
+  R(0,92,390,800,{fill:C.bg}) + R(16,50,44,32,{rx:16,fill:C.card}) + T(38,71,'‹',{a:'middle',size:18,w:800}) + T(195,72,'Achievements',{a:'middle',size:18,w:800}) +
+  R(286,50,88,32,{rx:16,fill:C.card}) + Ci(304,66,8,{fill:C.gold,stroke:'#c4861c',sw:2.5}) + T(318,71,'12,480',{size:12,w:800}) +
+  T(16,118,'READY',{size:10,w:800,fill:'#9a6a0c'}) +
+  ach(128,'★','Reputation ★3',1,'🪙 300 · 🏮 🪴 unlocked','claim') +
+  ach(208,'🍽','Serve 4 kinds at once',1,'🔩 20','claim') +
+  T(16,312,'IN PROGRESS',{size:10,w:800,fill:C.muted}) +
+  ach(322,'🔪','Mastery 4',.62,'🪙 700 · 🌀 Roller','') +
+  ach(402,'🏝','Open 6 plots',.66,'🪙 500','') +
+  ach(482,'⚡','Catch a Storm Eel',0,'🔩 40','') +
+  ach(562,'💵','Collect 100 tip notes',.4,'🪙 200','') +
+  T(16,666,'DONE',{size:10,w:800,fill:C.muted}) +
+  ach(676,'🍣','Serve your first guest',1,'🪙 50','done') +
+  ach(756,'🔗','Lay a pipe',1,'🪙 80','done'),
+  {id:'i', label:'Achievements'});
+
+frames.variety = phone(
+  hud() + goals() + grid({y:150}) +
+  `<path d="M60 136 l8 -8 l8 8z" fill="${C.ink}"/>` + R(16,136,250,58,{rx:16,fill:C.ink}) +
+  [['🍣',1],['🔥',1],['🥒',1],['🟠',0]].map((d,i)=> Ci(44+i*44,165,17,{fill:d[1]?'#3d5a4a':'#3a3f55'}) + T(44+i*44,172,d[0],{a:'middle',size:17,op:d[1]?null:.35}) + (d[1]?Ci(56+i*44,153,6,{fill:C.green})+T(56+i*44,156.5,'✓',{a:'middle',size:8,w:800,fill:'#fff'}):'')).join('') +
+  T(238,170,'🔓',{a:'middle',size:16,op:.5}),
+  {id:'m', label:'Variety popover'});
 
 frames.away = phone(
   hud({coins:'24,880'}) + goals() + grid({y:150, plots:{...MID,'2,3':{...MID['2,3'],notes:6},'1,2':{...MID['1,2'],notes:6,drop:false},'2,2':{...MID['2,2'],rush:true}}}) +
@@ -369,19 +413,10 @@ frames.away = phone(
 const U=52, G=U*.3, PX=c=>18+G+c*(U+G), PY=r=>150+G+r*(U+G);
 frames.jit = phone(
   hud() + goals() + grid({y:150}) +
-  toast(PX(0)-4,PY(2)-58,196,'Room B is full: plates lost',{fill:C.red,tail:PX(1)+U/2}) +
+  toast(PX(0)-4,PY(2)-58,150,'Full: plates lost',{fill:C.red,tail:PX(1)+U/2}) +
   toast(PX(2)-20,PY(3)+U+16,210,'Tap 💵 to collect tips',{tail:PX(2)+U/2,up:true}) +
-  toast(60,650,270,'★3 · Lanterns and plants unlocked',{fill:C.teal}),
+  toast(60,650,270,'🏆 ★3 · reward ready',{fill:C.teal}),
   {id:'l', label:'Just-in-time callouts'});
-
-frames.wide = phone(
-  grid({x:40,y:66,u:48,sel:'2,2'}) +
-  R(420,0,424,390,{fill:C.card}) + R(420,0,1,390,{fill:C.line}) + hud({w:844,y:16}) +
-  T(444,90,'Kitchen A',{size:18,w:800}) + chip(444,100,'Lv 2') + chip(494,100,'18 / min') + chip(568,100,'🔥 14 / 20',{color:C.coral}) +
-  R(444,140,370,34,{rx:10,fill:C.bg}) + T(456,162,'1   🍣 → Room A',{size:13,w:700}) +
-  R(444,180,370,34,{rx:10,fill:C.bg,stroke:C.line,dash:'4 3'}) + T(456,202,'2   🔥 → ',{size:13,w:700,fill:C.muted}) + T(802,202,'+ Link',{a:'end',size:13,w:800,fill:C.coral}) +
-  btn(444,300,240,52,'Enter',{primary:true}) + btn(694,300,120,52,'⬆ 1,000'),
-  {id:'k', w:844, h:390, label:'Landscape window'});
 
 // ---------- sitemap ----------
 function sitemap() {
@@ -389,14 +424,14 @@ function sitemap() {
   const arrow = (pts,label,o={}) => L(pts,{stroke:o.col??C.muted,sw:1.8,dash:o.dash}) + (()=>{const [a,b]=pts.slice(-2);const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);const p=(t)=>[b[0]-9*Math.cos(ang+t),b[1]-9*Math.sin(ang+t)];return `<path d="M${b[0]} ${b[1]} L${p(.45).join(' ')} L${p(-.45).join(' ')}z" fill="${o.col??C.muted}"/>`})() + (label?T(o.lx??(pts[0][0]+pts[1][0])/2,o.ly??(pts[0][1]+pts[1][1])/2-6,label,{a:'middle',size:10,w:700,fill:o.col??C.muted}):'');
   let s = `<svg viewBox="0 0 1180 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of screens">`;
   s += T(20,28,'LEVEL 0 · HOME',{size:10,w:800,fill:C.muted}) + T(20,168,'LEVEL 1 · ROOMS (iris)',{size:10,w:800,fill:C.muted}) + T(20,318,'LEVEL 2 · INSIDE A ROOM',{size:10,w:800,fill:C.muted});
-  s += node(470,40,240,'Pier grid','5 × 4 plots · HUD · goals',{fill:C.ink,stroke:C.ink,ink:'#fff'});
+  s += node(470,40,240,'Pier grid','5 × 4 plots · HUD · goal strip',{fill:C.ink,stroke:C.ink,ink:'#fff'});
   // grid sheets & overlays
   s += node(780,40,170,'Plot sheet','locked · trash · build · room');
   s += node(980,40,180,'Link mode','pick an inlet, pay the pipe');
-  s += node(200,40,170,'Goals / Recipes','tabbed sheet from HUD');
-  s += node(20,92,150,'Away notice','on return',{stroke:C.gold});
-  s += node(200,104,170,'Menu ☰','settings · sound · reset');
-  s += arrow([[710,66],[780,66]],'tap plot') + arrow([[950,66],[980,66]],'+ Link') + arrow([[470,66],[370,66]],'tap strip / 📖') + arrow([[470,84],[370,124]],'☰',{lx:420,ly:96});
+  s += node(200,40,170,'Achievements 🏆','full screen · claim rewards');
+  s += node(20,40,150,'Recipe log 📖','full screen');
+  s += node(200,104,170,'Menu ☰','settings · sound · reset') + node(20,104,150,'Variety popover','tap the variety bar');
+  s += arrow([[710,66],[780,66]],'tap plot') + arrow([[950,66],[980,66]],'+ Link') + arrow([[470,66],[370,66]],'🏆') + arrow([[200,80],[170,80]],'') + arrow([[470,84],[370,124]],'☰',{lx:420,ly:96});
   // level 1
   s += node(240,180,190,'Guest room','7 × 7 · tip notes · seat');
   s += node(500,180,190,'Kitchen','7 × 7 line · rush');
@@ -423,23 +458,23 @@ function sitemap() {
 const fig = (svg, title, notes) => `<figure>${svg}<figcaption><b>${title}</b><ul>${notes.map(n=>`<li>${n}</li>`).join('')}</ul></figcaption></figure>`;
 document.getElementById('sitemap').innerHTML = sitemap();
 document.getElementById('f-grid').innerHTML = [
-  fig(frames.home,'1 · Pier grid',['Only the HUD, the goal strip and the pier. No sheet until you tap a plot.','Bubbles carry the state: 💵 notes, ⚓ trip, 🔥 rush, ⚠ dropping.']),
-  fig(frames.locked,'2 · Locked plot',['Shape, trash count and the variety gate as icons.','A blocked Open raises a one-line callout explaining why.']),
-  fig(frames.kitchen,'3 · Kitchen',['Chips: level, rate, plate colour, rush.','One row per outlet: dish → room.']),
+  fig(frames.home,'1 · Pier grid',['HUD: coins, salvage, 🏆 achievements (red count when something can be claimed), 📖 recipes, ☰.','Reputation and mastery are bars only. Variety keeps its count because it is a target.','The sea fills everything below the pier.']),
+  fig(frames.locked,'2 · Locked plot',['A large thumbnail with arrows flowing into the inlets and out of the outlets (animated).','Chips for trash and the variety gate. A blocked Open raises the callout.']),
+  fig(frames.kitchen,'3 · Kitchen',['No room names. Chips: type and level, rate, plate colour, rush.','Each outlet row shows its dish and a tiny pier map with the target lit. The pipe is also highlighted on the grid.']),
   fig(frames.link,'4 · Link mode',['One line at the top. Green rooms take the pipe and show its price.']),
 ].join('');
 document.getElementById('f-rooms').innerHTML = [
-  fig(frames.guest,'5 · Guest room',['Chips replace the stats line.','Room upgrade is the last tab of the build tray. Tap notes on the floor to collect them.']),
+  fig(frames.guest,'5 · Guest room',['No title. Chips under the HUD.','Connectors show the kind of room on the other end (🔪, 🍣), or + when free.']),
   fig(frames.kitchenActive,'6 · Kitchen',['Rush is the big thumb button. The first time it fills, a callout points at it.']),
   fig(frames.dock,'7 · Dock',['Tap the hut for the Workshop. Two buttons show their rewards as icons.']),
   fig(frames.expedition,'8 · Dive and results',['The dive is unchanged. Results lead to the Pier.']),
 ].join('');
 document.getElementById('f-over').innerHTML = [
   fig(frames.jit,'9 · Just-in-time callouts',['Three examples drawn together here. In play only one shows at a time, anchored to what it is about.','Red means a problem, teal means an unlock, dark is a tip.']),
-  fig(frames.goals,'10 · Goals and recipe log',['Ticks, bars and reward chips. No explanation text.']),
-  fig(frames.away,'11 · Back after time away',['A toast under the coins, as in #29, then the bubbles take over. No modal.']),
+  fig(frames.achieve,'10 · Achievements',['Full screen, from 🏆 on the grid HUD.','Rewards wait to be claimed. Ready ones are first, in gold, with Claim; claimed coins fly to the HUD.','Reputation and mastery level-ups are achievements too, so their rewards are claimed here.']),
+  fig(frames.variety,'11 · Variety popover',['Tapping the variety bar shows the dishes being served now, ticked, and the ones that would count next.','It closes on the next tap.']),
+  fig(frames.away,'12 · Back after time away',['A toast under the coins, as in #29. No modal.']),
 ].join('');
-document.getElementById('f-wide').innerHTML = fig(frames.wide,'12 · Wide window (web prototype)',['The sheet becomes a right-hand panel.']);
 </script>
 </body>
 </html>
