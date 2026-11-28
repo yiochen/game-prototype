@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#efe9dd">
+<title>Sushi Loop · Room grid IA</title>
+<style>
+:root { --bg: #efe9dd; --card: #f8f4eb; --ink: #2a2f45; --muted: #7a7566; --gold: #e0a12f; --line: #d8cfbd;
+  --red: #b8402c; --teal: #1f8a8a; --coral: #c2562a; --green: #4a9b5f; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1240px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 26px; margin: 0 0 4px; }
+h2 { font-size: 19px; margin: 40px 0 8px; }
+.lede { color: var(--muted); max-width: 760px; margin: 0 0 8px; }
+.card { background: var(--card); border-radius: 16px; padding: 16px; }
+.map { overflow-x: auto; }
+.map svg { display: block; min-width: 760px; width: 100%; height: auto; }
+.frames { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px 20px; }
+figure { margin: 0; }
+figure svg { display: block; width: 100%; max-width: 320px; height: auto; margin: 0 auto; filter: drop-shadow(0 6px 14px rgba(42,47,69,.16)); }
+figcaption { max-width: 320px; margin: 10px auto 0; font-size: 13px; }
+figcaption b { display: block; font-size: 15px; margin-bottom: 2px; }
+figcaption ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); }
+figcaption li b { display: inline; font-size: 13px; color: var(--ink); }
+.wide figure svg { max-width: 640px; }
+.wide figcaption { max-width: 640px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.scroll { overflow-x: auto; }
+.q { display: grid; gap: 10px; }
+.q div { background: var(--card); border-radius: 12px; padding: 10px 14px; }
+.q div b { display: block; }
+.q div span { color: var(--muted); font-size: 14px; }
+.tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: var(--ink); color: #fff; margin-right: 6px; vertical-align: 1px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Room grid · information architecture</h1>
+  <p class="lede">How the room grid, the rooms and the expedition fit together on a portrait phone (390 × 844, with iPhone safe areas). The design comes from <code>docs/room-grid-design.md</code>. The wireframes show layout and hierarchy, not final art.</p>
+
+  <h2>Map of screens</h2>
+  <div class="card map" id="sitemap"></div>
+
+  <h2>Grid (home)</h2>
+  <div class="frames" id="f-grid"></div>
+
+  <h2>Inside a room</h2>
+  <div class="frames" id="f-rooms"></div>
+
+  <h2>Overlays and wide windows</h2>
+  <div class="frames" id="f-over"></div>
+  <div class="frames wide" id="f-wide" style="margin-top:28px"></div>
+
+  <h2>Space budget</h2>
+  <div class="card scroll">
+    <table>
+      <tr><th>Band</th><th>390 × 844</th><th>360 × 740 (small Android)</th><th>Rule</th></tr>
+      <tr><td>Status bar / safe top</td><td>47</td><td>24</td><td>System</td></tr>
+      <tr><td>HUD: coins, salvage, log, menu</td><td>44</td><td>44</td><td>Fixed. Coins stay in the same spot on every screen.</td></tr>
+      <tr><td>Goal strip: variety, reputation, mastery</td><td>40 + hint 22</td><td>40 + hint 22</td><td>Only on the grid. Tapping it opens Goals.</td></tr>
+      <tr><td>Pier grid, 5 × 4 + walkways</td><td>286 (plot 52)</td><td>264 (plot 48)</td><td>Width-driven: plot = (width − 32) / 6.8. Never smaller than 44.</td></tr>
+      <tr><td>Sea strip and gate</td><td>40</td><td>28</td><td>Picture only</td></tr>
+      <tr><td>Bottom sheet</td><td>peek 120 · open ≤ 330</td><td>peek 110 · open ≤ 290</td><td>Never covers the selected plot. The grid scrolls up if it would.</td></tr>
+      <tr><td>Safe bottom</td><td>34</td><td>16</td><td>System</td></tr>
+      <tr><td>Room active view, 7 × 7</td><td>357 (cell 51)</td><td>329 (cell 47)</td><td>The whole room fits with no pan. The palette tray sits below it.</td></tr>
+    </table>
+  </div>
+
+  <h2>Tap rules</h2>
+  <div class="card scroll">
+    <table>
+      <tr><th>Where</th><th>Tap</th><th>Result</th></tr>
+      <tr><td>Grid · bubble over a room (💵 notes, ⚓ trip ready)</td><td>Tap</td><td>Collects or runs the quick action at once. The bubble is its own 44 px target above the plot.</td></tr>
+      <tr><td>Grid · a room</td><td>Tap</td><td>Selects it and opens its sheet. The sheet's main button is <b>Enter</b>.</td></tr>
+      <tr><td>Grid · the selected room again, or double-tap</td><td>Tap</td><td>Enters the room through the iris.</td></tr>
+      <tr><td>Grid · a locked or empty plot</td><td>Tap</td><td>Opens its sheet: shape, price, gate, or Build.</td></tr>
+      <tr><td>Grid · empty sea or walkway</td><td>Tap</td><td>Closes the sheet.</td></tr>
+      <tr><td>Room · ‹ Pier, or system back</td><td>Tap</td><td>Back to the grid with the same room still selected.</td></tr>
+      <tr><td>Dock · submarine (charged)</td><td>Tap</td><td>Dive preparation, as today. Start spends the charge.</td></tr>
+      <tr><td>Results · Pier</td><td>Tap</td><td>Back to the grid, with the dock selected (replaces "Restaurant").</td></tr>
+    </table>
+  </div>
+
+  <h2>Decisions this IA makes (for review)</h2>
+  <div class="q">
+    <div><b><span class="tag">1</span>Tapping a room selects it. It doesn't enter.</b><span>The design doc says "tapping a room enters". A sheet first gives the grid somewhere for pipes, upgrades and demolish. Tapping again, double-tapping or the Enter button goes in. Quick actions sit in bubbles, so collecting never needs the sheet.</span></div>
+    <div><b><span class="tag">2</span>Pipes are edited only on the grid.</b><span>Rooms show their inlets and outlets but don't edit links. A connector tapped inside a room jumps to the grid in link mode for that outlet.</span></div>
+    <div><b><span class="tag">3</span>Clearing trash happens in the plot's sheet.</b><span>One button per piece, with its price. At 52 px a plot is too small to tap the pieces themselves.</span></div>
+    <div><b><span class="tag">4</span>Demolish sits behind ⋯ in the sheet and asks to confirm, showing the refund.</b><span>It never appears inside the room.</span></div>
+    <div><b><span class="tag">5</span>Building happens in the room, not in a global shop.</b><span>Each room has a bottom tray of its own pieces (guest room: seats, decor, belt; kitchen: belt, machines, Plater). You pay as you place. Locked pieces show what unlocks them.</span></div>
+    <div><b><span class="tag">6</span>The recipe log and goals live behind the HUD on the grid.</b><span>📖 opens the discovery log. The goal strip opens Goals: variety live now, plus the reputation and mastery ladders. They share one tabbed sheet.</span></div>
+    <div><b><span class="tag">7</span>The game stays locked to portrait.</b><span>The web prototype still needs a landscape layout, so in wide windows the grid sits on the left and the sheet becomes a right-hand panel.</span></div>
+  </div>
+</main>
+
+<script>
+const C = { bg:'#efe9dd', card:'#f8f4eb', ink:'#2a2f45', muted:'#7a7566', gold:'#e0a12f', line:'#d8cfbd', red:'#b8402c',
+  teal:'#1f8a8a', coral:'#c2562a', green:'#4a9b5f', sea:'#8fcfcf', deep:'#4f9fb0', wood:'#d9b98a', steel:'#dfe3e6', dim:'rgba(42,47,69,.45)' };
+
+// ---------- tiny svg helpers ----------
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const R = (x,y,w,h,o={}) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.rx??0}" fill="${o.fill??'none'}" stroke="${o.stroke??'none'}" stroke-width="${o.sw??1}" ${o.dash?`stroke-dasharray="${o.dash}"`:''} ${o.op!=null?`opacity="${o.op}"`:''}/>`;
+const T = (x,y,s,o={}) => `<text x="${x}" y="${y}" font-size="${o.size??12}" font-weight="${o.w??500}" fill="${o.fill??C.ink}" text-anchor="${o.a??'start'}" ${o.op!=null?`opacity="${o.op}"`:''} font-family="system-ui,-apple-system,Segoe UI,sans-serif">${esc(s)}</text>`;
+const Ci = (x,y,r,o={}) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${o.fill??'none'}" stroke="${o.stroke??'none'}" stroke-width="${o.sw??1}" ${o.dash?`stroke-dasharray="${o.dash}"`:''}/>`;
+const L = (pts,o={}) => `<polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${o.stroke??C.ink}" stroke-width="${o.sw??2}" stroke-linecap="round" stroke-linejoin="round" ${o.dash?`stroke-dasharray="${o.dash}"`:''} ${o.op!=null?`opacity="${o.op}"`:''}/>`;
+const btn = (x,y,w,h,label,o={}) => R(x,y,w,h,{rx:h/2.6,fill:o.primary?C.ink:o.ghost?'none':C.bg,stroke:o.ghost?C.line:'none',op:o.off?.5:null})
+  + T(x+w/2,y+h/2+4.5,label,{a:'middle',size:o.size??13,w:700,fill:o.primary?'#fff':o.danger?C.red:C.ink,op:o.off?.5:null});
+const pill = (x,y,w,label,o={}) => R(x,y,w,22,{rx:11,fill:o.fill??C.card}) + T(x+w/2,y+15,label,{a:'middle',size:11,w:700,fill:o.color??C.ink});
+
+function phone(inner, o={}) {
+  const W = o.w ?? 390, H = o.h ?? 844, land = W > H;
+  return `<svg viewBox="0 0 ${W+20} ${H+20}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(o.label??'')}">
+    <rect x="2" y="2" width="${W+16}" height="${H+16}" rx="54" fill="#1d2030"/>
+    <svg x="10" y="10" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+      <defs><clipPath id="clip${o.id}"><rect width="${W}" height="${H}" rx="46"/></clipPath>
+        <pattern id="hatch${o.id}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#e4ddcf"/><line x1="0" y1="0" x2="0" y2="6" stroke="#d3c9b6" stroke-width="3"/></pattern></defs>
+      <g clip-path="url(#clip${o.id})">
+        ${R(0,0,W,H,{fill:o.bg??C.bg})}
+        ${inner.replaceAll('HATCH',`url(#hatch${o.id})`)}
+        ${land ? '' : T(34,31,'9:41',{size:15,w:700,fill:o.statusInk??C.ink}) + R(W/2-62,10,124,34,{rx:17,fill:'#111'})}
+        ${land ? R(W/2-70,H-12,140,5,{rx:2.5,fill:C.ink,op:.35}) : R(W/2-67,H-13,134,5,{rx:2.5,fill:o.statusInk??C.ink,op:.4})}
+      </g>
+    </svg></svg>`;
+}
+
+// ---------- the pier grid ----------
+// kinds: guest, kitchen, dock, locked, trash, empty
+const PLOTS = [
+  [[2,1],[3,1],[1,2],[4,1],[2,2]],
+  [[3,2],[1,1],[3,3],[2,1],[3,1]],
+  [[2,2],[4,1],[3,2],[1,2],[2,1]],
+  [[3,1],[2,1],[2,1],[0,0],[4,2]],
+];
+const MID = { // a mid-game pier
+  '1,3':{k:'kitchen',name:'Kitchen B',rush:true}, '2,3':{k:'guest',name:'Room A',notes:4}, '3,3':{k:'dock',ready:true},
+  '2,2':{k:'kitchen',name:'Kitchen A'}, '1,2':{k:'guest',name:'Room B',drop:true}, '3,2':{k:'empty'}, '2,1':{k:'trash'},
+};
+const LINKS = [ ['2,2','2,3'], ['1,3','1,2'], ['2,3','1,2'] ];
+
+function grid(o={}) {
+  const u = o.u ?? 52, g = u*.3, x0 = o.x ?? 18, y0 = o.y ?? 170, plots = o.plots ?? MID;
+  const px = c => x0 + g + c*(u+g), py = r => y0 + g + r*(u+g);
+  const W = 5*u+6*g, H = 4*u+5*g;
+  let s = '';
+  // pier deck + sea
+  s += R(x0-6, y0+H-6, W+12, 60, {fill:C.sea}) + L([[x0-6,y0+H+22],[x0+40,y0+H+16],[x0+90,y0+H+24],[x0+150,y0+H+17],[x0+210,y0+H+24],[x0+270,y0+H+16],[x0+W+6,y0+H+22]],{stroke:'#fff',sw:1.5,op:.6});
+  s += R(x0, y0, W, H, {rx:10, fill:C.wood});
+  // gate on the shore walkway (left)
+  s += R(x0-6, py(3)+u/2-10, 10, 20, {rx:3, fill:C.red}) + T(x0-8, py(3)+u/2+26, 'gate', {size:8, fill:C.muted});
+  // pipes under walkways
+  const centre = k => { const [c,r]=k.split(',').map(Number); return [px(c)+u/2, py(r)+u/2]; };
+  for (const [a,b] of (o.links ?? LINKS)) {
+    const [ax,ay]=centre(a), [bx,by]=centre(b);
+    const lane = ay + u/2 + g/2; // below source
+    const pts = ax===bx ? [[ax,ay+u/2],[ax,by-u/2]] : [[ax,ay+u/2],[ax,lane],[bx - (bx>ax?u/2+g/2:-u/2-g/2),lane],[bx-(bx>ax?u/2+g/2:-u/2-g/2), by-u/2-g/2],[bx,by-u/2-g/2],[bx,by-u/2]];
+    s += L(pts,{stroke:'#7a5a32',sw:5}) + L(pts,{stroke:'#b08a58',sw:2});
+  }
+  for (let r=0;r<4;r++) for (let c=0;c<5;c++) {
+    const k = `${c},${r}`, p = plots[k] ?? {k:'locked'}, x=px(c), y=py(r), [ni,no]=PLOTS[r][c];
+    const sel = o.sel===k, dim = o.only && !o.only.includes(k);
+    s += tile(x,y,u,p,ni,no);
+    if (o.cost && o.cost[k]) s += R(x+u/2-17,y-12,34,18,{rx:9,fill:C.gold}) + T(x+u/2,y+1,o.cost[k],{a:'middle',size:10,w:800});
+    if (dim) s += R(x-2,y-2,u+4,u+4,{rx:9,fill:C.wood,op:.72});
+    if (o.glow && o.glow.includes(k)) s += R(x-3,y-3,u+6,u+6,{rx:10,stroke:C.green,sw:3});
+    if (sel) s += R(x-4,y-4,u+8,u+8,{rx:11,stroke:C.ink,sw:3});
+  }
+  return s;
+}
+function tile(x,y,u,p,ni,no) {
+  let s = '';
+  const fills = {guest:'#fbf3e2', kitchen:C.steel, dock:'#b8dde6', locked:'HATCH', trash:'#cdbfa6', empty:'#efe6d4'};
+  s += R(x,y,u,u,{rx:7,fill:fills[p.k],stroke:p.k==='empty'?C.muted:'rgba(0,0,0,.12)',dash:p.k==='empty'?'4 3':null});
+  // connectors: inlets teal on top, outlets coral on bottom
+  const tick = (n,yy,col) => { for(let i=0;i<n;i++){ const xx = x + u*(i+1)/(n+1); s += R(xx-4,yy,8,4,{rx:1.5,fill:col}); } };
+  if (p.k!=='dock') { tick(ni,y-2,C.teal); tick(no,y+u-2,C.coral); }
+  if (p.k==='guest') { for (let i=0;i<3;i++) s += Ci(x+12+i*14,y+u*.42,4,{fill:C.wood}); s += R(x+8,y+u*.62,u-16,5,{rx:2,fill:C.red,op:.6}); }
+  if (p.k==='kitchen') { s += R(x+7,y+u*.36,u-14,5,{rx:2,fill:'#9aa3ab'}); s += R(x+10,y+u*.52,10,10,{rx:2,fill:'#7c8790'}) + R(x+u-20,y+u*.52,10,10,{rx:2,fill:'#7c8790'}); }
+  if (p.k==='dock') { s += `<ellipse cx="${x+u/2}" cy="${y+u*.58}" rx="${u*.3}" ry="${u*.14}" fill="#f2c230"/>` + Ci(x+u/2+5,y+u*.56,3,{fill:'#5b8fb0'}); s += R(x+u-14,y+5,8,13,{rx:2,fill:'none',stroke:C.ink,sw:1.2}) + R(x+u-12.5,y+(p.ready?6.5:12),5,p.ready?10:4.5,{fill:C.green}); }
+  if (p.k==='locked') { s += T(x+u/2,y+u/2-2,'🔒',{a:'middle',size:13}); s += T(x+u/2,y+u/2+14,`${ni}↓ ${no}↑`,{a:'middle',size:10,w:800,fill:C.muted}); }
+  if (p.k==='trash') { s += Ci(x+u*.35,y+u*.6,7,{fill:'#9b8664'}) + Ci(x+u*.6,y+u*.5,9,{fill:'#87734f'}) + Ci(x+u*.62,y+u*.72,5,{fill:'#a9946f'}); }
+  if (p.k==='empty') s += T(x+u/2,y+u/2+4,'+ Build',{a:'middle',size:9,w:700,fill:C.muted});
+  // status bubbles (own tap targets above the plot)
+  const bub = (label,col) => R(x+u/2-15,y-14,30,20,{rx:10,fill:col}) + `<path d="M${x+u/2-4} ${y+5} l4 5 l4 -5z" fill="${col}"/>` + T(x+u/2,y+1,label,{a:'middle',size:11,w:800,fill:'#fff'});
+  if (p.notes) s += bub(`💵${p.notes}`, C.green);
+  if (p.ready) s += bub('⚓', C.teal);
+  if (p.rush) s += bub('🔥', C.coral);
+  if (p.drop) s += bub('⚠', C.red);
+  return s;
+}
+
+// ---------- grid chrome ----------
+function hud(o={}) {
+  const W = o.w ?? 390, y = o.y ?? 50;
+  let s = R(16,y,108,32,{rx:16,fill:C.card}) + Ci(34,y+16,8,{fill:C.gold,stroke:'#c4861c',sw:2.5}) + T(48,y+21,o.coins??'12,480',{size:15,w:800});
+  s += R(130,y,72,32,{rx:16,fill:C.card}) + T(142,y+21,'🔩',{size:13}) + T(160,y+21,o.salv??'86',{size:14,w:800,fill:'#3d5a73'});
+  if (o.back) s = R(16,y,74,32,{rx:16,fill:C.ink}) + T(53,y+21,'‹ Pier',{a:'middle',size:13,w:700,fill:'#fff'}) + R(98,y,100,32,{rx:16,fill:C.card}) + Ci(116,y+16,8,{fill:C.gold,stroke:'#c4861c',sw:2.5}) + T(130,y+21,o.coins??'12,480',{size:15,w:800});
+  if (!o.back) s += R(W-96,y,36,32,{rx:16,fill:C.card}) + T(W-78,y+21,'📖',{a:'middle',size:15});
+  s += R(W-52,y,36,32,{rx:16,fill:C.card}) + T(W-34,y+21,'☰',{a:'middle',size:15,w:700});
+  return s;
+}
+function goals(y=92, short=true) {
+  const box = (x,label,val,frac,col) => R(x,y,114,38,{rx:11,fill:C.card}) + T(x+9,y+14,label,{size:9,w:700,fill:C.muted}) + T(x+9,y+27,val,{size:11,w:800}) + R(x+9,y+31,96,4,{rx:2,fill:C.line}) + R(x+9,y+31,96*frac,4,{rx:2,fill:col});
+  return box(16,'VARIETY','3 / 4 kinds',.75,short?C.gold:C.green) + box(138,'REPUTATION','★2 · 41/60',.52,C.teal) + box(260,'MASTERY','Lv 3 · 180/250',.53,C.coral);
+}
+const hint = (s, y=146, warn=false) => Ci(22,y-4,4.5,{fill:warn?C.red:C.green}) + T(32,y,s,{size:12,w:600,fill:warn?C.red:C.ink});
+
+function sheet(y, inner, o={}) {
+  const W = o.w ?? 390, H = o.h ?? 844;
+  return R(0,y,W,H-y+20,{rx:22,fill:C.card}) + R(0,y,W,1,{fill:C.line}) + R(W/2-20,y+7,40,4,{rx:2,fill:C.line}) + inner;
+}
+const h2 = (x,y,title,sub) => T(x,y,title,{size:17,w:800}) + (sub?T(x,y+18,sub,{size:12,fill:C.muted}):'');
+const row = (x,y,w,label,val,o={}) => T(x,y,label,{size:12,fill:C.muted}) + T(x+w,y,val,{size:12,w:700,a:'end',fill:o.col??C.ink});
+
+// ---------- frames ----------
+const frames = {};
+
+frames.home = phone(
+  hud() + goals() + hint('Next plot needs 4 kinds of dish served (3 now).') + grid() +
+  sheet(560, h2(20,592,'Pier','5 rooms · 182 coins a minute') +
+    pill(20,616,108,'💵 4 notes waiting',{fill:'#e3f0e4',color:C.green}) + pill(134,616,108,'⚠ Room B dropping',{fill:'#f6e0da',color:C.red}) + pill(248,616,112,'🔥 Rush ready ×1',{fill:'#f7e4d8',color:C.coral}) +
+    T(20,668,'Tap a plot to see it. Tap a bubble to collect.',{size:12,fill:C.muted}) +
+    R(20,686,350,60,{rx:14,fill:C.bg}) + T(34,710,'Next goal',{size:11,w:700,fill:C.muted}) + T(34,730,'Serve 1 more kind of dish to open a plot',{size:13,w:700}) ),
+  {id:'a', label:'Grid home'});
+
+frames.locked = phone(
+  hud() + goals() + hint('Next plot needs 4 kinds of dish served (3 now).') + grid({sel:'3,1'}) +
+  sheet(520, h2(20,552,'Locked plot','Row 2 · column 4') +
+    R(20,584,56,56,{rx:9,fill:'HATCH'}) + (()=>{let s='';for(let i=0;i<2;i++)s+=R(20+56*(i+1)/3-5,582,10,5,{rx:2,fill:C.teal});s+=R(43,637,10,5,{rx:2,fill:C.coral});return s;})() +
+    T(92,600,'2 inlets · 1 outlet',{size:15,w:800}) + T(92,618,'Suits a 2-part kitchen, or a guest room',{size:12,fill:C.muted}) + T(92,634,'that passes plates on.',{size:12,fill:C.muted}) +
+    row(20,664,350,'Price','380 🪙') + row(20,686,350,'Variety (kinds served now)','3 / 4  ✗',{col:C.red}) + row(20,708,350,'Trash after opening','4 pieces') +
+    btn(20,728,350,48,'Open · needs 4 kinds',{off:true}) ),
+  {id:'b', label:'Locked plot sheet'});
+
+frames.kitchen = phone(
+  hud() + goals() + hint('Kitchen A sends Nigiri to Room A. Outlet 2 is idle.') + grid({sel:'2,2'}) +
+  sheet(500, h2(20,532,'Kitchen A','Lv 2 · 3 in · 2 out · 18 dishes/min') + T(370,532,'⋯',{a:'end',size:20,w:800}) +
+    T(20,576,'OUTLETS',{size:10,w:800,fill:C.muted}) +
+    R(20,584,350,30,{rx:9,fill:C.bg}) + T(30,603,'1  🍣 Nigiri → Room A',{size:12,w:700}) + T(360,603,'Change',{a:'end',size:12,w:700,fill:C.teal}) +
+    R(20,618,350,30,{rx:9,fill:C.bg,stroke:C.line,dash:'4 3'}) + T(30,637,'2  🔥 Seared · no pipe, idle',{size:12,w:700,fill:C.muted}) + T(360,637,'+ Link',{a:'end',size:12,w:800,fill:C.coral}) +
+    T(20,671,'A dish counts for mastery once it leaves down a pipe.',{size:12,fill:C.muted}) +
+    row(20,704,350,'Plater','Yellow ×1.25 · Red 2,200 🪙') + row(20,724,350,'Rush','■■■■■■■□□□ 14/20') +
+    btn(20,740,228,48,'Enter kitchen',{primary:true}) + btn(256,740,114,48,'Faster 1,000') ),
+  {id:'c', label:'Kitchen sheet on the grid'});
+
+frames.link = phone(
+  hud() + R(16,92,358,54,{rx:14,fill:C.ink}) + T(30,114,'Pick a room for outlet 2',{size:14,w:800,fill:'#fff'}) + T(30,134,'Kitchen A · 🔥 Seared · pipe paid once',{size:12,fill:'#cfd3e0'}) +
+  grid({sel:'2,2', only:['2,2','2,3','1,2'], glow:['2,3','1,2'], cost:{'2,3':'60','1,2':'85'}}) +
+  sheet(640, T(20,676,'Green rooms have a free inlet. The price is the pipe.',{size:13,w:600}) + T(20,696,'A room with every inlet taken stays dim.',{size:12,fill:C.muted}) +
+    btn(20,724,350,48,'Cancel',{ghost:true}) ),
+  {id:'d', label:'Link mode'});
+
+// ---- guest room active view
+function room7(x,y,cell,kind) {
+  let s = R(x,y,cell*7,cell*7,{rx:6,fill:kind==='guest'?'#f6ecd8':'#e7eaec',stroke:'rgba(0,0,0,.15)'});
+  for (let i=1;i<7;i++) { s += L([[x+i*cell,y],[x+i*cell,y+7*cell]],{stroke:'rgba(0,0,0,.06)',sw:1}) + L([[x,y+i*cell],[x+7*cell,y+i*cell]],{stroke:'rgba(0,0,0,.06)',sw:1}); }
+  return s;
+}
+function guestRoom() {
+  const x=16, y=168, c=51;
+  let s = room7(x,y,c,'guest');
+  // inlets on top edge (2), outlet on bottom (1)
+  s += R(x+c*1+8,y-6,c-16,10,{rx:3,fill:C.teal}) + R(x+c*4+8,y-6,c-16,10,{rx:3,fill:C.teal}) + R(x+c*3+8,y+7*c-4,c-16,10,{rx:3,fill:C.coral});
+  s += T(x+c*1.5,y-10,'in · Kitchen A',{a:'middle',size:9,w:700,fill:C.teal}) + T(x+c*4.5,y-10,'in · free',{a:'middle',size:9,w:700,fill:C.teal}) + T(x+c*3.5,y+7*c+20,'out → Room B',{a:'middle',size:9,w:700,fill:C.coral});
+  // belt loop
+  s += L([[x+c*1.5,y+4],[x+c*1.5,y+c*1.5],[x+c*5.5,y+c*1.5],[x+c*5.5,y+c*5.5],[x+c*1.5,y+c*5.5],[x+c*1.5,y+c*1.5]],{stroke:C.red,sw:10,op:.35});
+  s += L([[x+c*4.5,y+4],[x+c*4.5,y+c*1.5]],{stroke:C.red,sw:10,op:.35}) + L([[x+c*3.5,y+c*5.5],[x+c*3.5,y+7*c]],{stroke:C.red,sw:10,op:.35});
+  for (const [i,j] of [[2,2.5],[3,2.5],[4,2.5],[2,4.5],[4,4.5]]) s += R(x+c*i+10,y+c*j-6,c-20,c-20,{rx:6,fill:C.wood});
+  for (const [i,j] of [[2,3],[3,3],[4,3]]) s += Ci(x+c*i+c/2,y+c*j+c/2,10,{fill:'#7fa6c9'});
+  for (const [i,j] of [[1.6,1.6],[5.8,4],[3.3,4.3],[0.7,6.2]]) s += R(x+c*i,y+c*j,20,12,{rx:2,fill:'#7cc47f',stroke:'#3d7d45'});
+  return s;
+}
+function tray(y, tabs, items, o={}) {
+  let s = sheet(y,'');
+  tabs.forEach((t,i)=>{ s += R(16+i*88,y+20,84,30,{rx:10,fill:i===0?C.ink:C.bg}) + T(58+i*88,y+40,t,{a:'middle',size:12,w:700,fill:i===0?'#fff':C.ink}); });
+  items.forEach((it,i)=>{ const xx=16+i*90, yy=y+62; s += R(xx,yy,84,92,{rx:12,fill:it.lock?'#ece7dc':'#fff',stroke:C.line}) + T(xx+42,yy+38,it.icon,{a:'middle',size:26,op:it.lock?.35:null}) + T(xx+42,yy+60,it.name,{a:'middle',size:11,w:700,op:it.lock?.5:null}) + T(xx+42,yy+78,it.price,{a:'middle',size:11,w:800,fill:it.lock?C.muted:'#9a6a0c'}); });
+  return s;
+}
+frames.guest = phone(
+  hud({back:true}) + T(16,116,'Room A · ★2',{size:16,w:800}) +
+  T(16,134,'6 / 9 seats · 7 guests a minute · notes 4 / 6',{size:12,fill:C.muted}) + guestRoom() +
+  tray(560,['Seats','Decor','Belt'],[{icon:'🪑',name:'Stool',price:'40 🪙'},{icon:'🛋',name:'Booth',price:'120 🪙'},{icon:'🏮',name:'Lantern',price:'★3',lock:true},{icon:'🪴',name:'Plant',price:'★3',lock:true}]) +
+  T(16,742,'Drag a piece onto the floor. You pay when you place it.',{size:12,fill:C.muted}) +
+  btn(16,758,170,40,'Collect notes 💵4') + btn(194,758,180,40,'Upgrade room · ★3',{off:true}),
+  {id:'e', label:'Guest room active view'});
+
+function kitchenRoom() {
+  const x=16, y=168, c=51;
+  let s = room7(x,y,c,'kitchen');
+  const ins = [[1,'🍚'],[3,'🐟'],[5,'🥒']];
+  for (const [i,ic] of ins) s += R(x+c*i+6,y-8,c-12,14,{rx:4,fill:C.teal}) + T(x+c*i+c/2,y-14,ic,{a:'middle',size:14});
+  for (const i of [1,3]) s += R(x+c*i+6,y+7*c-6,c-12,12,{rx:4,fill:C.coral});
+  s += T(x+c*1.5,y+7*c+20,'1 → Room A',{a:'middle',size:9,w:700,fill:C.coral}) + T(x+c*3.5,y+7*c+20,'2 · no pipe (tap to link)',{a:'middle',size:9,w:700,fill:C.muted});
+  s += L([[x+c*5.5,y+4],[x+c*5.5,y+c*3.5],[x+c*3.5,y+c*3.5]],{stroke:'#8d969e',sw:10,op:.5});
+  // belts
+  s += L([[x+c*1.5,y+4],[x+c*1.5,y+c*2.5],[x+c*3.5,y+c*2.5]],{stroke:'#8d969e',sw:10,op:.5});
+  s += L([[x+c*3.5,y+4],[x+c*3.5,y+c*6.9]],{stroke:'#8d969e',sw:10,op:.5});
+  s += L([[x+c*3.5,y+c*4.5],[x+c*1.5,y+c*4.5],[x+c*1.5,y+c*6.9]],{stroke:'#8d969e',sw:10,op:.5});
+  const m = (i,j,label,col) => R(x+c*i+5,y+c*j+5,c-10,c-10,{rx:7,fill:col}) + T(x+c*i+c/2,y+c*j+c/2+4,label,{a:'middle',size:9,w:800,fill:'#fff'});
+  s += m(3,1,'CUT','#6f7b86') + m(3,3,'JOIN','#6f7b86') + m(3,5,'PLATE',C.gold) + m(1,5,'PLATE',C.gold) + m(2,4,'TORCH',C.coral);
+  return s;
+}
+frames.kitchenActive = phone(
+  hud({back:true}) + T(16,116,'Kitchen A',{size:16,w:800}) +
+  T(16,134,'Lv 2 · 3 in · 2 out · 18 dishes/min · Yellow plates',{size:12,fill:C.muted}) + kitchenRoom() +
+  tray(560,['Belt','Machines','Plater'],[{icon:'⬛',name:'Belt',price:'10 🪙'},{icon:'🔪',name:'Cutter',price:'90 🪙'},{icon:'🔥',name:'Torch',price:'160 🪙'},{icon:'🌀',name:'Roller',price:'Mastery 4',lock:true}]) +
+  R(16,746,250,52,{rx:16,fill:C.coral}) + T(141,778,'🔥 Rush · ready',{a:'middle',size:16,w:800,fill:'#fff'}) + R(274,746,100,52,{rx:16,fill:C.bg}) + T(324,777,'Inlets',{a:'middle',size:13,w:700}),
+  {id:'f', label:'Kitchen active view'});
+
+frames.dock = phone(
+  hud({back:true}) + T(16,116,'Dock',{size:16,w:800}) +
+  R(0,146,390,414,{fill:'#bfe2ea'}) + R(0,420,390,140,{fill:C.deep}) + R(0,404,390,22,{fill:C.wood}) +
+  R(40,240,120,166,{rx:6,fill:'#c89d68'}) + R(70,300,60,106,{rx:30,fill:'#6b4a2c'}) + R(52,252,96,30,{rx:6,fill:C.card}) + T(100,272,'WORKSHOP',{a:'middle',size:12,w:800}) +
+  `<ellipse cx="270" cy="438" rx="88" ry="36" fill="#f2c230"/>` + Ci(300,432,13,{fill:'#5b8fb0',stroke:'#2a2f45',sw:3}) + R(250,388,26,24,{rx:5,fill:'#f2c230'}) +
+  R(320,330,26,44,{rx:5,stroke:C.ink,sw:2.5,fill:'#fff'}) + R(324,336,18,34,{rx:2,fill:C.green}) + T(333,392,'Ready',{a:'middle',size:11,w:800}) +
+  T(195,176,'Tap the submarine to dive.',{a:'middle',size:13,w:700}) + T(195,196,'Tap the hut for the Workshop.',{a:'middle',size:13,w:700,fill:C.muted}) +
+  sheet(580, h2(20,612,'Submarine · Lv 2','One charge: a dive or a quick trip') +
+    row(20,650,350,'Dive','coins, full salvage, new catches') + row(20,672,350,'Quick trip (also on the grid ⚓)','12 🔩 only') +
+    btn(20,700,228,52,'Dive',{primary:true}) + btn(256,700,114,52,'Quick trip') + T(20,782,'Workshop upgrades are paid in salvage 🔩.',{size:12,fill:C.muted}) ),
+  {id:'g', label:'Dock active view'});
+
+frames.expedition = phone(
+  R(0,0,390,844,{fill:'#2f7f97'}) + R(0,600,390,244,{fill:'#246679'}) +
+  R(16,50,110,22,{rx:11,fill:'rgba(255,255,255,.25)'}) + R(18,52,80,18,{rx:9,fill:'#9fe0a8'}) + T(195,66,'🔩 24',{a:'middle',size:15,w:800,fill:'#fff'}) + R(340,48,34,26,{rx:13,fill:'rgba(255,255,255,.25)'}) + T(357,66,'II',{a:'middle',size:13,w:800,fill:'#fff'}) +
+  `<ellipse cx="195" cy="560" rx="44" ry="20" fill="#f2c230"/>` + Ci(212,556,7,{fill:'#5b8fb0'}) +
+  R(150,180,90,40,{rx:20,fill:'#405a8a'}) + T(195,256,'(existing dive — unchanged)',{a:'middle',size:13,w:700,fill:'#fff'}) +
+  R(40,640,310,150,{rx:22,fill:C.card}) + T(195,676,'Results',{a:'middle',size:18,w:800}) + T(195,700,'+24 🔩 · +120 🪙 · First catch: 🦑',{a:'middle',size:13,w:600}) +
+  btn(70,720,250,48,'Pier',{primary:true}),
+  {id:'h', label:'Expedition and results', statusInk:'#fff'});
+
+frames.goals = phone(
+  hud() + R(0,0,390,844,{fill:C.dim}) +
+  sheet(150, R(16,176,174,34,{rx:11,fill:C.ink}) + T(103,198,'Goals',{a:'middle',size:13,w:700,fill:'#fff'}) + R(200,176,174,34,{rx:11,fill:C.bg}) + T(287,198,'Recipes 9/14',{a:'middle',size:13,w:700}) +
+    T(20,244,'VARIETY · served in the last 2 min',{size:10,w:800,fill:C.muted}) +
+    [['🍣','Nigiri','Room A, Room B',true],['🔥','Seared nigiri','Room B',true],['🥒','Cucumber maki','Room A',true],['🟠','Roe nigiri','not served',false]].map((d,i)=> R(20,254+i*36,350,30,{rx:9,fill:d[3]?'#e3f0e4':C.bg}) + T(30,274+i*36,`${d[0]}  ${d[1]}`,{size:13,w:700,op:d[3]?null:.55}) + T(360,274+i*36,d[2],{a:'end',size:11,fill:C.muted})).join('') +
+    T(20,412,'3 of 4 kinds → next plot. Market nigiri 🍙 doesn’t count.',{size:12,w:600}) +
+    T(20,452,'REPUTATION ★ · guests served',{size:10,w:800,fill:C.teal}) + R(20,462,350,8,{rx:4,fill:C.line}) + R(20,462,183,8,{rx:4,fill:C.teal}) + T(20,488,'★3 at 60 guests: +300 🪙, guest rooms to Lv 3',{size:12}) +
+    T(20,526,'MASTERY · dishes sent down pipes',{size:10,w:800,fill:C.coral}) + R(20,536,350,8,{rx:4,fill:C.line}) + R(20,536,252,8,{rx:4,fill:C.coral}) + T(20,562,'Lv 4 at 250: +700 🪙, Roller, Plater Blue',{size:12}) +
+    T(20,604,'RECIPES tab: discovery log — dishes made, price, NEW dot.',{size:12,fill:C.muted}) +
+    btn(20,760,350,44,'Close',{ghost:true}) ),
+  {id:'i', label:'Goals and recipe log'});
+
+frames.away = phone(
+  hud({coins:'24,880'}) + goals() + grid({plots:{...MID,'2,3':{...MID['2,3'],notes:6},'1,2':{...MID['1,2'],notes:6,drop:false},'2,2':{...MID['2,2'],rush:true}}}) + R(0,0,390,844,{fill:C.dim}) +
+  R(30,250,330,330,{rx:24,fill:C.card}) + T(195,296,'While you were away',{a:'middle',size:19,w:800}) + T(195,318,'2 h 14 min',{a:'middle',size:13,fill:C.muted}) +
+  T(195,370,'+12,400 🪙',{a:'middle',size:30,w:800}) + T(195,394,'counted from your pier’s rate',{a:'middle',size:12,fill:C.muted}) +
+  row(56,436,278,'Tip notes waiting','12 (both rooms full)') + row(56,460,278,'Rush ready','2 kitchens') + row(56,484,278,'Submarine','charged') +
+  btn(60,512,270,48,'Back to the pier',{primary:true}),
+  {id:'j', label:'Away notice'});
+
+frames.wide = phone(
+  grid({x:40,y:66,u:48,sel:'2,2'}) +
+  R(420,0,424,390,{fill:C.card}) + R(420,0,1,390,{fill:C.line}) + hud({w:844,y:16}) +
+  h2(444,90,'Kitchen A','Lv 2 · 3 in · 2 out · 18 dishes/min') +
+  R(444,124,370,28,{rx:9,fill:C.bg}) + T(454,142,'1  🍣 Nigiri → Room A',{size:12,w:700}) +
+  R(444,156,370,28,{rx:9,fill:C.bg,stroke:C.line,dash:'4 3'}) + T(454,174,'2  🔥 Seared · no pipe, idle',{size:12,w:700,fill:C.muted}) + T(804,174,'+ Link',{a:'end',size:12,w:800,fill:C.coral}) +
+  row(444,240,370,'Plater','Yellow ×1.25') + row(444,262,370,'Rush','14 / 20') +
+  btn(444,300,240,48,'Enter kitchen',{primary:true}) + btn(694,300,120,48,'Faster 1,000'),
+  {id:'k', w:844, h:390, label:'Landscape window'});
+
+// ---------- sitemap ----------
+function sitemap() {
+  const node = (x,y,w,label,sub,o={}) => R(x,y,w,52,{rx:12,fill:o.fill??'#fff',stroke:o.stroke??C.line,sw:o.sw??1.5}) + T(x+w/2,y+22,label,{a:'middle',size:14,w:800,fill:o.ink??C.ink}) + T(x+w/2,y+40,sub,{a:'middle',size:11,fill:o.ink?'#d7dbe6':C.muted});
+  const arrow = (pts,label,o={}) => L(pts,{stroke:o.col??C.muted,sw:1.8,dash:o.dash}) + (()=>{const [a,b]=pts.slice(-2);const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);const p=(t)=>[b[0]-9*Math.cos(ang+t),b[1]-9*Math.sin(ang+t)];return `<path d="M${b[0]} ${b[1]} L${p(.45).join(' ')} L${p(-.45).join(' ')}z" fill="${o.col??C.muted}"/>`})() + (label?T(o.lx??(pts[0][0]+pts[1][0])/2,o.ly??(pts[0][1]+pts[1][1])/2-6,label,{a:'middle',size:10,w:700,fill:o.col??C.muted}):'');
+  let s = `<svg viewBox="0 0 1180 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of screens">`;
+  s += T(20,28,'LEVEL 0 · HOME',{size:10,w:800,fill:C.muted}) + T(20,168,'LEVEL 1 · ROOMS (iris)',{size:10,w:800,fill:C.muted}) + T(20,318,'LEVEL 2 · INSIDE A ROOM',{size:10,w:800,fill:C.muted});
+  s += node(470,40,240,'Pier grid','5 × 4 plots · HUD · goals',{fill:C.ink,stroke:C.ink,ink:'#fff'});
+  // grid sheets & overlays
+  s += node(780,40,170,'Plot sheet','locked · trash · build · room');
+  s += node(980,40,180,'Link mode','pick an inlet, pay the pipe');
+  s += node(200,40,170,'Goals / Recipes','tabbed sheet from HUD');
+  s += node(20,92,150,'Away notice','on return',{stroke:C.gold});
+  s += node(200,104,170,'Menu ☰','settings · sound · reset');
+  s += arrow([[710,66],[780,66]],'tap plot') + arrow([[950,66],[980,66]],'+ Link') + arrow([[470,66],[370,66]],'tap strip / 📖') + arrow([[470,84],[370,124]],'☰',{lx:420,ly:96});
+  // level 1
+  s += node(240,180,190,'Guest room','7 × 7 · tip notes · seat');
+  s += node(500,180,190,'Kitchen','7 × 7 line · rush');
+  s += node(760,180,190,'Dock','submarine · Workshop hut');
+  s += arrow([[540,92],[335,180]],'Enter',{lx:420,ly:132}) + arrow([[590,92],[595,180]],'Enter',{lx:618,ly:140}) + arrow([[640,92],[855,180]],'Enter',{lx:772,ly:132});
+    s += T(980,124,'Quick actions on the grid',{size:11,w:800}) + T(980,142,'💵 collect · ⚓ quick trip',{size:11,fill:C.muted}) + T(980,160,'(no screen change)',{size:11,fill:C.muted});
+  // level 2
+  s += node(200,330,130,'Build tray','seats · decor · belt');
+  s += node(340,330,120,'Room upgrade','gated by ★');
+  s += node(470,330,130,'Build tray','belt · machines · Plater');
+  s += node(610,330,110,'Inlets','pick ingredient');
+  s += node(730,330,120,'Workshop','paid in 🔩');
+  s += node(860,330,130,'Dive prep','Start spends charge');
+  s += node(1000,330,110,'Dive','existing');
+  s += node(1000,410,110,'Results','→ Pier',{stroke:C.teal});
+  s += arrow([[300,232],[265,330]]) + arrow([[360,232],[400,330]]) + arrow([[560,232],[535,330]]) + arrow([[630,232],[665,330]]) + arrow([[820,232],[790,330]]) + arrow([[890,232],[925,330]]) + arrow([[990,356],[1000,356]]) + arrow([[1055,382],[1055,410]]);
+  s += arrow([[1110,436],[1160,436],[1160,20],[590,20],[590,40]],'Pier',{col:C.teal,lx:1140,ly:240});
+  s += L([[700,232],[700,270],[600,270]],{stroke:C.coral,sw:1.5,dash:'4 3'}) + T(560,266,'🔥 Rush only here',{a:'middle',size:10,w:700,fill:C.coral});
+  s += T(20,460,'Back (‹ Pier or system back) from any level-1 room returns to the grid with that room still selected.',{size:12,fill:C.muted});
+  return s + '</svg>';
+}
+
+// ---------- render ----------
+const fig = (svg, title, notes) => `<figure>${svg}<figcaption><b>${title}</b><ul>${notes.map(n=>`<li>${n}</li>`).join('')}</ul></figcaption></figure>`;
+document.getElementById('sitemap').innerHTML = sitemap();
+document.getElementById('f-grid').innerHTML = [
+  fig(frames.home,'1 · Pier grid, nothing selected',['HUD: coins, salvage, 📖 log, ☰ menu.','Goal strip: variety (gold while short), reputation, mastery. Tapping it opens Goals.','Bubbles mark rooms needing attention: 💵 notes, ⚓ trip ready, 🔥 rush ready, ⚠ dropping plates.','The peek sheet summarises the pier and says what to do next.']),
+  fig(frames.locked,'2 · Locked plot selected',['Shape first: inlets and outlets, drawn as they sit on the plot.','A plain-words hint about which room the shape suits.','<b>Open</b> shows its blocker (variety) instead of just turning grey.']),
+  fig(frames.kitchen,'3 · Kitchen selected',['One row per outlet: dish → target. <b>Change</b> or <b>+ Link</b>.','Plater and rush progress are read-only here.','Main button <b>Enter kitchen</b>. Upgrade beside it, demolish behind ⋯.']),
+  fig(frames.link,'4 · Link mode',['The top bar says which outlet is being linked.','Rooms with a free inlet glow, with the pipe price on top. Others dim.','Tap a green room to pay and link. Cancel leaves the outlet as it was.']),
+].join('');
+document.getElementById('f-rooms').innerHTML = [
+  fig(frames.guest,'5 · Guest room',['‹ Pier replaces the salvage pill. Coins stay put.','Inlets show their source and outlets their target. Tapping one jumps to link mode on the grid.','The bottom tray is this room’s build palette, which replaces the Shop. Locked pieces show the ★ they need.','You can tap notes on the floor, or use Collect.']),
+  fig(frames.kitchenActive,'6 · Kitchen',['Each inlet shows the ingredient it brings, chosen from the catches you’ve unlocked.','The tray holds belts, machines and the Plater. Mastery locks are shown.','<b>Rush</b> is the big thumb button. It is the only place a rush starts.']),
+  fig(frames.dock,'7 · Dock',['Same scene as today: submarine and Workshop hut.','The sheet explains the one shared charge.','A dive pays more. The quick trip is the same as the ⚓ bubble on the grid.']),
+  fig(frames.expedition,'8 · Dive and results',['The dive is unchanged.','Results get one button, <b>Pier</b>, which returns to the grid with the dock selected.']),
+].join('');
+document.getElementById('f-over').innerHTML = [
+  fig(frames.goals,'9 · Goals and recipe log',['One sheet with two tabs.','Variety lists each kind being served now and where, so the gate isn’t a mystery.','The reputation and mastery ladders each show their next reward and unlock.']),
+  fig(frames.away,'10 · Away notice',['Shown once, over the grid, when the game resumes.','Coins are credited automatically and roll up on the odometer.','It lists what is waiting, then the bubbles take over.']),
+].join('');
+document.getElementById('f-wide').innerHTML = fig(frames.wide,'11 · Wide or landscape window (web prototype)',['The game itself stays locked to portrait.','In a wide window the grid sits on the left and the sheet becomes a right-hand panel, so nothing covers the pier.']);
+</script>
+</body>
+</html>
